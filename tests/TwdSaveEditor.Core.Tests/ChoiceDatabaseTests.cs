@@ -14,16 +14,24 @@ public class ChoiceDatabaseTests
 
     [Theory]
     [InlineData("s1")]
-    [InlineData("s2")]
-    [InlineData("s3")]
-    [InlineData("s4")]
-    [InlineData("michonne")]
     [InlineData("s1_400days")]
     public void ForSeason_ReturnsChoices(string seasonKey)
     {
         var choices = ChoiceDatabase.ForSeason(seasonKey).ToList();
         Assert.NotEmpty(choices);
         Assert.All(choices, c => Assert.Equal(seasonKey, c.SeasonKey));
+    }
+
+    [Theory]
+    [InlineData("s2")]
+    [InlineData("s3")]
+    [InlineData("s4")]
+    [InlineData("michonne")]
+    public void ForSeason_UnverifiedSeasons_ReturnEmpty(string seasonKey)
+    {
+        // These seasons have no verified choice keys yet (no slot saves available)
+        var choices = ChoiceDatabase.ForSeason(seasonKey).ToList();
+        Assert.Empty(choices);
     }
 
     [Fact]

@@ -18,8 +18,11 @@ public sealed class SaveSlot
     /// <summary>Parsed metadata PropertySet from metadata_slot.p.</summary>
     public PropertySet? Metadata { get; set; }
 
-    /// <summary>Parsed choices PropertySet from choices.prop.</summary>
+    /// <summary>Parsed choices PropertySet from choices.prop (S1) or season1.prop (S2).</summary>
     public PropertySet? Choices { get; set; }
+
+    /// <summary>The inner file name that contains choices data (e.g. "choices.prop" or "season1.prop").</summary>
+    public string ChoicesFileName { get; init; } = "choices.prop";
 
     /// <summary>Raw bytes of the entire bundle, kept for sections we don't modify.</summary>
     public byte[]? RawBundleData { get; init; }

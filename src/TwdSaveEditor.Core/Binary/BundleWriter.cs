@@ -26,7 +26,7 @@ public static class BundleWriter
                 var propBytes = psWriter.Write(slot.Metadata);
                 innerFiles[entry.Name] = RebuildInnerMetaStream(slot.RawMetadataFile!, propBytes);
             }
-            else if (entry.Name == "choices.prop" && slot.Choices != null)
+            else if (entry.Name == slot.ChoicesFileName && slot.Choices != null)
             {
                 var propBytes = psWriter.Write(slot.Choices);
                 innerFiles[entry.Name] = RebuildInnerMetaStream(slot.RawChoicesFile!, propBytes);

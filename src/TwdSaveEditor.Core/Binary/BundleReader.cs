@@ -7,6 +7,7 @@ namespace TwdSaveEditor.Core.Binary;
 /// <summary>
 /// Reads a TWD Definitive Series .bundle save file.
 /// Bundle = outer MetaStream with file table in default section + inner MetaStreams in async section.
+/// Supports TTCZ-compressed sections.
 /// </summary>
 public static class BundleReader
 {
@@ -24,50 +25,52 @@ public static class BundleReader
         // Parse outer MetaStream header
         var header = ReadMetaStreamHeader(reader);
 
-        // Default section = file table
-        var fileTable = ReadFileTable(reader, header.DefaultDataSize);
+        // Read and decompress sections
+        var defaultData = ReadSection(reader, header.DefaultSectionSize);
+        var debugData = ReadSection(reader, header.DebugSectionSize);
+        var asyncData = ReadSection(reader, header.AsyncSectionSize);
 
-        // Skip debug section
-        var debugBytes = reader.ReadBytes((int)header.DebugDataSize);
+        // Parse file table from default section
+        var fileTable = ParseFileTable(defaultData);
 
-        // Read async section (may be wrapped in TTCZ compression container)
-        var asyncRawSize = (int)(header.AsyncSectionSize & 0x7FFFFFFF);
-        var asyncRaw = reader.ReadBytes(asyncRawSize);
-        byte[] asyncData;
-        if (header.IsAsyncCompressed)
-        {
-            asyncData = DecompressTtcz(asyncRaw);
-        }
-        else
-        {
-            asyncData = asyncRaw;
-        }
-
-        // Parse inner files from decompressed async section
+        // Parse inner files from async section
         var psReader = new PropertySetReader();
         PropertySet? metadata = null;
         PropertySet? choices = null;
+        string choicesFileName = "choices.prop";
         byte[]? rawMetadata = null;
         byte[]? rawChoices = null;
         var rawInnerFiles = new Dictionary<string, byte[]>();
 
         foreach (var entry in fileTable)
         {
+            if (entry.Offset + entry.Size > asyncData.Length)
+                continue; // Skip entries that point outside available data
+
             var innerData = new byte[entry.Size];
             Array.Copy(asyncData, entry.Offset, innerData, 0, entry.Size);
             rawInnerFiles[entry.Name] = innerData;
 
-            var propData = ExtractDefaultSection(innerData);
+            try
+            {
+                var propData = ExtractDefaultSection(innerData);
 
-            if (entry.Name == "metadata_slot.p")
-            {
-                rawMetadata = innerData;
-                metadata = psReader.Read(propData);
+                if (entry.Name == "metadata_slot.p")
+                {
+                    rawMetadata = innerData;
+                    metadata = psReader.Read(propData);
+                }
+                else if (entry.Name is "choices.prop" or "season1.prop")
+                {
+                    // S1 uses choices.prop, S2 uses season1.prop for imported choices
+                    rawChoices = innerData;
+                    choicesFileName = entry.Name;
+                    choices = psReader.Read(propData);
+                }
             }
-            else if (entry.Name == "choices.prop")
+            catch
             {
-                rawChoices = innerData;
-                choices = psReader.Read(propData);
+                // Inner file parsing failed — preserve raw data for round-tripping
             }
         }
 
@@ -79,6 +82,7 @@ public static class BundleReader
             FileTable = fileTable,
             Metadata = metadata,
             Choices = choices,
+            ChoicesFileName = choicesFileName,
             RawBundleData = data,
             RawMetadataFile = rawMetadata,
             RawChoicesFile = rawChoices,
@@ -111,25 +115,74 @@ public static class BundleReader
         return header;
     }
 
-    private static List<BundleFileEntry> ReadFileTable(BinaryReaderEx reader, uint defaultSize)
+    /// <summary>
+    /// Read a MetaStream section, decompressing TTCZ if the compressed flag is set.
+    /// </summary>
+    private static byte[] ReadSection(BinaryReaderEx reader, uint sizeField)
     {
-        if (defaultSize == 0)
+        bool compressed = (sizeField & 0x80000000) != 0;
+        var rawSize = (int)(sizeField & 0x7FFFFFFF);
+
+        if (rawSize == 0)
             return [];
 
-        var startPos = reader.Position;
+        var rawBytes = reader.ReadBytes(rawSize);
+
+        if (!compressed)
+            return rawBytes;
+
+        // Check for TTCZ magic
+        if (rawBytes.Length >= 4 && BitConverter.ToUInt32(rawBytes, 0) == 0x5454435A)
+            return DecompressTtcz(rawBytes);
+
+        // Try zlib
+        try
+        {
+            using var compStream = new MemoryStream(rawBytes);
+            using var zlib = new ZLibStream(compStream, CompressionMode.Decompress);
+            using var output = new MemoryStream();
+            zlib.CopyTo(output);
+            return output.ToArray();
+        }
+        catch
+        {
+            // Try raw deflate as last resort
+            using var compStream = new MemoryStream(rawBytes);
+            using var deflate = new DeflateStream(compStream, CompressionMode.Decompress);
+            using var output = new MemoryStream();
+            deflate.CopyTo(output);
+            return output.ToArray();
+        }
+    }
+
+    private static List<BundleFileEntry> ParseFileTable(byte[] defaultData)
+    {
+        if (defaultData.Length < 8)
+            return [];
+
+        using var ms = new MemoryStream(defaultData);
+        using var reader = new BinaryReaderEx(ms);
+
         var unknown1 = reader.ReadUInt32(); // always 1
         var fileCount = reader.ReadUInt32();
+
+        // Sanity check
+        if (fileCount > 1000)
+            return [];
 
         var entries = new List<BundleFileEntry>();
         for (uint i = 0; i < fileCount; i++)
         {
+            if (reader.Remaining < 8)
+                break;
+
             var offset = reader.ReadUInt32();
             var size = reader.ReadUInt32();
 
             // Read null-terminated filename, padded to 4-byte alignment
             var nameBytes = new List<byte>();
             byte b;
-            while ((b = reader.ReadByte()) != 0)
+            while (reader.Remaining > 0 && (b = reader.ReadByte()) != 0)
                 nameBytes.Add(b);
             var name = Encoding.ASCII.GetString(nameBytes.ToArray());
 
@@ -137,8 +190,11 @@ public static class BundleReader
             var nameLen = nameBytes.Count + 1; // including null
             var padded = (nameLen + 3) & ~3;
             var skipBytes = padded - nameLen;
-            if (skipBytes > 0)
+            if (skipBytes > 0 && reader.Remaining >= skipBytes)
                 reader.ReadBytes(skipBytes);
+
+            if (reader.Remaining < 16)
+                break;
 
             var hash1 = reader.ReadUInt64();
             var hash2 = reader.ReadUInt64();
@@ -152,12 +208,6 @@ public static class BundleReader
                 Hash2 = hash2,
             });
         }
-
-        // Skip any remaining bytes in the default section
-        var consumed = reader.Position - startPos;
-        var remaining = (long)defaultSize - consumed;
-        if (remaining > 0)
-            reader.ReadBytes((int)remaining);
 
         return entries;
     }
@@ -236,6 +286,11 @@ public static class BundleReader
         if (!compressed)
             return rawBytes;
 
+        // Check for TTCZ
+        if (rawBytes.Length >= 4 && BitConverter.ToUInt32(rawBytes, 0) == 0x5454435A)
+            return DecompressTtcz(rawBytes);
+
+        // Try zlib
         using var compressedStream = new MemoryStream(rawBytes);
         using var zlibStream = new ZLibStream(compressedStream, CompressionMode.Decompress);
         using var decompressed = new MemoryStream();
