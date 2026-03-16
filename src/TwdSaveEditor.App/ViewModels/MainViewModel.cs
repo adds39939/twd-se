@@ -207,6 +207,67 @@ public partial class MainViewModel : ObservableObject
         }
     }
 
+    [RelayCommand]
+    private void CreateNewSave()
+    {
+        try
+        {
+            if (!_saveManager.SaveDirectoryExists)
+            {
+                // Ask user to pick a directory first
+                var folderDialog = new Microsoft.Win32.OpenFolderDialog
+                {
+                    Title = "Select save directory for new save"
+                };
+                if (folderDialog.ShowDialog() != true)
+                    return;
+                _saveManager.SetSaveDirectory(folderDialog.FolderName);
+                OnPropertyChanged(nameof(SaveDirectory));
+            }
+
+            var dialog = new Views.NewSaveDialog { Owner = Application.Current.MainWindow };
+            if (dialog.ShowDialog() != true)
+                return;
+
+            var fileName = dialog.FileName;
+            var seasonKey = dialog.SelectedSeasonKey;
+            var episode = dialog.SelectedEpisode;
+
+            if (string.IsNullOrWhiteSpace(fileName))
+            {
+                StatusText = "No file name specified.";
+                return;
+            }
+
+            if (!fileName.EndsWith(".bundle", StringComparison.OrdinalIgnoreCase))
+                fileName += ".bundle";
+
+            var filePath = Path.Combine(_saveManager.SaveDirectory, fileName);
+            if (File.Exists(filePath))
+            {
+                var result = MessageBox.Show(
+                    $"{fileName} already exists. Overwrite?",
+                    "File Exists",
+                    MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (result != MessageBoxResult.Yes)
+                    return;
+            }
+
+            var slot = _saveManager.CreateNewSave(fileName, seasonKey, episode);
+            var vm = new SaveSlotViewModel(slot, _nameDb);
+            SaveSlots.Add(vm);
+            SelectedSlot = vm;
+            HasFiles = true;
+            StatusText = $"Created new save: {fileName}";
+        }
+        catch (Exception ex)
+        {
+            StatusText = $"Error creating save: {ex.Message}";
+            MessageBox.Show($"Failed to create save:\n{ex.Message}", "Error",
+                MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
     partial void OnSearchTextChanged(string value)
     {
         OnPropertyChanged(nameof(SearchText));

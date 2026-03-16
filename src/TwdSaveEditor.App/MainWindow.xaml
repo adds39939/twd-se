@@ -14,6 +14,7 @@
     <Window.InputBindings>
         <KeyBinding Gesture="Ctrl+L" Command="{Binding LoadSavesCommand}"/>
         <KeyBinding Gesture="Ctrl+S" Command="{Binding SaveChangesCommand}"/>
+        <KeyBinding Gesture="Ctrl+N" Command="{Binding CreateNewSaveCommand}"/>
     </Window.InputBindings>
 
     <DockPanel>
@@ -23,6 +24,8 @@
                 <MenuItem Header="_Load Saves" Command="{Binding LoadSavesCommand}"
                           InputGestureText="Ctrl+L"/>
                 <MenuItem Header="_Browse Folder..." Command="{Binding BrowseFolderCommand}"/>
+                <MenuItem Header="_New Save..." Command="{Binding CreateNewSaveCommand}"
+                          InputGestureText="Ctrl+N"/>
                 <Separator/>
                 <MenuItem Header="_Save Changes" Command="{Binding SaveChangesCommand}"
                           InputGestureText="Ctrl+S"/>
@@ -34,6 +37,7 @@
             <ToolBar>
                 <Button Content="Load Saves" Command="{Binding LoadSavesCommand}" Padding="8,2"/>
                 <Button Content="Browse..." Command="{Binding BrowseFolderCommand}" Padding="8,2"/>
+                <Button Content="New Save..." Command="{Binding CreateNewSaveCommand}" Padding="8,2"/>
                 <Separator/>
                 <Button Content="Save Changes" Command="{Binding SaveChangesCommand}" Padding="8,2"/>
             </ToolBar>
@@ -96,6 +100,8 @@
                         <Button Content="Load Saves" Command="{Binding LoadSavesCommand}"
                                 Padding="16,6" Margin="0,0,8,0"/>
                         <Button Content="Browse..." Command="{Binding BrowseFolderCommand}"
+                                Padding="16,6" Margin="0,0,8,0"/>
+                        <Button Content="New Save..." Command="{Binding CreateNewSaveCommand}"
                                 Padding="16,6"/>
                     </StackPanel>
                 </StackPanel>

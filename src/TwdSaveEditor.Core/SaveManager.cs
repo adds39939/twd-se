@@ -1,4 +1,5 @@
 using TwdSaveEditor.Core.Binary;
+using TwdSaveEditor.Core.GameData;
 using TwdSaveEditor.Core.Model;
 
 namespace TwdSaveEditor.Core;
@@ -57,6 +58,36 @@ public sealed class SaveManager
 
         var fileBytes = BundleWriter.Write(slot);
         File.WriteAllBytes(slot.FilePath, fileBytes);
+    }
+
+    /// <summary>
+    /// Create a new blank save and write it to the save directory.
+    /// Returns the created SaveSlot.
+    /// </summary>
+    public SaveSlot CreateNewSave(string fileName, string seasonKey = "s1", int episode = 1)
+    {
+        var filePath = Path.Combine(SaveDirectory, fileName);
+        var slot = SaveSlotFactory.CreateForSeason(seasonKey, episode, fileName);
+
+        // Update the slot with the real file path
+        var realSlot = new SaveSlot
+        {
+            FilePath = filePath,
+            FileName = fileName,
+            OuterHeader = slot.OuterHeader,
+            FileTable = slot.FileTable,
+            Metadata = slot.Metadata,
+            Choices = slot.Choices,
+            RawMetadataFile = slot.RawMetadataFile,
+            RawChoicesFile = slot.RawChoicesFile,
+            RawInnerFiles = slot.RawInnerFiles,
+        };
+
+        Directory.CreateDirectory(SaveDirectory);
+        var fileBytes = BundleWriter.Write(realSlot);
+        File.WriteAllBytes(filePath, fileBytes);
+
+        return realSlot;
     }
 
     /// <summary>
