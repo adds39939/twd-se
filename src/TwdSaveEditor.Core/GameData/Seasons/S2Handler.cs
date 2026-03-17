@@ -13,7 +13,7 @@ public class S2Handler : ISeasonHandler
     public string GetEpisodeId(int episode) => $"WalkingDead20{episode}";
 
     public SaveSlot CreateBlankSave(string fileName, string episodeId)
-        => SaveSlotFactory.CreateBlankS1S2(fileName, episodeId);
+        => SaveSlotFactory.CreateBlankS1S2(fileName, episodeId, choicesFileName: "season1.prop");
 
     public IChoiceAccessor? CreateChoiceAccessor(SaveSlot slot)
         => slot.Choices != null ? new SaveAccessor(slot.Choices, slot.Metadata) : null;

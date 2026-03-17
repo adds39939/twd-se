@@ -13,12 +13,14 @@ public static class EStoreCreator
     private const int StandardPageNumber = 734;
     private const uint BlockSize = 0x00000020;
 
-    // MSV6 version entries shared by estore/epage files
+    // MSV6 version entries for estore/epage files (from real Definitive Edition saves)
     private static readonly (ulong TypeCrc, uint VersionCrc)[] VersionEntries =
     [
-        (0xCD75DC4F6B9F15D2, 0x21F2BCC9),
-        (0x84283CB979D71641, 0x0527D6BF),
+        (0x3AAEB61240D3CFBA, 0xD8D22CB9),
+        (0xBEBB886A0541595F, 0xB59B0682),
         (0x004F023463D89FB0, 0xB539B0FF),
+        (0x24032A7AD8BB721D, 0x739CE237),
+        (0x238A520C4A924AA6, 0x2E4AF103),
     ];
 
     /// <summary>

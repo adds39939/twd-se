@@ -27,19 +27,20 @@ public static class SaveSlotFactory
 
     // File table hashes (from real saves)
     private const ulong MetadataHash1 = 0xEE382691929657D5;
-    private const ulong ChoicesHash1 = 0x819F96241D349414;
-    private const ulong ChoiceStatsHash1 = 0xBD8881F09F440467;
+    private const ulong ChoicesHash1 = 0x819F96241D349414;       // choices.prop (S1)
+    private const ulong Season1PropHash1 = 0xC6D68CC6611E12F9;   // season1.prop (S2)
+    private const ulong ChoiceStatsHash1 = 0xBD8881F09F440467;   // choicestats.pro (S4)
     private const ulong CommonHash2 = 0xCD75DC4F6B9F15D2;
 
     /// <summary>
     /// Create a blank S1/S2 save slot with metadata_slot.p + choices.prop.
     /// </summary>
-    public static SaveSlot CreateBlankS1S2(string fileName, string episodeId = "WalkingDead101")
+    public static SaveSlot CreateBlankS1S2(string fileName, string episodeId = "WalkingDead101",
+        string choicesFileName = "choices.prop")
     {
         var metadata = CreateBlankMetadata(episodeId, fileName);
         var choices = CreateBlankChoices();
 
-        // Build raw inner MetaStream files so BundleWriter can work
         var psWriter = new Binary.PropertySetWriter();
         var rawMetadata = BuildInnerMetaStream(psWriter.Write(metadata));
         var rawChoices = BuildInnerMetaStream(psWriter.Write(choices));
@@ -56,10 +57,10 @@ public static class SaveSlotFactory
             },
             new()
             {
-                Name = "choices.prop",
+                Name = choicesFileName,
                 Offset = (uint)rawMetadata.Length,
                 Size = (uint)rawChoices.Length,
-                Hash1 = ChoicesHash1,
+                Hash1 = choicesFileName == "season1.prop" ? Season1PropHash1 : ChoicesHash1,
                 Hash2 = CommonHash2,
             },
         };
@@ -68,6 +69,7 @@ public static class SaveSlotFactory
         {
             FilePath = fileName,
             FileName = fileName,
+            ChoicesFileName = choicesFileName,
             OuterHeader = new MetaStreamHeader
             {
                 Magic = MetaStreamHeader.MagicMsv6,
@@ -81,7 +83,7 @@ public static class SaveSlotFactory
             RawInnerFiles = new Dictionary<string, byte[]>
             {
                 ["metadata_slot.p"] = rawMetadata,
-                ["choices.prop"] = rawChoices,
+                [choicesFileName] = rawChoices,
             },
         };
     }
