@@ -9,6 +9,14 @@
         var seasonKey = Slot.DetectedSeasonKey;
     }
 
+    <div class="cascade-toggle">
+        <label>
+            <input type="checkbox" checked="@Editor.CascadeChoices"
+                   @onchange="e => Editor.CascadeChoices = (bool)(e.Value ?? false)" />
+            Cascade changes to later seasons
+        </label>
+    </div>
+
     @if (seasonKey == "s2")
     {
         var s1Saves = Editor.Saves.Where(s => s.DetectedSeasonKey == "s1" && s.Choices != null).ToList();

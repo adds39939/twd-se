@@ -16,6 +16,7 @@ public class SaveEditorService
     public bool IsLoading { get; set; }
 
     public bool HasUnsavedChanges { get; private set; }
+    public bool CascadeChoices { get; set; }
 
     public event Action? StateChanged;
     public event Action<string, string>? OnNotification;
@@ -294,6 +295,48 @@ public class SaveEditorService
     public IChoiceAccessor? GetChoiceAccessor(SaveSlot slot)
     {
         return _registry.DetectFromFileName(slot.FileName)?.CreateChoiceAccessor(slot);
+    }
+
+    /// <summary>
+    /// Propagate a choice change from the current save to later season saves.
+    /// S1 choices cascade to S2 (season1.prop). S1/S2 choices cascade to S3/S4 EventLog where applicable.
+    /// </summary>
+    public void CascadeChoice(string choiceKey, string value, string sourceSeasonKey)
+    {
+        if (!CascadeChoices) return;
+
+        // Cascade chain based on game's SaveFileImporter.lua:
+        // S1 → S2 (via season1.prop in bundle)
+        // S2 → S3 (via estore/epage EventLog)
+        // S3 → S4 (via estore/epage EventLog)
+        // Michonne is standalone (no imports)
+        var targetSeasons = sourceSeasonKey switch
+        {
+            "s1" or "s1_400days" => new[] { "s2" },
+            "s2" => new[] { "s3" },
+            "s3" => new[] { "s4" },
+            _ => Array.Empty<string>(),
+        };
+
+        foreach (var targetSeason in targetSeasons)
+        {
+            foreach (var save in Saves)
+            {
+                if (save.DetectedSeasonKey != targetSeason) continue;
+
+                var accessor = GetChoiceAccessor(save);
+                if (accessor == null) continue;
+
+                try
+                {
+                    accessor.SetChoiceValue(choiceKey, value);
+                }
+                catch (InvalidOperationException)
+                {
+                    // Target save doesn't support this choice format — skip
+                }
+            }
+        }
     }
 
     private static int ExtractPageNumber(string fileName)

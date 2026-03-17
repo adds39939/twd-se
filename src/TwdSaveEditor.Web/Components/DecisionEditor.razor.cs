@@ -71,8 +71,9 @@ public partial class DecisionEditor
         if (int.TryParse(e.Value?.ToString(), out var idx) && idx >= 0 && idx < choice.Options.Length)
         {
             Accessor.ApplyChoice(choice, idx);
-            _choiceStates[choice.ChoiceKey] = idx; // Update cache, no full rebuild
+            _choiceStates[choice.ChoiceKey] = idx;
             Editor.MarkModified();
+            Editor.CascadeChoice(choice.ChoiceKey, choice.Options[idx].Value, Slot?.DetectedSeasonKey ?? "");
         }
     }
 
