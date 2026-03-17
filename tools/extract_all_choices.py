@@ -11,6 +11,17 @@ import zlib
 import io
 import re
 
+def load_key():
+    key_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "key.txt")
+    if not os.path.exists(key_path):
+        raise FileNotFoundError(
+            "Encryption key not found. Create tools/key.txt with the Blowfish key hex string. "
+            "The key can be extracted from WDC.exe at offset 0xC3D7A0 (55 bytes)."
+        )
+    with open(key_path, "r") as f:
+        return f.read().strip()
+
+
 # Force UTF-8 stdout
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 
@@ -437,7 +448,7 @@ ARCHIVES = [
     ("Season 4", os.path.join(ARCHIVES_DIR, "WDC_pc_ProjectSeason4_data.ttarch2")),
 ]
 
-KEY_HEX = "REDACTED_KEY"
+KEY_HEX = load_key()
 
 # Season 1 choice files to try (in order of preference)
 S1_CHOICE_FILES = ['choice.prop', 'cmsWorldChoicesParsingData.prop', 'dialog_choices.prop']

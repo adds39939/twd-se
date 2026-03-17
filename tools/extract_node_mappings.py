@@ -20,6 +20,17 @@ import json
 import re
 import glob
 
+def load_key():
+    key_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "key.txt")
+    if not os.path.exists(key_path):
+        raise FileNotFoundError(
+            "Encryption key not found. Create tools/key.txt with the Blowfish key hex string. "
+            "The key can be extracted from WDC.exe at offset 0xC3D7A0 (55 bytes)."
+        )
+    with open(key_path, "r") as f:
+        return f.read().strip()
+
+
 # Force UTF-8 stdout
 try:
     sys.stdout.reconfigure(encoding='utf-8', errors='replace')
@@ -52,7 +63,7 @@ class SuppressOutput:
 
 # ---- Constants ----
 
-KEY_HEX = "REDACTED_KEY"
+KEY_HEX = load_key()
 
 ARCHIVES_DIR = sys.argv[1] if len(sys.argv) > 1 else os.environ.get("TWD_ARCHIVES", "Archives")
 

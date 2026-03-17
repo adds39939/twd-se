@@ -13,6 +13,17 @@ import os
 import re
 import zlib
 
+def load_key():
+    key_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "key.txt")
+    if not os.path.exists(key_path):
+        raise FileNotFoundError(
+            "Encryption key not found. Create tools/key.txt with the Blowfish key hex string. "
+            "The key can be extracted from WDC.exe at offset 0xC3D7A0 (55 bytes)."
+        )
+    with open(key_path, "r") as f:
+        return f.read().strip()
+
+
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
 # Import the cipher from the existing ttarch_decrypt module
@@ -1117,7 +1128,7 @@ def decrypt_archive(season: str) -> bytes | None:
         print(f"  Archive not found: {archive_path}")
         return None
 
-    key_hex = "REDACTED_KEY"
+    key_hex = load_key()
     key_bytes = bytes.fromhex(key_hex)
     cipher = BlowfishV7(key_bytes)
 

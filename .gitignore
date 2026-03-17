@@ -68,6 +68,7 @@ __pycache__/
 
 # Extracted game data (copyrighted content)
 tools/data/
+tools/key.txt
 all_choices_summary.txt
 
 # Claude Code

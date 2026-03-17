@@ -10,6 +10,17 @@ import os
 import zlib
 import re
 
+def load_key():
+    key_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "key.txt")
+    if not os.path.exists(key_path):
+        raise FileNotFoundError(
+            "Encryption key not found. Create tools/key.txt with the Blowfish key hex string. "
+            "The key can be extracted from WDC.exe at offset 0xC3D7A0 (55 bytes)."
+        )
+    with open(key_path, "r") as f:
+        return f.read().strip()
+
+
 # Standard Blowfish P-array and S-box constants (from digits of pi)
 BF_P = [
     0x243f6a88, 0x85a308d3, 0x13198a2e, 0x03707344,
@@ -575,7 +586,7 @@ def search_data(data):
 def main():
     ARCHIVES_DIR = sys.argv[1] if len(sys.argv) > 1 else os.environ.get("TWD_ARCHIVES", "Archives")
 
-    key_hex = "REDACTED_KEY"
+    key_hex = load_key()
     key_bytes = bytes.fromhex(key_hex)
     print(f"Key length: {len(key_bytes)} bytes")
 
