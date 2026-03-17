@@ -88,6 +88,7 @@ public partial class MainViewModel : ObservableObject
             IChoiceAccessor choiceAccessor = seasonDef.Key switch
             {
                 "s3" or "michonne" when eventLogAccessor != null => eventLogAccessor,
+                "s4" when slot.ChoiceStats != null => new ChoiceStatsAccessor(slot),
                 _ => bundleAccessor,
             };
 

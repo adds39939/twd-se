@@ -28,14 +28,13 @@ public static class SaveSlotFactory
     // File table hashes (from real saves)
     private const ulong MetadataHash1 = 0xEE382691929657D5;
     private const ulong ChoicesHash1 = 0x819F96241D349414;
+    private const ulong ChoiceStatsHash1 = 0xBD8881F09F440467;
     private const ulong CommonHash2 = 0xCD75DC4F6B9F15D2;
 
     /// <summary>
-    /// Create a new blank save slot with valid structure, ready for the user to configure choices.
+    /// Create a blank S1/S2 save slot with metadata_slot.p + choices.prop.
     /// </summary>
-    /// <param name="fileName">Output file name (e.g. "wd1_saveslot1.bundle")</param>
-    /// <param name="episodeId">Episode identifier (e.g. "WalkingDead101")</param>
-    public static SaveSlot CreateBlank(string fileName, string episodeId = "WalkingDead101")
+    public static SaveSlot CreateBlankS1S2(string fileName, string episodeId = "WalkingDead101")
     {
         var metadata = CreateBlankMetadata(episodeId, fileName);
         var choices = CreateBlankChoices();
@@ -88,23 +87,181 @@ public static class SaveSlotFactory
     }
 
     /// <summary>
+    /// Create a blank S3/Michonne save slot with only metadata_slot.p (no choices file).
+    /// S3 and Michonne store choices in external estore/epage EventLog files.
+    /// </summary>
+    public static SaveSlot CreateBlankS3Michonne(string fileName, string episodeId)
+    {
+        var metadata = CreateBlankMetadata(episodeId, fileName);
+
+        var psWriter = new Binary.PropertySetWriter();
+        var rawMetadata = BuildInnerMetaStream(psWriter.Write(metadata));
+
+        var fileTable = new List<BundleFileEntry>
+        {
+            new()
+            {
+                Name = "metadata_slot.p",
+                Offset = 0,
+                Size = (uint)rawMetadata.Length,
+                Hash1 = MetadataHash1,
+                Hash2 = CommonHash2,
+            },
+        };
+
+        return new SaveSlot
+        {
+            FilePath = fileName,
+            FileName = fileName,
+            OuterHeader = new MetaStreamHeader
+            {
+                Magic = MetaStreamHeader.MagicMsv6,
+                VersionEntries = [.. OuterVersionEntries],
+            },
+            FileTable = fileTable,
+            Metadata = metadata,
+            RawMetadataFile = rawMetadata,
+            RawInnerFiles = new Dictionary<string, byte[]>
+            {
+                ["metadata_slot.p"] = rawMetadata,
+            },
+        };
+    }
+
+    /// <summary>
+    /// Create a blank S4 save slot with metadata_slot.p + choicestats.pro.
+    /// S4 stores choices as GUIDs in choicestats.pro instead of choices.prop.
+    /// </summary>
+    public static SaveSlot CreateBlankS4(string fileName, string episodeId)
+    {
+        var metadata = CreateBlankMetadata(episodeId, fileName);
+        var choiceStats = CreateBlankChoiceStats();
+
+        var psWriter = new Binary.PropertySetWriter();
+        var rawMetadata = BuildInnerMetaStream(psWriter.Write(metadata));
+        var rawChoiceStats = BuildInnerMetaStream(psWriter.Write(choiceStats));
+
+        var fileTable = new List<BundleFileEntry>
+        {
+            new()
+            {
+                Name = "metadata_slot.p",
+                Offset = 0,
+                Size = (uint)rawMetadata.Length,
+                Hash1 = MetadataHash1,
+                Hash2 = CommonHash2,
+            },
+            new()
+            {
+                Name = "choicestats.pro",
+                Offset = (uint)rawMetadata.Length,
+                Size = (uint)rawChoiceStats.Length,
+                Hash1 = ChoiceStatsHash1,
+                Hash2 = CommonHash2,
+            },
+        };
+
+        return new SaveSlot
+        {
+            FilePath = fileName,
+            FileName = fileName,
+            OuterHeader = new MetaStreamHeader
+            {
+                Magic = MetaStreamHeader.MagicMsv6,
+                VersionEntries = [.. OuterVersionEntries],
+            },
+            FileTable = fileTable,
+            Metadata = metadata,
+            ChoiceStats = choiceStats,
+            RawMetadataFile = rawMetadata,
+            RawChoiceStatsFile = rawChoiceStats,
+            RawInnerFiles = new Dictionary<string, byte[]>
+            {
+                ["metadata_slot.p"] = rawMetadata,
+                ["choicestats.pro"] = rawChoiceStats,
+            },
+        };
+    }
+
+    /// <summary>
+    /// Create a new blank save slot with valid structure, ready for the user to configure choices.
+    /// Kept for backward compatibility; delegates to CreateBlankS1S2.
+    /// </summary>
+    public static SaveSlot CreateBlank(string fileName, string episodeId = "WalkingDead101")
+        => CreateBlankS1S2(fileName, episodeId);
+
+    /// <summary>
     /// Create a new save with all choices from a given season pre-populated with default values.
     /// </summary>
     public static SaveSlot CreateForSeason(string seasonKey, int episode, string fileName)
     {
         var season = SeasonInfo.FindSeason(seasonKey);
         var episodeId = GetEpisodeId(seasonKey, episode);
-        var slot = CreateBlank(fileName, episodeId);
+
+        // Create the right blank structure based on season
+        var slot = seasonKey switch
+        {
+            "s3" or "michonne" => CreateBlankS3Michonne(fileName, episodeId),
+            "s4" => CreateBlankS4(fileName, episodeId),
+            _ => CreateBlankS1S2(fileName, episodeId),
+        };
 
         // Pre-populate choices for all episodes up to the given one
-        var accessor = new SaveAccessor(slot.Choices!);
         var choices = ChoiceDatabase.ForSeason(seasonKey)
             .Where(c => c.Episode <= episode)
             .ToList();
 
-        if (choices.Count > 0)
+        if (choices.Count == 0)
+            return slot;
+
+        if (seasonKey == "s4")
         {
-            // Add all choice entries with their first option as default
+            // S4: populate via ChoiceStatsAccessor (GUID-based)
+            var accessor = new ChoiceStatsAccessor(slot);
+            foreach (var c in choices)
+                accessor.ApplyChoice(c, 0); // first option as default
+        }
+        else if (seasonKey is "s3" or "michonne")
+        {
+            // S3/Michonne: choices live in estore/epage EventLog files.
+            // Build EventLogEntry records for each choice using the first option as default.
+            var eventEntries = new List<Model.EventLogEntry>();
+            uint seqIdx = 0;
+
+            foreach (var c in choices)
+            {
+                ulong? nodeHash = null;
+
+                if (seasonKey == "s3")
+                {
+                    nodeHash = ChoiceNodeMapping.GetNodeHash("s3", c.ChoiceKey, c.Options[0].Value);
+                }
+                else // michonne
+                {
+                    var guid = ChoiceNodeMapping.GetMichonneGuid(c.ChoiceKey, c.Options[0].Value);
+                    if (guid != null)
+                        nodeHash = Hashing.TelltaleHash.ComputeCrc64(guid);
+                }
+
+                if (nodeHash == null)
+                    continue;
+
+                eventEntries.Add(new Model.EventLogEntry
+                {
+                    EventTypeHash = Model.EventLogEntry.EventTypes.ExecutingDialogNode,
+                    NodeHash = nodeHash.Value,
+                    ValueType = 1,
+                    ExtraFlag = 0,
+                    SequenceIndex = seqIdx++,
+                    Trailing = 0,
+                });
+            }
+
+            slot.PendingEventLogEntries = eventEntries;
+        }
+        else
+        {
+            // S1/S2: populate via choices.prop string arrays
             var entries = choices
                 .Select(c => ($"{c.ChoiceKey} - {c.Options[0].Value}", true))
                 .ToList();
@@ -200,6 +357,28 @@ public static class SaveSlotFactory
                             new RawBytesValue(
                                 SaveAccessor.SerializeStringBoolArray([]),
                                 typeSymbol)),
+                    ]
+                },
+            ]
+        };
+    }
+
+    private static PropertySet CreateBlankChoiceStats()
+    {
+        // S4 choicestats.pro: PropertySet with a single String property (empty GUID string)
+        var stringSymbol = new Symbol(TelltaleTypes.String);
+
+        return new PropertySet
+        {
+            Version = 2,
+            Flags = 0x100,
+            TypeGroups =
+            [
+                new TypeGroup(stringSymbol)
+                {
+                    Properties =
+                    [
+                        new Property(new Symbol(0x82433F1B9ADB69DA), new StringValue("")),
                     ]
                 },
             ]

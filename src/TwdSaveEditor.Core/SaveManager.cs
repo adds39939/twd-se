@@ -107,14 +107,37 @@ public sealed class SaveManager
             FileTable = slot.FileTable,
             Metadata = slot.Metadata,
             Choices = slot.Choices,
+            ChoiceStats = slot.ChoiceStats,
             RawMetadataFile = slot.RawMetadataFile,
             RawChoicesFile = slot.RawChoicesFile,
+            RawChoiceStatsFile = slot.RawChoiceStatsFile,
             RawInnerFiles = slot.RawInnerFiles,
+            PendingEventLogEntries = slot.PendingEventLogEntries,
         };
 
         Directory.CreateDirectory(SaveDirectory);
         var fileBytes = BundleWriter.Write(realSlot);
         File.WriteAllBytes(filePath, fileBytes);
+
+        // S3/Michonne: write estore/epage files alongside the bundle
+        if (seasonKey is "s3" or "michonne")
+        {
+            var bundleBaseName = Path.GetFileNameWithoutExtension(fileName);
+            var slotBaseName = $"_{bundleBaseName}";
+            var events = realSlot.PendingEventLogEntries ?? [];
+
+            var (estoreBytes, epageBytes, epageFilename) =
+                EStoreCreator.Create(slotBaseName, events);
+
+            var estorePath = Path.Combine(SaveDirectory, $"{slotBaseName}_id.estore");
+            var epagePath = Path.Combine(SaveDirectory, epageFilename);
+
+            File.WriteAllBytes(estorePath, estoreBytes);
+            File.WriteAllBytes(epagePath, epageBytes);
+
+            realSlot.EStorePath = estorePath;
+            realSlot.EPagePaths = [epagePath];
+        }
 
         return realSlot;
     }

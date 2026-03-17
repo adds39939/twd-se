@@ -51,6 +51,9 @@ public sealed class SaveSlot
     /// <summary>Paths to associated epage files (S3/Michonne EventLog pages).</summary>
     public List<string>? EPagePaths { get; set; }
 
+    /// <summary>Pre-built EventLog entries for S3/Michonne new saves.</summary>
+    public List<EventLogEntry>? PendingEventLogEntries { get; set; }
+
     /// <summary>
     /// Detect which season this save belongs to based on the filename prefix.
     /// </summary>

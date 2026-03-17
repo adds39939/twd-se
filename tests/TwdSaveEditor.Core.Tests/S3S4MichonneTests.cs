@@ -206,6 +206,157 @@ public class S3S4MichonneTests
     }
 
     [Fact]
+    public void S4_ChoiceStatsAccessor_DetectsChoicesFromGUIDs()
+    {
+        var file = Path.Combine(SaveDir, "S4", "Episode 2", "Ending", "wd4_saveslot1.bundle");
+        if (!File.Exists(file)) return;
+
+        var slot = BundleReader.Read(file);
+        Assert.NotNull(slot.ChoiceStats);
+
+        var accessor = new ChoiceStatsAccessor(slot);
+        // Check a specific known choice - Ep2 ending should have happy_couple
+        var val = accessor.GetChoiceValue("happy_couple");
+        Assert.NotNull(val);
+    }
+
+    [Fact]
+    public void S4_ChoiceStatsAccessor_CanEditAndRoundTrip()
+    {
+        var file = Path.Combine(SaveDir, "S4", "Episode 1", "Ending", "wd4_saveslot1.bundle");
+        if (!File.Exists(file)) return;
+
+        var slot = BundleReader.Read(file);
+        Assert.NotNull(slot.ChoiceStats);
+
+        var accessor = new ChoiceStatsAccessor(slot);
+        accessor.SetChoiceValue("aj_bed", "under");
+        Assert.Equal("under", accessor.GetChoiceValue("aj_bed"));
+
+        // Round-trip
+        var written = BundleWriter.Write(slot);
+        var reloaded = BundleReader.Read(written, file);
+        Assert.NotNull(reloaded.ChoiceStats);
+
+        var ra = new ChoiceStatsAccessor(reloaded);
+        Assert.Equal("under", ra.GetChoiceValue("aj_bed"));
+    }
+
+    [Fact]
+    public void NewSave_S4_HasChoiceStats()
+    {
+        var slot = SaveSlotFactory.CreateForSeason("s4", 1, "test_s4.bundle");
+        Assert.NotNull(slot.ChoiceStats);
+        Assert.Null(slot.Choices); // S4 should NOT have choices.prop
+
+        // Should have pre-populated choices via ChoiceStatsAccessor
+        var accessor = new ChoiceStatsAccessor(slot);
+        var val = accessor.GetChoiceValue("fishing_or_hunting");
+        Assert.NotNull(val);
+
+        // Round-trip
+        var written = BundleWriter.Write(slot);
+        var reloaded = BundleReader.Read(written, "test_s4.bundle");
+        Assert.NotNull(reloaded.ChoiceStats);
+        Assert.Null(reloaded.Choices);
+    }
+
+    [Fact]
+    public void NewSave_S3_HasMetadataOnly()
+    {
+        var slot = SaveSlotFactory.CreateForSeason("s3", 1, "test_s3.bundle");
+        Assert.NotNull(slot.Metadata);
+        Assert.Null(slot.Choices); // S3 has no choices.prop
+        Assert.Null(slot.ChoiceStats); // S3 has no choicestats.pro
+        Assert.Single(slot.FileTable); // Only metadata_slot.p
+
+        var written = BundleWriter.Write(slot);
+        var reloaded = BundleReader.Read(written, "test_s3.bundle");
+        Assert.NotNull(reloaded.Metadata);
+        Assert.Null(reloaded.Choices);
+    }
+
+    [Fact]
+    public void NewSave_Michonne_HasMetadataOnly()
+    {
+        var slot = SaveSlotFactory.CreateForSeason("michonne", 1, "test_michonne.bundle");
+        Assert.NotNull(slot.Metadata);
+        Assert.Null(slot.Choices);
+        Assert.Single(slot.FileTable);
+    }
+
+    [Fact]
+    public void NewSave_S3_CreatesEstoreEpage_AndChoicesRoundTrip()
+    {
+        // Create a temp directory for the save files
+        var tempDir = Path.Combine(Path.GetTempPath(), "twd_test_s3_" + Guid.NewGuid().ToString("N")[..8]);
+        Directory.CreateDirectory(tempDir);
+        try
+        {
+            var mgr = new SaveManager(tempDir);
+            var slot = mgr.CreateNewSave("wd3_saveslot1.bundle", "s3", 2);
+
+            // Verify bundle was created
+            Assert.True(File.Exists(slot.FilePath));
+
+            // Verify estore/epage files were created alongside the bundle
+            Assert.NotNull(slot.EStorePath);
+            Assert.True(File.Exists(slot.EStorePath), $"estore not found: {slot.EStorePath}");
+            Assert.NotNull(slot.EPagePaths);
+            Assert.True(slot.EPagePaths.Count > 0);
+            Assert.True(File.Exists(slot.EPagePaths[0]), $"epage not found: {slot.EPagePaths[0]}");
+
+            // Read back the EventLog and verify choices are detectable
+            var entries = EStoreReader.ReadEventLog(slot.EStorePath);
+            Assert.True(entries.Count > 0, "Expected EventLog entries in created estore/epage");
+
+            var dialogNodes = entries.Where(e => e.IsDialogNode).ToList();
+            Assert.True(dialogNodes.Count > 0, "Expected dialog node events");
+
+            // Verify an S3 Ep1 choice is detectable via EventLogAccessor
+            var reloaded = BundleReader.Read(slot.FilePath);
+            reloaded.EStorePath = slot.EStorePath;
+            reloaded.EPagePaths = slot.EPagePaths;
+
+            var accessor = new EventLogAccessor(reloaded);
+            // stayed_junkyard is an S3 Ep1 choice
+            var val = accessor.GetChoiceValue("stayed_junkyard");
+            Assert.NotNull(val);
+        }
+        finally
+        {
+            Directory.Delete(tempDir, true);
+        }
+    }
+
+    [Fact]
+    public void NewSave_Michonne_CreatesEstoreEpage()
+    {
+        var tempDir = Path.Combine(Path.GetTempPath(), "twd_test_m_" + Guid.NewGuid().ToString("N")[..8]);
+        Directory.CreateDirectory(tempDir);
+        try
+        {
+            var mgr = new SaveManager(tempDir);
+            var slot = mgr.CreateNewSave("wdm_saveslot1.bundle", "michonne", 1);
+
+            Assert.True(File.Exists(slot.FilePath));
+            Assert.NotNull(slot.EStorePath);
+            Assert.True(File.Exists(slot.EStorePath));
+            Assert.NotNull(slot.EPagePaths);
+            Assert.True(slot.EPagePaths.Count > 0);
+            Assert.True(File.Exists(slot.EPagePaths[0]));
+
+            // Read back EventLog
+            var entries = EStoreReader.ReadEventLog(slot.EStorePath);
+            Assert.True(entries.Count > 0, "Expected EventLog entries");
+        }
+        finally
+        {
+            Directory.Delete(tempDir, true);
+        }
+    }
+
+    [Fact]
     public void NewSave_S1S2_HaveChoices()
     {
         foreach (var season in new[] { "s1", "s1_400days", "s2" })
