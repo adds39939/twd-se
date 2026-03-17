@@ -6,7 +6,7 @@ A save editor for **The Walking Dead: The Telltale Definitive Series**. Edit cho
 
 ![Blazor WASM](https://img.shields.io/badge/Blazor-WASM-512bd4)
 ![.NET 10](https://img.shields.io/badge/.NET-10.0-512bd4)
-![Tests](https://img.shields.io/badge/tests-186%20passing-brightgreen)
+![Tests](https://github.com/adds39939/twd-se/actions/workflows/test.yml/badge.svg)
 
 ## Features
 
