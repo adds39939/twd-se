@@ -42,3 +42,31 @@
     overflow: hidden;
     display: flex;
 }
+
+.app-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    padding: 0.4rem 1rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border);
+}
+
+.app-footer a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.app-footer a:hover {
+    color: var(--accent);
+}
+
+.footer-sep {
+    color: var(--border-light);
+}
