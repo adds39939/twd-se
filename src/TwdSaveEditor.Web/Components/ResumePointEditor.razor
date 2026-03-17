@@ -53,6 +53,17 @@
             <input type="checkbox" checked="@_gameComplete" @onchange="OnGameCompleteChanged" />
         </div>
 
+        <div class="form-group">
+            <label>Playtime (min)</label>
+            <input type="number" min="0" value="@_playtime" @onchange="OnPlaytimeChanged" />
+        </div>
+
+        <div class="form-group">
+            <label>Autosave File</label>
+            <input type="text" value="@_autosaveFile" @onchange="OnAutosaveFileChanged"
+                   placeholder="Autosave filename reference" />
+        </div>
+
         <div class="resume-info">
             <p class="text-muted">
                 These values control where the game resumes when you load this save.

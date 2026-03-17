@@ -1,6 +1,7 @@
 using TwdSaveEditor.Core.Binary;
 using TwdSaveEditor.Core.GameData;
 using TwdSaveEditor.Core.GameData.Seasons;
+using TwdSaveEditor.Core.Model;
 
 namespace TwdSaveEditor.Core.Tests.Integration;
 
@@ -143,6 +144,94 @@ public class FullCycleTests
         {
             Directory.Delete(tempDir, true);
         }
+    }
+
+    [Fact]
+    public void S1ToS2_ChoiceImport_CopiesAllChoices()
+    {
+        // Create an S1 save with choices
+        var s1 = SaveSlotFactory.CreateForSeason(Registry, "s1", 3, "wd1_test.bundle");
+        var s1Accessor = new SaveAccessor(s1.Choices!);
+        s1Accessor.SetChoiceValue("dougcarley_saved", "carley");
+
+        // Create an S2 save
+        var s2 = SaveSlotFactory.CreateForSeason(Registry, "s2", 1, "wd2_test.bundle");
+        var s2Accessor = new SaveAccessor(s2.Choices!);
+
+        // Import S1 choices into S2
+        foreach (var (key, value) in s1Accessor.GetAllChoices())
+            s2Accessor.SetChoiceValue(key, value);
+
+        // Verify the imported choice exists in S2
+        Assert.Equal("carley", s2Accessor.GetChoiceValue("dougcarley_saved"));
+
+        // Round-trip: write S2, read back, verify choices survived
+        var written = BundleWriter.Write(s2);
+        var reloaded = BundleReader.Read(written, "wd2_test.bundle");
+        var reloadedAccessor = new SaveAccessor(reloaded.Choices!);
+        Assert.Equal("carley", reloadedAccessor.GetChoiceValue("dougcarley_saved"));
+    }
+
+    [Theory]
+    [InlineData("follow_violet_louis", "louis")]
+    [InlineData("violetlouis_saved", "louis")]
+    public void S4_LouisPreset_SetsCorrectValues(string choiceKey, string expectedValue)
+    {
+        var slot = SaveSlotFactory.CreateForSeason(Registry, "s4", 2, "wd4_test.bundle");
+        var accessor = new ChoiceStatsAccessor(slot);
+
+        // Apply Louis preset choices
+        accessor.SetChoiceValue("follow_violet_louis", "louis");
+        accessor.SetChoiceValue("violetlouis_saved", "louis");
+
+        Assert.Equal(expectedValue, accessor.GetChoiceValue(choiceKey));
+
+        // Round-trip
+        var written = BundleWriter.Write(slot);
+        var reloaded = BundleReader.Read(written, "wd4_test.bundle");
+        var ra = new ChoiceStatsAccessor(reloaded);
+        Assert.Equal(expectedValue, ra.GetChoiceValue(choiceKey));
+    }
+
+    [Theory]
+    [InlineData("follow_violet_louis", "violet")]
+    [InlineData("violetlouis_saved", "violet")]
+    public void S4_VioletPreset_SetsCorrectValues(string choiceKey, string expectedValue)
+    {
+        var slot = SaveSlotFactory.CreateForSeason(Registry, "s4", 2, "wd4_test.bundle");
+        var accessor = new ChoiceStatsAccessor(slot);
+
+        accessor.SetChoiceValue("follow_violet_louis", "violet");
+        accessor.SetChoiceValue("violetlouis_saved", "violet");
+
+        Assert.Equal(expectedValue, accessor.GetChoiceValue(choiceKey));
+    }
+
+    [Fact]
+    public void LoadRealSave_HasReadableMetadata()
+    {
+        var path = TestDataHelper.GetPath("S1", "wd1_saveslot2.bundle");
+        var slot = BundleReader.Read(File.ReadAllBytes(path), "wd1_saveslot2.bundle");
+
+        Assert.NotNull(slot.Metadata);
+
+        // Should have playtime property
+        var playtime = slot.Metadata.AllProperties
+            .FirstOrDefault(p => p.KeySymbol.Value == 0x7C725227A47FD1BA);
+        Assert.NotNull(playtime);
+        Assert.IsType<IntValue>(playtime.Value);
+
+        // Should have episode progress
+        var progress = slot.Metadata.AllProperties
+            .FirstOrDefault(p => p.KeySymbol.Value == 0xB218E7C003A67CE9);
+        Assert.NotNull(progress);
+        Assert.IsType<StringValue>(progress.Value);
+
+        // Should have autosave file
+        var autosave = slot.Metadata.AllProperties
+            .FirstOrDefault(p => p.KeySymbol.Value == 0xF235E9FCE9562E01);
+        Assert.NotNull(autosave);
+        Assert.IsType<StringValue>(autosave.Value);
     }
 
     [Theory]

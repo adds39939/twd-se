@@ -10,6 +10,38 @@
         var seasons = GetRelevantSeasons(seasonKey);
     }
 
+    @if (seasonKey == "s2")
+    {
+        var s1Saves = Editor.Saves.Where(s => s.DetectedSeasonKey == "s1" && s.Choices != null).ToList();
+        if (s1Saves.Count > 0)
+        {
+            <div class="import-section">
+                <p class="text-muted">Import Season 1 choices into this Season 2 save:</p>
+                <div class="import-controls">
+                    <select @bind="_selectedImportSave">
+                        @foreach (var s in s1Saves)
+                        {
+                            <option value="@s.FileName">@s.FileName</option>
+                        }
+                    </select>
+                    <button class="btn-sm" @onclick="ImportS1Choices">Import</button>
+                </div>
+            </div>
+        }
+    }
+
+    @if (seasonKey == "s4" && Slot.ChoiceStats != null)
+    {
+        <div class="presets-section">
+            <p class="text-muted">Quick presets:</p>
+            <div class="preset-buttons">
+                <button class="btn-sm" @onclick='() => ApplyPreset("louis")'>Save Louis Path</button>
+                <button class="btn-sm" @onclick='() => ApplyPreset("violet")'>Save Violet Path</button>
+                <button class="btn-sm" @onclick='() => ApplyPreset("trust_aj")'>Trust AJ Path</button>
+            </div>
+        </div>
+    }
+
     @foreach (var season in seasons)
     {
         var choices = ChoiceDatabase.ForSeason(season.Key).ToList();

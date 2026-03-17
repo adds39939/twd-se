@@ -16,6 +16,8 @@ public partial class ResumePointEditor
     private int _chapter = 1;
     private int _maxChapters = 7;
     private bool _gameComplete;
+    private int _playtime;
+    private string _autosaveFile = "";
 
     protected override void OnParametersSet()
     {
@@ -39,6 +41,19 @@ public partial class ResumePointEditor
         var gcProp = Slot.Metadata.AllProperties
             .FirstOrDefault(p => p.KeySymbol == Symbol.FromString(ResumePoint.Keys.GameComplete));
         _gameComplete = gcProp?.Value is BoolValue bv && bv.Value;
+
+        // Playtime (Feature 1) — search by known hash
+        var playtimeProp = Slot.Metadata.AllProperties
+            .FirstOrDefault(p => p.KeySymbol.Value == 0x7C725227A47FD1BA);
+        if (playtimeProp?.Value is IntValue ptv)
+            _playtime = ptv.Value;
+
+        // Autosave file (Feature 5) — search by known hash
+        var autosaveProp = Slot.Metadata.AllProperties
+            .FirstOrDefault(p => p.KeySymbol.Value == 0xF235E9FCE9562E01);
+        if (autosaveProp?.Value is StringValue asv)
+            _autosaveFile = asv.Value;
+
     }
 
     private void OnEpisodeChanged(ChangeEventArgs e)
@@ -80,6 +95,33 @@ public partial class ResumePointEditor
             bv.Value = _gameComplete;
 
         Editor.MarkModified();
+    }
+
+    private void OnPlaytimeChanged(ChangeEventArgs e)
+    {
+        if (!int.TryParse(e.Value?.ToString(), out var minutes)) return;
+        _playtime = minutes;
+
+        var prop = Slot?.Metadata?.AllProperties
+            .FirstOrDefault(p => p.KeySymbol.Value == 0x7C725227A47FD1BA);
+        if (prop?.Value is IntValue iv)
+        {
+            iv.Value = minutes;
+            Editor.MarkModified();
+        }
+    }
+
+    private void OnAutosaveFileChanged(ChangeEventArgs e)
+    {
+        var val = e.Value?.ToString() ?? "";
+        var prop = Slot?.Metadata?.AllProperties
+            .FirstOrDefault(p => p.KeySymbol.Value == 0xF235E9FCE9562E01);
+        if (prop?.Value is StringValue sv)
+        {
+            sv.Value = val;
+            _autosaveFile = val;
+            Editor.MarkModified();
+        }
     }
 
     private void SetMetadataInt(string keyName, int value)

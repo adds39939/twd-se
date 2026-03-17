@@ -30,5 +30,6 @@ public sealed class ResumePoint
         public const string ChapterNumber = "mChapterNumber";
         public const string SaveVersion = "mSaveVersion";
         public const string GameComplete = "mGameComplete";
+        public const string Playtime = "mPlaytime";
     }
 }

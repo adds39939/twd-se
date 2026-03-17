@@ -42,6 +42,12 @@
     color: var(--text-primary);
 }
 
+.form-group input[type="number"],
+.form-group input[type="text"] {
+    flex: 1;
+    max-width: 350px;
+}
+
 .resume-info {
     margin-top: 1rem;
     padding-top: 1rem;
