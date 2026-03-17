@@ -27,10 +27,6 @@
     white-space: nowrap;
 }
 
-.header-icon {
-    font-size: 1.3rem;
-}
-
 .header-status {
     font-size: 0.8rem;
     color: var(--text-muted);
