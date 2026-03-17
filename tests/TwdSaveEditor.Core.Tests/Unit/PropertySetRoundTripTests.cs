@@ -2,7 +2,7 @@ using TwdSaveEditor.Core.Binary;
 using TwdSaveEditor.Core.Hashing;
 using TwdSaveEditor.Core.Model;
 
-namespace TwdSaveEditor.Core.Tests;
+namespace TwdSaveEditor.Core.Tests.Unit;
 
 public class PropertySetRoundTripTests
 {

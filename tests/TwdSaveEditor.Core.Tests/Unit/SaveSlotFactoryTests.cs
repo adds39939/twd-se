@@ -3,7 +3,7 @@ using TwdSaveEditor.Core.GameData;
 using TwdSaveEditor.Core.GameData.Seasons;
 using TwdSaveEditor.Core.Hashing;
 
-namespace TwdSaveEditor.Core.Tests;
+namespace TwdSaveEditor.Core.Tests.Unit;
 
 public class SaveSlotFactoryTests
 {
