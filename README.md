@@ -15,7 +15,7 @@ A save editor for **The Walking Dead: The Telltale Definitive Series**. Edit cho
 - **Choice editing** — change any tracked decision via labeled dropdowns
 - **Metadata editing** — playtime, episode progress, autosave references, game completion
 - **Resume point editing** — set episode, chapter, and completion status
-- **Cross-season import** — import Season 1 choices into Season 2 saves
+- **Cross-season cascade** — optionally propagate choice changes through the chain (S1→S2→S3→S4), matching the game's native import flow
 - **S4 presets** — quick-apply "Save Louis", "Save Violet", or "Trust AJ" choice paths
 - **New save creation** — create blank saves for any season with pre-populated choices
 - **File System Access API** — read/write directly to your save directory (Chromium-based browsers)
