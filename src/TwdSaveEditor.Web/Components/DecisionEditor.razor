@@ -7,7 +7,6 @@
 
     @{
         var seasonKey = Slot.DetectedSeasonKey;
-        var seasons = GetRelevantSeasons(seasonKey);
     }
 
     @if (seasonKey == "s2")
@@ -42,56 +41,53 @@
         </div>
     }
 
-    @foreach (var season in seasons)
+    @if (_cachedTree != null)
     {
-        var choices = ChoiceDatabase.ForSeason(season.Key).ToList();
-        if (choices.Count == 0) continue;
+        @foreach (var (season, episodes) in _cachedTree)
+        {
+            var totalChoices = episodes.Sum(g => g.Count());
 
-        var episodes = choices
-            .GroupBy(c => c.Episode)
-            .OrderBy(g => g.Key)
-            .ToList();
+            <details open="@(season.Key == seasonKey)" data-testid="season-@season.Key">
+                <summary>
+                    <span>@season.Name</span>
+                    <span class="badge">@totalChoices choices</span>
+                </summary>
+                <div>
+                    @foreach (var epGroup in episodes)
+                    {
+                        var ep = season.Episodes.FirstOrDefault(e => e.Number == epGroup.Key);
+                        var epTitle = ep != null ? $"Episode {epGroup.Key}: {ep.Title}" : $"Episode {epGroup.Key}";
 
-        <details open="@(season.Key == seasonKey)" data-testid="season-@season.Key">
-            <summary>
-                <span>@season.Name</span>
-                <span class="badge">@choices.Count choices</span>
-            </summary>
-            <div>
-                @foreach (var epGroup in episodes)
-                {
-                    var ep = season.Episodes.FirstOrDefault(e => e.Number == epGroup.Key);
-                    var epTitle = ep != null ? $"Episode {epGroup.Key}: {ep.Title}" : $"Episode {epGroup.Key}";
-
-                    <details open="@ShouldExpandEpisode(season.Key, epGroup.Key, seasonKey)">
-                        <summary>
-                            <span>@epTitle</span>
-                            <span class="badge">@epGroup.Count()</span>
-                        </summary>
-                        <div class="choices-list">
-                            @foreach (var choice in epGroup)
-                            {
-                                var currentIdx = Accessor.DetectCurrentChoice(choice);
-                                <div class="choice-row">
-                                    <div class="choice-info">
-                                        <span class="choice-desc">@choice.Description</span>
-                                        <span class="badge @GetCategoryBadgeClass(choice.Category)">@choice.Category</span>
+                        <details open="@ShouldExpandEpisode(season.Key, epGroup.Key, seasonKey)">
+                            <summary>
+                                <span>@epTitle</span>
+                                <span class="badge">@epGroup.Count()</span>
+                            </summary>
+                            <div class="choices-list">
+                                @foreach (var choice in epGroup)
+                                {
+                                    var currentIdx = GetChoiceState(choice.ChoiceKey);
+                                    <div class="choice-row">
+                                        <div class="choice-info">
+                                            <span class="choice-desc">@choice.Description</span>
+                                            <span class="badge @GetCategoryBadgeClass(choice.Category)">@choice.Category</span>
+                                        </div>
+                                        <select value="@currentIdx"
+                                                @onchange="e => OnChoiceChanged(choice, e)">
+                                            <option value="-1">-- Not set --</option>
+                                            @for (int i = 0; i < choice.Options.Length; i++)
+                                            {
+                                                var opt = choice.Options[i];
+                                                <option value="@i">@opt.Label</option>
+                                            }
+                                        </select>
                                     </div>
-                                    <select value="@currentIdx"
-                                            @onchange="e => OnChoiceChanged(choice, e)">
-                                        <option value="-1">-- Not set --</option>
-                                        @for (int i = 0; i < choice.Options.Length; i++)
-                                        {
-                                            var opt = choice.Options[i];
-                                            <option value="@i">@opt.Label</option>
-                                        }
-                                    </select>
-                                </div>
-                            }
-                        </div>
-                    </details>
-                }
-            </div>
-        </details>
+                                }
+                            </div>
+                        </details>
+                    }
+                </div>
+            </details>
+        }
     }
 </div>

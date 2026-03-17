@@ -13,6 +13,8 @@ public partial class Home : IDisposable
     private string ActiveTab { get; set; } = "decisions";
     private NewSaveDialog? _newSaveDialog;
     private bool _saving;
+    private IChoiceAccessor? _cachedAccessor;
+    private string? _cachedAccessorSlot;
 
     protected override void OnInitialized()
     {
@@ -21,12 +23,22 @@ public partial class Home : IDisposable
 
     private void OnStateChanged()
     {
+        _cachedAccessor = null; // Invalidate on state change
+        _cachedAccessorSlot = null;
         InvokeAsync(StateHasChanged);
     }
 
     private IChoiceAccessor? GetAccessor()
     {
-        return Editor.SelectedSave != null ? Editor.GetChoiceAccessor(Editor.SelectedSave) : null;
+        if (Editor.SelectedSave == null) return null;
+
+        var slotFile = Editor.SelectedSave.FileName;
+        if (slotFile == _cachedAccessorSlot && _cachedAccessor != null)
+            return _cachedAccessor;
+
+        _cachedAccessor = Editor.GetChoiceAccessor(Editor.SelectedSave);
+        _cachedAccessorSlot = slotFile;
+        return _cachedAccessor;
     }
 
     private string TabClass(string tab) => ActiveTab == tab ? "active" : "";

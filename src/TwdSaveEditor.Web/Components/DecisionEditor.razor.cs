@@ -15,6 +15,55 @@ public partial class DecisionEditor
     [Parameter] public IChoiceAccessor? Accessor { get; set; }
 
     private string? _selectedImportSave;
+    private Dictionary<string, int> _choiceStates = new();
+    private List<(Season Season, List<IGrouping<int, ChoiceDefinition>> Episodes)>? _cachedTree;
+    private string? _lastSlotFileName;
+
+    protected override void OnParametersSet()
+    {
+        // Only rebuild when the slot changes
+        var currentFile = Slot?.FileName;
+        if (currentFile == _lastSlotFileName && _cachedTree != null)
+            return;
+
+        _lastSlotFileName = currentFile;
+        RebuildCache();
+    }
+
+    private void RebuildCache()
+    {
+        _choiceStates.Clear();
+        _cachedTree = null;
+
+        if (Slot == null || Accessor == null) return;
+
+        var seasons = GetRelevantSeasons(Slot.DetectedSeasonKey);
+        _cachedTree = seasons
+            .Select(s => (
+                Season: s,
+                Episodes: ChoiceDatabase.ForSeason(s.Key)
+                    .GroupBy(c => c.Episode)
+                    .OrderBy(g => g.Key)
+                    .ToList()
+            ))
+            .Where(x => x.Episodes.Count > 0)
+            .ToList();
+
+        // Pre-compute all choice states once
+        foreach (var (season, episodes) in _cachedTree)
+        {
+            foreach (var epGroup in episodes)
+            {
+                foreach (var choice in epGroup)
+                {
+                    _choiceStates[choice.ChoiceKey] = Accessor.DetectCurrentChoice(choice);
+                }
+            }
+        }
+    }
+
+    private int GetChoiceState(string choiceKey)
+        => _choiceStates.GetValueOrDefault(choiceKey, -1);
 
     private void OnChoiceChanged(ChoiceDefinition choice, ChangeEventArgs e)
     {
@@ -22,8 +71,8 @@ public partial class DecisionEditor
         if (int.TryParse(e.Value?.ToString(), out var idx) && idx >= 0 && idx < choice.Options.Length)
         {
             Accessor.ApplyChoice(choice, idx);
+            _choiceStates[choice.ChoiceKey] = idx; // Update cache, no full rebuild
             Editor.MarkModified();
-            StateHasChanged();
         }
     }
 
@@ -64,8 +113,8 @@ public partial class DecisionEditor
             s2Accessor.SetChoiceValue(key, value);
         }
 
+        RebuildCache();
         Editor.MarkModified();
-        StateHasChanged();
     }
 
     private void ApplyPreset(string preset)
@@ -88,8 +137,8 @@ public partial class DecisionEditor
                 break;
         }
 
+        RebuildCache();
         Editor.MarkModified();
-        StateHasChanged();
     }
 
     private static string GetCategoryBadgeClass(string category) => category switch
