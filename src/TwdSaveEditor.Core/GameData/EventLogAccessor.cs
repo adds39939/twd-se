@@ -13,6 +13,19 @@ public sealed class EventLogAccessor : IChoiceAccessor
     private readonly SaveSlot _slot;
     private readonly string _seasonKey;
     private List<TrackedEntry>? _cachedEntries;
+    private HashSet<ulong>? _dialogNodeHashes; // All node hashes for O(1) lookup
+
+    // Pre-computed Michonne GUID → CRC64 hash mapping (computed once, not per lookup)
+    private static readonly Lazy<Dictionary<ulong, (string ChoiceKey, string OptionValue)>> MichonneHashedNodes = new(() =>
+    {
+        var result = new Dictionary<ulong, (string, string)>();
+        foreach (var (guid, (key, val)) in ChoiceNodeMapping.MichonneNodes)
+        {
+            var hash = Hashing.TelltaleHash.ComputeCrc64("{" + guid + "}");
+            result[hash] = (key, val);
+        }
+        return result;
+    });
 
     /// <summary>
     /// An EventLog entry along with the source file it was read from,
@@ -45,40 +58,24 @@ public sealed class EventLogAccessor : IChoiceAccessor
     /// </summary>
     public string? GetChoiceValue(string choiceKey)
     {
-        var entries = GetEntries();
+        EnsureHashIndex();
 
         if (_seasonKey == "michonne")
         {
-            // Michonne uses GUIDs, but EventLog still stores CRC64 hashes of the GUID strings.
-            // We need to check each known GUID's CRC64 against the EventLog entries.
-            foreach (var tracked in entries)
+            foreach (var (hash, (key, val)) in MichonneHashedNodes.Value)
             {
-                if (!tracked.Entry.IsDialogNode)
-                    continue;
-
-                foreach (var (guid, (key, val)) in ChoiceNodeMapping.MichonneNodes)
-                {
-                    if (key != choiceKey)
-                        continue;
-
-                    // The NodeHash in the EventLog is the CRC64 of the braced GUID string "{GUID}"
-                    var guidHash = Hashing.TelltaleHash.ComputeCrc64("{" + guid + "}");
-                    if (tracked.Entry.NodeHash == guidHash)
-                        return val;
-                }
+                if (key == choiceKey && _dialogNodeHashes!.Contains(hash))
+                    return val;
             }
             return null;
         }
 
-        // S3/S4: Direct CRC64 hash lookup
-        foreach (var tracked in entries)
+        // S3/S4: Check each option's hash against the index
+        var mapping = _seasonKey == "s3" ? ChoiceNodeMapping.S3Nodes : ChoiceNodeMapping.S4Nodes;
+        foreach (var (hash, (key, val)) in mapping)
         {
-            if (!tracked.Entry.IsDialogNode)
-                continue;
-
-            var detected = ChoiceNodeMapping.DetectChoice(_seasonKey, tracked.Entry.NodeHash);
-            if (detected.HasValue && detected.Value.ChoiceKey == choiceKey)
-                return detected.Value.OptionValue;
+            if (key == choiceKey && _dialogNodeHashes!.Contains(hash))
+                return val;
         }
 
         return null;
@@ -164,38 +161,25 @@ public sealed class EventLogAccessor : IChoiceAccessor
     /// </summary>
     public List<(string Key, string Value)> GetAllChoices()
     {
+        EnsureHashIndex();
         var result = new List<(string, string)>();
-        var entries = GetEntries();
         var seen = new HashSet<string>();
 
         if (_seasonKey == "michonne")
         {
-            foreach (var tracked in entries)
+            foreach (var (hash, (key, val)) in MichonneHashedNodes.Value)
             {
-                if (!tracked.Entry.IsDialogNode)
-                    continue;
-
-                foreach (var (guid, (key, val)) in ChoiceNodeMapping.MichonneNodes)
-                {
-                    var guidHash = Hashing.TelltaleHash.ComputeCrc64("{" + guid + "}");
-                    if (tracked.Entry.NodeHash == guidHash && seen.Add(key))
-                    {
-                        result.Add((key, val));
-                        break;
-                    }
-                }
+                if (_dialogNodeHashes!.Contains(hash) && seen.Add(key))
+                    result.Add((key, val));
             }
             return result;
         }
 
-        foreach (var tracked in entries)
+        var mapping = _seasonKey == "s3" ? ChoiceNodeMapping.S3Nodes : ChoiceNodeMapping.S4Nodes;
+        foreach (var (hash, (key, val)) in mapping)
         {
-            if (!tracked.Entry.IsDialogNode)
-                continue;
-
-            var detected = ChoiceNodeMapping.DetectChoice(_seasonKey, tracked.Entry.NodeHash);
-            if (detected.HasValue && seen.Add(detected.Value.ChoiceKey))
-                result.Add((detected.Value.ChoiceKey, detected.Value.OptionValue));
+            if (_dialogNodeHashes!.Contains(hash) && seen.Add(key))
+                result.Add((key, val));
         }
 
         return result;
@@ -207,6 +191,19 @@ public sealed class EventLogAccessor : IChoiceAccessor
     public void InvalidateCache()
     {
         _cachedEntries = null;
+        _dialogNodeHashes = null;
+    }
+
+    private void EnsureHashIndex()
+    {
+        if (_dialogNodeHashes != null) return;
+        var entries = GetEntries();
+        _dialogNodeHashes = new HashSet<ulong>();
+        foreach (var tracked in entries)
+        {
+            if (tracked.Entry.IsDialogNode)
+                _dialogNodeHashes.Add(tracked.Entry.NodeHash);
+        }
     }
 
     // ── Private helpers ───────────────────────────────────────────────
@@ -273,40 +270,35 @@ public sealed class EventLogAccessor : IChoiceAccessor
 
     private void SetMichonneChoiceValue(string choiceKey, string value, List<TrackedEntry> entries)
     {
-        // Get the target GUID
         var targetGuid = ChoiceNodeMapping.GetMichonneGuid(choiceKey, value);
-        if (targetGuid == null)
-            return;
+        if (targetGuid == null) return;
 
         var targetHash = Hashing.TelltaleHash.ComputeCrc64("{" + targetGuid + "}");
 
-        // Find existing entry for this choice key
+        // Collect all hashes for this choice key from pre-computed mapping
+        var choiceHashes = MichonneHashedNodes.Value
+            .Where(kv => kv.Value.ChoiceKey == choiceKey)
+            .Select(kv => kv.Key)
+            .ToHashSet();
+
+        // Find existing entry
         for (int i = 0; i < entries.Count; i++)
         {
             var tracked = entries[i];
-            if (!tracked.Entry.IsDialogNode)
-                continue;
+            if (!tracked.Entry.IsDialogNode) continue;
+            if (!choiceHashes.Contains(tracked.Entry.NodeHash)) continue;
 
-            foreach (var (guid, (key, _)) in ChoiceNodeMapping.MichonneNodes)
-            {
-                if (key != choiceKey)
-                    continue;
-
-                var guidHash = Hashing.TelltaleHash.ComputeCrc64("{" + guid + "}");
-                if (tracked.Entry.NodeHash == guidHash)
-                {
-                    // Replace the node hash
-                    tracked.Entry.NodeHash = targetHash;
-                    if (tracked.Entry.RawData.Length >= 37)
-                        BitConverter.GetBytes(targetHash).CopyTo(tracked.Entry.RawData, 29);
-                    if (tracked.SourcePath != "memory")
-                        EStoreWriter.WriteEntryToPage(tracked.SourcePath, tracked.RecordIndex, tracked.Entry);
-                    return;
-                }
-            }
+            // Replace the node hash
+            _dialogNodeHashes?.Remove(tracked.Entry.NodeHash);
+            tracked.Entry.NodeHash = targetHash;
+            _dialogNodeHashes?.Add(targetHash);
+            if (tracked.Entry.RawData.Length >= 37)
+                BitConverter.GetBytes(targetHash).CopyTo(tracked.Entry.RawData, 29);
+            if (tracked.SourcePath != "memory")
+                EStoreWriter.WriteEntryToPage(tracked.SourcePath, tracked.RecordIndex, tracked.Entry);
+            return;
         }
 
-        // No existing entry found -- add new
         AddNewEntry(targetHash, entries);
     }
 

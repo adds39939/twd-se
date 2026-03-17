@@ -358,13 +358,17 @@ dialog h2 {
 .w-full { width: 100%; }
 
 /* Loading spinner */
+#app {
+    height: 100%;
+}
+
 .loading-progress {
-    position: absolute;
-    display: block;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 6rem;
     height: 6rem;
-    inset: 30vh 0 auto 0;
-    margin: 0 auto;
 }
 .loading-progress circle {
     fill: none;
@@ -379,11 +383,12 @@ dialog h2 {
     transition: stroke-dasharray 0.05s ease-in-out;
 }
 .loading-progress-text {
-    position: absolute;
-    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     font-weight: 600;
     color: var(--text-secondary);
-    inset: calc(30vh + 2.5rem) 0 auto 0.2rem;
 }
 .loading-progress-text:after {
     content: var(--blazor-load-percentage-text, "Loading");
