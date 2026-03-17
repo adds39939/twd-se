@@ -64,10 +64,10 @@
     color: var(--text-secondary);
 }
 
-.empty-icon {
-    font-size: 4rem;
-    margin-bottom: 1rem;
-    opacity: 0.5;
+.empty-logo {
+    max-width: 220px;
+    margin-bottom: 1.5rem;
+    opacity: 0.8;
 }
 
 .empty-state h2 {
