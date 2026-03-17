@@ -60,6 +60,7 @@ a {
     text-decoration: none;
     transition: color var(--transition);
 }
+
 a:hover { color: var(--accent-hover); }
 
 /* Scrollbar */
@@ -67,13 +68,16 @@ a:hover { color: var(--accent-hover); }
     width: 8px;
     height: 8px;
 }
+
 ::-webkit-scrollbar-track {
     background: var(--bg-primary);
 }
+
 ::-webkit-scrollbar-thumb {
     background: var(--border-light);
     border-radius: 4px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
     background: var(--text-muted);
 }
@@ -98,13 +102,16 @@ button, .btn {
     white-space: nowrap;
     user-select: none;
 }
+
 button:hover, .btn:hover {
     background: var(--bg-hover);
     border-color: var(--accent);
 }
+
 button:active, .btn:active {
     transform: scale(0.97);
 }
+
 button:disabled, .btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -116,6 +123,7 @@ button:disabled, .btn:disabled {
     border-color: var(--accent);
     color: #fff;
 }
+
 .btn-accent:hover {
     background: var(--accent-hover);
     border-color: var(--accent-hover);
@@ -146,6 +154,7 @@ textarea {
     outline: none;
     transition: border-color var(--transition);
 }
+
 input:focus, textarea:focus {
     border-color: var(--accent);
 }
@@ -170,6 +179,7 @@ select {
 select:focus {
     border-color: var(--accent);
 }
+
 select option {
     background: var(--bg-secondary);
     color: var(--text-primary);
@@ -190,9 +200,11 @@ details {
     background: var(--bg-secondary);
     margin-bottom: 0.4em;
 }
+
 details[open] {
     border-color: var(--border-light);
 }
+
 summary {
     padding: 0.6em 0.8em;
     cursor: pointer;
@@ -205,21 +217,26 @@ summary {
     transition: background var(--transition);
     border-radius: var(--radius);
 }
+
 summary:hover {
     background: var(--bg-hover);
 }
+
 summary::before {
     content: '\25B6';
     font-size: 0.65em;
     transition: transform var(--transition);
     color: var(--text-muted);
 }
+
 details[open] > summary::before {
     transform: rotate(90deg);
 }
+
 summary::-webkit-details-marker {
     display: none;
 }
+
 details > :not(summary) {
     padding: 0 0.8em 0.6em;
 }
@@ -230,11 +247,13 @@ table {
     border-collapse: collapse;
     font-size: 0.85rem;
 }
+
 th, td {
     padding: 0.5em 0.75em;
     text-align: left;
     border-bottom: 1px solid var(--border);
 }
+
 th {
     font-weight: 600;
     color: var(--text-secondary);
@@ -243,6 +262,7 @@ th {
     top: 0;
     z-index: 1;
 }
+
 tr:hover td {
     background: var(--bg-hover);
 }
@@ -260,10 +280,12 @@ dialog {
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
     margin: auto;
 }
+
 dialog::backdrop {
     background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(4px);
 }
+
 dialog h2 {
     margin-top: 0;
     margin-bottom: 1em;
@@ -283,16 +305,19 @@ dialog h2 {
     color: var(--text-secondary);
     border: 1px solid var(--border);
 }
+
 .badge-accent {
     background: var(--accent-dim);
     color: #fff;
     border-color: var(--accent);
 }
+
 .badge-success {
     background: #1a5d36;
     color: var(--success);
     border-color: var(--success);
 }
+
 .badge-warning {
     background: #5d3e0e;
     color: var(--warning);
@@ -313,6 +338,7 @@ dialog h2 {
     border-bottom: 2px solid var(--border);
     margin-bottom: 1em;
 }
+
 .tab-bar button {
     flex: 1;
     display: flex;
@@ -328,11 +354,13 @@ dialog h2 {
     margin-bottom: -2px;
     transition: all var(--transition);
 }
+
 .tab-bar button:hover {
     color: var(--text-primary);
     background: transparent;
     border-bottom-color: var(--border-light);
 }
+
 .tab-bar button.active {
     color: var(--accent);
     border-bottom-color: var(--accent);
@@ -370,6 +398,7 @@ dialog h2 {
     width: 6rem;
     height: 6rem;
 }
+
 .loading-progress circle {
     fill: none;
     stroke: var(--border);
@@ -377,11 +406,13 @@ dialog h2 {
     transform-origin: 50% 50%;
     transform: rotate(-90deg);
 }
+
 .loading-progress circle:last-child {
     stroke: var(--accent);
     stroke-dasharray: calc(3.141 * var(--blazor-load-percentage, 0%) * 0.8), 500%;
     transition: stroke-dasharray 0.05s ease-in-out;
 }
+
 .loading-progress-text {
     position: fixed;
     top: 50%;
@@ -390,6 +421,7 @@ dialog h2 {
     font-weight: 600;
     color: var(--text-secondary);
 }
+
 .loading-progress-text:after {
     content: var(--blazor-load-percentage-text, "Loading");
 }
@@ -407,6 +439,7 @@ dialog h2 {
     width: 100%;
     z-index: 1000;
 }
+
 #blazor-error-ui .dismiss {
     cursor: pointer;
     position: absolute;
@@ -420,6 +453,7 @@ dialog h2 {
     color: white;
     border-radius: var(--radius);
 }
+
 .blazor-error-boundary::after {
     content: "An error has occurred.";
 }
