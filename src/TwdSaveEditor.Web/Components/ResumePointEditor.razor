@@ -8,9 +8,8 @@
     }
 
     @{
-        var accessor = new SaveAccessor(Slot.Choices, Slot.Metadata);
-        var detectedSeason = Slot.DetectedSeasonKey ?? "s1";
-        var seasonInfo = SeasonInfo.FindSeason(detectedSeason);
+        var detectedSeason = Slot.DetectedSeasonKey;
+        var seasonInfo = detectedSeason != null ? SeasonInfo.FindSeason(detectedSeason) : null;
     }
 
     <div class="resume-form">

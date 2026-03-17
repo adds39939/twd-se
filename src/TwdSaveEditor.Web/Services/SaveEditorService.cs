@@ -66,9 +66,8 @@ public class SaveEditorService
                     if (data == null) continue;
 
                     var slot = BundleReader.Read(data, fileName);
-
-                    // Discover associated estore/epage files for S3/Michonne
                     var slotHandler = _registry.DetectFromFileName(slot.FileName);
+                    slot.DetectedSeasonKey = slotHandler?.SeasonKey;
                     if (slotHandler?.UsesEventLog == true)
                     {
                         await LoadEventLogFiles(slot, fileName, estoreFiles, epageFiles);
@@ -215,6 +214,7 @@ public class SaveEditorService
         try
         {
             var slot = SaveSlotFactory.CreateForSeason(_registry, seasonKey, episode, fileName);
+            slot.DetectedSeasonKey = seasonKey;
 
             // Write the bundle file
             var fileBytes = BundleWriter.Write(slot);

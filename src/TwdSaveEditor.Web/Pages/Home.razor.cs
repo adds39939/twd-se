@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using TwdSaveEditor.Web.Components;
 using TwdSaveEditor.Web.Services;
-using TwdSaveEditor.Core.Database;
 using TwdSaveEditor.Core.GameData;
 
 namespace TwdSaveEditor.Web.Pages;
@@ -34,12 +33,17 @@ public partial class Home : IDisposable
 
     private async Task SaveChanges()
     {
-        if (Editor.SelectedSave == null) return;
+        if (Editor.SelectedSave is null)
+        {
+            return;
+        }
+
         _saving = true;
-        StateHasChanged();
+        await InvokeAsync(StateHasChanged);
+
         await Editor.SaveFile(Editor.SelectedSave);
         _saving = false;
-        StateHasChanged();
+        await InvokeAsync(StateHasChanged);
     }
 
     public void Dispose()
