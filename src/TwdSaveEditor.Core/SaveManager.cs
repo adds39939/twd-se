@@ -11,7 +11,7 @@ public sealed class SaveManager
 {
     public static readonly string DefaultSavePath = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-        "Telltale Games", "The Walking Dead The Telltale Definitive Series");
+        "Telltale Games", "The Walking Dead Definitive");
 
     private readonly ISeasonRegistry _registry;
 

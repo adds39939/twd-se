@@ -81,7 +81,7 @@ The static site is output to `output/wwwroot/`.
 The game stores saves in:
 
 ```
-Documents\Telltale Games\The Walking Dead The Telltale Definitive Series
+Documents\Telltale Games\The Walking Dead Definitive
 ```
 
 Click **Open Save Directory** in the app and navigate there. The app reads all `.bundle`, `.estore`, and `.epage` files automatically.
