@@ -18,7 +18,7 @@ A save editor for **The Walking Dead: The Telltale Definitive Series**. Edit cho
 - **Cross-season import** — import Season 1 choices into Season 2 saves
 - **S4 presets** — quick-apply "Save Louis", "Save Violet", or "Trust AJ" choice paths
 - **New save creation** — create blank saves for any season with pre-populated choices
-- **File System Access API** — read/write directly to your save directory (Chrome/Edge)
+- **File System Access API** — read/write directly to your save directory (Chromium-based browsers)
 - **Upload fallback** — file upload + download for browsers without directory access
 
 ## How It Works
@@ -37,7 +37,7 @@ Choice definitions (134 total) are sourced from the game's own `choice.prop` dat
 
 ## Using the App
 
-Visit **[twd-se.app](https://twd-se.app/)** in Chromium based brower, click **Open Save Directory**, and navigate to your save folder (see below). Select a save file to start editing.
+Visit **[twd-se.app](https://twd-se.app/)** in a Chromium-based browser (Chrome, Edge, Brave, etc.), click **Open Save Directory**, and navigate to your save folder (see below). Select a save file to start editing, or create a new one.
 
 ## Building from Source
 
@@ -53,7 +53,7 @@ cd twd-se
 dotnet run --project src/TwdSaveEditor.Web
 ```
 
-Open `http://localhost:5163` in Chrome or Edge.
+Open `http://localhost:5163` in a Chromium-based browser (Chrome, Edge, Brave, etc.).
 
 ### Run Tests
 
@@ -147,14 +147,17 @@ public interface ISeasonHandler
 
 ## Tools
 
-The `tools/` directory contains Python scripts used during development to decrypt and analyze game archives. They require the `TWD_ARCHIVES` environment variable pointing to the game's Archives directory:
+The `tools/` directory contains Python scripts used during development to decrypt and analyze game archives. These are **not required to run the editor** — all extracted data is already embedded in the application.
+
+To use the tools yourself, you need:
+
+1. The `TWD_ARCHIVES` environment variable pointing to the game's Archives directory
+2. A `tools/key.txt` file containing the Blowfish encryption key (55 bytes, hex-encoded). The key can be extracted from `WDC.exe` at offset `0xC3D7A0`.
 
 ```bash
 export TWD_ARCHIVES="/path/to/The Walking Dead The Telltale Definitive Series/Archives"
 python tools/ttarch_decrypt.py
 ```
-
-These scripts are not required to run the editor — all extracted data is embedded in the application.
 
 ## License
 
