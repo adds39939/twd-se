@@ -357,6 +357,65 @@ public class S3S4MichonneTests
     }
 
     [Fact]
+    public void Michonne_EventLogAccessor_ParsesRealEStore()
+    {
+        var bundlePath = Path.Combine(SaveDir, "Michonne", "wdm_saveslot4.bundle");
+        var estorePath = Path.Combine(SaveDir, "Michonne", "_wdm_saveslot4_id.estore");
+        if (!File.Exists(bundlePath) || !File.Exists(estorePath)) return;
+
+        // First verify the estore/epage files can be parsed
+        var entries = EStoreReader.ReadEventLog(estorePath);
+        Assert.True(entries.Count > 0, $"Expected events from Michonne estore, got {entries.Count}");
+
+        var dialogNodes = entries.Where(e => e.IsDialogNode).ToList();
+        Assert.True(dialogNodes.Count > 0, $"Expected dialog node events, got {dialogNodes.Count}");
+
+        // Now test the EventLogAccessor
+        var slot = BundleReader.Read(bundlePath);
+        slot.EStorePath = estorePath;
+        slot.EPagePaths = Directory.GetFiles(
+                Path.GetDirectoryName(estorePath)!, "_wdm_saveslot4_id_Page*.epage")
+            .OrderBy(f => f).ToList();
+
+        var accessor = new EventLogAccessor(slot);
+        Assert.True(accessor.HasEventLog);
+
+        // Slot 4 has 18 checkpoints (most complete) — should have choices
+        var allChoices = accessor.GetAllChoices();
+        // Report what we found even if zero — this tells us about the GUID→CRC64 conversion
+        Assert.True(allChoices.Count > 0,
+            $"Michonne EventLogAccessor found 0 choices. " +
+            $"Total events: {entries.Count}, dialog nodes: {dialogNodes.Count}");
+    }
+
+    [Fact]
+    public void S2_SaveAccessor_DetectsChoicesFromRealSave()
+    {
+        // S2 Ep5 should have the most choices
+        var dirs = new[] {
+            Path.Combine(SaveDir, "S2", "Episode 5"),
+            Path.Combine(SaveDir, "S2", "Episode 2"),
+            Path.Combine(SaveDir, "S2", "Episode 1"),
+        };
+
+        string? file = null;
+        foreach (var dir in dirs)
+        {
+            if (!Directory.Exists(dir)) continue;
+            file = Directory.GetFiles(dir, "wd2_saveslot*.bundle").FirstOrDefault();
+            if (file != null) break;
+        }
+        if (file == null) return;
+
+        var slot = BundleReader.Read(file);
+        Assert.NotNull(slot.Choices); // S2 has season1.prop
+
+        var accessor = new SaveAccessor(slot.Choices, slot.Metadata);
+        var allChoices = accessor.GetAllChoices();
+        Assert.True(allChoices.Count > 0, "Expected S2 imported choices");
+    }
+
+    [Fact]
     public void NewSave_S1S2_HaveChoices()
     {
         foreach (var season in new[] { "s1", "s1_400days", "s2" })

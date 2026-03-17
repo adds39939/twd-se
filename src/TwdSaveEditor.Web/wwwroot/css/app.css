@@ -1,17 +1,17 @@
 :root {
-    --bg-primary: #1a1a2e;
-    --bg-secondary: #16213e;
-    --bg-tertiary: #0f3460;
-    --bg-surface: #1e2a45;
-    --bg-hover: #243352;
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #242424;
+    --bg-tertiary: #2e2e2e;
+    --bg-surface: #2a2a2a;
+    --bg-hover: #353535;
     --accent: #e94560;
     --accent-hover: #ff6b81;
     --accent-dim: #c13550;
-    --text-primary: #eee;
-    --text-secondary: #aab;
-    --text-muted: #778;
-    --border: #2a3a5c;
-    --border-light: #3a4a6c;
+    --text-primary: #e8e8e8;
+    --text-secondary: #a0a0a0;
+    --text-muted: #707070;
+    --border: #3a3a3a;
+    --border-light: #4a4a4a;
     --success: #2ecc71;
     --warning: #f39c12;
     --danger: #e74c3c;
@@ -247,10 +247,6 @@ tr:hover td {
 
 /* Dialog */
 dialog {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     border: 1px solid var(--border-light);
     border-radius: var(--radius-lg);
     background: var(--bg-secondary);
@@ -258,7 +254,9 @@ dialog {
     padding: 1.5em;
     min-width: 360px;
     max-width: 90vw;
+    max-height: 85vh;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    margin: auto;
 }
 dialog::backdrop {
     background: rgba(0, 0, 0, 0.6);

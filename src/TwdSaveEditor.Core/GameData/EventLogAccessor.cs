@@ -61,8 +61,8 @@ public sealed class EventLogAccessor : IChoiceAccessor
                     if (key != choiceKey)
                         continue;
 
-                    // The NodeHash in the EventLog is the CRC64 of the GUID string
-                    var guidHash = Hashing.TelltaleHash.ComputeCrc64(guid);
+                    // The NodeHash in the EventLog is the CRC64 of the braced GUID string "{GUID}"
+                    var guidHash = Hashing.TelltaleHash.ComputeCrc64("{" + guid + "}");
                     if (tracked.Entry.NodeHash == guidHash)
                         return val;
                 }
@@ -177,7 +177,7 @@ public sealed class EventLogAccessor : IChoiceAccessor
 
                 foreach (var (guid, (key, val)) in ChoiceNodeMapping.MichonneNodes)
                 {
-                    var guidHash = Hashing.TelltaleHash.ComputeCrc64(guid);
+                    var guidHash = Hashing.TelltaleHash.ComputeCrc64("{" + guid + "}");
                     if (tracked.Entry.NodeHash == guidHash && seen.Add(key))
                     {
                         result.Add((key, val));
@@ -278,7 +278,7 @@ public sealed class EventLogAccessor : IChoiceAccessor
         if (targetGuid == null)
             return;
 
-        var targetHash = Hashing.TelltaleHash.ComputeCrc64(targetGuid);
+        var targetHash = Hashing.TelltaleHash.ComputeCrc64("{" + targetGuid + "}");
 
         // Find existing entry for this choice key
         for (int i = 0; i < entries.Count; i++)
@@ -292,7 +292,7 @@ public sealed class EventLogAccessor : IChoiceAccessor
                 if (key != choiceKey)
                     continue;
 
-                var guidHash = Hashing.TelltaleHash.ComputeCrc64(guid);
+                var guidHash = Hashing.TelltaleHash.ComputeCrc64("{" + guid + "}");
                 if (tracked.Entry.NodeHash == guidHash)
                 {
                     // Replace the node hash

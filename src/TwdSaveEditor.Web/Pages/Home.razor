@@ -1,5 +1,4 @@
 @page "/"
-@inject SaveEditorService Editor
 @implements IDisposable
 
 <PageTitle>TWD Save Editor</PageTitle>
@@ -45,30 +44,3 @@
 </div>
 
 <NewSaveDialog @ref="_newSaveDialog" />
-
-@code {
-    private string ActiveTab { get; set; } = "decisions";
-    private NewSaveDialog? _newSaveDialog;
-
-    protected override void OnInitialized()
-    {
-        Editor.StateChanged += OnStateChanged;
-    }
-
-    private void OnStateChanged()
-    {
-        InvokeAsync(StateHasChanged);
-    }
-
-    private IChoiceAccessor? GetAccessor()
-    {
-        return Editor.SelectedSave != null ? Editor.GetChoiceAccessor(Editor.SelectedSave) : null;
-    }
-
-    private string TabClass(string tab) => ActiveTab == tab ? "active" : "";
-
-    public void Dispose()
-    {
-        Editor.StateChanged -= OnStateChanged;
-    }
-}

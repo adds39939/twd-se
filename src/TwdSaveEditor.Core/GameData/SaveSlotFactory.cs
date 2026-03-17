@@ -240,7 +240,7 @@ public static class SaveSlotFactory
                 {
                     var guid = ChoiceNodeMapping.GetMichonneGuid(c.ChoiceKey, c.Options[0].Value);
                     if (guid != null)
-                        nodeHash = Hashing.TelltaleHash.ComputeCrc64(guid);
+                        nodeHash = Hashing.TelltaleHash.ComputeCrc64("{" + guid + "}");
                 }
 
                 if (nodeHash == null)
