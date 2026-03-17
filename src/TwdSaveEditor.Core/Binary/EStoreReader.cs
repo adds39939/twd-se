@@ -57,7 +57,7 @@ public static class EStoreReader
     /// Parse 42-byte EventLog records from a section's data.
     /// Skips any header/filename prefix before the records start.
     /// </summary>
-    internal static List<EventLogEntry> ParseEventsFromSection(byte[] data)
+    public static List<EventLogEntry> ParseEventsFromSection(byte[] data)
     {
         var entries = new List<EventLogEntry>();
         if (data.Length < EventLogEntry.RecordSize) return entries;
@@ -119,7 +119,7 @@ public static class EStoreReader
     /// <summary>
     /// Parse MSV6 MetaStream header and extract sections (decompressing if needed).
     /// </summary>
-    internal static (byte[] defaultData, byte[] debugData, byte[] asyncData) ReadMetaStreamSections(byte[] data)
+    public static (byte[] defaultData, byte[] debugData, byte[] asyncData) ReadMetaStreamSections(byte[] data)
     {
         if (data.Length < 20) return ([], [], []);
 

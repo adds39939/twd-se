@@ -1,0 +1,133 @@
+@inject SaveEditorService Editor
+
+<div class="decision-editor">
+    @if (Slot == null || Accessor == null)
+    {
+        <p class="text-muted">No choice data available for this save.</p>
+        return;
+    }
+
+    <div class="editor-toolbar">
+        <h2>Decisions</h2>
+        <button class="btn-accent" @onclick="SaveChanges" disabled="@_saving">
+            @(_saving ? "Saving..." : "Save Changes")
+        </button>
+    </div>
+
+    @{
+        var seasonKey = Slot.DetectedSeasonKey;
+        var seasons = GetRelevantSeasons(seasonKey);
+    }
+
+    @foreach (var season in seasons)
+    {
+        var choices = ChoiceDatabase.ForSeason(season.Key).ToList();
+        if (choices.Count == 0) continue;
+
+        var episodes = choices
+            .GroupBy(c => c.Episode)
+            .OrderBy(g => g.Key)
+            .ToList();
+
+        <details open="@(season.Key == seasonKey)" data-testid="season-@season.Key">
+            <summary>
+                <span>@season.Name</span>
+                <span class="badge">@choices.Count choices</span>
+            </summary>
+            <div>
+                @foreach (var epGroup in episodes)
+                {
+                    var ep = season.Episodes.FirstOrDefault(e => e.Number == epGroup.Key);
+                    var epTitle = ep != null ? $"Episode {epGroup.Key}: {ep.Title}" : $"Episode {epGroup.Key}";
+
+                    <details open="@ShouldExpandEpisode(season.Key, epGroup.Key, seasonKey)">
+                        <summary>
+                            <span>@epTitle</span>
+                            <span class="badge">@epGroup.Count()</span>
+                        </summary>
+                        <div class="choices-list">
+                            @foreach (var choice in epGroup)
+                            {
+                                var currentIdx = Accessor.DetectCurrentChoice(choice);
+                                <div class="choice-row">
+                                    <div class="choice-info">
+                                        <span class="choice-desc">@choice.Description</span>
+                                        <span class="badge @GetCategoryBadgeClass(choice.Category)">@choice.Category</span>
+                                    </div>
+                                    <select value="@currentIdx"
+                                            @onchange="e => OnChoiceChanged(choice, e)">
+                                        <option value="-1">-- Not set --</option>
+                                        @for (int i = 0; i < choice.Options.Length; i++)
+                                        {
+                                            var opt = choice.Options[i];
+                                            <option value="@i">@opt.Label</option>
+                                        }
+                                    </select>
+                                </div>
+                            }
+                        </div>
+                    </details>
+                }
+            </div>
+        </details>
+    }
+</div>
+
+@code {
+    [Parameter] public SaveSlot? Slot { get; set; }
+    [Parameter] public IChoiceAccessor? Accessor { get; set; }
+
+    private bool _saving;
+
+    private void OnChoiceChanged(ChoiceDefinition choice, ChangeEventArgs e)
+    {
+        if (Accessor == null) return;
+        if (int.TryParse(e.Value?.ToString(), out var idx) && idx >= 0 && idx < choice.Options.Length)
+        {
+            Accessor.ApplyChoice(choice, idx);
+            StateHasChanged();
+        }
+    }
+
+    private async Task SaveChanges()
+    {
+        if (Slot == null) return;
+        _saving = true;
+        StateHasChanged();
+
+        await Editor.SaveFile(Slot);
+
+        _saving = false;
+        StateHasChanged();
+    }
+
+    private static List<Season> GetRelevantSeasons(string? detectedKey)
+    {
+        if (detectedKey == null)
+            return SeasonInfo.Seasons.ToList();
+
+        // For S1 saves, show both S1 and 400 Days
+        if (detectedKey == "s1")
+            return SeasonInfo.Seasons
+                .Where(s => s.Key is "s1" or "s1_400days")
+                .ToList();
+
+        return SeasonInfo.Seasons
+            .Where(s => s.Key == detectedKey)
+            .ToList();
+    }
+
+    private static bool ShouldExpandEpisode(string seasonKey, int episode, string? detectedKey)
+    {
+        if (seasonKey != detectedKey) return false;
+        // Expand first episode by default
+        return episode == 1;
+    }
+
+    private static string GetCategoryBadgeClass(string category) => category switch
+    {
+        "Life/Death" => "badge-accent",
+        "Relationship" => "badge-warning",
+        _ => "",
+    };
+}

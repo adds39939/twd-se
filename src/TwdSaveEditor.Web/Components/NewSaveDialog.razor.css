@@ -1,0 +1,32 @@
+.dialog-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-width: 320px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.form-group label {
+    font-weight: 500;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.form-group select,
+.form-group input[type="text"] {
+    width: 100%;
+}
+
+.dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+}

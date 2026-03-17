@@ -1,0 +1,122 @@
+@inject SaveEditorService Editor
+@inject IJSRuntime JS
+
+<dialog @ref="_dialogElement" id="newSaveDialog" data-testid="new-save-dialog">
+    <h2>Create New Save</h2>
+
+    <div class="dialog-form">
+        <div class="form-group">
+            <label>Season</label>
+            <select value="@_seasonKey" @onchange="OnSeasonChanged">
+                @foreach (var season in SeasonInfo.Seasons)
+                {
+                    <option value="@season.Key">@season.Name</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Episode</label>
+            <select value="@_episode" @onchange="OnEpisodeChanged">
+                @if (_selectedSeason != null)
+                {
+                    @foreach (var ep in _selectedSeason.Episodes)
+                    {
+                        <option value="@ep.Number">Episode @ep.Number: @ep.Title</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>File Name</label>
+            <input type="text" @bind="_fileName" @bind:event="oninput" placeholder="e.g. wd1_saveslot1.bundle" />
+        </div>
+
+        <div class="dialog-actions">
+            <button @onclick="Close">Cancel</button>
+            <button class="btn-accent" @onclick="Create" disabled="@(string.IsNullOrWhiteSpace(_fileName) || _creating)">
+                @(_creating ? "Creating..." : "Create")
+            </button>
+        </div>
+    </div>
+</dialog>
+
+@code {
+    private ElementReference _dialogElement;
+    private string _seasonKey = "s1";
+    private int _episode = 1;
+    private string _fileName = "wd1_saveslot1.bundle";
+    private bool _creating;
+    private Season? _selectedSeason;
+
+    private static NewSaveDialog? _instance;
+
+    protected override void OnInitialized()
+    {
+        _instance = this;
+        _selectedSeason = SeasonInfo.FindSeason(_seasonKey);
+    }
+
+    public static void Show()
+    {
+        _instance?.ShowDialog();
+    }
+
+    private async void ShowDialog()
+    {
+        await JS.InvokeVoidAsync("eval", "document.getElementById('newSaveDialog')?.showModal()");
+        StateHasChanged();
+    }
+
+    private async Task Close()
+    {
+        await JS.InvokeVoidAsync("eval", "document.getElementById('newSaveDialog')?.close()");
+    }
+
+    private void OnSeasonChanged(ChangeEventArgs e)
+    {
+        _seasonKey = e.Value?.ToString() ?? "s1";
+        _selectedSeason = SeasonInfo.FindSeason(_seasonKey);
+        _episode = 1;
+        UpdateFileName();
+    }
+
+    private void OnEpisodeChanged(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value?.ToString(), out var ep))
+            _episode = ep;
+    }
+
+    private void UpdateFileName()
+    {
+        var prefix = _seasonKey switch
+        {
+            "s1" or "s1_400days" => "wd1",
+            "s2" => "wd2",
+            "s3" => "wd3",
+            "s4" => "wd4",
+            "michonne" => "wdm",
+            _ => "wd1",
+        };
+        _fileName = $"{prefix}_saveslot1.bundle";
+    }
+
+    private async Task Create()
+    {
+        if (string.IsNullOrWhiteSpace(_fileName)) return;
+
+        _creating = true;
+        StateHasChanged();
+
+        var name = _fileName.Trim();
+        if (!name.EndsWith(".bundle", StringComparison.OrdinalIgnoreCase))
+            name += ".bundle";
+
+        await Editor.CreateNewSave(_seasonKey, _episode, name);
+        await Close();
+
+        _creating = false;
+        StateHasChanged();
+    }
+}

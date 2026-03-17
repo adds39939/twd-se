@@ -36,7 +36,8 @@ public sealed class EventLogAccessor : IChoiceAccessor
     }
 
     /// <summary>Whether estore/epage files exist for this save slot.</summary>
-    public bool HasEventLog => _slot.EStorePath != null && File.Exists(_slot.EStorePath);
+    public bool HasEventLog => _slot.LoadedEventLogEntries != null ||
+                               (_slot.EStorePath != null && File.Exists(_slot.EStorePath));
 
     /// <summary>
     /// Get the current value of a choice key by scanning EventLog entries for matching node hashes.
@@ -117,10 +118,12 @@ public sealed class EventLogAccessor : IChoiceAccessor
                 tracked.Entry.NodeHash = targetHash.Value;
 
                 // Update the raw data
-                BitConverter.GetBytes(targetHash.Value).CopyTo(tracked.Entry.RawData, 29);
+                if (tracked.Entry.RawData.Length >= 37)
+                    BitConverter.GetBytes(targetHash.Value).CopyTo(tracked.Entry.RawData, 29);
 
-                // Write back to the source epage file
-                EStoreWriter.WriteEntryToPage(tracked.SourcePath, tracked.RecordIndex, tracked.Entry);
+                // Write back to the source epage file (skip in WASM/memory mode)
+                if (tracked.SourcePath != "memory")
+                    EStoreWriter.WriteEntryToPage(tracked.SourcePath, tracked.RecordIndex, tracked.Entry);
                 return;
             }
         }
@@ -215,6 +218,21 @@ public sealed class EventLogAccessor : IChoiceAccessor
 
         _cachedEntries = [];
 
+        // WASM mode: use pre-loaded entries
+        if (_slot.LoadedEventLogEntries != null)
+        {
+            for (int i = 0; i < _slot.LoadedEventLogEntries.Count; i++)
+            {
+                _cachedEntries.Add(new TrackedEntry
+                {
+                    Entry = _slot.LoadedEventLogEntries[i],
+                    SourcePath = "memory",
+                    RecordIndex = i,
+                });
+            }
+            return _cachedEntries;
+        }
+
         if (_slot.EStorePath == null || !File.Exists(_slot.EStorePath))
             return _cachedEntries;
 
@@ -279,8 +297,10 @@ public sealed class EventLogAccessor : IChoiceAccessor
                 {
                     // Replace the node hash
                     tracked.Entry.NodeHash = targetHash;
-                    BitConverter.GetBytes(targetHash).CopyTo(tracked.Entry.RawData, 29);
-                    EStoreWriter.WriteEntryToPage(tracked.SourcePath, tracked.RecordIndex, tracked.Entry);
+                    if (tracked.Entry.RawData.Length >= 37)
+                        BitConverter.GetBytes(targetHash).CopyTo(tracked.Entry.RawData, 29);
+                    if (tracked.SourcePath != "memory")
+                        EStoreWriter.WriteEntryToPage(tracked.SourcePath, tracked.RecordIndex, tracked.Entry);
                     return;
                 }
             }
@@ -292,6 +312,36 @@ public sealed class EventLogAccessor : IChoiceAccessor
 
     private void AddNewEntry(ulong nodeHash, List<TrackedEntry> entries)
     {
+        // WASM/memory mode: just add to the in-memory list
+        if (_slot.LoadedEventLogEntries != null)
+        {
+            uint memSeq = 1;
+            if (entries.Count > 0)
+                memSeq = entries.Max(e => e.Entry.SequenceIndex) + 1;
+
+            var memEntry = new EventLogEntry
+            {
+                EventTypeHash = EventLogEntry.EventTypes.ExecutingDialogNode,
+                NodeHash = nodeHash,
+                ValueType = 1,
+                ExtraFlag = 0,
+                SequenceIndex = memSeq,
+                Trailing = 0,
+                RawData = new byte[EventLogEntry.RecordSize],
+            };
+            var memRecord = EStoreWriter.BuildRecord(memEntry);
+            Array.Copy(memRecord, memEntry.RawData, EventLogEntry.RecordSize);
+
+            _slot.LoadedEventLogEntries.Add(memEntry);
+            _cachedEntries?.Add(new TrackedEntry
+            {
+                Entry = memEntry,
+                SourcePath = "memory",
+                RecordIndex = _slot.LoadedEventLogEntries.Count - 1,
+            });
+            return;
+        }
+
         // Determine the target file: last epage, or estore if no epages exist
         string targetPath;
         if (_slot.EPagePaths != null && _slot.EPagePaths.Count > 0)

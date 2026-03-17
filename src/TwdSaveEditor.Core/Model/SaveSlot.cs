@@ -54,6 +54,12 @@ public sealed class SaveSlot
     /// <summary>Pre-built EventLog entries for S3/Michonne new saves.</summary>
     public List<EventLogEntry>? PendingEventLogEntries { get; set; }
 
+    /// <summary>Pre-loaded EventLog entries for WASM mode (loaded from JS interop instead of disk).</summary>
+    public List<EventLogEntry>? LoadedEventLogEntries { get; set; }
+
+    /// <summary>Pre-loaded estore/epage raw bytes for WASM mode, keyed by filename.</summary>
+    public Dictionary<string, byte[]>? LoadedEventLogFiles { get; set; }
+
     /// <summary>
     /// Detect which season this save belongs to based on the filename prefix.
     /// </summary>

@@ -1,0 +1,15 @@
+@inherits LayoutComponentBase
+@inject SaveEditorService Editor
+
+<div class="app-layout" data-testid="app-ready">
+    <header class="app-header">
+        <div class="header-title">
+            <span class="header-icon">&#x1F6E1;</span>
+            TWD Save Editor
+        </div>
+        <div class="header-status">@Editor.StatusMessage</div>
+    </header>
+    <div class="app-body">
+        @Body
+    </div>
+</div>

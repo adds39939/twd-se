@@ -1,0 +1,139 @@
+@inject SaveEditorService Editor
+
+<div class="property-editor">
+    <div class="editor-toolbar">
+        <h2>Properties</h2>
+        <button class="btn-accent" @onclick="SaveChanges" disabled="@_saving">
+            @(_saving ? "Saving..." : "Save Changes")
+        </button>
+    </div>
+
+    @if (Slot == null)
+    {
+        <p class="text-muted">No save selected.</p>
+        return;
+    }
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Source</th>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Slot.Metadata != null)
+                {
+                    @foreach (var prop in Slot.Metadata.AllProperties)
+                    {
+                        <tr>
+                            <td><span class="badge">Metadata</span></td>
+                            <td class="prop-name">@_nameDb.ResolveOrHex(prop.KeySymbol)</td>
+                            <td class="text-muted">@prop.Value.TypeName</td>
+                            <td>
+                                @if (prop.Value is StringValue sv)
+                                {
+                                    <input type="text" value="@sv.Value"
+                                           @onchange="e => sv.Value = e.Value?.ToString() ?? string.Empty" />
+                                }
+                                else if (prop.Value is IntValue iv)
+                                {
+                                    <input type="number" value="@iv.Value"
+                                           @onchange="e => { if (int.TryParse(e.Value?.ToString(), out var v)) iv.Value = v; }" />
+                                }
+                                else if (prop.Value is BoolValue bv)
+                                {
+                                    <input type="checkbox" checked="@bv.Value"
+                                           @onchange="e => bv.Value = (bool)(e.Value ?? false)" />
+                                }
+                                else
+                                {
+                                    <span class="text-muted">@TruncateValue(prop.Value.BoxedValue)</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+
+                @if (Slot.Choices != null)
+                {
+                    @foreach (var prop in Slot.Choices.AllProperties)
+                    {
+                        <tr>
+                            <td><span class="badge">Choices</span></td>
+                            <td class="prop-name">@_nameDb.ResolveOrHex(prop.KeySymbol)</td>
+                            <td class="text-muted">@prop.Value.TypeName</td>
+                            <td>
+                                @if (prop.Value is StringValue sv)
+                                {
+                                    <input type="text" value="@sv.Value"
+                                           @onchange="e => sv.Value = e.Value?.ToString() ?? string.Empty" />
+                                }
+                                else if (prop.Value is RawBytesValue rbv)
+                                {
+                                    <span class="text-muted">[@rbv.Data.Length bytes]</span>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">@TruncateValue(prop.Value.BoxedValue)</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+
+                @if (Slot.ChoiceStats != null)
+                {
+                    @foreach (var prop in Slot.ChoiceStats.AllProperties)
+                    {
+                        <tr>
+                            <td><span class="badge badge-accent">ChoiceStats</span></td>
+                            <td class="prop-name">@_nameDb.ResolveOrHex(prop.KeySymbol)</td>
+                            <td class="text-muted">@prop.Value.TypeName</td>
+                            <td>
+                                @if (prop.Value is StringValue sv)
+                                {
+                                    <input type="text" value="@sv.Value" class="wide-input"
+                                           @onchange="e => sv.Value = e.Value?.ToString() ?? string.Empty" />
+                                }
+                                else
+                                {
+                                    <span class="text-muted">@TruncateValue(prop.Value.BoxedValue)</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@code {
+    [Parameter] public SaveSlot? Slot { get; set; }
+
+    private readonly PropertyNameDb _nameDb = PropertyNameDb.CreateDefault();
+    private bool _saving;
+
+    private async Task SaveChanges()
+    {
+        if (Slot == null) return;
+        _saving = true;
+        StateHasChanged();
+
+        await Editor.SaveFile(Slot);
+
+        _saving = false;
+        StateHasChanged();
+    }
+
+    private static string TruncateValue(object? value)
+    {
+        if (value == null) return "(null)";
+        var str = value.ToString() ?? "";
+        return str.Length > 80 ? str[..80] + "..." : str;
+    }
+}

@@ -1,0 +1,74 @@
+@page "/"
+@inject SaveEditorService Editor
+@implements IDisposable
+
+<PageTitle>TWD Save Editor</PageTitle>
+
+<div class="home-layout">
+    <aside class="sidebar">
+        <SaveBrowser />
+    </aside>
+    <main class="main-content">
+        @if (Editor.SelectedSave != null)
+        {
+            <div class="tab-bar">
+                <button class="@TabClass("decisions")" data-testid="tab-decisions" @onclick='() => ActiveTab = "decisions"'>Decisions</button>
+                <button class="@TabClass("properties")" data-testid="tab-properties" @onclick='() => ActiveTab = "properties"'>Properties</button>
+                <button class="@TabClass("resume")" data-testid="tab-resume" @onclick='() => ActiveTab = "resume"'>Resume Point</button>
+            </div>
+
+            <div class="tab-content">
+                @switch (ActiveTab)
+                {
+                    case "decisions":
+                        <DecisionEditor Slot="Editor.SelectedSave" Accessor="GetAccessor()" />
+                        break;
+                    case "properties":
+                        <PropertyEditor Slot="Editor.SelectedSave" />
+                        break;
+                    case "resume":
+                        <ResumePointEditor Slot="Editor.SelectedSave" />
+                        break;
+                }
+            </div>
+        }
+        else
+        {
+            <div class="empty-state">
+                <div class="empty-icon">&#x1F3AE;</div>
+                <h2>The Walking Dead Save Editor</h2>
+                <p>Select a save directory and choose a save file to begin editing.</p>
+                <p class="text-muted">Supports all seasons of TWD: The Telltale Definitive Series.</p>
+            </div>
+        }
+    </main>
+</div>
+
+<NewSaveDialog @ref="_newSaveDialog" />
+
+@code {
+    private string ActiveTab { get; set; } = "decisions";
+    private NewSaveDialog? _newSaveDialog;
+
+    protected override void OnInitialized()
+    {
+        Editor.StateChanged += OnStateChanged;
+    }
+
+    private void OnStateChanged()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    private IChoiceAccessor? GetAccessor()
+    {
+        return Editor.SelectedSave != null ? Editor.GetChoiceAccessor(Editor.SelectedSave) : null;
+    }
+
+    private string TabClass(string tab) => ActiveTab == tab ? "active" : "";
+
+    public void Dispose()
+    {
+        Editor.StateChanged -= OnStateChanged;
+    }
+}

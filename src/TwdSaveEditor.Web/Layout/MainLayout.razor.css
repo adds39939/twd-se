@@ -1,0 +1,48 @@
+.app-layout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.2rem;
+    height: 48px;
+    min-height: 48px;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border);
+    z-index: 10;
+}
+
+.header-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    white-space: nowrap;
+}
+
+.header-icon {
+    font-size: 1.3rem;
+}
+
+.header-status {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 50%;
+    text-align: right;
+}
+
+.app-body {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+}
