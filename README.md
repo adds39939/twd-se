@@ -1,4 +1,4 @@
-# TWD: The Telltale Definitive Series - Save Editor
+# TWD: Telltale Definitive Series - Save Editor
 
 A save editor for **The Walking Dead: The Telltale Definitive Series**. Edit choices, metadata, and resume points across all seasons — directly in your browser.
 
