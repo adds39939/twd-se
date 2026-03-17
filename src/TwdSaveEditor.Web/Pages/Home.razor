@@ -11,10 +11,11 @@
         {
             <div class="tab-bar">
                 <button class="@TabClass("decisions")" data-testid="tab-decisions" @onclick='() => ActiveTab = "decisions"'>Decisions</button>
-                <button class="@TabClass("properties")" data-testid="tab-properties" @onclick='() => ActiveTab = "properties"'>Properties</button>
                 <button class="@TabClass("resume")" data-testid="tab-resume" @onclick='() => ActiveTab = "resume"'>Resume Point</button>
+                <button class="@TabClass("properties")" data-testid="tab-properties" @onclick='() => ActiveTab = "properties"'>Properties</button>
             </div>
             <div class="content-toolbar">
+                <h2 class="content-title">@ActiveTabTitle</h2>
                 <button class="btn-accent save-btn" @onclick="SaveChanges" disabled="@_saving">
                     @(_saving ? "Saving..." : Editor.HasUnsavedChanges ? "Save Changes *" : "Save Changes")
                 </button>

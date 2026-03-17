@@ -8,6 +8,13 @@
 .browser-header {
     padding: 0.75rem;
     border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.new-save-btn {
+    padding: 0.5em 1em;
 }
 
 .dir-info {

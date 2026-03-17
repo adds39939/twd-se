@@ -31,6 +31,14 @@ public partial class Home : IDisposable
 
     private string TabClass(string tab) => ActiveTab == tab ? "active" : "";
 
+    private string ActiveTabTitle => ActiveTab switch
+    {
+        "decisions" => "Decisions",
+        "resume" => "Resume Point",
+        "properties" => "Properties",
+        _ => string.Empty
+    };
+
     private async Task SaveChanges()
     {
         if (Editor.SelectedSave is null)

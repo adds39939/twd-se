@@ -82,11 +82,13 @@ a:hover { color: var(--accent-hover); }
 button, .btn {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 0.4em;
     padding: 0.5em 1em;
     font-family: var(--font-sans);
     font-size: 0.875rem;
     font-weight: 500;
+    line-height: 1;
     color: var(--text-primary);
     background: var(--bg-tertiary);
     border: 1px solid var(--border-light);

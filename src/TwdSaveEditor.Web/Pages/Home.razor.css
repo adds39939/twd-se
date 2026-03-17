@@ -26,8 +26,15 @@
 
 .content-toolbar {
     display: flex;
-    justify-content: flex-end;
-    padding: 0.5rem 0;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0 1rem;
+}
+
+.content-title {
+    margin: 0;
+    font-size: 1.1rem;
+    line-height: 1;
 }
 
 .save-btn {
