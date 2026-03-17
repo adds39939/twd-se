@@ -19,7 +19,7 @@ public partial class SaveSlotViewModel : ObservableObject
         Slot = slot;
         _displayName = slot.FileName;
 
-        // Show properties from both metadata and choices
+        // Show properties from metadata, choices, and choice stats
         if (slot.Metadata != null)
         {
             foreach (var group in slot.Metadata.TypeGroups)
@@ -30,6 +30,13 @@ public partial class SaveSlotViewModel : ObservableObject
         if (slot.Choices != null)
         {
             foreach (var group in slot.Choices.TypeGroups)
+            foreach (var prop in group.Properties)
+                Properties.Add(new PropertyViewModel(prop, nameDb));
+        }
+
+        if (slot.ChoiceStats != null)
+        {
+            foreach (var group in slot.ChoiceStats.TypeGroups)
             foreach (var prop in group.Properties)
                 Properties.Add(new PropertyViewModel(prop, nameDb));
         }

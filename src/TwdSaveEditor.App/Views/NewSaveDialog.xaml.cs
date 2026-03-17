@@ -50,7 +50,7 @@ public partial class NewSaveDialog : Window
             "s1" => "wd1",
             "s1_400days" => "wd1",
             "s2" => "wd2",
-            "michonne" => "michonne",
+            "michonne" => "wdm",
             "s3" => "wd3",
             "s4" => "wd4",
             _ => "wd",

@@ -22,6 +22,9 @@ public partial class SeasonViewModel : ObservableObject
 
     public ObservableCollection<EpisodeViewModel> Episodes { get; } = [];
 
+    /// <summary>Whether any episode in this season has choice definitions.</summary>
+    public bool HasChoiceDefinitions => Episodes.Any(e => e.Choices.Count > 0);
+
     [ObservableProperty]
     private bool _isExpanded;
 }

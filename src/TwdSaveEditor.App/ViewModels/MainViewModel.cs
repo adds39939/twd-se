@@ -53,44 +53,86 @@ public partial class MainViewModel : ObservableObject
         RebuildDecisionAndResumeViews();
     }
 
+    [ObservableProperty]
+    private string _choiceStatsText = "";
+
+    [ObservableProperty]
+    private bool _hasChoiceStats;
+
     private void RebuildDecisionAndResumeViews()
     {
         Seasons.Clear();
         ResumePoint = null;
+        ChoiceStatsText = "";
+        HasChoiceStats = false;
 
-        if (SelectedSlot?.Slot.Choices == null)
+        if (SelectedSlot == null)
             return;
 
-        var accessor = new SaveAccessor(SelectedSlot.Slot.Choices, SelectedSlot.Slot.Metadata);
+        var slot = SelectedSlot.Slot;
+        var accessor = new SaveAccessor(slot.Choices, slot.Metadata);
 
-        // Build resume point editor
-        ResumePoint = new ResumePointViewModel(accessor);
+        // Build resume point editor (works from metadata, doesn't require choices)
+        if (slot.Metadata != null)
+            ResumePoint = new ResumePointViewModel(accessor);
+
+        // S4 GUID editor: extract GUIDs from choicestats.pro
+        if (slot.ChoiceStats != null)
+        {
+            HasChoiceStats = true;
+            var guidProp = slot.ChoiceStats.AllProperties.FirstOrDefault();
+            if (guidProp?.Value is StringValue sv)
+                ChoiceStatsText = sv.Value;
+        }
 
         // Build season/episode/choice tree
+        // Only show editable choices for seasons that store them in the bundle (S1/S2)
+        var detectedSeason = slot.DetectedSeasonKey;
+        var hasNativeChoices = slot.Choices != null;
+
         foreach (var seasonDef in SeasonInfo.Seasons)
         {
             var seasonVm = new SeasonViewModel(seasonDef);
             var seasonChoices = ChoiceDatabase.ForSeason(seasonDef.Key).ToList();
 
+            // Only populate editable choices if the save has a native choices PropertySet
+            var showChoices = hasNativeChoices;
+
             foreach (var ep in seasonDef.Episodes)
             {
-                var epChoices = seasonChoices
-                    .Where(c => c.Episode == ep.Number)
-                    .Select(c => new ChoiceViewModel(c, accessor))
-                    .ToList();
+                var epChoices = showChoices
+                    ? seasonChoices
+                        .Where(c => c.Episode == ep.Number)
+                        .Select(c => new ChoiceViewModel(c, accessor))
+                        .ToList()
+                    : [];
 
                 var epVm = new EpisodeViewModel(ep, epChoices);
                 seasonVm.Episodes.Add(epVm);
             }
 
-            // Expand the season if any choice is resolved (save has data for it)
-            seasonVm.IsExpanded = seasonVm.Episodes
+            // Expand the season if it has resolved choices, or if it matches the detected season
+            var hasResolvedChoices = seasonVm.Episodes
                 .Any(e => e.Choices.Any(c => c.IsResolved));
+            var isDetectedSeason = detectedSeason != null &&
+                seasonDef.Key.Equals(detectedSeason, StringComparison.OrdinalIgnoreCase);
+
+            seasonVm.IsExpanded = hasResolvedChoices || isDetectedSeason;
 
             Seasons.Add(seasonVm);
         }
 
-        StatusText = $"Loaded decisions for {SelectedSlot.Slot.FileName}";
+        StatusText = $"Loaded {slot.FileName}" +
+            (hasNativeChoices ? "" : " (read-only — choices stored in game state)");
+    }
+
+    partial void OnChoiceStatsTextChanged(string value)
+    {
+        // Write the modified GUID string back to the ChoiceStats PropertySet
+        if (SelectedSlot?.Slot.ChoiceStats == null) return;
+        var prop = SelectedSlot.Slot.ChoiceStats.AllProperties.FirstOrDefault();
+        if (prop != null)
+            prop.Value = new StringValue(value);
     }
 
     private void LoadEmbeddedNames()

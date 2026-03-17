@@ -37,9 +37,11 @@ public static class BundleReader
         var psReader = new PropertySetReader();
         PropertySet? metadata = null;
         PropertySet? choices = null;
+        PropertySet? choiceStats = null;
         string choicesFileName = "choices.prop";
         byte[]? rawMetadata = null;
         byte[]? rawChoices = null;
+        byte[]? rawChoiceStats = null;
         var rawInnerFiles = new Dictionary<string, byte[]>();
 
         foreach (var entry in fileTable)
@@ -67,6 +69,12 @@ public static class BundleReader
                     choicesFileName = entry.Name;
                     choices = psReader.Read(propData);
                 }
+                else if (entry.Name == "choicestats.pro")
+                {
+                    // S4 uses choicestats.pro for choice statistics reference
+                    rawChoiceStats = innerData;
+                    choiceStats = psReader.Read(propData);
+                }
             }
             catch
             {
@@ -82,10 +90,12 @@ public static class BundleReader
             FileTable = fileTable,
             Metadata = metadata,
             Choices = choices,
+            ChoiceStats = choiceStats,
             ChoicesFileName = choicesFileName,
             RawBundleData = data,
             RawMetadataFile = rawMetadata,
             RawChoicesFile = rawChoices,
+            RawChoiceStatsFile = rawChoiceStats,
             RawInnerFiles = rawInnerFiles,
         };
     }
@@ -166,8 +176,8 @@ public static class BundleReader
         var unknown1 = reader.ReadUInt32(); // always 1
         var fileCount = reader.ReadUInt32();
 
-        // Sanity check
-        if (fileCount > 1000)
+        // Sanity check — S3/S4 checkpoint files can have 15000+ inner files
+        if (fileCount > 20000)
             return [];
 
         var entries = new List<BundleFileEntry>();

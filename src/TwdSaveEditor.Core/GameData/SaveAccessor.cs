@@ -9,14 +9,17 @@ namespace TwdSaveEditor.Core.GameData;
 /// </summary>
 public sealed class SaveAccessor
 {
-    private readonly PropertySet _choices;
+    private readonly PropertySet? _choices;
     private readonly PropertySet? _metadata;
 
-    public SaveAccessor(PropertySet choices, PropertySet? metadata = null)
+    public SaveAccessor(PropertySet? choices, PropertySet? metadata = null)
     {
         _choices = choices;
         _metadata = metadata;
     }
+
+    /// <summary>Whether this accessor has choice data available for reading/writing.</summary>
+    public bool HasChoices => _choices != null;
 
     // ── Choice reading/writing ─────────────────────────────────────────
 
@@ -26,6 +29,7 @@ public sealed class SaveAccessor
     /// </summary>
     public string? GetChoiceValue(string choiceKey)
     {
+        if (_choices == null) return null;
         var prefix = choiceKey + " - ";
         foreach (var group in _choices.TypeGroups)
         {
@@ -54,9 +58,11 @@ public sealed class SaveAccessor
     /// </summary>
     public void SetChoiceValue(string choiceKey, string value)
     {
+        if (_choices == null) return;
         var prefix = choiceKey + " - ";
         var newEntry = choiceKey + " - " + value;
 
+        // Try to find and update existing entry
         foreach (var group in _choices.TypeGroups)
         {
             if (group.TypeSymbol.Value != TelltaleTypes.ChoicesContainer)
@@ -77,8 +83,22 @@ public sealed class SaveAccessor
                         return;
                     }
                 }
+
+                // Not found in this property — add it
+                entries.Add((newEntry, true));
+                prop.Value = new RawBytesValue(SerializeStringBoolArray(entries), raw.TypeSymbol);
+                return;
             }
         }
+
+        // No ChoicesContainer group exists yet — create one
+        var typeSymbol = new Symbol(TelltaleTypes.ChoicesContainer);
+        var newGroup = new TypeGroup(typeSymbol);
+        var newEntries = new List<(string, bool)> { (newEntry, true) };
+        newGroup.Properties.Add(new Property(
+            Symbol.FromString("choices"),
+            new RawBytesValue(SerializeStringBoolArray(newEntries), typeSymbol)));
+        _choices.TypeGroups.Add(newGroup);
     }
 
     /// <summary>
@@ -114,6 +134,7 @@ public sealed class SaveAccessor
     public List<(string key, string value)> GetAllChoices()
     {
         var result = new List<(string, string)>();
+        if (_choices == null) return result;
         foreach (var group in _choices.TypeGroups)
         {
             if (group.TypeSymbol.Value != TelltaleTypes.ChoicesContainer)
