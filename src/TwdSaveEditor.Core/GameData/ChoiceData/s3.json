@@ -1,0 +1,272 @@
+[
+  {
+    "seasonKey": "s3",
+    "episode": 1,
+    "description": "Did you stay the night at the junkyard?",
+    "choiceKey": "stayed_junkyard",
+    "category": "Major",
+    "options": [
+      { "label": "Chose to stay the night", "value": "true" },
+      { "label": "Chose to head back out on the road", "value": "false" }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 1,
+    "description": "Did you shoot the driver or let him go?",
+    "choiceKey": "shot_driver",
+    "category": "Major",
+    "options": [
+      { "label": "Chose to shoot the driver", "value": "true" },
+      { "label": "Chose to let the driver go", "value": "false" }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 1,
+    "description": "What was the aftermath of the shooting?",
+    "choiceKey": "shooting_aftermath",
+    "category": "Major",
+    "options": [
+      { "label": "Got locked up", "value": "locked" },
+      { "label": "Were allowed to roam free", "value": "free" }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 1,
+    "description": "Who brought you to the junkyard?",
+    "choiceKey": "who_brought_junkyard",
+    "category": "Major",
+    "options": [
+      { "label": "Went with Eleanor", "value": "eleanor" },
+      { "label": "Went with Tripp", "value": "tripp" }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 1,
+    "description": "Did you escape with your family or stay with Clementine?",
+    "choiceKey": "escaped_or_stayed",
+    "category": "Major",
+    "options": [
+      { "label": "Stayed with Clementine", "value": "true" },
+      { "label": "Escaped with your family", "value": "false" }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 2,
+    "description": "How did you deal with Conrad's threat to Clementine?",
+    "choiceKey": "shot_conrad",
+    "category": "Life/Death",
+    "options": [
+      { "label": "Killed Conrad", "value": "true" },
+      { "label": "Let Conrad capture Clementine", "value": "false" }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 2,
+    "description": "Did you trust Jesus?",
+    "choiceKey": "trusted_jesus",
+    "category": "Major",
+    "options": [
+      { "label": "Took him at his word", "value": "true" },
+      { "label": "Tied his hands together", "value": "false" }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 2,
+    "description": "How did you handle the New Frontier at the gates of Prescott?",
+    "choiceKey": "prescott_response",
+    "category": "Major",
+    "options": [
+      { "label": "Tried to negotiate", "value": "negotiate" },
+      { "label": "Opened fire", "value": "fire" },
+      { "label": "Surrendered", "value": "surrender" }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 2,
+    "description": "How did you deal with David and Kate's argument?",
+    "choiceKey": "david_kate_argument",
+    "category": "Relationship",
+    "options": [
+      { "label": "Told David that Kate wanted to leave him", "value": "true" },
+      { "label": "Stayed out of it", "value": "false" }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 3,
+    "description": "Did you try to save AJ?",
+    "choiceKey": "gave_aj_medicine",
+    "category": "Major",
+    "options": [
+      { "label": "Injected AJ with the medicine", "value": "true" },
+      { "label": "Didn't risk using the medicine", "value": "false" }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 3,
+    "description": "How did Badger die?",
+    "choiceKey": "badger_fate",
+    "category": "Life/Death",
+    "options": [
+      { "label": "Let Badger turn", "value": "turn" },
+      { "label": "Let someone else kill Badger", "value": "someone_else" },
+      { "label": "Killed Badger quickly", "value": "quick" },
+      { "label": "Destroyed Badger's skull", "value": "destroyed" }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 3,
+    "description": "Did you honor your brother's request?",
+    "choiceKey": "honored_brother",
+    "category": "Major",
+    "options": [
+      { "label": "Demanded justice for Mariana's murder", "value": "true" },
+      { "label": "Kept Mariana's murder to yourself", "value": "false" }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 3,
+    "description": "How far did you go to get into Richmond?",
+    "choiceKey": "richmond_entry",
+    "category": "Major",
+    "options": [
+      { "label": "Capitulated to Max's demands", "value": "true" },
+      { "label": "Didn't capitulate", "value": "false" }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 3,
+    "description": "What was Max's fate?",
+    "choiceKey": "max_fate",
+    "category": "Life/Death",
+    "options": [
+      { "label": "Killed Max or watched David do it", "value": "killed" },
+      { "label": "Brought Max back with you", "value": "spared" }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 4,
+    "description": "How did you respond to Dr. Lingard's request?",
+    "choiceKey": "lingard_fate",
+    "category": "Life/Death",
+    "options": [
+      { "label": "Let Clementine decide", "value": "clem" },
+      { "label": "Assisted in Lingard's suicide", "value": "assisted" },
+      { "label": "Refused to kill Lingard", "value": "refused" }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 4,
+    "description": "Did you promise to help Kate with the family if David left?",
+    "choiceKey": "promised_kate",
+    "category": "Relationship",
+    "options": [
+      { "label": "Told David it was his responsibility", "value": "false" },
+      { "label": "Promised you'd help Kate", "value": "true" }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 4,
+    "description": "Did you tell Kate that you have feelings for her?",
+    "choiceKey": "told_kate_feelings",
+    "category": "Relationship",
+    "options": [
+      { "label": "Didn't share Kate's feelings", "value": "false" },
+      { "label": "Told Kate you shared her feelings", "value": "true" }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 4,
+    "description": "Who did you try to save at the execution?",
+    "choiceKey": "trippava_saved",
+    "category": "Life/Death",
+    "options": [
+      { "label": "Tried to save Ava", "value": "ava" },
+      { "label": "Tried to save Tripp", "value": "tripp" }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 4,
+    "description": "Did you shoot Joan or take Clint's deal?",
+    "choiceKey": "shot_joan",
+    "category": "Major",
+    "options": [
+      { "label": "Chose to shoot Joan", "value": "true" },
+      { "label": "Chose to take the deal", "value": "false" }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 5,
+    "description": "What did you say to David about Kate?",
+    "choiceKey": "david_about_kate",
+    "category": "Relationship",
+    "options": [
+      { "label": "Denied having a relationship", "value": "denied" },
+      { "label": "Said nothing", "value": "nothing" },
+      { "label": "Confessed your love for Kate", "value": "confessed" },
+      { "label": "Came clean about relationship", "value": "clean" }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 5,
+    "description": "Did you fight David back?",
+    "choiceKey": "fought_david",
+    "category": "Major",
+    "options": [
+      { "label": "Fought back", "value": "true" },
+      { "label": "Showed your love for David", "value": "false" }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 5,
+    "description": "Did you stand with David on the ledge?",
+    "choiceKey": "stood_with_david",
+    "category": "Major",
+    "options": [
+      { "label": "Stepped up to help David", "value": "true" },
+      { "label": "Didn't stand with him", "value": "false" }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 5,
+    "description": "Who did you side with in the end?",
+    "choiceKey": "s3_ending",
+    "category": "Life/Death",
+    "options": [
+      { "label": "Chose to leave with Kate", "value": "kate" },
+      { "label": "Stuck to David's plan", "value": "david" }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 5,
+    "description": "Did you go after Gabe or with Kate?",
+    "choiceKey": "went_after_gabe",
+    "category": "Life/Death",
+    "options": [
+      { "label": "Went after Gabe", "value": "gabe" },
+      { "label": "Went with Kate and sealed the breach", "value": "kate" }
+    ]
+  }
+]

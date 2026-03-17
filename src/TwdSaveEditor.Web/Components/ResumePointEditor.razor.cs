@@ -78,6 +78,8 @@ public partial class ResumePointEditor
         var gcProp = Slot.Metadata.AllProperties.FirstOrDefault(p => p.KeySymbol == gcSymbol);
         if (gcProp?.Value is BoolValue bv)
             bv.Value = _gameComplete;
+
+        Editor.MarkModified();
     }
 
     private void SetMetadataInt(string keyName, int value)

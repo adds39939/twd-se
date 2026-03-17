@@ -16,7 +16,7 @@
             </div>
             <div class="content-toolbar">
                 <button class="btn-accent save-btn" @onclick="SaveChanges" disabled="@_saving">
-                    @(_saving ? "Saving..." : "Save Changes")
+                    @(_saving ? "Saving..." : Editor.HasUnsavedChanges ? "Save Changes *" : "Save Changes")
                 </button>
             </div>
 

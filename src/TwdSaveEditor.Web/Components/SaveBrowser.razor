@@ -2,16 +2,26 @@
 
 <div class="save-browser">
     <div class="browser-header">
-        <button class="btn-accent w-full" data-testid="open-directory" @onclick="OpenDirectory" disabled="@Editor.IsLoading">
-            @if (Editor.IsLoading)
-            {
-                <span>Loading...</span>
-            }
-            else
-            {
-                <span>&#x1F4C2; Open Directory</span>
-            }
-        </button>
+        @if (_isSupported || !_supportChecked)
+        {
+            <button class="btn-accent w-full" data-testid="open-directory" @onclick="OpenDirectory" disabled="@Editor.IsLoading">
+                @if (Editor.IsLoading)
+                {
+                    <span>Loading...</span>
+                }
+                else
+                {
+                    <span>&#x1F4C2; Open Directory</span>
+                }
+            </button>
+        }
+        else
+        {
+            <div class="upload-area">
+                <p class="text-muted">Your browser doesn't support directory access. Upload save files instead:</p>
+                <InputFile OnChange="OnFilesUploaded" multiple accept=".bundle,.estore,.epage" />
+            </div>
+        }
     </div>
 
     @if (Editor.DirectoryName != null)
@@ -47,11 +57,12 @@
         </div>
     }
 
-    @if (!_isSupported && _supportChecked)
+    @if (!_isSupported && _supportChecked && Editor.Saves.Count > 0)
     {
-        <div class="not-supported">
-            File System Access API is not supported in this browser.
-            Please use Chrome or Edge.
+        <div class="browser-footer">
+            <button class="btn-sm w-full" @onclick="DownloadSelected" disabled="@(Editor.SelectedSave == null)">
+                &#x1F4E5; Download Selected Save
+            </button>
         </div>
     }
 </div>

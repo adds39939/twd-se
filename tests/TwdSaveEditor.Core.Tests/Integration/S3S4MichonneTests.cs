@@ -113,7 +113,8 @@ public class S3S4MichonneTests
         Assert.False(accessor.HasChoices);
         Assert.Null(accessor.GetChoiceValue("test_key"));
         Assert.Empty(accessor.GetAllChoices());
-        accessor.SetChoiceValue("test_key", "test_value");
+        Assert.Throws<InvalidOperationException>(() =>
+            accessor.SetChoiceValue("test_key", "test_value"));
     }
 
     [Fact]

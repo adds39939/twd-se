@@ -35,4 +35,7 @@ public class FileSystemService
 
     public async Task<string> GetDirectoryName() =>
         await _js.InvokeAsync<string>("fileSystemApi.getDirectoryName");
+
+    public async Task DownloadFile(string name, byte[] data) =>
+        await _js.InvokeVoidAsync("fileSystemApi.downloadFile", name, Convert.ToBase64String(data));
 }

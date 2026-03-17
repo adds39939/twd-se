@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using TwdSaveEditor.Web.Services;
+using TwdSaveEditor.Core.Binary;
+using TwdSaveEditor.Core.GameData;
 using TwdSaveEditor.Core.Model;
 
 namespace TwdSaveEditor.Web.Components;
@@ -11,6 +14,9 @@ public partial class SaveBrowser : IDisposable
 
     [Inject]
     public FileSystemService FileSystem { get; set; } = default!;
+
+    [Inject]
+    public ISeasonRegistry Registry { get; set; } = default!;
 
     private bool _isSupported = true;
     private bool _supportChecked;
@@ -33,6 +39,42 @@ public partial class SaveBrowser : IDisposable
         {
             await Editor.LoadDirectory();
         }
+    }
+
+    private async Task OnFilesUploaded(InputFileChangeEventArgs e)
+    {
+        foreach (var file in e.GetMultipleFiles(50))
+        {
+            try
+            {
+                using var ms = new MemoryStream();
+                await file.OpenReadStream(maxAllowedSize: 1024 * 1024 * 10).CopyToAsync(ms);
+                var data = ms.ToArray();
+
+                if (file.Name.EndsWith(".bundle", StringComparison.OrdinalIgnoreCase))
+                {
+                    var slot = BundleReader.Read(data, file.Name);
+                    var handler = Registry.DetectFromFileName(file.Name);
+                    slot.DetectedSeasonKey = handler?.SeasonKey;
+                    Editor.Saves.Add(slot);
+                }
+            }
+            catch (Exception ex)
+            {
+                Editor.StatusMessage = $"Failed to load {file.Name}: {ex.Message}";
+            }
+        }
+        Editor.NotifyStateChanged();
+        StateHasChanged();
+    }
+
+    private async Task DownloadSelected()
+    {
+        if (Editor.SelectedSave == null) return;
+
+        var slot = Editor.SelectedSave;
+        var fileBytes = BundleWriter.Write(slot);
+        await FileSystem.DownloadFile(slot.FileName, fileBytes);
     }
 
     private void SelectSave(SaveSlot save)

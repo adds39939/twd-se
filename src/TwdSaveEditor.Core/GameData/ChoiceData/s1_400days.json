@@ -1,0 +1,90 @@
+[
+  {
+    "seasonKey": "s1_400days",
+    "episode": 1,
+    "description": "Vince: Shot Danny or Justin",
+    "choiceKey": "shot_dan",
+    "category": "Life/Death",
+    "options": [
+      { "label": "Shot Danny", "value": "true" },
+      { "label": "Shot Justin", "value": "false" }
+    ]
+  },
+  {
+    "seasonKey": "s1_400days",
+    "episode": 1,
+    "description": "Wyatt: Left Eddie or stayed",
+    "choiceKey": "left_eddie",
+    "category": "Major",
+    "options": [
+      { "label": "Left Eddie", "value": "true" },
+      { "label": "Stayed with Eddie", "value": "false" }
+    ]
+  },
+  {
+    "seasonKey": "s1_400days",
+    "episode": 1,
+    "description": "Russell: Left Nate or stayed",
+    "choiceKey": "left_nate",
+    "category": "Major",
+    "options": [
+      { "label": "Left Nate", "value": "true" },
+      { "label": "Stayed with Nate", "value": "false" }
+    ]
+  },
+  {
+    "seasonKey": "s1_400days",
+    "episode": 1,
+    "description": "Bonnie: Lied to Leland",
+    "choiceKey": "lied_to_leland",
+    "category": "Major",
+    "options": [
+      { "label": "Lied", "value": "true" },
+      { "label": "Told the truth", "value": "false" }
+    ]
+  },
+  {
+    "seasonKey": "s1_400days",
+    "episode": 1,
+    "description": "Russell went with Tavia",
+    "choiceKey": "russell_went",
+    "category": "Major",
+    "options": [
+      { "label": "Went", "value": "true" },
+      { "label": "Stayed", "value": "false" }
+    ]
+  },
+  {
+    "seasonKey": "s1_400days",
+    "episode": 1,
+    "description": "Wyatt went with Tavia",
+    "choiceKey": "wyatt_went",
+    "category": "Major",
+    "options": [
+      { "label": "Went", "value": "true" },
+      { "label": "Stayed", "value": "false" }
+    ]
+  },
+  {
+    "seasonKey": "s1_400days",
+    "episode": 1,
+    "description": "Shel went with Tavia",
+    "choiceKey": "shel_went",
+    "category": "Major",
+    "options": [
+      { "label": "Went", "value": "true" },
+      { "label": "Stayed", "value": "false" }
+    ]
+  },
+  {
+    "seasonKey": "s1_400days",
+    "episode": 1,
+    "description": "Vince went with Tavia",
+    "choiceKey": "vince_went",
+    "category": "Major",
+    "options": [
+      { "label": "Went", "value": "true" },
+      { "label": "Stayed", "value": "false" }
+    ]
+  }
+]

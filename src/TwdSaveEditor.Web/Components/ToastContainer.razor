@@ -1,0 +1,9 @@
+<div class="toast-container">
+    @foreach (var toast in _toasts)
+    {
+        <div class="toast toast-@toast.Type" @key="toast.Id">
+            <span class="toast-message">@toast.Message</span>
+            <button class="toast-close" @onclick="() => Dismiss(toast)">&times;</button>
+        </div>
+    }
+</div>

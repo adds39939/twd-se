@@ -15,7 +15,10 @@ public class SaveEditorService
     public string StatusMessage { get; set; } = "Select a save directory to begin.";
     public bool IsLoading { get; set; }
 
+    public bool HasUnsavedChanges { get; private set; }
+
     public event Action? StateChanged;
+    public event Action<string, string>? OnNotification;
 
     public SaveEditorService(FileSystemService fs, ISeasonRegistry registry)
     {
@@ -24,6 +27,17 @@ public class SaveEditorService
     }
 
     public void NotifyStateChanged() => StateChanged?.Invoke();
+
+    private void Notify(string message, string type = "info")
+    {
+        OnNotification?.Invoke(message, type);
+    }
+
+    public void MarkModified()
+    {
+        HasUnsavedChanges = true;
+        NotifyStateChanged();
+    }
 
     public async Task<bool> PickDirectory()
     {
@@ -78,17 +92,25 @@ public class SaveEditorService
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Failed to load {fileName}: {ex.Message}");
+                    Notify($"Failed to load {fileName}: {ex.Message}", "error");
                 }
             }
 
             StatusMessage = $"Loaded {loadedCount} save(s) from {DirectoryName}.";
             if (loadedCount == 0)
+            {
                 StatusMessage = "No valid save files found in the selected directory.";
+                Notify("No valid save files found in the selected directory.", "info");
+            }
+            else
+            {
+                Notify($"Loaded {loadedCount} save(s) from {DirectoryName}.", "success");
+            }
         }
         catch (Exception ex)
         {
             StatusMessage = $"Error: {ex.Message}";
+            Notify($"Error loading directory: {ex.Message}", "error");
         }
         finally
         {
@@ -171,6 +193,7 @@ public class SaveEditorService
             if (!success)
             {
                 StatusMessage = $"Failed to write {slot.FileName}.";
+                Notify($"Failed to write {slot.FileName}.", "error");
                 NotifyStateChanged();
                 return;
             }
@@ -183,10 +206,13 @@ public class SaveEditorService
             }
 
             StatusMessage = $"Saved {slot.FileName} successfully.";
+            HasUnsavedChanges = false;
+            Notify($"Saved {slot.FileName} successfully.", "success");
         }
         catch (Exception ex)
         {
             StatusMessage = $"Error saving: {ex.Message}";
+            Notify($"Error saving: {ex.Message}", "error");
         }
 
         NotifyStateChanged();
@@ -223,6 +249,7 @@ public class SaveEditorService
             if (!success)
             {
                 StatusMessage = $"Failed to create {fileName}.";
+                Notify($"Failed to create {fileName}.", "error");
                 NotifyStateChanged();
                 return null;
             }
@@ -251,12 +278,14 @@ public class SaveEditorService
             Saves.Add(slot);
             SelectedSave = slot;
             StatusMessage = $"Created {fileName}.";
+            Notify($"Created {fileName} successfully.", "success");
             NotifyStateChanged();
             return slot;
         }
         catch (Exception ex)
         {
             StatusMessage = $"Error creating save: {ex.Message}";
+            Notify($"Error creating save: {ex.Message}", "error");
             NotifyStateChanged();
             return null;
         }

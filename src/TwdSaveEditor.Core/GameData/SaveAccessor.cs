@@ -58,7 +58,8 @@ public sealed class SaveAccessor : IChoiceAccessor
     /// </summary>
     public void SetChoiceValue(string choiceKey, string value)
     {
-        if (_choices == null) return;
+        if (_choices == null)
+            throw new InvalidOperationException("Cannot set choice value: no choices PropertySet loaded.");
         var prefix = choiceKey + " - ";
         var newEntry = choiceKey + " - " + value;
 

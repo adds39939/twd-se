@@ -1,0 +1,183 @@
+[
+  {
+    "seasonKey": "s4",
+    "episode": 1,
+    "description": "Hunting vs Fishing",
+    "choiceKey": "fishing_or_hunting",
+    "category": "Major",
+    "options": [
+      { "label": "Went fishing with Violet and Brody", "value": "fishing" },
+      { "label": "Went hunting with Louis and Aasim", "value": "hunting" }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 1,
+    "description": "Abel Food",
+    "choiceKey": "surrendered_food_abel",
+    "category": "Major",
+    "options": [
+      { "label": "Surrendered food to Abel", "value": "true" },
+      { "label": "Attacked Abel rather than giving him food", "value": "false" }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 1,
+    "description": "AJ Bed",
+    "choiceKey": "aj_bed",
+    "category": "Major",
+    "options": [
+      { "label": "Let AJ sleep under the bed", "value": "under" },
+      { "label": "Convinced AJ to sleep on the bed", "value": "on" }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 1,
+    "description": "Violet vs Marlon",
+    "choiceKey": "turned_to_for_help",
+    "category": "Major",
+    "options": [
+      { "label": "Turned to Violet for help against Marlon", "value": "violet" },
+      { "label": "Turned to Louis for help against Marlon", "value": "louis" }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 1,
+    "description": "Happy Couple",
+    "choiceKey": "happy_couple",
+    "category": "Major",
+    "options": [
+      { "label": "Killed the walker couple in the train station", "value": "killed" },
+      { "label": "Let AJ go through the window", "value": "window" }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 2,
+    "description": "AJ's Gun",
+    "choiceKey": "ajs_gun",
+    "category": "Major",
+    "options": [
+      { "label": "Gave AJ's gun to Louis", "value": "gave" },
+      { "label": "Told AJ to keep his gun", "value": "kept" }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 2,
+    "description": "Violet Run or Shoot",
+    "choiceKey": "violet_run_shoot",
+    "category": "Major",
+    "options": [
+      { "label": "Told Violet to shoot Lilly, got Louis shot", "value": "shoot" },
+      { "label": "Told Louis and Violet to run", "value": "run" }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 2,
+    "description": "Follow Violet or Louis",
+    "choiceKey": "follow_violet_louis",
+    "category": "Major",
+    "options": [
+      { "label": "Spent time stargazing with Violet", "value": "violet" },
+      { "label": "Helped Louis tune the piano", "value": "louis" }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 2,
+    "description": "Save Violet or Louis",
+    "choiceKey": "violetlouis_saved",
+    "category": "Life/Death",
+    "options": [
+      { "label": "Rescued Louis instead of Violet", "value": "louis" },
+      { "label": "Rescued Violet instead of Louis", "value": "violet" }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 3,
+    "description": "Zombie Abel",
+    "choiceKey": "mercy_killed_abel",
+    "category": "Major",
+    "options": [
+      { "label": "Mercy killed Abel", "value": "true" },
+      { "label": "Forced Abel to turn into a walker", "value": "false" }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 3,
+    "description": "Redirect or Kill Zombie",
+    "choiceKey": "killed_james_walkers",
+    "category": "Major",
+    "options": [
+      { "label": "Let James throw the rock to distract", "value": "distract" },
+      { "label": "Killed the walker after James asked you not to", "value": "killed" },
+      { "label": "Spared the walker, honoring James's request", "value": "spared" }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 3,
+    "description": "AJ Attack Dorian",
+    "choiceKey": "aj_attack_dorian",
+    "category": "Major",
+    "options": [
+      { "label": "Stopped AJ and let Dorian cut off your friend's finger", "value": "stopped" },
+      { "label": "Allowed AJ to attack Dorian", "value": "allowed" }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 3,
+    "description": "AJ Shoot Lilly",
+    "choiceKey": "killed_lilly",
+    "category": "Life/Death",
+    "options": [
+      { "label": "Told AJ to kill Lilly", "value": "true" },
+      { "label": "Refused to tell AJ to kill Lilly", "value": "false" }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 3,
+    "description": "Forest Walker Kills",
+    "choiceKey": "forest_walker_kills",
+    "category": "Major",
+    "options": [
+      { "label": "Ignored James' wishes and killed all walkers in camp", "value": "all" },
+      { "label": "Respected James' beliefs and killed no walkers", "value": "none" },
+      { "label": "Only killed some of the walkers", "value": "some" }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 4,
+    "description": "Trusted AJ",
+    "choiceKey": "trusted_aj",
+    "category": "Major",
+    "options": [
+      { "label": "Trusted AJ to make hard calls", "value": "true" },
+      { "label": "Did not fully trust AJ", "value": "false" }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 4,
+    "description": "Bomb Name",
+    "choiceKey": "bomb_name",
+    "category": "Major",
+    "options": [
+      { "label": "Named the bomb 'Willy Junior'", "value": "willy" },
+      { "label": "Named the bomb 'AJ'", "value": "aj" },
+      { "label": "Named the bomb 'Mitch's Masterpiece'", "value": "mitch" },
+      { "label": "Refused to name the bomb", "value": "none" },
+      { "label": "Named the bomb 'Ruby's Revenge'", "value": "ruby" }
+    ]
+  }
+]

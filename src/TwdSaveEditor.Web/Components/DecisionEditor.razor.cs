@@ -20,6 +20,7 @@ public partial class DecisionEditor
         if (int.TryParse(e.Value?.ToString(), out var idx) && idx >= 0 && idx < choice.Options.Length)
         {
             Accessor.ApplyChoice(choice, idx);
+            Editor.MarkModified();
             StateHasChanged();
         }
     }

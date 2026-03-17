@@ -65,12 +65,10 @@ package-lock.json
 
 # Python
 __pycache__/
-*.py
 
-# Extracted game data
-*.json
-!**/appsettings*.json
-!**/launchSettings.json
+# Extracted game data (copyrighted content)
+tools/data/
+all_choices_summary.txt
 
 # Claude Code
 .claude/

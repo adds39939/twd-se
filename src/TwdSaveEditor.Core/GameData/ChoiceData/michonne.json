@@ -1,0 +1,173 @@
+[
+  {
+    "seasonKey": "michonne",
+    "episode": 1,
+    "description": "Did you try to end it?",
+    "choiceKey": "pulled_trigger",
+    "category": "Major",
+    "options": [
+      { "label": "Pulled the trigger", "value": "true" },
+      { "label": "Lowered the gun", "value": "false" }
+    ]
+  },
+  {
+    "seasonKey": "michonne",
+    "episode": 1,
+    "description": "How did you enter the abandoned ferry?",
+    "choiceKey": "entered_ferry",
+    "category": "Major",
+    "options": [
+      { "label": "Climbed the ladder", "value": "ladder" },
+      { "label": "Went in through the window", "value": "window" }
+    ]
+  },
+  {
+    "seasonKey": "michonne",
+    "episode": 1,
+    "description": "Did you sell Greg out to Norma?",
+    "choiceKey": "sold_greg_out",
+    "category": "Major",
+    "options": [
+      { "label": "Shared the blame with Greg", "value": "shared" },
+      { "label": "Told Norma Greg was a liar", "value": "liar" },
+      { "label": "Took the blame", "value": "blame" }
+    ]
+  },
+  {
+    "seasonKey": "michonne",
+    "episode": 1,
+    "description": "Did you ambush Randall in the store room?",
+    "choiceKey": "ambushed_randall",
+    "category": "Major",
+    "options": [
+      { "label": "Head-butted Randall", "value": "true" },
+      { "label": "Played it cool", "value": "false" }
+    ]
+  },
+  {
+    "seasonKey": "michonne",
+    "episode": 1,
+    "description": "Did you let Sam shoot Zachary?",
+    "choiceKey": "sam_shot_zachary",
+    "category": "Life/Death",
+    "options": [
+      { "label": "Let Sam take her revenge", "value": "true" },
+      { "label": "Tried to save Zachary", "value": "false" }
+    ]
+  },
+  {
+    "seasonKey": "michonne",
+    "episode": 2,
+    "description": "Did you keep Pete with you, or let him go off on his own?",
+    "choiceKey": "stopped_pete",
+    "category": "Major",
+    "options": [
+      { "label": "Stopped Pete", "value": "true" },
+      { "label": "Let Pete go", "value": "false" }
+    ]
+  },
+  {
+    "seasonKey": "michonne",
+    "episode": 2,
+    "description": "Did you pick up the phone or go after the footsteps?",
+    "choiceKey": "picked_up_phone",
+    "category": "Major",
+    "options": [
+      { "label": "Picked up the phone", "value": "true" },
+      { "label": "Went to see who was in the hallway", "value": "false" }
+    ]
+  },
+  {
+    "seasonKey": "michonne",
+    "episode": 2,
+    "description": "How did you handle the radio call from Norma?",
+    "choiceKey": "radio_norma",
+    "category": "Major",
+    "options": [
+      { "label": "Ignored the radio", "value": "ignore" },
+      { "label": "Spoke with her directly", "value": "spoke" },
+      { "label": "Made Randall speak to her", "value": "randall" }
+    ]
+  },
+  {
+    "seasonKey": "michonne",
+    "episode": 2,
+    "description": "What did you do to Randall?",
+    "choiceKey": "killed_randall",
+    "category": "Life/Death",
+    "options": [
+      { "label": "Bashed Randall's head in", "value": "true" },
+      { "label": "Showed him mercy", "value": "false" }
+    ]
+  },
+  {
+    "seasonKey": "michonne",
+    "episode": 2,
+    "description": "Did you let Sam bury her father?",
+    "choiceKey": "let_sam_bury",
+    "category": "Major",
+    "options": [
+      { "label": "Helped Sam move her father's body", "value": "true" },
+      { "label": "Didn't help", "value": "false" }
+    ]
+  },
+  {
+    "seasonKey": "michonne",
+    "episode": 3,
+    "description": "Did you hand Randall over to Norma?",
+    "choiceKey": "handed_randall_norma",
+    "category": "Major",
+    "options": [
+      { "label": "Handed Randall over", "value": "true" },
+      { "label": "Did not hand over", "value": "false" }
+    ]
+  },
+  {
+    "seasonKey": "michonne",
+    "episode": 3,
+    "description": "Did you put Norma out of her misery?",
+    "choiceKey": "shot_norma",
+    "category": "Life/Death",
+    "options": [
+      { "label": "Shot Norma to put her out of her misery", "value": "true" },
+      { "label": "Let Norma get killed by walkers", "value": "false" }
+    ]
+  },
+  {
+    "seasonKey": "michonne",
+    "episode": 3,
+    "description": "Did you tell Alex what happened to his father?",
+    "choiceKey": "told_alex_father",
+    "category": "Major",
+    "options": [
+      { "label": "Told Alex his father couldn't come right away", "value": "later" },
+      { "label": "Stayed silent", "value": "silent" },
+      { "label": "Told Alex his father was dead", "value": "dead" },
+      { "label": "Told Alex a bad man hurt his father", "value": "hurt" }
+    ]
+  },
+  {
+    "seasonKey": "michonne",
+    "episode": 3,
+    "description": "Did you reveal to Paige that you nearly committed suicide?",
+    "choiceKey": "revealed_to_paige",
+    "category": "Major",
+    "options": [
+      { "label": "Expressed sympathy for the kids", "value": "sympathy" },
+      { "label": "Remained silent", "value": "silent" },
+      { "label": "Disclosed your darkest moment", "value": "disclosed" },
+      { "label": "Tried to offer good advice", "value": "advice" }
+    ]
+  },
+  {
+    "seasonKey": "michonne",
+    "episode": 3,
+    "description": "Did you choose to leave your daughters or stay with them?",
+    "choiceKey": "stayed_with_daughters",
+    "category": "Life/Death",
+    "options": [
+      { "label": "Chose to stay with your daughters", "value": "true" },
+      { "label": "Chose to leave your daughters", "value": "false" }
+    ]
+  }
+]
