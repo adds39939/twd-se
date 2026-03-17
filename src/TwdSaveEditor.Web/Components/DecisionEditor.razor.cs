@@ -14,8 +14,6 @@ public partial class DecisionEditor
     [Parameter] public SaveSlot? Slot { get; set; }
     [Parameter] public IChoiceAccessor? Accessor { get; set; }
 
-    private bool _saving;
-
     private void OnChoiceChanged(ChoiceDefinition choice, ChangeEventArgs e)
     {
         if (Accessor == null) return;
@@ -24,18 +22,6 @@ public partial class DecisionEditor
             Accessor.ApplyChoice(choice, idx);
             StateHasChanged();
         }
-    }
-
-    private async Task SaveChanges()
-    {
-        if (Slot == null) return;
-        _saving = true;
-        StateHasChanged();
-
-        await Editor.SaveFile(Slot);
-
-        _saving = false;
-        StateHasChanged();
     }
 
     private static List<Season> GetRelevantSeasons(string? detectedKey)

@@ -16,7 +16,6 @@ public partial class ResumePointEditor
     private int _chapter = 1;
     private int _maxChapters = 7;
     private bool _gameComplete;
-    private bool _saving;
 
     protected override void OnParametersSet()
     {
@@ -90,15 +89,4 @@ public partial class ResumePointEditor
             iv.Value = value;
     }
 
-    private async Task SaveChanges()
-    {
-        if (Slot == null) return;
-        _saving = true;
-        StateHasChanged();
-
-        await Editor.SaveFile(Slot);
-
-        _saving = false;
-        StateHasChanged();
-    }
 }

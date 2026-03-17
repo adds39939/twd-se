@@ -24,6 +24,16 @@
     padding: 1rem 1.5rem;
 }
 
+.content-toolbar {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0.5rem 0;
+}
+
+.save-btn {
+    white-space: nowrap;
+}
+
 .tab-content {
     flex: 1;
     min-height: 0;

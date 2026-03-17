@@ -1,10 +1,5 @@
 <div class="property-editor">
-    <div class="editor-toolbar">
-        <h2>Properties</h2>
-        <button class="btn-accent" @onclick="SaveChanges" disabled="@_saving">
-            @(_saving ? "Saving..." : "Save Changes")
-        </button>
-    </div>
+    <h2>Properties</h2>
 
     @if (Slot == null)
     {

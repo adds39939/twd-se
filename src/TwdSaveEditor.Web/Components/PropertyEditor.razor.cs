@@ -14,19 +14,6 @@ public partial class PropertyEditor
     [Parameter] public SaveSlot? Slot { get; set; }
 
     private readonly PropertyNameDb _nameDb = PropertyNameDb.CreateDefault();
-    private bool _saving;
-
-    private async Task SaveChanges()
-    {
-        if (Slot == null) return;
-        _saving = true;
-        StateHasChanged();
-
-        await Editor.SaveFile(Slot);
-
-        _saving = false;
-        StateHasChanged();
-    }
 
     private static string TruncateValue(object? value)
     {

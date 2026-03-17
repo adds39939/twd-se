@@ -5,12 +5,7 @@
         return;
     }
 
-    <div class="editor-toolbar">
-        <h2>Decisions</h2>
-        <button class="btn-accent" @onclick="SaveChanges" disabled="@_saving">
-            @(_saving ? "Saving..." : "Save Changes")
-        </button>
-    </div>
+    <h2>Decisions</h2>
 
     @{
         var seasonKey = Slot.DetectedSeasonKey;

@@ -13,6 +13,7 @@ public partial class Home : IDisposable
 
     private string ActiveTab { get; set; } = "decisions";
     private NewSaveDialog? _newSaveDialog;
+    private bool _saving;
 
     protected override void OnInitialized()
     {
@@ -30,6 +31,16 @@ public partial class Home : IDisposable
     }
 
     private string TabClass(string tab) => ActiveTab == tab ? "active" : "";
+
+    private async Task SaveChanges()
+    {
+        if (Editor.SelectedSave == null) return;
+        _saving = true;
+        StateHasChanged();
+        await Editor.SaveFile(Editor.SelectedSave);
+        _saving = false;
+        StateHasChanged();
+    }
 
     public void Dispose()
     {

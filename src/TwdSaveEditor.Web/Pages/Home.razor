@@ -15,6 +15,11 @@
                 <button class="@TabClass("properties")" data-testid="tab-properties" @onclick='() => ActiveTab = "properties"'>Properties</button>
                 <button class="@TabClass("resume")" data-testid="tab-resume" @onclick='() => ActiveTab = "resume"'>Resume Point</button>
             </div>
+            <div class="content-toolbar">
+                <button class="btn-accent save-btn" @onclick="SaveChanges" disabled="@_saving">
+                    @(_saving ? "Saving..." : "Save Changes")
+                </button>
+            </div>
 
             <div class="tab-content">
                 <div class="tab-panel">
