@@ -17,18 +17,20 @@
             </div>
 
             <div class="tab-content">
-                @switch (ActiveTab)
-                {
-                    case "decisions":
-                        <DecisionEditor Slot="Editor.SelectedSave" Accessor="GetAccessor()" />
-                        break;
-                    case "properties":
-                        <PropertyEditor Slot="Editor.SelectedSave" />
-                        break;
-                    case "resume":
-                        <ResumePointEditor Slot="Editor.SelectedSave" />
-                        break;
-                }
+                <div class="tab-panel">
+                    @switch (ActiveTab)
+                    {
+                        case "decisions":
+                            <DecisionEditor Slot="Editor.SelectedSave" Accessor="GetAccessor()" />
+                            break;
+                        case "properties":
+                            <PropertyEditor Slot="Editor.SelectedSave" />
+                            break;
+                        case "resume":
+                            <ResumePointEditor Slot="Editor.SelectedSave" />
+                            break;
+                    }
+                </div>
             </div>
         }
         else

@@ -58,5 +58,19 @@ ehthumbs.db
 Desktop.ini
 $RECYCLE.BIN/
 
+# Node
+node_modules/
+package.json
+package-lock.json
+
+# Python
+__pycache__/
+*.py
+
+# Extracted game data
+*.json
+!**/appsettings*.json
+!**/launchSettings.json
+
 # Claude Code
 .claude/
