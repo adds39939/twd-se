@@ -427,12 +427,14 @@ def organize_choices(choices):
 
 # ---- Main ----
 
+ARCHIVES_DIR = sys.argv[1] if len(sys.argv) > 1 else os.environ.get("TWD_ARCHIVES", "Archives")
+
 ARCHIVES = [
-    ("Season 1", r"G:\Games\Steam\steamapps\common\The Walking Dead The Telltale Definitive Series\Archives\WDC_pc_ProjectSeason1_data.ttarch2"),
-    ("Season 2", r"G:\Games\Steam\steamapps\common\The Walking Dead The Telltale Definitive Series\Archives\WDC_pc_ProjectSeason2_data.ttarch2"),
-    ("Season 3", r"G:\Games\Steam\steamapps\common\The Walking Dead The Telltale Definitive Series\Archives\WDC_pc_ProjectSeason3_data.ttarch2"),
-    ("Michonne", r"G:\Games\Steam\steamapps\common\The Walking Dead The Telltale Definitive Series\Archives\WDC_pc_ProjectSeasonM_data.ttarch2"),
-    ("Season 4", r"G:\Games\Steam\steamapps\common\The Walking Dead The Telltale Definitive Series\Archives\WDC_pc_ProjectSeason4_data.ttarch2"),
+    ("Season 1", os.path.join(ARCHIVES_DIR, "WDC_pc_ProjectSeason1_data.ttarch2")),
+    ("Season 2", os.path.join(ARCHIVES_DIR, "WDC_pc_ProjectSeason2_data.ttarch2")),
+    ("Season 3", os.path.join(ARCHIVES_DIR, "WDC_pc_ProjectSeason3_data.ttarch2")),
+    ("Michonne", os.path.join(ARCHIVES_DIR, "WDC_pc_ProjectSeasonM_data.ttarch2")),
+    ("Season 4", os.path.join(ARCHIVES_DIR, "WDC_pc_ProjectSeason4_data.ttarch2")),
 ]
 
 KEY_HEX = "REDACTED_KEY"

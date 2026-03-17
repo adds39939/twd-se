@@ -462,7 +462,7 @@ SEASONS = {
 # Test data paths
 TEST_DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "tests", "TestData")
 
-ARCHIVES_DIR = r"G:\Games\Steam\steamapps\common\The Walking Dead The Telltale Definitive Series\Archives"
+ARCHIVES_DIR = sys.argv[1] if len(sys.argv) > 1 else os.environ.get("TWD_ARCHIVES", "Archives")
 
 
 def validate_bundle_structure(season: str) -> list[str]:

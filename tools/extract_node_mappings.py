@@ -54,11 +54,11 @@ class SuppressOutput:
 
 KEY_HEX = "REDACTED_KEY"
 
-ARCHIVES_BASE = r"G:\Games\Steam\steamapps\common\The Walking Dead The Telltale Definitive Series\Archives"
+ARCHIVES_DIR = sys.argv[1] if len(sys.argv) > 1 else os.environ.get("TWD_ARCHIVES", "Archives")
 
 ARCHIVES = {
-    "Michonne": os.path.join(ARCHIVES_BASE, "WDC_pc_ProjectSeasonM_data.ttarch2"),
-    "Season 4": os.path.join(ARCHIVES_BASE, "WDC_pc_ProjectSeason4_data.ttarch2"),
+    "Michonne": os.path.join(ARCHIVES_DIR, "WDC_pc_ProjectSeasonM_data.ttarch2"),
+    "Season 4": os.path.join(ARCHIVES_DIR, "WDC_pc_ProjectSeason4_data.ttarch2"),
 }
 
 # Property key constants
@@ -582,8 +582,8 @@ def main():
 
     # Search across Episode 1 and Episode 5 saves for maximum coverage
     epage_dirs = [
-        r"C:\Users\Adam\Downloads\twd-saves\S3\Episode 1",
-        r"C:\Users\Adam\Downloads\twd-saves\S3\Episode 5\The end",
+        r"<SAVE_DIR>\S3\Episode 1",
+        r"<SAVE_DIR>\S3\Episode 5\The end",
     ]
     epage_files = []
     for d in epage_dirs:

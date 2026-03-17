@@ -6,6 +6,7 @@ Based on ttarchext by Luigi Auriemma (https://github.com/Keyaku/ttarchext).
 
 import struct
 import sys
+import os
 import zlib
 import re
 
@@ -572,11 +573,13 @@ def search_data(data):
 
 
 def main():
+    ARCHIVES_DIR = sys.argv[1] if len(sys.argv) > 1 else os.environ.get("TWD_ARCHIVES", "Archives")
+
     key_hex = "REDACTED_KEY"
     key_bytes = bytes.fromhex(key_hex)
     print(f"Key length: {len(key_bytes)} bytes")
 
-    archive_path = r"G:\Games\Steam\steamapps\common\The Walking Dead The Telltale Definitive Series\Archives\WDC_pc_ProjectSeason3_data.ttarch2"
+    archive_path = os.path.join(ARCHIVES_DIR, "WDC_pc_ProjectSeason3_data.ttarch2")
 
     print(f"Archive: {archive_path}")
 

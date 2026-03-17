@@ -494,7 +494,7 @@ def main():
     # =========================================================================
     # S3 Episode 1
     # =========================================================================
-    s3e1_dir = r"C:\Users\Adam\Downloads\twd-saves\S3\Episode 1"
+    s3e1_dir = r"<SAVE_DIR>\S3\Episode 1"
     s3e1_estore_path = os.path.join(s3e1_dir, "_wd3_saveslot1_id.estore")
 
     print(f"\n{'='*80}")
@@ -544,7 +544,7 @@ def main():
     # =========================================================================
     # S3 Episode 5
     # =========================================================================
-    s3e5_dir = r"C:\Users\Adam\Downloads\twd-saves\S3\Episode 5\The end"
+    s3e5_dir = r"<SAVE_DIR>\S3\Episode 5\The end"
     s3e5_estore_path = os.path.join(s3e5_dir, "_wd3_saveslot1_id.estore")
 
     print(f"\n{'='*80}")
@@ -671,7 +671,7 @@ def main():
     # =========================================================================
     # Michonne
     # =========================================================================
-    mich_dir = r"C:\Users\Adam\Downloads\twd-saves\Michonne"
+    mich_dir = r"<SAVE_DIR>\Michonne"
 
     print(f"\n{'='*80}")
     print("MICHONNE")

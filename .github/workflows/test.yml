@@ -1,0 +1,33 @@
+name: Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore --configuration Release
+
+      - name: Unit and Integration Tests
+        run: dotnet test tests/TwdSaveEditor.Core.Tests --no-build --configuration Release
+
+      - name: Install Playwright browsers
+        run: pwsh tests/TwdSaveEditor.Playwright/bin/Release/net10.0/playwright.ps1 install chromium --with-deps
+
+      - name: Playwright E2E Tests
+        run: dotnet test tests/TwdSaveEditor.Playwright --no-build --configuration Release
