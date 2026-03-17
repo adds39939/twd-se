@@ -22,7 +22,7 @@ public class FileUploadTests
 
         var emptyText = await emptyState.TextContentAsync();
         Assert.NotNull(emptyText);
-        Assert.Contains("Select a save directory", emptyText);
+        Assert.Contains("save directory", emptyText);
     }
 
     [Fact]

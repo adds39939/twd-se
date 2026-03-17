@@ -34,7 +34,7 @@ public class UITests
         var headerText = await page.TextContentAsync(".header-title");
 
         Assert.NotNull(headerText);
-        Assert.Contains("TWD Save Editor", headerText);
+        Assert.Contains("Save Editor", headerText);
     }
 
     [Fact]

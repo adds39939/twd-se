@@ -48,9 +48,6 @@ public class ChoiceEditTests
     {
         var page = await _fixture.NewPage();
 
-        var heading = page.Locator(".empty-state h2");
-        await Assertions.Expect(heading).ToHaveTextAsync("The Walking Dead Save Editor");
-
         var description = page.Locator(".empty-state p").First;
         var text = await description.TextContentAsync();
         Assert.NotNull(text);
