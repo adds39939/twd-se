@@ -9,10 +9,10 @@ namespace TwdSaveEditor.App.ViewModels;
 public partial class ChoiceViewModel : ObservableObject
 {
     private readonly ChoiceDefinition _definition;
-    private readonly SaveAccessor _accessor;
+    private readonly IChoiceAccessor _accessor;
     private bool _initialized;
 
-    public ChoiceViewModel(ChoiceDefinition definition, SaveAccessor accessor)
+    public ChoiceViewModel(ChoiceDefinition definition, IChoiceAccessor accessor)
     {
         _definition = definition;
         _accessor = accessor;

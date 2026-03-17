@@ -45,6 +45,12 @@ public sealed class SaveSlot
     /// </summary>
     public Dictionary<string, byte[]>? RawInnerFiles { get; init; }
 
+    /// <summary>Path to associated estore file (S3/Michonne EventLog).</summary>
+    public string? EStorePath { get; set; }
+
+    /// <summary>Paths to associated epage files (S3/Michonne EventLog pages).</summary>
+    public List<string>? EPagePaths { get; set; }
+
     /// <summary>
     /// Detect which season this save belongs to based on the filename prefix.
     /// </summary>

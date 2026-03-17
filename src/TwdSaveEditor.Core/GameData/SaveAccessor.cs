@@ -7,7 +7,7 @@ namespace TwdSaveEditor.Core.GameData;
 /// High-level accessor for reading/writing game choices and metadata
 /// from a parsed bundle save structure.
 /// </summary>
-public sealed class SaveAccessor
+public sealed class SaveAccessor : IChoiceAccessor
 {
     private readonly PropertySet? _choices;
     private readonly PropertySet? _metadata;

@@ -43,10 +43,39 @@ public sealed class SaveManager
 
     /// <summary>
     /// Load a .bundle save file, parsing its outer MetaStream, file table, and inner PropertySets.
+    /// Also discovers associated estore/epage files for S3/Michonne saves.
     /// </summary>
     public SaveSlot LoadFile(string filePath)
     {
-        return BundleReader.Read(filePath);
+        var slot = BundleReader.Read(filePath);
+        DiscoverEventLogFiles(slot);
+        return slot;
+    }
+
+    /// <summary>
+    /// Find estore/epage files associated with a slot bundle.
+    /// Pattern: wd3_saveslot1.bundle → _wd3_saveslot1_id.estore + _wd3_saveslot1_id_Page*.epage
+    /// </summary>
+    private static void DiscoverEventLogFiles(SaveSlot slot)
+    {
+        var dir = Path.GetDirectoryName(slot.FilePath);
+        if (dir == null || !Directory.Exists(dir)) return;
+
+        // Derive the estore name from the bundle name
+        // wd3_saveslot1.bundle → _wd3_saveslot1_id.estore
+        var bundleName = Path.GetFileNameWithoutExtension(slot.FilePath);
+        var estoreName = $"_{bundleName}_id.estore";
+        var estorePath = Path.Combine(dir, estoreName);
+
+        if (!File.Exists(estorePath)) return;
+
+        slot.EStorePath = estorePath;
+
+        // Find epage files
+        var pagePattern = $"_{bundleName}_id_Page*.epage";
+        slot.EPagePaths = Directory.GetFiles(dir, pagePattern)
+            .OrderBy(f => f)
+            .ToList();
     }
 
     /// <summary>

@@ -1,0 +1,1942 @@
+{
+  "Season 3": [
+    {
+      "question": "How did you deal with Conrad’s threat to Clementine?",
+      "episode_code": "302",
+      "target_episode": "204",
+      "options": [
+        {
+          "text": "You and 89.4% of players killed Conrad.",
+          "expression_raw": "{3263903064056887735}",
+          "expression_type": "decimal",
+          "secondary_raw": "{26390306405688773}",
+          "guid": "{AA68D63A-E38F-4489-9885-BECAC7B7B61D}",
+          "crc64_hex": "0x2D4BB68B3A6B79B7",
+          "crc64_decimal": 3263903064056887735,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x005DC1D806D325C5",
+          "secondary_crc64_decimal": 26390306405688773
+        },
+        {
+          "text": "You and 10.6% of players let Conrad capture Clementine.",
+          "expression_raw": "{10741724583319851163}",
+          "expression_type": "decimal",
+          "secondary_raw": "{074172458331985116}",
+          "guid": "{FB3C920E-7E12-4174-831F-AC37F0D366C5}",
+          "crc64_hex": "0x95124598AFDC509B",
+          "crc64_decimal": 10741724583319851163,
+          "verified_in_epage": true,
+          "secondary_crc64_hex": "0x0107837536FED4DC",
+          "secondary_crc64_decimal": 74172458331985116
+        }
+      ]
+    },
+    {
+      "question": "Did you promise that you would help Kate with the family if David left?",
+      "episode_code": "304",
+      "target_episode": "401",
+      "options": [
+        {
+          "text": "You and 8.6% of players told David it was his responsibility.",
+          "expression_raw": "{17748775599019295574}",
+          "expression_type": "decimal",
+          "secondary_raw": "{774877559901929557}",
+          "guid": "{45BEB18A-E7D1-4B9E-B56E-0771D43FBAF5} | {A713F80A-D920-4BBE-9F4A-0AE674E81EAB}",
+          "crc64_hex": "0xF650515EC9AA8356",
+          "crc64_decimal": 17748775599019295574,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x0AC0EB0906604055",
+          "secondary_crc64_decimal": 774877559901929557
+        },
+        {
+          "text": "You and 91.4% of players promised you’d help Kate.",
+          "expression_raw": "{429740747670231916}",
+          "expression_type": "decimal",
+          "secondary_raw": "{2974074767023191}",
+          "guid": "{0B279B9A-D768-40F2-B437-FAE7A5E1306B} | {2D8D685E-701D-43DC-93F6-9CA449F083EB}",
+          "crc64_hex": "0x05F6BEEEE2651B6C",
+          "crc64_decimal": 429740747670231916,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x000A90E7BE061C57",
+          "secondary_crc64_decimal": 2974074767023191
+        }
+      ]
+    },
+    {
+      "question": "What did you say to David about Kate?",
+      "episode_code": "305",
+      "target_episode": "502",
+      "options": [
+        {
+          "text": "You and 15.9% of players denied having a relationship with Kate, but David didn’t believe you.",
+          "expression_raw": "{10477487416363905191}",
+          "expression_type": "decimal",
+          "secondary_raw": "{047748741636390519}",
+          "guid": "{04793AF0-2E3E-4ED4-BFA4-F793CE6E31D7} | {26FF691E-D4BA-4FD9-8BE6-98FC7B3F17C2}",
+          "crc64_hex": "0x9167834B06FEF0A7",
+          "crc64_decimal": 10477487416363905191,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x00A9A33A3FB57E77",
+          "secondary_crc64_decimal": 47748741636390519
+        },
+        {
+          "text": "You and 2.2% of players said nothing.",
+          "expression_raw": "{2365268620641981446}",
+          "expression_type": "decimal",
+          "secondary_raw": "{36526862064198144}",
+          "guid": "{3DC11DC7-3951-495C-8257-28740F52E071} | {C70B7DF7-75BA-4C14-88CE-F5AE416325A4}",
+          "crc64_hex": "0x20D31F475BBE5406",
+          "crc64_decimal": 2365268620641981446,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x0081C4FCCE18A200",
+          "secondary_crc64_decimal": 36526862064198144
+        },
+        {
+          "text": "You and 53.6% of players confessed your love for Kate.",
+          "expression_raw": "{13450271639848810261}",
+          "expression_type": "decimal",
+          "secondary_raw": "{345027163984881026}",
+          "guid": "{98D8BC0B-CAE7-4263-80D7-961A4F4656D0} | {D8AF3DEA-D3ED-4F55-998F-AA16766A9181}",
+          "crc64_hex": "0xBAA8F6CB39B2F715",
+          "crc64_decimal": 13450271639848810261,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x04C9C860AB2DE582",
+          "secondary_crc64_decimal": 345027163984881026
+        },
+        {
+          "text": "You and 28.3% of players came clean about your relationship with Kate.",
+          "expression_raw": "{9227337351975168301}",
+          "expression_type": "decimal",
+          "secondary_raw": "{22733735197516830}",
+          "guid": "{052F750C-9794-4500-9DE2-FC16870E94FE} | {B849C4AB-D5EB-4237-8BAB-E35B3D9980C1} | {CB0D49B5-B114-4559-987A-2B92014A6CA2}",
+          "crc64_hex": "0x800E166EDF2C692D",
+          "crc64_decimal": 9227337351975168301,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x0050C43632DDA41E",
+          "secondary_crc64_decimal": 22733735197516830
+        }
+      ]
+    },
+    {
+      "question": "Did you shoot Joan or take Clint’s deal?",
+      "episode_code": "304",
+      "target_episode": "405",
+      "options": [
+        {
+          "text": "You and 56.6% of players chose to shoot Joan.",
+          "expression_raw": "{9288311189681644763}",
+          "expression_type": "decimal",
+          "secondary_raw": "{28831118968164476}",
+          "guid": "{AE624CE5-44D6-49F9-8303-C55F85CF3FE5}",
+          "crc64_hex": "0x80E6B5D0C042A4DB",
+          "crc64_decimal": 9288311189681644763,
+          "verified_in_epage": true,
+          "secondary_crc64_hex": "0x00666DBFFC93107C",
+          "secondary_crc64_decimal": 28831118968164476
+        },
+        {
+          "text": "You and 43.4% of players chose to take the deal.",
+          "expression_raw": "{3507281272926535396}",
+          "expression_type": "decimal",
+          "secondary_raw": "{50728127292653539}",
+          "guid": "{A87207CE-308B-4E62-848E-840B99470037}",
+          "crc64_hex": "0x30AC5DBC402A7EE4",
+          "crc64_decimal": 3507281272926535396,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x00B438F687663FE3",
+          "secondary_crc64_decimal": 50728127292653539
+        }
+      ]
+    },
+    {
+      "question": "Did you honor your brother’s request?",
+      "episode_code": "303",
+      "target_episode": "301",
+      "options": [
+        {
+          "text": "You and 65.7% of players demanded justice for Mariana’s murder.",
+          "expression_raw": "{1379754067484849334}",
+          "expression_type": "decimal",
+          "secondary_raw": "{37975406748484933}",
+          "guid": "{1F439090-ED1C-4230-9B40-869461C9CCD0}",
+          "crc64_hex": "0x1325DF039DD5B4B6",
+          "crc64_decimal": 1379754067484849334,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x0086EA6E6571C545",
+          "secondary_crc64_decimal": 37975406748484933
+        },
+        {
+          "text": "You and 34.3% of players kept Mariana’s murder to yourself.",
+          "expression_raw": "{11685351845691949882}",
+          "expression_type": "decimal",
+          "secondary_raw": "{168535184569194988}",
+          "guid": "{1611A12B-F08E-435D-8C9D-970D41541DEA}",
+          "crc64_hex": "0xA22AB5978DEC833A",
+          "crc64_decimal": 11685351845691949882,
+          "verified_in_epage": true,
+          "secondary_crc64_hex": "0x0256C1DB8066D9EC",
+          "secondary_crc64_decimal": 168535184569194988
+        }
+      ]
+    },
+    {
+      "question": "How did you respond to Dr. Lingard’s request?",
+      "episode_code": "304",
+      "target_episode": "402",
+      "options": [
+        {
+          "text": "You and 1.3% of players let Clementine decide Lingard’s fate.",
+          "expression_raw": "{272720463711615275}",
+          "expression_type": "decimal",
+          "secondary_raw": "{7272046371161527}",
+          "guid": "{08304CDA-6BBF-4097-A9FC-972BF4278EBA}",
+          "crc64_hex": "0x03C8E5D11A82B92B",
+          "crc64_decimal": 272720463711615275,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x0019D5E33CBE45B7",
+          "secondary_crc64_decimal": 7272046371161527
+        },
+        {
+          "text": "You and 52.4% of players assisted in Lingard’s suicide.",
+          "expression_raw": "{8208786845018900870}",
+          "expression_type": "decimal",
+          "secondary_raw": "{20878684501890087}",
+          "guid": "{8F5A2FF5-5D61-40C7-B24E-6B3B72323682}",
+          "crc64_hex": "0x71EB7824BE404986",
+          "crc64_decimal": 8208786845018900870,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x004A2D0D8D1CD427",
+          "secondary_crc64_decimal": 20878684501890087
+        },
+        {
+          "text": "You and 46.3% of players refused to kill Lingard.",
+          "expression_raw": "{5587483100464590663}",
+          "expression_type": "decimal",
+          "secondary_raw": "{58748310046459066}",
+          "guid": "{AE1CD0CF-C60B-4144-A5CB-69F7C3CE068E}",
+          "crc64_hex": "0x4D8ABA46AFB0AF47",
+          "crc64_decimal": 5587483100464590663,
+          "verified_in_epage": true,
+          "secondary_crc64_hex": "0x00D0B746D77944BA",
+          "secondary_crc64_decimal": 58748310046459066
+        }
+      ]
+    },
+    {
+      "question": "Did you trust Jesus?",
+      "episode_code": "302",
+      "target_episode": "203",
+      "options": [
+        {
+          "text": "You and 86.2% of players took him at his word.",
+          "expression_raw": "{8451741955752811704}",
+          "expression_type": "decimal",
+          "secondary_raw": "{45174195575281170}",
+          "guid": "{F5D02F32-B123-4ABA-8102-3047A63C7A35}",
+          "crc64_hex": "0x754A9E878DE95CB8",
+          "crc64_decimal": 8451741955752811704,
+          "verified_in_epage": true,
+          "secondary_crc64_hex": "0x00A07DB108475612",
+          "secondary_crc64_decimal": 45174195575281170
+        },
+        {
+          "text": "You and 13.8% of players tied his hands together.",
+          "expression_raw": "{13111168390600015917}",
+          "expression_type": "decimal",
+          "secondary_raw": "{311116839060001591}",
+          "guid": "{BA4D4113-6BAA-43D3-9D20-B46DE7B1B9EA}",
+          "crc64_hex": "0xB5F43A2F700B402D",
+          "crc64_decimal": 13111168390600015917,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x04514F1DE3D05337",
+          "secondary_crc64_decimal": 311116839060001591
+        }
+      ]
+    },
+    {
+      "question": "Did you fight David back?",
+      "episode_code": "305",
+      "target_episode": "503",
+      "options": [
+        {
+          "text": "You and 36.5% of players fought back as David took his anger out on you.",
+          "expression_raw": "{16699038929566959650}",
+          "expression_type": "decimal",
+          "secondary_raw": "{669903892956695965}",
+          "guid": "{5A24B4EB-AC14-426A-959B-4424686B55BC} | {6DE7FC62-2E85-47D9-879E-2FABC362BA9C} | {F225AF0E-FFCD-4CC4-AE98-4EFF466381AD}",
+          "crc64_hex": "0xE7BEE76E5F420822",
+          "crc64_decimal": 16699038929566959650,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x094BFA0A9555CD9D",
+          "secondary_crc64_decimal": 669903892956695965
+        },
+        {
+          "text": "You and 63.5% of players showed your love for David even as he took his anger out on you.",
+          "expression_raw": "{1081657451202062898}",
+          "expression_type": "decimal",
+          "secondary_raw": "{08165745120206289}",
+          "guid": "{08A57DAB-F959-4522-BA5A-E9AFACB56239} | {7FF1AEFC-D4D7-430A-A554-D5D86A0FD586}",
+          "crc64_hex": "0x0F02D1B8938DAA32",
+          "crc64_decimal": 1081657451202062898,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x001D02B3B1375DD1",
+          "secondary_crc64_decimal": 8165745120206289
+        }
+      ]
+    },
+    {
+      "question": "Who did you side with in the end?",
+      "episode_code": "303",
+      "target_episode": "305",
+      "options": [
+        {
+          "text": "You and 46.7% of players chose to leave with Kate.",
+          "expression_raw": "{15219614943973702670}",
+          "expression_type": "decimal",
+          "secondary_raw": "{521961494397370267}",
+          "guid": "{FA48921F-26A5-4466-9301-87C2729A86A6} | {FBA5DF47-0238-4204-B071-049342192D4B}",
+          "crc64_hex": "0xD336EF2791C77C0E",
+          "crc64_decimal": 15219614943973702670,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x073E6136B3FCBF9B",
+          "secondary_crc64_decimal": 521961494397370267
+        },
+        {
+          "text": "You and 53.3% of players stuck to David’s plan.",
+          "expression_raw": "{6363867735924139761}",
+          "expression_type": "decimal",
+          "secondary_raw": "{36386773592413976}",
+          "guid": "{E277B228-A84F-4AA6-9F47-9853BC54891B}",
+          "crc64_hex": "0x5850FFFD1553E6F1",
+          "crc64_decimal": 6363867735924139761,
+          "verified_in_epage": true,
+          "secondary_crc64_hex": "0x00814593EA7F9718",
+          "secondary_crc64_decimal": 36386773592413976
+        }
+      ]
+    },
+    {
+      "question": "Did you try to save AJ?",
+      "episode_code": "303",
+      "target_episode": "302",
+      "options": [
+        {
+          "text": "You and 84.9% of players injected AJ with the medicine.",
+          "expression_raw": "{15506208034009573314}",
+          "expression_type": "decimal",
+          "secondary_raw": "{550620803400957331}",
+          "guid": "{95608DF0-1827-4D02-A46A-F150D9A329FD}",
+          "crc64_hex": "0xD7311E0D3072E7C2",
+          "crc64_decimal": 15506208034009573314,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x07A432B410A77D93",
+          "secondary_crc64_decimal": 550620803400957331
+        },
+        {
+          "text": "You and 15.1% of players didn’t risk using the medicine.",
+          "expression_raw": "{14989924258872879787}",
+          "expression_type": "decimal",
+          "secondary_raw": "{498992425887287978}",
+          "guid": "{9EFE6CE7-9562-4F89-BB4B-FD166DB79EEA}",
+          "crc64_hex": "0xD006E8B18420EAAB",
+          "crc64_decimal": 14989924258872879787,
+          "verified_in_epage": true,
+          "secondary_crc64_hex": "0x06ECC6F7B29F4AAA",
+          "secondary_crc64_decimal": 498992425887287978
+        }
+      ]
+    },
+    {
+      "question": "Who did you try to save at the execution?",
+      "episode_code": "304",
+      "target_episode": "404",
+      "options": [
+        {
+          "text": "You and 58.6% of players tried to save Ava.",
+          "expression_raw": "{7315617634693281551}",
+          "expression_type": "decimal",
+          "secondary_raw": "{31561763469328155}",
+          "guid": "{49E7B2FD-1EC4-432D-B90B-CBAC3A1A41D4} | {BAE8404B-8262-4F33-A121-F3794DF790EE}",
+          "crc64_hex": "0x65864B7A9C79F70F",
+          "crc64_decimal": 7315617634693281551,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x00702141B412FF1B",
+          "secondary_crc64_decimal": 31561763469328155
+        },
+        {
+          "text": "You and 41.4% of players tried to save Tripp.",
+          "expression_raw": "{4034550546424405613}",
+          "expression_type": "decimal",
+          "secondary_raw": "{03455054642440561}",
+          "guid": "{85F937D2-3BA3-428B-BB23-BA94CF7AF339}",
+          "crc64_hex": "0x37FD9A5893FC1E6D",
+          "crc64_decimal": 4034550546424405613,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x000C465A98A46971",
+          "secondary_crc64_decimal": 3455054642440561
+        }
+      ]
+    },
+    {
+      "question": "Did you tell Kate that you have feelings for her?",
+      "episode_code": "304",
+      "target_episode": "403",
+      "options": [
+        {
+          "text": "You and 22% of players didn’t share Kate’s feelings.",
+          "expression_raw": "{9891186372015336853}",
+          "expression_type": "decimal",
+          "secondary_raw": "{89118637201533685}",
+          "guid": "{A87E0FE9-E387-45B8-A6FD-93145A6E3E9C} | {E30086E1-37D4-46F3-A6D9-3D229B3C78F4}",
+          "crc64_hex": "0x89448D997F28AD95",
+          "crc64_decimal": 9891186372015336853,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x013C9CEDA943AAF5",
+          "secondary_crc64_decimal": 89118637201533685
+        },
+        {
+          "text": "You and 78% of players told Kate you shared her feelings.",
+          "expression_raw": "{1787676864373796509}",
+          "expression_type": "decimal",
+          "secondary_raw": "{78767686437379650}",
+          "guid": "{CA3E5C73-2B21-4DE2-89C5-FA7D3DBAEA6B}",
+          "crc64_hex": "0x18CF1AA2FA2F2E9D",
+          "crc64_decimal": 1787676864373796509,
+          "verified_in_epage": true,
+          "secondary_crc64_hex": "0x0117D6CB21E11E42",
+          "secondary_crc64_decimal": 78767686437379650
+        }
+      ]
+    },
+    {
+      "question": "How far did you go to get into Richmond?",
+      "episode_code": "302",
+      "target_episode": "205",
+      "options": [
+        {
+          "text": "You and 95.9% of players capitulated to Max’s demands.",
+          "expression_raw": "{11776856112502493880}",
+          "expression_type": "decimal",
+          "secondary_raw": "{177685611250249388}",
+          "guid": "{0A85E09D-C3B3-4BDA-92CE-8E813AC7574B} | {91EAF224-3964-42A8-B9AD-98E2C02CF31E}",
+          "crc64_hex": "0xA36FCC3CE49952B8",
+          "crc64_decimal": 11776856112502493880,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x0277441F3C44EEAC",
+          "secondary_crc64_decimal": 177685611250249388
+        },
+        {
+          "text": "You and 4.1% of players didn’t capitulate to Max’s demands.",
+          "expression_raw": "{664987472659986790}",
+          "expression_type": "decimal",
+          "secondary_raw": "{6498747265998679}",
+          "guid": "{289A414C-3077-456D-94A1-11089EC0A3BE}",
+          "crc64_hex": "0x093A829547FBB966",
+          "crc64_decimal": 664987472659986790,
+          "verified_in_epage": true,
+          "secondary_crc64_hex": "0x0017169382465F57",
+          "secondary_crc64_decimal": 6498747265998679
+        }
+      ]
+    },
+    {
+      "question": "How did you handle the New Frontier at the gates of Prescott?",
+      "episode_code": "302",
+      "target_episode": "202",
+      "options": [
+        {
+          "text": "You and 0.8% of players tried to negotiate.",
+          "expression_raw": "{4416329056276213181}",
+          "expression_type": "decimal",
+          "secondary_raw": "{41632905627621318}",
+          "guid": "{2A730C79-2CFB-4017-99CB-71AC7AB3D106}",
+          "crc64_hex": "0x3D49F3E0C2946DBD",
+          "crc64_decimal": 4416329056276213181,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x0093E8E836E6D7C6",
+          "secondary_crc64_decimal": 41632905627621318
+        },
+        {
+          "text": "You and 58.6% of players opened fire.",
+          "expression_raw": "{9353256469222071379}",
+          "expression_type": "decimal",
+          "secondary_raw": "{35325646922207137}",
+          "guid": "{F4FA5A4E-56F0-4030-87FE-E7873796B0EA}",
+          "crc64_hex": "0x81CD7133FD1B1C53",
+          "crc64_decimal": 9353256469222071379,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x007D807D1C424FA1",
+          "secondary_crc64_decimal": 35325646922207137
+        },
+        {
+          "text": "You and 40.6% of players surrendered.",
+          "expression_raw": "{15735573495687816959}",
+          "expression_type": "decimal",
+          "secondary_raw": "{573557349568781695}",
+          "guid": "{D00330DA-138A-4575-B98B-C33663845687}",
+          "crc64_hex": "0xDA5FFCB9438626FF",
+          "crc64_decimal": 15735573495687816959,
+          "verified_in_epage": true,
+          "secondary_crc64_hex": "0x07F5AF5EDF5C9D7F",
+          "secondary_crc64_decimal": 573557349568781695
+        }
+      ]
+    },
+    {
+      "question": "What was Max’s fate?",
+      "episode_code": "303",
+      "target_episode": "304",
+      "options": [
+        {
+          "text": "You and 43.5% of players killed Max or watched David do it.",
+          "expression_raw": "{13917061234697685848}",
+          "expression_type": "decimal",
+          "secondary_raw": "{391706123469768584}",
+          "guid": "{5D3231F5-B279-42F8-9E5D-685D01663C0D} | {FF2E26A0-B086-43B7-9360-324337848143}",
+          "crc64_hex": "0xC12355750B83CB58",
+          "crc64_decimal": 13917061234697685848,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x056F9EA4D9C2C788",
+          "secondary_crc64_decimal": 391706123469768584
+        },
+        {
+          "text": "You and 56.5% of players brought Max back with you.",
+          "expression_raw": "{5921699361286028394}",
+          "expression_type": "decimal",
+          "secondary_raw": "{92169936128602839}",
+          "guid": "{09DBAA98-EF43-4C0B-8424-152128FAD266}",
+          "crc64_hex": "0x522E1A31D01C7C6A",
+          "crc64_decimal": 5921699361286028394,
+          "verified_in_epage": true,
+          "secondary_crc64_hex": "0x014774118DEA72D7",
+          "secondary_crc64_decimal": 92169936128602839
+        }
+      ]
+    },
+    {
+      "question": "Did you go after Gabe or with Kate?",
+      "episode_code": "305",
+      "target_episode": "504",
+      "options": [
+        {
+          "text": "You and 35.9% of players went after Gabe.",
+          "expression_raw": "{6824039180095148080}",
+          "expression_type": "decimal",
+          "secondary_raw": "{82403918009514808}",
+          "guid": "{16DF595A-2495-48D1-B11A-462EDEC35BF1} | {C013A803-31DC-4DE4-B32C-980A9B604872}",
+          "crc64_hex": "0x5EB3DB7A9EEB5030",
+          "crc64_decimal": 6824039180095148080,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x0124C1ED450EBB38",
+          "secondary_crc64_decimal": 82403918009514808
+        },
+        {
+          "text": "You and 64.1% of players went with Kate and sealed the Richmond breach.",
+          "expression_raw": "{17072831897805347138}",
+          "expression_type": "decimal",
+          "secondary_raw": "{707283189780534713}",
+          "guid": "{DF98FE2A-E4B7-4DD5-8003-EA6851C55F01} | {F245C3DE-7EDF-424D-9B48-1ECC42ED7EFA}",
+          "crc64_hex": "0xECEEE227C2A55942",
+          "crc64_decimal": 17072831897805347138,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x09D0C650527955B9",
+          "secondary_crc64_decimal": 707283189780534713
+        }
+      ]
+    },
+    {
+      "question": "Did you stand with David on the ledge?",
+      "episode_code": "305",
+      "target_episode": "501",
+      "options": [
+        {
+          "text": "You and 92% of players stepped up to help David.",
+          "expression_raw": "{8847453377900551655}",
+          "expression_type": "decimal",
+          "secondary_raw": "{84745337790055165}",
+          "guid": "{8165DD88-CAA8-4D74-8BB4-A87DBD680B60}",
+          "crc64_hex": "0x7AC877F8AC979DE7",
+          "crc64_decimal": 8847453377900551655,
+          "verified_in_epage": true,
+          "secondary_crc64_hex": "0x012D136F8B58C2FD",
+          "secondary_crc64_decimal": 84745337790055165
+        },
+        {
+          "text": "You and 8% of players disappointed David when you didn’t stand with him.",
+          "expression_raw": "{18187663138766309877}",
+          "expression_type": "decimal",
+          "secondary_raw": "{818766313876630987}",
+          "guid": "{F37E8727-115B-4880-BE82-DE64F40EA3C3}",
+          "crc64_hex": "0xFC678F4328A1C9F5",
+          "crc64_decimal": 18187663138766309877,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x0B5CD79FDCAC2DCB",
+          "secondary_crc64_decimal": 818766313876630987
+        }
+      ]
+    },
+    {
+      "question": "Did you stay the night at the junkyard?",
+      "episode_code": "301",
+      "target_episode": "101",
+      "options": [
+        {
+          "text": "You and 54.6% of players chose to stay the night in the junkyard.",
+          "expression_raw": "{16161211579080395371}",
+          "expression_type": "decimal",
+          "secondary_raw": "{616121157908039537}",
+          "guid": "{5787A09F-132A-4CF7-A29C-4D46916BC150}",
+          "crc64_hex": "0xE048284E2F044A6B",
+          "crc64_decimal": 16161211579080395371,
+          "verified_in_epage": true,
+          "secondary_crc64_hex": "0x088CE6EDC3B60771",
+          "secondary_crc64_decimal": 616121157908039537
+        },
+        {
+          "text": "You and 45.4% of players chose to head back out on the road.",
+          "expression_raw": "{3619444660968564097}",
+          "expression_type": "decimal",
+          "secondary_raw": "{61944466096856409}",
+          "guid": "{7C73CBBF-0F35-4A75-8C23-08B15D36A601}",
+          "crc64_hex": "0x323AD9BE15372581",
+          "crc64_decimal": 3619444660968564097,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x00DC1229E9811D59",
+          "secondary_crc64_decimal": 61944466096856409
+        }
+      ]
+    },
+    {
+      "question": "Did you escape with your family or stay with Clementine?",
+      "episode_code": "301",
+      "target_episode": "105",
+      "options": [
+        {
+          "text": "You and 84.1% of players stayed with Clementine.",
+          "expression_raw": "{14266274540119045390}",
+          "expression_type": "decimal",
+          "secondary_raw": "{426627454011904539}",
+          "guid": "{4249B6E8-9A64-4764-AE37-7470CAB02758} | {6D8F1BCA-21F1-4957-882A-43CF3D3A05C8}",
+          "crc64_hex": "0xC5FBFD1BB7FEB50E",
+          "crc64_decimal": 14266274540119045390,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x05EBAF68B7CF121B",
+          "secondary_crc64_decimal": 426627454011904539
+        },
+        {
+          "text": "You and 15.9% of players escaped with your family.",
+          "expression_raw": "{10101136969232907168}",
+          "expression_type": "decimal",
+          "secondary_raw": "{010113696923290716}",
+          "guid": "{37210DF1-26D5-4F39-A33C-926763A05777}",
+          "crc64_hex": "0x8C2E728E2EB17BA0",
+          "crc64_decimal": 10101136969232907168,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x0023EE5A907A8C5C",
+          "secondary_crc64_decimal": 10113696923290716
+        }
+      ]
+    },
+    {
+      "question": "How did you deal with David and Kate’s argument?",
+      "episode_code": "302",
+      "target_episode": "201",
+      "options": [
+        {
+          "text": "You and 60.8% of players told David that Kate wanted to leave him.",
+          "expression_raw": "{11105433738307938627}",
+          "expression_type": "decimal",
+          "secondary_raw": "{110543373830793862}",
+          "guid": "{D3102495-8ED8-4CCA-B110-2880160FBF51}",
+          "crc64_hex": "0x9A1E6D25587BA943",
+          "crc64_decimal": 11105433738307938627,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x0188BA9CE1752A86",
+          "secondary_crc64_decimal": 110543373830793862
+        },
+        {
+          "text": "You and 39.2% of players stayed out of it.",
+          "expression_raw": "{6609087015770816033}",
+          "expression_type": "decimal",
+          "secondary_raw": "{60908701577081603}",
+          "guid": "{1334D289-6035-464C-9758-D71F6F142EAE} | {364B3FB1-4F6C-4191-86B9-8FCC100D53BD}",
+          "crc64_hex": "0x5BB8319FD8AA7E21",
+          "crc64_decimal": 6609087015770816033,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x00D86424313B7303",
+          "secondary_crc64_decimal": 60908701577081603
+        }
+      ]
+    },
+    {
+      "question": "Did Clementine come along with you?",
+      "episode_code": "305",
+      "target_episode": "505",
+      "options": [
+        {
+          "text": "After the fight with David, Clementine teamed up with you and 46.7% of players.",
+          "expression_raw": "{6489384204159973928}",
+          "expression_type": "decimal",
+          "secondary_raw": "{48938420415997392}",
+          "guid": "{16DF595A-2495-48D1-B11A-462EDEC35BF1} | {F245C3DE-7EDF-424D-9B48-1ECC42ED7EFA}",
+          "crc64_hex": "0x5A0EEC8D2BFC7A28",
+          "crc64_decimal": 6489384204159973928,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x00ADDD3BECC3A5D0",
+          "secondary_crc64_decimal": 48938420415997392
+        },
+        {
+          "text": "After the fight with David, Clementine followed her own plan, splitting up with you and 53.3% of players.",
+          "expression_raw": "{6198291353862640571}",
+          "expression_type": "decimal",
+          "secondary_raw": "{19829135386264057}",
+          "guid": "{C013A803-31DC-4DE4-B32C-980A9B604872} | {DF98FE2A-E4B7-4DD5-8003-EA6851C55F01}",
+          "crc64_hex": "0x5604C125795B93BB",
+          "crc64_decimal": 6198291353862640571,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x0046727E5AE6C1F9",
+          "secondary_crc64_decimal": 19829135386264057
+        }
+      ]
+    },
+    {
+      "question": "How did Badger die?",
+      "episode_code": "303",
+      "target_episode": "303",
+      "options": [
+        {
+          "text": "You and 22.6% of players let Badger turn.",
+          "expression_raw": "{10560263916614387741}",
+          "expression_type": "decimal",
+          "secondary_raw": "{056026391661438774}",
+          "guid": "{FE7C456B-11C7-4D02-8315-3303EFAC5528}",
+          "crc64_hex": "0x928D9814DC2D081D",
+          "crc64_decimal": 10560263916614387741,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x00C70BB4D506E736",
+          "secondary_crc64_decimal": 56026391661438774
+        },
+        {
+          "text": "You and 5.3% of players let someone else kill Badger.",
+          "expression_raw": "{309523595237821896}",
+          "expression_type": "decimal",
+          "secondary_raw": "{0952359523782189}",
+          "guid": "{5E9B35EB-2195-4703-A554-DCE2CED6D0A8} | {70FD72F9-936C-4229-AA8D-E7BE1F8F3476}",
+          "crc64_hex": "0x044BA611E7C08DC8",
+          "crc64_decimal": 309523595237821896,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x0003622A7B1D0E2D",
+          "secondary_crc64_decimal": 952359523782189
+        },
+        {
+          "text": "You and 5.4% of players killed Badger quickly.",
+          "expression_raw": "{8762912132881856940}",
+          "expression_type": "decimal",
+          "secondary_raw": "{76291213288185694}",
+          "guid": " ~{57A1CE54-2601-4533-B0CE-1E0FCF3B05D8} & {F54E9663-4C3E-4E21-86BE-115F0652C149}",
+          "crc64_hex": "0x799C1E282E6239AC",
+          "crc64_decimal": 8762912132881856940,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x010F0A744B869F5E",
+          "secondary_crc64_decimal": 76291213288185694
+        },
+        {
+          "text": "You and 66.7% of players destroyed Badger’s skull.",
+          "expression_raw": "{9422475665698294851}",
+          "expression_type": "decimal",
+          "secondary_raw": "{42247566569829485}",
+          "guid": "{57A1CE54-2601-4533-B0CE-1E0FCF3B05D8} & {F54E9663-4C3E-4E21-86BE-115F0652C149}",
+          "crc64_hex": "0x82C35BB20EB58C43",
+          "crc64_decimal": 9422475665698294851,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x009617F01E04F46D",
+          "secondary_crc64_decimal": 42247566569829485
+        }
+      ]
+    },
+    {
+      "question": "Did you shoot the driver or let him go?",
+      "episode_code": "301",
+      "target_episode": "102",
+      "options": [
+        {
+          "text": "You and 47.8% of players chose to shoot the driver.",
+          "expression_raw": "{9940589031939306816}",
+          "expression_type": "decimal",
+          "secondary_raw": "{94058903193930681}",
+          "guid": "{B10DC3F1-BD13-48CA-8AEC-34259B0CEF58}",
+          "crc64_hex": "0x89F4110E9AE2F540",
+          "crc64_decimal": 9940589031939306816,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x014E2A12F8D64BB9",
+          "secondary_crc64_decimal": 94058903193930681
+        },
+        {
+          "text": "You and 52.2% of players chose to let the driver go.",
+          "expression_raw": "{2652996549120995922}",
+          "expression_type": "decimal",
+          "secondary_raw": "{65299654912099592}",
+          "guid": "{63D534C8-C2E3-449E-95C5-22E28BAC92DA}",
+          "crc64_hex": "0x24D1564E24B1B252",
+          "crc64_decimal": 2652996549120995922,
+          "verified_in_epage": true,
+          "secondary_crc64_hex": "0x00E7FDB0AEFDC508",
+          "secondary_crc64_decimal": 65299654912099592
+        }
+      ]
+    },
+    {
+      "question": "What was the aftermath of the shooting?",
+      "episode_code": "301",
+      "target_episode": "103",
+      "options": [
+        {
+          "text": "You and 94.3% of players got locked up.",
+          "expression_raw": "{9919771157937760794}",
+          "expression_type": "decimal",
+          "secondary_raw": "{91977115793776079}",
+          "guid": "{0F449FA3-1225-42E4-BE25-5DF549E38DBE}",
+          "crc64_hex": "0x89AA1B4F9A0BAA1A",
+          "crc64_decimal": 9919771157937760794,
+          "verified_in_epage": true,
+          "secondary_crc64_hex": "0x0146C4B3125A5DCF",
+          "secondary_crc64_decimal": 91977115793776079
+        },
+        {
+          "text": "You and 5.7% of players were allowed to roam free.",
+          "expression_raw": "{10321248629698799478}",
+          "expression_type": "decimal",
+          "secondary_raw": "{032124862969879947}",
+          "guid": "{CCA19372-05F4-4D82-A614-8B68818AC097}",
+          "crc64_hex": "0x8F3C70F1C3AF2776",
+          "crc64_decimal": 10321248629698799478,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x0072216485C71D8B",
+          "secondary_crc64_decimal": 32124862969879947
+        }
+      ]
+    },
+    {
+      "question": "Who brought you to the junkyard?",
+      "episode_code": "301",
+      "target_episode": "104",
+      "options": [
+        {
+          "text": "You and 50.3% of players went with Eleanor to the junkyard.",
+          "expression_raw": "{6858802756001099516}",
+          "expression_type": "decimal",
+          "secondary_raw": "{85880275600109951}",
+          "guid": "{393B3FF4-1A05-413F-963D-104B16B03CDD} | {E8E5D8D5-406C-44ED-A63C-15143576BBFF}",
+          "crc64_hex": "0x5F2F5CC45FEA6EFC",
+          "crc64_decimal": 6858802756001099516,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x01311BA7D85B717F",
+          "secondary_crc64_decimal": 85880275600109951
+        },
+        {
+          "text": "You and 49.7% of players went with Tripp to the junkyard.",
+          "expression_raw": "{5555396784429855817}",
+          "expression_type": "decimal",
+          "secondary_raw": "{55539678442985581}",
+          "guid": "{29C6DB17-7602-4DA4-B4CD-89BFC53BF7F2} | {A46E4AB1-7BF9-404B-8777-BA8A122D0DEE}",
+          "crc64_hex": "0x4D18BBF11249F449",
+          "crc64_decimal": 5555396784429855817,
+          "verified_in_epage": false,
+          "secondary_crc64_hex": "0x00C5510B1488986D",
+          "secondary_crc64_decimal": 55539678442985581
+        }
+      ]
+    }
+  ],
+  "Michonne": [
+    {
+      "question": "Did you reveal to Paige that you nearly committed suicide?",
+      "episode_code": "102",
+      "target_episode": "203",
+      "options": [
+        {
+          "text": "You and 23.8% of players expressed sympathy for the kids.",
+          "expression_raw": "{C58DCD3F-A1E3-4E84-AFEF-BBFC77B0207D}",
+          "expression_type": "guid",
+          "secondary_raw": "",
+          "guid": "C58DCD3F-A1E3-4E84-AFEF-BBFC77B0207D"
+        },
+        {
+          "text": "You and 3.2% of players remained silent about it.",
+          "expression_raw": "{BD4CD905-2C29-43E7-B038-D42E6D6596BC}",
+          "expression_type": "guid",
+          "secondary_raw": "",
+          "guid": "BD4CD905-2C29-43E7-B038-D42E6D6596BC"
+        },
+        {
+          "text": "You and 30.3% of players disclosed your darkest moment.",
+          "expression_raw": "{7A3E6A4C-9710-417A-B244-D5A7F912D3DE}",
+          "expression_type": "guid",
+          "secondary_raw": "",
+          "guid": "7A3E6A4C-9710-417A-B244-D5A7F912D3DE"
+        },
+        {
+          "text": "You and 42.7% of players tried to offer some good advice.",
+          "expression_raw": "{EA2D1274-9FBA-4DE2-ADA8-E3C89AD1506E | 17ACB3FB-686E-4F59-B06E-E79682E2BEE3}",
+          "expression_type": "compound_guid",
+          "secondary_raw": "",
+          "guid": "EA2D1274-9FBA-4DE2-ADA8-E3C89AD1506E | 17ACB3FB-686E-4F59-B06E-E79682E2BEE3"
+        }
+      ]
+    },
+    {
+      "question": "Did you choose to leave your daughters or stay with them?",
+      "episode_code": "103",
+      "target_episode": "305",
+      "options": [
+        {
+          "text": "You and 7.7% of players chose to stay with your daughters.",
+          "expression_raw": "{7C97D402-B452-4F31-803B-165964D31B17 | 1892EB16-D2A3-4F78-B2BD-3209FC2C7343}",
+          "expression_type": "compound_guid",
+          "secondary_raw": "",
+          "guid": "7C97D402-B452-4F31-803B-165964D31B17 | 1892EB16-D2A3-4F78-B2BD-3209FC2C7343"
+        },
+        {
+          "text": "You and 92.3% of players chose to leave your daughters.",
+          "expression_raw": "{38E03171-5D18-4C77-8D5E-310366B27BAF}",
+          "expression_type": "guid",
+          "secondary_raw": "",
+          "guid": "38E03171-5D18-4C77-8D5E-310366B27BAF"
+        }
+      ]
+    },
+    {
+      "question": "Did you tell Alex what happened to his father?",
+      "episode_code": "103",
+      "target_episode": "302",
+      "options": [
+        {
+          "text": "You and 45.2% of players told Alex his father couldn't come right away.",
+          "expression_raw": "{A2ACEF40-7AF4-47D5-B5EE-0E7ABC04CAC0}",
+          "expression_type": "guid",
+          "secondary_raw": "",
+          "guid": "A2ACEF40-7AF4-47D5-B5EE-0E7ABC04CAC0"
+        },
+        {
+          "text": "You and 2.3% of players stayed silent when Alex asked about his father.",
+          "expression_raw": "{D8403477-ED6E-49D8-9FF1-8C510CB7CE91}",
+          "expression_type": "guid",
+          "secondary_raw": "",
+          "guid": "D8403477-ED6E-49D8-9FF1-8C510CB7CE91"
+        },
+        {
+          "text": "You and 17.1% of players told Alex his father was dead.",
+          "expression_raw": "{914F6634-0411-4FF1-833D-953A3E48356A}",
+          "expression_type": "guid",
+          "secondary_raw": "",
+          "guid": "914F6634-0411-4FF1-833D-953A3E48356A"
+        },
+        {
+          "text": "You and 35.4% of players told Alex a bad man hurt his father.",
+          "expression_raw": "{C7925E58-E47C-4159-A432-E5F73D954D4B}",
+          "expression_type": "guid",
+          "secondary_raw": "",
+          "guid": "C7925E58-E47C-4159-A432-E5F73D954D4B"
+        }
+      ]
+    },
+    {
+      "question": "Did you ambush Randall in the store room?",
+      "episode_code": "101",
+      "target_episode": "3",
+      "options": [
+        {
+          "text": "You and 57.4% of players head-butted Randall.",
+          "expression_raw": "{16CB7424-EB64-4389-A508-916A54EC6A4F}",
+          "expression_type": "guid",
+          "secondary_raw": "",
+          "guid": "16CB7424-EB64-4389-A508-916A54EC6A4F"
+        },
+        {
+          "text": "You and 42.6% of players played it cool.",
+          "expression_raw": "{49209B47-B181-4F94-9708-9D78360E549F}",
+          "expression_type": "guid",
+          "secondary_raw": "",
+          "guid": "49209B47-B181-4F94-9708-9D78360E549F"
+        }
+      ]
+    },
+    {
+      "question": "How did you handle the radio call from Norma?",
+      "episode_code": "102",
+      "target_episode": "204",
+      "options": [
+        {
+          "text": "You and 4.9% of players chose to ignore the radio.",
+          "expression_raw": "{47DE1BBC-D4FA-4699-8C9D-654A19FA1245 | E5DF1A51-7575-472D-B742-4327125B5093}",
+          "expression_type": "compound_guid",
+          "secondary_raw": "",
+          "guid": "47DE1BBC-D4FA-4699-8C9D-654A19FA1245 | E5DF1A51-7575-472D-B742-4327125B5093"
+        },
+        {
+          "text": "You and 35.7% of players picked up the radio and spoke with her directly.",
+          "expression_raw": "{FEBA1DFC-42E6-4E70-9210-659E5EFC4C00}",
+          "expression_type": "guid",
+          "secondary_raw": "",
+          "guid": "FEBA1DFC-42E6-4E70-9210-659E5EFC4C00"
+        },
+        {
+          "text": "You and 59.5% of players chose to make Randall speak to her.",
+          "expression_raw": "{B69239AE-6A3A-4A3E-98C3-E20E88242F0E}",
+          "expression_type": "guid",
+          "secondary_raw": "",
+          "guid": "B69239AE-6A3A-4A3E-98C3-E20E88242F0E"
+        }
+      ]
+    },
+    {
+      "question": "Did you pick up the phone or go after the footsteps in the hallway?",
+      "episode_code": "102",
+      "target_episode": "202",
+      "options": [
+        {
+          "text": "You and 73.1% of players picked up the phone.",
+          "expression_raw": "{507F2CEF-BF23-4767-A130-F00C6E82F0AB}",
+          "expression_type": "guid",
+          "secondary_raw": "",
+          "guid": "507F2CEF-BF23-4767-A130-F00C6E82F0AB"
+        },
+        {
+          "text": "You and 26.9% of players went to see who or what was in the hallway.",
+          "expression_raw": "{CE5585EA-0FA6-421C-ADDE-3701E8F8BFA3 | 324463CC-AF45-4445-9856-4D9664429DB8}",
+          "expression_type": "compound_guid",
+          "secondary_raw": "",
+          "guid": "CE5585EA-0FA6-421C-ADDE-3701E8F8BFA3 | 324463CC-AF45-4445-9856-4D9664429DB8"
+        }
+      ]
+    },
+    {
+      "question": "Did you sell Greg out to Norma?",
+      "episode_code": "101",
+      "target_episode": "4",
+      "options": [
+        {
+          "text": "You and 57.8% of players shared the blame with Greg.",
+          "expression_raw": "{514A197E-92FA-4266-858F-198376A52341}",
+          "expression_type": "guid",
+          "secondary_raw": "",
+          "guid": "514A197E-92FA-4266-858F-198376A52341"
+        },
+        {
+          "text": "You and 26.6% of players told Norma Greg was a liar.",
+          "expression_raw": "{C9DDB72B-2F35-4D49-9B40-52F169579299}",
+          "expression_type": "guid",
+          "secondary_raw": "",
+          "guid": "C9DDB72B-2F35-4D49-9B40-52F169579299"
+        },
+        {
+          "text": "You and 15.6% of players took the blame.",
+          "expression_raw": "{8AA59B5E-5C0F-4534-BC19-2749EC9B2158 | 26CC3FC0-ECEC-4091-B64F-CC897284A564}",
+          "expression_type": "compound_guid",
+          "secondary_raw": "",
+          "guid": "8AA59B5E-5C0F-4534-BC19-2749EC9B2158 | 26CC3FC0-ECEC-4091-B64F-CC897284A564"
+        }
+      ]
+    },
+    {
+      "question": "Did you let Sam bury her father?",
+      "episode_code": "103",
+      "target_episode": "301",
+      "options": [
+        {
+          "text": "You and 91.1% of players helped Sam move her father's body.",
+          "expression_raw": "{685515CD-32DA-4C50-BD48-6CB08444B8FE}",
+          "expression_type": "guid",
+          "secondary_raw": "",
+          "guid": "685515CD-32DA-4C50-BD48-6CB08444B8FE"
+        },
+        {
+          "text": "You and 8.9% of players didn't help Sam bury her father's body.",
+          "expression_raw": "{B2B156E3-FFAE-4CB8-8C02-70DEA42F4EBE | 5D6471A4-D18C-44A3-994F-A6080EA3FED6}",
+          "expression_type": "compound_guid",
+          "secondary_raw": "",
+          "guid": "B2B156E3-FFAE-4CB8-8C02-70DEA42F4EBE | 5D6471A4-D18C-44A3-994F-A6080EA3FED6"
+        }
+      ]
+    },
+    {
+      "question": "What did you do to Randall?",
+      "episode_code": "102",
+      "target_episode": "205",
+      "options": [
+        {
+          "text": "You and 52.6% of players bashed Randall's head in.",
+          "expression_raw": "{0DA4CC9C-0414-4F8F-9F9D-7403978C7F3D | 7A6B2C04-CB45-4F80-B36D-EF8EC8202041}",
+          "expression_type": "compound_guid",
+          "secondary_raw": "",
+          "guid": "0DA4CC9C-0414-4F8F-9F9D-7403978C7F3D | 7A6B2C04-CB45-4F80-B36D-EF8EC8202041"
+        },
+        {
+          "text": "You and 47.4% of players showed him mercy.",
+          "expression_raw": "{8D70FBE3-F855-42F7-86F4-7C800F9F0732}",
+          "expression_type": "guid",
+          "secondary_raw": "",
+          "guid": "8D70FBE3-F855-42F7-86F4-7C800F9F0732"
+        }
+      ]
+    },
+    {
+      "question": "Did you keep Pete with you, or let him go off on his own?",
+      "episode_code": "102",
+      "target_episode": "201",
+      "options": [
+        {
+          "text": "You and 82.1% of players stopped Pete.",
+          "expression_raw": "{A334D000-DDC5-431C-BE81-E5C9197C61C8}",
+          "expression_type": "guid",
+          "secondary_raw": "",
+          "guid": "A334D000-DDC5-431C-BE81-E5C9197C61C8"
+        },
+        {
+          "text": "You and 17.9% of players let Pete go.",
+          "expression_raw": "{B89F8C1A-748E-40A5-B1AA-1BC6EF5CA910}",
+          "expression_type": "guid",
+          "secondary_raw": "",
+          "guid": "B89F8C1A-748E-40A5-B1AA-1BC6EF5CA910"
+        }
+      ]
+    },
+    {
+      "question": "Did you put Norma out of her misery?",
+      "episode_code": "103",
+      "target_episode": "304",
+      "options": [
+        {
+          "text": "You and 41.5% of players shot Norma to put her out of her misery.",
+          "expression_raw": "{317F8C18-5D56-443A-A794-1B4FC1256B99}",
+          "expression_type": "guid",
+          "secondary_raw": "",
+          "guid": "317F8C18-5D56-443A-A794-1B4FC1256B99"
+        },
+        {
+          "text": "You and 58.5% of players let Norma get killed by walkers.",
+          "expression_raw": "{0C855EF1-9E42-4E6F-B6E5-BFE6D64E3BAD}",
+          "expression_type": "guid",
+          "secondary_raw": "",
+          "guid": "0C855EF1-9E42-4E6F-B6E5-BFE6D64E3BAD"
+        }
+      ]
+    },
+    {
+      "question": "Did you try to end it?",
+      "episode_code": "101",
+      "target_episode": "1",
+      "options": [
+        {
+          "text": "You and 32.5% of players pulled the trigger.",
+          "expression_raw": "{BFAF9499-8B31-4C25-AC17-876161F6B3AD}",
+          "expression_type": "guid",
+          "secondary_raw": "",
+          "guid": "BFAF9499-8B31-4C25-AC17-876161F6B3AD"
+        },
+        {
+          "text": "You and 67.5% of players lowered the gun.",
+          "expression_raw": "{B4310B72-8435-4F62-9F56-473403B0BEB2}",
+          "expression_type": "guid",
+          "secondary_raw": "",
+          "guid": "B4310B72-8435-4F62-9F56-473403B0BEB2"
+        }
+      ]
+    },
+    {
+      "question": "Did you let Sam shoot Zachary?",
+      "episode_code": "101",
+      "target_episode": "5",
+      "options": [
+        {
+          "text": "You and 17.2% of players let Sam take her revenge.",
+          "expression_raw": "{007AF1BB-9B39-4D94-BCC6-F86712C13DF6}",
+          "expression_type": "guid",
+          "secondary_raw": "",
+          "guid": "007AF1BB-9B39-4D94-BCC6-F86712C13DF6"
+        },
+        {
+          "text": "You and 82.8% of players tried to save Zachary.",
+          "expression_raw": "{3AB7341A-F929-4266-A349-477FFBDF51A2}",
+          "expression_type": "guid",
+          "secondary_raw": "",
+          "guid": "3AB7341A-F929-4266-A349-477FFBDF51A2"
+        }
+      ]
+    },
+    {
+      "question": "How did you enter the abandoned ferry?",
+      "episode_code": "101",
+      "target_episode": "2",
+      "options": [
+        {
+          "text": "You and 71.3% of players climbed the ladder.",
+          "expression_raw": "{8E51571A-EFD1-465C-AA66-FB0B4A168C80}",
+          "expression_type": "guid",
+          "secondary_raw": "",
+          "guid": "8E51571A-EFD1-465C-AA66-FB0B4A168C80"
+        },
+        {
+          "text": "You and 28.7% of players went in through the window.",
+          "expression_raw": "{E6384271-CCAC-4A67-AA32-04D89E236A99}",
+          "expression_type": "guid",
+          "secondary_raw": "",
+          "guid": "E6384271-CCAC-4A67-AA32-04D89E236A99"
+        }
+      ]
+    },
+    {
+      "question": "Did you hand Randall over to Norma?",
+      "episode_code": "103",
+      "target_episode": "303",
+      "options": [
+        {
+          "text": "You and 37.6% of players decided to hand Randall over to Norma.",
+          "expression_raw": "{4EE63C10-713B-4FFB-B7D3-C270A7E62B5E | 3EC437A4-4E51-4178-B5B2-CAB3008590CA}",
+          "expression_type": "compound_guid",
+          "secondary_raw": "",
+          "guid": "4EE63C10-713B-4FFB-B7D3-C270A7E62B5E | 3EC437A4-4E51-4178-B5B2-CAB3008590CA"
+        },
+        {
+          "text": "You and 62.4% of players did not hand Randall over to Norma.",
+          "expression_raw": "{A787E318-7E1C-4107-B356-A413340D58BF | 686CB734-1627-4105-BE27-8161588FFF58}",
+          "expression_type": "compound_guid",
+          "secondary_raw": "",
+          "guid": "A787E318-7E1C-4107-B356-A413340D58BF | 686CB734-1627-4105-BE27-8161588FFF58"
+        }
+      ]
+    }
+  ],
+  "Season 4": [
+    {
+      "question": "Redirect or Kill Zombie",
+      "episode_code": "402",
+      "target_episode": "203",
+      "options": [
+        {
+          "text": "You and 2% of players let James throw the rock to distract the walker.",
+          "expression_raw": "{7206543138645584788}",
+          "expression_type": "decimal",
+          "secondary_raw": "{20654313864558478}",
+          "guid": "( {8075C794-535B-4A7C-B5F5-C5BF056B9466} )",
+          "crc64_hex": "0x6402C8CD7D7FAB94",
+          "crc64_decimal": 7206543138645584788,
+          "secondary_crc64_hex": "0x004960FD30F9F78E",
+          "secondary_crc64_decimal": 20654313864558478
+        },
+        {
+          "text": "You and 6% of players killed the walker after James asked you not to.",
+          "expression_raw": "{2649072247572957281}",
+          "expression_type": "decimal",
+          "secondary_raw": "{64907224757295728}",
+          "guid": "( {29E26E3D-A351-4856-B6EE-FD41F41E7D58} )",
+          "crc64_hex": "0x24C3652C7CEE8861",
+          "crc64_decimal": 2649072247572957281,
+          "secondary_crc64_hex": "0x00E698C6EB03DA70",
+          "secondary_crc64_decimal": 64907224757295728
+        },
+        {
+          "text": "You and 93% of players spared the walker, honoring James’s request.",
+          "expression_raw": "{3993479593800681380}",
+          "expression_type": "decimal",
+          "secondary_raw": "{99347959380068138}",
+          "guid": "( {AAC14C7F-61E0-4531-B255-DC17F9FCE173} )",
+          "crc64_hex": "0x376BB0883E42C7A4",
+          "crc64_decimal": 3993479593800681380,
+          "secondary_crc64_hex": "0x0160F4715402472A",
+          "secondary_crc64_decimal": 99347959380068138
+        }
+      ]
+    },
+    {
+      "question": "AJ Shoot Lilly",
+      "episode_code": "403",
+      "target_episode": "305",
+      "options": [
+        {
+          "text": "of players told AJ to kill Lilly.",
+          "expression_raw": "{580774265551841770}",
+          "expression_type": "decimal",
+          "secondary_raw": "{8077426555184177}",
+          "guid": "( {44306977-619A-4B50-BCDB-52346B0E18B5} )",
+          "crc64_hex": "0x080F531E10E7E9EA",
+          "crc64_decimal": 580774265551841770,
+          "secondary_crc64_hex": "0x001CB2606C856431",
+          "secondary_crc64_decimal": 8077426555184177
+        },
+        {
+          "text": "of players refused to tell AJ to kill Lilly.",
+          "expression_raw": "{16010253909764912218}",
+          "expression_type": "decimal",
+          "secondary_raw": "{601025390976491221}",
+          "guid": "( {F84FDD53-A057-48A3-93F6-4A9FACEC8250} )",
+          "crc64_hex": "0xDE2FD91ADF58B45A",
+          "crc64_decimal": 16010253909764912218,
+          "secondary_crc64_hex": "0x08574568A224DED5",
+          "secondary_crc64_decimal": 601025390976491221
+        }
+      ]
+    },
+    {
+      "question": "Forest Walker Kills",
+      "episode_code": "403",
+      "target_episode": "302",
+      "options": [
+        {
+          "text": "You and 3% of players ignored James’ wishes and killed all of the walkers in the camp.",
+          "expression_raw": "{9503759355594507650}",
+          "expression_type": "decimal",
+          "secondary_raw": "{50375935559450765}",
+          "guid": "( {5E15E8C7-7E06-40B6-93CF-7668DB67708D} )",
+          "crc64_hex": "0x83E422C7E5018582",
+          "crc64_decimal": 9503759355594507650,
+          "secondary_crc64_hex": "0x00B2F8A5803FC08D",
+          "secondary_crc64_decimal": 50375935559450765
+        },
+        {
+          "text": "You and 49% of players respected James’ beliefs and killed no walkers.",
+          "expression_raw": "{4663952158527147665}",
+          "expression_type": "decimal",
+          "secondary_raw": "{66395215852714766}",
+          "guid": "( {14F7FB2F-9116-4D47-9624-E7EEF9FF721A} )",
+          "crc64_hex": "0x40B9AFC70A6D4E91",
+          "crc64_decimal": 4663952158527147665,
+          "secondary_crc64_hex": "0x00EBE218D7AFBB0E",
+          "secondary_crc64_decimal": 66395215852714766
+        },
+        {
+          "text": "You and 49% of players only killed some of the walkers in James’ camp.",
+          "expression_raw": "{12233527423379672002}",
+          "expression_type": "decimal",
+          "secondary_raw": "{223352742337967200}",
+          "guid": "(  ~{14F7FB2F-9116-4D47-9624-E7EEF9FF721A} & {27E86310-19FE-4481-B8F8-CF95BE091159} )",
+          "crc64_hex": "0xA9C63860248B8BC2",
+          "crc64_decimal": 12233527423379672002,
+          "secondary_crc64_hex": "0x03198222C2A9F460",
+          "secondary_crc64_decimal": 223352742337967200
+        }
+      ]
+    },
+    {
+      "question": "AJ Bed",
+      "episode_code": "401",
+      "target_episode": "103",
+      "options": [
+        {
+          "text": "You and 29% let AJ sleep under the bed.",
+          "expression_raw": "{16909324040932891990}",
+          "expression_type": "decimal",
+          "secondary_raw": "{690932404093289199}",
+          "guid": "( {E3BBFE95-0925-46CA-A64D-C83003084DD0} )",
+          "crc64_hex": "0xEAA9FCA033C71D56",
+          "crc64_decimal": 16909324040932891990,
+          "secondary_crc64_hex": "0x0996AF5C5DC982EF",
+          "secondary_crc64_decimal": 690932404093289199
+        },
+        {
+          "text": "You and 71% of players convinced AJ to sleep on the bed.",
+          "expression_raw": "{4534220620865348509}",
+          "expression_type": "decimal",
+          "secondary_raw": "{53422062086534850}",
+          "guid": "( {48C0A99E-C18D-45D7-B5CC-7798ABBE8296} )",
+          "crc64_hex": "0x3EECC9A19FEE239D",
+          "crc64_decimal": 4534220620865348509,
+          "secondary_crc64_hex": "0x00BDCB1519D636C2",
+          "secondary_crc64_decimal": 53422062086534850
+        }
+      ]
+    },
+    {
+      "question": "Follow Violet or Louis",
+      "episode_code": "402",
+      "target_episode": "204",
+      "options": [
+        {
+          "text": "You and 57% of players spent time stargazing with Violet.",
+          "expression_raw": "{12401179923662728920}",
+          "expression_type": "decimal",
+          "secondary_raw": "{240117992366272892}",
+          "guid": "( {1882BD84-079A-4BFD-A984-A64AB71FA581} )",
+          "crc64_hex": "0xAC19D76FB19F6ED8",
+          "crc64_decimal": 12401179923662728920,
+          "secondary_crc64_hex": "0x0355120AB72BF17C",
+          "secondary_crc64_decimal": 240117992366272892
+        },
+        {
+          "text": "You and 43% of players helped Louis tune the piano.",
+          "expression_raw": "{5733665265315467123}",
+          "expression_type": "decimal",
+          "secondary_raw": "{73366526531546712}",
+          "guid": "( {D2106F2D-CA58-4F5B-AD6C-8D7CE017C048} )",
+          "crc64_hex": "0x4F92122E381FCF73",
+          "crc64_decimal": 5733665265315467123,
+          "secondary_crc64_hex": "0x0104A67798512E58",
+          "secondary_crc64_decimal": 73366526531546712
+        }
+      ]
+    },
+    {
+      "question": "",
+      "episode_code": "404",
+      "target_episode": "401",
+      "options": [
+        {
+          "text": "You and 64% of players trusted AJ to make his own decisions.",
+          "expression_raw": "{17861591831430317070}",
+          "expression_type": "decimal",
+          "secondary_raw": "{786159183143031707}",
+          "guid": "( {2280AECF-E4EB-4511-85C9-E6504BC7AAD6} | {9CFA307C-5BBE-4205-B722-95046C5C58D4} )",
+          "crc64_hex": "0xF7E11F22CB6C440E",
+          "crc64_decimal": 17861591831430317070,
+          "secondary_crc64_hex": "0x0AE8FF9CA026D39B",
+          "secondary_crc64_decimal": 786159183143031707
+        },
+        {
+          "text": "You and 36% of players told AJ he wasn’t ready to make his own decisions.",
+          "expression_raw": "{12841135641040834718}",
+          "expression_type": "decimal",
+          "secondary_raw": "{284113564104083471}",
+          "guid": "( {825F90A0-40A1-40FC-A3C6-DD0907FA5F20} | {96FEB050-8B35-4B55-8FE0-D71B1B363024} )",
+          "crc64_hex": "0xB234E0D48CD8D09E",
+          "crc64_decimal": 12841135641040834718,
+          "secondary_crc64_hex": "0x03F15FC8004B480F",
+          "secondary_crc64_decimal": 284113564104083471
+        }
+      ]
+    },
+    {
+      "question": "Violet Run or Shoot",
+      "episode_code": "402",
+      "target_episode": "202",
+      "options": [
+        {
+          "text": "You and 50% of players told Violet to shoot Lilly, and got Louis shot.",
+          "expression_raw": "{3809782087654011627}",
+          "expression_type": "decimal",
+          "secondary_raw": "{80978208765401162}",
+          "guid": "( {F28A8FAC-A4EF-4E4C-B510-D947FAEF804E} )",
+          "crc64_hex": "0x34DF109FA64372EB",
+          "crc64_decimal": 3809782087654011627,
+          "secondary_crc64_hex": "0x011FB1407802584A",
+          "secondary_crc64_decimal": 80978208765401162
+        },
+        {
+          "text": "You and 50% of players told Louis and Violet to run from Lilly and Abel.",
+          "expression_raw": "{16076463935526005137}",
+          "expression_type": "decimal",
+          "secondary_raw": "{607646393552600513}",
+          "guid": "( {7BBED350-29A6-4BD3-B598-C48D39F3BED7} )",
+          "crc64_hex": "0xDF1B12C5C967E991",
+          "crc64_decimal": 16076463935526005137,
+          "secondary_crc64_hex": "0x086ECB2CECBFFDC1",
+          "secondary_crc64_decimal": 607646393552600513
+        }
+      ]
+    },
+    {
+      "question": "Abel Food",
+      "episode_code": "401",
+      "target_episode": "104",
+      "options": [
+        {
+          "text": "You and 22% of players surrendered food to Abel.",
+          "expression_raw": "{7820728331484032574}",
+          "expression_type": "decimal",
+          "secondary_raw": "{82072833148403257}",
+          "guid": "( {EB2EFF11-EA62-49B5-81AB-FF4C7742C213} )",
+          "crc64_hex": "0x6C88CEFB42F06E3E",
+          "crc64_decimal": 7820728331484032574,
+          "secondary_crc64_hex": "0x012394CE91853E39",
+          "secondary_crc64_decimal": 82072833148403257
+        },
+        {
+          "text": "You and 78% of players attacked Abel rather than giving him food.",
+          "expression_raw": "{5912100314203609737}",
+          "expression_type": "decimal",
+          "secondary_raw": "{91210031420360973}",
+          "guid": "( {D4DFE2E9-4A8B-4DA7-B05A-D1C3495D639F} )",
+          "crc64_hex": "0x520BFFE98094DA89",
+          "crc64_decimal": 5912100314203609737,
+          "secondary_crc64_hex": "0x01440B0A52C3490D",
+          "secondary_crc64_decimal": 91210031420360973
+        }
+      ]
+    },
+    {
+      "question": "Zombie Abel",
+      "episode_code": "403",
+      "target_episode": "301",
+      "options": [
+        {
+          "text": "You and 89% of players mercy killed Abel.",
+          "expression_raw": "{995883522095215443}",
+          "expression_type": "decimal",
+          "secondary_raw": "{9588352209521544}",
+          "guid": "( {C9E688C6-D2CF-47C6-929C-F1F852BE939E} )",
+          "crc64_hex": "0x0DD216C974267353",
+          "crc64_decimal": 995883522095215443,
+          "secondary_crc64_hex": "0x0022108E376E0B88",
+          "secondary_crc64_decimal": 9588352209521544
+        },
+        {
+          "text": "You and 11% of players forced Abel to turn into a walker.",
+          "expression_raw": "{6014040736592347718}",
+          "expression_type": "decimal",
+          "secondary_raw": "{01404073659234771}",
+          "guid": "( {5818A5A9-01C8-483C-9F06-365626F4E7E5} )",
+          "crc64_hex": "0x53762A2FA950C246",
+          "crc64_decimal": 6014040736592347718,
+          "secondary_crc64_hex": "0x0004FCFF5FB279D3",
+          "secondary_crc64_decimal": 1404073659234771
+        }
+      ]
+    },
+    {
+      "question": "Save Violet or Louis",
+      "episode_code": "402",
+      "target_episode": "205",
+      "options": [
+        {
+          "text": "of players rescued Louis instead of Violet.",
+          "expression_raw": "{1911792295997203099}",
+          "expression_type": "decimal",
+          "secondary_raw": "{91179229599720309}",
+          "guid": "( {64ACF62A-FBD5-4513-BA3B-0EBF08C99EF5} | {C6642063-7BF0-4301-9CD8-0D4AEB9C3BDF} )",
+          "crc64_hex": "0x1A880CF6CF3DE29B",
+          "crc64_decimal": 1911792295997203099,
+          "secondary_crc64_hex": "0x0143EF06B72F6375",
+          "secondary_crc64_decimal": 91179229599720309
+        },
+        {
+          "text": "of players rescued Violet instead of Louis.",
+          "expression_raw": "{17601745492652902482}",
+          "expression_type": "decimal",
+          "secondary_raw": "{760174549265290248}",
+          "guid": "( {126EB207-831C-4BFF-9D85-FB9D66493BB5} | {E20E5B4D-6404-46C1-979C-7CD96F720105} )",
+          "crc64_hex": "0xF445F6447C68C852",
+          "crc64_decimal": 17601745492652902482,
+          "secondary_crc64_hex": "0x0A8CAEB998401408",
+          "secondary_crc64_decimal": 760174549265290248
+        }
+      ]
+    },
+    {
+      "question": "AJ’s Gun",
+      "episode_code": "402",
+      "target_episode": "201",
+      "options": [
+        {
+          "text": "You and 1% of players didn’t intervene when AJ insisted on keeping his gun.",
+          "expression_raw": "{7948242829300296730}",
+          "expression_type": "decimal",
+          "secondary_raw": "{94824282930029673}",
+          "guid": "( {A965FCE4-D756-4C7F-BAB7-A6B1FCA5AA2F} )",
+          "crc64_hex": "0x6E4DD4BDDCFD6C1A",
+          "crc64_decimal": 7948242829300296730,
+          "secondary_crc64_hex": "0x0150E22ED4202469",
+          "secondary_crc64_decimal": 94824282930029673
+        },
+        {
+          "text": "You and 2% of players said nothing when AJ insisted on giving Louis his gun.",
+          "expression_raw": "{4269560086370519960}",
+          "expression_type": "decimal",
+          "secondary_raw": "{26956008637051996}",
+          "guid": "( {4059EC2C-FF35-4CA4-AE3B-71214BE0B9C7} )",
+          "crc64_hex": "0x3B408647074D0B98",
+          "crc64_decimal": 4269560086370519960,
+          "secondary_crc64_hex": "0x005FC458D75FB45C",
+          "secondary_crc64_decimal": 26956008637051996
+        },
+        {
+          "text": "You and 33% of players gave AJ’s gun to Louis.",
+          "expression_raw": "{16697960432556992517}",
+          "expression_type": "decimal",
+          "secondary_raw": "{669796043255699251}",
+          "guid": "( {CBAC299B-41B0-4561-9D9B-3F0900EB8E97} )",
+          "crc64_hex": "0xE7BB128B38166805",
+          "crc64_decimal": 16697960432556992517,
+          "secondary_crc64_hex": "0x094B97F3DE37D733",
+          "secondary_crc64_decimal": 669796043255699251
+        },
+        {
+          "text": "You and 64% of players told AJ to keep his gun.",
+          "expression_raw": "{5399917640728734123}",
+          "expression_type": "decimal",
+          "secondary_raw": "{39991764072873412}",
+          "guid": "( {D670AC7F-AF66-4025-B6B7-47F57E4A90F1} )",
+          "crc64_hex": "0x4AF05C7BF80069AB",
+          "crc64_decimal": 5399917640728734123,
+          "secondary_crc64_hex": "0x008E144C2B813DC4",
+          "secondary_crc64_decimal": 39991764072873412
+        }
+      ]
+    },
+    {
+      "question": "",
+      "episode_code": "404",
+      "target_episode": "402",
+      "options": [
+        {
+          "text": "You and 14% of players decided to add a statue of yourself to Louis’ imaginary house.",
+          "expression_raw": "{11629610717447579745}",
+          "expression_type": "decimal",
+          "secondary_raw": "{162961071744757974}",
+          "guid": "( {6C580064-0D9B-49C6-90B2-1EC4A5752721} )",
+          "crc64_hex": "0xA164AD54C989E861",
+          "crc64_decimal": 11629610717447579745,
+          "secondary_crc64_hex": "0x0242F43B399030D6",
+          "secondary_crc64_decimal": 162961071744757974
+        },
+        {
+          "text": "You and 9% of players let Louis decide on the last flourish for his imaginary house.",
+          "expression_raw": "{4210941602321462248}",
+          "expression_type": "decimal",
+          "secondary_raw": "{21094160232146224}",
+          "guid": "( {10E44C14-173B-4465-A0E3-9A4C606F1958} | {5D5E1AC2-BF52-4CD7-9BFF-CC2C4CA87B43} )",
+          "crc64_hex": "0x3A704513A848F3E8",
+          "crc64_decimal": 4210941602321462248,
+          "secondary_crc64_hex": "0x004AF106E778E530",
+          "secondary_crc64_decimal": 21094160232146224
+        },
+        {
+          "text": "You and 41% of players decided to add a skylight to Louis’ imaginary house.",
+          "expression_raw": "{3212790821571846008}",
+          "expression_type": "decimal",
+          "secondary_raw": "{21279082157184600}",
+          "guid": "( {5524A0D7-62F1-4AA5-AABF-11F2107E4879} )",
+          "crc64_hex": "0x2C96203AE96CDF78",
+          "crc64_decimal": 3212790821571846008,
+          "secondary_crc64_hex": "0x004B993665201658",
+          "secondary_crc64_decimal": 21279082157184600
+        },
+        {
+          "text": "You and 37% of players decided to add a tree house to Louis’ imaginary house.",
+          "expression_raw": "{5966011420904232468}",
+          "expression_type": "decimal",
+          "secondary_raw": "{96601142090423246}",
+          "guid": "( {2B2E75DC-9265-45BE-8976-A1D293591FE6} )",
+          "crc64_hex": "0x52CB87C72CEB9614",
+          "crc64_decimal": 5966011420904232468,
+          "secondary_crc64_hex": "0x0157323A17325BCE",
+          "secondary_crc64_decimal": 96601142090423246
+        }
+      ]
+    },
+    {
+      "question": "AJ Attack Dorian",
+      "episode_code": "403",
+      "target_episode": "304",
+      "options": [
+        {
+          "text": "You and 14% of players stopped AJ and let Dorian cut off your friend’s finger.",
+          "expression_raw": "{8548470525244078249}",
+          "expression_type": "decimal",
+          "secondary_raw": "{54847052524407824}",
+          "guid": "( {5A3A8F4F-62BE-40C0-9F31-F39EC2F275DC} )",
+          "crc64_hex": "0x76A244A6A611F8A9",
+          "crc64_decimal": 8548470525244078249,
+          "secondary_crc64_hex": "0x00C2DB1A8AB1CC10",
+          "secondary_crc64_decimal": 54847052524407824
+        },
+        {
+          "text": "You and 86% of players allowed AJ to attack Dorian, stopping her from cutting off your friend’s finger.",
+          "expression_raw": "{17560953575739751844}",
+          "expression_type": "decimal",
+          "secondary_raw": "{756095357573975184}",
+          "guid": "( {AB059164-77F9-4FB4-8996-0BA4F96DC361} )",
+          "crc64_hex": "0xF3B50A3C3717FDA4",
+          "crc64_decimal": 17560953575739751844,
+          "secondary_crc64_hex": "0x0A7E30B8C484CC90",
+          "secondary_crc64_decimal": 756095357573975184
+        }
+      ]
+    },
+    {
+      "question": "Happy Couple",
+      "episode_code": "401",
+      "target_episode": "101",
+      "options": [
+        {
+          "text": "You and 56% of players killed the walker couple in the train station.",
+          "expression_raw": "{5842189628159931301}",
+          "expression_type": "decimal",
+          "secondary_raw": "{84218962815993130}",
+          "guid": "( {170B10E1-289B-48FC-8B2E-9D775CFEBF2F} )",
+          "crc64_hex": "0x5113A08378F1B3A5",
+          "crc64_decimal": 5842189628159931301,
+          "secondary_crc64_hex": "0x012B34B351FFC52A",
+          "secondary_crc64_decimal": 84218962815993130
+        },
+        {
+          "text": "You and 44% of players chose to let AJ go through the window in the train station.",
+          "expression_raw": "{15097413034082328317}",
+          "expression_type": "decimal",
+          "secondary_raw": "{509741303408232831}",
+          "guid": "( {D5CAC505-D44C-4338-A465-EFA30DF08A5E} )",
+          "crc64_hex": "0xD184C92A3BD45EFD",
+          "crc64_decimal": 15097413034082328317,
+          "secondary_crc64_hex": "0x0712F703C4FE097F",
+          "secondary_crc64_decimal": 509741303408232831
+        }
+      ]
+    },
+    {
+      "question": "",
+      "episode_code": "404",
+      "target_episode": "405",
+      "options": [
+        {
+          "text": "of players agreed to teach Tenn to be like you.",
+          "expression_raw": "{15204972871503003293}",
+          "expression_type": "decimal",
+          "secondary_raw": "{520497287150300329}",
+          "guid": "( {D6C8979F-C408-4433-8118-0756F851F268} )",
+          "crc64_hex": "0xD302EA4469633E9D",
+          "crc64_decimal": 15204972871503003293,
+          "secondary_crc64_hex": "0x07392D866325ECA9",
+          "secondary_crc64_decimal": 520497287150300329
+        },
+        {
+          "text": "of players refused to teach Tenn to be like you.",
+          "expression_raw": "{17154121851607688412}",
+          "expression_type": "decimal",
+          "secondary_raw": "{715412185160768841}",
+          "guid": "( {1E76746E-8E8F-46A9-BB90-59E19DDA5CA5} | {C769C7FC-ED4B-4988-9E46-06D5801BDA1C} )",
+          "crc64_hex": "0xEE0FAEF006D7A4DC",
+          "crc64_decimal": 17154121851607688412,
+          "secondary_crc64_hex": "0x09EDA7978C7E5D49",
+          "secondary_crc64_decimal": 715412185160768841
+        }
+      ]
+    },
+    {
+      "question": "",
+      "episode_code": "404",
+      "target_episode": "406",
+      "options": [
+        {
+          "text": "of players shot Tenn after he became a walker.",
+          "expression_raw": "{12301297157157939491}",
+          "expression_type": "decimal",
+          "secondary_raw": "{230129715715793949}",
+          "guid": "( {B41EBFF0-6582-42E5-A7EB-66A0A95329D5} )",
+          "crc64_hex": "0xAAB6FC96E0EBE923",
+          "crc64_decimal": 12301297157157939491,
+          "secondary_crc64_hex": "0x033195C1D580641D",
+          "secondary_crc64_decimal": 230129715715793949
+        },
+        {
+          "text": "of players spared Tenn after he became a walker.",
+          "expression_raw": "{12302346326982704069}",
+          "expression_type": "decimal",
+          "secondary_raw": "{230234632698270406}",
+          "guid": "( {AAC3B126-09CF-41AF-BC42-BE81BC302957} )",
+          "crc64_hex": "0xAABAB6CDC3A2BBC5",
+          "crc64_decimal": 12302346326982704069,
+          "secondary_crc64_hex": "0x0331F52DB8F912C6",
+          "secondary_crc64_decimal": 230234632698270406
+        }
+      ]
+    },
+    {
+      "question": "",
+      "episode_code": "404",
+      "target_episode": "403",
+      "options": [
+        {
+          "text": "You and 12% of players renamed the school “The Rotting Shithole” with Violet.",
+          "expression_raw": "{10282439697552209761}",
+          "expression_type": "decimal",
+          "secondary_raw": "{028243969755220976}",
+          "guid": "( {0159D878-B1D0-40A7-8070-A81B1D7BFCCD} )",
+          "crc64_hex": "0x8EB2906D1CF97761",
+          "crc64_decimal": 10282439697552209761,
+          "secondary_crc64_hex": "0x006457BDA84E8BF0",
+          "secondary_crc64_decimal": 28243969755220976
+        },
+        {
+          "text": "You and 14% of players renamed the school “Castle Violet” despite her protests.",
+          "expression_raw": "{14124022842073189130}",
+          "expression_type": "decimal",
+          "secondary_raw": "{412402284207318913}",
+          "guid": "( {7C2C5324-B198-4113-AC1D-8F192E700277} )",
+          "crc64_hex": "0xC4029BF14D468B0A",
+          "crc64_decimal": 14124022842073189130,
+          "secondary_crc64_hex": "0x05B925B146BCA781",
+          "secondary_crc64_decimal": 412402284207318913
+        },
+        {
+          "text": "You and 64% of players let Violet rename the school herself.",
+          "expression_raw": "{1398909226503035329}",
+          "expression_type": "decimal",
+          "secondary_raw": "{39890922650303532}",
+          "guid": "( {64594F3B-FE80-4290-8DD0-2E4565FA0066} | {ED22C199-6EEC-445B-8CF7-CEC8FDA4677D} )",
+          "crc64_hex": "0x1369EC879EBAD9C1",
+          "crc64_decimal": 1398909226503035329,
+          "secondary_crc64_hex": "0x008DB89532557C2C",
+          "secondary_crc64_decimal": 39890922650303532
+        },
+        {
+          "text": "You and 10% of players renamed the school “Happy Sunshine Land” with Violet.",
+          "expression_raw": "{5552215331965200250}",
+          "expression_type": "decimal",
+          "secondary_raw": "{55221533196520025}",
+          "guid": "( {FC93EDA3-CA0C-49E8-8E53-B26B0451ED75} )",
+          "crc64_hex": "0x4D0D6E6D7243677A",
+          "crc64_decimal": 5552215331965200250,
+          "secondary_crc64_hex": "0x00C42FB11E218A59",
+          "secondary_crc64_decimal": 55221533196520025
+        }
+      ]
+    },
+    {
+      "question": "Violet vs Marlon",
+      "episode_code": "401",
+      "target_episode": "105",
+      "options": [
+        {
+          "text": "of players turned to Violet for help against Marlon.",
+          "expression_raw": "{12073994251801646372}",
+          "expression_type": "decimal",
+          "secondary_raw": "{207399425180164637}",
+          "guid": "( {80E48E39-2D80-406A-B313-008509B46C30} )",
+          "crc64_hex": "0xA78F71CD1EBED524",
+          "crc64_decimal": 12073994251801646372,
+          "secondary_crc64_hex": "0x02E0D4ADA87BE21D",
+          "secondary_crc64_decimal": 207399425180164637
+        },
+        {
+          "text": "of players turned to Louis for help against Marlon.",
+          "expression_raw": "{505518144696507983}",
+          "expression_type": "decimal",
+          "secondary_raw": "{0551814469650798}",
+          "guid": "( {EF3B17D7-62D4-47D0-AD09-25788B84D18E} )",
+          "crc64_hex": "0x0703F61302265E4F",
+          "crc64_decimal": 505518144696507983,
+          "secondary_crc64_hex": "0x0001F5DF5172096E",
+          "secondary_crc64_decimal": 551814469650798
+        }
+      ]
+    },
+    {
+      "question": "Hunting vs Fishing",
+      "episode_code": "401",
+      "target_episode": "102",
+      "options": [
+        {
+          "text": "You and 53% of players went fishing with Violet and Brody.",
+          "expression_raw": "{16904837112426525280}",
+          "expression_type": "decimal",
+          "secondary_raw": "{690483711242652528}",
+          "guid": "( {59287F15-5C7C-4C87-A3AA-792C16BB5603} )",
+          "crc64_hex": "0xEA9A0BC9C005F260",
+          "crc64_decimal": 16904837112426525280,
+          "secondary_crc64_hex": "0x09951746EBCFCB70",
+          "secondary_crc64_decimal": 690483711242652528
+        },
+        {
+          "text": "You and 47% of players went hunting with Louis and Aasim.",
+          "expression_raw": "{10579790181503404510}",
+          "expression_type": "decimal",
+          "secondary_raw": "{057979018150340451}",
+          "guid": "( {141CD479-1A00-4F12-A07E-F97FA5E11E77} )",
+          "crc64_hex": "0x92D2F71DAEAD09DE",
+          "crc64_decimal": 10579790181503404510,
+          "secondary_crc64_hex": "0x00CDFB9C1D46E763",
+          "secondary_crc64_decimal": 57979018150340451
+        }
+      ]
+    },
+    {
+      "question": "Bomb Name",
+      "episode_code": "403",
+      "target_episode": "303",
+      "options": [
+        {
+          "text": "You and 17% of players named the bomb “Willy Junior.”",
+          "expression_raw": "{12222041574503957022}",
+          "expression_type": "decimal",
+          "secondary_raw": "{222204157450395702}",
+          "guid": "( {4C3F4B08-6DBF-4AE4-A717-65441E20C6A5} )",
+          "crc64_hex": "0xA99D6A0E8E5D421E",
+          "crc64_decimal": 12222041574503957022,
+          "secondary_crc64_hex": "0x03156D8100722036",
+          "secondary_crc64_decimal": 222204157450395702
+        },
+        {
+          "text": "You and 6% of players had a bomb named “AJ.”",
+          "expression_raw": "{3631510993474306868}",
+          "expression_type": "decimal",
+          "secondary_raw": "{63151099347430686}",
+          "guid": "( {CC9CB488-ED7D-479C-A235-37304F0E5F25} )",
+          "crc64_hex": "0x3265B8020BF64334",
+          "crc64_decimal": 3631510993474306868,
+          "secondary_crc64_hex": "0x00E05B971BC76D1E",
+          "secondary_crc64_decimal": 63151099347430686
+        },
+        {
+          "text": "You and 61% of players named the bomb “Mitch’s Masterpiece.”",
+          "expression_raw": "{12587596737880506807}",
+          "expression_type": "decimal",
+          "secondary_raw": "{258759673788050680}",
+          "guid": "( {035DB8B1-43B7-4F70-B841-30C7A469A0FF} )",
+          "crc64_hex": "0xAEB0208A893BC1B7",
+          "crc64_decimal": 12587596737880506807,
+          "secondary_crc64_hex": "0x03974C8D66552CF8",
+          "secondary_crc64_decimal": 258759673788050680
+        },
+        {
+          "text": "You and 3% of players refused to name the bomb.",
+          "expression_raw": "{516972202831744245}",
+          "expression_type": "decimal",
+          "secondary_raw": "{1697220283174424}",
+          "guid": "( {B785EB83-A849-49A3-A2CF-FABEB1DFB873} )",
+          "crc64_hex": "0x072CA77ABC898CF5",
+          "crc64_decimal": 516972202831744245,
+          "secondary_crc64_hex": "0x0006079CE4158E18",
+          "secondary_crc64_decimal": 1697220283174424
+        },
+        {
+          "text": "You and 13% of players named the bomb “Ruby’s Revenge.”",
+          "expression_raw": "{16981919944665573208}",
+          "expression_type": "decimal",
+          "secondary_raw": "{698191994466557320}",
+          "guid": "( {9E7DE313-0274-4D3B-9AD9-CCCCF211A8FE} )",
+          "crc64_hex": "0xEBABE63731E9A758",
+          "crc64_decimal": 16981919944665573208,
+          "secondary_crc64_hex": "0x09B079EB77335D88",
+          "secondary_crc64_decimal": 698191994466557320
+        }
+      ]
+    },
+    {
+      "question": "",
+      "episode_code": "404",
+      "target_episode": "404",
+      "options": [
+        {
+          "text": "You and 77% of players asked AJ to kill you rather than let you become a walker.",
+          "expression_raw": "{6231107864763693656}",
+          "expression_type": "decimal",
+          "secondary_raw": "{23110786476369365}",
+          "guid": "( {95EF9164-AEEC-4D1B-8F06-B715FDA52C10} )",
+          "crc64_hex": "0x56795796D461FA58",
+          "crc64_decimal": 6231107864763693656,
+          "secondary_crc64_hex": "0x00521B234A6765D5",
+          "secondary_crc64_decimal": 23110786476369365
+        },
+        {
+          "text": "You and 23% of players asked AJ to leave you and let you become a walker.",
+          "expression_raw": "{3159335848812451805}",
+          "expression_type": "decimal",
+          "secondary_raw": "{15933584881245180}",
+          "guid": "( {7B65D06D-D8AB-498C-90A7-D78ACB001EA5} )",
+          "crc64_hex": "0x2BD83737329F97DD",
+          "crc64_decimal": 3159335848812451805,
+          "secondary_crc64_hex": "0x00389B82D2D85BFC",
+          "secondary_crc64_decimal": 15933584881245180
+        }
+      ]
+    }
+  ]
+}
