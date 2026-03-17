@@ -61,24 +61,10 @@ public sealed class SaveSlot
     public Dictionary<string, byte[]>? LoadedEventLogFiles { get; set; }
 
     /// <summary>
-    /// Detect which season this save belongs to based on the filename prefix.
+    /// The season key for this save. Set by the loading code (SaveManager/SaveEditorService)
+    /// using the injected ISeasonRegistry.
     /// </summary>
-    public string? DetectedSeasonKey
-    {
-        get
-        {
-            var name = Path.GetFileName(FilePath).ToLowerInvariant();
-            // Strip leading underscore from checkpoint/autosave files
-            if (name.StartsWith('_')) name = name[1..];
-
-            if (name.StartsWith("wd1_")) return "s1";
-            if (name.StartsWith("wd2_")) return "s2";
-            if (name.StartsWith("wd3_")) return "s3";
-            if (name.StartsWith("wd4_")) return "s4";
-            if (name.StartsWith("wdm_")) return "michonne";
-            return null;
-        }
-    }
+    public string? DetectedSeasonKey { get; set; }
 }
 
 /// <summary>

@@ -1,11 +1,18 @@
 using TwdSaveEditor.Core.Binary;
 using TwdSaveEditor.Core.GameData;
+using TwdSaveEditor.Core.GameData.Seasons;
 using TwdSaveEditor.Core.Hashing;
 
 namespace TwdSaveEditor.Core.Tests;
 
 public class SaveSlotFactoryTests
 {
+    private static ISeasonRegistry CreateRegistry() => new SeasonRegistry(
+    [
+        new S1Handler(), new S1_400DaysHandler(), new S2Handler(),
+        new S3Handler(), new S4Handler(), new MichonneHandler(),
+    ]);
+
     [Fact]
     public void CreateBlank_HasValidStructure()
     {
@@ -61,7 +68,7 @@ public class SaveSlotFactoryTests
     [Fact]
     public void CreateForSeason_HasPrePopulatedChoices()
     {
-        var slot = SaveSlotFactory.CreateForSeason("s1", 3, "test.bundle");
+        var slot = SaveSlotFactory.CreateForSeason(CreateRegistry(), "s1", 3, "test.bundle");
         var accessor = new SaveAccessor(slot.Choices!);
 
         var allChoices = accessor.GetAllChoices();
@@ -84,7 +91,7 @@ public class SaveSlotFactoryTests
     [Fact]
     public void CreateForSeason_DoesNotIncludeLaterEpisodes()
     {
-        var slot = SaveSlotFactory.CreateForSeason("s1", 1, "test.bundle");
+        var slot = SaveSlotFactory.CreateForSeason(CreateRegistry(), "s1", 1, "test.bundle");
         var accessor = new SaveAccessor(slot.Choices!);
 
         // Ep 2+ choices should NOT be present
@@ -98,11 +105,9 @@ public class SaveSlotFactoryTests
     [Theory]
     [InlineData("s1", 1)]
     [InlineData("s2", 3)]
-    [InlineData("s4", 2)]
-    [InlineData("michonne", 1)]
-    public void CreateForSeason_RoundTrips(string seasonKey, int episode)
+    public void CreateForSeason_S1S2_RoundTrips(string seasonKey, int episode)
     {
-        var slot = SaveSlotFactory.CreateForSeason(seasonKey, episode, "test.bundle");
+        var slot = SaveSlotFactory.CreateForSeason(CreateRegistry(), seasonKey, episode, "test.bundle");
         var bytes = BundleWriter.Write(slot);
         var reparsed = BundleReader.Read(bytes, "test.bundle");
 
@@ -115,5 +120,28 @@ public class SaveSlotFactoryTests
 
         foreach (var (key, value) in origChoices)
             Assert.Equal(value, newAccessor.GetChoiceValue(key)!);
+    }
+
+    [Fact]
+    public void CreateForSeason_S4_RoundTrips()
+    {
+        var slot = SaveSlotFactory.CreateForSeason(CreateRegistry(), "s4", 2, "test.bundle");
+        var bytes = BundleWriter.Write(slot);
+        var reparsed = BundleReader.Read(bytes, "test.bundle");
+
+        Assert.NotNull(reparsed.ChoiceStats);
+        Assert.Null(reparsed.Choices);
+    }
+
+    [Fact]
+    public void CreateForSeason_Michonne_HasMetadataOnly()
+    {
+        var slot = SaveSlotFactory.CreateForSeason(CreateRegistry(), "michonne", 1, "test.bundle");
+        var bytes = BundleWriter.Write(slot);
+        var reparsed = BundleReader.Read(bytes, "test.bundle");
+
+        Assert.NotNull(reparsed.Metadata);
+        Assert.Null(reparsed.Choices);
+        Assert.Null(reparsed.ChoiceStats);
     }
 }

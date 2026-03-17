@@ -192,110 +192,20 @@ public static class SaveSlotFactory
 
     /// <summary>
     /// Create a new save with all choices from a given season pre-populated with default values.
+    /// Uses the provided registry to resolve the season handler.
     /// </summary>
-    public static SaveSlot CreateForSeason(string seasonKey, int episode, string fileName)
+    public static SaveSlot CreateForSeason(ISeasonRegistry registry, string seasonKey, int episode, string fileName)
     {
-        var season = SeasonInfo.FindSeason(seasonKey);
-        var episodeId = GetEpisodeId(seasonKey, episode);
-
-        // Create the right blank structure based on season
-        var slot = seasonKey switch
-        {
-            "s3" or "michonne" => CreateBlankS3Michonne(fileName, episodeId),
-            "s4" => CreateBlankS4(fileName, episodeId),
-            _ => CreateBlankS1S2(fileName, episodeId),
-        };
-
-        // Pre-populate choices for all episodes up to the given one
-        var choices = ChoiceDatabase.ForSeason(seasonKey)
-            .Where(c => c.Episode <= episode)
-            .ToList();
-
-        if (choices.Count == 0)
-            return slot;
-
-        if (seasonKey == "s4")
-        {
-            // S4: populate via ChoiceStatsAccessor (GUID-based)
-            var accessor = new ChoiceStatsAccessor(slot);
-            foreach (var c in choices)
-                accessor.ApplyChoice(c, 0); // first option as default
-        }
-        else if (seasonKey is "s3" or "michonne")
-        {
-            // S3/Michonne: choices live in estore/epage EventLog files.
-            // Build EventLogEntry records for each choice using the first option as default.
-            var eventEntries = new List<Model.EventLogEntry>();
-            uint seqIdx = 0;
-
-            foreach (var c in choices)
-            {
-                ulong? nodeHash = null;
-
-                if (seasonKey == "s3")
-                {
-                    nodeHash = ChoiceNodeMapping.GetNodeHash("s3", c.ChoiceKey, c.Options[0].Value);
-                }
-                else // michonne
-                {
-                    var guid = ChoiceNodeMapping.GetMichonneGuid(c.ChoiceKey, c.Options[0].Value);
-                    if (guid != null)
-                        nodeHash = Hashing.TelltaleHash.ComputeCrc64("{" + guid + "}");
-                }
-
-                if (nodeHash == null)
-                    continue;
-
-                eventEntries.Add(new Model.EventLogEntry
-                {
-                    EventTypeHash = Model.EventLogEntry.EventTypes.ExecutingDialogNode,
-                    NodeHash = nodeHash.Value,
-                    ValueType = 1,
-                    ExtraFlag = 0,
-                    SequenceIndex = seqIdx++,
-                    Trailing = 0,
-                });
-            }
-
-            slot.PendingEventLogEntries = eventEntries;
-        }
-        else
-        {
-            // S1/S2: populate via choices.prop string arrays
-            var entries = choices
-                .Select(c => ($"{c.ChoiceKey} - {c.Options[0].Value}", true))
-                .ToList();
-
-            var typeSymbol = new Symbol(TelltaleTypes.ChoicesContainer);
-            var group = slot.Choices!.TypeGroups.FirstOrDefault(g =>
-                g.TypeSymbol.Value == TelltaleTypes.ChoicesContainer);
-
-            if (group == null)
-            {
-                group = new TypeGroup(typeSymbol);
-                slot.Choices!.TypeGroups.Add(group);
-            }
-
-            var raw = SaveAccessor.SerializeStringBoolArray(entries);
-            if (group.Properties.Count > 0)
-            {
-                // Replace existing empty property's data
-                group.Properties[0] = new Property(
-                    group.Properties[0].KeySymbol,
-                    new RawBytesValue(raw, typeSymbol));
-            }
-            else
-            {
-                group.Properties.Add(new Property(
-                    Symbol.FromString($"{seasonKey}_choices"),
-                    new RawBytesValue(raw, typeSymbol)));
-            }
-        }
-
+        var handler = registry.Get(seasonKey)
+            ?? throw new ArgumentException($"Unknown season: {seasonKey}");
+        var episodeId = handler.GetEpisodeId(episode);
+        var slot = handler.CreateBlankSave(fileName, episodeId);
+        handler.PopulateChoices(slot, episode);
         return slot;
     }
 
-    private static PropertySet CreateBlankMetadata(string episodeId, string fileName)
+
+    public static PropertySet CreateBlankMetadata(string episodeId, string fileName)
     {
         // Metadata has: int32 group (chapter count, slot index), bool group, String group
         var int32Symbol = Symbol.FromString("int32");
@@ -337,7 +247,7 @@ public static class SaveSlotFactory
         };
     }
 
-    private static PropertySet CreateBlankChoices()
+    public static PropertySet CreateBlankChoices()
     {
         var typeSymbol = new Symbol(TelltaleTypes.ChoicesContainer);
 
@@ -363,7 +273,7 @@ public static class SaveSlotFactory
         };
     }
 
-    private static PropertySet CreateBlankChoiceStats()
+    public static PropertySet CreateBlankChoiceStats()
     {
         // S4 choicestats.pro: PropertySet with a single String property (empty GUID string)
         var stringSymbol = new Symbol(TelltaleTypes.String);
@@ -385,7 +295,7 @@ public static class SaveSlotFactory
         };
     }
 
-    private static byte[] BuildInnerMetaStream(byte[] propData)
+    public static byte[] BuildInnerMetaStream(byte[] propData)
     {
         using var ms = new MemoryStream();
         using var writer = new Binary.BinaryWriterEx(ms, leaveOpen: true);
@@ -406,17 +316,4 @@ public static class SaveSlotFactory
         return ms.ToArray();
     }
 
-    private static string GetEpisodeId(string seasonKey, int episode)
-    {
-        return seasonKey switch
-        {
-            "s1" => $"WalkingDead10{episode}",
-            "s1_400days" => "WalkingDead104",
-            "s2" => $"WalkingDead20{episode}",
-            "michonne" => $"Michonne10{episode}",
-            "s3" => $"WalkingDead30{episode}",
-            "s4" => $"WalkingDead40{episode}",
-            _ => $"WalkingDead10{episode}",
-        };
-    }
 }

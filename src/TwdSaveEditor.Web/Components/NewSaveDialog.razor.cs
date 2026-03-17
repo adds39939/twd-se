@@ -13,6 +13,9 @@ public partial class NewSaveDialog
     [Inject]
     public IJSRuntime JS { get; set; } = default!;
 
+    [Inject]
+    public ISeasonRegistry Registry { get; set; } = default!;
+
     private ElementReference _dialogElement;
     private string _seasonKey = "s1";
     private int _episode = 1;
@@ -60,15 +63,8 @@ public partial class NewSaveDialog
 
     private void UpdateFileName()
     {
-        var prefix = _seasonKey switch
-        {
-            "s1" or "s1_400days" => "wd1",
-            "s2" => "wd2",
-            "s3" => "wd3",
-            "s4" => "wd4",
-            "michonne" => "wdm",
-            _ => "wd1",
-        };
+        var handler = Registry.Get(_seasonKey);
+        var prefix = handler?.FilePrefix.TrimEnd('_') ?? "wd1";
         _fileName = $"{prefix}_saveslot1.bundle";
     }
 

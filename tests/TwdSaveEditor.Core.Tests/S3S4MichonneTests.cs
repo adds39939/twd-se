@@ -1,5 +1,6 @@
 using TwdSaveEditor.Core.Binary;
 using TwdSaveEditor.Core.GameData;
+using TwdSaveEditor.Core.GameData.Seasons;
 using TwdSaveEditor.Core.Model;
 
 namespace TwdSaveEditor.Core.Tests;
@@ -7,6 +8,21 @@ namespace TwdSaveEditor.Core.Tests;
 public class S3S4MichonneTests
 {
     private static readonly string SaveDir = @"C:\Users\Adam\Downloads\twd-saves";
+
+    private static readonly ISeasonRegistry Registry = new SeasonRegistry(
+    [
+        new S1Handler(), new S1_400DaysHandler(), new S2Handler(),
+        new S3Handler(), new S4Handler(), new MichonneHandler(),
+    ]);
+
+    private static ISeasonRegistry CreateRegistry() => Registry;
+
+    private static SaveSlot LoadSlot(string filePath)
+    {
+        var slot = BundleReader.Read(filePath);
+        slot.DetectedSeasonKey = Registry.DetectFromFileName(filePath)?.SeasonKey;
+        return slot;
+    }
 
     // ── S3 native format tests ─────────────────────────────────────────
 
@@ -16,9 +32,9 @@ public class S3S4MichonneTests
         var file = Path.Combine(SaveDir, "S3", "Episode 1", "wd3_saveslot1.bundle");
         if (!File.Exists(file)) return;
 
-        var slot = BundleReader.Read(file);
+        var slot = LoadSlot(file);
         Assert.NotNull(slot.Metadata);
-        Assert.Null(slot.Choices); // S3 doesn't have choices.prop (native)
+        Assert.Null(slot.Choices);
         Assert.Equal("s3", slot.DetectedSeasonKey);
     }
 
@@ -80,10 +96,10 @@ public class S3S4MichonneTests
         var file = Path.Combine(SaveDir, "S4", "Episode 1", "Ending", "wd4_saveslot1.bundle");
         if (!File.Exists(file)) return;
 
-        var slot = BundleReader.Read(file);
+        var slot = LoadSlot(file);
         Assert.NotNull(slot.Metadata);
-        Assert.Null(slot.Choices); // S4 doesn't have choices.prop
-        Assert.NotNull(slot.ChoiceStats); // S4 has choicestats.pro (GUIDs)
+        Assert.Null(slot.Choices);
+        Assert.NotNull(slot.ChoiceStats);
         Assert.Equal("s4", slot.DetectedSeasonKey);
     }
 
@@ -111,9 +127,9 @@ public class S3S4MichonneTests
         var file = Path.Combine(SaveDir, "Michonne", "wdm_saveslot2.bundle");
         if (!File.Exists(file)) return;
 
-        var slot = BundleReader.Read(file);
+        var slot = LoadSlot(file);
         Assert.NotNull(slot.Metadata);
-        Assert.Null(slot.Choices); // Michonne doesn't have choices.prop
+        Assert.Null(slot.Choices);
         Assert.Equal("michonne", slot.DetectedSeasonKey);
     }
 
@@ -140,12 +156,8 @@ public class S3S4MichonneTests
         };
         foreach (var (fileName, expected) in testCases)
         {
-            var slot = new SaveSlot
-            {
-                FilePath = fileName, FileName = fileName,
-                OuterHeader = new MetaStreamHeader(), FileTable = [],
-            };
-            Assert.Equal(expected, slot.DetectedSeasonKey);
+            var detected = Registry.DetectFromFileName(fileName)?.SeasonKey;
+            Assert.Equal(expected, detected);
         }
     }
 
@@ -157,7 +169,7 @@ public class S3S4MichonneTests
             .Where(f => !Path.GetFileName(f).StartsWith('_')).ToList();
         foreach (var file in slotBundles)
         {
-            var slot = BundleReader.Read(file);
+            var slot = LoadSlot(file);
             Assert.NotNull(slot.Metadata);
             Assert.NotNull(slot.DetectedSeasonKey);
         }
@@ -245,7 +257,7 @@ public class S3S4MichonneTests
     [Fact]
     public void NewSave_S4_HasChoiceStats()
     {
-        var slot = SaveSlotFactory.CreateForSeason("s4", 1, "test_s4.bundle");
+        var slot = SaveSlotFactory.CreateForSeason(CreateRegistry(), "s4", 1, "test_s4.bundle");
         Assert.NotNull(slot.ChoiceStats);
         Assert.Null(slot.Choices); // S4 should NOT have choices.prop
 
@@ -264,7 +276,7 @@ public class S3S4MichonneTests
     [Fact]
     public void NewSave_S3_HasMetadataOnly()
     {
-        var slot = SaveSlotFactory.CreateForSeason("s3", 1, "test_s3.bundle");
+        var slot = SaveSlotFactory.CreateForSeason(CreateRegistry(), "s3", 1, "test_s3.bundle");
         Assert.NotNull(slot.Metadata);
         Assert.Null(slot.Choices); // S3 has no choices.prop
         Assert.Null(slot.ChoiceStats); // S3 has no choicestats.pro
@@ -279,7 +291,7 @@ public class S3S4MichonneTests
     [Fact]
     public void NewSave_Michonne_HasMetadataOnly()
     {
-        var slot = SaveSlotFactory.CreateForSeason("michonne", 1, "test_michonne.bundle");
+        var slot = SaveSlotFactory.CreateForSeason(CreateRegistry(), "michonne", 1, "test_michonne.bundle");
         Assert.NotNull(slot.Metadata);
         Assert.Null(slot.Choices);
         Assert.Single(slot.FileTable);
@@ -293,7 +305,7 @@ public class S3S4MichonneTests
         Directory.CreateDirectory(tempDir);
         try
         {
-            var mgr = new SaveManager(tempDir);
+            var mgr = new SaveManager(CreateRegistry(), tempDir);
             var slot = mgr.CreateNewSave("wd3_saveslot1.bundle", "s3", 2);
 
             // Verify bundle was created
@@ -336,7 +348,7 @@ public class S3S4MichonneTests
         Directory.CreateDirectory(tempDir);
         try
         {
-            var mgr = new SaveManager(tempDir);
+            var mgr = new SaveManager(CreateRegistry(), tempDir);
             var slot = mgr.CreateNewSave("wdm_saveslot1.bundle", "michonne", 1);
 
             Assert.True(File.Exists(slot.FilePath));
@@ -371,7 +383,7 @@ public class S3S4MichonneTests
         Assert.True(dialogNodes.Count > 0, $"Expected dialog node events, got {dialogNodes.Count}");
 
         // Now test the EventLogAccessor
-        var slot = BundleReader.Read(bundlePath);
+        var slot = LoadSlot(bundlePath);
         slot.EStorePath = estorePath;
         slot.EPagePaths = Directory.GetFiles(
                 Path.GetDirectoryName(estorePath)!, "_wdm_saveslot4_id_Page*.epage")
@@ -420,7 +432,7 @@ public class S3S4MichonneTests
     {
         foreach (var season in new[] { "s1", "s1_400days", "s2" })
         {
-            var slot = SaveSlotFactory.CreateForSeason(season, 1, $"test_{season}.bundle");
+            var slot = SaveSlotFactory.CreateForSeason(CreateRegistry(), season, 1, $"test_{season}.bundle");
             Assert.NotNull(slot.Choices);
 
             var written = BundleWriter.Write(slot);

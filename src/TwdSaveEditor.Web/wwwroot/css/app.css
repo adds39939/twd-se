@@ -312,6 +312,7 @@ dialog h2 {
     margin-bottom: 1em;
 }
 .tab-bar button {
+    flex: 1;
     border: none;
     border-bottom: 2px solid transparent;
     border-radius: 0;
@@ -321,6 +322,7 @@ dialog h2 {
     font-weight: 500;
     margin-bottom: -2px;
     transition: all var(--transition);
+    text-align: center;
 }
 .tab-bar button:hover {
     color: var(--text-primary);

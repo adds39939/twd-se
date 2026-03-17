@@ -23,15 +23,16 @@ public class ChoiceDatabaseTests
     }
 
     [Theory]
-    [InlineData("s2")]
-    [InlineData("s3")]
-    [InlineData("s4")]
-    [InlineData("michonne")]
-    public void ForSeason_UnverifiedSeasons_ReturnEmpty(string seasonKey)
+    [InlineData("s2", 25)]
+    [InlineData("s3", 24)]
+    [InlineData("s4", 16)]
+    [InlineData("michonne", 15)]
+    public void ForSeason_GameSourcedSeasons_HaveChoices(string seasonKey, int minCount)
     {
-        // These seasons have no verified choice keys yet (no slot saves available)
         var choices = ChoiceDatabase.ForSeason(seasonKey).ToList();
-        Assert.Empty(choices);
+        Assert.True(choices.Count >= minCount,
+            $"{seasonKey}: expected >= {minCount}, got {choices.Count}");
+        Assert.All(choices, c => Assert.Equal(seasonKey, c.SeasonKey));
     }
 
     [Fact]

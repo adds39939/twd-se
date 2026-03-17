@@ -7,6 +7,7 @@ namespace TwdSaveEditor.Web.Services;
 public class SaveEditorService
 {
     private readonly FileSystemService _fs;
+    private readonly ISeasonRegistry _registry;
 
     public List<SaveSlot> Saves { get; } = [];
     public SaveSlot? SelectedSave { get; set; }
@@ -16,9 +17,10 @@ public class SaveEditorService
 
     public event Action? StateChanged;
 
-    public SaveEditorService(FileSystemService fs)
+    public SaveEditorService(FileSystemService fs, ISeasonRegistry registry)
     {
         _fs = fs;
+        _registry = registry;
     }
 
     public void NotifyStateChanged() => StateChanged?.Invoke();
@@ -66,7 +68,8 @@ public class SaveEditorService
                     var slot = BundleReader.Read(data, fileName);
 
                     // Discover associated estore/epage files for S3/Michonne
-                    if (slot.DetectedSeasonKey is "s3" or "michonne")
+                    var slotHandler = _registry.DetectFromFileName(slot.FileName);
+                    if (slotHandler?.UsesEventLog == true)
                     {
                         await LoadEventLogFiles(slot, fileName, estoreFiles, epageFiles);
                     }
@@ -174,7 +177,8 @@ public class SaveEditorService
             }
 
             // Write estore/epage for S3/Michonne if we have loaded entries
-            if (slot.DetectedSeasonKey is "s3" or "michonne" && slot.LoadedEventLogEntries != null)
+            var saveHandler = _registry.DetectFromFileName(slot.FileName);
+            if (saveHandler?.UsesEventLog == true && slot.LoadedEventLogEntries != null)
             {
                 await WriteEventLogFiles(slot);
             }
@@ -210,7 +214,7 @@ public class SaveEditorService
 
         try
         {
-            var slot = SaveSlotFactory.CreateForSeason(seasonKey, episode, fileName);
+            var slot = SaveSlotFactory.CreateForSeason(_registry, seasonKey, episode, fileName);
 
             // Write the bundle file
             var fileBytes = BundleWriter.Write(slot);
@@ -224,7 +228,8 @@ public class SaveEditorService
             }
 
             // S3/Michonne: create and write estore/epage files
-            if (seasonKey is "s3" or "michonne")
+            var newHandler = _registry.Get(seasonKey);
+            if (newHandler?.UsesEventLog == true)
             {
                 var bundleName = Path.GetFileNameWithoutExtension(fileName);
                 var slotBaseName = $"_{bundleName}";
@@ -259,15 +264,7 @@ public class SaveEditorService
 
     public IChoiceAccessor? GetChoiceAccessor(SaveSlot slot)
     {
-        var seasonKey = slot.DetectedSeasonKey;
-
-        return seasonKey switch
-        {
-            "s4" when slot.ChoiceStats != null => new ChoiceStatsAccessor(slot),
-            "s3" or "michonne" => new EventLogAccessor(slot),
-            _ when slot.Choices != null => new SaveAccessor(slot.Choices, slot.Metadata),
-            _ => null,
-        };
+        return _registry.DetectFromFileName(slot.FileName)?.CreateChoiceAccessor(slot);
     }
 
     private static int ExtractPageNumber(string fileName)

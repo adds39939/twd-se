@@ -13,10 +13,13 @@ public sealed class SaveManager
         Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
         "Telltale Games", "TWDTTDS");
 
+    private readonly ISeasonRegistry _registry;
+
     public string SaveDirectory { get; private set; }
 
-    public SaveManager(string? savePath = null)
+    public SaveManager(ISeasonRegistry registry, string? savePath = null)
     {
+        _registry = registry;
         SaveDirectory = savePath ?? DefaultSavePath;
     }
 
@@ -48,6 +51,7 @@ public sealed class SaveManager
     public SaveSlot LoadFile(string filePath)
     {
         var slot = BundleReader.Read(filePath);
+        slot.DetectedSeasonKey = _registry.DetectFromFileName(filePath)?.SeasonKey;
         DiscoverEventLogFiles(slot);
         return slot;
     }
@@ -96,7 +100,7 @@ public sealed class SaveManager
     public SaveSlot CreateNewSave(string fileName, string seasonKey = "s1", int episode = 1)
     {
         var filePath = Path.Combine(SaveDirectory, fileName);
-        var slot = SaveSlotFactory.CreateForSeason(seasonKey, episode, fileName);
+        var slot = SaveSlotFactory.CreateForSeason(_registry, seasonKey, episode, fileName);
 
         // Update the slot with the real file path
         var realSlot = new SaveSlot
@@ -120,7 +124,8 @@ public sealed class SaveManager
         File.WriteAllBytes(filePath, fileBytes);
 
         // S3/Michonne: write estore/epage files alongside the bundle
-        if (seasonKey is "s3" or "michonne")
+        var handler = _registry.Get(seasonKey);
+        if (handler?.UsesEventLog == true)
         {
             var bundleBaseName = Path.GetFileNameWithoutExtension(fileName);
             var slotBaseName = $"_{bundleBaseName}";

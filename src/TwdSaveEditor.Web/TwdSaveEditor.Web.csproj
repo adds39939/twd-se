@@ -16,4 +16,8 @@
     <ProjectReference Include="..\TwdSaveEditor.Core\TwdSaveEditor.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\sample-data\weather.json" />
+  </ItemGroup>
+
 </Project>
