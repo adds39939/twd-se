@@ -1,0 +1,15 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/src/">
+    <Project Path="src/TwdSaveEditor.Core/TwdSaveEditor.Core.csproj" />
+    <Project Path="src/TwdSaveEditor.Web/TwdSaveEditor.Web.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/TwdSaveEditor.Core.Tests/TwdSaveEditor.Core.Tests.csproj" />
+    <Project Path="tests/TwdSaveEditor.Playwright/TwdSaveEditor.Playwright.csproj" />
+  </Folder>
+</Solution>
