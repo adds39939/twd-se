@@ -5,7 +5,7 @@ window.fileSystemApi = {
 
     pickDirectory: async () => {
         try {
-            directoryHandle = await window.showDirectoryPicker({ mode: 'readwrite' });
+            directoryHandle = await window.showDirectoryPicker({ mode: 'readwrite', startIn: 'documents' });
             return true;
         } catch {
             return false;
