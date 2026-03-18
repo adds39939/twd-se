@@ -79,7 +79,8 @@ public class SaveLoadCycleTests
                     for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
                     testFiles[name] = btoa(binary);
                     return true;
-                }}
+                }},
+                backupFiles: async (folderName, fileNames) => true
             }};
         }}");
     }
@@ -138,7 +139,8 @@ public class SaveLoadCycleTests
                     for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
                     testFiles[name] = btoa(binary);
                     return true;
-                }}
+                }},
+                backupFiles: async (folderName, fileNames) => true
             }};
         }}");
     }

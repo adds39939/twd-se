@@ -21,6 +21,7 @@ builder.Services.AddSingleton<ISeasonHandler, MichonneHandler>();
 builder.Services.AddSingleton<ISeasonRegistry, SeasonRegistry>();
 
 builder.Services.AddScoped<FileSystemService>();
+builder.Services.AddScoped<SaveBackupService>();
 builder.Services.AddScoped<SaveEditorService>();
 
 await builder.Build().RunAsync();

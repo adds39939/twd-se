@@ -80,6 +80,29 @@ window.fileSystemApi = {
         }
     },
 
+    backupFiles: async (folderName, fileNames) => {
+        if (!directoryHandle) return false;
+        try {
+            const backupDir = await directoryHandle.getDirectoryHandle(folderName, { create: true });
+            for (const name of fileNames) {
+                try {
+                    const srcHandle = await directoryHandle.getFileHandle(name);
+                    const srcFile = await srcHandle.getFile();
+                    const srcData = await srcFile.arrayBuffer();
+                    const destHandle = await backupDir.getFileHandle(name, { create: true });
+                    const writable = await destHandle.createWritable();
+                    await writable.write(srcData);
+                    await writable.close();
+                } catch {
+                    // Skip files that don't exist
+                }
+            }
+            return true;
+        } catch {
+            return false;
+        }
+    },
+
     hasDirectory: () => !!directoryHandle,
 
     getDirectoryName: () => directoryHandle?.name || '',

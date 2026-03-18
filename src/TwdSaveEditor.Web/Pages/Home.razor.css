@@ -79,3 +79,29 @@
     max-width: 400px;
     line-height: 1.6;
 }
+
+.disclaimer-alert {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+    padding: 0.75rem 1rem;
+    max-width: 480px;
+    background: rgba(255, 193, 7, 0.08);
+    border: 1px solid rgba(255, 193, 7, 0.25);
+    border-radius: 6px;
+    text-align: left;
+}
+
+.disclaimer-icon {
+    flex-shrink: 0;
+    color: #f0ad4e;
+    opacity: 0.9;
+}
+
+.disclaimer-alert p {
+    margin: 0;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    opacity: 0.75;
+}

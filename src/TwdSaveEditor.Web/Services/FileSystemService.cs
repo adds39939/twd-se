@@ -30,6 +30,9 @@ public class FileSystemService
         return await _js.InvokeAsync<bool>("fileSystemApi.writeFile", name, base64);
     }
 
+    public async Task<bool> BackupFiles(string folderName, string[] fileNames) =>
+        await _js.InvokeAsync<bool>("fileSystemApi.backupFiles", folderName, fileNames);
+
     public async Task<bool> HasDirectory() =>
         await _js.InvokeAsync<bool>("fileSystemApi.hasDirectory");
 

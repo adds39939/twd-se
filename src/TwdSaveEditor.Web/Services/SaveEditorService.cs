@@ -8,6 +8,7 @@ public class SaveEditorService
 {
     private readonly FileSystemService _fs;
     private readonly ISeasonRegistry _registry;
+    private readonly SaveBackupService _backup;
 
     public List<SaveSlot> Saves { get; } = [];
     public SaveSlot? SelectedSave { get; set; }
@@ -21,10 +22,11 @@ public class SaveEditorService
     public event Action? StateChanged;
     public event Action<string, string>? OnNotification;
 
-    public SaveEditorService(FileSystemService fs, ISeasonRegistry registry)
+    public SaveEditorService(FileSystemService fs, ISeasonRegistry registry, SaveBackupService backup)
     {
         _fs = fs;
         _registry = registry;
+        _backup = backup;
     }
 
     public void NotifyStateChanged() => StateChanged?.Invoke();
@@ -191,6 +193,9 @@ public class SaveEditorService
 
         try
         {
+            // Backup original files before modifying
+            await BackupBeforeSave(slot);
+
             byte[] fileBytes;
 
             if (isAutosave)
@@ -371,6 +376,13 @@ public class SaveEditorService
             metadata.TypeGroups.Add(targetGroup);
         }
         targetGroup.Properties.Add(new Property(new Symbol(hash), value));
+    }
+
+    private async Task BackupBeforeSave(SaveSlot slot)
+    {
+        var backupFolder = await _backup.BackupBeforeSave(slot);
+        if (backupFolder != null)
+            Notify($"Backup created in {backupFolder}/", "info");
     }
 
     private async Task WriteEventLogFiles(SaveSlot slot)
