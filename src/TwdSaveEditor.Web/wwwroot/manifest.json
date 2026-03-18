@@ -4,8 +4,8 @@
   "description": "Save editor for The Walking Dead: The Telltale Definitive Series",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#1a1a2e",
-  "theme_color": "#1a1a2e",
+  "background_color": "#1a1a1a",
+  "theme_color": "#1a1a1a",
   "icons": [
     {
       "src": "images/icon-192.png",
