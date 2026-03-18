@@ -65,6 +65,13 @@ public sealed class SaveSlot
     /// using the injected ISeasonRegistry.
     /// </summary>
     public string? DetectedSeasonKey { get; set; }
+
+    /// <summary>
+    /// Set by the resume point editor when the user changes the episode.
+    /// When true, saving will clear default.save from the autosave bundle
+    /// so the game starts the new episode from scratch.
+    /// </summary>
+    public bool EpisodeChanged { get; set; }
 }
 
 /// <summary>

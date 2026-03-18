@@ -183,12 +183,35 @@ public class SaveEditorService
 
     public async Task SaveFile(SaveSlot slot)
     {
+        var fileName = Path.GetFileName(slot.FileName);
+        var isAutosave = fileName.StartsWith('_');
+
         StatusMessage = $"Saving {slot.FileName}...";
         NotifyStateChanged();
 
         try
         {
-            var fileBytes = BundleWriter.Write(slot);
+            byte[] fileBytes;
+
+            if (isAutosave)
+            {
+                // Autosave/checkpoint bundles have complex file tables that can't be
+                // safely round-tripped. Use MetadataPatcher to patch only the metadata
+                // PropertySet in-place, preserving everything else byte-for-byte.
+                if (slot.RawBundleData == null || slot.Metadata == null || slot.RawMetadataFile == null)
+                {
+                    Notify("Cannot save autosave — missing raw bundle data.", "error");
+                    NotifyStateChanged();
+                    return;
+                }
+                fileBytes = MetadataPatcher.PatchMetadata(
+                    slot.RawBundleData, slot.Metadata, slot.RawMetadataFile);
+            }
+            else
+            {
+                fileBytes = BundleWriter.Write(slot);
+            }
+
             var success = await _fs.WriteFile(slot.FileName, fileBytes);
 
             if (!success)
@@ -200,10 +223,20 @@ public class SaveEditorService
             }
 
             // Write estore/epage for S3/Michonne if we have loaded entries
-            var saveHandler = _registry.DetectFromFileName(slot.FileName);
-            if (saveHandler?.UsesEventLog == true && slot.LoadedEventLogEntries != null)
+            if (!isAutosave)
             {
-                await WriteEventLogFiles(slot);
+                var saveHandler = _registry.DetectFromFileName(slot.FileName);
+                if (saveHandler?.UsesEventLog == true && slot.LoadedEventLogEntries != null)
+                {
+                    await WriteEventLogFiles(slot);
+                }
+            }
+
+            // When saving an autosave, also update the slot bundle's episode ID
+            // so the game's save/load menu shows the correct episode
+            if (isAutosave)
+            {
+                await SyncSlotBundleEpisodeId(slot);
             }
 
             StatusMessage = $"Saved {slot.FileName} successfully.";
@@ -217,6 +250,127 @@ public class SaveEditorService
         }
 
         NotifyStateChanged();
+    }
+
+    /// <summary>
+    /// When saving an autosave, sync the episode ID back to the corresponding slot bundle.
+    /// The game menu reads the episode from the slot's metadata_slot.p, not the autosave.
+    /// e.g. _wd1_saveslot1_autosave.bundle → wd1_saveslot1.bundle
+    /// </summary>
+    private async Task SyncSlotBundleEpisodeId(SaveSlot autosaveSlot)
+    {
+        // Get the episode ID from the autosave metadata
+        var episodeIdProp = autosaveSlot.Metadata?.AllProperties
+            .FirstOrDefault(p => p.KeySymbol.Value == ResumePoint.AutosaveHashes.EpisodeId);
+        if (episodeIdProp?.Value is not StringValue episodeIdValue)
+        {
+            Notify("Sync: no episode ID found in autosave metadata.", "warning");
+            return;
+        }
+
+        // Derive slot bundle name: _wd1_saveslot1_autosave.bundle → wd1_saveslot1.bundle
+        var autoName = Path.GetFileNameWithoutExtension(autosaveSlot.FileName);
+        if (!autoName.StartsWith('_') || !autoName.EndsWith("_autosave"))
+        {
+            Notify($"Sync: autosave name '{autoName}' doesn't match expected pattern.", "warning");
+            return;
+        }
+        var slotName = autoName[1..^9] + ".bundle"; // strip leading _ and trailing _autosave
+        // Find the slot in loaded saves
+
+        // Find the slot in loaded saves
+        var slotSave = Saves.FirstOrDefault(s =>
+            Path.GetFileName(s.FileName).Equals(slotName, StringComparison.OrdinalIgnoreCase));
+
+        if (slotSave == null)
+        {
+            Notify($"Could not find slot bundle '{slotName}' to sync episode. Load both files.", "warning");
+            return;
+        }
+        if (slotSave.Metadata == null) return;
+
+        // Update or create the episode ID property (hash 0xB218E7C003A67CE9)
+        const ulong slotEpisodeIdHash = 0xB218E7C003A67CE9;
+        var slotEpProp = slotSave.Metadata.AllProperties
+            .FirstOrDefault(p => p.KeySymbol.Value == slotEpisodeIdHash);
+
+        // Update "Episode in Progress" (String)
+        // Update "Episode in Progress" (String)
+        SetSlotProperty(slotSave.Metadata, slotEpisodeIdHash,
+            new StringValue(episodeIdValue.Value), "String");
+
+        // Determine episode number from episode ID (e.g. "WalkingDead102" → 2)
+        var epNumStr = episodeIdValue.Value.Length >= 3
+            ? episodeIdValue.Value[^2..] // last 2 chars
+            : "01";
+        if (int.TryParse(epNumStr, out var epNum))
+        {
+            // "progress" = current episode number (int) — this is what the save menu reads
+            const ulong progressHash = 0x94C245DACB1ADDC3;
+            SetSlotProperty(slotSave.Metadata, progressHash,
+                new IntValue(epNum), "int32");
+
+            if (epNum > 1)
+            {
+                // "Last Episode Finished" = previous episode number (int)
+                const ulong lastEpFinishedHash = 0x0399C2FFE0D50348;
+                SetSlotProperty(slotSave.Metadata, lastEpFinishedHash,
+                    new IntValue(epNum - 1), "int32");
+
+                // "Episodes Completed" = number of episodes completed (int)
+                const ulong episodesCompletedHash = 0xFD50E3BE7B29A8B1;
+                SetSlotProperty(slotSave.Metadata, episodesCompletedHash,
+                    new IntValue(epNum - 1), "int32");
+            }
+        }
+
+        // Write the updated slot bundle
+        try
+        {
+            var slotBytes = BundleWriter.Write(slotSave);
+            var wrote = await _fs.WriteFile(slotSave.FileName, slotBytes);
+            if (wrote)
+                Notify($"Updated slot bundle episode to {episodeIdValue.Value}.", "info");
+            else
+                Notify($"Failed to write slot bundle '{slotName}'.", "warning");
+        }
+        catch (Exception ex)
+        {
+            Notify($"Warning: could not sync episode to slot bundle: {ex.Message}", "warning");
+        }
+    }
+
+    private static void SetSlotProperty(PropertySet metadata, ulong hash, PropertyValue value, string typeName)
+    {
+        var existing = metadata.AllProperties.FirstOrDefault(p => p.KeySymbol.Value == hash);
+        if (existing != null)
+        {
+            // Update in-place: find the property in its type group and replace value
+            foreach (var group in metadata.TypeGroups)
+            {
+                var prop = group.Properties.FirstOrDefault(p => p.KeySymbol.Value == hash);
+                if (prop != null)
+                {
+                    if (value is StringValue sv && prop.Value is StringValue existingSv)
+                        existingSv.Value = sv.Value;
+                    else if (value is IntValue iv && prop.Value is IntValue existingIv)
+                        existingIv.Value = iv.Value;
+                    else if (value is BoolValue bv && prop.Value is BoolValue existingBv)
+                        existingBv.Value = bv.Value;
+                    return;
+                }
+            }
+        }
+
+        // Property doesn't exist — add it
+        var typeSymbol = Symbol.FromString(typeName);
+        var targetGroup = metadata.TypeGroups.FirstOrDefault(g => g.TypeSymbol == typeSymbol);
+        if (targetGroup == null)
+        {
+            targetGroup = new TypeGroup(typeSymbol);
+            metadata.TypeGroups.Add(targetGroup);
+        }
+        targetGroup.Properties.Add(new Property(new Symbol(hash), value));
     }
 
     private async Task WriteEventLogFiles(SaveSlot slot)

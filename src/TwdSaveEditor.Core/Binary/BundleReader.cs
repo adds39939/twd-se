@@ -53,11 +53,15 @@ public static class BundleReader
             Array.Copy(asyncData, entry.Offset, innerData, 0, entry.Size);
             rawInnerFiles[entry.Name] = innerData;
 
+            // Skip hash-only entries (binary names from checkpoint bundles)
+            if (entry.Name.StartsWith("_hash_"))
+                continue;
+
             try
             {
                 var propData = ExtractDefaultSection(innerData);
 
-                if (entry.Name == "metadata_slot.p")
+                if (entry.Name is "metadata_slot.p" or "metadata_save.p")
                 {
                     rawMetadata = innerData;
                     metadata = psReader.Read(propData);
@@ -194,7 +198,14 @@ public static class BundleReader
             byte b;
             while (reader.Remaining > 0 && (b = reader.ReadByte()) != 0)
                 nameBytes.Add(b);
-            var name = Encoding.ASCII.GetString(nameBytes.ToArray());
+
+            // Check if name is valid ASCII (printable). Checkpoint bundles have
+            // hash-only entries with binary names.
+            var nameRaw = nameBytes.ToArray();
+            var isReadable = nameRaw.Length > 0 && nameRaw.All(c => c >= 0x20 && c < 0x7F);
+            var name = isReadable
+                ? Encoding.ASCII.GetString(nameRaw)
+                : $"_hash_{i:D4}";
 
             // Pad to 4-byte alignment from start of name
             var nameLen = nameBytes.Count + 1; // including null

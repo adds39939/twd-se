@@ -32,4 +32,23 @@ public sealed class ResumePoint
         public const string GameComplete = "mGameComplete";
         public const string Playtime = "mPlaytime";
     }
+
+    /// <summary>
+    /// Property hashes found in autosave metadata_save.p files.
+    /// These control where the game actually resumes — the slot metadata does NOT.
+    /// </summary>
+    public static class AutosaveHashes
+    {
+        /// <summary>Episode ID string (e.g. "WalkingDead101").</summary>
+        public const ulong EpisodeId = 0x7E7BE4FD8F464350;
+
+        /// <summary>Checkpoint dialog file (e.g. "env_copcar.dlog").</summary>
+        public const ulong CheckpointDialog = 0x6047826CD4EDC6B4;
+
+        /// <summary>Checkpoint dialog node hash.</summary>
+        public const ulong CheckpointNode = 0x8B8C42FEDDCE350C;
+
+        /// <summary>Scene name (e.g. "streetOutskirts").</summary>
+        public const ulong SceneName = 0x98A7E965982E6E98;
+    }
 }

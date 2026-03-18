@@ -234,6 +234,50 @@ public class FullCycleTests
         Assert.IsType<StringValue>(autosave.Value);
     }
 
+    [Fact]
+    public void AutosaveBundle_ParsesWithMetadata()
+    {
+        var path = TestDataHelper.GetPath("S1", "_wd1_saveslot1_autosave.bundle");
+        var slot = BundleReader.Read(path);
+
+        // Autosave uses metadata_save.p not metadata_slot.p
+        Assert.NotNull(slot.Metadata);
+        Assert.Equal(2u, slot.Metadata.Version);
+        Assert.True(slot.Metadata.AllProperties.Any());
+    }
+
+    [Fact]
+    public void AutosaveBundle_HandlesHashOnlyFileEntries()
+    {
+        var path = TestDataHelper.GetPath("S1", "_wd1_saveslot1_autosave.bundle");
+        var slot = BundleReader.Read(path);
+
+        // Autosave has hundreds of entries, most with binary hash names
+        Assert.True(slot.FileTable.Count > 2);
+
+        // Hash-only entries should be named _hash_NNNN
+        var hashEntries = slot.FileTable.Where(f => f.Name.StartsWith("_hash_")).ToList();
+        Assert.True(hashEntries.Count > 0, "Expected hash-only file table entries");
+
+        // Named entries should still be accessible
+        var namedEntries = slot.FileTable.Where(f => !f.Name.StartsWith("_hash_")).ToList();
+        Assert.Contains(namedEntries, f => f.Name == "metadata_save.p");
+        Assert.Contains(namedEntries, f => f.Name == "default.save");
+    }
+
+    [Fact]
+    public void AutosaveBundle_RoundTrips()
+    {
+        var path = TestDataHelper.GetPath("S1", "_wd1_saveslot1_autosave.bundle");
+        var slot = BundleReader.Read(path);
+
+        var written = BundleWriter.Write(slot);
+        var reloaded = BundleReader.Read(written, "_wd1_saveslot1_autosave.bundle");
+
+        Assert.NotNull(reloaded.Metadata);
+        Assert.Equal(slot.FileTable.Count, reloaded.FileTable.Count);
+    }
+
     [Theory]
     [InlineData("S1", "wd1_saveslot2.bundle")]
     [InlineData("S2", "wd2_saveslot1.bundle")]

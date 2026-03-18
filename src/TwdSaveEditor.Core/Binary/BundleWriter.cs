@@ -21,7 +21,7 @@ public static class BundleWriter
         var innerFiles = new Dictionary<string, byte[]>();
         foreach (var entry in slot.FileTable)
         {
-            if (entry.Name == "metadata_slot.p" && slot.Metadata != null)
+            if (entry.Name is "metadata_slot.p" or "metadata_save.p" && slot.Metadata != null)
             {
                 var propBytes = psWriter.Write(slot.Metadata);
                 innerFiles[entry.Name] = RebuildInnerMetaStream(slot.RawMetadataFile!, propBytes);
@@ -55,7 +55,7 @@ public static class BundleWriter
         using var ms = new MemoryStream();
         using var writer = new BinaryWriterEx(ms, leaveOpen: true);
 
-        // Read original inner header to preserve version entries
+        // Read original inner header to preserve version entries and debug/async sections
         using var origMs = new MemoryStream(originalInner);
         using var origReader = new BinaryReaderEx(origMs);
         var magic = origReader.ReadUInt32();
@@ -63,6 +63,10 @@ public static class BundleWriter
         var origDbgSize = origReader.ReadUInt32();
         var origAsyncSize = origReader.ReadUInt32();
         var verCount = origReader.ReadUInt32();
+
+        var rawDefSize = (int)(origDefSize & 0x7FFFFFFF);
+        var rawDbgSize = (int)(origDbgSize & 0x7FFFFFFF);
+        var rawAsyncSize = (int)(origAsyncSize & 0x7FFFFFFF);
 
         var versionEntries = new List<(ulong, uint)>();
         for (uint i = 0; i < verCount; i++)
@@ -72,11 +76,17 @@ public static class BundleWriter
             versionEntries.Add((tc, vc));
         }
 
-        // Write inner MetaStream header with new sizes (uncompressed)
+        // Read original debug and async sections (preserve them byte-for-byte)
+        var headerDataEnd = (int)origMs.Position;
+        var origDefData = origReader.ReadBytes(rawDefSize);
+        var origDbgData = origReader.ReadBytes(rawDbgSize);
+        var origAsyncData = origReader.ReadBytes(rawAsyncSize);
+
+        // Write inner MetaStream header with new default size, preserving debug/async
         writer.WriteUInt32(magic);
         writer.WriteUInt32((uint)newPropData.Length); // new default section size (uncompressed)
-        writer.WriteUInt32(0);                        // no debug section
-        writer.WriteUInt32(0);                        // no async section
+        writer.WriteUInt32(origDbgSize);              // preserve original debug size
+        writer.WriteUInt32(origAsyncSize);            // preserve original async size
         writer.WriteUInt32((uint)versionEntries.Count);
         foreach (var (tc, vc) in versionEntries)
         {
@@ -86,6 +96,12 @@ public static class BundleWriter
 
         // Write new default section (PropertySet data)
         writer.WriteBytes(newPropData);
+
+        // Write original debug and async sections
+        if (rawDbgSize > 0)
+            writer.WriteBytes(origDbgData);
+        if (rawAsyncSize > 0)
+            writer.WriteBytes(origAsyncData);
 
         writer.Flush();
         return ms.ToArray();

@@ -10,127 +10,207 @@ public partial class ResumePointEditor
     [Inject]
     public SaveEditorService Editor { get; set; } = default!;
 
+    [Inject]
+    public ISeasonRegistry Registry { get; set; } = default!;
+
     [Parameter] public SaveSlot? Slot { get; set; }
 
-    private int _episode = 1;
-    private int _chapter = 1;
-    private int _maxChapters = 7;
-    private bool _gameComplete;
+    // Slot bundle fields
     private int _playtime;
     private string _autosaveFile = "";
+
+    // Autosave bundle fields
+    private string _episodeId = "";
+    private string _originalEpisodeId = "";
+    private string _sceneName = "";
+
+    private ISeasonHandler? _seasonHandler;
+    private string[] _availableScenes = [];
+    private HashSet<string> _knownEpisodeIds = [];
+
+    public bool IsAutosave =>
+        Slot != null && Path.GetFileName(Slot.FileName).StartsWith('_');
+
+    /// <summary>
+    /// Whether the user changed the episode from the original value.
+    /// Used by SaveEditorService to know whether to clear default.save.
+    /// </summary>
+    public bool EpisodeChanged => _episodeId != _originalEpisodeId;
 
     protected override void OnParametersSet()
     {
         if (Slot?.Metadata == null) return;
 
-        var accessor = new SaveAccessor(Slot.Choices, Slot.Metadata);
+        _seasonHandler = Slot.DetectedSeasonKey != null
+            ? Registry.Get(Slot.DetectedSeasonKey)
+            : null;
 
-        _episode = accessor.GetMetadataInt(ResumePoint.Keys.EpisodeNumber) ??
-                   accessor.GetMetadataInt(ResumePoint.Keys.CurrentEpisode) ?? 1;
-        _chapter = accessor.GetMetadataInt(ResumePoint.Keys.ChapterNumber) ??
-                   accessor.GetMetadataInt(ResumePoint.Keys.CurrentChapter) ?? 1;
-
-        var seasonInfo = SeasonInfo.FindSeason(Slot.DetectedSeasonKey ?? "s1");
-        if (seasonInfo != null)
+        if (IsAutosave)
         {
-            var ep = seasonInfo.Episodes.FirstOrDefault(e => e.Number == _episode);
-            _maxChapters = ep?.ChapterCount ?? 7;
+            LoadAutosaveFields();
+            BuildKnownEpisodeIds();
+            RefreshAvailableScenes();
         }
+        else
+        {
+            LoadSlotFields();
+        }
+    }
 
-        // Game complete is typically stored as a bool in metadata
-        var gcProp = Slot.Metadata.AllProperties
-            .FirstOrDefault(p => p.KeySymbol == Symbol.FromString(ResumePoint.Keys.GameComplete));
-        _gameComplete = gcProp?.Value is BoolValue bv && bv.Value;
+    private void LoadSlotFields()
+    {
+        var props = Slot!.Metadata!.AllProperties;
 
-        // Playtime (Feature 1) — search by known hash
-        var playtimeProp = Slot.Metadata.AllProperties
-            .FirstOrDefault(p => p.KeySymbol.Value == 0x7C725227A47FD1BA);
+        var playtimeProp = props.FirstOrDefault(p => p.KeySymbol.Value == 0x7C725227A47FD1BA);
         if (playtimeProp?.Value is IntValue ptv)
             _playtime = ptv.Value;
 
-        // Autosave file (Feature 5) — search by known hash
-        var autosaveProp = Slot.Metadata.AllProperties
-            .FirstOrDefault(p => p.KeySymbol.Value == 0xF235E9FCE9562E01);
+        var autosaveProp = props.FirstOrDefault(p => p.KeySymbol.Value == 0xF235E9FCE9562E01);
         if (autosaveProp?.Value is StringValue asv)
             _autosaveFile = asv.Value;
-
     }
 
-    private void OnEpisodeChanged(ChangeEventArgs e)
+    private void LoadAutosaveFields()
     {
-        if (!int.TryParse(e.Value?.ToString(), out var ep)) return;
-        _episode = ep;
+        var props = Slot!.Metadata!.AllProperties;
 
-        var seasonInfo = SeasonInfo.FindSeason(Slot?.DetectedSeasonKey ?? "s1");
-        var epInfo = seasonInfo?.Episodes.FirstOrDefault(x => x.Number == ep);
-        _maxChapters = epInfo?.ChapterCount ?? 7;
-        if (_chapter > _maxChapters) _chapter = 1;
+        var epProp = props.FirstOrDefault(p => p.KeySymbol.Value == ResumePoint.AutosaveHashes.EpisodeId);
+        if (epProp?.Value is StringValue epv)
+        {
+            _episodeId = epv.Value;
+            _originalEpisodeId = epv.Value;
+        }
 
-        UpdateMetadata();
+        var sceneProp = props.FirstOrDefault(p => p.KeySymbol.Value == ResumePoint.AutosaveHashes.SceneName);
+        if (sceneProp?.Value is StringValue snv)
+            _sceneName = snv.Value;
     }
 
-    private void OnChapterChanged(ChangeEventArgs e)
+    private void BuildKnownEpisodeIds()
     {
-        if (!int.TryParse(e.Value?.ToString(), out var ch)) return;
-        _chapter = ch;
-        UpdateMetadata();
+        _knownEpisodeIds = [];
+        var seasonInfo = Slot?.DetectedSeasonKey != null
+            ? SeasonInfo.FindSeason(Slot.DetectedSeasonKey)
+            : null;
+        if (seasonInfo != null && _seasonHandler != null)
+        {
+            foreach (var ep in seasonInfo.Episodes)
+                _knownEpisodeIds.Add(_seasonHandler.GetEpisodeId(ep.Number));
+        }
     }
 
-    private void OnGameCompleteChanged(ChangeEventArgs e)
+    private void RefreshAvailableScenes()
     {
-        _gameComplete = (bool)(e.Value ?? false);
-        UpdateMetadata();
+        _availableScenes = string.IsNullOrEmpty(_episodeId)
+            ? []
+            : SceneDatabase.GetScenes(_episodeId);
     }
 
-    private void UpdateMetadata()
+    private static string FormatSceneName(string scene)
     {
-        if (Slot?.Metadata == null) return;
-
-        SetMetadataInt(ResumePoint.Keys.EpisodeNumber, _episode);
-        SetMetadataInt(ResumePoint.Keys.ChapterNumber, _chapter);
-
-        var gcSymbol = Symbol.FromString(ResumePoint.Keys.GameComplete);
-        var gcProp = Slot.Metadata.AllProperties.FirstOrDefault(p => p.KeySymbol == gcSymbol);
-        if (gcProp?.Value is BoolValue bv)
-            bv.Value = _gameComplete;
-
-        Editor.MarkModified();
+        var name = scene.StartsWith("adv_") ? scene[4..] : scene;
+        var chars = new List<char>();
+        for (int i = 0; i < name.Length; i++)
+        {
+            if (i > 0 && char.IsUpper(name[i]) && !char.IsUpper(name[i - 1]))
+                chars.Add(' ');
+            chars.Add(i == 0 ? char.ToUpper(name[i]) : name[i]);
+        }
+        return new string(chars.ToArray()).Replace('_', ' ').Trim();
     }
+
+    // --- Slot bundle handlers ---
 
     private void OnPlaytimeChanged(ChangeEventArgs e)
     {
         if (!int.TryParse(e.Value?.ToString(), out var minutes)) return;
         _playtime = minutes;
-
-        var prop = Slot?.Metadata?.AllProperties
-            .FirstOrDefault(p => p.KeySymbol.Value == 0x7C725227A47FD1BA);
-        if (prop?.Value is IntValue iv)
-        {
-            iv.Value = minutes;
-            Editor.MarkModified();
-        }
+        SetPropertyInt(0x7C725227A47FD1BA, minutes);
+        Editor.MarkModified();
     }
 
     private void OnAutosaveFileChanged(ChangeEventArgs e)
     {
         var val = e.Value?.ToString() ?? "";
-        var prop = Slot?.Metadata?.AllProperties
-            .FirstOrDefault(p => p.KeySymbol.Value == 0xF235E9FCE9562E01);
+        _autosaveFile = val;
+        SetPropertyString(0xF235E9FCE9562E01, val);
+        Editor.MarkModified();
+    }
+
+    // --- Autosave bundle handlers ---
+
+    private void OnEpisodeIdChanged(ChangeEventArgs e)
+    {
+        var val = e.Value?.ToString() ?? "";
+        _episodeId = val;
+        SetPropertyString(ResumePoint.AutosaveHashes.EpisodeId, val);
+        RefreshAvailableScenes();
+
+        // Clear scene — it belongs to the old episode
+        if (!string.IsNullOrEmpty(_sceneName) && !_availableScenes.Contains(_sceneName))
+        {
+            _sceneName = _availableScenes.Length > 0 ? _availableScenes[0] : "";
+            SetPropertyString(ResumePoint.AutosaveHashes.SceneName, _sceneName);
+        }
+
+        // Track episode change on the slot so SaveFile knows to update slot metadata
+        if (Slot != null)
+            Slot.EpisodeChanged = EpisodeChanged;
+
+        Editor.MarkModified();
+    }
+
+    private void OnSceneNameChanged(ChangeEventArgs e)
+    {
+        var val = e.Value?.ToString() ?? "";
+        _sceneName = val;
+        SetPropertyString(ResumePoint.AutosaveHashes.SceneName, val);
+        Editor.MarkModified();
+    }
+
+    // --- Property helpers ---
+
+    private void SetPropertyString(ulong hash, string value)
+    {
+        if (Slot?.Metadata == null) return;
+
+        var prop = Slot.Metadata.AllProperties.FirstOrDefault(p => p.KeySymbol.Value == hash);
         if (prop?.Value is StringValue sv)
         {
-            sv.Value = val;
-            _autosaveFile = val;
-            Editor.MarkModified();
+            sv.Value = value;
+        }
+        else
+        {
+            var strSymbol = Symbol.FromString("String");
+            var group = Slot.Metadata.TypeGroups.FirstOrDefault(g => g.TypeSymbol == strSymbol);
+            if (group == null)
+            {
+                group = new TypeGroup(strSymbol);
+                Slot.Metadata.TypeGroups.Add(group);
+            }
+            group.Properties.Add(new Property(new Symbol(hash), new StringValue(value)));
         }
     }
 
-    private void SetMetadataInt(string keyName, int value)
+    private void SetPropertyInt(ulong hash, int value)
     {
         if (Slot?.Metadata == null) return;
-        var symbol = Symbol.FromString(keyName);
-        var prop = Slot.Metadata.AllProperties.FirstOrDefault(p => p.KeySymbol == symbol);
-        if (prop?.Value is IntValue iv)
-            iv.Value = value;
-    }
 
+        var prop = Slot.Metadata.AllProperties.FirstOrDefault(p => p.KeySymbol.Value == hash);
+        if (prop?.Value is IntValue iv)
+        {
+            iv.Value = value;
+        }
+        else
+        {
+            var int32Symbol = Symbol.FromString("int32");
+            var group = Slot.Metadata.TypeGroups.FirstOrDefault(g => g.TypeSymbol == int32Symbol);
+            if (group == null)
+            {
+                group = new TypeGroup(int32Symbol);
+                Slot.Metadata.TypeGroups.Add(group);
+            }
+            group.Properties.Add(new Property(new Symbol(hash), new IntValue(value)));
+        }
+    }
 }

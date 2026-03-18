@@ -28,7 +28,14 @@ window.fileSystemApi = {
             const fileHandle = await directoryHandle.getFileHandle(name);
             const file = await fileHandle.getFile();
             const buffer = await file.arrayBuffer();
-            return btoa(String.fromCharCode(...new Uint8Array(buffer)));
+            const bytes = new Uint8Array(buffer);
+            // Process in chunks to avoid stack overflow with spread operator on large files
+            let binary = '';
+            const chunkSize = 8192;
+            for (let i = 0; i < bytes.length; i += chunkSize) {
+                binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunkSize));
+            }
+            return btoa(binary);
         } catch {
             return null;
         }

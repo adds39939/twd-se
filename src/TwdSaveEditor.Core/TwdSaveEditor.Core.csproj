@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <EmbeddedResource Include="GameData\ChoiceData\*.json" />
+    <EmbeddedResource Include="GameData\SceneData\*.json" />
   </ItemGroup>
 
 </Project>
