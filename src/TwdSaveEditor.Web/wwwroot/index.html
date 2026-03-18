@@ -8,7 +8,10 @@
     <base href="/" />
     <link rel="preload" id="webassembly" />
     <link rel="stylesheet" href="css/app.css" />
-    <link rel="icon" type="image/png" href="https://cdn2.steamgriddb.com/icon_thumb/c7b2c9e154d34106802caf55a7ee5c2f.png" />
+    <link rel="icon" type="image/png" href="icon-192.png" />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#1a1a2e" />
+    <link rel="apple-touch-icon" href="icon-192.png" />
     <link href="TwdSaveEditor.Web.styles.css" rel="stylesheet" />
     <script type="importmap"></script>
 </head>
@@ -29,6 +32,11 @@
     </div>
     <script src="js/fileHelper.js"></script>
     <script src="_framework/blazor.webassembly#[.{fingerprint}].js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js');
+        }
+    </script>
 </body>
 
 </html>
