@@ -1,0 +1,8 @@
+<svg height="@Size" width="@Size" viewBox="0 0 16 16" fill="currentColor" style="vertical-align: middle;" @attributes="AdditionalAttributes">
+    <path d="M.513 1.513A1.75 1.75 0 0 1 1.75 1h3.5c.55 0 1.07.26 1.4.7l.9 1.2a.25.25 0 0 0 .2.1h6.5A1.75 1.75 0 0 1 16 4.75v8.5A1.75 1.75 0 0 1 14.25 15H1.75A1.75 1.75 0 0 1 0 13.25V2.75c0-.464.184-.91.513-1.237Z"/>
+</svg>
+
+@code {
+    [Parameter] public int Size { get; set; } = 16;
+    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object>? AdditionalAttributes { get; set; }
+}
