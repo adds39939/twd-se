@@ -46,8 +46,7 @@
 .app-footer {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    gap: 0.5rem;
+    justify-content: space-between;
     padding: 0.4rem 1rem;
     font-size: 0.75rem;
     color: var(--text-muted);
@@ -55,7 +54,13 @@
     border-top: 1px solid var(--border);
 }
 
-.app-footer a {
+.footer-links {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.footer-links a {
     color: var(--text-secondary);
     text-decoration: none;
     display: inline-flex;
@@ -63,10 +68,16 @@
     gap: 0.3rem;
 }
 
-.app-footer a:hover {
+.footer-links a:hover {
     color: var(--accent);
 }
 
 .footer-sep {
     color: var(--border-light);
+}
+
+.footer-version {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    opacity: 0.5;
 }
