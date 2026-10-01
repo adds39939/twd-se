@@ -142,7 +142,7 @@ public class S3S4MichonneTests
     {
         var expected = new Dictionary<string, int>
         {
-            ["s1"] = 47, ["s1_400days"] = 8, ["s2"] = 25,
+            ["s1"] = 30, ["s1_400days"] = 5, ["s2"] = 25,
             ["michonne"] = 15, ["s3"] = 24, ["s4"] = 15,
         };
         foreach (var (season, minCount) in expected)
@@ -239,7 +239,7 @@ public class S3S4MichonneTests
         Assert.NotNull(slot.Metadata);
         Assert.Null(slot.Choices);
         Assert.Null(slot.ChoiceStats);
-        Assert.Single(slot.FileTable);
+        Assert.Single(slot.Files);
 
         var written = BundleWriter.Write(slot);
         var reloaded = BundleReader.Read(written, "test_s3.bundle");
@@ -253,7 +253,7 @@ public class S3S4MichonneTests
         var slot = CreateRegistry().CreateSave("michonne", 1, "test_michonne.bundle");
         Assert.NotNull(slot.Metadata);
         Assert.Null(slot.Choices);
-        Assert.Single(slot.FileTable);
+        Assert.Single(slot.Files);
     }
 
     [Fact]

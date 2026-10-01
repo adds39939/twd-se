@@ -28,10 +28,15 @@ public static class ServiceCollectionExtensions
             services.AddSingleton<ISeasonHandler, S4Handler>();
             services.AddSingleton<ISeasonRegistry, SeasonRegistry>();
 
-            services.AddSingleton(sp => PropertyNameDb.CreateDefault(
-                sp.GetRequiredService<ISeasonRegistry>().All
-                    .SelectMany(season => season.Choices)
-                    .Select(choice => choice.ChoiceKey)));
+            services.AddSingleton(sp =>
+            {
+                var seasons = sp.GetRequiredService<ISeasonRegistry>().All;
+                return PropertyNameDb.CreateDefault(
+                [
+                    .. seasons.SelectMany(season => season.Choices).Select(choice => choice.ChoiceKey),
+                    .. seasons.OfType<IPropertyNameProvider>().SelectMany(provider => provider.PropertyNames),
+                ]);
+            });
 
             return services;
         }

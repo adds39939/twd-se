@@ -14,6 +14,7 @@
       <ProjectReference Include="..\TwdSaveEditor.Core\TwdSaveEditor.Core.csproj" />
       <ProjectReference Include="..\TwdSaveEditor.Season.Base\TwdSaveEditor.Season.Base.csproj" />
       <ProjectReference Include="..\TwdSaveEditor.Season.Common\TwdSaveEditor.Season.Common.csproj" />
+      <ProjectReference Include="..\TwdSaveEditor.Season.S1\TwdSaveEditor.Season.S1.csproj" />
     </ItemGroup>
 
 </Project>

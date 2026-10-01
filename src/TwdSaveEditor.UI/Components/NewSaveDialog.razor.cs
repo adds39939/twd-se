@@ -16,6 +16,8 @@ public partial class NewSaveDialog
     [Inject]
     public ISeasonRegistry Registry { get; set; } = default!;
 
+    private const int MaxSlots = 4;
+
     private ElementReference _dialogElement;
     private string _seasonKey = "";
     private int _episode = 1;
@@ -30,6 +32,7 @@ public partial class NewSaveDialog
 
     public async Task Show()
     {
+        UpdateFileName();
         await JS.InvokeVoidAsync("eval", "document.getElementById('newSaveDialog')?.showModal()");
         StateHasChanged();
     }
@@ -63,7 +66,9 @@ public partial class NewSaveDialog
         if (_selectedSeason == null) return;
 
         var prefix = _selectedSeason.FilePrefix.TrimEnd('_');
-        _fileName = $"{prefix}_saveslot1.bundle";
+        var names = Enumerable.Range(1, MaxSlots).Select(slot => $"{prefix}_saveslot{slot}.bundle").ToList();
+        _fileName = names.FirstOrDefault(name => !Editor.Saves.Any(save => save.FileName.Equals(name, StringComparison.OrdinalIgnoreCase)))
+            ?? names[0];
     }
 
     private async Task Create()

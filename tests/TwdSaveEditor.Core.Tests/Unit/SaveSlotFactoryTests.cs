@@ -29,14 +29,11 @@ public class SaveSlotFactoryTests
         Assert.NotNull(slot.OuterHeader);
         Assert.Equal(0x4D535636U, slot.OuterHeader.Magic);
         Assert.Equal(2, slot.OuterHeader.VersionEntries.Count);
-        Assert.Equal(2, slot.FileTable.Count);
-        Assert.Equal("metadata_slot.p", slot.FileTable[0].Name);
-        Assert.Equal("choices.prop", slot.FileTable[1].Name);
+        Assert.Equal(2, slot.Files.Count);
+        Assert.Equal("metadata_slot.p", slot.Files[0].Name);
+        Assert.Equal("choices.prop", slot.Files[1].Name);
         Assert.NotNull(slot.Metadata);
         Assert.NotNull(slot.Choices);
-        Assert.NotNull(slot.RawMetadataFile);
-        Assert.NotNull(slot.RawChoicesFile);
-        Assert.NotNull(slot.RawInnerFiles);
     }
 
     [Fact]
@@ -69,23 +66,22 @@ public class SaveSlotFactoryTests
         var reparsed = BundleReader.Read(bytes, "test.bundle");
         Assert.NotNull(reparsed.Metadata);
         Assert.NotNull(reparsed.Choices);
-        Assert.Equal(2, reparsed.FileTable.Count);
+        Assert.Equal(2, reparsed.Files.Count);
     }
 
     [Fact]
     public void CreateForSeason_HasPrePopulatedChoices()
     {
-        var slot = CreateRegistry().CreateSave("s1", 3, "test.bundle");
-        var accessor = new SaveAccessor(slot.Choices!);
+        var registry = CreateRegistry();
+        var slot = registry.CreateSave("s1", 3, "wd1_saveslot1.bundle");
+        var accessor = registry.Get("s1")!.CreateChoiceAccessor(slot)!;
 
-        var allChoices = accessor.GetAllChoices();
-        Assert.NotEmpty(allChoices);
-
-        var s1Ep1to3 = TestSeasons.ChoicesFor("s1")
-            .Where(c => c.Episode <= 3)
+        var earlierChoices = TestSeasons.ChoicesFor("s1")
+            .Where(c => c.Episode < 3)
             .ToList();
+        Assert.NotEmpty(earlierChoices);
 
-        foreach (var choice in s1Ep1to3)
+        foreach (var choice in earlierChoices)
         {
             var val = accessor.GetChoiceValue(choice.ChoiceKey);
             Assert.NotNull(val);
@@ -96,8 +92,9 @@ public class SaveSlotFactoryTests
     [Fact]
     public void CreateForSeason_DoesNotIncludeLaterEpisodes()
     {
-        var slot = CreateRegistry().CreateSave("s1", 1, "test.bundle");
-        var accessor = new SaveAccessor(slot.Choices!);
+        var registry = CreateRegistry();
+        var slot = registry.CreateSave("s1", 2, "wd1_saveslot1.bundle");
+        var accessor = registry.Get("s1")!.CreateChoiceAccessor(slot)!;
 
         var ep2Choice = TestSeasons.ChoicesFor("s1", 2).FirstOrDefault();
         if (ep2Choice != null)
@@ -106,10 +103,24 @@ public class SaveSlotFactoryTests
         }
     }
 
+    [Fact]
+    public void CreateForSeason_S1_RoundTrips()
+    {
+        var registry = CreateRegistry();
+        var handler = registry.Get("s1")!;
+        var slot = registry.CreateSave("s1", 4, "wd1_saveslot1.bundle");
+
+        var reparsed = BundleReader.Read(BundleWriter.Write(slot), "wd1_saveslot1.bundle");
+
+        var original = handler.CreateChoiceAccessor(slot)!;
+        var reloaded = handler.CreateChoiceAccessor(reparsed)!;
+        foreach (var choice in TestSeasons.ChoicesFor("s1").Where(c => c.Episode < 4))
+            Assert.Equal(original.GetChoiceValue(choice.ChoiceKey), reloaded.GetChoiceValue(choice.ChoiceKey));
+    }
+
     [Theory]
-    [InlineData("s1", 1)]
     [InlineData("s2", 3)]
-    public void CreateForSeason_S1S2_RoundTrips(string seasonKey, int episode)
+    public void CreateForSeason_S2_RoundTrips(string seasonKey, int episode)
     {
         var slot = CreateRegistry().CreateSave(seasonKey, episode, "test.bundle");
         var bytes = BundleWriter.Write(slot);

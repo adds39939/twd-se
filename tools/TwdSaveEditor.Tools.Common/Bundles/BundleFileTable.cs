@@ -6,7 +6,9 @@ namespace TwdSaveEditor.Tools.Common.Bundles;
 
 public static class BundleFileTable
 {
-    private const uint MaxFiles = 20000;
+    private const uint MaxFiles = 1_000_000;
+    private const int NameSize = 16;
+    private const int SymbolsSize = 16;
 
     public static List<BundleEntry> Parse(ReadOnlySpan<byte> table)
     {
@@ -28,23 +30,13 @@ public static class BundleFileTable
             var size = Bytes.U32(table, position + 4);
             position += 8;
 
-            var nameStart = position;
-            var nameEnd = position;
-            while (position < table.Length)
-            {
-                if (table[position++] == 0)
-                    break;
-
-                nameEnd = position;
-            }
-
-            var nameLength = nameEnd - nameStart + 1;
-            position += ((nameLength + 3) & ~3) - nameLength;
-            if (position + 16 > table.Length)
+            if (position + NameSize + SymbolsSize > table.Length)
                 break;
 
-            position += 16;
-            entries.Add(new BundleEntry(TextFormat.DecodeAscii(table[nameStart..nameEnd]), offset, size));
+            var name = table.Slice(position, NameSize);
+            var nameEnd = name.IndexOf((byte)0);
+            position += NameSize + SymbolsSize;
+            entries.Add(new BundleEntry(TextFormat.DecodeAscii(nameEnd < 0 ? name : name[..nameEnd]), offset, size));
         }
 
         return entries;

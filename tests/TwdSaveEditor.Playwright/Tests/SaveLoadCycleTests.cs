@@ -69,7 +69,7 @@ public class SaveLoadCycleTests
     }
 
     [Fact]
-    public async Task LoadS1Autosave_DoesNotCrash()
+    public async Task LoadS2Autosave_DoesNotCrash()
     {
         var page = await _fixture.NewPage();
 
@@ -80,7 +80,7 @@ public class SaveLoadCycleTests
                 consoleErrors.Add(msg.Text);
         };
 
-        await InjectSaveFile(page, "S1", "_wd1_saveslot1_autosave.bundle");
+        await InjectSaveFiles(page, "S2", "_wd2_saveslot1_autosave.bundle");
 
         var openDirBtn = page.Locator("[data-testid='open-directory']");
         await openDirBtn.ClickAsync();
@@ -129,9 +129,9 @@ public class SaveLoadCycleTests
                 consoleErrors.Add(msg.Text);
         };
 
-        await InjectSaveFiles(page, "S1",
-            "_wd1_saveslot1_autosave.bundle",
-            "wd1_saveslot1_live.bundle:wd1_saveslot1.bundle");
+        await InjectSaveFiles(page, "S2",
+            "_wd2_saveslot1_autosave.bundle",
+            "wd2_saveslot1.bundle");
 
         var openDirBtn = page.Locator("[data-testid='open-directory']");
         await openDirBtn.ClickAsync();
@@ -185,35 +185,44 @@ public class SaveLoadCycleTests
             Assert.Fail($"Save produced error: {toastText}. Console: [{string.Join(", ", consoleErrors.Take(3))}]");
         }
 
-        var savedBase64 = await FakeSaveDirectory.ReadFileAsync(page, "_wd1_saveslot1_autosave.bundle");
+        var savedBase64 = await FakeSaveDirectory.ReadFileAsync(page, "_wd2_saveslot1_autosave.bundle");
         Assert.NotNull(savedBase64);
         var savedBytes = Convert.FromBase64String(savedBase64);
         Assert.True(savedBytes.Length > 0, "Saved file is empty");
 
-        var reloaded = BundleReader.Read(savedBytes, "_wd1_saveslot1_autosave.bundle");
+        var reloaded = BundleReader.Read(savedBytes, "_wd2_saveslot1_autosave.bundle");
         Assert.NotNull(reloaded.Metadata);
 
-        var slotBase64 = await FakeSaveDirectory.ReadFileAsync(page, "wd1_saveslot1.bundle");
+        var original = BundleReader.Read(TestDataHelper.GetPath("S2", "_wd2_saveslot1_autosave.bundle"));
+        Assert.Equal(original.Files.Count, reloaded.Files.Count);
+        for (var i = 1; i < original.Files.Count; i++)
+        {
+            Assert.Equal(original.Files[i].NameSymbol, reloaded.Files[i].NameSymbol);
+            Assert.True(original.Files[i].Data.AsSpan().SequenceEqual(reloaded.Files[i].Data),
+                $"Inner file {i} changed while editing the metadata");
+        }
+
+        var slotBase64 = await FakeSaveDirectory.ReadFileAsync(page, "wd2_saveslot1.bundle");
         Assert.NotNull(slotBase64);
         var slotBytes = Convert.FromBase64String(slotBase64);
-        var slotReloaded = BundleReader.Read(slotBytes, "wd1_saveslot1.bundle");
+        var slotReloaded = BundleReader.Read(slotBytes, "wd2_saveslot1.bundle");
         Assert.NotNull(slotReloaded.Metadata);
 
         var slotEpProp = slotReloaded.Metadata.AllProperties
             .FirstOrDefault(p => p.KeySymbol.Value == 0xB218E7C003A67CE9);
         Assert.NotNull(slotEpProp);
         var slotEpValue = ((TwdSaveEditor.Core.Model.StringValue)slotEpProp.Value).Value;
-        Assert.NotEqual("WalkingDead101", slotEpValue);
+        Assert.Equal("WalkingDead202", slotEpValue);
 
         var slotProgressProp = slotReloaded.Metadata.AllProperties
             .FirstOrDefault(p => p.KeySymbol.Value == 0x94C245DACB1ADDC3);
         Assert.NotNull(slotProgressProp);
-        Assert.NotEqual(1, ((TwdSaveEditor.Core.Model.IntValue)slotProgressProp.Value).Value);
+        Assert.Equal(2, ((TwdSaveEditor.Core.Model.IntValue)slotProgressProp.Value).Value);
 
         var reinjectBase64 = Convert.ToBase64String(savedBytes);
         await FakeSaveDirectory.InstallAsync(page, new Dictionary<string, string>
         {
-            ["_wd1_saveslot1_autosave.bundle"] = reinjectBase64,
+            ["_wd2_saveslot1_autosave.bundle"] = reinjectBase64,
         });
 
         await openDirBtn.ClickAsync();

@@ -90,13 +90,13 @@ public class SeasonHandlerTests
     {
         var importer = Assert.IsAssignableFrom<IChoiceImporter>(Registry.Get("s2"));
 
-        var s1 = Registry.CreateSave("s1", 1, "wd1_saveslot1.bundle");
+        var s1 = Registry.CreateSave("s1", 2, "wd1_saveslot1.bundle");
         s1.DetectedSeasonKey = "s1";
         var s2 = Registry.CreateSave("s2", 1, "wd2_saveslot1.bundle");
         s2.DetectedSeasonKey = "s2";
 
         var s1Accessor = Registry.Get("s1")!.CreateChoiceAccessor(s1)!;
-        s1Accessor.SetChoiceValue("dougcarley_saved", "doug");
+        s1Accessor.SetChoiceValue("DougCarley Saved", "doug");
 
         Assert.True(importer.CanImportFrom(s1));
         Assert.False(importer.CanImportFrom(s2));
@@ -104,7 +104,8 @@ public class SeasonHandlerTests
         importer.ImportChoices(s1, s2);
 
         var s2Accessor = Registry.Get("s2")!.CreateChoiceAccessor(s2)!;
-        Assert.Equal("doug", s2Accessor.GetChoiceValue("dougcarley_saved"));
+        Assert.Equal("doug", s2Accessor.GetChoiceValue("DougCarley Saved"));
+        Assert.Equal("doug", s2.Choices!.GetString("DougCarley Saved"));
     }
 
     [Fact]
@@ -131,7 +132,6 @@ public class SeasonHandlerTests
     }
 
     [Theory]
-    [InlineData("s1")]
     [InlineData("s2")]
     [InlineData("s4")]
     public void SeasonsWithoutCompanionFiles_DoNotImplementTheCapability(string seasonKey)

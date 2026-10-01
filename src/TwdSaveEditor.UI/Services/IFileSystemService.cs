@@ -12,6 +12,8 @@ public interface IFileSystemService
 
     Task<bool> WriteFile(string name, byte[] data);
 
+    Task<bool> DeleteFile(string name);
+
     Task<bool> BackupFiles(string folderName, string[] fileNames);
 
     Task<bool> HasDirectory();

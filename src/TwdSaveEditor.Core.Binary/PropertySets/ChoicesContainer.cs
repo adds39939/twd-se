@@ -15,7 +15,7 @@ public static class ChoicesContainer
         {
             var strLen = BitConverter.ToInt32(data, pos);
             pos += 4;
-            var str = System.Text.Encoding.ASCII.GetString(data, pos, strLen);
+            var str = System.Text.Encoding.Latin1.GetString(data, pos, strLen);
             pos += strLen;
             var boolVal = pos < data.Length && data[pos] == 0x31;
             pos++;
@@ -33,7 +33,7 @@ public static class ChoicesContainer
         writer.Write((uint)entries.Count);
         foreach (var (str, boolVal) in entries)
         {
-            var bytes = System.Text.Encoding.ASCII.GetBytes(str);
+            var bytes = System.Text.Encoding.Latin1.GetBytes(str);
             writer.Write(bytes.Length);
             writer.Write(bytes);
             writer.Write((byte)(boolVal ? 0x31 : 0x30));

@@ -20,6 +20,9 @@ public partial class SaveBrowser : IDisposable
     [Parameter]
     public EventCallback OnNewSaveRequested { get; set; }
 
+    private const int MaxUploadedFiles = 500;
+    private const long MaxUploadedFileSize = 1024 * 1024 * 20;
+
     private bool _isSupported = true;
     private bool _supportChecked;
 
@@ -45,25 +48,22 @@ public partial class SaveBrowser : IDisposable
 
     private async Task OnFilesUploaded(InputFileChangeEventArgs e)
     {
-        foreach (var file in e.GetMultipleFiles(50))
+        var files = new Dictionary<string, byte[]>(StringComparer.OrdinalIgnoreCase);
+        foreach (var file in e.GetMultipleFiles(MaxUploadedFiles))
         {
             try
             {
                 using var ms = new MemoryStream();
-                await file.OpenReadStream(maxAllowedSize: 1024 * 1024 * 10).CopyToAsync(ms);
-                var data = ms.ToArray();
-
-                if (file.Name.EndsWith(".bundle", StringComparison.OrdinalIgnoreCase))
-                {
-                    Editor.Saves.Add(Editor.ReadBundle(data, file.Name));
-                }
+                await file.OpenReadStream(maxAllowedSize: MaxUploadedFileSize).CopyToAsync(ms);
+                files[file.Name] = ms.ToArray();
             }
             catch (Exception ex)
             {
                 Editor.StatusMessage = $"Failed to load {file.Name}: {ex.Message}";
             }
         }
-        Editor.NotifyStateChanged();
+
+        await Editor.LoadFiles(files);
         StateHasChanged();
     }
 
@@ -72,8 +72,13 @@ public partial class SaveBrowser : IDisposable
         if (Editor.SelectedSave == null) return;
 
         var slot = Editor.SelectedSave;
-        var fileBytes = Editor.WriteBundle(slot);
-        await FileSystem.DownloadFile(slot.FileName, fileBytes);
+        foreach (var file in Editor.BuildFiles(slot))
+            await FileSystem.DownloadFile(file.Name, file.Data);
+
+        if (slot.ObsoleteFileNames.Count > 0)
+            Editor.StatusMessage = $"Delete {string.Join(", ", slot.ObsoleteFileNames)} from your save folder before playing.";
+
+        Editor.NotifyStateChanged();
     }
 
     private void SelectSave(SaveSlot save)

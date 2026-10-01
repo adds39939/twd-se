@@ -79,12 +79,12 @@ public class LiveSaveTests
             slot.Metadata!.AllProperties.Count(),
             reloaded.Metadata!.AllProperties.Count());
 
-        Assert.Equal(slot.FileTable.Count, reloaded.FileTable.Count);
-        for (int i = 0; i < slot.FileTable.Count; i++)
+        Assert.Equal(slot.Files.Count, reloaded.Files.Count);
+        for (int i = 0; i < slot.Files.Count; i++)
         {
-            Assert.Equal(slot.FileTable[i].Name, reloaded.FileTable[i].Name);
-            Assert.Equal(slot.FileTable[i].Hash1, reloaded.FileTable[i].Hash1);
-            Assert.Equal(slot.FileTable[i].Hash2, reloaded.FileTable[i].Hash2);
+            Assert.Equal(slot.Files[i].Name, reloaded.Files[i].Name);
+            Assert.Equal(slot.Files[i].NameSymbol, reloaded.Files[i].NameSymbol);
+            Assert.Equal(slot.Files[i].TypeSymbol, reloaded.Files[i].TypeSymbol);
         }
     }
 
@@ -95,19 +95,16 @@ public class LiveSaveTests
         if (!File.Exists(path)) return;
 
         var slot = BundleReader.Read(path);
-        if (slot.Choices == null) return;
+        var handler = Registry.Get("s1")!;
+        var accessor = handler.CreateChoiceAccessor(slot)!;
 
-        var accessor = new SaveAccessor(slot.Choices, slot.Metadata);
-
-        accessor.SetChoiceValue("dougcarley_saved", "carley");
-        Assert.Equal("carley", accessor.GetChoiceValue("dougcarley_saved"));
+        accessor.SetChoiceValue("DougCarley Saved", "carley");
+        Assert.Equal("carley", accessor.GetChoiceValue("DougCarley Saved"));
 
         var written = BundleWriter.Write(slot);
         var reloaded = BundleReader.Read(written, "wd1_saveslot1.bundle");
 
-        Assert.NotNull(reloaded.Choices);
-        var reloadedAccessor = new SaveAccessor(reloaded.Choices, reloaded.Metadata);
-        Assert.Equal("carley", reloadedAccessor.GetChoiceValue("dougcarley_saved"));
+        Assert.Equal("carley", handler.CreateChoiceAccessor(reloaded)!.GetChoiceValue("DougCarley Saved"));
     }
 
     [Fact]

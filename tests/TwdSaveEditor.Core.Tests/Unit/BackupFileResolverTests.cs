@@ -18,17 +18,18 @@ public class BackupFileResolverTests
         FilePath = fileName,
         FileName = fileName,
         OuterHeader = new MetaStreamHeader { Magic = 0x4D535636 },
-        FileTable = [],
+        Files = [],
     };
 
     [Fact]
-    public void SlotBundle_BackupsOnlyItself()
+    public void S1SlotBundle_BackupsSlotAndAutosave()
     {
         var slot = CreateSlot("wd1_saveslot1.bundle");
         var files = BackupFileResolver.GetFilesToBackup(slot, Registry(new S1Handler()));
 
-        Assert.Single(files);
+        Assert.Equal(2, files.Count);
         Assert.Equal("wd1_saveslot1.bundle", files[0]);
+        Assert.Equal("_wd1_saveslot1_autosave.bundle", files[1]);
     }
 
     [Fact]

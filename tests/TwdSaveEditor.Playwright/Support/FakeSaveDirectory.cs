@@ -44,6 +44,10 @@ internal static class FakeSaveDirectory
                     return fileHandle(fileName);
                 };
 
+                dir.removeEntry = async (fileName) => {
+                    if (!(fileName in dir.files)) throw notFound(fileName);
+                    delete dir.files[fileName];
+                };
                 dir.getDirectoryHandle = async (dirName, options) => {
                     if (!(dirName in dir.directories)) {
                         if (!options?.create) throw notFound(dirName);
@@ -65,6 +69,7 @@ internal static class FakeSaveDirectory
 
             window.__saveDirectory = {
                 readFile: (name) => name in root.files ? encode(root.files[name]) : null,
+                fileNames: () => Object.keys(root.files),
                 backups: () => Object.entries(root.directories)
                     .map(([folder, dir]) => ({ folder, files: Object.keys(dir.files) })),
             };
@@ -77,6 +82,9 @@ internal static class FakeSaveDirectory
 
     public static Task<string?> ReadFileAsync(IPage page, string name)
         => page.EvaluateAsync<string?>("(name) => window.__saveDirectory.readFile(name)", name);
+
+    public static Task<string[]> GetFileNamesAsync(IPage page)
+        => page.EvaluateAsync<string[]>("() => window.__saveDirectory.fileNames()");
 
     public static Task<string?> GetLastBackupFolderAsync(IPage page)
         => page.EvaluateAsync<string?>("() => window.__saveDirectory.backups().at(-1)?.folder ?? null");
@@ -91,6 +99,11 @@ internal static class FakeSaveDirectory
 
         var seasonDir = TestDataHelper.GetSeasonDir(testDataSeason);
         var bundleBase = Path.GetFileNameWithoutExtension(fileName);
+
+        var autosaveName = $"_{bundleBase}_autosave.bundle";
+        var autosavePath = Path.Combine(seasonDir, autosaveName);
+        if (File.Exists(autosavePath))
+            files[autosaveName] = await ReadBase64Async(autosavePath);
         var estoreName = $"_{bundleBase}_id.estore";
         var estorePath = Path.Combine(seasonDir, estoreName);
         if (!File.Exists(estorePath)) return;

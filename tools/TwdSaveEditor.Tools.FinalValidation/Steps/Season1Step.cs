@@ -1,72 +1,62 @@
-using TwdSaveEditor.Tools.Common.Bundles;
-using TwdSaveEditor.Tools.Common.MetaStreams;
-using TwdSaveEditor.Tools.Common.Text;
-using TwdSaveEditor.Tools.FinalValidation.Archives;
+using TwdSaveEditor.Tools.Common.Meta;
 using TwdSaveEditor.Tools.FinalValidation.Data;
-using TwdSaveEditor.Tools.FinalValidation.Parsing;
-using TwdSaveEditor.Tools.FinalValidation.Text;
 
 namespace TwdSaveEditor.Tools.FinalValidation.Steps;
 
 public sealed class Season1Step(ValidationContext context) : IValidationStep
 {
-    private const string Step = "1. S1 choices.prop format";
-    private const string ChoicesFile = "choices.prop";
+    private const string Step = "1. S1 persistent choice format";
+    private const string KeyNamesFile = "persistent.prop";
+    private const string SlotMetadataFile = "metadata_slot.prop";
+    private const string TrackerFile = "choices.prop";
+    private const int FirstEpisode = 101;
+    private const int LastEpisode = 106;
+
+    private readonly MetaReader _reader = MetaReader.CreateDefault();
 
     public void Run()
     {
-        context.Report.StepHeader("STEP 1: Validate S1 choices.prop format");
+        context.Report.StepHeader("STEP 1: Validate S1 persistent choice format");
         var details = new List<string>();
+        var passed = false;
 
         try
         {
-            var files = context.Archives.ExtractFiles(GameArchiveNames.Season1);
-            if (files == null)
-            {
-                details.Add("ERROR: Could not extract S1 archive");
-                context.Report.Add(Step, false, details);
-                return;
-            }
-
-            AddLuaReferences(details, files);
+            var keys = ReadKeyNames(details);
+            passed = keys != null && ValidateSave(details, keys);
         }
-        catch (Exception e)
+        catch (Exception e) when (e is InvalidDataException or IOException)
         {
-            details.Add($"Archive extraction error: {e.Message}");
+            details.Add($"ERROR: {e.Message}");
         }
 
-        context.Report.Add(Step, ValidateSave(details), details);
+        context.Report.Add(Step, passed, details);
     }
 
-    private void AddLuaReferences(List<string> details, OrderedDictionary<string, ReadOnlyMemory<byte>> files)
+    private Dictionary<int, List<string>>? ReadKeyNames(List<string> details)
     {
-        var (_, lua) = GameArchives.Find(files, "SaveLoad.lua");
-        if (lua is not { IsEmpty: false })
+        var files = context.Archives.ExtractFiles(GameArchiveNames.Season1);
+        if (files == null || !files.TryGetValue(KeyNamesFile, out var data))
         {
-            details.Add("SaveLoad.lua not found in S1 archive (may be named differently)");
-            details.Add($"Available Lua files: {TextFormat.QuoteList(GameArchives.LuaFiles(files))}");
-            return;
+            details.Add($"ERROR: Could not read {KeyNamesFile} from the S1 archive");
+            return null;
         }
 
-        var text = context.Archives.ReadLua(lua.Value);
-        var references = TextSearch.LinesContaining(text, "choices", "prop").Select(TextFormat.Trim).ToList();
-        if (references.Count > 0)
+        var properties = _reader.ReadPropertySet(data.Span)
+            ?? throw new InvalidDataException($"{KeyNamesFile} is not a property set");
+
+        var keys = new Dictionary<int, List<string>>();
+        for (var episode = FirstEpisode; episode <= LastEpisode; episode++)
         {
-            details.Add($"Found {references.Count} 'choices.prop' references in SaveLoad.lua:");
-            details.AddRange(references.Take(5).Select(reference => $"  {TextFormat.Truncate(reference, 120)}"));
-            return;
+            if (properties.Find($"Persistent - {episode} - Key Names") is MetaList names)
+                keys[episode] = names.Strings.ToList();
         }
 
-        details.Add("No 'choices.prop' references found in SaveLoad.lua (may use different file)");
-        references = TextSearch.LinesContaining(text, "choice").Select(TextFormat.Trim).ToList();
-        if (references.Count > 0)
-        {
-            details.Add($"Found {references.Count} 'choice' references:");
-            details.AddRange(references.Take(5).Select(reference => $"  {TextFormat.Truncate(reference, 120)}"));
-        }
+        details.Add($"Game defines {keys.Values.Sum(names => names.Count)} persistent keys for episodes {string.Join(", ", keys.Keys)}");
+        return keys;
     }
 
-    private bool ValidateSave(List<string> details)
+    private bool ValidateSave(List<string> details, Dictionary<int, List<string>> keys)
     {
         var savePath = context.TestSave("S1", "wd1_saveslot2.bundle");
         if (!File.Exists(savePath))
@@ -75,43 +65,36 @@ public sealed class Season1Step(ValidationContext context) : IValidationStep
             return false;
         }
 
-        if (MetaStreamParser.Parse(File.ReadAllBytes(savePath)) is not { } bundle)
+        if (_reader.Read(File.ReadAllBytes(savePath), MetaReader.BundleType)?.Root is not MetaBundle bundle)
         {
-            details.Add("ERROR: Could not parse S1 bundle MSV6 header!");
+            details.Add("ERROR: Could not parse the S1 slot bundle");
             return false;
         }
 
-        details.Add($"\nS1 bundle: magic=0x{bundle.Magic:X8}, {bundle.VersionEntries.Count} version entries");
-        var table = BundleFileTable.Parse(bundle.Default);
-        details.Add($"Inner files: {TextFormat.QuoteList(table.Select(entry => entry.Name))}");
-
-        var passed = table.Any(entry => entry.Name == ChoicesFile);
-        details.Add($"Has choices.prop: {passed}");
-        if (!passed)
-            details.Add("ERROR: choices.prop not found in S1 bundle!");
-
-        foreach (var entry in table.Where(entry => entry.Name == ChoicesFile && BundleFileTable.Contains(bundle, entry)))
+        var metadata = FindProperties(bundle, SlotMetadataFile);
+        var tracker = FindProperties(bundle, TrackerFile);
+        if (metadata == null || tracker == null)
         {
-            if (BundleFileTable.ReadInnerFile(bundle, entry) is not { } inner)
-            {
-                details.Add("Could not parse inner MetaStream for choices.prop");
-                continue;
-            }
-
-            var choices = ChoicesContainerScanner.Scan(inner.Default);
-            details.Add($"ChoicesContainer entries found: {choices.Count}");
-            if (choices.Count > 0)
-            {
-                details.Add("Sample entries:");
-                details.AddRange(choices.Take(5).Select(choice => $"  '{choice}'"));
-            }
-            else
-            {
-                passed = false;
-                details.Add("ERROR: No ChoicesContainer entries found!");
-            }
+            details.Add($"ERROR: {SlotMetadataFile} or {TrackerFile} missing from the slot bundle");
+            return false;
         }
+
+        var passed = true;
+        foreach (var (episode, names) in keys)
+        {
+            var stored = names.Count(name => metadata.Find($"Persistent - {episode} - {name}") is MetaScalar { Text: not null });
+            var trackerEntries = (tracker.Find($"Episode {episode}") as MetaMap)?.Entries.Count ?? 0;
+            details.Add($"Episode {episode}: {stored}/{names.Count} persistent values in the slot, {trackerEntries} tracker entries");
+            if (episode == FirstEpisode && stored != names.Count)
+                passed = false;
+        }
+
+        if (!passed)
+            details.Add("ERROR: The slot does not hold every persistent value of its first episode!");
 
         return passed;
     }
+
+    private static MetaPropertySet? FindProperties(MetaBundle bundle, string fileName) =>
+        bundle.Files.FirstOrDefault(file => file.NameSymbol == TypeName.Hash(fileName))?.Content?.Root as MetaPropertySet;
 }

@@ -2,30 +2,30 @@
   {
     "seasonKey": "s1_400days",
     "episode": 1,
-    "description": "Vince: Shot Danny or Justin",
-    "choiceKey": "shot_dan",
+    "description": "Vince: whose foot was shot off",
+    "choiceKey": "Shot Dan",
     "category": "Life/Death",
     "options": [
-      { "label": "Shot Danny", "value": "true" },
-      { "label": "Shot Justin", "value": "false" }
+      { "label": "Shot Danny's foot", "value": "true" },
+      { "label": "Shot Justin's foot", "value": "false" }
     ]
   },
   {
     "seasonKey": "s1_400days",
     "episode": 1,
-    "description": "Wyatt: Left Eddie or stayed",
-    "choiceKey": "left_eddie",
+    "description": "Wyatt: stayed in the car or got out",
+    "choiceKey": "Left Eddie",
     "category": "Major",
     "options": [
-      { "label": "Left Eddie", "value": "true" },
-      { "label": "Stayed with Eddie", "value": "false" }
+      { "label": "Stayed in the car", "value": "true" },
+      { "label": "Got out of the car", "value": "false" }
     ]
   },
   {
     "seasonKey": "s1_400days",
     "episode": 1,
-    "description": "Russell: Left Nate or stayed",
-    "choiceKey": "left_nate",
+    "description": "Russell: left Nate or stayed",
+    "choiceKey": "Left Nate",
     "category": "Major",
     "options": [
       { "label": "Left Nate", "value": "true" },
@@ -35,56 +35,23 @@
   {
     "seasonKey": "s1_400days",
     "episode": 1,
-    "description": "Bonnie: Lied to Leland",
-    "choiceKey": "lied_to_leland",
+    "description": "Bonnie: lied to Leland about Dee",
+    "choiceKey": "Lied To Leland",
     "category": "Major",
     "options": [
-      { "label": "Lied", "value": "true" },
-      { "label": "Told the truth", "value": "false" }
+      { "label": "Was honest", "value": "false" },
+      { "label": "Lied", "value": "true" }
     ]
   },
   {
     "seasonKey": "s1_400days",
     "episode": 1,
-    "description": "Russell went with Tavia",
-    "choiceKey": "russell_went",
-    "category": "Major",
+    "description": "Shel: killed Stephanie or left in the RV",
+    "choiceKey": "Killed Stephanie",
+    "category": "Life/Death",
     "options": [
-      { "label": "Went", "value": "true" },
-      { "label": "Stayed", "value": "false" }
-    ]
-  },
-  {
-    "seasonKey": "s1_400days",
-    "episode": 1,
-    "description": "Wyatt went with Tavia",
-    "choiceKey": "wyatt_went",
-    "category": "Major",
-    "options": [
-      { "label": "Went", "value": "true" },
-      { "label": "Stayed", "value": "false" }
-    ]
-  },
-  {
-    "seasonKey": "s1_400days",
-    "episode": 1,
-    "description": "Shel went with Tavia",
-    "choiceKey": "shel_went",
-    "category": "Major",
-    "options": [
-      { "label": "Went", "value": "true" },
-      { "label": "Stayed", "value": "false" }
-    ]
-  },
-  {
-    "seasonKey": "s1_400days",
-    "episode": 1,
-    "description": "Vince went with Tavia",
-    "choiceKey": "vince_went",
-    "category": "Major",
-    "options": [
-      { "label": "Went", "value": "true" },
-      { "label": "Stayed", "value": "false" }
+      { "label": "Left in the RV", "value": "false" },
+      { "label": "Killed Stephanie", "value": "true" }
     ]
   }
 ]

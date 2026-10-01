@@ -2,528 +2,335 @@
   {
     "seasonKey": "s1",
     "episode": 1,
-    "description": "Lied to Hershel about your past",
-    "choiceKey": "lied_to_hershel",
+    "description": "Lied to Hershel about who you are",
+    "choiceKey": "Lied To Hershel",
     "category": "Major",
     "options": [
-      { "label": "Told the truth", "value": "false" },
+      { "label": "Was honest", "value": "false" },
       { "label": "Lied", "value": "true" }
     ]
   },
   {
     "seasonKey": "s1",
     "episode": 1,
-    "description": "Who did you save at Hershel's farm",
-    "choiceKey": "shawnduck_choice",
-    "category": "Major",
+    "description": "Who Lee tried to save at Hershel's farm",
+    "choiceKey": "ShawnDuck Choice",
+    "category": "Life/Death",
     "options": [
-      { "label": "Saved Shawn", "value": "shawn" },
-      { "label": "Saved Duck", "value": "duck" }
+      { "label": "Tried to save Duck", "value": "duck" },
+      { "label": "Tried to save Shawn", "value": "shawn" },
+      { "label": "Helped neither", "value": "none" }
     ]
   },
   {
     "seasonKey": "s1",
     "episode": 1,
-    "description": "Sided with Kenny at the drug store",
-    "choiceKey": "sided_with_kenny",
+    "description": "Sided with Kenny or Larry in the drugstore",
+    "choiceKey": "Sided With Kenny",
     "category": "Relationship",
     "options": [
-      { "label": "Sided with Kenny", "value": "true" },
+      { "label": "Defended Kenny", "value": "true" },
       { "label": "Sided with Larry", "value": "false" }
     ]
   },
   {
     "seasonKey": "s1",
     "episode": 1,
-    "description": "Gave Irene the gun",
-    "choiceKey": "gave_irene_gun",
+    "description": "Gave Irene the gun at the motor inn",
+    "choiceKey": "Gave Irene Gun",
     "category": "Major",
     "options": [
       { "label": "Gave her the gun", "value": "true" },
-      { "label": "Refused", "value": "false" }
+      { "label": "Refused to give her the gun", "value": "false" }
     ]
   },
   {
     "seasonKey": "s1",
     "episode": 1,
-    "description": "Saved Doug or Carley at the drug store",
-    "choiceKey": "dougcarley_saved",
+    "description": "Who Lee saved in the drugstore",
+    "choiceKey": "DougCarley Saved",
     "category": "Life/Death",
     "options": [
-      { "label": "Saved Doug", "value": "doug" },
-      { "label": "Saved Carley", "value": "carley" }
+      { "label": "Saved Carley", "value": "carley" },
+      { "label": "Saved Doug", "value": "doug" }
     ]
   },
   {
     "seasonKey": "s1",
     "episode": 2,
-    "description": "Helped kill Larry or tried to save him",
-    "choiceKey": "helped_kill_larry",
+    "description": "Chopped off David's leg at the bear trap",
+    "choiceKey": "Chopped Leg",
     "category": "Life/Death",
     "options": [
-      { "label": "Helped Kenny kill Larry", "value": "true" },
-      { "label": "Tried to save Larry", "value": "false" }
+      { "label": "Chopped his leg off", "value": "true" },
+      { "label": "Left him to die", "value": "false" }
     ]
   },
   {
     "seasonKey": "s1",
     "episode": 2,
-    "description": "Shot Jolene in the woods",
-    "choiceKey": "shot_jolene",
+    "description": "Who shot Jolene at her camp",
+    "choiceKey": "Shot Jolene",
     "category": "Major",
     "options": [
-      { "label": "Shot Jolene", "value": "true" },
-      { "label": "Didn't shoot", "value": "false" }
+      { "label": "Danny shot her", "value": "false" },
+      { "label": "Lee shot her", "value": "true" }
     ]
   },
   {
     "seasonKey": "s1",
     "episode": 2,
-    "description": "Chopped off the teacher's leg",
-    "choiceKey": "chopped_leg",
+    "description": "Helped Kenny kill Larry in the meat locker",
+    "choiceKey": "Helped Kill Larry",
+    "category": "Life/Death",
+    "options": [
+      { "label": "Tried to revive Larry", "value": "false" },
+      { "label": "Helped kill Larry", "value": "true" }
+    ]
+  },
+  {
+    "seasonKey": "s1",
+    "episode": 2,
+    "description": "Killed both St. John brothers",
+    "choiceKey": "Killed St. John Brothers",
+    "category": "Life/Death",
+    "options": [
+      { "label": "Did not kill both brothers", "value": "false" },
+      { "label": "Killed both brothers", "value": "true" }
+    ]
+  },
+  {
+    "seasonKey": "s1",
+    "episode": 2,
+    "description": "Took the supplies from the abandoned car",
+    "choiceKey": "Stole Food From Car",
     "category": "Major",
     "options": [
-      { "label": "Chopped off the leg", "value": "true" },
-      { "label": "Left him", "value": "false" }
+      { "label": "Did not take the supplies", "value": "false" },
+      { "label": "Took the supplies", "value": "true" }
+    ]
+  },
+  {
+    "seasonKey": "s1",
+    "episode": 3,
+    "description": "Shot the girl in the street",
+    "choiceKey": "Shot Beatrice",
+    "category": "Major",
+    "options": [
+      { "label": "Shot her", "value": "true" },
+      { "label": "Did not shoot her", "value": "false" }
+    ]
+  },
+  {
+    "seasonKey": "s1",
+    "episode": 3,
+    "description": "Abandoned Lilly on the road",
+    "choiceKey": "Left Lilly",
+    "category": "Life/Death",
+    "options": [
+      { "label": "Brought Lilly along", "value": "false" },
+      { "label": "Left Lilly behind", "value": "true" }
+    ]
+  },
+  {
+    "seasonKey": "s1",
+    "episode": 3,
+    "description": "Fought Kenny on the train",
+    "choiceKey": "Fought Kenny",
+    "category": "Relationship",
+    "options": [
+      { "label": "Talked Kenny down", "value": "false" },
+      { "label": "Fought Kenny", "value": "true" }
+    ]
+  },
+  {
+    "seasonKey": "s1",
+    "episode": 3,
+    "description": "Kenny punched Lee on the train",
+    "choiceKey": "Got Punched",
+    "category": "Relationship",
+    "options": [
+      { "label": "Was not punched", "value": "false" },
+      { "label": "Was punched", "value": "true" }
     ]
   },
   {
     "seasonKey": "s1",
     "episode": 3,
     "description": "Who shot Duck",
-    "choiceKey": "kill_duck_choice",
+    "choiceKey": "Kill Duck Choice",
     "category": "Life/Death",
     "options": [
       { "label": "Lee shot Duck", "value": "lee" },
       { "label": "Kenny shot Duck", "value": "kenny" },
-      { "label": "Duck wasn't shot", "value": "neither" }
+      { "label": "Nobody shot Duck", "value": "none" }
     ]
   },
   {
     "seasonKey": "s1",
     "episode": 3,
-    "description": "Left Lilly behind",
-    "choiceKey": "left_lilly",
-    "category": "Life/Death",
+    "description": "Who Lee helped onto the train",
+    "choiceKey": "ChristaOmid Choice",
+    "category": "Major",
     "options": [
-      { "label": "Left Lilly on the road", "value": "true" },
-      { "label": "Let her in the RV", "value": "false" }
+      { "label": "Helped Omid", "value": "omid" },
+      { "label": "Helped Christa", "value": "christa" },
+      { "label": "Helped neither", "value": "none" }
     ]
   },
   {
     "seasonKey": "s1",
     "episode": 3,
-    "description": "Fought with Kenny",
-    "choiceKey": "fought_kenny",
-    "category": "Relationship",
-    "options": [
-      { "label": "Fought Kenny", "value": "true" },
-      { "label": "Didn't fight", "value": "false" }
-    ]
-  },
-  {
-    "seasonKey": "s1",
-    "episode": 3,
-    "description": "Got punched by Kenny",
-    "choiceKey": "got_punched",
+    "description": "Tool used on the train",
+    "choiceKey": "Weapon Choice",
     "category": "Major",
     "options": [
-      { "label": "Got punched", "value": "true" },
-      { "label": "Avoided it", "value": "false" }
-    ]
-  },
-  {
-    "seasonKey": "s1",
-    "episode": 3,
-    "description": "Shot Beatrice",
-    "choiceKey": "shot_beatrice",
-    "category": "Major",
-    "options": [
-      { "label": "Shot Beatrice", "value": "true" },
-      { "label": "Didn't shoot", "value": "false" }
-    ]
-  },
-  {
-    "seasonKey": "s1",
-    "episode": 3,
-    "description": "Who did you help first at the overpass",
-    "choiceKey": "christaomid_choice",
-    "category": "Major",
-    "options": [
-      { "label": "Helped Omid first", "value": "omid" },
-      { "label": "Helped Christa first", "value": "christa" }
-    ]
-  },
-  {
-    "seasonKey": "s1",
-    "episode": 3,
-    "description": "Weapon choice",
-    "choiceKey": "weapon_choice",
-    "category": "Major",
-    "options": [
-      { "label": "Spike remover", "value": "inventory_-_spike_remover" },
-      { "label": "Spanner", "value": "inventory_-_spanner" },
-      { "label": "Other weapon", "value": "other" }
-    ]
-  },
-  {
-    "seasonKey": "s1",
-    "episode": 3,
-    "description": "Lost temper",
-    "choiceKey": "lost_temper",
-    "category": "Major",
-    "options": [
-      { "label": "Lost temper", "value": "true" },
-      { "label": "Kept calm", "value": "false" }
-    ]
-  },
-  {
-    "seasonKey": "s1",
-    "episode": 3,
-    "description": "Saved Ben",
-    "choiceKey": "saved_ben",
-    "category": "Life/Death",
-    "options": [
-      { "label": "Saved Ben", "value": "true" },
-      { "label": "Let Ben fall", "value": "false" }
+      { "label": "Spanner", "value": "inventory - spanner" },
+      { "label": "Monkey wrench", "value": "inventory - monkey wrench" },
+      { "label": "Spike remover", "value": "inventory - spike remover" }
     ]
   },
   {
     "seasonKey": "s1",
     "episode": 4,
-    "description": "Killed the zombie boy in the attic",
-    "choiceKey": "killed_zombie_boy",
+    "description": "Killed the boy in the attic",
+    "choiceKey": "Killed Zombie Boy",
     "category": "Major",
     "options": [
-      { "label": "Killed him", "value": "true" },
-      { "label": "Left him", "value": "false" }
-    ]
-  },
-  {
-    "seasonKey": "s1",
-    "episode": 4,
-    "description": "Brought Clementine to Crawford",
-    "choiceKey": "brought_clementine_to_crawford",
-    "category": "Major",
-    "options": [
-      { "label": "Brought her", "value": "true" },
-      { "label": "Left her behind", "value": "false" }
-    ]
-  },
-  {
-    "seasonKey": "s1",
-    "episode": 4,
-    "description": "Killed Stephanie (Crawford)",
-    "choiceKey": "killed_stephanie",
-    "category": "Major",
-    "options": [
-      { "label": "Killed Stephanie", "value": "true" },
-      { "label": "Didn't kill", "value": "false" }
-    ]
-  },
-  {
-    "seasonKey": "s1",
-    "episode": 4,
-    "description": "Found Molly videotape",
-    "choiceKey": "found_molly_videotape",
-    "category": "Major",
-    "options": [
-      { "label": "Found it", "value": "true" },
-      { "label": "Missed it", "value": "false" }
-    ]
-  },
-  {
-    "seasonKey": "s1",
-    "episode": 4,
-    "description": "Watched Molly videotape",
-    "choiceKey": "watched_molly_videotape",
-    "category": "Major",
-    "options": [
-      { "label": "Watched it", "value": "true" },
-      { "label": "Didn't watch", "value": "false" }
-    ]
-  },
-  {
-    "seasonKey": "s1",
-    "episode": 4,
-    "description": "Found Crawford pamphlet",
-    "choiceKey": "found_crawford_pamphlet",
-    "category": "Major",
-    "options": [
-      { "label": "Found it", "value": "true" },
-      { "label": "Missed it", "value": "false" }
-    ]
-  },
-  {
-    "seasonKey": "s1",
-    "episode": 4,
-    "description": "Found Clementine's drawings",
-    "choiceKey": "found_clementine_drawings",
-    "category": "Major",
-    "options": [
-      { "label": "Found them", "value": "true" },
-      { "label": "Missed them", "value": "false" }
-    ]
-  },
-  {
-    "seasonKey": "s1",
-    "episode": 4,
-    "description": "Molly's fate",
-    "choiceKey": "molly_fate",
-    "category": "Major",
-    "options": [
-      { "label": "Clem shoots zombie", "value": "clem_shoots_zombie" },
-      { "label": "Molly left", "value": "molly_left" },
-      { "label": "Molly stayed", "value": "molly_stayed" }
-    ]
-  },
-  {
-    "seasonKey": "s1",
-    "episode": 4,
-    "description": "Ben asks for advice",
-    "choiceKey": "ben_asks_for_advice",
-    "category": "Major",
-    "options": [
-      { "label": "Helped Ben", "value": "true" },
-      { "label": "Refused", "value": "false" }
-    ]
-  },
-  {
-    "seasonKey": "s1",
-    "episode": 4,
-    "description": "Surrendered the cleaver",
-    "choiceKey": "surrendered_cleaver",
-    "category": "Major",
-    "options": [
-      { "label": "Surrendered", "value": "true" },
-      { "label": "Kept it", "value": "false" }
+      { "label": "Lee killed him", "value": "true" },
+      { "label": "Left it to Kenny", "value": "false" }
     ]
   },
   {
     "seasonKey": "s1",
     "episode": 4,
     "description": "Threatened or lied to Vernon",
-    "choiceKey": "threatened_or_lied_to_vernon",
+    "choiceKey": "Threatened Or Lied To Vernon",
     "category": "Major",
     "options": [
-      { "label": "Threatened/lied", "value": "true" },
-      { "label": "Honest", "value": "false" }
+      { "label": "Was rational and honest", "value": "false" },
+      { "label": "Threatened or lied to him", "value": "true" }
     ]
   },
   {
     "seasonKey": "s1",
     "episode": 4,
-    "description": "Sewer slippery slide direction",
-    "choiceKey": "sewer_slippery_slide",
+    "description": "Brought Clementine to Crawford",
+    "choiceKey": "Brought Clementine To Crawford",
     "category": "Major",
     "options": [
-      { "label": "Center", "value": "center" },
-      { "label": "Left", "value": "left" },
-      { "label": "Right", "value": "right" }
+      { "label": "Brought her along", "value": "true" },
+      { "label": "Left her at the house", "value": "false" }
     ]
   },
   {
     "seasonKey": "s1",
     "episode": 4,
-    "description": "How many zombies Clementine killed in prologue",
-    "choiceKey": "prologue_clementine_zombies_killed",
-    "category": "Major",
-    "options": [
-      { "label": "7 zombies", "value": "7" },
-      { "label": "6 zombies", "value": "6" },
-      { "label": "5 zombies", "value": "5" },
-      { "label": "4 zombies", "value": "4" },
-      { "label": "3 zombies", "value": "3" }
-    ]
-  },
-  {
-    "seasonKey": "s1",
-    "episode": 4,
-    "description": "Who saved Kenny in the prologue",
-    "choiceKey": "prologue_saving_kenny",
-    "category": "Major",
-    "options": [
-      { "label": "Lee saved Kenny", "value": "lee" },
-      { "label": "Other", "value": "other" }
-    ]
-  },
-  {
-    "seasonKey": "s1",
-    "episode": 4,
-    "description": "Lee blocks Molly first punch",
-    "choiceKey": "lee_blocks_molly_first_punch",
-    "category": "Major",
-    "options": [
-      { "label": "Blocked", "value": "true" },
-      { "label": "Hit", "value": "false" }
-    ]
-  },
-  {
-    "seasonKey": "s1",
-    "episode": 4,
-    "description": "Lee blocks Molly second punch",
-    "choiceKey": "lee_blocks_molly_second_punch",
-    "category": "Major",
-    "options": [
-      { "label": "Blocked", "value": "true" },
-      { "label": "Hit", "value": "false" }
-    ]
-  },
-  {
-    "seasonKey": "s1",
-    "episode": 5,
-    "description": "Cut off Lee's arm",
-    "choiceKey": "cut_off_arm",
+    "description": "Saved Ben in the bell tower",
+    "choiceKey": "Saved Ben",
     "category": "Life/Death",
     "options": [
-      { "label": "Cut off arm", "value": "true" },
-      { "label": "Left arm", "value": "false" }
+      { "label": "Pulled Ben up", "value": "true" },
+      { "label": "Let Ben go", "value": "false" }
     ]
   },
   {
     "seasonKey": "s1",
-    "episode": 5,
-    "description": "Hid the bite",
-    "choiceKey": "hid_bite",
+    "episode": 4,
+    "description": "Hid the bite from the group",
+    "choiceKey": "Hid Bite",
     "category": "Major",
     "options": [
-      { "label": "Hid it", "value": "true" },
-      { "label": "Showed it", "value": "false" }
+      { "label": "Showed the bite", "value": "false" },
+      { "label": "Hid the bite", "value": "true" }
     ]
   },
   {
     "seasonKey": "s1",
-    "episode": 5,
-    "description": "Revealed the bite",
-    "choiceKey": "reveal_bite",
-    "category": "Major",
+    "episode": 4,
+    "description": "Kenny came to look for Clementine",
+    "choiceKey": "With Kenny",
+    "category": "Relationship",
     "options": [
-      { "label": "First opportunity", "value": "first_opportunity" },
-      { "label": "Later", "value": "later" },
-      { "label": "Never", "value": "never" }
+      { "label": "Kenny came along", "value": "true" },
+      { "label": "Kenny stayed behind", "value": "false" }
     ]
   },
   {
     "seasonKey": "s1",
-    "episode": 5,
-    "description": "Party composition",
-    "choiceKey": "party_lee_ben_kenny_christa_omid",
-    "category": "Major",
+    "episode": 4,
+    "description": "Ben came to look for Clementine",
+    "choiceKey": "With Ben",
+    "category": "Relationship",
     "options": [
-      { "label": "Full party", "value": "true" },
-      { "label": "Partial party", "value": "false" }
+      { "label": "Ben came along", "value": "true" },
+      { "label": "Ben stayed behind", "value": "false" }
     ]
   },
   {
     "seasonKey": "s1",
-    "episode": 5,
-    "description": "With Kenny at the end",
-    "choiceKey": "with_kenny",
-    "category": "Major",
+    "episode": 4,
+    "description": "Christa and Omid came to look for Clementine",
+    "choiceKey": "With Christa And Omid",
+    "category": "Relationship",
     "options": [
-      { "label": "With Kenny", "value": "true" },
-      { "label": "Without Kenny", "value": "false" }
+      { "label": "They came along", "value": "true" },
+      { "label": "They stayed behind", "value": "false" }
     ]
   },
   {
     "seasonKey": "s1",
     "episode": 5,
-    "description": "With Ben at the end",
-    "choiceKey": "with_ben",
-    "category": "Major",
-    "options": [
-      { "label": "With Ben", "value": "true" },
-      { "label": "Without Ben", "value": "false" }
-    ]
-  },
-  {
-    "seasonKey": "s1",
-    "episode": 5,
-    "description": "With Christa and Omid at the end",
-    "choiceKey": "with_christa_and_omid",
-    "category": "Major",
-    "options": [
-      { "label": "With them", "value": "true" },
-      { "label": "Without them", "value": "false" }
-    ]
-  },
-  {
-    "seasonKey": "s1",
-    "episode": 5,
-    "description": "Lee grabbed Kenny's hand",
-    "choiceKey": "lee_grabbed_kennys_hand",
-    "category": "Major",
-    "options": [
-      { "label": "Grabbed", "value": "true" },
-      { "label": "Didn't grab", "value": "false" }
-    ]
-  },
-  {
-    "seasonKey": "s1",
-    "episode": 5,
-    "description": "Killed the campman (Stranger)",
-    "choiceKey": "killed_campman",
+    "description": "Removed Lee's bitten arm",
+    "choiceKey": "Cut Off Arm",
     "category": "Life/Death",
     "options": [
-      { "label": "Killed him", "value": "true" },
-      { "label": "Left him", "value": "false" }
+      { "label": "Removed the arm", "value": "true" },
+      { "label": "Kept the arm", "value": "false" }
     ]
   },
   {
     "seasonKey": "s1",
     "episode": 5,
-    "description": "Looked in campman's bag",
-    "choiceKey": "looked_in_campman_bag",
+    "description": "Lost temper with Kenny in the attic",
+    "choiceKey": "Lost Temper",
+    "category": "Relationship",
+    "options": [
+      { "label": "Argued calmly", "value": "false" },
+      { "label": "Lost temper", "value": "true" }
+    ]
+  },
+  {
+    "seasonKey": "s1",
+    "episode": 5,
+    "description": "Surrendered weapons to the stranger",
+    "choiceKey": "Surrendered Cleaver",
     "category": "Major",
     "options": [
-      { "label": "Looked", "value": "true" },
-      { "label": "Didn't look", "value": "false" }
+      { "label": "Kept the weapons", "value": "false" },
+      { "label": "Surrendered the weapons", "value": "true" }
     ]
   },
   {
     "seasonKey": "s1",
     "episode": 5,
-    "description": "Final zombie interaction",
-    "choiceKey": "final_zombie_interaction",
-    "category": "Major",
-    "options": [
-      { "label": "Grabbed radio", "value": "grab_radio" },
-      { "label": "Other action", "value": "other" }
-    ]
-  },
-  {
-    "seasonKey": "s1",
-    "episode": 5,
-    "description": "Lee's cliffhanger line",
-    "choiceKey": "lee_cliffhanger_line",
-    "category": "Major",
-    "options": [
-      { "label": "You are dead", "value": "youaredead" },
-      { "label": "Find Omid and Christa", "value": "findomidandchrista" },
-      { "label": "Don't be afraid", "value": "dontbeafraid" },
-      { "label": "Keep your hair short", "value": "keepyourhairshort" }
-    ]
-  },
-  {
-    "seasonKey": "s1",
-    "episode": 5,
-    "description": "Clementine shot Lee",
-    "choiceKey": "clementine_shot_lee",
+    "description": "Who killed the stranger",
+    "choiceKey": "Killed Campman",
     "category": "Life/Death",
     "options": [
-      { "label": "Shot Lee", "value": "true" },
-      { "label": "Left Lee", "value": "false" }
+      { "label": "Lee killed the stranger", "value": "true" },
+      { "label": "Clementine shot the stranger", "value": "false" }
     ]
   },
   {
     "seasonKey": "s1",
     "episode": 5,
-    "description": "Saw the belltower stairs tutorial",
-    "choiceKey": "player_saw_belltower_stairs_tutorial",
-    "category": "Major",
+    "description": "Clementine stopped Lee from turning",
+    "choiceKey": "Clementine Shot Lee",
+    "category": "Life/Death",
     "options": [
-      { "label": "Saw it", "value": "true" },
-      { "label": "Missed it", "value": "false" }
+      { "label": "Clementine shot Lee", "value": "true" },
+      { "label": "Clementine left Lee", "value": "false" }
     ]
   }
 ]

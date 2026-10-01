@@ -4,7 +4,7 @@ using TwdSaveEditor.Season.Common.Model;
 
 namespace TwdSaveEditor.Season.Base.Resources;
 
-internal static class EmbeddedSeasonData
+public static class EmbeddedSeasonData
 {
     private const string ChoicesSuffix = ".choices.json";
     private const string ScenesSuffix = ".scenes.json";

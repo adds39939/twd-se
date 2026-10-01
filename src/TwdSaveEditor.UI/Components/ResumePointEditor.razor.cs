@@ -17,7 +17,6 @@ public partial class ResumePointEditor
 
     [Parameter] public SaveSlot? Slot { get; set; }
 
-    private int _playtime;
     private string _autosaveFile = "";
 
     private string _episodeId = "";
@@ -25,6 +24,7 @@ public partial class ResumePointEditor
     private string _sceneName = "";
 
     private ISeasonHandler? _seasonHandler;
+    private IResumePointHandler? _resumeHandler;
     private IReadOnlyList<string> _availableScenes = [];
     private HashSet<string> _knownEpisodeIds = [];
 
@@ -40,6 +40,7 @@ public partial class ResumePointEditor
         _seasonHandler = Slot.DetectedSeasonKey != null
             ? Registry.Get(Slot.DetectedSeasonKey)
             : null;
+        _resumeHandler = _seasonHandler as IResumePointHandler;
 
         if (IsAutosave)
         {
@@ -55,15 +56,7 @@ public partial class ResumePointEditor
 
     private void LoadSlotFields()
     {
-        var props = Slot!.Metadata!.AllProperties;
-
-        var playtimeProp = props.FirstOrDefault(p => p.KeySymbol.Value == 0x7C725227A47FD1BA);
-        if (playtimeProp?.Value is IntValue ptv)
-            _playtime = ptv.Value;
-
-        var autosaveProp = props.FirstOrDefault(p => p.KeySymbol.Value == 0xF235E9FCE9562E01);
-        if (autosaveProp?.Value is StringValue asv)
-            _autosaveFile = asv.Value;
+        _autosaveFile = Slot?.Metadata?.GetString(SlotMetadataKeys.LatestSave) ?? "";
     }
 
     private void LoadAutosaveFields()
@@ -112,19 +105,11 @@ public partial class ResumePointEditor
         return new string(chars.ToArray()).Replace('_', ' ').Trim();
     }
 
-    private void OnPlaytimeChanged(ChangeEventArgs e)
-    {
-        if (!int.TryParse(e.Value?.ToString(), out var minutes)) return;
-        _playtime = minutes;
-        SetPropertyInt(0x7C725227A47FD1BA, minutes);
-        Editor.MarkModified();
-    }
-
     private void OnAutosaveFileChanged(ChangeEventArgs e)
     {
         var val = e.Value?.ToString() ?? "";
         _autosaveFile = val;
-        SetPropertyString(0xF235E9FCE9562E01, val);
+        Slot?.Metadata?.SetString(SlotMetadataKeys.LatestSave, val);
         Editor.MarkModified();
     }
 
@@ -174,28 +159,6 @@ public partial class ResumePointEditor
                 Slot.Metadata.TypeGroups.Add(group);
             }
             group.Properties.Add(new Property(new Symbol(hash), new StringValue(value)));
-        }
-    }
-
-    private void SetPropertyInt(ulong hash, int value)
-    {
-        if (Slot?.Metadata == null) return;
-
-        var prop = Slot.Metadata.AllProperties.FirstOrDefault(p => p.KeySymbol.Value == hash);
-        if (prop?.Value is IntValue iv)
-        {
-            iv.Value = value;
-        }
-        else
-        {
-            var int32Symbol = Symbol.FromString("int32");
-            var group = Slot.Metadata.TypeGroups.FirstOrDefault(g => g.TypeSymbol == int32Symbol);
-            if (group == null)
-            {
-                group = new TypeGroup(int32Symbol);
-                Slot.Metadata.TypeGroups.Add(group);
-            }
-            group.Properties.Add(new Property(new Symbol(hash), new IntValue(value)));
         }
     }
 }

@@ -9,7 +9,7 @@ public sealed class BinaryWriterEx : IDisposable
 
     public BinaryWriterEx(Stream stream, bool leaveOpen = false)
     {
-        _writer = new BinaryWriter(stream, Encoding.ASCII, leaveOpen);
+        _writer = new BinaryWriter(stream, Encoding.Latin1, leaveOpen);
     }
 
     public long Position => _writer.BaseStream.Position;
@@ -25,7 +25,7 @@ public sealed class BinaryWriterEx : IDisposable
 
     public void WriteLengthPrefixedString(string value)
     {
-        var bytes = Encoding.ASCII.GetBytes(value ?? string.Empty);
+        var bytes = Encoding.Latin1.GetBytes(value ?? string.Empty);
         _writer.Write(bytes.Length);
         if (bytes.Length > 0)
             _writer.Write(bytes);

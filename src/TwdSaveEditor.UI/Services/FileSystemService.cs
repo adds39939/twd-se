@@ -35,6 +35,9 @@ public class FileSystemService : IFileSystemService, IAsyncDisposable
         return await (await _module.Value).InvokeAsync<bool>("writeFile", name, base64);
     }
 
+    public async Task<bool> DeleteFile(string name) =>
+        await (await _module.Value).InvokeAsync<bool>("deleteFile", name);
+
     public async Task<bool> BackupFiles(string folderName, string[] fileNames) =>
         await (await _module.Value).InvokeAsync<bool>("backupFiles", folderName, fileNames);
 

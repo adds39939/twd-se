@@ -44,6 +44,10 @@ public abstract class EventLogSeasonHandler : SeasonHandlerBase, ICompanionFileH
         slot.PendingEventLogEntries = eventEntries;
     }
 
+    public bool IsCompanionFile(string fileName) =>
+        fileName.EndsWith(EventLogFiles.EStoreExtension, StringComparison.OrdinalIgnoreCase)
+        || fileName.EndsWith(EventLogFiles.EPageExtension, StringComparison.OrdinalIgnoreCase);
+
     public IReadOnlyList<string> FindCompanionFiles(string bundleFileName, IEnumerable<string> directoryFileNames)
     {
         var names = directoryFileNames as IReadOnlyCollection<string> ?? directoryFileNames.ToList();

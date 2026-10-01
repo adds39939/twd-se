@@ -1,0 +1,59 @@
+<div class="resume-form">
+    <div class="form-group">
+        <label>Resumes at</label>
+        <div class="field-value" data-testid="resume-state">
+            <span>@EpisodeLabel(_state.Episode)</span>
+            @if (_state.CheckpointDamaged)
+            {
+                <span class="checkpoint-damaged" data-testid="checkpoint-damaged"> &mdash; checkpoint damaged</span>
+            }
+            else if (_state.StartsFromBeginning)
+            {
+                <span class="text-muted"> &mdash; from the beginning</span>
+            }
+            else
+            {
+                <span class="text-muted"> &mdash; checkpoint @_state.Checkpoint</span>
+            }
+        </div>
+    </div>
+
+    @if (!string.IsNullOrEmpty(_state.SavedAt))
+    {
+        <div class="form-group">
+            <label>Saved</label>
+            <div class="field-value">
+                <span>@_state.SavedAt</span>
+            </div>
+        </div>
+    }
+
+    <div class="form-group">
+        <label>Restart from</label>
+        <select @bind="_episode" data-testid="restart-episode">
+            @foreach (var episode in Handler.ResumeEpisodes)
+            {
+                <option value="@episode.Number">@EpisodeLabel(episode.Number)</option>
+            }
+        </select>
+        <button class="btn-sm" data-testid="restart-button" @onclick="Restart">Restart episode</button>
+    </div>
+
+    <div class="resume-info">
+        @if (_state.CheckpointDamaged)
+        {
+            <p class="checkpoint-damaged">
+                The checkpoint file of this save cannot be read, so the game cannot load it. Restart the episode to
+                repair the save.
+            </p>
+        }
+        <p class="text-muted">
+            Restarting removes the in-progress checkpoint, so the game starts the chosen episode from its first
+            scene with the decisions of the earlier episodes. Decisions that are not set yet are filled in.
+        </p>
+        <p class="text-muted">
+            In the game the slot is listed as a new game until the first checkpoint: select it, pick the episode
+            and press Play.
+        </p>
+    </div>
+</div>

@@ -10,7 +10,11 @@ public sealed class PropertySetReader
     {
         using var ms = new MemoryStream(data);
         using var reader = new BinaryReaderEx(ms);
-        return ReadPropertySet(reader);
+        var propSet = ReadPropertySet(reader);
+        if (reader.Remaining != 0)
+            throw new InvalidDataException($"PropertySet has {reader.Remaining} unread bytes.");
+
+        return propSet;
     }
 
     private PropertySet ReadPropertySet(BinaryReaderEx reader)
@@ -19,7 +23,7 @@ public sealed class PropertySetReader
 
         propSet.Version = reader.ReadUInt32();
         propSet.Flags = reader.ReadUInt32();
-        var dataSize = reader.ReadUInt32();
+        var blockEnd = reader.Position + reader.ReadUInt32();
 
         var parentCount = reader.ReadUInt32();
         for (uint i = 0; i < parentCount; i++)
@@ -41,6 +45,9 @@ public sealed class PropertySetReader
 
             propSet.TypeGroups.Add(group);
         }
+
+        if (reader.Position != blockEnd)
+            throw new InvalidDataException($"PropertySet block ends at {blockEnd}, read to {reader.Position}.");
 
         return propSet;
     }
@@ -78,7 +85,6 @@ public sealed class PropertySetReader
 
     private static RawBytesValue ReadChoicesContainer(BinaryReaderEx reader, Symbol typeSymbol)
     {
-        var startPos = reader.Position;
         var count = reader.ReadUInt32();
 
         using var buffer = new MemoryStream();

@@ -1,3 +1,4 @@
+using TwdSaveEditor.Season.Common.Model;
 using TwdSaveEditor.Core.Binary.PropertySets;
 using TwdSaveEditor.Core.Hashing;
 using TwdSaveEditor.Core.Model;
@@ -8,6 +9,19 @@ namespace TwdSaveEditor.Core.Tests.Unit;
 
 public class SaveAccessorTests
 {
+    private static readonly ChoiceDefinition DougCarley = new()
+    {
+        SeasonKey = "test",
+        Episode = 1,
+        Description = "Doug or Carley",
+        ChoiceKey = "dougcarley_saved",
+        Options =
+        [
+            new ChoiceOption { Label = "Doug", Value = "doug" },
+            new ChoiceOption { Label = "Carley", Value = "carley" },
+        ],
+    };
+
     private static (PropertySet ps, SaveAccessor accessor) CreateWithChoices(
         params (string str, bool boolVal)[] entries)
     {
@@ -74,8 +88,7 @@ public class SaveAccessorTests
         var (_, accessor) = CreateWithChoices(
             ("dougcarley_saved - carley", true));
 
-        var choice = TestSeasons.ChoicesFor("s1", 1)
-            .First(c => c.ChoiceKey == "dougcarley_saved");
+        var choice = DougCarley;
 
         var detected = accessor.DetectCurrentChoice(choice);
         Assert.Equal(1, detected);
@@ -97,8 +110,7 @@ public class SaveAccessorTests
         var (_, accessor) = CreateWithChoices(
             ("dougcarley_saved - carley", true));
 
-        var choice = TestSeasons.ChoicesFor("s1", 1)
-            .First(c => c.ChoiceKey == "dougcarley_saved");
+        var choice = DougCarley;
 
         accessor.ApplyChoice(choice, 0);
         Assert.Equal(0, accessor.DetectCurrentChoice(choice));

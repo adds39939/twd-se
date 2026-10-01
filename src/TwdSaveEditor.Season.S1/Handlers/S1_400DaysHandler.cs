@@ -1,12 +1,15 @@
+using TwdSaveEditor.Core.Model;
 using TwdSaveEditor.Season.Common.Model;
+using TwdSaveEditor.Season.S1.Persistence;
+using TwdSaveEditor.Season.S1.Saves;
 
 namespace TwdSaveEditor.Season.S1.Handlers;
 
 public class S1_400DaysHandler : S1Handler
 {
-    private static readonly string[] SeasonsInSave = ["s1_400days"];
+    private static readonly string[] SeasonsInSave = [S1ChoiceCatalog.ExtraEpisodeSeasonKey];
 
-    public override string SeasonKey => "s1_400days";
+    public override string SeasonKey => S1ChoiceCatalog.ExtraEpisodeSeasonKey;
     public override string Name => "Season 1: 400 Days";
     public override string ShortName => "400D";
 
@@ -17,5 +20,5 @@ public class S1_400DaysHandler : S1Handler
 
     public override IReadOnlyList<string> IncludedSeasonKeys => SeasonsInSave;
 
-    public override string GetEpisodeId(int episode) => "WalkingDead104";
+    public override string GetEpisodeId(int episode) => S1SlotFiles.EpisodeId(S1ResumePoint.ExtraEpisode);
 }

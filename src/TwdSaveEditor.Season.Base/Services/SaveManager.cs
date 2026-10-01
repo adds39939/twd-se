@@ -83,14 +83,7 @@ public sealed class SaveManager
             FilePath = filePath,
             FileName = fileName,
             OuterHeader = slot.OuterHeader,
-            FileTable = slot.FileTable,
-            Metadata = slot.Metadata,
-            Choices = slot.Choices,
-            ChoiceStats = slot.ChoiceStats,
-            RawMetadataFile = slot.RawMetadataFile,
-            RawChoicesFile = slot.RawChoicesFile,
-            RawChoiceStatsFile = slot.RawChoiceStatsFile,
-            RawInnerFiles = slot.RawInnerFiles,
+            Files = slot.Files,
             PendingEventLogEntries = slot.PendingEventLogEntries,
         };
 

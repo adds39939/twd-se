@@ -37,7 +37,7 @@ public class FeatureTests
     }
 
     [Fact]
-    public async Task ResumePointTab_ShowsPlaytimeField()
+    public async Task ResumePointTab_ShowsTheCheckpointOfASeason1Save()
     {
         var page = await _fixture.NewPage();
         await InjectSaveFile(page, "S1", "wd1_saveslot2.bundle");
@@ -46,18 +46,19 @@ public class FeatureTests
         var resumeTab = page.Locator("[data-testid='tab-resume']");
         await resumeTab.ClickAsync();
 
-        var playtimeLabel = page.Locator("label:has-text('Playtime')");
-        await Assertions.Expect(playtimeLabel).ToBeVisibleAsync();
+        var state = page.Locator("[data-testid='resume-state']");
+        await Assertions.Expect(state).ToContainTextAsync("Episode 4: Around Every Corner");
+        await Assertions.Expect(state).ToContainTextAsync("missingClementine");
 
-        var playtimeInput = page.Locator("input[type='number']").First;
-        await Assertions.Expect(playtimeInput).ToBeVisibleAsync();
+        var episodes = page.Locator("[data-testid='restart-episode'] option");
+        await Assertions.Expect(episodes).ToHaveCountAsync(6);
     }
 
     [Fact]
     public async Task ResumePointTab_ShowsAutosaveFileField()
     {
         var page = await _fixture.NewPage();
-        await InjectSaveFile(page, "S1", "wd1_saveslot2.bundle");
+        await InjectSaveFile(page, "S2", "wd2_saveslot1.bundle");
         await LoadAndSelectFirstSave(page);
 
         var resumeTab = page.Locator("[data-testid='tab-resume']");

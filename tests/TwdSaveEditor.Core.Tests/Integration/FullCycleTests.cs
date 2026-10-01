@@ -1,3 +1,5 @@
+using TwdSaveEditor.Core.Hashing;
+using TwdSaveEditor.Core.Constants;
 using TwdSaveEditor.Core.Binary.Bundles;
 using TwdSaveEditor.Core.Model;
 using TwdSaveEditor.Core.Tests.Support;
@@ -26,9 +28,8 @@ public class FullCycleTests
     ]);
 
     [Theory]
-    [InlineData("s1", "dougcarley_saved", "doug", "carley")]
     [InlineData("s2", "shot_kenny", "true", "false")]
-    public void S1S2_CreateEditSaveReload(string season, string choiceKey, string value1, string value2)
+    public void S2_CreateEditSaveReload(string season, string choiceKey, string value1, string value2)
     {
         var slot = Registry.CreateSave(season, 5, "test.bundle");
         var accessor = new SaveAccessor(slot.Choices!);
@@ -148,21 +149,20 @@ public class FullCycleTests
     public void S1ToS2_ChoiceImport_CopiesAllChoices()
     {
         var s1 = Registry.CreateSave("s1", 3, "wd1_test.bundle");
-        var s1Accessor = new SaveAccessor(s1.Choices!);
-        s1Accessor.SetChoiceValue("dougcarley_saved", "carley");
+        s1.DetectedSeasonKey = "s1";
+        var s1Accessor = Registry.Get("s1")!.CreateChoiceAccessor(s1)!;
+        s1Accessor.SetChoiceValue("DougCarley Saved", "doug");
 
         var s2 = Registry.CreateSave("s2", 1, "wd2_test.bundle");
-        var s2Accessor = new SaveAccessor(s2.Choices!);
+        var s2Handler = Registry.Get("s2")!;
+        ((IChoiceImporter)s2Handler).ImportChoices(s1, s2);
 
-        foreach (var (key, value) in s1Accessor.GetAllChoices())
-            s2Accessor.SetChoiceValue(key, value);
-
-        Assert.Equal("carley", s2Accessor.GetChoiceValue("dougcarley_saved"));
+        Assert.Equal("doug", s2Handler.CreateChoiceAccessor(s2)!.GetChoiceValue("DougCarley Saved"));
 
         var written = BundleWriter.Write(s2);
         var reloaded = BundleReader.Read(written, "wd2_test.bundle");
-        var reloadedAccessor = new SaveAccessor(reloaded.Choices!);
-        Assert.Equal("carley", reloadedAccessor.GetChoiceValue("dougcarley_saved"));
+        Assert.Equal("doug", reloaded.Choices!.GetString("DougCarley Saved"));
+        Assert.NotNull(reloaded.Choices.Find("Episode 101"));
     }
 
     [Theory]
@@ -206,20 +206,12 @@ public class FullCycleTests
 
         Assert.NotNull(slot.Metadata);
 
-        var playtime = slot.Metadata.AllProperties
-            .FirstOrDefault(p => p.KeySymbol.Value == 0x7C725227A47FD1BA);
-        Assert.NotNull(playtime);
-        Assert.IsType<IntValue>(playtime.Value);
-
-        var progress = slot.Metadata.AllProperties
-            .FirstOrDefault(p => p.KeySymbol.Value == 0xB218E7C003A67CE9);
-        Assert.NotNull(progress);
-        Assert.IsType<StringValue>(progress.Value);
-
-        var autosave = slot.Metadata.AllProperties
-            .FirstOrDefault(p => p.KeySymbol.Value == 0xF235E9FCE9562E01);
-        Assert.NotNull(autosave);
-        Assert.IsType<StringValue>(autosave.Value);
+        Assert.Equal(80, slot.Metadata.GetInt(SlotMetadataKeys.LatestSerial));
+        Assert.Equal(4, slot.Metadata.GetInt(SlotMetadataKeys.Progress));
+        Assert.Equal("WalkingDead104", slot.Metadata.GetString(SlotMetadataKeys.EpisodeInProgress));
+        Assert.Equal("_wd1_saveslot2_autosave.bundle", slot.Metadata.GetString(SlotMetadataKeys.LatestSave));
+        Assert.True(slot.Metadata.GetBool(SlotMetadataKeys.CompletedEpisode(3)));
+        Assert.False(slot.Metadata.GetBool(SlotMetadataKeys.CompletedEpisode(4)));
     }
 
     [Fact]
@@ -239,14 +231,16 @@ public class FullCycleTests
         var path = TestDataHelper.GetPath("S1", "_wd1_saveslot1_autosave.bundle");
         var slot = BundleReader.Read(path);
 
-        Assert.True(slot.FileTable.Count > 2);
+        Assert.Equal(423, slot.Files.Count);
+        Assert.Equal("metadata_save.p", slot.Files[0].Name);
+        Assert.Equal("default.save", slot.Files[1].Name);
+        Assert.NotNull(slot.FindFile(BundleFileNames.SaveMetadata));
+        Assert.NotNull(slot.FindFile(BundleFileNames.SaveGame));
 
-        var hashEntries = slot.FileTable.Where(f => f.Name.StartsWith("_hash_")).ToList();
-        Assert.True(hashEntries.Count > 0, "Expected hash-only file table entries");
-
-        var namedEntries = slot.FileTable.Where(f => !f.Name.StartsWith("_hash_")).ToList();
-        Assert.Contains(namedEntries, f => f.Name == "metadata_save.p");
-        Assert.Contains(namedEntries, f => f.Name == "default.save");
+        var runtimeProperties = slot.Files.Skip(2).ToList();
+        Assert.All(runtimeProperties, f => Assert.Equal(string.Empty, f.Name));
+        Assert.All(runtimeProperties, f => Assert.Equal(TelltaleTypes.PropertySet, f.TypeSymbol));
+        Assert.Equal(runtimeProperties.Count, runtimeProperties.Select(f => f.NameSymbol).Distinct().Count());
     }
 
     [Fact]
@@ -259,7 +253,7 @@ public class FullCycleTests
         var reloaded = BundleReader.Read(written, "_wd1_saveslot1_autosave.bundle");
 
         Assert.NotNull(reloaded.Metadata);
-        Assert.Equal(slot.FileTable.Count, reloaded.FileTable.Count);
+        Assert.Equal(slot.Files.Count, reloaded.Files.Count);
     }
 
     [Theory]

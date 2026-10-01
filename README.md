@@ -14,10 +14,10 @@ A save editor for **The Walking Dead: The Telltale Definitive Series**. Edit cho
 - **Native format editing** — each season's save format is handled natively (no hacks or file injection)
 - **Choice editing** — change any tracked decision via labeled dropdowns
 - **Metadata editing** — playtime, episode progress, autosave references, game completion
-- **Resume point editing** — set episode, chapter, and completion status
+- **Resume point editing** — restart a Season 1 save from the beginning of any episode with the decisions you picked
 - **Cross-season cascade** — optionally propagate choice changes through the chain (S1→S2→S3→S4), matching the game's native import flow
 - **S4 presets** — quick-apply "Save Louis", "Save Violet", or "Trust AJ" choice paths
-- **New save creation** — create blank saves for any season with pre-populated choices
+- **New save creation** — create saves for any season with pre-populated choices; Season 1 saves start at the episode you choose
 - **File System Access API** — read/write directly to your save directory (Chromium-based browsers)
 - **Upload fallback** — file upload + download for browsers without directory access
 
@@ -27,13 +27,28 @@ Each season stores choices differently. The editor handles all five formats nati
 
 | Season | Format | Storage |
 |--------|--------|---------|
-| Season 1 | `choices.prop` | ChoicesContainer PropertySet in bundle |
-| Season 2 | `season1.prop` | Imported S1 choices in bundle |
+| Season 1 | `metadata_slot.prop` | `Persistent - <episode> - <key>` strings in the slot bundle, mirrored in the autosave's game logic |
+| Season 2 | `season1.prop` | Imported S1 persistent keys in bundle |
 | Season 3 | EventLog | 42-byte records in estore/epage files |
 | Season 4 | `choicestats.pro` | Tab-separated GUIDs in bundle |
 | Michonne | EventLog | 42-byte records with braced GUID hashes |
 
-Choice definitions (134 total) are sourced from the game's own `choice.prop` data files.
+Choice definitions are sourced from the game's own data files (`persistent.prop`, `statsInfo_*.prop` and `choice.prop`).
+
+### Season 1 saves
+
+A Season 1 save is two files, and the editor treats them as one save:
+
+| File | Contents |
+|------|----------|
+| `wd1_saveslot<N>.bundle` | `metadata_slot.prop` (episode in progress, progress, completed episodes, latest autosave and every persistent decision) and `choices.prop` (the per-episode stats tracker) |
+| `_wd1_saveslot<N>_autosave.bundle` | `metadata_save.prop` (episode, checkpoint and date), `default.save` and one property set per runtime object, including the game logic that holds a copy of the decisions |
+
+When an episode starts the game copies the decisions of the earlier episodes from the slot into its game logic, and the autosave stores that logic. Changing a decision therefore updates three places: the persistent value in the slot, the stats tracker entry, and the game logic inside the autosave.
+
+**Resume point.** The checkpoint in the autosave is a complete snapshot of the running episode, so it cannot be moved to another scene. What the editor can do is restart the save from the beginning of any episode: it rewinds the slot the way the game's own rewind does, fills in any decision of the earlier episodes that is not set, and removes the autosave. The game then starts that episode from its first scene with your decisions. Until its first checkpoint the slot is listed as a new game: select it, pick the episode and press Play.
+
+Decisions of the episode that is in progress are written to the checkpoint as well, but the scenes already played do not change. Restart the episode if you want a decision to take effect from the start.
 
 ## Using the App
 
@@ -84,7 +99,7 @@ The game stores saves in:
 Documents\Telltale Games\The Walking Dead Definitive
 ```
 
-Click **Open Save Directory** in the app and navigate there. The app reads all `.bundle`, `.estore`, and `.epage` files automatically.
+Click **Open Save Directory** in the app and navigate there. The app reads all `.bundle`, `.estore`, and `.epage` files automatically. Every save is backed up into a `backup_<timestamp>` folder before it is written.
 
 ## Project Structure
 
@@ -100,7 +115,8 @@ src/
 │   ├── Primitives/                 Binary reader/writer helpers
 │   ├── MetaStream/                 MetaStream container
 │   ├── PropertySets/               PropertySet and choices container codecs
-│   ├── Bundles/                    Bundle reader/writer, metadata patcher, blank save factory
+│   ├── Compression/                TTCZ page compression
+│   ├── Bundles/                    Bundle reader/writer, save factory
 │   └── EventLog/                   Estore/epage reader, writer, creator
 ├── TwdSaveEditor.Season.Common/    Contracts a season implements
 │   ├── Abstractions/               ISeasonHandler, ISeasonRegistry, IChoiceAccessor, capability interfaces
@@ -113,7 +129,7 @@ src/
 │   ├── EventLog/                   ChoiceNodeMap, EventLog file naming
 │   ├── Resources/                  Embedded choice/scene data loader
 │   └── Services/                   SaveManager (disk-based)
-├── TwdSaveEditor.Season.S1/        Season 1 and 400 Days
+├── TwdSaveEditor.Season.S1/        Season 1 and 400 Days (persistent decisions, autosave, episode restart)
 ├── TwdSaveEditor.Season.S2/        Season 2
 ├── TwdSaveEditor.Season.S3/        A New Frontier
 ├── TwdSaveEditor.Season.S4/        The Final Season
@@ -155,6 +171,7 @@ Web ──► UI ──► Season.Common ──► Core
 ```
 
 - **`TwdSaveEditor.UI`** references only `Season.Common` and `Core`. It never names a concrete season or a binary reader; everything season-specific it shows comes from the registered `ISeasonHandler`s.
+- **Season 2** also references `Season.S1`, because its save carries the Season 1 decisions under the same persistent keys.
 - **Each season project** owns its season: display name, episodes, embedded choice and scene data, how a save is created, and how its choices are read and written.
 - **`TwdSaveEditor.Bootstrap`** is the only place that knows the concrete seasons. `Web` calls `AddTwdSaveEditorServices()` and `AddTwdSaveEditorUI(...)`.
 
@@ -184,7 +201,9 @@ Optional capabilities are separate interfaces a handler can also implement:
 
 | Interface | Capability | Implemented by |
 |-----------|------------|----------------|
-| `ICompanionFileHandler` | State kept in files next to the bundle (estore/epage EventLog) | S3, Michonne |
+| `ICompanionFileHandler` | State kept in files next to the bundle (autosave bundle, estore/epage EventLog) | S1, S3, Michonne |
+| `IResumePointHandler` | Restart a save from the beginning of an episode | S1 |
+| `IPropertyNameProvider` | Names for the property hashes shown in the Properties tab | S1 |
 | `IChoiceImporter` | Import all choices from a save of an earlier season | S2 |
 | `IChoicePresetProvider` | One-click presets that set several choices | S4 |
 
@@ -201,15 +220,16 @@ No changes to the UI are needed.
 
 ### Binary Formats
 
-- **MetaStream (MSV6)** — Telltale's container format with 3 sections (default, debug, async), optional TTCZ/zlib compression
-- **PropertySet** — Typed key-value store using CRC64 symbol hashes, version 2 with type groups
-- **Bundle** — Outer MetaStream containing a file table + inner MetaStream files
+- **MetaStream (MSV6)** — Telltale's container format with 3 sections (default, debug, async). A section whose size has the top bit set is TTCZ compressed: 64 KiB pages of raw deflate behind a page offset table. The debug section holds 4 bytes for every symbol in the default section
+- **PropertySet** — Typed key-value store using CRC64 symbol hashes, version 2, grouped by type and ordered by hash
+- **Bundle** — Outer MetaStream whose default section is a table of 40-byte entries (offset, size, 16-byte name, name symbol, type symbol) and whose async section holds the inner MetaStream files. An autosave holds thousands of files; all but the first two are named by symbol only
 - **EventLog** — 42-byte fixed-size records with event type hash, dialog node hash, sequence index
 - **Estore/Epage** — Paged EventLog storage (estore = index, epage = data pages)
 
 ### Choice Identification
 
-- **S1/S2**: String key-value pairs (`"dougcarley_saved - carley"`)
+- **S1**: Persistent keys from the game's `persistent.prop` (`Persistent - 101 - DougCarley Saved` = `carley`)
+- **S2**: The same keys without the prefix for imported S1 decisions, string pairs (`"shot_kenny - true"`) for its own
 - **S3**: Decimal CRC64 hashes of dialog node IDs (matched against EventLog)
 - **S4**: GUIDs in `( {GUID} )` format (tab-separated in choicestats.pro)
 - **Michonne**: CRC64 of braced GUID strings (`CRC64("{GUID}")`)
@@ -235,6 +255,11 @@ dotnet run --project tools/TwdSaveEditor.Tools.TtarchDecrypt
 |------|---------|-------|
 | `ExtractKey` | Extract the archive key from `WDC.exe` into `tools/key.txt` | `TWD_ARCHIVES` |
 | `TtarchDecrypt` | Decrypt an archive and list what it contains | `TWD_ARCHIVES` |
+| `ExtractArchive` | Extract files from archives into a directory, decrypting Lua scripts, or list them with `--list` | `TWD_ARCHIVES` |
+| `DumpBundle` | Print every file and property of save bundles and `.prop` files with resolved names, or write the raw sections with `--sections` | file arguments |
+| `Symbols` | Hash a string (`hash`) or look up the name of a symbol (`find`) | arguments |
+| `ExtractSeason1Choices` | Read Season 1's persistent keys and values from the game and compare them with the editor's choice data | `TWD_ARCHIVES` |
+| `VerifyRoundTrip` | Read and rewrite every bundle under the given paths and check the result is identical | file arguments |
 | `ExtractAllChoices` | Extract every season's choices into `tools/all_choices_summary.txt` | `TWD_ARCHIVES` |
 | `ExtractNodeMappings` | Map choices to dialog node hashes in `tools/node_hash_mappings.txt` and `.json` | `TWD_ARCHIVES`, optionally `TWD_SAMPLE_SAVES` |
 | `ExtractScenes` | List the scenes of each episode in `tools/data/episode_scenes.json` | `TWD_ARCHIVES` |
@@ -245,6 +270,20 @@ dotnet run --project tools/TwdSaveEditor.Tools.TtarchDecrypt
 | `CreateEndEpisodeEstore` | Write an estore holding an End Episode event into the save directory | `TWD_SAVES` |
 | `AnalyzeSaves` | Print the MetaStream section sizes of the files passed to it | file arguments |
 | `DumpMetadata` | Dump the metadata properties of the Season 1 test saves, read with the editor's own bundle reader | test saves |
+
+`DumpBundle`, `Symbols` and the validation steps resolve hashes with the optional files in `tools/data` (not committed):
+
+- `tools/data/names/*.txt` — one name per line (property keys, type names)
+- `tools/data/names/classes.json` — class layouts, `data/versiondb/global.vdb.json` from [TelltaleToolKit](https://github.com/iMrShadow/TelltaleToolKit)
+- `tools/data/lua/` — decompiled game scripts, whose string literals are used as names
+
+The game's scripts are Lua 5.2 bytecode. `ExtractArchive` decrypts them and unluac decompiles them, here in a container:
+
+```bash
+dotnet run --project tools/TwdSaveEditor.Tools.ExtractArchive -- "WDC_pc_ProjectSeason1_data*" tools/data/extracted "*.lua"
+docker run --rm -u $(id -u):$(id -g) -v "$PWD/tools/data:/data" -v "/path/to/unluac.jar:/unluac.jar:ro" eclipse-temurin:21-jdk \
+  sh -c 'cd /data/extracted && find . -name "*.lua" | while read f; do mkdir -p "/data/lua/$(dirname "$f")"; java -jar /unluac.jar "$f" > "/data/lua/$f"; done'
+```
 
 `TWD_SAVES` is the game's save directory. `TWD_SAMPLE_SAVES` is a directory of saved games to study, laid out as `S3/Episode 1`, `S3/Episode 5/The end` and `Michonne`. Every directory can also be passed as an argument instead:
 

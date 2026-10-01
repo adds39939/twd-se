@@ -1,3 +1,5 @@
+using TwdSaveEditor.Core.Constants;
+
 namespace TwdSaveEditor.Core.Model;
 
 public sealed class SaveSlot
@@ -7,25 +9,23 @@ public sealed class SaveSlot
 
     public required MetaStreamHeader OuterHeader { get; init; }
 
-    public required List<BundleFileEntry> FileTable { get; init; }
+    public required List<BundleFileEntry> Files { get; init; }
 
-    public PropertySet? Metadata { get; set; }
+    public PropertySet? Metadata =>
+        (FindFile(BundleFileNames.SlotMetadata) ?? FindFile(BundleFileNames.SaveMetadata))?.Properties;
 
-    public PropertySet? Choices { get; set; }
+    public PropertySet? Choices => FindFile(ChoicesFileName)?.Properties;
 
-    public PropertySet? ChoiceStats { get; set; }
+    public PropertySet? ChoiceStats => FindFile(BundleFileNames.ChoiceStats)?.Properties;
 
-    public string ChoicesFileName { get; init; } = "choices.prop";
+    public string ChoicesFileName =>
+        FindFile(BundleFileNames.Season1Choices) != null ? BundleFileNames.Season1Choices : BundleFileNames.Choices;
 
-    public byte[]? RawChoiceStatsFile { get; init; }
+    public SaveSlot? Autosave { get; set; }
 
-    public byte[]? RawBundleData { get; init; }
+    public bool AutosaveDamaged { get; set; }
 
-    public byte[]? RawMetadataFile { get; init; }
-
-    public byte[]? RawChoicesFile { get; init; }
-
-    public Dictionary<string, byte[]>? RawInnerFiles { get; init; }
+    public List<string> ObsoleteFileNames { get; } = [];
 
     public string? EStorePath { get; set; }
 
@@ -40,4 +40,8 @@ public sealed class SaveSlot
     public string? DetectedSeasonKey { get; set; }
 
     public bool EpisodeChanged { get; set; }
+
+    public BundleFileEntry? FindFile(string fileName) => Files.FirstOrDefault(file => file.IsNamed(fileName));
+
+    public BundleFileEntry? FindFile(ulong nameSymbol) => Files.FirstOrDefault(file => file.NameSymbol == nameSymbol);
 }

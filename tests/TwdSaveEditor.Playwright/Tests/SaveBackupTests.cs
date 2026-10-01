@@ -15,7 +15,7 @@ public class SaveBackupTests
         var directory = new Dictionary<string, string>();
         foreach (var (diskName, injectName) in fileSpecs)
         {
-            var path = TestDataHelper.GetPath("S1", diskName);
+            var path = TestDataHelper.GetPath(diskName.Contains("wd2") ? "S2" : "S1", diskName);
             directory[injectName] = Convert.ToBase64String(await File.ReadAllBytesAsync(path));
         }
 
@@ -28,8 +28,8 @@ public class SaveBackupTests
         var page = await _fixture.NewPage();
 
         await InjectWithBackupTracking(page,
-            ("wd1_saveslot1_live.bundle", "wd1_saveslot1.bundle"),
-            ("_wd1_saveslot1_autosave.bundle", "_wd1_saveslot1_autosave.bundle"));
+            ("wd2_saveslot1.bundle", "wd2_saveslot1.bundle"),
+            ("_wd2_saveslot1_autosave.bundle", "_wd2_saveslot1_autosave.bundle"));
 
         var openDirBtn = page.Locator("[data-testid='open-directory']");
         await openDirBtn.ClickAsync();
@@ -50,8 +50,8 @@ public class SaveBackupTests
         Assert.NotNull(folder);
         Assert.NotNull(files);
         Assert.StartsWith("backup_", folder);
-        Assert.Contains("_wd1_saveslot1_autosave.bundle", files);
-        Assert.Contains("wd1_saveslot1.bundle", files);
+        Assert.Contains("_wd2_saveslot1_autosave.bundle", files);
+        Assert.Contains("wd2_saveslot1.bundle", files);
         Assert.Equal(2, files.Length);
     }
 

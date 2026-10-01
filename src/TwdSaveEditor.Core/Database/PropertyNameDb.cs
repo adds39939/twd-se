@@ -1,4 +1,5 @@
 using System.Text.Json;
+using TwdSaveEditor.Core.Constants;
 using TwdSaveEditor.Core.Hashing;
 using TwdSaveEditor.Core.Model;
 
@@ -97,6 +98,16 @@ public sealed class PropertyNameDb
 
         db.Register("mActiveSeason");
         db.Register("mActiveEpisode");
+
+        string[] saveProps = [
+            SlotMetadataKeys.LatestSerial, SlotMetadataKeys.LatestSave, SlotMetadataKeys.EpisodeInProgress,
+            SlotMetadataKeys.SlotName, SlotMetadataKeys.Progress,
+            SaveMetadataKeys.Serial, SaveMetadataKeys.Date, SaveMetadataKeys.Episode, SaveMetadataKeys.ChapterId,
+            SaveMetadataKeys.CheckpointDialog, SaveMetadataKeys.CheckpointDialogNode,
+        ];
+
+        foreach (var name in saveProps)
+            db.Register(name);
 
         foreach (var name in additionalNames ?? [])
             db.Register(name);

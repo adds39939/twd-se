@@ -9,6 +9,8 @@ public static class TelltaleTypes
     public static readonly ulong Symbol = TelltaleHash.ComputeCrc64("Symbol");
     public static readonly ulong Flags = TelltaleHash.ComputeCrc64("Flags");
     public static readonly ulong PropertySet = TelltaleHash.ComputeCrc64("PropertySet");
+    public static readonly ulong ResourceBundle = TelltaleHash.ComputeCrc64("ResourceBundle");
+    public static readonly ulong SaveGame = TelltaleHash.ComputeCrc64("SaveGame");
 
     public const ulong ChoicesContainer = 0x8AD17AD4CB809956;
 }

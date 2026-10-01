@@ -85,21 +85,21 @@ public class GameCompatibilityTests
         var handler = Registry.Get(seasonKey)!;
         var createdSlot = handler.CreateBlankSave($"{handler.FilePrefix}test.bundle", handler.GetEpisodeId(1));
 
-        Assert.Contains(createdSlot.FileTable, f => f.Name == "metadata_slot.p");
+        Assert.Contains(createdSlot.Files, f => f.Name == "metadata_slot.p");
 
-        Assert.Contains(realSlot.FileTable, f => f.Name == "metadata_slot.p");
+        Assert.Contains(realSlot.Files, f => f.Name == "metadata_slot.p");
 
         if (seasonKey == "s1")
         {
-            Assert.Contains(createdSlot.FileTable, f => f.Name == "choices.prop");
+            Assert.Contains(createdSlot.Files, f => f.Name == "choices.prop");
         }
         else if (seasonKey == "s2")
         {
-            Assert.Contains(createdSlot.FileTable, f => f.Name == "season1.prop");
+            Assert.Contains(createdSlot.Files, f => f.Name == "season1.prop");
         }
         else if (seasonKey == "s4")
         {
-            Assert.Contains(createdSlot.FileTable, f => f.Name == "choicestats.pro");
+            Assert.Contains(createdSlot.Files, f => f.Name == "choicestats.pro");
         }
     }
 
@@ -117,13 +117,13 @@ public class GameCompatibilityTests
         var handler = Registry.Get(seasonKey)!;
         var createdSlot = handler.CreateBlankSave($"{handler.FilePrefix}test.bundle", handler.GetEpisodeId(1));
 
-        foreach (var createdEntry in createdSlot.FileTable)
+        foreach (var createdEntry in createdSlot.Files)
         {
-            var realEntry = realSlot.FileTable.FirstOrDefault(f => f.Name == createdEntry.Name);
+            var realEntry = realSlot.Files.FirstOrDefault(f => f.Name == createdEntry.Name);
             if (realEntry != null)
             {
-                Assert.Equal(realEntry.Hash1, createdEntry.Hash1);
-                Assert.Equal(realEntry.Hash2, createdEntry.Hash2);
+                Assert.Equal(realEntry.NameSymbol, createdEntry.NameSymbol);
+                Assert.Equal(realEntry.TypeSymbol, createdEntry.TypeSymbol);
             }
         }
     }
@@ -139,10 +139,12 @@ public class GameCompatibilityTests
         var handler = Registry.Get(seasonKey)!;
         var createdSlot = handler.CreateBlankSave($"{handler.FilePrefix}test.bundle", handler.GetEpisodeId(1));
 
-        foreach (var (name, rawData) in createdSlot.RawInnerFiles!)
+        var written = BundleReader.Read(BundleWriter.Write(createdSlot), createdSlot.FileName);
+
+        foreach (var file in written.Files)
         {
-            Assert.True(rawData.Length >= 4, $"Inner file {name} too small");
-            var magic = BitConverter.ToUInt32(rawData, 0);
+            Assert.True(file.Data.Length >= 4, $"Inner file {file.Name} too small");
+            var magic = BitConverter.ToUInt32(file.Data, 0);
             Assert.Equal(MetaStreamHeader.MagicMsv6, magic);
         }
     }
@@ -161,8 +163,10 @@ public class GameCompatibilityTests
         var handler = Registry.Get(seasonKey)!;
         var createdSlot = handler.CreateBlankSave($"{handler.FilePrefix}test.bundle", handler.GetEpisodeId(1));
 
-        var realMetadata = realSlot.RawInnerFiles!["metadata_slot.p"];
-        var createdMetadata = createdSlot.RawInnerFiles!["metadata_slot.p"];
+        var written = BundleReader.Read(BundleWriter.Write(createdSlot), createdSlot.FileName);
+
+        var realMetadata = realSlot.FindFile(BundleFileNames.SlotMetadata)!.Data;
+        var createdMetadata = written.FindFile(BundleFileNames.SlotMetadata)!.Data;
 
         var realInnerVers = ParseInnerVersionEntries(realMetadata);
         var createdInnerVers = ParseInnerVersionEntries(createdMetadata);
@@ -206,7 +210,7 @@ public class GameCompatibilityTests
         var realSlot = BundleReader.Read(realPath);
 
         var handler = Registry.Get("s1")!;
-        var createdSlot = handler.CreateBlankSave("wd1_test.bundle", handler.GetEpisodeId(1));
+        var createdSlot = handler.CreateBlankSave("wd1_test.bundle", handler.GetEpisodeId(2));
 
         Assert.NotNull(realSlot.Choices);
         Assert.NotNull(createdSlot.Choices);
@@ -285,12 +289,12 @@ public class GameCompatibilityTests
         var episodeId = accessor.GetMetadataString("episodeId");
         Assert.True(readBack.Metadata.AllProperties.Any());
 
-        Assert.Equal(createdSlot.FileTable.Count, readBack.FileTable.Count);
-        for (int i = 0; i < createdSlot.FileTable.Count; i++)
+        Assert.Equal(createdSlot.Files.Count, readBack.Files.Count);
+        for (int i = 0; i < createdSlot.Files.Count; i++)
         {
-            Assert.Equal(createdSlot.FileTable[i].Name, readBack.FileTable[i].Name);
-            Assert.Equal(createdSlot.FileTable[i].Hash1, readBack.FileTable[i].Hash1);
-            Assert.Equal(createdSlot.FileTable[i].Hash2, readBack.FileTable[i].Hash2);
+            Assert.Equal(createdSlot.Files[i].Name, readBack.Files[i].Name);
+            Assert.Equal(createdSlot.Files[i].NameSymbol, readBack.Files[i].NameSymbol);
+            Assert.Equal(createdSlot.Files[i].TypeSymbol, readBack.Files[i].TypeSymbol);
         }
     }
 

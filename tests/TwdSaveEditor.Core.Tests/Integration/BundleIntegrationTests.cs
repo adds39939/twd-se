@@ -12,7 +12,7 @@ public class BundleIntegrationTests
         var slot = BundleReader.Read(path);
 
         Assert.NotNull(slot);
-        Assert.NotEmpty(slot.FileTable);
+        Assert.NotEmpty(slot.Files);
         Assert.NotNull(slot.Metadata);
         Assert.NotNull(slot.Choices);
         Assert.True(slot.Choices.TypeGroups.Count > 0, "Choices should have type groups");
@@ -26,11 +26,10 @@ public class BundleIntegrationTests
         var accessor = new SaveAccessor(slot.Choices!, slot.Metadata);
 
         var allChoices = accessor.GetAllChoices();
-        Assert.NotEmpty(allChoices);
 
-        var knownKeys = new[] { "dougcarley_saved", "lied_to_hershel", "shawnduck_choice" };
-        Assert.True(allChoices.Any(c => knownKeys.Contains(c.key)),
-            $"Expected at least one known choice key. Found: {string.Join(", ", allChoices.Select(c => c.key).Take(5))}");
+        Assert.Contains(("dougcarley_saved", "carley"), allChoices);
+        Assert.Contains(("shawnduck_choice", "duck"), allChoices);
+        Assert.Contains(("weapon_choice", "inventory_-_spike_remover"), allChoices);
     }
 
     [Fact]

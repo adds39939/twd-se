@@ -9,7 +9,7 @@ public sealed class BinaryReaderEx : IDisposable
 
     public BinaryReaderEx(Stream stream, bool leaveOpen = false)
     {
-        _reader = new BinaryReader(stream, Encoding.ASCII, leaveOpen);
+        _reader = new BinaryReader(stream, Encoding.Latin1, leaveOpen);
     }
 
     public long Position => _reader.BaseStream.Position;
@@ -35,7 +35,7 @@ public sealed class BinaryReaderEx : IDisposable
         if (length <= 0)
             return string.Empty;
         var bytes = _reader.ReadBytes(length);
-        return Encoding.ASCII.GetString(bytes);
+        return Encoding.Latin1.GetString(bytes);
     }
 
     public Symbol ReadSymbol() => new(_reader.ReadUInt64());

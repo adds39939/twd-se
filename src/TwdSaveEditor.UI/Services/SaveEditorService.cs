@@ -14,6 +14,8 @@ public class SaveEditorService
     private readonly ISaveBundleSerializer _serializer;
     private readonly SaveBackupService _backup;
 
+    private const string BundleExtension = ".bundle";
+
     public List<SaveSlot> Saves { get; } = [];
     public SaveSlot? SelectedSave { get; set; }
     public string? DirectoryName { get; private set; }
@@ -66,39 +68,8 @@ public class SaveEditorService
 
         try
         {
-            Saves.Clear();
-            SelectedSave = null;
-
-            var bundleFiles = await _fs.ListFiles(".bundle");
-            Array.Sort(bundleFiles, StringComparer.OrdinalIgnoreCase);
-
             var directoryFiles = await _fs.ListFiles(string.Empty);
-
-            var loadedCount = 0;
-            foreach (var fileName in bundleFiles)
-            {
-                try
-                {
-                    StatusMessage = $"Loading {fileName}...";
-                    NotifyStateChanged();
-
-                    var data = await _fs.ReadFile(fileName);
-                    if (data == null) continue;
-
-                    var slot = ReadBundle(data, fileName);
-                    if (_registry.DetectFromFileName(slot.FileName) is ICompanionFileHandler companion)
-                    {
-                        await LoadCompanionFiles(companion, slot, directoryFiles);
-                    }
-
-                    Saves.Add(slot);
-                    loadedCount++;
-                }
-                catch (Exception ex)
-                {
-                    Notify($"Failed to load {fileName}: {ex.Message}", "error");
-                }
-            }
+            var loadedCount = await LoadSaves(directoryFiles, _fs.ReadFile);
 
             StatusMessage = $"Loaded {loadedCount} save(s) from {DirectoryName}.";
             if (loadedCount == 0)
@@ -123,6 +94,55 @@ public class SaveEditorService
         }
     }
 
+    public async Task LoadFiles(IReadOnlyDictionary<string, byte[]> files)
+    {
+        var loadedCount = await LoadSaves(files.Keys.ToArray(), name => Task.FromResult(files.GetValueOrDefault(name)));
+        StatusMessage = $"Loaded {loadedCount} save(s).";
+        NotifyStateChanged();
+    }
+
+    private async Task<int> LoadSaves(string[] fileNames, Func<string, Task<byte[]?>> readFile)
+    {
+        Saves.Clear();
+        SelectedSave = null;
+
+        var bundleFiles = fileNames
+            .Where(name => name.EndsWith(BundleExtension, StringComparison.OrdinalIgnoreCase))
+            .Order(StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+
+        var loadedCount = 0;
+        foreach (var fileName in bundleFiles.Where(name => !IsCompanionFile(name)))
+        {
+            try
+            {
+                StatusMessage = $"Loading {fileName}...";
+                NotifyStateChanged();
+
+                var data = await readFile(fileName);
+                if (data == null) continue;
+
+                var slot = ReadBundle(data, fileName);
+                if (_registry.DetectFromFileName(slot.FileName) is ICompanionFileHandler companion)
+                {
+                    await LoadCompanionFiles(companion, slot, fileNames, readFile);
+                }
+
+                Saves.Add(slot);
+                loadedCount++;
+            }
+            catch (Exception ex)
+            {
+                Notify($"Failed to load {fileName}: {ex.Message}", "error");
+            }
+        }
+
+        return loadedCount;
+    }
+
+    private bool IsCompanionFile(string fileName) =>
+        _registry.DetectFromFileName(fileName) is ICompanionFileHandler companion && companion.IsCompanionFile(fileName);
+
     public SaveSlot ReadBundle(byte[] data, string fileName)
     {
         var slot = _serializer.Read(data, fileName);
@@ -130,14 +150,13 @@ public class SaveEditorService
         return slot;
     }
 
-    public byte[] WriteBundle(SaveSlot slot) => _serializer.Write(slot);
-
-    private async Task LoadCompanionFiles(ICompanionFileHandler companion, SaveSlot slot, string[] directoryFiles)
+    private static async Task LoadCompanionFiles(ICompanionFileHandler companion, SaveSlot slot, string[] fileNames,
+        Func<string, Task<byte[]?>> readFile)
     {
         var files = new List<CompanionFile>();
-        foreach (var name in companion.FindCompanionFiles(slot.FileName, directoryFiles))
+        foreach (var name in companion.FindCompanionFiles(slot.FileName, fileNames))
         {
-            var data = await _fs.ReadFile(name);
+            var data = await readFile(name);
             if (data != null)
                 files.Add(new CompanionFile(name, data));
         }
@@ -145,11 +164,19 @@ public class SaveEditorService
         companion.AttachCompanionFiles(slot, files);
     }
 
+    public IReadOnlyList<CompanionFile> BuildFiles(SaveSlot slot)
+    {
+        var files = new List<CompanionFile> { new(slot.FileName, _serializer.Write(slot)) };
+        if (!IsAutosave(slot) && _registry.DetectFromFileName(slot.FileName) is ICompanionFileHandler companion)
+            files.AddRange(companion.BuildCompanionFiles(slot));
+
+        return files;
+    }
+
+    private static bool IsAutosave(SaveSlot slot) => Path.GetFileName(slot.FileName).StartsWith('_');
+
     public async Task SaveFile(SaveSlot slot)
     {
-        var fileName = Path.GetFileName(slot.FileName);
-        var isAutosave = fileName.StartsWith('_');
-
         StatusMessage = $"Saving {slot.FileName}...";
         NotifyStateChanged();
 
@@ -157,39 +184,13 @@ public class SaveEditorService
         {
             await BackupBeforeSave(slot);
 
-            byte[] fileBytes;
-
-            if (isAutosave)
+            if (!await WriteFiles(slot))
             {
-                if (!_serializer.CanPatchMetadata(slot))
-                {
-                    Notify("Cannot save autosave — missing raw bundle data.", "error");
-                    NotifyStateChanged();
-                    return;
-                }
-                fileBytes = _serializer.PatchMetadata(slot);
-            }
-            else
-            {
-                fileBytes = _serializer.Write(slot);
-            }
-
-            var success = await _fs.WriteFile(slot.FileName, fileBytes);
-
-            if (!success)
-            {
-                StatusMessage = $"Failed to write {slot.FileName}.";
-                Notify($"Failed to write {slot.FileName}.", "error");
                 NotifyStateChanged();
                 return;
             }
 
-            if (!isAutosave && _registry.DetectFromFileName(slot.FileName) is ICompanionFileHandler companion)
-            {
-                await WriteCompanionFiles(companion, slot);
-            }
-
-            if (isAutosave)
+            if (IsAutosave(slot))
             {
                 await SyncSlotBundleEpisodeId(slot);
             }
@@ -205,6 +206,28 @@ public class SaveEditorService
         }
 
         NotifyStateChanged();
+    }
+
+    private async Task<bool> WriteFiles(SaveSlot slot)
+    {
+        foreach (var file in BuildFiles(slot))
+        {
+            if (await _fs.WriteFile(file.Name, file.Data))
+                continue;
+
+            StatusMessage = $"Failed to write {file.Name}.";
+            Notify($"Failed to write {file.Name}.", "error");
+            return false;
+        }
+
+        foreach (var name in slot.ObsoleteFileNames)
+        {
+            if (await _fs.DeleteFile(name))
+                Notify($"Removed {name}.", "info");
+        }
+
+        slot.ObsoleteFileNames.Clear();
+        return true;
     }
 
     private async Task SyncSlotBundleEpisodeId(SaveSlot autosaveSlot)
@@ -316,15 +339,6 @@ public class SaveEditorService
             Notify($"Backup created in {backupFolder}/", "info");
     }
 
-    private async Task<IReadOnlyList<CompanionFile>> WriteCompanionFiles(ICompanionFileHandler companion, SaveSlot slot)
-    {
-        var files = companion.BuildCompanionFiles(slot);
-        foreach (var file in files)
-            await _fs.WriteFile(file.Name, file.Data);
-
-        return files;
-    }
-
     public async Task<SaveSlot?> CreateNewSave(string seasonKey, int episode, string fileName)
     {
         StatusMessage = $"Creating {fileName}...";
@@ -333,25 +347,23 @@ public class SaveEditorService
         try
         {
             var slot = _registry.CreateSave(seasonKey, episode, fileName);
-            slot.DetectedSeasonKey = seasonKey;
+            slot.DetectedSeasonKey = _registry.DetectFromFileName(fileName)?.SeasonKey ?? seasonKey;
 
-            var fileBytes = _serializer.Write(slot);
-            var success = await _fs.WriteFile(fileName, fileBytes);
+            await BackupBeforeSave(slot);
 
-            if (!success)
+            var files = BuildFiles(slot);
+            if (!await WriteFiles(slot))
             {
-                StatusMessage = $"Failed to create {fileName}.";
-                Notify($"Failed to create {fileName}.", "error");
                 NotifyStateChanged();
                 return null;
             }
 
             if (_registry.Get(seasonKey) is ICompanionFileHandler companion)
             {
-                var files = await WriteCompanionFiles(companion, slot);
-                companion.AttachCompanionFiles(slot, files);
+                companion.AttachCompanionFiles(slot, files.Skip(1).ToList());
             }
 
+            Saves.RemoveAll(save => save.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase));
             Saves.Add(slot);
             SelectedSave = slot;
             StatusMessage = $"Created {fileName}.";

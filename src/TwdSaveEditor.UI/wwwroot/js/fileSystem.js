@@ -80,6 +80,16 @@ export async function writeFileBytes(name, bytes) {
     }
 }
 
+export async function deleteFile(name) {
+    if (!directoryHandle) return false;
+    try {
+        await directoryHandle.removeEntry(name);
+        return true;
+    } catch {
+        return false;
+    }
+}
+
 export async function backupFiles(folderName, fileNames) {
     if (!directoryHandle) return false;
     try {

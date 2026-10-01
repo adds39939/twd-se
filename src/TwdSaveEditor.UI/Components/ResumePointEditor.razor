@@ -33,7 +33,11 @@
             </div>
         </div>
 
-        @if (isAutosave)
+        @if (_resumeHandler != null && !isAutosave)
+        {
+            <EpisodeResumeEditor Slot="Slot" Handler="_resumeHandler" />
+        }
+        else if (isAutosave)
         {
             <div class="form-group">
                 <label>Episode</label>
@@ -84,11 +88,6 @@
                     Slot bundles don't control resume position — the game reads that from the
                     autosave bundle. Select the corresponding autosave to edit the resume point.
                 </p>
-            </div>
-
-            <div class="form-group">
-                <label>Playtime</label>
-                <input type="number" min="0" value="@_playtime" @onchange="OnPlaytimeChanged" />
             </div>
 
             <div class="form-group">

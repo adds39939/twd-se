@@ -1,14 +1,17 @@
+using TwdSaveEditor.Core.Constants;
 using TwdSaveEditor.Core.Model;
-using TwdSaveEditor.Season.Base.Accessors;
 using TwdSaveEditor.Season.Base.Handlers;
 using TwdSaveEditor.Season.Common.Abstractions;
 using TwdSaveEditor.Season.Common.Model;
+using TwdSaveEditor.Season.S1.Accessors;
+using TwdSaveEditor.Season.S1.Persistence;
+using TwdSaveEditor.Season.S2.Accessors;
 
 namespace TwdSaveEditor.Season.S2.Handlers;
 
 public class S2Handler : PropChoicesSeasonHandler, IChoiceImporter
 {
-    private static readonly string[] ImportedSeasons = ["s1", "s1_400days"];
+    private static readonly string[] ImportedSeasons = [S1ChoiceCatalog.MainSeasonKey, S1ChoiceCatalog.ExtraEpisodeSeasonKey];
 
     public override string SeasonKey => "s2";
     public override string Name => "Season 2";
@@ -26,23 +29,34 @@ public class S2Handler : PropChoicesSeasonHandler, IChoiceImporter
 
     public override IReadOnlyList<string> ImportsFromSeasonKeys => ImportedSeasons;
 
-    protected override string ChoicesFileName => "season1.prop";
+    protected override string ChoicesFileName => BundleFileNames.Season1Choices;
 
     public override string GetEpisodeId(int episode) => $"WalkingDead20{episode}";
 
+    public override IChoiceAccessor? CreateChoiceAccessor(SaveSlot slot)
+        => slot.Choices != null ? new S2ChoiceAccessor(slot) : null;
+
     public bool CanImportFrom(SaveSlot source)
-        => source.DetectedSeasonKey == "s1" && source.Choices != null;
+        => source.DetectedSeasonKey == S1ChoiceCatalog.MainSeasonKey && source.Metadata != null && source.Choices != null;
 
     public void ImportChoices(SaveSlot source, SaveSlot target)
     {
         if (source.Choices == null || target.Choices == null) return;
 
-        var sourceAccessor = new SaveAccessor(source.Choices);
-        var targetAccessor = new SaveAccessor(target.Choices);
+        var sourceAccessor = new S1ChoiceAccessor(source);
+        var targetAccessor = new S2ChoiceAccessor(target);
 
-        foreach (var (key, value) in sourceAccessor.GetAllChoices())
+        foreach (var choice in S1ChoiceCatalog.All)
         {
-            targetAccessor.SetChoiceValue(key, value);
+            if (sourceAccessor.GetChoiceValue(choice.ChoiceKey) is { } value)
+                targetAccessor.SetChoiceValue(choice.ChoiceKey, value);
+        }
+
+        for (var episode = PersistentKeys.FirstEpisode; episode <= PersistentKeys.LastEpisode; episode++)
+        {
+            var container = Symbol.FromString(PersistentKeys.TrackerContainer(episode));
+            if (source.Choices.Find(container)?.Value is RawBytesValue tracker)
+                target.Choices.Set(container, tracker.TypeSymbol, new RawBytesValue([.. tracker.Data], tracker.TypeSymbol));
         }
     }
 }

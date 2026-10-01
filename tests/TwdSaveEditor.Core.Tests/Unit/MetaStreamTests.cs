@@ -1,3 +1,4 @@
+using TwdSaveEditor.Core.Binary.Compression;
 using TwdSaveEditor.Core.Binary.MetaStream;
 using TwdSaveEditor.Core.Model;
 
@@ -8,54 +9,64 @@ public class MetaStreamTests
     [Fact]
     public void MetaStream_UncompressedRoundTrip()
     {
-        var originalData = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8 };
         var header = new MetaStreamHeader
         {
             Magic = MetaStreamHeader.MagicMsv5,
-            DefaultSectionSize = (uint)originalData.Length,
-            DebugSectionSize = 0,
-            AsyncSectionSize = 0,
             VersionEntries =
             [
                 new VersionEntry(0xDEADBEEF, 1)
             ]
         };
+        var content = new MetaStreamContent(header, [1, 2, 3, 4, 5, 6, 7, 8], [9, 9], [7, 7, 7]);
 
-        var fileBytes = MetaStreamWriter.Write(header, originalData);
+        var read = MetaStreamCodec.Read(MetaStreamCodec.Write(content));
 
-        using var ms = new MemoryStream(fileBytes);
-        var (readHeader, readData) = MetaStreamReader.Read(ms);
-
-        Assert.Equal(MetaStreamHeader.MagicMsv5, readHeader.Magic);
-        Assert.Equal(originalData, readData);
-        Assert.Single(readHeader.VersionEntries);
-        Assert.Equal(0xDEADBEEFUL, readHeader.VersionEntries[0].TypeCrc);
-        Assert.Equal(1U, readHeader.VersionEntries[0].VersionCrc);
+        Assert.Equal(MetaStreamHeader.MagicMsv5, read.Header.Magic);
+        Assert.Equal(content.Default, read.Default);
+        Assert.Equal(content.Debug, read.Debug);
+        Assert.Equal(content.Async, read.Async);
+        Assert.False(read.Header.IsDefaultCompressed);
+        Assert.Single(read.Header.VersionEntries);
+        Assert.Equal(0xDEADBEEFUL, read.Header.VersionEntries[0].TypeCrc);
+        Assert.Equal(1U, read.Header.VersionEntries[0].VersionCrc);
     }
 
     [Fact]
-    public void MetaStream_CompressedRoundTrip()
+    public void MetaStream_CompressedSectionsKeepTheirFlagsAndContent()
     {
-        var originalData = new byte[256];
-        for (int i = 0; i < originalData.Length; i++)
-            originalData[i] = (byte)(i % 10);
+        var data = new byte[Ttcz.PageSize + 300];
+        for (int i = 0; i < data.Length; i++)
+            data[i] = (byte)(i % 10);
 
         var header = new MetaStreamHeader
         {
             Magic = MetaStreamHeader.MagicMsv6,
-            DefaultSectionSize = 0x80000000 | (uint)originalData.Length,
-            DebugSectionSize = 0,
-            AsyncSectionSize = 0
+            DefaultSectionSize = MetaStreamHeader.CompressedFlag,
+            AsyncSectionSize = MetaStreamHeader.CompressedFlag,
         };
 
-        var fileBytes = MetaStreamWriter.Write(header, originalData);
+        var read = MetaStreamCodec.Read(MetaStreamCodec.Write(new MetaStreamContent(header, data, [1, 2], data)));
 
-        using var ms = new MemoryStream(fileBytes);
-        var (readHeader, readData) = MetaStreamReader.Read(ms);
+        Assert.True(read.Header.IsDefaultCompressed);
+        Assert.False(read.Header.IsDebugCompressed);
+        Assert.True(read.Header.IsAsyncCompressed);
+        Assert.Equal(2 * Ttcz.PageSize, read.Default.Length);
+        Assert.Equal(data, read.Default[..data.Length]);
+        Assert.All(read.Default[data.Length..], b => Assert.Equal(0, b));
+        Assert.Equal(new byte[] { 1, 2 }, read.Debug);
+    }
 
-        Assert.Equal(MetaStreamHeader.MagicMsv6, readHeader.Magic);
-        Assert.Equal(originalData, readData);
-        Assert.True(readHeader.IsDefaultCompressed);
+    [Fact]
+    public void Ttcz_CompressedDataStartsWithPageTable()
+    {
+        var compressed = Ttcz.Compress(new byte[10]);
+
+        Assert.True(Ttcz.HasMagic(compressed));
+        Assert.Equal((uint)Ttcz.PageSize, BitConverter.ToUInt32(compressed, 4));
+        Assert.Equal(1U, BitConverter.ToUInt32(compressed, 8));
+        Assert.Equal(28UL, BitConverter.ToUInt64(compressed, 12));
+        Assert.Equal((ulong)compressed.Length, BitConverter.ToUInt64(compressed, 20));
+        Assert.Equal(Ttcz.PageSize, Ttcz.Decompress(compressed).Length);
     }
 
     [Fact]
@@ -64,7 +75,6 @@ public class MetaStreamTests
         var data = new byte[20];
         BitConverter.GetBytes(0x12345678U).CopyTo(data, 0);
 
-        using var ms = new MemoryStream(data);
-        Assert.Throws<InvalidDataException>(() => MetaStreamReader.Read(ms));
+        Assert.Throws<InvalidDataException>(() => MetaStreamCodec.Read(data));
     }
 }
