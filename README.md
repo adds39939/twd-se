@@ -137,7 +137,9 @@ tests/
 ├── TwdSaveEditor.Playwright/       E2E browser tests
 └── TestData/                       Representative save files for all seasons
 
-tools/                              Python scripts for game data extraction
+tools/                              Console tools for game data extraction and validation
+├── TwdSaveEditor.Tools.Common/     Code the tools share: archive decryption, hashing, parsing
+└── TwdSaveEditor.Tools.<Name>/     One project per tool (ExtractKey, TtarchDecrypt, FinalValidation, ...)
 ```
 
 NuGet package versions are managed centrally in `Directory.Packages.props`.
@@ -214,16 +216,40 @@ No changes to the UI are needed.
 
 ## Tools
 
-The `tools/` directory contains Python scripts used during development to decrypt and analyze game archives. These are **not required to run the editor** — all extracted data is already embedded in the application.
+The `tools/` directory contains console tools used during development to decrypt and analyze game archives. These are **not required to run the editor** — all extracted data is already embedded in the application.
+
+Each tool is its own project, `tools/TwdSaveEditor.Tools.<Name>`, run with `dotnet run --project`. The code they share lives in the `tools/TwdSaveEditor.Tools.Common` class library.
 
 To use the tools yourself, you need:
 
 1. The `TWD_ARCHIVES` environment variable pointing to the game's Archives directory
-2. A `tools/key.txt` file containing the Blowfish encryption key (55 bytes, hex-encoded). The key can be extracted from `WDC.exe` at offset `0xC3D7A0`.
+2. A `tools/key.txt` file containing the Blowfish encryption key (55 bytes, hex-encoded). The `ExtractKey` tool reads it from `WDC.exe` (offset `0xC3D7A0`) and checks that it decrypts an archive.
 
 ```bash
 export TWD_ARCHIVES="/path/to/The Walking Dead The Telltale Definitive Series/Archives"
-python tools/ttarch_decrypt.py
+dotnet run --project tools/TwdSaveEditor.Tools.ExtractKey
+dotnet run --project tools/TwdSaveEditor.Tools.TtarchDecrypt
+```
+
+| Tool | Purpose | Reads |
+|------|---------|-------|
+| `ExtractKey` | Extract the archive key from `WDC.exe` into `tools/key.txt` | `TWD_ARCHIVES` |
+| `TtarchDecrypt` | Decrypt an archive and list what it contains | `TWD_ARCHIVES` |
+| `ExtractAllChoices` | Extract every season's choices into `tools/all_choices_summary.txt` | `TWD_ARCHIVES` |
+| `ExtractNodeMappings` | Map choices to dialog node hashes in `tools/node_hash_mappings.txt` and `.json` | `TWD_ARCHIVES`, optionally `TWD_SAMPLE_SAVES` |
+| `ExtractScenes` | List the scenes of each episode in `tools/data/episode_scenes.json` | `TWD_ARCHIVES` |
+| `ValidateSaves` | Check the save formats against the test saves and the game archives | `TWD_ARCHIVES` |
+| `FinalValidation` | Validate save formats, choice mappings and hashes end to end | `TWD_ARCHIVES` |
+| `DecodeEstore` | Decode EventLog estore/epage files | `TWD_SAMPLE_SAVES` |
+| `ValidateEditedSaves` | Compare the Season 1 saves in the save directory with a backup | `TWD_SAVES`, `TWD_BACKUP` |
+| `CreateEndEpisodeEstore` | Write an estore holding an End Episode event into the save directory | `TWD_SAVES` |
+| `AnalyzeSaves` | Print the MetaStream section sizes of the files passed to it | file arguments |
+| `DumpMetadata` | Dump the metadata properties of the Season 1 test saves, read with the editor's own bundle reader | test saves |
+
+`TWD_SAVES` is the game's save directory. `TWD_SAMPLE_SAVES` is a directory of saved games to study, laid out as `S3/Episode 1`, `S3/Episode 5/The end` and `Michonne`. Every directory can also be passed as an argument instead:
+
+```bash
+dotnet run --project tools/TwdSaveEditor.Tools.ExtractKey -- "/path/to/The Walking Dead The Telltale Definitive Series"
 ```
 
 ## License
