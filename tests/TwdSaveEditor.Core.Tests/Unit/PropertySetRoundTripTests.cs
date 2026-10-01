@@ -1,4 +1,4 @@
-using TwdSaveEditor.Core.Binary;
+using TwdSaveEditor.Core.Binary.PropertySets;
 using TwdSaveEditor.Core.Hashing;
 using TwdSaveEditor.Core.Model;
 
@@ -104,33 +104,26 @@ public class PropertySetRoundTripTests
         var bytes = _writer.Write(original);
         var result = _reader.Read(bytes);
 
-        // Verify parent symbols
         Assert.Single(result.ParentSymbols);
         Assert.Equal(0x1234UL, result.ParentSymbols[0].Value);
 
-        // Verify group count
         Assert.Equal(5, result.TypeGroups.Count);
 
-        // Verify int values
         var intGroup = result.TypeGroups[0];
         Assert.Equal(Symbol.FromString("int32"), intGroup.TypeSymbol);
         Assert.Equal(100, ((IntValue)intGroup.Properties[0].Value).Value);
         Assert.Equal(75, ((IntValue)intGroup.Properties[1].Value).Value);
 
-        // Verify float
         var floatGroup = result.TypeGroups[1];
         Assert.Equal(0.8f, ((FloatValue)floatGroup.Properties[0].Value).Value);
 
-        // Verify strings
         var stringGroup = result.TypeGroups[2];
         Assert.Equal("My Save", ((StringValue)stringGroup.Properties[0].Value).Value);
         Assert.Equal("", ((StringValue)stringGroup.Properties[1].Value).Value);
 
-        // Verify symbol
         var symGroup = result.TypeGroups[3];
         Assert.Equal(0xABCDUL, ((SymbolValue)symGroup.Properties[0].Value).Value.Value);
 
-        // Verify bool
         var boolGroup = result.TypeGroups[4];
         Assert.False(((BoolValue)boolGroup.Properties[0].Value).Value);
     }

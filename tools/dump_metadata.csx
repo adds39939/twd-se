@@ -1,7 +1,8 @@
 // Quick script to dump metadata from both bundle types
 #r "../src/TwdSaveEditor.Core/bin/Debug/net10.0/TwdSaveEditor.Core.dll"
+#r "../src/TwdSaveEditor.Core.Binary/bin/Debug/net10.0/TwdSaveEditor.Core.Binary.dll"
 
-using TwdSaveEditor.Core.Binary;
+using TwdSaveEditor.Core.Binary.Bundles;
 using TwdSaveEditor.Core.Model;
 
 void DumpMetadata(string path, string label)

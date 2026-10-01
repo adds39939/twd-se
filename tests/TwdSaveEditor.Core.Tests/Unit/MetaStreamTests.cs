@@ -1,4 +1,4 @@
-using TwdSaveEditor.Core.Binary;
+using TwdSaveEditor.Core.Binary.MetaStream;
 using TwdSaveEditor.Core.Model;
 
 namespace TwdSaveEditor.Core.Tests.Unit;
@@ -36,7 +36,6 @@ public class MetaStreamTests
     [Fact]
     public void MetaStream_CompressedRoundTrip()
     {
-        // Create some data that's compressible
         var originalData = new byte[256];
         for (int i = 0; i < originalData.Length; i++)
             originalData[i] = (byte)(i % 10);
@@ -44,7 +43,7 @@ public class MetaStreamTests
         var header = new MetaStreamHeader
         {
             Magic = MetaStreamHeader.MagicMsv6,
-            DefaultSectionSize = 0x80000000 | (uint)originalData.Length, // compressed flag
+            DefaultSectionSize = 0x80000000 | (uint)originalData.Length,
             DebugSectionSize = 0,
             AsyncSectionSize = 0
         };

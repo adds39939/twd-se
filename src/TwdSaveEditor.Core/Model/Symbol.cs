@@ -2,9 +2,6 @@ using TwdSaveEditor.Core.Hashing;
 
 namespace TwdSaveEditor.Core.Model;
 
-/// <summary>
-/// A Telltale symbol — a CRC64 hash that identifies property names and types.
-/// </summary>
 public readonly record struct Symbol(ulong Value)
 {
     public static readonly Symbol Empty = new(0);

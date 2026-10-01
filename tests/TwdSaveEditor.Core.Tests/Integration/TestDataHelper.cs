@@ -11,7 +11,6 @@ internal static class TestDataHelper
         {
             var candidate = Path.Combine(dir.FullName, "tests", "TestData");
             if (Directory.Exists(candidate)) return candidate;
-            // Also check if we're inside a tests subfolder
             candidate = Path.Combine(dir.FullName, "TestData");
             if (Directory.Exists(candidate)) return candidate;
             dir = dir.Parent;

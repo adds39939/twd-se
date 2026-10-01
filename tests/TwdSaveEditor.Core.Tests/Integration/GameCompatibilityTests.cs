@@ -1,16 +1,22 @@
-using TwdSaveEditor.Core.Binary;
-using TwdSaveEditor.Core.GameData;
-using TwdSaveEditor.Core.GameData.Seasons;
+using TwdSaveEditor.Core.Binary.Bundles;
+using TwdSaveEditor.Core.Binary.EventLog;
+using TwdSaveEditor.Core.Constants;
 using TwdSaveEditor.Core.Hashing;
 using TwdSaveEditor.Core.Model;
+using TwdSaveEditor.Season.Base.Accessors;
+using TwdSaveEditor.Season.Common.Abstractions;
+using TwdSaveEditor.Season.Common.Extensions;
+using TwdSaveEditor.Season.Common.Services;
+using TwdSaveEditor.Season.Michonne.Choices;
+using TwdSaveEditor.Season.Michonne.Handlers;
+using TwdSaveEditor.Season.S1.Handlers;
+using TwdSaveEditor.Season.S2.Handlers;
+using TwdSaveEditor.Season.S3.Choices;
+using TwdSaveEditor.Season.S3.Handlers;
+using TwdSaveEditor.Season.S4.Handlers;
 
 namespace TwdSaveEditor.Core.Tests.Integration;
 
-/// <summary>
-/// Validates that created saves are structurally compatible with real game saves.
-/// Compares binary structure, version entries, file hashes, PropertySet format,
-/// and EventLog record format against real test data bundles.
-/// </summary>
 public class GameCompatibilityTests
 {
     private static readonly ISeasonRegistry Registry = new SeasonRegistry(
@@ -21,8 +27,6 @@ public class GameCompatibilityTests
         new S4Handler(),
         new MichonneHandler(),
     ]);
-
-    // ── Validation 1: Bundle structure ────────────────────────────────────
 
     [Theory]
     [InlineData("s1", "wd1_saveslot2.bundle", "S1")]
@@ -81,13 +85,10 @@ public class GameCompatibilityTests
         var handler = Registry.Get(seasonKey)!;
         var createdSlot = handler.CreateBlankSave($"{handler.FilePrefix}test.bundle", handler.GetEpisodeId(1));
 
-        // Created save should contain metadata_slot.p at minimum
         Assert.Contains(createdSlot.FileTable, f => f.Name == "metadata_slot.p");
 
-        // Real save should also have metadata_slot.p
         Assert.Contains(realSlot.FileTable, f => f.Name == "metadata_slot.p");
 
-        // Verify the expected inner files based on season
         if (seasonKey == "s1")
         {
             Assert.Contains(createdSlot.FileTable, f => f.Name == "choices.prop");
@@ -100,7 +101,6 @@ public class GameCompatibilityTests
         {
             Assert.Contains(createdSlot.FileTable, f => f.Name == "choicestats.pro");
         }
-        // S3 and Michonne don't include choices in the bundle
     }
 
     [Theory]
@@ -128,8 +128,6 @@ public class GameCompatibilityTests
         }
     }
 
-    // ── Inner MetaStream structure ────────────────────────────────────────
-
     [Theory]
     [InlineData("s1")]
     [InlineData("s2")]
@@ -141,7 +139,6 @@ public class GameCompatibilityTests
         var handler = Registry.Get(seasonKey)!;
         var createdSlot = handler.CreateBlankSave($"{handler.FilePrefix}test.bundle", handler.GetEpisodeId(1));
 
-        // Check each inner file has MSV6 magic
         foreach (var (name, rawData) in createdSlot.RawInnerFiles!)
         {
             Assert.True(rawData.Length >= 4, $"Inner file {name} too small");
@@ -164,7 +161,6 @@ public class GameCompatibilityTests
         var handler = Registry.Get(seasonKey)!;
         var createdSlot = handler.CreateBlankSave($"{handler.FilePrefix}test.bundle", handler.GetEpisodeId(1));
 
-        // Compare inner version entries for metadata_slot.p
         var realMetadata = realSlot.RawInnerFiles!["metadata_slot.p"];
         var createdMetadata = createdSlot.RawInnerFiles!["metadata_slot.p"];
 
@@ -178,8 +174,6 @@ public class GameCompatibilityTests
             Assert.Equal(realInnerVers[i].VersionCrc, createdInnerVers[i].VersionCrc);
         }
     }
-
-    // ── PropertySet structure ─────────────────────────────────────────────
 
     [Theory]
     [InlineData("s1", "wd1_saveslot2.bundle", "S1")]
@@ -195,15 +189,12 @@ public class GameCompatibilityTests
         var handler = Registry.Get(seasonKey)!;
         var createdSlot = handler.CreateBlankSave($"{handler.FilePrefix}test.bundle", handler.GetEpisodeId(1));
 
-        // Both should have valid metadata
         Assert.NotNull(realSlot.Metadata);
         Assert.NotNull(createdSlot.Metadata);
 
-        // Same PropertySet version and flags
         Assert.Equal(realSlot.Metadata!.Version, createdSlot.Metadata!.Version);
         Assert.Equal(realSlot.Metadata.Flags, createdSlot.Metadata.Flags);
 
-        // Created metadata should use version=2, flags=0x100
         Assert.Equal(2u, createdSlot.Metadata.Version);
         Assert.Equal(0x100u, createdSlot.Metadata.Flags);
     }
@@ -220,14 +211,11 @@ public class GameCompatibilityTests
         Assert.NotNull(realSlot.Choices);
         Assert.NotNull(createdSlot.Choices);
 
-        // Same version
         Assert.Equal(realSlot.Choices!.Version, createdSlot.Choices!.Version);
         Assert.Equal(2u, createdSlot.Choices.Version);
 
-        // S1 real choices.prop uses flags=0x0
         Assert.Equal(0x0u, createdSlot.Choices.Flags);
 
-        // Should have ChoicesContainer type group
         Assert.Contains(createdSlot.Choices.TypeGroups,
             g => g.TypeSymbol.Value == TelltaleTypes.ChoicesContainer);
     }
@@ -246,13 +234,8 @@ public class GameCompatibilityTests
 
         Assert.Equal(2u, createdSlot.Choices!.Version);
 
-        // FINDING: Real S2 uses season1.prop (not choices.prop), and its PropertySet
-        // uses flags=0x100 while our created save uses flags=0x0.
-        // The game reads these via the season1.prop file name.
-        // Note: S2 real file name is "season1.prop", our created save uses "choices.prop"
         Assert.Equal("season1.prop", realSlot.ChoicesFileName);
 
-        // Should have ChoicesContainer type group
         Assert.Contains(createdSlot.Choices.TypeGroups,
             g => g.TypeSymbol.Value == TelltaleTypes.ChoicesContainer);
     }
@@ -269,16 +252,12 @@ public class GameCompatibilityTests
         Assert.NotNull(realSlot.ChoiceStats);
         Assert.NotNull(createdSlot.ChoiceStats);
 
-        // Same PropertySet version and flags
         Assert.Equal(realSlot.ChoiceStats!.Version, createdSlot.ChoiceStats!.Version);
         Assert.Equal(realSlot.ChoiceStats.Flags, createdSlot.ChoiceStats.Flags);
 
-        // choicestats.pro should use version=2, flags=0x100
         Assert.Equal(2u, createdSlot.ChoiceStats.Version);
         Assert.Equal(0x100u, createdSlot.ChoiceStats.Flags);
     }
-
-    // ── Write + Read round-trip ───────────────────────────────────────────
 
     [Theory]
     [InlineData("s1", 5)]
@@ -290,28 +269,22 @@ public class GameCompatibilityTests
     {
         var handler = Registry.Get(seasonKey)!;
         var fileName = $"{handler.FilePrefix}roundtrip.bundle";
-        var createdSlot = SaveSlotFactory.CreateForSeason(Registry, seasonKey, episode, fileName);
+        var createdSlot = Registry.CreateSave(seasonKey, episode, fileName);
 
-        // Write to bytes
         var bundleBytes = BundleWriter.Write(createdSlot);
         Assert.True(bundleBytes.Length > 0);
 
-        // Read back
         var readBack = BundleReader.Read(bundleBytes, fileName);
 
-        // Verify structure
         Assert.Equal(MetaStreamHeader.MagicMsv6, readBack.OuterHeader.Magic);
         Assert.NotNull(readBack.Metadata);
         Assert.Equal(2u, readBack.Metadata!.Version);
         Assert.Equal(0x100u, readBack.Metadata.Flags);
 
-        // Verify metadata has episode ID
         var accessor = new SaveAccessor(readBack.Choices, readBack.Metadata);
         var episodeId = accessor.GetMetadataString("episodeId");
-        // It should be the right format
         Assert.True(readBack.Metadata.AllProperties.Any());
 
-        // Verify file table preserved
         Assert.Equal(createdSlot.FileTable.Count, readBack.FileTable.Count);
         for (int i = 0; i < createdSlot.FileTable.Count; i++)
         {
@@ -321,8 +294,6 @@ public class GameCompatibilityTests
         }
     }
 
-    // ── Validation 4: EventLog record format ──────────────────────────────
-
     [Fact]
     public void EStoreCreator_ProducesCorrectMsv6Header()
     {
@@ -330,8 +301,8 @@ public class GameCompatibilityTests
         {
             new()
             {
-                EventTypeHash = EventLogEntry.EventTypes.ExecutingDialogNode,
-                NodeHash = 0x2D4BB68B3A6B79B7, // shot_conrad = true
+                EventTypeHash = EventLogEventTypes.ExecutingDialogNode,
+                NodeHash = 0x2D4BB68B3A6B79B7,
                 ValueType = 1,
                 ExtraFlag = 0,
                 SequenceIndex = 0,
@@ -341,11 +312,9 @@ public class GameCompatibilityTests
 
         var (estore, epage, epageFilename) = EStoreCreator.Create("_wd3_test_id", events);
 
-        // Verify MSV6 magic on both
         Assert.Equal(MetaStreamHeader.MagicMsv6, BitConverter.ToUInt32(estore, 0));
         Assert.Equal(MetaStreamHeader.MagicMsv6, BitConverter.ToUInt32(epage, 0));
 
-        // Verify version entry count
         var estoreVerCount = BitConverter.ToUInt32(estore, 16);
         var epageVerCount = BitConverter.ToUInt32(epage, 16);
         Assert.Equal(5u, estoreVerCount);
@@ -357,7 +326,7 @@ public class GameCompatibilityTests
     {
         var entry = new EventLogEntry
         {
-            EventTypeHash = EventLogEntry.EventTypes.ExecutingDialogNode,
+            EventTypeHash = EventLogEventTypes.ExecutingDialogNode,
             NodeHash = 0x2D4BB68B3A6B79B7,
             ValueType = 1,
             ExtraFlag = 0,
@@ -369,52 +338,41 @@ public class GameCompatibilityTests
 
         Assert.Equal(42, record.Length);
 
-        // Check header fields
-        Assert.Equal(0x0Au, BitConverter.ToUInt32(record, 0));  // version
-        Assert.Equal(0x22u, BitConverter.ToUInt32(record, 4));  // payload
-        Assert.Equal(0x01u, BitConverter.ToUInt32(record, 8));  // count
-        Assert.Equal(0x00u, BitConverter.ToUInt32(record, 12)); // padding
+        Assert.Equal(0x0Au, BitConverter.ToUInt32(record, 0));
+        Assert.Equal(0x22u, BitConverter.ToUInt32(record, 4));
+        Assert.Equal(0x01u, BitConverter.ToUInt32(record, 8));
+        Assert.Equal(0x00u, BitConverter.ToUInt32(record, 12));
 
-        // Check event type hash
-        Assert.Equal(EventLogEntry.EventTypes.ExecutingDialogNode, BitConverter.ToUInt64(record, 16));
+        Assert.Equal(EventLogEventTypes.ExecutingDialogNode, BitConverter.ToUInt64(record, 16));
 
-        // Check node hash
         Assert.Equal(0x2D4BB68B3A6B79B7UL, BitConverter.ToUInt64(record, 29));
     }
 
     [Fact]
     public void EStoreCreator_RecordMatchesRealEpageFormat()
     {
-        // Read a real epage file
         var realEpagePath = TestDataHelper.GetPath("S3", "_wd3_saveslot1_id_Page734.epage");
         var realData = File.ReadAllBytes(realEpagePath);
 
-        // Parse it to get a real record
         var realEntries = EStoreReader.ReadEPage(realEpagePath);
         Assert.NotEmpty(realEntries);
 
-        // Get the first real record's raw data
         var firstReal = realEntries[0];
 
-        // Create a record with the same values
         var created = EStoreCreator.BuildRecord(firstReal);
 
-        // Compare byte by byte
         Assert.Equal(42, created.Length);
         Assert.Equal(firstReal.RawData.Length, created.Length);
 
-        // Header should match exactly
         for (int i = 0; i < 16; i++)
         {
             Assert.Equal(firstReal.RawData[i], created[i]);
         }
 
-        // Event type hash should match
         Assert.Equal(
             BitConverter.ToUInt64(firstReal.RawData, 16),
             BitConverter.ToUInt64(created, 16));
 
-        // Node hash should match
         Assert.Equal(
             BitConverter.ToUInt64(firstReal.RawData, 29),
             BitConverter.ToUInt64(created, 29));
@@ -423,33 +381,12 @@ public class GameCompatibilityTests
     [Fact]
     public void EStoreCreator_VersionEntriesDocumented()
     {
-        // FINDING: Real S3/Michonne estore files have 5 version entries:
-        //   [0] TypeCrc=0x3AAEB61240D3CFBA, VersionCrc=0xD8D22CB9
-        //   [1] TypeCrc=0xBEBB886A0541595F, VersionCrc=0xB59B0682
-        //   [2] TypeCrc=0x004F023463D89FB0, VersionCrc=0xB539B0FF
-        //   [3] TypeCrc=0x24032A7AD8BB721D, VersionCrc=0x739CE237
-        //   [4] TypeCrc=0x238A520C4A924AA6, VersionCrc=0x2E4AF103
-        //
-        // EStoreCreator currently uses 3 version entries (from bundle inner MetaStream):
-        //   [0] TypeCrc=0xCD75DC4F6B9F15D2, VersionCrc=0x21F2BCC9
-        //   [1] TypeCrc=0x84283CB979D71641, VersionCrc=0x0527D6BF
-        //   [2] TypeCrc=0x004F023463D89FB0, VersionCrc=0xB539B0FF
-        //
-        // Entry [2] matches real entry [2] (shared base type).
-        // The other entries differ because estore uses EventLog-specific types
-        // while the bundle inner files use PropertySet types.
-        //
-        // Despite this mismatch, the game still loads our created estore files
-        // because the version entries are used for forward-compatibility checks,
-        // not strict validation.
-
         var realEstorePath = TestDataHelper.GetPath("S3", "_wd3_saveslot1_id.estore");
         var realData = File.ReadAllBytes(realEstorePath);
 
         var realVerCount = BitConverter.ToUInt32(realData, 16);
         Assert.Equal(5u, realVerCount);
 
-        // Verify the real version entries match our documentation
         var expectedReal = new (ulong TypeCrc, uint VersionCrc)[]
         {
             (0x3AAEB61240D3CFBA, 0xD8D22CB9),
@@ -470,12 +407,11 @@ public class GameCompatibilityTests
             Assert.Equal(expectedReal[i].VersionCrc, vc);
         }
 
-        // Verify EStoreCreator now produces the correct 5 version entries matching real saves
         var events = new List<EventLogEntry>
         {
             new()
             {
-                EventTypeHash = EventLogEntry.EventTypes.ExecutingDialogNode,
+                EventTypeHash = EventLogEventTypes.ExecutingDialogNode,
                 NodeHash = 0x2D4BB68B3A6B79B7,
                 ValueType = 1,
                 ExtraFlag = 0,
@@ -488,7 +424,6 @@ public class GameCompatibilityTests
         var createdVerCount = BitConverter.ToUInt32(estore, 16);
         Assert.Equal(5u, createdVerCount);
 
-        // All 5 entries should match the real estore
         int cpos = 20;
         for (int i = 0; i < 5; i++)
         {
@@ -498,8 +433,6 @@ public class GameCompatibilityTests
             Assert.Equal(expectedReal[i].VersionCrc, vc);
         }
     }
-
-    // ── Validation 5: CRC64 hash verification ─────────────────────────────
 
     [Theory]
     [InlineData("Executing Dialog Node", 0x625874A31EA13BB1UL)]
@@ -516,7 +449,6 @@ public class GameCompatibilityTests
     [Fact]
     public void S3NodeHashes_AppearInRealEpageData()
     {
-        // Read all S3 epage files and collect dialog node hashes
         var s3Dir = TestDataHelper.GetSeasonDir("S3");
         var epageFiles = Directory.GetFiles(s3Dir, "*.epage");
 
@@ -533,25 +465,22 @@ public class GameCompatibilityTests
 
         Assert.NotEmpty(allNodeHashes);
 
-        // Check how many of our known hashes appear in real data
         var matchCount = 0;
-        foreach (var (hash, (key, val)) in ChoiceNodeMapping.S3Nodes)
+        foreach (var (hash, (key, val)) in S3ChoiceNodes.Nodes)
         {
             if (allNodeHashes.Contains(hash))
                 matchCount++;
         }
 
-        // At least some hashes should match (the test save may not have all choices)
         Assert.True(matchCount > 0,
-            $"None of the {ChoiceNodeMapping.S3Nodes.Count} S3 node hashes found in real epage data. " +
+            $"None of the {S3ChoiceNodes.Nodes.Count} S3 node hashes found in real epage data. " +
             $"Total unique dialog nodes in real data: {allNodeHashes.Count}");
     }
 
     [Fact]
     public void MichonneNodeHashes_ProduceValidCrc64()
     {
-        // Verify Michonne GUID -> CRC64 hash computation
-        foreach (var (guid, (choiceKey, optionValue)) in ChoiceNodeMapping.MichonneNodes)
+        foreach (var (guid, (choiceKey, optionValue)) in MichonneChoiceNodes.Guids)
         {
             var hashInput = "{" + guid + "}";
             var hash = TelltaleHash.ComputeCrc64(hashInput);
@@ -567,28 +496,22 @@ public class GameCompatibilityTests
 
         Assert.NotNull(realSlot.ChoiceStats);
 
-        // Get the raw GUID string
         var rawProp = realSlot.ChoiceStats!.AllProperties.FirstOrDefault();
         Assert.NotNull(rawProp);
         Assert.IsType<StringValue>(rawProp!.Value);
 
         var rawString = ((StringValue)rawProp.Value).Value;
 
-        // If the save has any GUIDs, verify the format matches our pattern
         if (!string.IsNullOrEmpty(rawString))
         {
-            // Format should be tab-separated "( {GUID} )" entries
             var entries = rawString.Split('\t');
             foreach (var entry in entries)
             {
                 if (string.IsNullOrWhiteSpace(entry)) continue;
-                // Should match pattern: ( {GUID} )
                 Assert.Matches(@"\(\s*\{[0-9A-Fa-f-]+\}\s*\)", entry);
             }
         }
     }
-
-    // ── Helpers ────────────────────────────────────────────────────────────
 
     private static List<VersionEntry> ParseInnerVersionEntries(byte[] innerData)
     {

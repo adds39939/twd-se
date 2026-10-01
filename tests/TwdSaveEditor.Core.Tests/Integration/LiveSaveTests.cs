@@ -1,13 +1,16 @@
-using TwdSaveEditor.Core.Binary;
-using TwdSaveEditor.Core.GameData;
-using TwdSaveEditor.Core.GameData.Seasons;
+using TwdSaveEditor.Core.Binary.Bundles;
 using TwdSaveEditor.Core.Model;
+using TwdSaveEditor.Season.Base.Accessors;
+using TwdSaveEditor.Season.Common.Abstractions;
+using TwdSaveEditor.Season.Common.Services;
+using TwdSaveEditor.Season.Michonne.Handlers;
+using TwdSaveEditor.Season.S1.Handlers;
+using TwdSaveEditor.Season.S2.Handlers;
+using TwdSaveEditor.Season.S3.Handlers;
+using TwdSaveEditor.Season.S4.Handlers;
 
 namespace TwdSaveEditor.Core.Tests.Integration;
 
-/// <summary>
-/// Tests against the live S1 save from the actual game installation.
-/// </summary>
 public class LiveSaveTests
 {
     private static readonly ISeasonRegistry Registry = new SeasonRegistry(
@@ -53,12 +56,10 @@ public class LiveSaveTests
 
         var slot = BundleReader.Read(path);
 
-        // A fresh S1 save may or may not have choices.prop depending on progress
         if (slot.Choices != null)
         {
             var accessor = new SaveAccessor(slot.Choices, slot.Metadata);
             var choices = accessor.GetAllChoices();
-            // Just verify it parses without error
             Assert.NotNull(choices);
         }
     }
@@ -94,15 +95,13 @@ public class LiveSaveTests
         if (!File.Exists(path)) return;
 
         var slot = BundleReader.Read(path);
-        if (slot.Choices == null) return; // Can't edit choices if none exist yet
+        if (slot.Choices == null) return;
 
         var accessor = new SaveAccessor(slot.Choices, slot.Metadata);
 
-        // Try setting a choice
         accessor.SetChoiceValue("dougcarley_saved", "carley");
         Assert.Equal("carley", accessor.GetChoiceValue("dougcarley_saved"));
 
-        // Round-trip
         var written = BundleWriter.Write(slot);
         var reloaded = BundleReader.Read(written, "wd1_saveslot1.bundle");
 
@@ -130,7 +129,6 @@ public class LiveSaveTests
 
         var slot = BundleReader.Read(path);
 
-        // Outer header should have 2 version entries matching our constants
         Assert.Equal(2, slot.OuterHeader.VersionEntries.Count);
         Assert.Equal(0xE09B099B8076C147UL, slot.OuterHeader.VersionEntries[0].TypeCrc);
         Assert.Equal(0x004F023463D89FB0UL, slot.OuterHeader.VersionEntries[1].TypeCrc);

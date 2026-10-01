@@ -2,8 +2,8 @@ namespace TwdSaveEditor.Core.Model;
 
 public sealed class MetaStreamHeader
 {
-    public const uint MagicMsv5 = 0x4D535635; // "MSV5"
-    public const uint MagicMsv6 = 0x4D535636; // "MSV6"
+    public const uint MagicMsv5 = 0x4D535635;
+    public const uint MagicMsv6 = 0x4D535636;
 
     public uint Magic { get; set; }
     public uint DefaultSectionSize { get; set; }
@@ -21,10 +21,4 @@ public sealed class MetaStreamHeader
     public List<VersionEntry> VersionEntries { get; set; } = [];
 
     public bool IsMsv6 => Magic == MagicMsv6;
-}
-
-public sealed class VersionEntry(ulong typeCrc, uint versionCrc)
-{
-    public ulong TypeCrc { get; } = typeCrc;
-    public uint VersionCrc { get; } = versionCrc;
 }

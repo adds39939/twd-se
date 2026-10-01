@@ -1,13 +1,13 @@
-using TwdSaveEditor.Core.GameData;
-using TwdSaveEditor.Core.GameData.Seasons;
 using TwdSaveEditor.Core.Model;
+using TwdSaveEditor.Season.Common.Abstractions;
+using TwdSaveEditor.Season.Common.Services;
+using TwdSaveEditor.Season.Michonne.Handlers;
+using TwdSaveEditor.Season.S1.Handlers;
+using TwdSaveEditor.Season.S3.Handlers;
+using TwdSaveEditor.Season.S4.Handlers;
 
 namespace TwdSaveEditor.Core.Tests.Unit;
 
-/// <summary>
-/// Tests that BackupFileResolver correctly determines which files to back up
-/// for each save type.
-/// </summary>
 public class BackupFileResolverTests
 {
     private static ISeasonRegistry Registry(params ISeasonHandler[] handlers) =>
@@ -122,12 +122,10 @@ public class BackupFileResolverTests
     [Fact]
     public void NonAutosaveUnderscore_NotTreatedAsAutosave()
     {
-        // A file starting with _ but not ending with _autosave
         var slot = CreateSlot("_wd1_saveslot1_checkpoint.bundle");
 
         var files = BackupFileResolver.GetFilesToBackup(slot);
 
-        // Should only backup itself (no slot derivation since name doesn't match _autosave pattern)
         Assert.Single(files);
         Assert.Equal("_wd1_saveslot1_checkpoint.bundle", files[0]);
     }

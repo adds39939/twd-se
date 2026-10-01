@@ -1,0 +1,65 @@
+.property-editor {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.editor-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.editor-toolbar h2 {
+    margin: 0;
+}
+
+.table-container {
+    flex: 1;
+    overflow: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+.prop-name {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--accent);
+    word-break: break-all;
+}
+
+.property-editor input[type="text"],
+.property-editor input[type="number"] {
+    width: 100%;
+    max-width: 300px;
+}
+
+.wide-input {
+    max-width: 500px !important;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+th, td {
+    padding: 0.5em 0.75em;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+
+th {
+    font-weight: 600;
+    color: var(--text-secondary);
+    background: var(--bg-tertiary);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+tr:hover td {
+    background: var(--bg-hover);
+}

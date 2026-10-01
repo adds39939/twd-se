@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <SupportedPlatform Include="browser" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\TwdSaveEditor.Core\TwdSaveEditor.Core.csproj" />
+      <ProjectReference Include="..\TwdSaveEditor.Season.Common\TwdSaveEditor.Season.Common.csproj" />
+    </ItemGroup>
+
+</Project>

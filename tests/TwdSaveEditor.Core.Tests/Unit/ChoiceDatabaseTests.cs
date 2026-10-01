@@ -1,6 +1,9 @@
-using TwdSaveEditor.Core.GameData;
+using TwdSaveEditor.Core.Binary.PropertySets;
 using TwdSaveEditor.Core.Hashing;
 using TwdSaveEditor.Core.Model;
+using TwdSaveEditor.Core.Tests.Support;
+using TwdSaveEditor.Season.Base.Accessors;
+using TwdSaveEditor.Season.Common.Extensions;
 
 namespace TwdSaveEditor.Core.Tests.Unit;
 
@@ -9,7 +12,7 @@ public class ChoiceDatabaseTests
     [Fact]
     public void AllChoices_HasEntries()
     {
-        Assert.NotEmpty(ChoiceDatabase.AllChoices);
+        Assert.NotEmpty(TestSeasons.AllChoices);
     }
 
     [Theory]
@@ -17,7 +20,7 @@ public class ChoiceDatabaseTests
     [InlineData("s1_400days")]
     public void ForSeason_ReturnsChoices(string seasonKey)
     {
-        var choices = ChoiceDatabase.ForSeason(seasonKey).ToList();
+        var choices = TestSeasons.ChoicesFor(seasonKey).ToList();
         Assert.NotEmpty(choices);
         Assert.All(choices, c => Assert.Equal(seasonKey, c.SeasonKey));
     }
@@ -29,7 +32,7 @@ public class ChoiceDatabaseTests
     [InlineData("michonne", 15)]
     public void ForSeason_GameSourcedSeasons_HaveChoices(string seasonKey, int minCount)
     {
-        var choices = ChoiceDatabase.ForSeason(seasonKey).ToList();
+        var choices = TestSeasons.ChoicesFor(seasonKey).ToList();
         Assert.True(choices.Count >= minCount,
             $"{seasonKey}: expected >= {minCount}, got {choices.Count}");
         Assert.All(choices, c => Assert.Equal(seasonKey, c.SeasonKey));
@@ -38,7 +41,7 @@ public class ChoiceDatabaseTests
     [Fact]
     public void AllChoices_HaveValidStructure()
     {
-        foreach (var choice in ChoiceDatabase.AllChoices)
+        foreach (var choice in TestSeasons.AllChoices)
         {
             Assert.NotEmpty(choice.Description);
             Assert.NotEmpty(choice.ChoiceKey);
@@ -55,11 +58,10 @@ public class ChoiceDatabaseTests
     [Fact]
     public void DetectCurrentChoice_MatchesChoice()
     {
-        // Build a choices PropertySet with a real entry
         var ps = new PropertySet();
         var typeSymbol = new Symbol(TelltaleTypes.ChoicesContainer);
         var group = new TypeGroup(typeSymbol);
-        var raw = SaveAccessor.SerializeStringBoolArray([
+        var raw = ChoicesContainer.Serialize([
             ("dougcarley_saved - carley", true)
         ]);
         group.Properties.Add(new Property(
@@ -69,11 +71,11 @@ public class ChoiceDatabaseTests
 
         var accessor = new SaveAccessor(ps);
 
-        var choice = ChoiceDatabase.ForEpisode("s1", 1)
+        var choice = TestSeasons.ChoicesFor("s1", 1)
             .First(c => c.ChoiceKey == "dougcarley_saved");
 
         var detected = accessor.DetectCurrentChoice(choice);
-        Assert.Equal(1, detected); // "Saved Carley" is option 1
+        Assert.Equal(1, detected);
     }
 
     [Fact]
@@ -82,7 +84,7 @@ public class ChoiceDatabaseTests
         var ps = new PropertySet();
         var typeSymbol = new Symbol(TelltaleTypes.ChoicesContainer);
         var group = new TypeGroup(typeSymbol);
-        var raw = SaveAccessor.SerializeStringBoolArray([
+        var raw = ChoicesContainer.Serialize([
             ("dougcarley_saved - carley", true)
         ]);
         group.Properties.Add(new Property(
@@ -92,10 +94,9 @@ public class ChoiceDatabaseTests
 
         var accessor = new SaveAccessor(ps);
 
-        var choice = ChoiceDatabase.ForEpisode("s1", 1)
+        var choice = TestSeasons.ChoicesFor("s1", 1)
             .First(c => c.ChoiceKey == "dougcarley_saved");
 
-        // Apply "Saved Doug" (option 0)
         accessor.ApplyChoice(choice, 0);
         Assert.Equal("doug", accessor.GetChoiceValue("dougcarley_saved"));
     }
@@ -106,29 +107,50 @@ public class ChoiceDatabaseTests
         var ps = new PropertySet();
         var accessor = new SaveAccessor(ps);
 
-        var choice = ChoiceDatabase.AllChoices.First();
+        var choice = TestSeasons.AllChoices.First();
         Assert.Equal(-1, accessor.DetectCurrentChoice(choice));
     }
 
     [Fact]
-    public void SeasonInfo_HasAllSeasons()
+    public void Registry_HasAllSeasons()
     {
-        Assert.Equal(6, SeasonInfo.Seasons.Length);
+        Assert.Equal(6, TestSeasons.Registry.All.Count);
     }
 
     [Fact]
-    public void SeasonInfo_FindSeason_Works()
+    public void Registry_Get_Works()
     {
-        var s1 = SeasonInfo.FindSeason("s1");
+        var s1 = TestSeasons.Registry.Get("s1");
         Assert.NotNull(s1);
         Assert.Equal("Season 1", s1.Name);
-        Assert.Equal(5, s1.EpisodeCount);
+        Assert.Equal(5, s1.Episodes.Count);
     }
 
     [Fact]
-    public void SeasonInfo_FindSeason_CaseInsensitive()
+    public void Registry_Get_CaseInsensitive()
     {
-        Assert.NotNull(SeasonInfo.FindSeason("S1"));
-        Assert.NotNull(SeasonInfo.FindSeason("MICHONNE"));
+        Assert.NotNull(TestSeasons.Registry.Get("S1"));
+        Assert.NotNull(TestSeasons.Registry.Get("MICHONNE"));
+    }
+
+    [Theory]
+    [InlineData("s1", "WalkingDead101")]
+    [InlineData("s1_400days", "WalkingDead104")]
+    [InlineData("s2", "WalkingDead201")]
+    [InlineData("s3", "WalkingDead301")]
+    [InlineData("s4", "WalkingDead401")]
+    [InlineData("michonne", "Michonne101")]
+    public void Season_HasScenesForItsEpisodes(string seasonKey, string episodeId)
+    {
+        var season = TestSeasons.Registry.Get(seasonKey)!;
+        Assert.NotEmpty(season.GetScenes(episodeId));
+        Assert.Equal(season.GetScenes(episodeId), TestSeasons.Registry.GetScenes(episodeId));
+    }
+
+    [Fact]
+    public void Season_HasNoScenesForOtherSeasonsEpisodes()
+    {
+        Assert.Empty(TestSeasons.Registry.Get("s1")!.GetScenes("WalkingDead201"));
+        Assert.Empty(TestSeasons.Registry.GetScenes("NoSuchEpisode"));
     }
 }

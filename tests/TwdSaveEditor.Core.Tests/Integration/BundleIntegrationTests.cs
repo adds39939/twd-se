@@ -1,11 +1,8 @@
-using TwdSaveEditor.Core.Binary;
-using TwdSaveEditor.Core.GameData;
+using TwdSaveEditor.Core.Binary.Bundles;
+using TwdSaveEditor.Season.Base.Accessors;
 
 namespace TwdSaveEditor.Core.Tests.Integration;
 
-/// <summary>
-/// Integration tests that parse real sample .bundle save files from TestData.
-/// </summary>
 public class BundleIntegrationTests
 {
     [Fact]
@@ -31,7 +28,6 @@ public class BundleIntegrationTests
         var allChoices = accessor.GetAllChoices();
         Assert.NotEmpty(allChoices);
 
-        // Should find at least one known S1 choice key
         var knownKeys = new[] { "dougcarley_saved", "lied_to_hershel", "shawnduck_choice" };
         Assert.True(allChoices.Any(c => knownKeys.Contains(c.key)),
             $"Expected at least one known choice key. Found: {string.Join(", ", allChoices.Select(c => c.key).Take(5))}");
@@ -43,17 +39,14 @@ public class BundleIntegrationTests
         var path = TestDataHelper.GetPath("S1", "wd1_saveslot2.bundle");
         var slot = BundleReader.Read(path);
 
-        // Write it back
         var output = BundleWriter.Write(slot);
         Assert.NotNull(output);
         Assert.True(output.Length > 0);
 
-        // Re-parse the written output
         var reparsed = BundleReader.Read(output, "test.bundle");
         Assert.NotNull(reparsed.Metadata);
         Assert.NotNull(reparsed.Choices);
 
-        // Verify choices survive round-trip
         var origAccessor = new SaveAccessor(slot.Choices!, slot.Metadata);
         var newAccessor = new SaveAccessor(reparsed.Choices!, reparsed.Metadata);
 

@@ -5,7 +5,17 @@
     <Platform Name="x86" />
   </Configurations>
   <Folder Name="/src/">
+    <Project Path="src/TwdSaveEditor.Bootstrap/TwdSaveEditor.Bootstrap.csproj" />
+    <Project Path="src/TwdSaveEditor.Core.Binary/TwdSaveEditor.Core.Binary.csproj" />
     <Project Path="src/TwdSaveEditor.Core/TwdSaveEditor.Core.csproj" />
+    <Project Path="src/TwdSaveEditor.Season.Base/TwdSaveEditor.Season.Base.csproj" />
+    <Project Path="src/TwdSaveEditor.Season.Common/TwdSaveEditor.Season.Common.csproj" />
+    <Project Path="src/TwdSaveEditor.Season.Michonne/TwdSaveEditor.Season.Michonne.csproj" />
+    <Project Path="src/TwdSaveEditor.Season.S1/TwdSaveEditor.Season.S1.csproj" />
+    <Project Path="src/TwdSaveEditor.Season.S2/TwdSaveEditor.Season.S2.csproj" />
+    <Project Path="src/TwdSaveEditor.Season.S3/TwdSaveEditor.Season.S3.csproj" />
+    <Project Path="src/TwdSaveEditor.Season.S4/TwdSaveEditor.Season.S4.csproj" />
+    <Project Path="src/TwdSaveEditor.UI/TwdSaveEditor.UI.csproj" />
     <Project Path="src/TwdSaveEditor.Web/TwdSaveEditor.Web.csproj" />
   </Folder>
   <Folder Name="/tests/">

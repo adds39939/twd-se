@@ -1,8 +1,5 @@
 namespace TwdSaveEditor.Core.Hashing;
 
-/// <summary>
-/// Known CRC64 type hashes used in Telltale's PropertySet serialization.
-/// </summary>
 public static class TelltaleTypes
 {
     public static readonly ulong Bool = TelltaleHash.ComputeCrc64("bool");
@@ -13,9 +10,5 @@ public static class TelltaleTypes
     public static readonly ulong Flags = TelltaleHash.ComputeCrc64("Flags");
     public static readonly ulong PropertySet = TelltaleHash.ComputeCrc64("PropertySet");
 
-    /// <summary>
-    /// The container type used in choices.prop for episode choice data.
-    /// Each value is a DCArray of (String, bool) pairs.
-    /// </summary>
     public const ulong ChoicesContainer = 0x8AD17AD4CB809956;
 }

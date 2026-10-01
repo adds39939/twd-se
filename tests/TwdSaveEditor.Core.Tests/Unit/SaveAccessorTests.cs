@@ -1,22 +1,20 @@
-using TwdSaveEditor.Core.GameData;
+using TwdSaveEditor.Core.Binary.PropertySets;
 using TwdSaveEditor.Core.Hashing;
 using TwdSaveEditor.Core.Model;
+using TwdSaveEditor.Core.Tests.Support;
+using TwdSaveEditor.Season.Base.Accessors;
 
 namespace TwdSaveEditor.Core.Tests.Unit;
 
 public class SaveAccessorTests
 {
-    /// <summary>
-    /// Create a choices PropertySet with one ChoicesContainer type group
-    /// containing one property with the given string-bool entries.
-    /// </summary>
     private static (PropertySet ps, SaveAccessor accessor) CreateWithChoices(
         params (string str, bool boolVal)[] entries)
     {
         var ps = new PropertySet();
         var typeSymbol = new Symbol(TelltaleTypes.ChoicesContainer);
         var group = new TypeGroup(typeSymbol);
-        var raw = SaveAccessor.SerializeStringBoolArray(entries.ToList());
+        var raw = ChoicesContainer.Serialize(entries.ToList());
         group.Properties.Add(new Property(
             Symbol.FromString("episode_1_choices"),
             new RawBytesValue(raw, typeSymbol)));
@@ -76,11 +74,11 @@ public class SaveAccessorTests
         var (_, accessor) = CreateWithChoices(
             ("dougcarley_saved - carley", true));
 
-        var choice = ChoiceDatabase.ForEpisode("s1", 1)
+        var choice = TestSeasons.ChoicesFor("s1", 1)
             .First(c => c.ChoiceKey == "dougcarley_saved");
 
         var detected = accessor.DetectCurrentChoice(choice);
-        Assert.Equal(1, detected); // "Saved Carley" is option index 1
+        Assert.Equal(1, detected);
     }
 
     [Fact]
@@ -89,7 +87,7 @@ public class SaveAccessorTests
         var ps = new PropertySet();
         var accessor = new SaveAccessor(ps);
 
-        var choice = ChoiceDatabase.AllChoices.First();
+        var choice = TestSeasons.AllChoices.First();
         Assert.Equal(-1, accessor.DetectCurrentChoice(choice));
     }
 
@@ -99,14 +97,12 @@ public class SaveAccessorTests
         var (_, accessor) = CreateWithChoices(
             ("dougcarley_saved - carley", true));
 
-        var choice = ChoiceDatabase.ForEpisode("s1", 1)
+        var choice = TestSeasons.ChoicesFor("s1", 1)
             .First(c => c.ChoiceKey == "dougcarley_saved");
 
-        // Apply "Saved Doug" (option 0)
         accessor.ApplyChoice(choice, 0);
         Assert.Equal(0, accessor.DetectCurrentChoice(choice));
 
-        // Apply "Saved Carley" (option 1)
         accessor.ApplyChoice(choice, 1);
         Assert.Equal(1, accessor.DetectCurrentChoice(choice));
     }
@@ -120,8 +116,8 @@ public class SaveAccessorTests
             ("another - thing", false),
         };
 
-        var bytes = SaveAccessor.SerializeStringBoolArray(original);
-        var parsed = SaveAccessor.ParseStringBoolArray(bytes);
+        var bytes = ChoicesContainer.Serialize(original);
+        var parsed = ChoicesContainer.Parse(bytes);
 
         Assert.Equal(original.Count, parsed.Count);
         for (int i = 0; i < original.Count; i++)

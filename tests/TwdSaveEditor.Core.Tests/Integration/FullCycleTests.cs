@@ -1,7 +1,19 @@
-using TwdSaveEditor.Core.Binary;
-using TwdSaveEditor.Core.GameData;
-using TwdSaveEditor.Core.GameData.Seasons;
+using TwdSaveEditor.Core.Binary.Bundles;
 using TwdSaveEditor.Core.Model;
+using TwdSaveEditor.Core.Tests.Support;
+using TwdSaveEditor.Season.Base.Accessors;
+using TwdSaveEditor.Season.Base.Services;
+using TwdSaveEditor.Season.Common.Abstractions;
+using TwdSaveEditor.Season.Common.Extensions;
+using TwdSaveEditor.Season.Common.Services;
+using TwdSaveEditor.Season.Michonne.Choices;
+using TwdSaveEditor.Season.Michonne.Handlers;
+using TwdSaveEditor.Season.S1.Handlers;
+using TwdSaveEditor.Season.S2.Handlers;
+using TwdSaveEditor.Season.S3.Choices;
+using TwdSaveEditor.Season.S3.Handlers;
+using TwdSaveEditor.Season.S4.Accessors;
+using TwdSaveEditor.Season.S4.Handlers;
 
 namespace TwdSaveEditor.Core.Tests.Integration;
 
@@ -18,21 +30,17 @@ public class FullCycleTests
     [InlineData("s2", "shot_kenny", "true", "false")]
     public void S1S2_CreateEditSaveReload(string season, string choiceKey, string value1, string value2)
     {
-        // Create a new save with defaults
-        var slot = SaveSlotFactory.CreateForSeason(Registry, season, 5, "test.bundle");
+        var slot = Registry.CreateSave(season, 5, "test.bundle");
         var accessor = new SaveAccessor(slot.Choices!);
 
-        // Set to value1
         accessor.SetChoiceValue(choiceKey, value1);
         Assert.Equal(value1, accessor.GetChoiceValue(choiceKey));
 
-        // Write and reload
         var bytes = BundleWriter.Write(slot);
         var reloaded = BundleReader.Read(bytes, "test.bundle");
         var reloadedAccessor = new SaveAccessor(reloaded.Choices!);
         Assert.Equal(value1, reloadedAccessor.GetChoiceValue(choiceKey));
 
-        // Set to value2 and round-trip again
         reloadedAccessor.SetChoiceValue(choiceKey, value2);
         var bytes2 = BundleWriter.Write(reloaded);
         var reloaded2 = BundleReader.Read(bytes2, "test.bundle");
@@ -49,33 +57,28 @@ public class FullCycleTests
             var mgr = new SaveManager(Registry, tempDir);
             var slot = mgr.CreateNewSave("wd3_saveslot1.bundle", "s3", 2);
 
-            // Verify the save was created with estore/epage
             Assert.True(File.Exists(slot.FilePath));
             Assert.NotNull(slot.EStorePath);
             Assert.True(File.Exists(slot.EStorePath));
 
-            // Reload and verify choices via EventLogAccessor
             var reloaded = BundleReader.Read(slot.FilePath);
             reloaded.EStorePath = slot.EStorePath;
             reloaded.EPagePaths = slot.EPagePaths;
             reloaded.DetectedSeasonKey = "s3";
 
-            var accessor = new EventLogAccessor(reloaded);
+            var accessor = new EventLogAccessor(reloaded, S3ChoiceNodes.Map);
             Assert.True(accessor.HasEventLog);
 
-            // An S3 Ep1 choice should be present
             var allChoices = accessor.GetAllChoices();
             Assert.True(allChoices.Count > 0, "Expected choices from created S3 EventLog");
 
-            // Modify a choice and verify it sticks
-            var choiceDef = ChoiceDatabase.ForSeason("s3").FirstOrDefault(c => c.Options.Length >= 2);
+            var choiceDef = TestSeasons.ChoicesFor("s3").FirstOrDefault(c => c.Options.Length >= 2);
             if (choiceDef != null)
             {
                 var originalVal = accessor.GetChoiceValue(choiceDef.ChoiceKey);
                 var altOption = choiceDef.Options.First(o => o.Value != originalVal);
                 accessor.SetChoiceValue(choiceDef.ChoiceKey, altOption.Value);
 
-                // Re-read to verify
                 accessor.InvalidateCache();
                 Assert.Equal(altOption.Value, accessor.GetChoiceValue(choiceDef.ChoiceKey));
             }
@@ -89,17 +92,14 @@ public class FullCycleTests
     [Fact]
     public void S4_CreateEditSaveReload_WithChoiceStats()
     {
-        // Create
-        var slot = SaveSlotFactory.CreateForSeason(Registry, "s4", 1, "test_s4.bundle");
+        var slot = Registry.CreateSave("s4", 1, "test_s4.bundle");
         Assert.NotNull(slot.ChoiceStats);
 
         var accessor = new ChoiceStatsAccessor(slot);
 
-        // Edit
         accessor.SetChoiceValue("aj_bed", "under");
         Assert.Equal("under", accessor.GetChoiceValue("aj_bed"));
 
-        // Write and reload
         var bytes = BundleWriter.Write(slot);
         var reloaded = BundleReader.Read(bytes, "test_s4.bundle");
         Assert.NotNull(reloaded.ChoiceStats);
@@ -107,7 +107,6 @@ public class FullCycleTests
         var reloadedAccessor = new ChoiceStatsAccessor(reloaded);
         Assert.Equal("under", reloadedAccessor.GetChoiceValue("aj_bed"));
 
-        // Edit again
         reloadedAccessor.SetChoiceValue("aj_bed", "on");
         var bytes2 = BundleWriter.Write(reloaded);
         var reloaded2 = BundleReader.Read(bytes2, "test_s4.bundle");
@@ -128,13 +127,12 @@ public class FullCycleTests
             Assert.NotNull(slot.EStorePath);
             Assert.True(File.Exists(slot.EStorePath));
 
-            // Reload and verify choices via EventLogAccessor
             var reloaded = BundleReader.Read(slot.FilePath);
             reloaded.EStorePath = slot.EStorePath;
             reloaded.EPagePaths = slot.EPagePaths;
             reloaded.DetectedSeasonKey = "michonne";
 
-            var accessor = new EventLogAccessor(reloaded);
+            var accessor = new EventLogAccessor(reloaded, MichonneChoiceNodes.Map);
             Assert.True(accessor.HasEventLog);
 
             var allChoices = accessor.GetAllChoices();
@@ -149,23 +147,18 @@ public class FullCycleTests
     [Fact]
     public void S1ToS2_ChoiceImport_CopiesAllChoices()
     {
-        // Create an S1 save with choices
-        var s1 = SaveSlotFactory.CreateForSeason(Registry, "s1", 3, "wd1_test.bundle");
+        var s1 = Registry.CreateSave("s1", 3, "wd1_test.bundle");
         var s1Accessor = new SaveAccessor(s1.Choices!);
         s1Accessor.SetChoiceValue("dougcarley_saved", "carley");
 
-        // Create an S2 save
-        var s2 = SaveSlotFactory.CreateForSeason(Registry, "s2", 1, "wd2_test.bundle");
+        var s2 = Registry.CreateSave("s2", 1, "wd2_test.bundle");
         var s2Accessor = new SaveAccessor(s2.Choices!);
 
-        // Import S1 choices into S2
         foreach (var (key, value) in s1Accessor.GetAllChoices())
             s2Accessor.SetChoiceValue(key, value);
 
-        // Verify the imported choice exists in S2
         Assert.Equal("carley", s2Accessor.GetChoiceValue("dougcarley_saved"));
 
-        // Round-trip: write S2, read back, verify choices survived
         var written = BundleWriter.Write(s2);
         var reloaded = BundleReader.Read(written, "wd2_test.bundle");
         var reloadedAccessor = new SaveAccessor(reloaded.Choices!);
@@ -177,16 +170,14 @@ public class FullCycleTests
     [InlineData("violetlouis_saved", "louis")]
     public void S4_LouisPreset_SetsCorrectValues(string choiceKey, string expectedValue)
     {
-        var slot = SaveSlotFactory.CreateForSeason(Registry, "s4", 2, "wd4_test.bundle");
+        var slot = Registry.CreateSave("s4", 2, "wd4_test.bundle");
         var accessor = new ChoiceStatsAccessor(slot);
 
-        // Apply Louis preset choices
         accessor.SetChoiceValue("follow_violet_louis", "louis");
         accessor.SetChoiceValue("violetlouis_saved", "louis");
 
         Assert.Equal(expectedValue, accessor.GetChoiceValue(choiceKey));
 
-        // Round-trip
         var written = BundleWriter.Write(slot);
         var reloaded = BundleReader.Read(written, "wd4_test.bundle");
         var ra = new ChoiceStatsAccessor(reloaded);
@@ -198,7 +189,7 @@ public class FullCycleTests
     [InlineData("violetlouis_saved", "violet")]
     public void S4_VioletPreset_SetsCorrectValues(string choiceKey, string expectedValue)
     {
-        var slot = SaveSlotFactory.CreateForSeason(Registry, "s4", 2, "wd4_test.bundle");
+        var slot = Registry.CreateSave("s4", 2, "wd4_test.bundle");
         var accessor = new ChoiceStatsAccessor(slot);
 
         accessor.SetChoiceValue("follow_violet_louis", "violet");
@@ -215,19 +206,16 @@ public class FullCycleTests
 
         Assert.NotNull(slot.Metadata);
 
-        // Should have playtime property
         var playtime = slot.Metadata.AllProperties
             .FirstOrDefault(p => p.KeySymbol.Value == 0x7C725227A47FD1BA);
         Assert.NotNull(playtime);
         Assert.IsType<IntValue>(playtime.Value);
 
-        // Should have episode progress
         var progress = slot.Metadata.AllProperties
             .FirstOrDefault(p => p.KeySymbol.Value == 0xB218E7C003A67CE9);
         Assert.NotNull(progress);
         Assert.IsType<StringValue>(progress.Value);
 
-        // Should have autosave file
         var autosave = slot.Metadata.AllProperties
             .FirstOrDefault(p => p.KeySymbol.Value == 0xF235E9FCE9562E01);
         Assert.NotNull(autosave);
@@ -240,7 +228,6 @@ public class FullCycleTests
         var path = TestDataHelper.GetPath("S1", "_wd1_saveslot1_autosave.bundle");
         var slot = BundleReader.Read(path);
 
-        // Autosave uses metadata_save.p not metadata_slot.p
         Assert.NotNull(slot.Metadata);
         Assert.Equal(2u, slot.Metadata.Version);
         Assert.True(slot.Metadata.AllProperties.Any());
@@ -252,14 +239,11 @@ public class FullCycleTests
         var path = TestDataHelper.GetPath("S1", "_wd1_saveslot1_autosave.bundle");
         var slot = BundleReader.Read(path);
 
-        // Autosave has hundreds of entries, most with binary hash names
         Assert.True(slot.FileTable.Count > 2);
 
-        // Hash-only entries should be named _hash_NNNN
         var hashEntries = slot.FileTable.Where(f => f.Name.StartsWith("_hash_")).ToList();
         Assert.True(hashEntries.Count > 0, "Expected hash-only file table entries");
 
-        // Named entries should still be accessible
         var namedEntries = slot.FileTable.Where(f => !f.Name.StartsWith("_hash_")).ToList();
         Assert.Contains(namedEntries, f => f.Name == "metadata_save.p");
         Assert.Contains(namedEntries, f => f.Name == "default.save");
@@ -293,7 +277,6 @@ public class FullCycleTests
         Assert.NotNull(slot.Metadata);
         Assert.NotNull(slot.DetectedSeasonKey);
 
-        // Verify round-trip doesn't crash
         var written = BundleWriter.Write(slot);
         Assert.True(written.Length > 0);
 

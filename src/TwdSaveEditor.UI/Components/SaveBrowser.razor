@@ -1,0 +1,65 @@
+<div class="save-browser">
+    <div class="browser-header">
+        @if (_isSupported || !_supportChecked)
+        {
+            <button class="btn-accent w-full" data-testid="open-directory" @onclick="OpenDirectory" disabled="@Editor.IsLoading">
+                @if (Editor.IsLoading)
+                {
+                    <span>Loading...</span>
+                }
+                else
+                {
+                    <FolderIcon Size="14" />
+                    <span>Open Save Directory</span>
+                }
+            </button>
+        }
+        else
+        {
+            <div class="upload-area">
+                <p class="text-muted">Your browser doesn't support directory access. Upload save files instead:</p>
+                <InputFile OnChange="OnFilesUploaded" multiple accept=".bundle,.estore,.epage" />
+            </div>
+        }
+
+        @if (Editor.DirectoryName != null)
+        {
+            <button class="w-full new-save-btn" data-testid="new-save-btn" @onclick="ShowNewSaveDialog">
+                + New Save
+            </button>
+        }
+    </div>
+
+    @if (Editor.DirectoryName != null)
+    {
+        <div class="dir-info">
+            <span class="dir-name" title="@Editor.DirectoryName">@Editor.DirectoryName</span>
+            <span class="dir-count">@Editor.Saves.Count file(s)</span>
+        </div>
+    }
+
+    <div class="save-list" data-testid="save-list">
+        @foreach (var save in Editor.Saves)
+        {
+            var isSelected = save == Editor.SelectedSave;
+            <div class="save-item @(isSelected ? "selected" : "")" @onclick="() => SelectSave(save)">
+                <div class="save-name">@save.FileName</div>
+                <div class="save-meta">
+                    @if (save.DetectedSeasonKey != null)
+                    {
+                        <span class="badge">@GetSeasonLabel(save.DetectedSeasonKey)</span>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+
+    @if (!_isSupported && _supportChecked && Editor.Saves.Count > 0)
+    {
+        <div class="browser-footer">
+            <button class="btn-sm w-full" @onclick="DownloadSelected" disabled="@(Editor.SelectedSave == null)">
+                &#x1F4E5; Download Selected Save
+            </button>
+        </div>
+    }
+</div>

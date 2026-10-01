@@ -31,13 +31,12 @@ public class TelltaleHashTests
     public void ComputeCrc64_EmptyString_DoesNotThrow()
     {
         var hash = TelltaleHash.ComputeCrc64("");
-        Assert.Equal(0UL, hash); // CRC64 of empty input is 0
+        Assert.Equal(0UL, hash);
     }
 
     [Fact]
     public void ComputeCrc64_KnownValues_AreStable()
     {
-        // These values should remain constant across runs
         var hashBool = TelltaleHash.ComputeCrc64("bool");
         var hashBool2 = TelltaleHash.ComputeCrc64("bool");
         Assert.Equal(hashBool, hashBool2);

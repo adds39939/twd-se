@@ -1,0 +1,56 @@
+{
+  "WalkingDead401": [
+    "adv_roadTile",
+    "adv_forestTile",
+    "adv_forestShack",
+    "adv_trainStation",
+    "adv_trainStationNight",
+    "adv_boardingSchoolExterior",
+    "adv_boardingSchoolExteriorGate",
+    "adv_boardingSchoolExteriorNight",
+    "adv_boardingSchoolInterior",
+    "adv_boardingSchoolDorm",
+    "adv_boardingSchoolDormNight",
+    "adv_boardingSchoolBasement"
+  ],
+  "WalkingDead402": [
+    "adv_boardingSchoolExterior",
+    "adv_boardingSchoolExteriorGate",
+    "adv_boardingSchoolExteriorNight",
+    "adv_boardingSchoolExteriorGateNight",
+    "adv_boardingSchoolExteriorDusk",
+    "adv_boardingSchoolExteriorDamaged",
+    "adv_boardingSchoolInterior",
+    "adv_boardingSchoolInteriorNight",
+    "adv_boardingSchoolDorm",
+    "adv_boardingSchoolDormNight",
+    "adv_dormRoom",
+    "adv_forestTile",
+    "adv_forestCamp",
+    "adv_greenHouse",
+    "adv_bellTower"
+  ],
+  "WalkingDead403": [
+    "adv_boardingSchoolDorm",
+    "adv_boardingSchoolExteriorBasement",
+    "adv_boardingSchoolInterior",
+    "adv_forestBarn",
+    "adv_forestCamp",
+    "adv_trainTile",
+    "adv_riverShoreline",
+    "adv_riverShorelineNight",
+    "adv_riverBoat"
+  ],
+  "WalkingDead404": [
+    "adv_boardingSchoolDorm",
+    "adv_boardingSchoolExterior",
+    "adv_boardingSchoolExteriorGate",
+    "adv_riverBoat",
+    "adv_riverShorelineNight",
+    "adv_cave",
+    "adv_cliffBridge",
+    "adv_forestBarn",
+    "adv_forestShack",
+    "adv_fortMcCarrolRanch"
+  ]
+}

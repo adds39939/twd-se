@@ -1,0 +1,126 @@
+using Microsoft.Playwright;
+using TwdSaveEditor.Playwright.Fixtures;
+using TwdSaveEditor.Playwright.Support;
+
+namespace TwdSaveEditor.Playwright.Tests;
+
+[Collection(PlaywrightCollection.Name)]
+public class FeatureTests
+{
+    private readonly PlaywrightFixture _fixture;
+
+    public FeatureTests(PlaywrightFixture fixture) => _fixture = fixture;
+
+    private Task InjectSaveFile(IPage page, string testDataSeason, string fileName)
+        => InjectMultipleSaveFiles(page, (testDataSeason, fileName));
+
+    private async Task InjectMultipleSaveFiles(IPage page, params (string season, string fileName)[] files)
+    {
+        var directory = new Dictionary<string, string>();
+        foreach (var (season, fileName) in files)
+            await FakeSaveDirectory.AddSaveAsync(directory, season, fileName);
+
+        await FakeSaveDirectory.InstallAsync(page, directory);
+    }
+
+    private async Task LoadAndSelectFirstSave(IPage page)
+    {
+        var openDirBtn = page.Locator("[data-testid='open-directory']");
+        await openDirBtn.ClickAsync();
+
+        var saveItems = page.Locator(".save-item");
+        await saveItems.First.WaitForAsync(new LocatorWaitForOptions { Timeout = 10000 });
+        await saveItems.First.ClickAsync();
+
+        var decisionEditor = page.Locator(".decision-editor");
+        await decisionEditor.WaitForAsync(new LocatorWaitForOptions { Timeout = 10000 });
+    }
+
+    [Fact]
+    public async Task ResumePointTab_ShowsPlaytimeField()
+    {
+        var page = await _fixture.NewPage();
+        await InjectSaveFile(page, "S1", "wd1_saveslot2.bundle");
+        await LoadAndSelectFirstSave(page);
+
+        var resumeTab = page.Locator("[data-testid='tab-resume']");
+        await resumeTab.ClickAsync();
+
+        var playtimeLabel = page.Locator("label:has-text('Playtime')");
+        await Assertions.Expect(playtimeLabel).ToBeVisibleAsync();
+
+        var playtimeInput = page.Locator("input[type='number']").First;
+        await Assertions.Expect(playtimeInput).ToBeVisibleAsync();
+    }
+
+    [Fact]
+    public async Task ResumePointTab_ShowsAutosaveFileField()
+    {
+        var page = await _fixture.NewPage();
+        await InjectSaveFile(page, "S1", "wd1_saveslot2.bundle");
+        await LoadAndSelectFirstSave(page);
+
+        var resumeTab = page.Locator("[data-testid='tab-resume']");
+        await resumeTab.ClickAsync();
+
+        var label = page.Locator("label:has-text('Autosave File')");
+        await Assertions.Expect(label).ToBeVisibleAsync();
+    }
+
+    [Fact]
+    public async Task S4Save_ShowsPresetButtons()
+    {
+        var page = await _fixture.NewPage();
+        await InjectSaveFile(page, "S4", "wd4_saveslot1.bundle");
+        await LoadAndSelectFirstSave(page);
+
+        var decisionsTab = page.Locator("[data-testid='tab-decisions']");
+        await decisionsTab.ClickAsync();
+
+        var saveLouisBtn = page.GetByRole(AriaRole.Button, new() { Name = "Save Louis Path" });
+        await Assertions.Expect(saveLouisBtn).ToBeVisibleAsync();
+
+        var saveVioletBtn = page.GetByRole(AriaRole.Button, new() { Name = "Save Violet Path" });
+        await Assertions.Expect(saveVioletBtn).ToBeVisibleAsync();
+
+        var trustAjBtn = page.GetByRole(AriaRole.Button, new() { Name = "Trust AJ Path" });
+        await Assertions.Expect(trustAjBtn).ToBeVisibleAsync();
+    }
+
+    [Fact]
+    public async Task S1AndS2Loaded_ShowsImportButton()
+    {
+        var page = await _fixture.NewPage();
+        await InjectMultipleSaveFiles(page,
+            ("S1", "wd1_saveslot2.bundle"),
+            ("S2", "wd2_saveslot1.bundle"));
+
+        var openDirBtn = page.Locator("[data-testid='open-directory']");
+        await openDirBtn.ClickAsync();
+
+        var saveItems = page.Locator(".save-item");
+        await saveItems.First.WaitForAsync(new LocatorWaitForOptions { Timeout = 10000 });
+
+        var s2Save = page.Locator(".save-item", new() { HasText = "wd2" });
+        if (await s2Save.CountAsync() == 0)
+        {
+            s2Save = page.Locator(".save-item", new() { HasText = "Season 2" });
+        }
+
+        if (await s2Save.CountAsync() == 0)
+        {
+            s2Save = saveItems.Nth(1);
+        }
+
+        await s2Save.First.ClickAsync();
+
+        var decisionEditor = page.Locator(".decision-editor");
+        await decisionEditor.WaitForAsync(new LocatorWaitForOptions { Timeout = 10000 });
+
+        var decisionsTab = page.Locator("[data-testid='tab-decisions']");
+        await decisionsTab.ClickAsync();
+
+        var importBtn = page.GetByRole(AriaRole.Button, new() { Name = "Import" });
+        await Assertions.Expect(importBtn).ToBeVisibleAsync();
+    }
+}

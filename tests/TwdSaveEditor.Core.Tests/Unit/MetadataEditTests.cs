@@ -1,11 +1,9 @@
-using TwdSaveEditor.Core.GameData;
+using TwdSaveEditor.Core.Binary.Bundles;
+using TwdSaveEditor.Core.Binary.PropertySets;
 using TwdSaveEditor.Core.Model;
 
 namespace TwdSaveEditor.Core.Tests.Unit;
 
-/// <summary>
-/// Tests that metadata int/string/bool properties can be read and modified in-place.
-/// </summary>
 public class MetadataEditTests
 {
     private static PropertySet CreateMetadata()
@@ -16,7 +14,6 @@ public class MetadataEditTests
     {
         var metadata = CreateMetadata();
 
-        // Hash 0x7C725227A47FD1BA is the first int property (playtime / chapter count)
         var prop = metadata.AllProperties
             .FirstOrDefault(p => p.KeySymbol.Value == 0x7C725227A47FD1BA);
 
@@ -25,7 +22,7 @@ public class MetadataEditTests
 
         var intVal = (IntValue)prop.Value;
         var original = intVal.Value;
-        Assert.Equal(1, original); // default from CreateBlankMetadata
+        Assert.Equal(1, original);
 
         intVal.Value = 12345;
         Assert.Equal(12345, ((IntValue)prop.Value).Value);
@@ -36,7 +33,6 @@ public class MetadataEditTests
     {
         var metadata = CreateMetadata();
 
-        // Hash 0xB218E7C003A67CE9 is the episode progress string
         var prop = metadata.AllProperties
             .FirstOrDefault(p => p.KeySymbol.Value == 0xB218E7C003A67CE9);
 
@@ -55,7 +51,6 @@ public class MetadataEditTests
     {
         var metadata = CreateMetadata();
 
-        // Hash 0xF235E9FCE9562E01 is the autosave filename string
         var prop = metadata.AllProperties
             .FirstOrDefault(p => p.KeySymbol.Value == 0xF235E9FCE9562E01);
 
@@ -74,7 +69,6 @@ public class MetadataEditTests
     {
         var metadata = CreateMetadata();
 
-        // Hash 0x4F8338150CC8BCD6 is the bool property (game complete)
         var prop = metadata.AllProperties
             .FirstOrDefault(p => p.KeySymbol.Value == 0x4F8338150CC8BCD6);
 
@@ -82,20 +76,14 @@ public class MetadataEditTests
         Assert.IsType<BoolValue>(prop.Value);
 
         var boolVal = (BoolValue)prop.Value;
-        Assert.True(boolVal.Value); // default from CreateBlankMetadata
+        Assert.True(boolVal.Value);
 
         boolVal.Value = false;
         Assert.False(((BoolValue)prop.Value).Value);
     }
 
-    /// <summary>
-    /// Simulates editing metadata on a minimal save (like a real game save)
-    /// where properties like mEpisodeNumber/mChapterNumber don't exist yet.
-    /// The editor should create them.
-    /// </summary>
     private static PropertySet CreateMinimalMetadata()
     {
-        // Real game saves only have 2 ints + 1 string — no episode/chapter/gameComplete
         var int32Symbol = Symbol.FromString("int32");
         var stringSymbol = Symbol.FromString("String");
 
@@ -130,15 +118,12 @@ public class MetadataEditTests
         var metadata = CreateMinimalMetadata();
         var symbol = Symbol.FromString("mEpisodeNumber");
 
-        // Property shouldn't exist yet
         Assert.Null(metadata.AllProperties.FirstOrDefault(p => p.KeySymbol == symbol));
 
-        // Simulate what ResumePointEditor.SetMetadataInt does
         var int32Symbol = Symbol.FromString("int32");
         var group = metadata.TypeGroups.FirstOrDefault(g => g.TypeSymbol == int32Symbol)!;
         group.Properties.Add(new Property(symbol, new IntValue(3)));
 
-        // Should exist now
         var prop = metadata.AllProperties.FirstOrDefault(p => p.KeySymbol == symbol);
         Assert.NotNull(prop);
         Assert.Equal(3, ((IntValue)prop.Value).Value);
@@ -150,16 +135,13 @@ public class MetadataEditTests
         var metadata = CreateMinimalMetadata();
         var gcSymbol = Symbol.FromString("mGameComplete");
 
-        // No bool group exists yet
         var boolSymbol = Symbol.FromString("bool");
         Assert.Null(metadata.TypeGroups.FirstOrDefault(g => g.TypeSymbol == boolSymbol));
 
-        // Simulate what ResumePointEditor does
         var group = new TypeGroup(boolSymbol);
         metadata.TypeGroups.Add(group);
         group.Properties.Add(new Property(gcSymbol, new BoolValue(true)));
 
-        // Should exist now
         var prop = metadata.AllProperties.FirstOrDefault(p => p.KeySymbol == gcSymbol);
         Assert.NotNull(prop);
         Assert.True(((BoolValue)prop.Value).Value);
@@ -170,26 +152,22 @@ public class MetadataEditTests
     {
         var metadata = CreateMinimalMetadata();
 
-        // Add episode number (missing in minimal save)
         var episodeSymbol = Symbol.FromString("mEpisodeNumber");
         var int32Symbol = Symbol.FromString("int32");
         var intGroup = metadata.TypeGroups.First(g => g.TypeSymbol == int32Symbol);
         intGroup.Properties.Add(new Property(episodeSymbol, new IntValue(3)));
 
-        // Add game complete (missing entirely — no bool group)
         var gcSymbol = Symbol.FromString("mGameComplete");
         var boolSymbol = Symbol.FromString("bool");
         var boolGroup = new TypeGroup(boolSymbol);
         metadata.TypeGroups.Add(boolGroup);
         boolGroup.Properties.Add(new Property(gcSymbol, new BoolValue(true)));
 
-        // Serialize and re-parse
-        var psWriter = new TwdSaveEditor.Core.Binary.PropertySetWriter();
-        var psReader = new TwdSaveEditor.Core.Binary.PropertySetReader();
+        var psWriter = new PropertySetWriter();
+        var psReader = new PropertySetReader();
         var bytes = psWriter.Write(metadata);
         var reparsed = psReader.Read(bytes);
 
-        // Verify new properties survived
         var epProp = reparsed.AllProperties.FirstOrDefault(p => p.KeySymbol == episodeSymbol);
         Assert.NotNull(epProp);
         Assert.Equal(3, ((IntValue)epProp.Value).Value);

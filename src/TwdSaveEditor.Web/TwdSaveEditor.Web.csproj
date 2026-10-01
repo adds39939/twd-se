@@ -21,12 +21,13 @@
   </Target>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.12" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.12" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TwdSaveEditor.Core\TwdSaveEditor.Core.csproj" />
+    <ProjectReference Include="..\TwdSaveEditor.Bootstrap\TwdSaveEditor.Bootstrap.csproj" />
+    <ProjectReference Include="..\TwdSaveEditor.UI\TwdSaveEditor.UI.csproj" />
   </ItemGroup>
 
 </Project>

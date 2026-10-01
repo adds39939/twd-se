@@ -1,4 +1,4 @@
-using TwdSaveEditor.Core.Binary;
+using TwdSaveEditor.Core.Binary.Primitives;
 using TwdSaveEditor.Core.Model;
 
 namespace TwdSaveEditor.Core.Tests.Unit;

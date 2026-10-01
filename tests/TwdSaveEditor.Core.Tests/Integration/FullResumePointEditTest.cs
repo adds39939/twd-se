@@ -1,17 +1,13 @@
-using TwdSaveEditor.Core.Binary;
-using TwdSaveEditor.Core.GameData;
+using TwdSaveEditor.Core.Binary.Bundles;
+using TwdSaveEditor.Core.Constants;
 using TwdSaveEditor.Core.Model;
 
 namespace TwdSaveEditor.Core.Tests.Integration;
 
-/// <summary>
-/// End-to-end test mimicking exactly what the app does when the user
-/// changes the episode on an autosave and clicks Save.
-/// </summary>
 public class FullResumePointEditTest
 {
-    private const ulong SlotEpisodeIdHash = 0xB218E7C003A67CE9; // "Episode in Progress"
-    private const ulong ProgressHash = 0x94C245DACB1ADDC3;      // "progress"
+    private const ulong SlotEpisodeIdHash = 0xB218E7C003A67CE9;
+    private const ulong ProgressHash = 0x94C245DACB1ADDC3;
 
     [Fact]
     public void ChangeEpisode_UpdatesBothSlotAndAutosave()
@@ -20,25 +16,20 @@ public class FullResumePointEditTest
         var autoPath = TestDataHelper.GetPath("S1", "_wd1_saveslot1_autosave.bundle");
         if (!File.Exists(slotPath) || !File.Exists(autoPath)) return;
 
-        // === LOAD ===
         var slotData = File.ReadAllBytes(slotPath);
         var autoData = File.ReadAllBytes(autoPath);
         var slotSave = BundleReader.Read(slotData, "wd1_saveslot1.bundle");
         var autoSave = BundleReader.Read(autoData, "_wd1_saveslot1_autosave.bundle");
 
-        // Verify originals
         var origAutoEp = autoSave.Metadata!.AllProperties
-            .First(p => p.KeySymbol.Value == ResumePoint.AutosaveHashes.EpisodeId);
+            .First(p => p.KeySymbol.Value == AutosaveHashes.EpisodeId);
         Assert.Equal("WalkingDead101", ((StringValue)origAutoEp.Value).Value);
 
-        // === EDIT (mimics ResumePointEditor.OnEpisodeIdChanged) ===
         ((StringValue)origAutoEp.Value).Value = "WalkingDead102";
 
-        // === SAVE AUTOSAVE (mimics SaveEditorService.SaveFile for autosave) ===
         var patchedAuto = MetadataPatcher.PatchMetadata(
             autoSave.RawBundleData!, autoSave.Metadata, autoSave.RawMetadataFile!);
 
-        // === SYNC SLOT (mimics SyncSlotBundleEpisodeId) ===
         SetProperty(slotSave.Metadata!, SlotEpisodeIdHash,
             new StringValue("WalkingDead102"), "String");
         SetProperty(slotSave.Metadata!, ProgressHash,
@@ -46,32 +37,25 @@ public class FullResumePointEditTest
 
         var patchedSlot = BundleWriter.Write(slotSave);
 
-        // === VERIFY ===
-
-        // Autosave: episode updated
         var reloadedAuto = BundleReader.Read(patchedAuto, "_wd1_saveslot1_autosave.bundle");
         var reloadedAutoEp = reloadedAuto.Metadata!.AllProperties
-            .First(p => p.KeySymbol.Value == ResumePoint.AutosaveHashes.EpisodeId);
+            .First(p => p.KeySymbol.Value == AutosaveHashes.EpisodeId);
         Assert.Equal("WalkingDead102", ((StringValue)reloadedAutoEp.Value).Value);
 
-        // Autosave: checkpoint dialog preserved (not cleared)
         var reloadedCheckpoint = reloadedAuto.Metadata.AllProperties
-            .First(p => p.KeySymbol.Value == ResumePoint.AutosaveHashes.CheckpointDialog);
+            .First(p => p.KeySymbol.Value == AutosaveHashes.CheckpointDialog);
         Assert.NotEqual("", ((StringValue)reloadedCheckpoint.Value).Value);
 
-        // Slot: episode string updated
         var reloadedSlot = BundleReader.Read(patchedSlot, "wd1_saveslot1.bundle");
         var reloadedSlotEp = reloadedSlot.Metadata!.AllProperties
             .FirstOrDefault(p => p.KeySymbol.Value == SlotEpisodeIdHash);
         Assert.NotNull(reloadedSlotEp);
         Assert.Equal("WalkingDead102", ((StringValue)reloadedSlotEp.Value).Value);
 
-        // Slot: progress integer updated (this is what the game menu reads)
         var reloadedProgress = reloadedSlot.Metadata.AllProperties
             .First(p => p.KeySymbol.Value == ProgressHash);
         Assert.Equal(2, ((IntValue)reloadedProgress.Value).Value);
 
-        // Write to temp files and verify from disk
         var tempDir = TestDataHelper.CreateTempDir();
         try
         {
@@ -91,7 +75,7 @@ public class FullResumePointEditTest
                     .First(p => p.KeySymbol.Value == ProgressHash).Value).Value);
             Assert.Equal("WalkingDead102",
                 ((StringValue)diskAuto.Metadata!.AllProperties
-                    .First(p => p.KeySymbol.Value == ResumePoint.AutosaveHashes.EpisodeId).Value).Value);
+                    .First(p => p.KeySymbol.Value == AutosaveHashes.EpisodeId).Value).Value);
         }
         finally
         {

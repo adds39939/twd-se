@@ -1,0 +1,30 @@
+@inherits LayoutComponentBase
+
+<div class="app-layout" data-testid="app-ready">
+    <header class="app-header">
+        <div class="header-title">
+            TWD: Telltale Definitive Series - Save Editor
+        </div>
+        <div class="header-status">@Editor.StatusMessage</div>
+    </header>
+    <div class="app-body">
+        @Body
+        <ToastContainer />
+    </div>
+    <footer class="app-footer">
+        <span class="footer-version">v.@AppInfo.Version</span>
+        <div class="footer-links">
+            <a href="https://github.com/adds39939/twd-se" target="_blank" rel="noopener">
+                <GitHubIcon /> Source
+            </a>
+            <span class="footer-sep">·</span>
+            <a href="https://github.com/adds39939/twd-se/issues/new" target="_blank" rel="noopener">
+                <IssueIcon /> Report Issue
+            </a>
+            <span class="footer-sep">·</span>
+            <a href="https://ko-fi.com/adds39939" target="_blank" rel="noopener">
+                <KoFiIcon /> Support Me
+            </a>
+        </div>
+    </footer>
+</div>

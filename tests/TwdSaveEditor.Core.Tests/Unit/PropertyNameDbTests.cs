@@ -1,5 +1,6 @@
 using TwdSaveEditor.Core.Database;
 using TwdSaveEditor.Core.Model;
+using TwdSaveEditor.Core.Tests.Support;
 
 namespace TwdSaveEditor.Core.Tests.Unit;
 
@@ -39,5 +40,16 @@ public class PropertyNameDbTests
         Assert.Equal("int32", db.Resolve(Symbol.FromString("int32")));
         Assert.Equal("String", db.Resolve(Symbol.FromString("String")));
         Assert.Equal("PropertySet", db.Resolve(Symbol.FromString("PropertySet")));
+    }
+
+    [Fact]
+    public void CreateDefault_RegistersAdditionalNames()
+    {
+        var choiceKeys = TestSeasons.AllChoices.Select(c => c.ChoiceKey).ToList();
+        var db = PropertyNameDb.CreateDefault(choiceKeys);
+
+        Assert.NotEmpty(choiceKeys);
+        Assert.All(choiceKeys, key => Assert.Equal(key, db.Resolve(Symbol.FromString(key))));
+        Assert.Null(PropertyNameDb.CreateDefault().Resolve(Symbol.FromString(choiceKeys[0])));
     }
 }

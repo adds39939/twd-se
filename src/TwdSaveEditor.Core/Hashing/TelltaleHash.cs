@@ -3,10 +3,6 @@ using System.Text;
 
 namespace TwdSaveEditor.Core.Hashing;
 
-/// <summary>
-/// CRC64 ECMA-182 hash used by Telltale for symbol names.
-/// All inputs are lowercased before hashing to match Telltale's case-insensitive behavior.
-/// </summary>
 public static class TelltaleHash
 {
     public static ulong ComputeCrc64(string input)

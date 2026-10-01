@@ -90,43 +90,110 @@ Click **Open Save Directory** in the app and navigate there. The app reads all `
 
 ```
 src/
-├── TwdSaveEditor.Core/           Core library (binary parsing, game data, accessors)
-│   ├── Binary/                   MetaStream, bundle, estore/epage readers/writers
-│   ├── GameData/                 Choice database, season handlers, accessors
-│   │   ├── Seasons/              Per-season handler implementations (ISeasonHandler)
-│   │   └── ChoiceData/           Choice definitions as JSON (embedded resources)
-│   ├── Model/                    SaveSlot, PropertySet, EventLogEntry
-│   └── Hashing/                  CRC64 (Telltale's ECMA-182 variant)
-└── TwdSaveEditor.Web/            Blazor WASM frontend
-    ├── Components/               Razor components (DecisionEditor, PropertyEditor, etc.)
-    ├── Services/                 SaveEditorService, FileSystemService
-    └── wwwroot/                  Static assets, CSS, JS interop
+├── TwdSaveEditor.Core/             Models and hashing shared by everything
+│   ├── Model/                      SaveSlot, PropertySet, property values, EventLogEntry
+│   ├── Constants/                  Known metadata hashes, event types, resume point keys
+│   ├── Hashing/                    CRC64 (Telltale's ECMA-182 variant)
+│   ├── Database/                   Property name lookup
+│   └── Serialization/              ISaveBundleSerializer abstraction
+├── TwdSaveEditor.Core.Binary/      Binary format readers/writers
+│   ├── Primitives/                 Binary reader/writer helpers
+│   ├── MetaStream/                 MetaStream container
+│   ├── PropertySets/               PropertySet and choices container codecs
+│   ├── Bundles/                    Bundle reader/writer, metadata patcher, blank save factory
+│   └── EventLog/                   Estore/epage reader, writer, creator
+├── TwdSaveEditor.Season.Common/    Contracts a season implements
+│   ├── Abstractions/               ISeasonHandler, ISeasonRegistry, IChoiceAccessor, capability interfaces
+│   ├── Model/                      ChoiceDefinition, EpisodeInfo, ChoicePreset, CompanionFile
+│   ├── Services/                   SeasonRegistry, BackupFileResolver
+│   └── Extensions/                 CreateSave / GetScenes helpers
+├── TwdSaveEditor.Season.Base/      Building blocks shared by season implementations
+│   ├── Handlers/                   SeasonHandlerBase, PropChoicesSeasonHandler, EventLogSeasonHandler
+│   ├── Accessors/                  SaveAccessor (choices.prop), EventLogAccessor (estore/epage)
+│   ├── EventLog/                   ChoiceNodeMap, EventLog file naming
+│   ├── Resources/                  Embedded choice/scene data loader
+│   └── Services/                   SaveManager (disk-based)
+├── TwdSaveEditor.Season.S1/        Season 1 and 400 Days
+├── TwdSaveEditor.Season.S2/        Season 2
+├── TwdSaveEditor.Season.S3/        A New Frontier
+├── TwdSaveEditor.Season.S4/        The Final Season
+├── TwdSaveEditor.Season.Michonne/  Michonne
+│   ├── Handlers/                   The season's ISeasonHandler
+│   └── Data/                       Choice and scene data as embedded JSON (every season project has these)
+├── TwdSaveEditor.Bootstrap/        Composition root: registers the seasons and the save serializer
+├── TwdSaveEditor.UI/               Razor class library
+│   ├── App.razor                   Root component and router
+│   ├── Layout/ Pages/ Components/  Razor components with their scoped styles
+│   ├── Services/                   SaveEditorService, SaveBackupService, FileSystemService
+│   ├── Model/ Configuration/       Toast, AppInfo
+│   └── wwwroot/                    Global styles, images, file system JS module
+└── TwdSaveEditor.Web/              Blazor WASM host: Program.cs, index.html, manifest, service worker
 
 tests/
-├── TwdSaveEditor.Core.Tests/     164 unit + integration tests
-│   ├── Unit/                     Binary format, hashing, choice database, metadata
-│   └── Integration/              Real save parsing, full create/edit/save cycles, game compatibility
-├── TwdSaveEditor.Playwright/     22 E2E browser tests
-└── TestData/                     Representative save files for all seasons
+├── TwdSaveEditor.Core.Tests/       Unit + integration tests
+│   ├── Unit/                       Binary format, hashing, season handlers, metadata
+│   ├── Integration/                Real save parsing, full create/edit/save cycles, game compatibility
+│   └── Support/                    Shared test helpers
+├── TwdSaveEditor.Playwright/       E2E browser tests
+└── TestData/                       Representative save files for all seasons
 
-tools/                            Python scripts for game data extraction
+tools/                              Python scripts for game data extraction
 ```
+
+NuGet package versions are managed centrally in `Directory.Packages.props`.
 
 ## Architecture
 
-The editor uses a **strategy pattern** with dependency injection. Each season implements `ISeasonHandler`:
+The editor is built from season plugins behind a small set of abstractions:
+
+```
+Web ──► UI ──► Season.Common ──► Core
+ │                  ▲
+ └──► Bootstrap ──► Season.S1 … Season.Michonne ──► Season.Base ──► Core.Binary ──► Core
+```
+
+- **`TwdSaveEditor.UI`** references only `Season.Common` and `Core`. It never names a concrete season or a binary reader; everything season-specific it shows comes from the registered `ISeasonHandler`s.
+- **Each season project** owns its season: display name, episodes, embedded choice and scene data, how a save is created, and how its choices are read and written.
+- **`TwdSaveEditor.Bootstrap`** is the only place that knows the concrete seasons. `Web` calls `AddTwdSaveEditorServices()` and `AddTwdSaveEditorUI(...)`.
+
+Each season implements `ISeasonHandler`:
 
 ```csharp
 public interface ISeasonHandler
 {
     string SeasonKey { get; }
-    bool UsesEventLog { get; }
-    bool UsesChoiceStats { get; }
+    string Name { get; }
+    string ShortName { get; }
+    string FilePrefix { get; }
+    IReadOnlyList<EpisodeInfo> Episodes { get; }
+    IReadOnlyList<ChoiceDefinition> Choices { get; }
+    IReadOnlyList<string> IncludedSeasonKeys { get; }
+    IReadOnlyList<string> ImportsFromSeasonKeys { get; }
+    string GetEpisodeId(int episode);
+    IReadOnlyList<string> GetScenes(string episodeId);
+    bool CanHandle(string fileName);
     SaveSlot CreateBlankSave(string fileName, string episodeId);
     IChoiceAccessor? CreateChoiceAccessor(SaveSlot slot);
     void PopulateChoices(SaveSlot slot, int episode);
 }
 ```
+
+Optional capabilities are separate interfaces a handler can also implement:
+
+| Interface | Capability | Implemented by |
+|-----------|------------|----------------|
+| `ICompanionFileHandler` | State kept in files next to the bundle (estore/epage EventLog) | S3, Michonne |
+| `IChoiceImporter` | Import all choices from a save of an earlier season | S2 |
+| `IChoicePresetProvider` | One-click presets that set several choices | S4 |
+
+### Adding a season
+
+1. Create a `TwdSaveEditor.Season.<Name>` project referencing `Season.Base` and `Season.Common`.
+2. Add `Data/<key>.choices.json` and `Data/<key>.scenes.json` (embedded automatically).
+3. Implement a handler under `Handlers/`, deriving from `PropChoicesSeasonHandler`, `EventLogSeasonHandler` or `SeasonHandlerBase` depending on how the season stores choices.
+4. Register it in `TwdSaveEditor.Bootstrap`.
+
+No changes to the UI are needed.
 
 ## Technical Details
 

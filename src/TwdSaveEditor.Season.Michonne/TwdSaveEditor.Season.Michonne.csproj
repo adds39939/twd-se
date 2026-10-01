@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="Data\*.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\TwdSaveEditor.Core\TwdSaveEditor.Core.csproj" />
+      <ProjectReference Include="..\TwdSaveEditor.Season.Base\TwdSaveEditor.Season.Base.csproj" />
+      <ProjectReference Include="..\TwdSaveEditor.Season.Common\TwdSaveEditor.Season.Common.csproj" />
+    </ItemGroup>
+
+</Project>
