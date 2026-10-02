@@ -76,6 +76,11 @@ public sealed class PropertySetWriter
                 var nested = Write(ps.Value);
                 writer.WriteBytes(nested);
                 break;
+            case StringArrayValue array:
+                writer.WriteInt32(array.Values.Count);
+                foreach (var item in array.Values)
+                    writer.WriteLengthPrefixedString(item);
+                break;
             case RawBytesValue raw:
                 writer.WriteBytes(raw.Data);
                 break;

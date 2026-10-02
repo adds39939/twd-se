@@ -10,11 +10,12 @@ using TwdSaveEditor.Season.Common.Model;
 using TwdSaveEditor.Season.S1.Accessors;
 using TwdSaveEditor.Season.S1.Persistence;
 using TwdSaveEditor.Season.S2.Accessors;
+using TwdSaveEditor.Season.S2.Inventory;
 using TwdSaveEditor.Season.S2.Saves;
 
 namespace TwdSaveEditor.Season.S2.Handlers;
 
-public class S2Handler : PropChoicesSeasonHandler, IChoiceImporter, ICompanionFileHandler, IResumePointHandler
+public class S2Handler : PropChoicesSeasonHandler, IChoiceImporter, ICompanionFileHandler, IResumePointHandler, IInventoryHandler
 {
     private const string SaveDateFormat = "yyyy-MM-dd HH:mm:ss";
 
@@ -74,6 +75,19 @@ public class S2Handler : PropChoicesSeasonHandler, IChoiceImporter, ICompanionFi
 
     public void RestartFromChapter(SaveSlot slot, int episode, string chapterId) =>
         S2ResumePoint.RestartFromChapter(slot, episode, chapterId, Now());
+
+    public IReadOnlyList<string> InventoryNotes { get; } =
+    [
+        "The items are kept in the save the game resumes from. Setting a new resume point writes a new save, which starts with only what that scene gives Clementine.",
+        "\"Add items picked up earlier\" gives her what is found in the scenes before the resume point and not taken away again by then, and the items the episode starts with for the decisions of earlier episodes. Items found earlier in the same scene are left out.",
+        "The list holds the items of the episode in progress; the game has no icons for items of other episodes.",
+    ];
+
+    public InventoryState GetInventory(SaveSlot slot) => S2Inventory.GetState(slot);
+
+    public void SetInventory(SaveSlot slot, IReadOnlyList<string> itemIds) => S2Inventory.SetItems(slot, itemIds);
+
+    public IReadOnlyList<string> GetCarriedItems(SaveSlot slot) => S2Inventory.CarriedItems(slot);
 
     private static string Now() => DateTime.Now.ToString(SaveDateFormat, CultureInfo.InvariantCulture);
 

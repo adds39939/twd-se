@@ -4,6 +4,7 @@ using TwdSaveEditor.Tools.Common.Configuration;
 using TwdSaveEditor.Tools.Common.Dialogs;
 using TwdSaveEditor.Tools.Common.Meta;
 using TwdSaveEditor.Tools.ExtractSeason2Chapters.Chapters;
+using TwdSaveEditor.Tools.ExtractSeason2Chapters.Items;
 using TwdSaveEditor.Tools.ExtractSeason2Chapters.Model;
 using TwdSaveEditor.Tools.ExtractSeason2Chapters.Props;
 using TwdSaveEditor.Tools.ExtractSeason2Chapters.Scripts;
@@ -23,8 +24,11 @@ if (imported == null || !Directory.Exists(projectScripts))
     return 1;
 }
 
-var reader = new EpisodeReader(data, new DialogLoader(meta), ConstantReader.Read(projectScripts), DecisionNodeReader.Read(Path.Combine(output, "s2.nodes.json")));
+var loader = new DialogLoader(meta);
+var reader = new EpisodeReader(data, loader, ConstantReader.Read(projectScripts), DecisionNodeReader.Read(Path.Combine(output, "s2.nodes.json")));
+var itemReader = new EpisodeItemReader(data, meta, loader);
 var episodes = new List<EpisodeResume>();
+var inventories = new List<EpisodeItems>();
 for (var number = FirstEpisode; number <= LastEpisode; number++)
 {
     var episode = reader.Read(number);
@@ -35,6 +39,12 @@ for (var number = FirstEpisode; number <= LastEpisode; number++)
     }
 
     episodes.Add(episode);
+    inventories.Add(itemReader.Read(episode));
+    if (inventories[^1].Items.Count == 0)
+    {
+        Console.Error.WriteLine($"Episode {number}: extract ui_item_*.prop, {ItemCatalogReader.TextDialog} and {ItemCatalogReader.TextDatabase} with ExtractArchive first.");
+        return 1;
+    }
 }
 
 var document = new JsonObject
@@ -61,7 +71,31 @@ var document = new JsonObject
     })]),
 };
 
-File.WriteAllText(Path.Combine(output, "s2.chapters.json"), document.ToJsonString(new JsonSerializerOptions { WriteIndented = true }) + Environment.NewLine);
+var options = new JsonSerializerOptions { WriteIndented = true };
+File.WriteAllText(Path.Combine(output, "s2.chapters.json"), document.ToJsonString(options) + Environment.NewLine);
+
+var inventory = new JsonObject
+{
+    ["episodes"] = new JsonArray([.. inventories.Select(episode => new JsonObject
+    {
+        ["episode"] = episode.Episode,
+        ["items"] = new JsonArray([.. episode.Items.Select(item => new JsonObject { ["id"] = item.Id, ["key"] = item.Key, ["name"] = item.Name })]),
+        ["starting"] = new JsonArray([.. episode.Starting.Select(item => new JsonObject
+        {
+            ["item"] = item.Item,
+            ["requires"] = Strings(item.Requires),
+            ["unless"] = Strings(item.Unless),
+        })]),
+        ["chapters"] = new JsonArray([.. episode.Chapters.Select(chapter => new JsonObject
+        {
+            ["id"] = chapter.Id,
+            ["carried"] = Strings(chapter.Carried),
+            ["fromStart"] = Strings(chapter.FromStart),
+        })]),
+    })]),
+};
+
+File.WriteAllText(Path.Combine(output, "s2.items.json"), inventory.ToJsonString(options) + Environment.NewLine);
 
 foreach (var episode in episodes)
 {
@@ -76,5 +110,14 @@ foreach (var episode in episodes)
         Console.WriteLine($"  no dialog holds the nodes of {key}");
 }
 
+foreach (var episode in inventories)
+{
+    Console.WriteLine($"Episode {episode.Episode}: {episode.Items.Count} items ({string.Join(", ", episode.Items.Select(item => item.Name))}), starts with {string.Join(", ", episode.Starting.Select(item => item.Item))}");
+    foreach (var chapter in episode.Chapters)
+        Console.WriteLine($"  {chapter.Id,-28} {string.Join(" ", chapter.Carried)} | {string.Join(" ", chapter.FromStart)}");
+}
+
 Console.WriteLine($"Wrote {episodes.Sum(episode => episode.Points.Count)} resume points to {output}");
 return 0;
+
+static JsonArray Strings(IEnumerable<string> values) => new([.. values.Select(value => JsonValue.Create(value))]);

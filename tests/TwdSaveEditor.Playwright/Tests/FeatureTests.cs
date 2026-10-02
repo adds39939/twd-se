@@ -70,6 +70,35 @@ public class FeatureTests
     }
 
     [Fact]
+    public async Task InventoryTab_ShowsWhatClementineHoldsInSeason2()
+    {
+        var page = await _fixture.NewPage();
+        await InjectMultipleSaveFiles(page, ("S2", "wd2_saveslot1.bundle"), ("S2", "_wd2_saveslot1_autosave.bundle"));
+        await LoadAndSelectFirstSave(page);
+
+        await page.Locator("[data-testid='tab-inventory']").ClickAsync();
+
+        await Assertions.Expect(page.Locator("[data-testid='inventory-summary']")).ToContainTextAsync("Episode 1: All That Remains, 2 items");
+        await Assertions.Expect(page.Locator(".inventory-item")).ToHaveCountAsync(13);
+        await Assertions.Expect(page.Locator("[data-testid='inventory-item-ui_item_watch']")).ToBeCheckedAsync();
+        await Assertions.Expect(page.Locator("[data-testid='inventory-item-ui_item_hammer']")).ToBeCheckedAsync();
+        await Assertions.Expect(page.Locator(".inventory-item input:checked")).ToHaveCountAsync(2);
+    }
+
+    [Fact]
+    public async Task InventoryTab_SaysWhenASeasonHasNoEditableInventory()
+    {
+        var page = await _fixture.NewPage();
+        await InjectSaveFile(page, "S4", "wd4_saveslot1.bundle");
+        await LoadAndSelectFirstSave(page);
+
+        await page.Locator("[data-testid='tab-inventory']").ClickAsync();
+
+        await Assertions.Expect(page.Locator("[data-testid='inventory-unsupported']")).ToBeVisibleAsync();
+        await Assertions.Expect(page.Locator(".inventory-item")).ToHaveCountAsync(0);
+    }
+
+    [Fact]
     public async Task S4Save_ShowsPresetButtons()
     {
         var page = await _fixture.NewPage();

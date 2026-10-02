@@ -29,6 +29,7 @@ foreach (var path in args)
         ".epage" => "EventStoragePage",
         ".save" => "SaveGame",
         ".dlog" => "Dlg",
+        ".landb" => "LanguageDB",
         _ => "PropertySet",
     };
     dumper.DumpStream(File.ReadAllBytes(path), rootType);

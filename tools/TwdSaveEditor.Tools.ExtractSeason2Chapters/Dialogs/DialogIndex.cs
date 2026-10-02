@@ -1,10 +1,10 @@
-using System.Text.RegularExpressions;
 using TwdSaveEditor.Tools.Common.Dialogs;
 using TwdSaveEditor.Tools.ExtractSeason2Chapters.Model;
+using TwdSaveEditor.Tools.ExtractSeason2Chapters.Scripts;
 
 namespace TwdSaveEditor.Tools.ExtractSeason2Chapters.Dialogs;
 
-public sealed partial class DialogIndex(DialogLoader loader)
+public sealed class DialogIndex(DialogLoader loader)
 {
     private readonly Dictionary<ulong, string> _owners = [];
 
@@ -22,8 +22,8 @@ public sealed partial class DialogIndex(DialogLoader loader)
             if (node.Script == null)
                 continue;
 
-            foreach (Match match in Checkpoint().Matches(node.Script))
-                Marks.Add(new ChapterMark(dialog.Name, match.Groups[1].Value));
+            foreach (var chapterId in CheckpointCalls.ChapterIds(node.Script))
+                Marks.Add(new ChapterMark(dialog.Name, chapterId));
         }
 
         foreach (var item in dialog.Items)
@@ -31,7 +31,4 @@ public sealed partial class DialogIndex(DialogLoader loader)
     }
 
     public string? Owner(ulong node) => _owners.GetValueOrDefault(node);
-
-    [GeneratedRegex("\\bCheckpoint\\(\\s*\"[^\"]*\"\\s*,\\s*\"([^\"]+)\"\\s*\\)")]
-    private static partial Regex Checkpoint();
 }

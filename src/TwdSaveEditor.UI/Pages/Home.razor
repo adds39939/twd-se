@@ -12,6 +12,7 @@
             <div class="tab-bar">
                 <button class="@TabClass("decisions")" data-testid="tab-decisions" @onclick='() => ActiveTab = "decisions"'>Decisions</button>
                 <button class="@TabClass("resume")" data-testid="tab-resume" @onclick='() => ActiveTab = "resume"'>Resume Point</button>
+                <button class="@TabClass("inventory")" data-testid="tab-inventory" @onclick='() => ActiveTab = "inventory"'>Inventory</button>
                 <button class="@TabClass("properties")" data-testid="tab-properties" @onclick='() => ActiveTab = "properties"'>Properties</button>
             </div>
             <div class="content-toolbar">
@@ -33,6 +34,9 @@
                             break;
                         case "resume":
                             <ResumePointEditor Slot="Editor.SelectedSave" />
+                            break;
+                        case "inventory":
+                            <InventoryEditor Slot="Editor.SelectedSave" />
                             break;
                     }
                 </div>

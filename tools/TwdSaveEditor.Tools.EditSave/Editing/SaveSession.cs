@@ -89,6 +89,24 @@ public sealed class SaveSession
         return true;
     }
 
+    public InventoryState? Inventory => (Season as IInventoryHandler)?.GetInventory(Slot);
+
+    public bool ChangeInventory(bool addCarried, IReadOnlyList<string> give, IReadOnlyList<string> take)
+    {
+        if (Season is not IInventoryHandler handler || handler.GetInventory(Slot) is not { Editable: true } state)
+            return false;
+
+        var items = state.Held
+            .Concat(addCarried ? handler.GetCarriedItems(Slot) : [])
+            .Concat(give)
+            .Where(item => !take.Contains(item, StringComparer.OrdinalIgnoreCase))
+            .Distinct(StringComparer.Ordinal)
+            .ToList();
+
+        handler.SetInventory(Slot, items);
+        return true;
+    }
+
     public List<CompanionFile> Build()
     {
         var files = new List<CompanionFile> { new(Slot.FileName, BundleWriter.Write(Slot)) };

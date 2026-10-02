@@ -24,6 +24,8 @@ public sealed class PropertySet
 
     public bool? GetBool(string name) => (Find(name)?.Value as BoolValue)?.Value;
 
+    public IReadOnlyList<string>? GetStrings(string name) => (Find(name)?.Value as StringArrayValue)?.Values;
+
     public void SetString(string name, string value) =>
         Set(Symbol.FromString(name), new Symbol(TelltaleTypes.String), new StringValue(value));
 
@@ -32,6 +34,9 @@ public sealed class PropertySet
 
     public void SetBool(string name, bool value) =>
         Set(Symbol.FromString(name), new Symbol(TelltaleTypes.Bool), new BoolValue(value));
+
+    public void SetStrings(string name, IEnumerable<string> values) =>
+        Set(Symbol.FromString(name), new Symbol(TelltaleTypes.StringArray), new StringArrayValue([.. values]));
 
     public void Set(Symbol key, Symbol typeSymbol, PropertyValue value)
     {

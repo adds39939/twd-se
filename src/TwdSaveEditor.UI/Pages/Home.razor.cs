@@ -53,6 +53,7 @@ public partial class Home : IDisposable
     {
         "decisions" => "Decisions",
         "resume" => "Resume Point",
+        "inventory" => "Inventory",
         "properties" => "Properties",
         _ => string.Empty
     };

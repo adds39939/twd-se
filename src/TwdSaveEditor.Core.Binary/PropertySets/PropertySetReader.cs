@@ -77,10 +77,26 @@ public sealed class PropertySetReader
         if (hash == TelltaleTypes.PropertySet)
             return new PropertySetValue(ReadPropertySet(reader));
 
+        if (hash == TelltaleTypes.StringArray)
+            return ReadStringArray(reader);
+
         if (hash == TelltaleTypes.ChoicesContainer)
             return ReadChoicesContainer(reader, typeSymbol);
 
         return ReadRawValue(reader, typeSymbol);
+    }
+
+    private static StringArrayValue ReadStringArray(BinaryReaderEx reader)
+    {
+        var count = reader.ReadInt32();
+        if (count < 0 || count > reader.Remaining / sizeof(int))
+            throw new InvalidDataException($"String array with invalid count {count} at position {reader.Position}.");
+
+        var values = new List<string>(count);
+        for (var index = 0; index < count; index++)
+            values.Add(reader.ReadLengthPrefixedString());
+
+        return new StringArrayValue(values);
     }
 
     private static RawBytesValue ReadChoicesContainer(BinaryReaderEx reader, Symbol typeSymbol)

@@ -11,13 +11,9 @@ public sealed partial class EpisodeReader(string dataDirectory, DialogLoader loa
     public const string DebugMenuScript = "Episode.lua";
     public const string OpeningScript = "PreviouslyOn";
 
-    private const int EpisodeBase = 200;
-
     public EpisodeResume? Read(int episode)
     {
-        var archive = $"WDC_pc_WalkingDead{EpisodeBase + episode}_data";
-        var scripts = Path.Combine(dataDirectory, "lua", archive);
-        var files = Path.Combine(dataDirectory, "extracted", archive);
+        var (scripts, files) = EpisodeFiles.For(dataDirectory, episode);
         var menuPath = Path.Combine(scripts, DebugMenuScript);
         if (!File.Exists(menuPath) || !Directory.Exists(files))
             return null;

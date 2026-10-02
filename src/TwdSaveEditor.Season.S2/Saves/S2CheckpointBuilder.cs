@@ -18,10 +18,8 @@ public static class S2CheckpointBuilder
 
     private const string SaveMetadataParent = "metadata_save_s2.prop";
     private const string AutoSave = "SaveLoad - Auto Save";
-    private const string RuntimeVisible = "Runtime: Visible";
     private const string ScriptExtension = ".lua";
     private const uint LocalKeysFlag = 0x100;
-    private const uint RuntimeFlag = 0x10;
 
     private static readonly string[] SharedResourceSets = ["MenuSeason2", "ProjectSeason2"];
 
@@ -128,10 +126,7 @@ public static class S2CheckpointBuilder
     private static PropertySet Runtime(SortedDictionary<ulong, PropertySet> sets, ulong name)
     {
         if (!sets.TryGetValue(name, out var properties))
-        {
-            sets[name] = properties = new PropertySet { Flags = RuntimeFlag };
-            properties.SetBool(RuntimeVisible, false);
-        }
+            sets[name] = properties = S2SlotFiles.NewRuntimeProperties();
 
         return properties;
     }

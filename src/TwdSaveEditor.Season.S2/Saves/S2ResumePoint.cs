@@ -42,6 +42,34 @@ public static class S2ResumePoint
             : new ResumeState(savedEpisode, chapter?.Title ?? saved.GetString(SaveMetadataKeys.ChapterId) ?? string.Empty, saved.GetString(SaveMetadataKeys.Date));
     }
 
+    public static SaveSlot? ResumeSave(SaveSlot slot)
+    {
+        var metadata = slot.Metadata;
+        var progress = metadata?.GetString(SlotMetadataKeys.EpisodeInProgress);
+        var latest = metadata?.GetString(SlotMetadataKeys.LatestSave);
+        if (S2SlotFiles.CompletedEpisodes(progress, LastEpisode) != null || string.IsNullOrEmpty(latest))
+            return null;
+
+        var save = slot.Checkpoints.FirstOrDefault(candidate => candidate.FileName.Equals(latest, StringComparison.OrdinalIgnoreCase));
+        if (save?.Metadata is not { } saved)
+            return null;
+
+        var episode = Math.Clamp(S2SlotFiles.EpisodeNumber(progress) ?? FirstEpisode, FirstEpisode, LastEpisode);
+        var savedEpisode = S2SlotFiles.EpisodeNumber(saved.GetString(SaveMetadataKeys.Episode)) ?? episode;
+        return savedEpisode < episode || GeneratedChapter(save, savedEpisode) is { StartsEpisode: true } ? null : save;
+    }
+
+    public static S2Chapter? Chapter(SaveSlot save, int episode)
+    {
+        if (GeneratedChapter(save, episode) is { } generated)
+            return generated;
+
+        var chapterId = save.Metadata?.GetString(SaveMetadataKeys.ChapterId);
+        var script = save.Metadata?.GetString(S2CheckpointBuilder.SavedScript);
+        var chapters = S2ChapterCatalog.ForEpisode(episode)?.Chapters.Where(chapter => chapter.ChapterId == chapterId).ToList() ?? [];
+        return chapters.FirstOrDefault(chapter => chapter.Script.Equals(script, StringComparison.OrdinalIgnoreCase)) ?? chapters.FirstOrDefault();
+    }
+
     public static IReadOnlyList<ChapterInfo> GetChapters(int episode) =>
         S2ChapterCatalog.ForEpisode(episode)?.Chapters.Select(chapter => new ChapterInfo(chapter.Id, chapter.Title, chapter.Group)).ToList() ?? [];
 
@@ -151,6 +179,6 @@ public static class S2ResumePoint
             .MaxBy(chapter => chapter.Flags.Count);
     }
 
-    private static PropertySet? Properties(SaveSlot save, ulong name) =>
+    public static PropertySet? Properties(SaveSlot save, ulong name) =>
         save.FindFile(name) is { } file && BundleReader.TryParseProperties(file) ? file.Properties : null;
 }

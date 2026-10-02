@@ -1,4 +1,5 @@
 using TwdSaveEditor.Core.Hashing;
+using TwdSaveEditor.Core.Model;
 
 namespace TwdSaveEditor.Season.S2.Saves;
 
@@ -13,12 +14,15 @@ public static class S2SlotFiles
     public static readonly ulong LogicGameProperties = RuntimeProperties("logic_game");
     public static readonly ulong SaveLoadProperties = RuntimeProperties("logic_saveload");
     public static readonly ulong ScriptProperties = RuntimeProperties("logic_script");
+    public static readonly ulong InventoryProperties = RuntimeProperties("logic_inventory");
 
     private const string EpisodePrefix = "WalkingDead20";
     private const string CreditsPrefix = "ShowEndCredits";
     private const string NextEpisodePrefix = "EpisodeCompleteShowEpisode";
     private const string FinishedProgress = "finished";
     private const string PageInfix = "_id_Page";
+    private const string RuntimeVisible = "Runtime: Visible";
+    private const uint RuntimeFlag = 0x10;
 
     public static bool IsSlotBundle(string fileName) => !Path.GetFileName(fileName).StartsWith('_');
 
@@ -39,6 +43,13 @@ public static class S2SlotFiles
     public static string EpisodeId(int episode) => EpisodePrefix + episode;
 
     public static string TrackerContainer(int persistentEpisode) => $"ChoiceTracker - {persistentEpisode}";
+
+    public static PropertySet NewRuntimeProperties()
+    {
+        var properties = new PropertySet { Flags = RuntimeFlag };
+        properties.SetBool(RuntimeVisible, false);
+        return properties;
+    }
 
     private static ulong RuntimeProperties(string agent) => TelltaleHash.ComputeCrc64($"\"{agent}:logic.scene\" Runtime Properties");
 

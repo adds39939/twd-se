@@ -2,6 +2,7 @@ using Microsoft.Playwright;
 using TwdSaveEditor.Core.Binary.Bundles;
 using TwdSaveEditor.Core.Binary.EventLog;
 using TwdSaveEditor.Core.Constants;
+using TwdSaveEditor.Core.Hashing;
 using TwdSaveEditor.Playwright.Fixtures;
 using TwdSaveEditor.Playwright.Support;
 
@@ -174,6 +175,53 @@ public class SaveLoadCycleTests
         var storageBase64 = await FakeSaveDirectory.ReadFileAsync(page, "_wd2_saveslot1_id.estore");
         Assert.NotNull(storageBase64);
         Assert.Equal(17, EventLogCodec.ReadStorage(Convert.FromBase64String(storageBase64)).CurrentPage!.Events.Last().SaveSerial);
+    }
+
+    [Fact]
+    public async Task S2Inventory_GivesAChapterTheItemsPickedUpEarlier()
+    {
+        const string checkpointName = "_wd2_saveslot1_checkpoint1.bundle";
+
+        var page = await _fixture.NewPage();
+        await InjectSaveFiles(page, "S2", S2Files);
+
+        await page.Locator("[data-testid='open-directory']").ClickAsync();
+        await page.Locator(".save-item").First.ClickAsync();
+        await page.Locator("[data-testid='tab-resume']").ClickAsync();
+        await page.Locator("[data-testid='restart-episode']").SelectOptionAsync("2");
+        await page.Locator("[data-testid='restart-chapter']").SelectOptionAsync("LodgeRear");
+        await page.Locator("[data-testid='restart-button']").ClickAsync();
+
+        await page.Locator("[data-testid='tab-inventory']").ClickAsync();
+        var summary = page.Locator("[data-testid='inventory-summary']");
+        var held = page.Locator(".inventory-item input:checked");
+        await Assertions.Expect(summary).ToContainTextAsync("Clementine");
+        await Assertions.Expect(summary).ToContainTextAsync("Episode 2: A House Divided, 0 items");
+        await Assertions.Expect(page.Locator(".inventory-item")).ToHaveCountAsync(6);
+        await Assertions.Expect(held).ToHaveCountAsync(0);
+
+        await page.Locator("[data-testid='inventory-carried']").ClickAsync();
+        await Assertions.Expect(held).ToHaveCountAsync(5);
+        await Assertions.Expect(page.Locator("[data-testid='inventory-item-ui_item_hammer']")).Not.ToBeCheckedAsync();
+
+        await page.Locator("[data-testid='inventory-item-ui_item_binoculars']").UncheckAsync();
+        await page.Locator("[data-testid='inventory-item-ui_item_hammer']").CheckAsync();
+        await Assertions.Expect(summary).ToContainTextAsync("5 items");
+
+        await page.Locator(".save-btn").ClickAsync();
+        await Assertions.Expect(page.Locator(".toast-success", new() { HasTextString = "Saved wd2_saveslot1.bundle" }).First)
+            .ToBeVisibleAsync(new() { Timeout = 20000 });
+        await Assertions.Expect(page.Locator(".toast-error")).ToHaveCountAsync(0);
+
+        var checkpointBase64 = await FakeSaveDirectory.ReadFileAsync(page, checkpointName);
+        Assert.NotNull(checkpointBase64);
+        var checkpoint = BundleReader.Read(Convert.FromBase64String(checkpointBase64), checkpointName);
+        var inventory = checkpoint.FindFile(TelltaleHash.ComputeCrc64("\"logic_inventory:logic.scene\" Runtime Properties"));
+        Assert.NotNull(inventory);
+        Assert.True(BundleReader.TryParseProperties(inventory));
+        Assert.Equal(
+            ["ui_item_bottleWater", "ui_item_lighter", "ui_item_watch", "ui_item_knifeSurvival", "ui_item_hammer"],
+            inventory.Properties!.GetStrings("Items - Clementine"));
     }
 
     [Fact]

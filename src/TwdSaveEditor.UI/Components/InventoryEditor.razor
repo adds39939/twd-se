@@ -1,0 +1,44 @@
+<div class="inventory-editor">
+    @if (Slot == null)
+    {
+        <p class="text-muted">No save selected.</p>
+    }
+    else if (_handler == null || _state == null)
+    {
+        <p class="text-muted" data-testid="inventory-unsupported">The inventory of this season cannot be edited yet.</p>
+    }
+    else if (!_state.Editable)
+    {
+        <p class="text-muted" data-testid="inventory-unavailable">@_state.Unavailable</p>
+    }
+    else
+    {
+        <div class="inventory-summary" data-testid="inventory-summary">
+            <span class="inventory-owner">@_state.Owner</span>
+            <span class="text-muted"> &mdash; @EpisodeLabel(_state.Episode), @(_state.Held.Count == 1 ? "1 item" : $"{_state.Held.Count} items")</span>
+        </div>
+
+        <div class="inventory-items">
+            @foreach (var item in _state.Items)
+            {
+                <label class="inventory-item @(IsHeld(item) ? "held" : "")" @key="item.Id">
+                    <input type="checkbox" checked="@IsHeld(item)" data-testid="inventory-item-@item.Id"
+                           @onchange="e => Toggle(item, e.Value is true)" />
+                    <span>@item.Name</span>
+                </label>
+            }
+        </div>
+
+        <div class="inventory-actions">
+            <button class="btn-sm" data-testid="inventory-carried" @onclick="AddCarried">Add items picked up earlier</button>
+            <button class="btn-sm" data-testid="inventory-clear" disabled="@(_state.Held.Count == 0)" @onclick="RemoveAll">Remove all</button>
+        </div>
+
+        <div class="inventory-info">
+            @foreach (var note in _handler.InventoryNotes)
+            {
+                <p class="text-muted">@note</p>
+            }
+        </div>
+    }
+</div>

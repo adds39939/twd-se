@@ -21,6 +21,23 @@ public class PropertySetRoundTripTests
     }
 
     [Fact]
+    public void PropertySet_WithStringArrays_RoundTrips()
+    {
+        var original = new PropertySet();
+        original.SetStrings("Items - Clementine", ["ui_item_hammer", "ui_item_watch"]);
+        original.SetStrings("Group - Hidden Children", []);
+        original.SetBool("Runtime: Visible", false);
+
+        var bytes = _writer.Write(original);
+        var result = _reader.Read(bytes);
+
+        Assert.Equal(["ui_item_hammer", "ui_item_watch"], result.GetStrings("Items - Clementine"));
+        Assert.Empty(result.GetStrings("Group - Hidden Children")!);
+        Assert.False(result.GetBool("Runtime: Visible"));
+        Assert.Equal(bytes, _writer.Write(result));
+    }
+
+    [Fact]
     public void PropertySet_WithBoolProperties_RoundTrips()
     {
         var boolTypeSymbol = Symbol.FromString("bool");
