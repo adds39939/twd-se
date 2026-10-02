@@ -17,6 +17,8 @@ public partial class EpisodeResumeEditor
 
     private ResumeState _state = new(1, null, null);
     private int _episode = 1;
+    private string _chapter = string.Empty;
+    private IReadOnlyList<ChapterInfo> _chapters = [];
     private SaveSlot? _loadedSlot;
 
     protected override void OnParametersSet()
@@ -26,8 +28,24 @@ public partial class EpisodeResumeEditor
             return;
 
         _loadedSlot = Slot;
-        _episode = _state.Episode;
+        SelectEpisode(_state.Episode);
     }
+
+    private void OnEpisodeChanged(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value?.ToString(), out var episode))
+            SelectEpisode(episode);
+    }
+
+    private void SelectEpisode(int episode)
+    {
+        _episode = episode;
+        _chapters = Handler.GetChapters(episode);
+        _chapter = _chapters.FirstOrDefault()?.Id ?? string.Empty;
+    }
+
+    private string ChapterLabel(ChapterInfo chapter) =>
+        ReferenceEquals(chapter, _chapters[0]) ? $"{chapter.Title} (start of the episode)" : chapter.Title;
 
     private string EpisodeLabel(int number)
     {
@@ -37,7 +55,11 @@ public partial class EpisodeResumeEditor
 
     private void Restart()
     {
-        Handler.RestartFromEpisode(Slot, _episode);
+        if (_chapter.Length == 0)
+            Handler.RestartFromEpisode(Slot, _episode);
+        else
+            Handler.RestartFromChapter(Slot, _episode, _chapter);
+
         _state = Handler.GetResumeState(Slot);
         Editor.MarkModified();
     }

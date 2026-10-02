@@ -19,7 +19,17 @@ public sealed class MetaReader(ClassLayouts layouts, TypeRegistry types)
         "int64", "uint64", "__int64", "unsigned__int64", "int16", "uint16", "short", "unsignedshort",
         "int8", "uint8", "char", "unsignedchar", "Symbol", "Flags", "Vector2", "Vector3", "Vector4",
         "Quaternion", "Color", "Rect", "BoundingBox", "TRange<float>", "TRect<float>", "TRange<unsignedint>",
+        "ToolProps",
     };
+
+    private static readonly HashSet<string> CustomOnly = ["DlgChildSet", "JiraRecordManager"];
+
+    private const uint UserPropsFlag = 0x1;
+    private const uint ProductionPropsFlag = 0x2;
+    private const uint ToolPropsFlag = 0x4;
+    private const uint VisibilityRuleFlag = 0x1;
+    private const uint ExchangeNotesFlag = 0x1;
+    private const uint ExchangeLinesFlag = 0x2;
 
     private Dictionary<ulong, uint> _versions = [];
 
@@ -178,11 +188,12 @@ public sealed class MetaReader(ClassLayouts layouts, TypeRegistry types)
     private MetaObject ReadClass(string type, PropReader reader)
     {
         var layout = layouts.Find(type, _versions.GetValueOrDefault(TypeName.Hash(type), uint.MaxValue));
-        if (layout == null || layout.Members.Count == 0)
+        if (layout == null)
             throw new MetaFormatException($"unknown type {type}");
 
         var members = new List<KeyValuePair<string, MetaNode>>();
-        foreach (var member in layout.Members.Where(member => member.IsSerialized))
+        var serialized = CustomOnly.Contains(type) ? [] : layout.Members.Where(member => member.IsSerialized && member.Type != "EnumBase");
+        foreach (var member in serialized)
         {
             if (Unblocked.Contains(member.Type))
             {
@@ -197,7 +208,92 @@ public sealed class MetaReader(ClassLayouts layouts, TypeRegistry types)
                 throw new MetaFormatException($"block of {type}.{member.Name} is {size} bytes, read {reader.Position - start}");
         }
 
-        return new MetaObject(type, members);
+        var value = new MetaObject(type, members);
+        ReadCustomData(value, layout, reader);
+        return value;
+    }
+
+    private void ReadCustomData(MetaObject value, ClassLayout layout, PropReader reader)
+    {
+        var members = value.Members;
+        switch (value.Type)
+        {
+            case "Dlg":
+                members.Add(KeyValuePair.Create<string, MetaNode>("folders", ReadSequence("DlgFolder", reader.U32(), reader)));
+                members.Add(KeyValuePair.Create<string, MetaNode>("nodes", ReadTypedSequence(reader)));
+                if (layout.Members.Any(member => member.Name == "mbHasToolOnlyData"))
+                    members.Add(KeyValuePair.Create<string, MetaNode>("hasToolOnlyData", ReadValue("bool", reader)));
+                break;
+            case "DlgChildSet":
+                members.Add(KeyValuePair.Create<string, MetaNode>("children", ReadTypedSequence(reader)));
+                break;
+            case "DlgConditionSet":
+                members.Add(KeyValuePair.Create<string, MetaNode>("conditions", ReadTypedSequence(reader)));
+                break;
+            case "DlgObjectProps":
+                var propFlags = value.FindUInt32("mFlags");
+                if ((propFlags & UserPropsFlag) != 0)
+                    members.Add(KeyValuePair.Create<string, MetaNode>("userProps", ReadValue(PropertySetType, reader)));
+                if ((propFlags & ProductionPropsFlag) != 0)
+                    members.Add(KeyValuePair.Create<string, MetaNode>("productionProps", ReadValue(PropertySetType, reader)));
+                if ((propFlags & ToolPropsFlag) != 0)
+                    members.Add(KeyValuePair.Create<string, MetaNode>("toolProps", ReadValue(PropertySetType, reader)));
+                break;
+            case "DlgVisibilityConditions":
+                if ((value.FindUInt32("mFlags") & VisibilityRuleFlag) != 0)
+                    members.Add(KeyValuePair.Create<string, MetaNode>("rule", ReadValue("Rule", reader)));
+                break;
+            case "DlgNodeExchange":
+                var nodeFlags = (value.Find("Baseclass_DlgNode") as MetaObject)?.FindUInt32("mFlags") ?? 0;
+                if ((nodeFlags & ExchangeNotesFlag) != 0)
+                    members.Add(KeyValuePair.Create<string, MetaNode>("notes", ReadValue("NoteCollection", reader)));
+                if ((nodeFlags & ExchangeLinesFlag) != 0)
+                    members.Add(KeyValuePair.Create<string, MetaNode>("lines", ReadValue("DlgLineCollection", reader)));
+                break;
+            case "NoteCollection":
+                members.Add(KeyValuePair.Create<string, MetaNode>("notes", ReadSequence("Note", reader.U32(), reader)));
+                break;
+            case "Note":
+                members.Add(KeyValuePair.Create<string, MetaNode>("entries", ReadSequence("Note::Entry", reader.U32(), reader)));
+                break;
+            case "DependencyLoader<1>":
+                if (ReadValue("bool", reader) is MetaScalar { Value: true })
+                    members.Add(KeyValuePair.Create<string, MetaNode>("resources", ReadTyped(reader)));
+                break;
+            case "ToolProps":
+                if (value.Find("mbHasProps") is MetaScalar { Value: true })
+                    members.Add(KeyValuePair.Create<string, MetaNode>("props", ReadValue(PropertySetType, reader)));
+                break;
+            case "Rule":
+                if (value.Find("mbVersionHasAgents") is MetaScalar { Value: true })
+                {
+                    var start = reader.Position;
+                    var size = reader.U32();
+                    members.Add(KeyValuePair.Create<string, MetaNode>("agents", ReadSequence("Rule::AgentInfo", reader.U32(), reader)));
+                    if (reader.Position != start + size)
+                        throw new MetaFormatException($"block of Rule agents is {size} bytes, read {reader.Position - start}");
+                }
+
+                break;
+        }
+    }
+
+    private MetaList ReadTypedSequence(PropReader reader)
+    {
+        var count = reader.U32();
+        CheckCount(count, reader);
+        var items = new List<MetaNode>();
+        for (uint i = 0; i < count; i++)
+            items.Add(ReadTyped(reader));
+
+        return new MetaList(items);
+    }
+
+    private MetaNode ReadTyped(PropReader reader)
+    {
+        var hash = reader.U64();
+        var type = types.Find(hash) ?? throw new MetaFormatException($"unknown type #{hash:X16}");
+        return ReadValue(type, reader);
     }
 
     private MetaPropertySet ReadPropertySetBody(PropReader reader)

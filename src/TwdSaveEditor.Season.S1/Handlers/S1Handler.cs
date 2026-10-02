@@ -1,3 +1,4 @@
+using System.Globalization;
 using TwdSaveEditor.Core.Binary.Bundles;
 using TwdSaveEditor.Core.Constants;
 using TwdSaveEditor.Core.Model;
@@ -22,6 +23,8 @@ public class S1Handler : SeasonHandlerBase, ICompanionFileHandler, IResumePointH
         new(4, "Around Every Corner", 7),
         new(5, "No Time Left", 7),
     ];
+
+    private const string SaveDateFormat = "yyyy-MM-dd HH:mm:ss";
 
     private static readonly EpisodeInfo ExtraEpisode = new(S1ResumePoint.ExtraEpisode, "400 Days", 6);
 
@@ -59,6 +62,11 @@ public class S1Handler : SeasonHandlerBase, ICompanionFileHandler, IResumePointH
     public ResumeState GetResumeState(SaveSlot slot) => S1ResumePoint.GetState(slot);
 
     public void RestartFromEpisode(SaveSlot slot, int episode) => S1ResumePoint.RestartFromEpisode(slot, episode);
+
+    public IReadOnlyList<ChapterInfo> GetChapters(int episode) => S1ResumePoint.GetChapters(episode);
+
+    public void RestartFromChapter(SaveSlot slot, int episode, string chapterId) =>
+        S1ResumePoint.RestartFromChapter(slot, episode, chapterId, DateTime.Now.ToString(SaveDateFormat, CultureInfo.InvariantCulture));
 
     public bool IsCompanionFile(string fileName) => !S1SlotFiles.IsSlotBundle(fileName);
 

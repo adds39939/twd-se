@@ -116,6 +116,33 @@ public class Season1Tests
     }
 
     [Fact]
+    public async Task ResumeFromChapter_WritesASmallCheckpointForThatChapter()
+    {
+        var page = await OpenSeason1Save();
+
+        await page.Locator("[data-testid='tab-resume']").ClickAsync();
+        await page.Locator("[data-testid='restart-episode']").SelectOptionAsync("5");
+        await Assertions.Expect(page.Locator("[data-testid='restart-chapter'] option")).ToHaveCountAsync(18);
+        await page.Locator("[data-testid='restart-chapter']").SelectOptionAsync("OnJewelryStore");
+        await page.Locator("[data-testid='restart-button']").ClickAsync();
+
+        var state = page.Locator("[data-testid='resume-state']");
+        await Assertions.Expect(state).ToContainTextAsync("Episode 5: No Time Left");
+        await Assertions.Expect(state).ToContainTextAsync("checkpoint Jewelry Store");
+
+        await SaveChanges(page, Slot);
+
+        var slot = await ReadSavedBundle(page, Slot);
+        Assert.Equal(5, slot.Metadata!.GetInt(SlotMetadataKeys.Progress));
+        Assert.Equal(Autosave, slot.Metadata.GetString(SlotMetadataKeys.LatestSave));
+
+        var autosave = await ReadSavedBundle(page, Autosave);
+        Assert.Equal(6, autosave.Files.Count);
+        Assert.Equal("WalkingDead105", autosave.Metadata!.GetString(SaveMetadataKeys.Episode));
+        Assert.Equal("OnJewelryStore", autosave.Metadata.GetString(SaveMetadataKeys.ChapterId));
+    }
+
+    [Fact]
     public async Task NewSave_StartsAtTheChosenEpisodeWithEarlierDecisionsSet()
     {
         var page = await _fixture.NewPage();

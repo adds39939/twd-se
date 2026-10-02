@@ -11,6 +11,8 @@ public static class TelltaleTypes
     public static readonly ulong PropertySet = TelltaleHash.ComputeCrc64("PropertySet");
     public static readonly ulong ResourceBundle = TelltaleHash.ComputeCrc64("ResourceBundle");
     public static readonly ulong SaveGame = TelltaleHash.ComputeCrc64("SaveGame");
+    public static readonly ulong SaveGameAgentInfo = TelltaleHash.ComputeCrc64("SaveGame::AgentInfo");
+    public static readonly ulong DialogHandle = TelltaleHash.ComputeCrc64("Handle<Dlg>");
 
     public const ulong ChoicesContainer = 0x8AD17AD4CB809956;
 }

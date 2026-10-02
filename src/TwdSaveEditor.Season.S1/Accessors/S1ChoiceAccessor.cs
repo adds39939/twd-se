@@ -43,6 +43,7 @@ public sealed class S1ChoiceAccessor(SaveSlot slot) : IChoiceAccessor
         slot.Metadata.SetString(PersistentKeys.SlotKey(episode, choiceKey), value);
         UpdateTracker(episode, choiceKey, value);
         UpdateAutosave(choiceKey, value);
+        S1ResumePoint.RefreshGeneratedCheckpoint(slot);
     }
 
     private void UpdateTracker(int episode, string choiceKey, string value)

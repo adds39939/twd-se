@@ -30,13 +30,42 @@
 
     <div class="form-group">
         <label>Restart from</label>
-        <select @bind="_episode" data-testid="restart-episode">
+        <select value="@_episode" @onchange="OnEpisodeChanged" data-testid="restart-episode">
             @foreach (var episode in Handler.ResumeEpisodes)
             {
                 <option value="@episode.Number">@EpisodeLabel(episode.Number)</option>
             }
         </select>
-        <button class="btn-sm" data-testid="restart-button" @onclick="Restart">Restart episode</button>
+    </div>
+
+    <div class="form-group">
+        <label>Chapter</label>
+        <select @bind="_chapter" data-testid="restart-chapter">
+            @if (_chapters.Count == 0)
+            {
+                <option value="">Start of the episode</option>
+            }
+            @foreach (var group in _chapters.GroupBy(chapter => chapter.Group))
+            {
+                @if (group.Key.Length == 0)
+                {
+                    @foreach (var chapter in group)
+                    {
+                        <option value="@chapter.Id">@ChapterLabel(chapter)</option>
+                    }
+                }
+                else
+                {
+                    <optgroup label="@group.Key">
+                        @foreach (var chapter in group)
+                        {
+                            <option value="@chapter.Id">@ChapterLabel(chapter)</option>
+                        }
+                    </optgroup>
+                }
+            }
+        </select>
+        <button class="btn-sm" data-testid="restart-button" @onclick="Restart">Set resume point</button>
     </div>
 
     <div class="resume-info">
@@ -48,12 +77,16 @@
             </p>
         }
         <p class="text-muted">
-            Restarting removes the in-progress checkpoint, so the game starts the chosen episode from its first
-            scene with the decisions of the earlier episodes. Decisions that are not set yet are filled in.
+            Setting the resume point replaces the in-progress checkpoint. Decisions of earlier episodes that are
+            not set yet are filled in.
         </p>
         <p class="text-muted">
-            In the game the slot is listed as a new game until the first checkpoint: select it, pick the episode
-            and press Play.
+            From the start of an episode, the slot is listed in the game as a new game until the first checkpoint:
+            select it, pick the episode and press Play.
+        </p>
+        <p class="text-muted">
+            From a later chapter, a small checkpoint is written. The game shows the scene before the chapter for a
+            moment, then starts the chapter with the decisions set here and saves its own checkpoint.
         </p>
     </div>
 </div>

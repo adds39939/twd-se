@@ -10,4 +10,8 @@ public interface IResumePointHandler
     ResumeState GetResumeState(SaveSlot slot);
 
     void RestartFromEpisode(SaveSlot slot, int episode);
+
+    IReadOnlyList<ChapterInfo> GetChapters(int episode);
+
+    void RestartFromChapter(SaveSlot slot, int episode, string chapterId);
 }

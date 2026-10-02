@@ -24,13 +24,16 @@
   </Folder>
   <Folder Name="/tools/">
     <Project Path="tools/TwdSaveEditor.Tools.AnalyzeSaves/TwdSaveEditor.Tools.AnalyzeSaves.csproj" />
+    <Project Path="tools/TwdSaveEditor.Tools.BuildCheckpoint/TwdSaveEditor.Tools.BuildCheckpoint.csproj" />
     <Project Path="tools/TwdSaveEditor.Tools.Common/TwdSaveEditor.Tools.Common.csproj" />
     <Project Path="tools/TwdSaveEditor.Tools.CreateEndEpisodeEstore/TwdSaveEditor.Tools.CreateEndEpisodeEstore.csproj" />
     <Project Path="tools/TwdSaveEditor.Tools.DecodeEstore/TwdSaveEditor.Tools.DecodeEstore.csproj" />
     <Project Path="tools/TwdSaveEditor.Tools.DumpBundle/TwdSaveEditor.Tools.DumpBundle.csproj" />
+    <Project Path="tools/TwdSaveEditor.Tools.DumpDialog/TwdSaveEditor.Tools.DumpDialog.csproj" />
     <Project Path="tools/TwdSaveEditor.Tools.DumpMetadata/TwdSaveEditor.Tools.DumpMetadata.csproj" />
     <Project Path="tools/TwdSaveEditor.Tools.ExtractAllChoices/TwdSaveEditor.Tools.ExtractAllChoices.csproj" />
     <Project Path="tools/TwdSaveEditor.Tools.ExtractArchive/TwdSaveEditor.Tools.ExtractArchive.csproj" />
+    <Project Path="tools/TwdSaveEditor.Tools.ExtractChapters/TwdSaveEditor.Tools.ExtractChapters.csproj" />
     <Project Path="tools/TwdSaveEditor.Tools.ExtractKey/TwdSaveEditor.Tools.ExtractKey.csproj" />
     <Project Path="tools/TwdSaveEditor.Tools.ExtractNodeMappings/TwdSaveEditor.Tools.ExtractNodeMappings.csproj" />
     <Project Path="tools/TwdSaveEditor.Tools.ExtractScenes/TwdSaveEditor.Tools.ExtractScenes.csproj" />

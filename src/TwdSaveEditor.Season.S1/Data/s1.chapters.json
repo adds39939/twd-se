@@ -1,0 +1,2540 @@
+[
+  {
+    "episode": 1,
+    "chapters": [
+      {
+        "id": "OnStreetOutskirts",
+        "title": "Street Outskirts",
+        "group": "",
+        "script": "env_streetOutskirts.lua",
+        "entry": null,
+        "flags": []
+      },
+      {
+        "id": "OnWoodsClementine",
+        "title": "Woods Clementine",
+        "group": "",
+        "script": "env_woodsClementine.lua",
+        "entry": {
+          "script": "env_streetOutskirts.lua",
+          "scene": "adv_streetOutskirts.scene.scene",
+          "dialog": "env_copCar.dlog",
+          "node": "dlg_id: 7911856194059953068"
+        },
+        "flags": []
+      },
+      {
+        "id": "OnClementineHouseExterior",
+        "title": "Clem House Ext",
+        "group": "",
+        "script": "env_clementineHouseExterior.lua",
+        "entry": {
+          "script": "env_woodsClementine.lua",
+          "scene": "adv_woodsClementine.scene.scene",
+          "dialog": "clementineHouse_clementine.dlog",
+          "node": "dlg_id: 3761005062603778362"
+        },
+        "flags": []
+      },
+      {
+        "id": "OnClementineHouseInterior",
+        "title": "Clem House Int",
+        "group": "",
+        "script": "env_clementineHouseInterior.lua",
+        "entry": {
+          "script": "env_clementineHouseExterior.lua",
+          "scene": "adv_clementineHouseExterior.scene",
+          "dialog": "env_clementineYard.dlog",
+          "node": "dlg_id: 6277924244723972345"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "ClemHouseInt - Test Fight Prototype",
+            "value": true
+          },
+          {
+            "agent": "logic_debug",
+            "key": "Debug - TestZombieBabysitter",
+            "value": false
+          }
+        ]
+      },
+      {
+        "id": "OnClementineHouseAttack",
+        "title": "Clem House Attack",
+        "group": "",
+        "script": "env_clementineHouseInterior.lua",
+        "entry": {
+          "script": "env_clementineHouseExterior.lua",
+          "scene": "adv_clementineHouseExterior.scene",
+          "dialog": "env_clementineYard.dlog",
+          "node": "dlg_id: 6277924244723972345"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "ClemHouseInt - Test Fight Prototype",
+            "value": true
+          },
+          {
+            "agent": "logic_debug",
+            "key": "Debug - TestZombieBabysitter",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnHershelFarmNight",
+        "title": "HershelFarm Ext Night",
+        "group": "",
+        "script": "env_hershelFarmExteriorNight.lua",
+        "entry": {
+          "script": "env_clementineHouseInterior.lua",
+          "scene": "adv_clementineHouseInterior.scene.scene",
+          "dialog": "clementineYard_shawn.dlog",
+          "node": "dlg_id: 1837414846179234198"
+        },
+        "flags": []
+      },
+      {
+        "id": "OnHershelFarmExterior",
+        "title": "HershelFarm Ext",
+        "group": "",
+        "script": "env_hershelFarmExterior.lua",
+        "entry": {
+          "script": "env_hershelFarmExteriorNight.lua",
+          "scene": "adv_hershelFarmExteriorNight.scene.scene",
+          "dialog": "env_hershelsfarm.dlog",
+          "node": "dlg_id: 12506992254598548712"
+        },
+        "flags": []
+      },
+      {
+        "id": "OnHershelFarmExteriorAttack",
+        "title": "HershelFarm Attack",
+        "group": "",
+        "script": "env_hershelFarmExterior.lua",
+        "entry": {
+          "script": "env_hershelFarmExteriorNight.lua",
+          "scene": "adv_hershelFarmExteriorNight.scene.scene",
+          "dialog": "env_hershelsfarm.dlog",
+          "node": "dlg_id: 12506992254598548712"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "Farm - Zombies Present",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnDrugstoreExteriorDay",
+        "title": "Drugstore Ext Day",
+        "group": "",
+        "script": "env_drugstoreExterior.lua",
+        "entry": {
+          "script": "env_hershelFarmExterior.lua",
+          "scene": "adv_hershelFarmExterior.scene.scene",
+          "dialog": "env_hershelsfarm.dlog",
+          "node": "dlg_id: 17733141236587921359"
+        },
+        "flags": []
+      },
+      {
+        "id": "OnDrugstoreInterior",
+        "title": "Drugstore Fight",
+        "group": "",
+        "script": "env_drugstoreInterior.lua",
+        "entry": {
+          "script": "env_drugstoreExterior.lua",
+          "scene": "adv_drugstoreExterior.scene.scene",
+          "dialog": "env_maconStreet.dlog",
+          "node": "dlg_id: 3206751238299660000"
+        },
+        "flags": []
+      },
+      {
+        "id": "OnDrugstoreInteriorSecure",
+        "title": "DSInt-Secure",
+        "group": "",
+        "script": "env_drugstoreInterior.lua",
+        "entry": {
+          "script": "env_drugstoreExterior.lua",
+          "scene": "adv_drugstoreExterior.scene.scene",
+          "dialog": "env_maconStreet.dlog",
+          "node": "dlg_id: 3206751238299660000"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "Drugstore - Secure",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnDrugstoreOffice",
+        "title": "Drugstore Office",
+        "group": "",
+        "script": "env_drugstoreOffice.lua",
+        "entry": {
+          "script": "env_drugstoreInterior.lua",
+          "scene": "adv_drugstoreInteriorAct3.scene.scene",
+          "dialog": "env_drugstore.dlog",
+          "node": "dlg_id: 4083348930404558434"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "Drugstore - Secure",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnDrugstoreExterior",
+        "title": "Drugstore Ext",
+        "group": "",
+        "script": "env_drugstoreExteriorNight.lua",
+        "entry": {
+          "script": "env_drugstoreOffice.lua",
+          "scene": "adv_drugstoreOffice.scene.scene",
+          "dialog": "env_drugstore.dlog",
+          "node": "dlg_id: 3416637372685494768"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "Drugstore - Secure",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnMotorInnMission",
+        "title": "Motor Inn Mission",
+        "group": "",
+        "script": "env_motorInn_stealthMission.lua",
+        "entry": {
+          "script": "env_drugstoreExteriorNight.lua",
+          "scene": "adv_drugstoreExteriorNight.scene.scene",
+          "dialog": "drugstore_carley.dlog",
+          "node": "dlg_id: 10690401901110447559"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "Drugstore - Secure",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "MotorInn - EndGame",
+            "value": false
+          }
+        ]
+      },
+      {
+        "id": "OnDrugstoreExteriorWStuff",
+        "title": "Drugstore Ext - stuff",
+        "group": "",
+        "script": "env_drugstoreExteriorNight.lua",
+        "entry": {
+          "script": "env_motorInn_stealthMission.lua",
+          "scene": "adv_motorInn_stealthMission.scene.scene",
+          "dialog": "env_drugstore.dlog",
+          "node": "dlg_id: 3416637372685494768"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "Drugstore - Secure",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "MotorInn - Have Axe",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "MotorInn - Have Remote",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "Office - got photo",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnDrugstoreWKeys",
+        "title": "Just Killed Brother",
+        "group": "",
+        "script": "env_drugstoreInterior.lua",
+        "entry": {
+          "script": "env_drugstoreExteriorNight.lua",
+          "scene": "adv_drugstoreExteriorNight.scene.scene",
+          "dialog": "env_maconStreet.dlog",
+          "node": "dlg_id: 3206751238299660000"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "Drugstore - Secure",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "MotorInn - Have Axe",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "MotorInn - Have Remote",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "Office - got photo",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "Drugstore - Got Keys",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "Drugstore - ArrivalComplete",
+            "value": true
+          },
+          {
+            "agent": "logic_module_script",
+            "key": "Script - Current Scene File",
+            "value": "adv_drugstoreExteriorNight.scene"
+          }
+        ]
+      },
+      {
+        "id": "OnDrugstoreChoice",
+        "title": "Drugstore Ending",
+        "group": "",
+        "script": "env_drugstoreInteriorPrologue.lua",
+        "entry": {
+          "script": "env_drugstoreInterior.lua",
+          "scene": "adv_drugstoreInteriorAct3.scene.scene",
+          "dialog": "env_office.dlog",
+          "node": "dlg_id: 1241207516126863607"
+        },
+        "flags": []
+      },
+      {
+        "id": "OnMotorInnEnding",
+        "title": "Motor Inn Ending",
+        "group": "",
+        "script": "env_motorInn_end.lua",
+        "entry": {
+          "script": "env_drugstoreInteriorPrologue.lua",
+          "scene": "adv_drugstoreInteriorPrologue.scene.scene",
+          "dialog": "env_drugstore.dlog",
+          "node": "dlg_id: 15970388365462938796"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "MotorInn - EndGame",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnDrugstoreInteriorSecureFromMotorInn",
+        "title": "DSInt-FromMotorInn",
+        "group": "",
+        "script": "env_drugstoreInterior.lua",
+        "entry": {
+          "script": "env_motorInn_end.lua",
+          "scene": "adv_motorInn_end.scene.scene",
+          "dialog": "env_maconStreet.dlog",
+          "node": "dlg_id: 3206751238299660000"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "Drugstore - Secure",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "MotorInn - Have Axe",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "MotorInn - Have Remote",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "Drugstore - BackFromMotorInn",
+            "value": true
+          },
+          {
+            "agent": "logic_module_script",
+            "key": "Script - Current Scene File",
+            "value": "adv_motorInn_stealthMission.scene"
+          }
+        ]
+      },
+      {
+        "id": "OnDrugstoreInteriorSecureFromStreet",
+        "title": "DSInt-FromStreet",
+        "group": "",
+        "script": "env_drugstoreInterior.lua",
+        "entry": {
+          "script": "env_motorInn_end.lua",
+          "scene": "adv_motorInn_end.scene.scene",
+          "dialog": "env_maconStreet.dlog",
+          "node": "dlg_id: 3206751238299660000"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "Drugstore - Secure",
+            "value": true
+          },
+          {
+            "agent": "logic_module_script",
+            "key": "Script - Current Scene File",
+            "value": "adv_drugstoreExteriorNight.scene"
+          }
+        ]
+      },
+      {
+        "id": "OnMotorInnUpstairs",
+        "title": "Motor Inn Upstairs",
+        "group": "",
+        "script": "env_motorInn_stealthMission.lua",
+        "entry": {
+          "script": "env_drugstoreInterior.lua",
+          "scene": "adv_drugstoreInteriorAct3.scene.scene",
+          "dialog": "drugstore_carley.dlog",
+          "node": "dlg_id: 10690401901110447559"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "Drugstore - Secure",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "MotorInn - EndGame",
+            "value": false
+          },
+          {
+            "agent": "logic_game",
+            "key": "MotorInn - Debug Skip To upstairs",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnBabyFightTest",
+        "title": "Old Babysitter Fight",
+        "group": "",
+        "script": "env_clementineHouseInterior.lua",
+        "entry": {
+          "script": "env_motorInn_stealthMission.lua",
+          "scene": "adv_motorInn_stealthMission.scene.scene",
+          "dialog": "env_clementineYard.dlog",
+          "node": "dlg_id: 6277924244723972345"
+        },
+        "flags": [
+          {
+            "agent": "logic_debug",
+            "key": "Debug - TestZombieBabysitter",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "ClemHouseInt - Test Fight Prototype",
+            "value": false
+          }
+        ]
+      },
+      {
+        "id": "OnPrologueChoice",
+        "title": "Prologue Choice",
+        "group": "",
+        "script": "env_drugstoreInteriorPrologue.lua",
+        "entry": {
+          "script": "env_clementineHouseInterior.lua",
+          "scene": "adv_clementineHouseInterior.scene.scene",
+          "dialog": "env_office.dlog",
+          "node": "dlg_id: 1241207516126863607"
+        },
+        "flags": [
+          {
+            "agent": "logic_debug",
+            "key": "Debug - PrologueStartFromChoice",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnPrologueSaveClem",
+        "title": "Prologue Save Clem",
+        "group": "",
+        "script": "env_drugstoreInteriorPrologue.lua",
+        "entry": {
+          "script": "env_clementineHouseInterior.lua",
+          "scene": "adv_clementineHouseInterior.scene.scene",
+          "dialog": "env_office.dlog",
+          "node": "dlg_id: 1241207516126863607"
+        },
+        "flags": [
+          {
+            "agent": "logic_debug",
+            "key": "Debug - PrologueStartFromSaveClem",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnWoodsCopFight",
+        "title": "Woods Cop Fight",
+        "group": "",
+        "script": "env_woodsClementine.lua",
+        "entry": {
+          "script": "env_drugstoreInteriorPrologue.lua",
+          "scene": "adv_drugstoreInteriorPrologue.scene.scene",
+          "dialog": "env_copCar.dlog",
+          "node": "dlg_id: 7911856194059953068"
+        },
+        "flags": [
+          {
+            "agent": "logic_debug",
+            "key": "Debug - WoodsStartFromCop",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnDrugstoreExtBrother",
+        "title": "Drugstore Brother",
+        "group": "",
+        "script": "env_drugstoreExteriorNight.lua",
+        "entry": {
+          "script": "env_woodsClementine.lua",
+          "scene": "adv_woodsClementine.scene.scene",
+          "dialog": "env_drugstore.dlog",
+          "node": "dlg_id: 3416637372685494768"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "Drugstore - Secure",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "MotorInn - Have Axe",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "MotorInn - Have Remote",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "Office - got photo",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "Macon St - Window broken",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "Macon St - Gate open",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "Macon St - Lock Chopped",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "Macon St - TVs on",
+            "value": true
+          },
+          {
+            "agent": "logic_debug",
+            "key": "Debug - DrugstoreExtStartFromBrother",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnDrugstoreInteriorWCZombie",
+        "title": "Drugstore WC Zombie",
+        "group": "",
+        "script": "env_drugstoreInterior.lua",
+        "entry": {
+          "script": "env_drugstoreExteriorNight.lua",
+          "scene": "adv_drugstoreExteriorNight.scene.scene",
+          "dialog": "env_maconStreet.dlog",
+          "node": "dlg_id: 3206751238299660000"
+        },
+        "flags": [
+          {
+            "agent": "logic_debug",
+            "key": "Debug - DrugstoreStartFromWCZombie",
+            "value": true
+          }
+        ]
+      }
+    ],
+    "decisionFlags": []
+  },
+  {
+    "episode": 2,
+    "chapters": [
+      {
+        "id": "OnWoodsBearTrap",
+        "title": "Bear Trap",
+        "group": "Act 1",
+        "script": "env_woodsBearTrap.lua",
+        "entry": null,
+        "flags": []
+      },
+      {
+        "id": "OnWoodsLegChop",
+        "title": "Bear Trap - Chop",
+        "group": "Act 1",
+        "script": "env_woodsBearTrap.lua",
+        "entry": {
+          "script": "PreviouslyOn.lua"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "1BearTrap - Zombies Arrived",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnMotorInnAct1Intro",
+        "title": "Motor Inn Intro",
+        "group": "Act 1",
+        "script": "env_motorInn.lua",
+        "entry": {
+          "script": "env_woodsBearTrap.lua",
+          "scene": "adv_woodsBearTrap.scene",
+          "dialog": "env_forestBearTrap.dlog",
+          "node": "dlg_id: 5729258872280873084"
+        },
+        "flags": []
+      },
+      {
+        "id": "OnMotorInnAct1Attack",
+        "title": "Motor Inn Attack",
+        "group": "Act 1",
+        "script": "env_motorInn.lua",
+        "entry": {
+          "script": "env_woodsBearTrap.lua",
+          "scene": "adv_woodsBearTrap.scene",
+          "dialog": "env_forestBearTrap.dlog",
+          "node": "dlg_id: 5729258872280873084"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "1MotorInn - David Dead",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "1MotorInn - Debug To Attack",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnMotorInnAct1Brothers",
+        "title": "Motor Inn Brothers",
+        "group": "Act 1",
+        "script": "env_motorInn.lua",
+        "entry": {
+          "script": "env_woodsBearTrap.lua",
+          "scene": "adv_woodsBearTrap.scene",
+          "dialog": "env_forestBearTrap.dlog",
+          "node": "dlg_id: 5729258872280873084"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "1MotorInn - David Dead",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "1MotorInn - Larry Killed Zombie",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "1MotorInn - Debug To Brothers",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnWoodsAbandonedCampDay",
+        "title": "Woods To Dairy",
+        "group": "Act 1",
+        "script": "env_woodsAbandonedCampDay.lua",
+        "entry": {
+          "script": "env_motorInn.lua",
+          "scene": "adv_motorInn102.scene",
+          "dialog": "env_motorInn_backAtTheMotel.dlog",
+          "node": "dlg_id: 17537089283131467065"
+        },
+        "flags": []
+      },
+      {
+        "id": "OnDairyExteriorDay",
+        "title": "Dairy Exterior",
+        "group": "Act 2",
+        "script": "env_dairyExteriorDay.lua",
+        "entry": {
+          "script": "env_woodsAbandonedCampDay.lua",
+          "scene": "adv_woodsAbandonedCampDay.scene",
+          "dialog": "env_dairyBarnInterior.dlog",
+          "node": "dlg_id: 3150705583649040698"
+        },
+        "flags": []
+      },
+      {
+        "id": "OnDairyExteriorDayPostFence",
+        "title": "Dairy After Fence",
+        "group": "Act 2",
+        "script": "env_dairyExteriorDay.lua",
+        "entry": {
+          "script": "env_woodsAbandonedCampDay.lua",
+          "scene": "adv_woodsAbandonedCampDay.scene",
+          "dialog": "env_dairyBarnInterior.dlog",
+          "node": "dlg_id: 3150705583649040698"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "nAct",
+            "value": 2
+          },
+          {
+            "agent": "logic_game",
+            "key": "2Fence - Complete",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnDairyExteriorDayPostCamp",
+        "title": "Dairy After Camp",
+        "group": "Act 2",
+        "script": "env_dairyExteriorDay.lua",
+        "entry": {
+          "script": "env_woodsAbandonedCampDay.lua",
+          "scene": "adv_woodsAbandonedCampDay.scene",
+          "dialog": "env_dairyBarnInterior.dlog",
+          "node": "dlg_id: 3150705583649040698"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "nAct",
+            "value": 2
+          },
+          {
+            "agent": "logic_game",
+            "key": "2Fence - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "2Bandits - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "2Dairy - Returned From Fence",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnDairyExteriorFence",
+        "title": "Dairy Ext. Fence",
+        "group": "Act 2",
+        "script": "env_dairyExteriorFence.lua",
+        "entry": {
+          "script": "env_dairyExteriorDay.lua",
+          "scene": "adv_dairyExteriorDay.scene",
+          "dialog": "dairyExterior_lee_andy.dlog",
+          "node": "dlg_id: 904760495044132361"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "nAct",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "id": "OnDairyExteriorFenceAttack",
+        "title": "Fence - Attack",
+        "group": "Act 2",
+        "script": "env_dairyExteriorFence.lua",
+        "entry": {
+          "script": "env_dairyExteriorDay.lua",
+          "scene": "adv_dairyExteriorDay.scene",
+          "dialog": "dairyExterior_lee_andy.dlog",
+          "node": "dlg_id: 904760495044132361"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "nAct",
+            "value": 2
+          },
+          {
+            "agent": "logic_game",
+            "key": "2Fence - FixedFence",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnWoodsJoleneCamp",
+        "title": "Jolene\u0027s Camp",
+        "group": "Act 2",
+        "script": "env_woodsJoleneCamp.lua",
+        "entry": {
+          "script": "env_dairyExteriorFence.lua",
+          "scene": "adv_dairyExteriorFenceline.scene",
+          "dialog": "dairyExterior_lee_andy.dlog",
+          "node": "dlg_id: 3690529644500871444"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "nAct",
+            "value": 2
+          },
+          {
+            "agent": "logic_game",
+            "key": "2Fence - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "2Dairy - Returned From Fence",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnWoodsJoleneCampArgument",
+        "title": "Camp Argument",
+        "group": "Act 2",
+        "script": "env_woodsJoleneCamp.lua",
+        "entry": {
+          "script": "env_dairyExteriorFence.lua",
+          "scene": "adv_dairyExteriorFenceline.scene",
+          "dialog": "dairyExterior_lee_andy.dlog",
+          "node": "dlg_id: 3690529644500871444"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "nAct",
+            "value": 2
+          },
+          {
+            "agent": "logic_game",
+            "key": "2Fence - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "2Bandits - Jolene Entered",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "2Dairy - Returned From Fence",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnDairyBarnDay",
+        "title": "Dairy Barn Day",
+        "group": "Act 2",
+        "script": "env_dairyBarnDay.lua",
+        "entry": {
+          "script": "env_woodsJoleneCamp.lua",
+          "scene": "adv_woodsJoleneCamp.scene",
+          "dialog": "env_dairyExterior_atTheDairy.dlog",
+          "node": "dlg_id: 13152482511116235002"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "nAct",
+            "value": 2
+          },
+          {
+            "agent": "logic_game",
+            "key": "2Fence - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "2Bandits - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "2Dairy - Returned From Fence",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "2Dairy - Returned From Camp",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnDairyHouse",
+        "title": "Dairy House",
+        "group": "Act 3",
+        "script": "env_dairyHouse.lua",
+        "entry": {
+          "script": "env_dairyBarnDay.lua",
+          "scene": "adv_dairyBarnInteriorDay.scene",
+          "dialog": "env_dairyBarnInterior.dlog",
+          "node": "dlg_id: 8204678027531132959"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "nAct",
+            "value": 3
+          }
+        ]
+      },
+      {
+        "id": "OnDairyHouseDinner",
+        "title": "Dairy House - Dinner",
+        "group": "Act 3",
+        "script": "env_dairyHouse.lua",
+        "entry": {
+          "script": "env_dairyBarnDay.lua",
+          "scene": "adv_dairyBarnInteriorDay.scene",
+          "dialog": "env_dairyBarnInterior.dlog",
+          "node": "dlg_id: 8204678027531132959"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "nAct",
+            "value": 3
+          },
+          {
+            "agent": "logic_game",
+            "key": "3House - Complete",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnDairyMeatLocker",
+        "title": "Meat Locker",
+        "group": "Act 3",
+        "script": "env_dairyMeatLocker.lua",
+        "entry": {
+          "script": "env_dairyHouse.lua",
+          "scene": "adv_dairyHouseInterior.scene",
+          "dialog": "env_dairyMainHouseInterior.dlog",
+          "node": "dlg_id: 14557228069210358576"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "nAct",
+            "value": 3
+          }
+        ]
+      },
+      {
+        "id": "OnDairyMeatLockerChoice",
+        "title": "Meat Locker - Choice",
+        "group": "Act 3",
+        "script": "env_dairyMeatLocker.lua",
+        "entry": {
+          "script": "env_dairyHouse.lua",
+          "scene": "adv_dairyHouseInterior.scene",
+          "dialog": "env_dairyMainHouseInterior.dlog",
+          "node": "dlg_id: 14557228069210358576"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "nAct",
+            "value": 3
+          },
+          {
+            "agent": "logic_game",
+            "key": "3MeatLocker - DebugToChoice",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnDairyBarnNight",
+        "title": "Dairy Barn Night",
+        "group": "Act 3",
+        "script": "env_dairyBarnNight.lua",
+        "entry": {
+          "script": "env_dairyMeatLocker.lua",
+          "scene": "adv_dairyMeatLocker.scene",
+          "dialog": "env_dairyMeatLocker.dlog",
+          "node": "dlg_id: 365258495707550306"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "nAct",
+            "value": 3
+          },
+          {
+            "agent": "logic_game",
+            "key": "3MeatLocker - Complete",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnDairyExteriorNight",
+        "title": "Dairy Ext. Night",
+        "group": "Act 3",
+        "script": "env_dairyExteriorNight.lua",
+        "entry": {
+          "script": "env_dairyBarnNight.lua",
+          "scene": "adv_dairyBarnInteriorNight.scene",
+          "dialog": "env_dairyBarnInterior_escape.dlog",
+          "node": "dlg_id: 17627409431643167601"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "nAct",
+            "value": 3
+          },
+          {
+            "agent": "logic_game",
+            "key": "3MeatLocker - Complete",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnDairyExteriorNightRescue",
+        "title": "Dairy Ext. - Rescue",
+        "group": "Act 3",
+        "script": "env_dairyExteriorNight.lua",
+        "entry": {
+          "script": "env_dairyBarnNight.lua",
+          "scene": "adv_dairyBarnInteriorNight.scene",
+          "dialog": "env_dairyBarnInterior_escape.dlog",
+          "node": "dlg_id: 17627409431643167601"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "nAct",
+            "value": 3
+          },
+          {
+            "agent": "logic_game",
+            "key": "3House - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "3MeatLocker - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "3Rescue - Debug to Rescue",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnAndyFight",
+        "title": "Andy Fight",
+        "group": "Act 3",
+        "script": "env_dairyExteriorNight.lua",
+        "entry": {
+          "script": "env_dairyBarnNight.lua",
+          "scene": "adv_dairyBarnInteriorNight.scene",
+          "dialog": "env_dairyBarnInterior_escape.dlog",
+          "node": "dlg_id: 17627409431643167601"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "nAct",
+            "value": 3
+          },
+          {
+            "agent": "logic_game",
+            "key": "3MeatLocker - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "3Rescue - Complete",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnAndyKillChoice",
+        "title": "Andy Kill Choice",
+        "group": "Act 3",
+        "script": "env_dairyExteriorNight.lua",
+        "entry": {
+          "script": "env_dairyBarnNight.lua",
+          "scene": "adv_dairyBarnInteriorNight.scene",
+          "dialog": "env_dairyBarnInterior_escape.dlog",
+          "node": "dlg_id: 17627409431643167601"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "nAct",
+            "value": 3
+          },
+          {
+            "agent": "logic_game",
+            "key": "3MeatLocker - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "3Rescue - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "3AndyFight - FightingDone",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "3AndyFight - DebugToKillChoice",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnWoodsAbandonedCamp",
+        "title": "Abandoned Camp",
+        "group": "Act 3 (cont.)",
+        "script": "env_woodsAbandonedCamp.lua",
+        "entry": {
+          "script": "env_dairyExteriorNight.lua",
+          "scene": "adv_dairyExteriorNight.scene",
+          "dialog": "env_dairyExterior_trappingAndy.dlog",
+          "node": "dlg_id: 2135609494714364636"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "nAct",
+            "value": 3
+          }
+        ]
+      },
+      {
+        "id": "OnMotorInnFinale",
+        "title": "Motor Inn Finale",
+        "group": "Finale",
+        "script": "env_motorInnFinale.lua",
+        "entry": {
+          "script": "env_woodsAbandonedCamp.lua",
+          "scene": "adv_woodsAbandonedCamp.scene",
+          "dialog": "env_forestAbandonedCamp.dlog",
+          "node": "dlg_id: 9679795538669403798"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "nAct",
+            "value": 3
+          }
+        ]
+      }
+    ],
+    "decisionFlags": []
+  },
+  {
+    "episode": 3,
+    "chapters": [
+      {
+        "id": "OnDrugstoreExterior",
+        "title": "Drugstore Exterior",
+        "group": "Act 1",
+        "script": "env_drugstoreExterior.lua",
+        "entry": null,
+        "flags": []
+      },
+      {
+        "id": "OnDrugstoreInterior",
+        "title": "Drugstore Interior",
+        "group": "Act 1",
+        "script": "env_drugstoreInterior.lua",
+        "entry": {
+          "script": "env_drugstoreExterior.lua",
+          "scene": "adv_drugstoreExteriorCrashed.scene",
+          "dialog": "env_drugstoreExteriorCrashed.dlog",
+          "node": "dlg_id: 16260063569335624718"
+        },
+        "flags": []
+      },
+      {
+        "id": "OnDrugstoreInteriorOverCounter",
+        "title": "Drugstore Escape",
+        "group": "Act 1",
+        "script": "env_drugstoreInterior.lua",
+        "entry": {
+          "script": "env_drugstoreExterior.lua",
+          "scene": "adv_drugstoreExteriorCrashed.scene",
+          "dialog": "env_drugstoreExteriorCrashed.dlog",
+          "node": "dlg_id: 16260063569335624718"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "Debug - DrugInt Start over Counter",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnMotorInnArgument",
+        "title": "Motor Inn Argument",
+        "group": "Act 1",
+        "script": "env_motorInn.lua",
+        "entry": {
+          "script": "env_drugstoreInterior.lua",
+          "scene": "adv_drugstoreInteriorCrashed.scene",
+          "dialog": "env_drugstoreInteriorCrashed.dlog",
+          "node": "dlg_id: 15677634757235934656"
+        },
+        "flags": []
+      },
+      {
+        "id": "OnMotorInn",
+        "title": "Motor Inn",
+        "group": "Act 1",
+        "script": "env_motorInn.lua",
+        "entry": {
+          "script": "env_drugstoreInterior.lua",
+          "scene": "adv_drugstoreInteriorCrashed.scene",
+          "dialog": "env_drugstoreInteriorCrashed.dlog",
+          "node": "dlg_id: 15677634757235934656"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "1MotorInn - Finished Argument",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnMotorInnBanditAttack",
+        "title": "Bandit Attack",
+        "group": "Act 1",
+        "script": "env_motorInnBanditAttack.lua",
+        "entry": {
+          "script": "env_motorInn.lua",
+          "scene": "adv_motorInn103_exterior.scene",
+          "dialog": "env_motorInn103.dlog",
+          "node": "dlg_id: 15870253386332540671"
+        },
+        "flags": []
+      },
+      {
+        "id": "OnRoad",
+        "title": "Road (RV)",
+        "group": "Act 2",
+        "script": "env_road.lua",
+        "entry": {
+          "script": "env_motorInnBanditAttack.lua",
+          "scene": "adv_motorInn103_banditRaid.scene",
+          "dialog": "env_motorInnBanditRaid.dlog",
+          "node": "dlg_id: 232492688971520781"
+        },
+        "flags": []
+      },
+      {
+        "id": "OnRoadNightmare",
+        "title": "Road Nightmare",
+        "group": "Act 2",
+        "script": "env_road.lua",
+        "entry": {
+          "script": "env_motorInnBanditAttack.lua",
+          "scene": "adv_motorInn103_banditRaid.scene",
+          "dialog": "env_motorInnBanditRaid.dlog",
+          "node": "dlg_id: 232492688971520781"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "2Road - Talked To Katjaa",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnWreckedTrain",
+        "title": "Wrecked Train",
+        "group": "Act 2",
+        "script": "env_wreckedTrain.lua",
+        "entry": {
+          "script": "env_road.lua",
+          "scene": "adv_roadTile.scene",
+          "dialog": "env_road.dlog",
+          "node": "dlg_id: 18385853474235522768"
+        },
+        "flags": []
+      },
+      {
+        "id": "OnTrainBeforeStop",
+        "title": "Train Before Stop",
+        "group": "Act 3",
+        "script": "env_trainBeforeStop.lua",
+        "entry": {
+          "script": "env_wreckedTrain.lua",
+          "scene": "adv_trainTileWreckedTrain.scene",
+          "dialog": "env_wreckedTrain.dlog",
+          "node": "dlg_id: 5057994062217536902"
+        },
+        "flags": []
+      },
+      {
+        "id": "OnTrainFight",
+        "title": "Train Fight",
+        "group": "Act 3",
+        "script": "env_trainBeforeStop.lua",
+        "entry": {
+          "script": "env_wreckedTrain.lua",
+          "scene": "adv_trainTileWreckedTrain.scene",
+          "dialog": "env_wreckedTrain.dlog",
+          "node": "dlg_id: 5057994062217536902"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "3Train1 - Got Physical",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnClearing",
+        "title": "Clearing",
+        "group": "Act 3",
+        "script": "env_clearing.lua",
+        "entry": {
+          "script": "env_trainBeforeStop.lua",
+          "scene": "adv_trainTile_beforeStop.scene",
+          "dialog": "env_trainBeforeStop.dlog",
+          "node": "dlg_id: 10967207345790395965"
+        },
+        "flags": []
+      },
+      {
+        "id": "OnTrainAfterStop",
+        "title": "Train After Stop",
+        "group": "Act 3",
+        "script": "env_trainAfterStop.lua",
+        "entry": {
+          "script": "env_clearing.lua",
+          "scene": "adv_trainTileClearing.scene",
+          "dialog": "env_clearing.dlog",
+          "node": "dlg_id: 723476056239751738"
+        },
+        "flags": []
+      },
+      {
+        "id": "OnOverpassI",
+        "title": "Overpass I",
+        "group": "Act 3",
+        "script": "env_overpass.lua",
+        "entry": {
+          "script": "env_trainAfterStop.lua",
+          "scene": "adv_trainTile_afterStop.scene",
+          "dialog": "env_station.dlog",
+          "node": "dlg_id: 18439122365649207746"
+        },
+        "flags": []
+      },
+      {
+        "id": "OnOverpassII",
+        "title": "Overpass II",
+        "group": "Act 3",
+        "script": "env_overpass.lua",
+        "entry": {
+          "script": "env_trainAfterStop.lua",
+          "scene": "adv_trainTile_afterStop.scene",
+          "dialog": "env_station.dlog",
+          "node": "dlg_id: 18439122365649207746"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "3Overpass - Met Omid \u0026 Christa",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "3Overpass - Left Overpass",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "3Station - Been to Station",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "3Station - Got Blowtorch",
+            "value": true
+          },
+          {
+            "agent": "logic_inventory_items",
+            "key": "Inventory - Blowtorch",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "id": "OnStation",
+        "title": "Train Station",
+        "group": "Act 3",
+        "script": "env_station.lua",
+        "entry": {
+          "script": "env_overpass.lua",
+          "scene": "adv_trainTileOverpass.scene",
+          "dialog": "env_overpass.dlog",
+          "node": "dlg_id: 15287731109555081494"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "3Overpass - Met Omid \u0026 Christa",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "3Overpass - Left Overpass",
+            "value": true
+          },
+          {
+            "agent": "logic_inventory_items",
+            "key": "Inventory - Spanner",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "id": "OnStationFight",
+        "title": "Train Station Fight",
+        "group": "Act 3",
+        "script": "env_station.lua",
+        "entry": {
+          "script": "env_overpass.lua",
+          "scene": "adv_trainTileOverpass.scene",
+          "dialog": "env_overpass.dlog",
+          "node": "dlg_id: 15287731109555081494"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "3Overpass - Met Omid \u0026 Christa",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "3Overpass - Left Overpass",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "3Station - Debug to Fight",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnEpilogue",
+        "title": "Epilogue",
+        "group": "Finale",
+        "script": "env_epilogue.lua",
+        "entry": {
+          "script": "env_station.lua",
+          "scene": "adv_trainTileStation.scene",
+          "dialog": "env_overpass.dlog",
+          "node": "dlg_id: 15330407824846952659"
+        },
+        "flags": []
+      }
+    ],
+    "decisionFlags": []
+  },
+  {
+    "episode": 4,
+    "chapters": [
+      {
+        "id": "OnSavannahStreets",
+        "title": "Savannah Streets",
+        "group": "Act 1",
+        "script": "env_savannahStreets.lua",
+        "entry": null,
+        "flags": []
+      },
+      {
+        "id": "OnManorBackyardDay",
+        "title": "Backyard Day",
+        "group": "Act 1",
+        "script": "env_manorExteriorDay.lua",
+        "entry": {
+          "script": "env_savannahStreets.lua",
+          "scene": "adv_savannahStreets.scene",
+          "dialog": "env_manorAttic_act1ZombieBoy.dlog",
+          "node": "dlg_id: 9732140301693174289"
+        },
+        "flags": []
+      },
+      {
+        "id": "OnManorHouseSearch",
+        "title": "Manor House Search",
+        "group": "Act 1",
+        "script": "env_manorInteriorHouseSearch.lua",
+        "entry": {
+          "script": "env_manorExteriorDay.lua",
+          "scene": "adv_manorExterior_day.scene",
+          "dialog": "env_manorExterior_act1Arrival.dlog",
+          "node": "dlg_id: 1859131467320279332"
+        },
+        "flags": []
+      },
+      {
+        "id": "OnManorAttic",
+        "title": "Manor Attic",
+        "group": "Act 1",
+        "script": "env_manorInteriorAttic.lua",
+        "entry": {
+          "script": "env_manorInteriorHouseSearch.lua",
+          "scene": "adv_manorInterior_houseSearch.scene",
+          "dialog": "env_manorInterior_act1Search.dlog",
+          "node": "dlg_id: 409524352623634796"
+        },
+        "flags": []
+      },
+      {
+        "id": "OnBurial",
+        "title": "Burial",
+        "group": "Act 1",
+        "script": "env_manorExteriorDay.lua",
+        "entry": {
+          "script": "env_manorInteriorAttic.lua",
+          "scene": "adv_manorInteriorAttic.scene",
+          "dialog": "env_manorAttic_act1ZombieBoy.dlog",
+          "node": "dlg_id: 9732140301693174289"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "1ManorAttic - Zombie Boy Dead",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnRiverStreet",
+        "title": "River Street",
+        "group": "Act 2",
+        "script": "env_savannahRiverStreet.lua",
+        "entry": {
+          "script": "env_manorExteriorDay.lua",
+          "scene": "adv_manorExterior_day.scene",
+          "dialog": "env_manorExterior_act1Ending.dlog",
+          "node": "dlg_id: 10919981996698144829"
+        },
+        "flags": []
+      },
+      {
+        "id": "OnStreetFight",
+        "title": "Street Fight",
+        "group": "Act 2",
+        "script": "env_savannahRiverStreet.lua",
+        "entry": {
+          "script": "env_manorExteriorDay.lua",
+          "scene": "adv_manorExterior_day.scene",
+          "dialog": "env_manorExterior_act1Ending.dlog",
+          "node": "dlg_id: 10919981996698144829"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "2RiverStreet - Spotted Molly",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnSavannahSewers",
+        "title": "Savannah Sewers",
+        "group": "Act 2",
+        "script": "env_savannahSewers.lua",
+        "entry": {
+          "script": "env_savannahRiverStreet.lua",
+          "scene": "adv_savannahRiverStreet.scene",
+          "dialog": "env_savannahRiverStreet_act2Fight.dlog",
+          "node": "dlg_id: 5303123042221489972"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "2StreetFight - Finished Fight",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnCancerSurvivors",
+        "title": "Cancer Survivors",
+        "group": "Act 2",
+        "script": "env_cancerGroupHideout.lua",
+        "entry": {
+          "script": "env_savannahSewers.lua",
+          "scene": "adv_savannahSewers.scene",
+          "dialog": "env_savannahSewers_act2Exploring.dlog",
+          "node": "dlg_id: 11320963483941838272"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "2StreetFight - Finished Fight",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnManorClemSearch",
+        "title": "Manor Clem Search",
+        "group": "Act 2",
+        "script": "env_manorInteriorClementineSearch.lua",
+        "entry": {
+          "script": "env_cancerGroupHideout.lua",
+          "scene": "adv_cancerGroupHideout.scene",
+          "dialog": "env_cancerGroupHideout_act2.dlog",
+          "node": "dlg_id: 11578236008184857659"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "2StreetFight - Finished Fight",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnDiscoverBoat",
+        "title": "Discover Boat",
+        "group": "Act 2",
+        "script": "env_manorExteriorDay.lua",
+        "entry": {
+          "script": "env_manorInteriorClementineSearch.lua",
+          "scene": "adv_manorInterior_clementineSearch.scene",
+          "dialog": "env_manorAttic_act1ZombieBoy.dlog",
+          "node": "dlg_id: 9732140301693174289"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "2StreetFight - Finished Fight",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "2ClemSearch - Entered Backyard",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnManorBeforeCrawford",
+        "title": "Crawford Discussion",
+        "group": "Act 2",
+        "script": "env_manorInteriorBeforeCrawford.lua",
+        "entry": {
+          "script": "env_manorExteriorDay.lua",
+          "scene": "adv_manorExterior_day.scene",
+          "dialog": "env_manorExterior_act2BoatDiscovery.dlog",
+          "node": "dlg_id: 5888851839815518618"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "2StreetFight - Finished Fight",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnManorBackyardNight",
+        "title": "Backyard Night",
+        "group": "Act 2",
+        "script": "env_manorExteriorNight.lua",
+        "entry": {
+          "script": "env_manorInteriorBeforeCrawford.lua",
+          "scene": "adv_manorInterior_beforeCrawford.scene",
+          "dialog": "env_manorInterior_act2CrawfordDiscussion.dlog",
+          "node": "dlg_id: 5663293122793010487"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "2StreetFight - Finished Fight",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnCrawfordExterior",
+        "title": "Crawford Exterior",
+        "group": "Act 3",
+        "script": "env_crawfordExterior.lua",
+        "entry": {
+          "script": "env_manorExteriorNight.lua",
+          "scene": "adv_manorExterior_night.scene",
+          "dialog": "env_crawfordAutoShop_act3BatteryMission.dlog",
+          "node": "dlg_id: 3902323370861416722"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "2StreetFight - Finished Fight",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnCrawfordHallway",
+        "title": "School Hallway",
+        "group": "Act 3",
+        "script": "env_crawfordSchoolHallways.lua",
+        "entry": {
+          "script": "env_crawfordExterior.lua",
+          "scene": "adv_crawfordExterior.scene",
+          "dialog": "env_crawfordExterior_act3Alleyway.dlog",
+          "node": "dlg_id: 11594718354179521883"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "2StreetFight - Finished Fight",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnCrawfordClassroom",
+        "title": "Classroom",
+        "group": "Act 3",
+        "script": "env_crawfordSchoolClassroom.lua",
+        "entry": {
+          "script": "env_crawfordSchoolHallways.lua",
+          "scene": "adv_crawfordSchoolHallways.scene",
+          "dialog": "env_crawfordSchoolHallways_act3Exploring.dlog",
+          "node": "dlg_id: 995562450992766236"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "2StreetFight - Finished Fight",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnCrawfordHallwayPreBattery",
+        "title": "Hallway Pre-Battery",
+        "group": "Act 3",
+        "script": "env_crawfordSchoolHallways.lua",
+        "entry": {
+          "script": "env_crawfordSchoolClassroom.lua",
+          "scene": "adv_crawfordSchoolClassroom.scene",
+          "dialog": "env_crawfordExterior_act3Alleyway.dlog",
+          "node": "dlg_id: 11594718354179521883"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "2StreetFight - Finished Fight",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "3Classroom - Entered Classroom",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnCrawfordAlley",
+        "title": "Alley",
+        "group": "Act 3",
+        "script": "env_crawfordExterior.lua",
+        "entry": {
+          "script": "env_crawfordSchoolHallways.lua",
+          "scene": "adv_crawfordSchoolHallways.scene",
+          "dialog": "env_crawfordAutoShop_act3BatteryMission.dlog",
+          "node": "dlg_id: 3902323370861416722"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "2StreetFight - Finished Fight",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "3Classroom - Entered Classroom",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnCrawfordAutoShop",
+        "title": "Auto Shop",
+        "group": "Act 3",
+        "script": "env_crawfordAutoShop.lua",
+        "entry": {
+          "script": "env_crawfordExterior.lua",
+          "scene": "adv_crawfordExterior.scene",
+          "dialog": "env_crawfordExterior_act3Alleyway.dlog",
+          "node": "dlg_id: 16906932496793379162"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "2StreetFight - Finished Fight",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "3Classroom - Entered Classroom",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnCrawfordHallwayPostBattery",
+        "title": "Hallway Post-Battery",
+        "group": "Act 3",
+        "script": "env_crawfordSchoolHallways.lua",
+        "entry": {
+          "script": "env_crawfordAutoShop.lua",
+          "scene": "adv_crawfordAutoShop.scene",
+          "dialog": "env_crawfordExterior_act3Alleyway.dlog",
+          "node": "dlg_id: 11594718354179521883"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "2StreetFight - Finished Fight",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "3Classroom - Entered Classroom",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "3Battery - Entered Auto Shop",
+            "value": true
+          },
+          {
+            "agent": "logic_debug",
+            "key": "Debug - EnterHallwayFromAlley",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnCrawfordNurseOffice",
+        "title": "Nurse\u0027s Office",
+        "group": "Act 3",
+        "script": "env_crawfordSchoolNursesOffice.lua",
+        "entry": {
+          "script": "env_crawfordSchoolHallways.lua",
+          "scene": "adv_crawfordSchoolHallways.scene",
+          "dialog": "env_crawfordSchoolHallways_act3Exploring.dlog",
+          "node": "dlg_id: 5874361463471254045"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "2StreetFight - Finished Fight",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "3Classroom - Entered Classroom",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "3Battery - Entered Auto Shop",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnCrawfordAlleyMedsMission",
+        "title": "Alley Meds Mission",
+        "group": "Act 3",
+        "script": "env_crawfordExterior.lua",
+        "entry": {
+          "script": "env_crawfordSchoolNursesOffice.lua",
+          "scene": "adv_crawfordSchoolNursesOffice.scene",
+          "dialog": "env_crawfordAutoShop_act3BatteryMission.dlog",
+          "node": "dlg_id: 3902323370861416722"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "2StreetFight - Finished Fight",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "3Classroom - Entered Classroom",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "3Battery - Removed Battery",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "3Battery - Finished",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "3Medicine - Entered Nurse\u0027s Office",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "3Medicine - Watched Tape 1",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "3Battery - Entered Auto Shop",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnBenConfession",
+        "title": "Ben Confession",
+        "group": "Act 3 (Cont)",
+        "script": "env_crawfordSchoolClassroom.lua",
+        "entry": {
+          "script": "env_crawfordExterior.lua",
+          "scene": "adv_crawfordExterior.scene",
+          "dialog": "env_crawfordSchoolHallways_act3Exploring.dlog",
+          "node": "dlg_id: 995562450992766236"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "2StreetFight - Finished Fight",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "3Classroom - Entered Classroom",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "3Battery - Finished",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "3Fuel - Finished",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "3Medicine - Finished",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "3Battery - Entered Auto Shop",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnCrawfordBellTower",
+        "title": "Bell Tower",
+        "group": "Act 3 (Cont)",
+        "script": "env_crawfordSchoolBellTower.lua",
+        "entry": {
+          "script": "env_crawfordSchoolClassroom.lua",
+          "scene": "adv_crawfordSchoolClassroom.scene",
+          "dialog": "env_crawfordSchoolClassroom_act3Confrontation.dlog",
+          "node": "dlg_id: 3936195215676584716"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "2StreetFight - Finished Fight",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnCrawfordBellTowerTop",
+        "title": "Bell Tower Top",
+        "group": "Act 3 (Cont)",
+        "script": "env_crawfordSchoolBellTower.lua",
+        "entry": {
+          "script": "env_crawfordSchoolClassroom.lua",
+          "scene": "adv_crawfordSchoolClassroom.scene",
+          "dialog": "env_crawfordSchoolClassroom_act3Confrontation.dlog",
+          "node": "dlg_id: 3936195215676584716"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "2StreetFight - Finished Fight",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "3Belltower - Reached Top",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnManorAfterCrawford",
+        "title": "Manor After Crawford",
+        "group": "Finale",
+        "script": "env_manorInteriorAfterCrawford.lua",
+        "entry": {
+          "script": "env_crawfordSchoolBellTower.lua",
+          "scene": "adv_crawfordSchoolBellTower.scene",
+          "dialog": "env_crawfordSchoolBellTower.dlog",
+          "node": "dlg_id: 885358721511583373"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "2StreetFight - Finished Fight",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnBackyardFinale",
+        "title": "Backyard Finale",
+        "group": "Finale",
+        "script": "env_manorExteriorDay.lua",
+        "entry": {
+          "script": "env_manorInteriorAfterCrawford.lua",
+          "scene": "adv_manorInterior_afterCrawford.scene",
+          "dialog": "env_manorAttic_act1ZombieBoy.dlog",
+          "node": "dlg_id: 9732140301693174289"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "2StreetFight - Finished Fight",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "key": "2ClemSearch - Found Boat",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnEpilogue",
+        "title": "Epilogue",
+        "group": "Finale",
+        "script": "env_cancerGroupHideoutEpilogue.lua",
+        "entry": {
+          "script": "env_manorExteriorDay.lua",
+          "scene": "adv_manorExterior_day.scene",
+          "dialog": "env_manorExterior_act4.dlog",
+          "node": "dlg_id: 17085750317333619742"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "2StreetFight - Finished Fight",
+            "value": true
+          }
+        ]
+      }
+    ],
+    "decisionFlags": []
+  },
+  {
+    "episode": 5,
+    "chapters": [
+      {
+        "id": "OnMorgue",
+        "title": "Morgue",
+        "group": "Act 1",
+        "script": "env_morgue.lua",
+        "entry": null,
+        "flags": []
+      },
+      {
+        "id": "OnMorgueArmChop",
+        "title": "Arm Chop",
+        "group": "Act 1",
+        "script": "env_morgue.lua",
+        "entry": {
+          "script": "PreviouslyOn.lua"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "With Kenny",
+            "value": "false"
+          },
+          {
+            "agent": "logic_game",
+            "key": "With Christa And Omid",
+            "value": "false"
+          },
+          {
+            "agent": "logic_game",
+            "key": "1Morgue - Passed Out",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnElevatorShaft",
+        "title": "Elevator Shaft",
+        "group": "Act 1",
+        "script": "env_morgue.lua",
+        "entry": {
+          "script": "PreviouslyOn.lua"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "1Morgue - Complete",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnRooftop",
+        "title": "Rooftop",
+        "group": "Act 1",
+        "script": "env_rooftop.lua",
+        "entry": {
+          "script": "env_morgue.lua",
+          "scene": "adv_cancerGroupHideout105.scene",
+          "dialog": "env_elevatorShaft.dlog",
+          "node": "dlg_id: 10433023992267769959"
+        },
+        "flags": []
+      },
+      {
+        "id": "OnManorExterior",
+        "title": "Manor Exterior",
+        "group": "Act 1",
+        "script": "env_manorExterior.lua",
+        "entry": {
+          "script": "env_rooftop.lua",
+          "scene": "adv_cancerGroupHideoutRoof.scene",
+          "dialog": "env_rooftop.dlog",
+          "node": "dlg_id: 3802804817868538235"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "nAct",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "id": "OnManorInterior",
+        "title": "Manor Interior",
+        "group": "Act 2",
+        "script": "env_manorInterior.lua",
+        "entry": {
+          "script": "env_manorExterior.lua",
+          "scene": "adv_manorExterior105.scene",
+          "dialog": "env_manorExterior.dlog",
+          "node": "dlg_id: 4631521665737346247"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "nAct",
+            "value": 2
+          }
+        ]
+      },
+      {
+        "id": "OnManorAttic",
+        "title": "Manor Attic",
+        "group": "Act 2",
+        "script": "env_manorInteriorAttic.lua",
+        "entry": {
+          "script": "env_manorInterior.lua",
+          "scene": "adv_manorInterior105.scene",
+          "dialog": "env_manorInterior.dlog",
+          "node": "dlg_id: 17307717859633419059"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "nAct",
+            "value": 2
+          },
+          {
+            "agent": "logic_inventory_items",
+            "key": "Inventory - Cleaver",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "id": "OnNeighborBedroom",
+        "title": "Neighbor Bedroom",
+        "group": "Act 2",
+        "script": "env_manorNeighborBedroom.lua",
+        "entry": {
+          "script": "env_manorInteriorAttic.lua",
+          "scene": "adv_manorInteriorAttic105.scene",
+          "dialog": "env_manorInteriorAttic.dlog",
+          "node": "dlg_id: 1341275625067743758"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "nAct",
+            "value": 2
+          },
+          {
+            "agent": "logic_inventory_items",
+            "key": "Inventory - Cleaver",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "id": "OnNeighborBedroomDeath",
+        "title": "Kenny \u0026 Ben Death",
+        "group": "Act 2",
+        "script": "env_manorNeighborBedroom.lua",
+        "entry": {
+          "script": "env_manorInteriorAttic.lua",
+          "scene": "adv_manorInteriorAttic105.scene",
+          "dialog": "env_manorInteriorAttic.dlog",
+          "node": "dlg_id: 1341275625067743758"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "nAct",
+            "value": 2
+          },
+          {
+            "agent": "logic_game",
+            "key": "2Bedroom - Crossed Alley",
+            "value": true
+          },
+          {
+            "agent": "logic_inventory_items",
+            "key": "Inventory - Cleaver",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "id": "OnRiverStreetRooftop",
+        "title": "River St. Rooftop",
+        "group": "Act 2",
+        "script": "env_riverStreetRooftop.lua",
+        "entry": {
+          "script": "env_manorNeighborBedroom.lua",
+          "scene": "adv_manorNeighborBedroom.scene",
+          "dialog": "env_manorNeighborBedroom.dlog",
+          "node": "dlg_id: 9525516674118229291"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "nAct",
+            "value": 2
+          },
+          {
+            "agent": "logic_inventory_items",
+            "key": "Inventory - Cleaver",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "id": "OnRiverStreet",
+        "title": "River Street",
+        "group": "Act 2",
+        "script": "env_riverStreet.lua",
+        "entry": {
+          "script": "env_riverStreetRooftop.lua",
+          "scene": "adv_savannahRiverStreetRooftop.scene",
+          "dialog": "env_riverStreetRooftop.dlog",
+          "node": "dlg_id: 2380641173610377118"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "nAct",
+            "value": 2
+          },
+          {
+            "agent": "logic_inventory_items",
+            "key": "Inventory - Cleaver",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "id": "OnMarshHouseExterior1",
+        "title": "Marsh House Ext. I",
+        "group": "Act 2",
+        "script": "env_marshHouseExterior.lua",
+        "entry": {
+          "script": "env_riverStreet.lua",
+          "scene": "adv_savannahRiverStreet105.scene",
+          "dialog": "env_marshHouseInteriorRoom.dlog",
+          "node": "dlg_id: 13500869976816521805"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "nAct",
+            "value": 2
+          },
+          {
+            "agent": "logic_inventory_items",
+            "key": "Inventory - Cleaver",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "id": "OnMarshHouseInterior",
+        "title": "Marsh House Room",
+        "group": "Act 3",
+        "script": "env_marshHouseInterior.lua",
+        "entry": {
+          "script": "env_marshHouseExterior.lua",
+          "scene": "adv_marshHouseExterior.scene",
+          "dialog": "env_marshHouseExterior.dlog",
+          "node": "dlg_id: 7310205091484851281"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "nAct",
+            "value": 3
+          },
+          {
+            "agent": "logic_inventory_items",
+            "key": "Inventory - Cleaver",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "id": "OnCampmanFight",
+        "title": "Campman Fight",
+        "group": "Act 3",
+        "script": "env_marshHouseInterior.lua",
+        "entry": {
+          "script": "env_marshHouseExterior.lua",
+          "scene": "adv_marshHouseExterior.scene",
+          "dialog": "env_marshHouseExterior.dlog",
+          "node": "dlg_id: 7310205091484851281"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "nAct",
+            "value": 3
+          },
+          {
+            "agent": "logic_game",
+            "key": "3Room - Clem Ready To Sneak",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnMarshHouseInterior2",
+        "title": "Marsh House Room II",
+        "group": "Act 3",
+        "script": "env_marshHouseInterior.lua",
+        "entry": {
+          "script": "env_marshHouseExterior.lua",
+          "scene": "adv_marshHouseExterior.scene",
+          "dialog": "env_marshHouseExterior.dlog",
+          "node": "dlg_id: 7310205091484851281"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "nAct",
+            "value": 3
+          },
+          {
+            "agent": "logic_game",
+            "key": "3Room - Campman Dead",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnMarshHouseExterior2",
+        "title": "Marsh House Ext. II",
+        "group": "Act 3",
+        "script": "env_marshHouseExterior.lua",
+        "entry": {
+          "script": "env_marshHouseInterior.lua",
+          "scene": "adv_marshHouseInteriorRoom.scene",
+          "dialog": "env_marshHouseInteriorRoom.dlog",
+          "node": "dlg_id: 13500869976816521805"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "nAct",
+            "value": 3
+          },
+          {
+            "agent": "logic_inventory_items",
+            "key": "Inventory - Cleaver",
+            "value": 1
+          }
+        ]
+      },
+      {
+        "id": "OnJewelryStore",
+        "title": "Jewelry Store",
+        "group": "Act 3",
+        "script": "env_jewelryStore.lua",
+        "entry": {
+          "script": "env_marshHouseExterior.lua",
+          "scene": "adv_marshHouseExterior.scene",
+          "dialog": "env_marshHouseExterior.dlog",
+          "node": "dlg_id: 17095284574668610419"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "nAct",
+            "value": 3
+          }
+        ]
+      },
+      {
+        "id": "OnEpilogue",
+        "title": "Epilogue",
+        "group": "Act 3",
+        "script": "env_epilogue.lua",
+        "entry": {
+          "script": "env_jewelryStore.lua",
+          "scene": "adv_jewelryStore.scene",
+          "dialog": "env_jewelryStore.dlog",
+          "node": "dlg_id: 12812542092351684824"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "key": "nAct",
+            "value": 3
+          }
+        ]
+      }
+    ],
+    "decisionFlags": [
+      {
+        "choiceKey": "Cut Off Arm",
+        "agent": "logic_game",
+        "key": "1Morgue - Cut Off Arm",
+        "decidedFrom": "OnElevatorShaft"
+      },
+      {
+        "choiceKey": "Killed Campman",
+        "agent": "logic_game",
+        "key": "3Room - Killed Campman",
+        "decidedFrom": "OnMarshHouseInterior2"
+      }
+    ]
+  }
+]
