@@ -184,7 +184,7 @@ public class Season3SaveTests
     {
         var slot = Season3Saves.LoadEpisode1Save();
 
-        Season3Saves.Handler.RestartFromChapter(slot, 1, "JunkyardHillTrailer");
+        Season3Saves.Handler.RestartFromChapter(slot, 1, "VirginiaRoadTruck");
 
         var reloaded = Season3Saves.Reload(slot);
         var save = Assert.Single(reloaded.Checkpoints);
@@ -193,10 +193,10 @@ public class Season3SaveTests
         Assert.Equal(1, metadata.GetInt(SaveMetadataKeys.Episode));
         Assert.Equal(22, metadata.GetInt(SaveMetadataKeys.Serial));
         Assert.Equal("WalkingDead301", metadata.GetString(S3SlotFiles.SavedProject));
-        Assert.Equal("JunkyardHill", metadata.GetString(S3SlotFiles.SavedScript));
+        Assert.Equal("VirginiaRoad", metadata.GetString(S3SlotFiles.SavedScript));
 
         var game = SaveGameCodec.Read(save.FindFile(BundleFileNames.SaveGame)!.Data);
-        Assert.Equal("JunkyardHill.lua", game.LuaDoFile);
+        Assert.Equal("VirginiaRoad.lua", game.LuaDoFile);
         Assert.Equal(save.Files.Skip(2).Select(file => file.NameSymbol), game.RuntimePropertyNames);
         Assert.Equal(4, game.EnabledDynamicSets.Count);
 
@@ -214,7 +214,7 @@ public class Season3SaveTests
 
         var state = Season3Saves.Handler.GetResumeState(reloaded);
         Assert.Equal(1, state.Episode);
-        Assert.Equal("Junkyard Hill - Trailer", state.Checkpoint);
+        Assert.Equal("Virginia Road - Truck", state.Checkpoint);
     }
 
     [Fact]
@@ -302,6 +302,17 @@ public class Season3SaveTests
             Assert.Equal(episode.Chapters.Count, episode.Chapters.Select(chapter => chapter.Id).Distinct().Count());
             Assert.All(episode.Chapters, chapter => Assert.False(string.IsNullOrWhiteSpace(chapter.Script)));
         }
+    }
+
+    [Fact]
+    public void ChapterList_LeavesOutEntriesThatOnlyWorkInDeveloperBuilds()
+    {
+        var chapters = S3ChapterCatalog.ForEpisode(1)!.Chapters;
+
+        Assert.Equal(17, chapters.Count);
+        Assert.Single(chapters, chapter => chapter.Script == "JunkyardHill");
+        Assert.Single(chapters, chapter => chapter.Script == "GarciaDominguezHouse");
+        Assert.Equal(3, chapters.Count(chapter => chapter.Script == "VirginiaRoad"));
     }
 
     private static PropertySet Runtime(SaveSlot save, ulong name)

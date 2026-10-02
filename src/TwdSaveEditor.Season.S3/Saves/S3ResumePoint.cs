@@ -154,7 +154,7 @@ public static partial class S3ResumePoint
             decisions.SetValue(decision, option);
     }
 
-    private static S3Chapter? GeneratedChapter(SaveSlot save, int episode)
+    public static S3Chapter? GeneratedChapter(SaveSlot save, int episode)
     {
         if (save.Metadata?.GetString(S3SlotFiles.SavedScript) is not { } script
             || S3ChapterCatalog.ForEpisode(episode) is not { } chapters

@@ -1,0 +1,519 @@
+{
+  "episodes": [
+    {
+      "episode": 1,
+      "items": [
+        {
+          "id": "Inventory - Crowbar",
+          "key": "Inventory - Crowbar",
+          "name": "Crowbar"
+        },
+        {
+          "id": "Inventory - Siphon",
+          "key": "Inventory - Siphon",
+          "name": "Siphon"
+        },
+        {
+          "id": "Inventory - Batteries",
+          "key": "Inventory - Batteries",
+          "name": "Batteries"
+        },
+        {
+          "id": "Inventory - Candy Bar",
+          "key": "Inventory - Candy Bar",
+          "name": "Candy Bar"
+        }
+      ],
+      "starting": [],
+      "chapters": [
+        {
+          "id": "GarciaHouse",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "VirginiaRoad",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "Junkyard",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "JunkyardHill",
+          "carried": [
+            "Inventory - Crowbar",
+            "Inventory - Siphon"
+          ],
+          "fromStart": []
+        },
+        {
+          "id": "VirginiaRoadTruck",
+          "carried": [
+            "Inventory - Candy Bar"
+          ],
+          "fromStart": []
+        },
+        {
+          "id": "VirginiaRoadWalk",
+          "carried": [
+            "Inventory - Candy Bar"
+          ],
+          "fromStart": []
+        },
+        {
+          "id": "AirportGate",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "Airport",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "Hangar",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "AirportMainStLockup",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "AirportMainStInfirmary",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "VirginiaRoadWinter",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "HardwareStore",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "Wellington",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "VirginiaRailroad",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "JunkyardDayElle",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "JunkyardDayTripp",
+          "carried": [],
+          "fromStart": []
+        }
+      ]
+    },
+    {
+      "episode": 2,
+      "items": [
+        {
+          "id": "Inventory - Tape Player",
+          "key": "Inventory - Tape Player",
+          "name": "Tape Player"
+        },
+        {
+          "id": "Inventory - Bottle Water",
+          "key": "Inventory - Bottle Water",
+          "name": "Water"
+        },
+        {
+          "id": "Inventory - Jumper Cables",
+          "key": "Inventory - Jumper Cables",
+          "name": "Jumper Cables"
+        },
+        {
+          "id": "Inventory - Wrench",
+          "key": "Inventory - Wrench",
+          "name": "Wrench"
+        }
+      ],
+      "starting": [],
+      "chapters": [
+        {
+          "id": "GarciaHouse",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "JunkyardDay",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "Airport",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "AirportGate",
+          "carried": [
+            "Inventory - Bottle Water"
+          ],
+          "fromStart": []
+        },
+        {
+          "id": "VirginiaRoad",
+          "carried": [
+            "Inventory - Bottle Water"
+          ],
+          "fromStart": []
+        },
+        {
+          "id": "VirginiaRoadCar",
+          "carried": [
+            "Inventory - Bottle Water"
+          ],
+          "fromStart": []
+        },
+        {
+          "id": "VirginiaUnderpass",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "VirginiaUnderpassAction",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "VirginiaUnderpassRoof",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "VirginiaForestBus",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondTunnel",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondStreet",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondGate",
+          "carried": [],
+          "fromStart": []
+        }
+      ]
+    },
+    {
+      "episode": 3,
+      "items": [],
+      "starting": [],
+      "chapters": [
+        {
+          "id": "PreviouslyOn",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "GarciaHouse",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondGate",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondQuarantine",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondSquare",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondMedical",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondChurch",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondGateNight",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "VirginiaRailroadNight",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RailroadNightZombies",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "VirginiaForestCamp",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondFactoryExterior",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondFactoryInterior",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "FactoryInteriorFight",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondFactoryBack",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondBackEntrance",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondMedicalReturn",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondSafeHouse",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondChurchReturn",
+          "carried": [],
+          "fromStart": []
+        }
+      ]
+    },
+    {
+      "episode": 4,
+      "items": [],
+      "starting": [],
+      "chapters": [
+        {
+          "id": "PreviouslyOn",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "BattingCages",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondQuarantine",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondSquareDusk",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondApartments",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondArmory",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondMedical",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "VirginiaForestBus",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "VirginiaForestCamp",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "HardwareStoreForestHill",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondMedicalPostFB",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondApartmentNight",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondWaterTower",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondSafehouse",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondSquareDawn",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondSquareDawnAction",
+          "carried": [],
+          "fromStart": []
+        }
+      ]
+    },
+    {
+      "episode": 5,
+      "items": [],
+      "starting": [],
+      "chapters": [
+        {
+          "id": "PreviouslyOn",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "GarciaHouse",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondSquareWall",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondApartments",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondApartmentsRoof",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondOverpass",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondWaterTower",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "WaterTowerBroFight",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondStreetTile",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondStreet",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondGate",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondSquareWallDusk",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondGate13",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondSquareWallDusk14",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondStreet15",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondChurch",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondSquare",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondSquarePlayground",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RichmondGateFinale",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "VirginiaUnderpass",
+          "carried": [],
+          "fromStart": []
+        }
+      ]
+    }
+  ]
+}

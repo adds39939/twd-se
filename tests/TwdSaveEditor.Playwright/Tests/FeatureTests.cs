@@ -120,6 +120,22 @@ public class FeatureTests
     }
 
     [Fact]
+    public async Task InventoryTab_ShowsWhatJavierHoldsInSeason3()
+    {
+        var page = await _fixture.NewPage();
+        await InjectSaveFile(page, "S3", "wd3_saveslot1.bundle");
+        await LoadAndSelectFirstSave(page);
+
+        await page.Locator("[data-testid='tab-inventory']").ClickAsync();
+
+        await Assertions.Expect(page.Locator("[data-testid='inventory-summary']")).ToContainTextAsync("Javier");
+        await Assertions.Expect(page.Locator(".inventory-item")).ToHaveCountAsync(4);
+        await Assertions.Expect(page.Locator(".inventory-item input:checked")).ToHaveCountAsync(1);
+        await Assertions.Expect(page.Locator("[data-testid='inventory-item-Inventory - Candy Bar']")).ToBeCheckedAsync();
+        await Assertions.Expect(page.Locator("[data-testid='inventory-carried']")).ToHaveCountAsync(0);
+    }
+
+    [Fact]
     public async Task InventoryTab_SaysWhenASeasonHasNoEditableInventory()
     {
         var page = await _fixture.NewPage();

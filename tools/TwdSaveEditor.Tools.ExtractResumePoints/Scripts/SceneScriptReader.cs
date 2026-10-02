@@ -13,6 +13,11 @@ public static partial class SceneScriptReader
             : null;
     }
 
+    public static bool SetupIsDeveloperOnly(string text) => DeveloperSetup().IsMatch(text);
+
+    [GeneratedRegex("if IsToolBuild\\(\\) then\\s+Callback_OnLogicReady:Add\\(OnLogicReady\\)")]
+    private static partial Regex DeveloperSetup();
+
     [GeneratedRegex("^local kScript = \"([^\"]+)\"", RegexOptions.Multiline)]
     private static partial Regex Script();
 

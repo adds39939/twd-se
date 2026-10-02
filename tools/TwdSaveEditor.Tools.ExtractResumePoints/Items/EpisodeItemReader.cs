@@ -16,7 +16,7 @@ public sealed class EpisodeItemReader(string dataDirectory, int season, MetaRead
         var known = items.Select(item => item.Id).ToHashSet(StringComparer.Ordinal);
 
         var scripts = Directory.EnumerateFiles(files.Scripts, "*.lua").Order().Select(SceneScriptReader.Read).OfType<SceneScript>().ToList();
-        var scenes = new SceneMap(scripts);
+        var scenes = new SceneMap(scripts, files.Extracted);
         var setups = scripts
             .Where(script => !script.Script.Equals(EpisodeReader.OpeningScript, StringComparison.OrdinalIgnoreCase))
             .SelectMany(script => InventoryCalls.Added(script.Text).Where(known.Contains).Select(item => (script.Script, Item: item)))

@@ -5,11 +5,12 @@ using TwdSaveEditor.Season.Base.Handlers;
 using TwdSaveEditor.Season.Common.Abstractions;
 using TwdSaveEditor.Season.Common.Model;
 using TwdSaveEditor.Season.S3.Accessors;
+using TwdSaveEditor.Season.S3.Inventory;
 using TwdSaveEditor.Season.S3.Saves;
 
 namespace TwdSaveEditor.Season.S3.Handlers;
 
-public class S3Handler : SeasonHandlerBase, ICompanionFileHandler, IResumePointHandler, IChoiceImporter
+public class S3Handler : SeasonHandlerBase, ICompanionFileHandler, IResumePointHandler, IChoiceImporter, IInventoryHandler
 {
     private const string SaveDateFormat = "yyyy-MM-dd HH:mm";
     private const string PreviousSeasonKey = "s2";
@@ -56,6 +57,19 @@ public class S3Handler : SeasonHandlerBase, ICompanionFileHandler, IResumePointH
 
     public void RestartFromChapter(SaveSlot slot, int episode, string chapterId) =>
         S3ResumePoint.RestartFromChapter(slot, episode, chapterId, DateTime.Now.ToString(SaveDateFormat, CultureInfo.InvariantCulture));
+
+    public IReadOnlyList<string> InventoryNotes { get; } =
+    [
+        "The items are kept in the save the game resumes from. Setting a new resume point writes a new save, which starts with nothing but what that scene hands out.",
+        "\"Add items picked up earlier\" gives Javier what is found in the scenes before the resume point and not used up or given away by then. Where giving an item away is a choice, it is taken as given. It is offered for a chapter set here, until the game replaces the save with its own.",
+        "Only Episodes 1 and 2 have items. The list holds the items of the episode in progress.",
+    ];
+
+    public InventoryState GetInventory(SaveSlot slot) => S3Inventory.GetState(slot);
+
+    public void SetInventory(SaveSlot slot, IReadOnlyList<HeldItem> items) => S3Inventory.SetItems(slot, items);
+
+    public IReadOnlyList<HeldItem> GetCarriedItems(SaveSlot slot) => S3Inventory.CarriedItems(slot);
 
     public bool IsCompanionFile(string fileName) => !DialogLogFiles.IsSlotBundle(fileName);
 

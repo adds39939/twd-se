@@ -278,7 +278,7 @@ public class SaveLoadCycleTests
     }
 
     [Fact]
-    public async Task S3DecisionAndChapter_AreWrittenToTheLogAndANewSave()
+    public async Task S3DecisionChapterAndItems_AreWrittenToTheLogAndANewSave()
     {
         const string autosaveName = "_wd3_saveslot1_autosave.bundle";
 
@@ -294,10 +294,24 @@ public class SaveLoadCycleTests
         await ending.SelectOptionAsync(new SelectOptionValue { Label = "Kenny" });
 
         await page.Locator("[data-testid='tab-resume']").ClickAsync();
-        await Assertions.Expect(page.Locator("[data-testid='restart-chapter'] option")).ToHaveCountAsync(19);
-        await page.Locator("[data-testid='restart-chapter']").SelectOptionAsync("JunkyardHillTrailer");
+        await Assertions.Expect(page.Locator("[data-testid='restart-chapter'] option")).ToHaveCountAsync(17);
+        await page.Locator("[data-testid='restart-chapter']").SelectOptionAsync("VirginiaRoadTruck");
         await page.Locator("[data-testid='restart-button']").ClickAsync();
-        await Assertions.Expect(page.Locator("[data-testid='resume-state']")).ToContainTextAsync("checkpoint Junkyard Hill - Trailer");
+        await Assertions.Expect(page.Locator("[data-testid='resume-state']")).ToContainTextAsync("checkpoint Virginia Road - Truck");
+
+        await page.Locator("[data-testid='tab-inventory']").ClickAsync();
+        var summary = page.Locator("[data-testid='inventory-summary']");
+        var held = page.Locator(".inventory-item input:checked");
+        await Assertions.Expect(summary).ToContainTextAsync("Javier");
+        await Assertions.Expect(summary).ToContainTextAsync("Episode 1: Ties That Bind - Part One, 0 items");
+        await Assertions.Expect(page.Locator(".inventory-item")).ToHaveCountAsync(4);
+        await Assertions.Expect(held).ToHaveCountAsync(0);
+
+        await page.Locator("[data-testid='inventory-carried']").ClickAsync();
+        await Assertions.Expect(held).ToHaveCountAsync(1);
+        await Assertions.Expect(page.Locator("[data-testid='inventory-item-Inventory - Candy Bar']")).ToBeCheckedAsync();
+        await page.Locator("[data-testid='inventory-item-Inventory - Crowbar']").CheckAsync();
+        await Assertions.Expect(summary).ToContainTextAsync("2 items");
 
         await page.Locator(".save-btn").ClickAsync();
         await Assertions.Expect(page.Locator(".toast-success", new() { HasTextString = "Saved wd3_saveslot1.bundle" }).First)
@@ -314,6 +328,16 @@ public class SaveLoadCycleTests
         Assert.True(BundleReader.TryParseProperties(game));
         Assert.Equal("Kenny", game.Properties!.GetString("Episode 205 - Ending Choice"));
         Assert.True(game.Properties.GetBool("bEnteredJunkyardHill"));
+
+        foreach (var agent in new[] { "logic_inventory", "logic_inventory_Javier" })
+        {
+            var inventory = autosave.FindFile(TelltaleHash.ComputeCrc64($"\"{agent}:logic.scene\" Runtime Properties"));
+            Assert.NotNull(inventory);
+            Assert.True(BundleReader.TryParseProperties(inventory));
+            Assert.Equal(1, inventory.Properties!.GetInt("Inventory - Candy Bar"));
+            Assert.Equal(1, inventory.Properties.GetInt("Inventory - Crowbar"));
+            Assert.NotEqual(1, inventory.Properties.GetInt("Inventory - Siphon"));
+        }
 
         var storageBase64 = await FakeSaveDirectory.ReadFileAsync(page, "_wd3_saveslot1_id.estore");
         Assert.NotNull(storageBase64);

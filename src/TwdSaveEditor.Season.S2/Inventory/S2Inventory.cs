@@ -1,8 +1,7 @@
 using TwdSaveEditor.Core.Binary.Bundles;
-using TwdSaveEditor.Core.Binary.SaveGames;
 using TwdSaveEditor.Core.Constants;
-using TwdSaveEditor.Core.Hashing;
 using TwdSaveEditor.Core.Model;
+using TwdSaveEditor.Season.Base.DialogLog;
 using TwdSaveEditor.Season.Common.Model;
 using TwdSaveEditor.Season.S2.Decisions;
 using TwdSaveEditor.Season.S2.Saves;
@@ -19,6 +18,7 @@ public static class S2Inventory
     private const string HasPrefix = "bHas";
     private const string NoSave = "The inventory is kept in the save the game resumes from. This slot starts an episode from its beginning or is finished, so there is nothing to edit yet. Set a chapter under Resume Point first.";
     private const string Damaged = "The checkpoint of this save cannot be read, so its inventory cannot be edited.";
+    private const string Unreadable = "Cannot set the inventory: the save's inventory properties cannot be read.";
 
     public static InventoryState GetState(SaveSlot slot)
     {
@@ -45,7 +45,7 @@ public static class S2Inventory
         var save = S2ResumePoint.ResumeSave(slot)
             ?? throw new InvalidOperationException("Cannot set the inventory: the slot has no save of the episode in progress.");
 
-        var properties = InventoryProperties(save);
+        var properties = DialogLogSaves.RuntimeProperties(save, S2SlotFiles.InventoryProperties, Unreadable);
         var previous = properties.GetStrings(ItemsKey) ?? [];
         var items = held.Where(item => item.Count > 0).Select(item => item.Id).Distinct(StringComparer.Ordinal).ToList();
         var game = S2ResumePoint.Properties(save, S2SlotFiles.LogicGameProperties);
@@ -95,41 +95,5 @@ public static class S2Inventory
         var key = S2ItemCatalog.All.Select(episode => episode.Find(itemId)).OfType<S2Item>().FirstOrDefault()?.Key
             ?? (itemId.StartsWith(ItemPrefix, StringComparison.Ordinal) ? itemId[ItemPrefix.Length..] : itemId);
         return HasPrefix + char.ToUpperInvariant(key[0]) + key[1..];
-    }
-
-    private static PropertySet InventoryProperties(SaveSlot save)
-    {
-        var name = S2SlotFiles.InventoryProperties;
-        if (save.FindFile(name) is { } existing)
-        {
-            return BundleReader.TryParseProperties(existing)
-                ? existing.Properties!
-                : throw new InvalidOperationException("Cannot set the inventory: the save's inventory properties cannot be read.");
-        }
-
-        var properties = S2SlotFiles.NewRuntimeProperties();
-        var files = save.Files;
-        var position = files.FindIndex(file => file.Name.Length == 0 && file.NameSymbol > name);
-        files.Insert(position < 0 ? files.Count : position, new BundleFileEntry
-        {
-            NameField = new byte[BundleFileEntry.NameFieldSize],
-            NameSymbol = name,
-            TypeSymbol = TelltaleTypes.PropertySet,
-            Data = [],
-            Properties = properties,
-        });
-
-        if (save.FindFile(BundleFileNames.SaveGame) is { } saveGame)
-        {
-            var state = SaveGameCodec.Read(saveGame.Data);
-            if (!state.RuntimePropertyNames.Contains(name))
-            {
-                var index = state.RuntimePropertyNames.FindIndex(existingName => existingName > name);
-                state.RuntimePropertyNames.Insert(index < 0 ? state.RuntimePropertyNames.Count : index, name);
-                saveGame.Data = SaveGameCodec.Write(state);
-            }
-        }
-
-        return properties;
     }
 }

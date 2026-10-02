@@ -17,6 +17,8 @@ public static class S3SlotFiles
     public static readonly ulong LogicGameProperties = DialogLogFiles.RuntimeProperties("logic_game");
     public static readonly ulong SaveLoadProperties = DialogLogFiles.RuntimeProperties("logic_saveload");
     public static readonly ulong ScriptProperties = DialogLogFiles.RuntimeProperties("logic_script");
+    public static readonly ulong InventoryProperties = DialogLogFiles.RuntimeProperties("logic_inventory");
+    public static readonly ulong OwnerInventoryProperties = DialogLogFiles.RuntimeProperties("logic_inventory_Javier");
 
     public static string ProjectName(int episode) => $"WalkingDead30{episode}";
 

@@ -15,21 +15,6 @@
           "decided": []
         },
         {
-          "id": "GarciaHouseCredits",
-          "title": "Garcia House - Credits",
-          "group": "Act 1",
-          "script": "GarciaDominguezHouse",
-          "chapterId": "",
-          "startsEpisode": false,
-          "flags": [
-            {
-              "key": "bEnteredGarciaDominguezHouse",
-              "value": true
-            }
-          ],
-          "decided": []
-        },
-        {
           "id": "VirginiaRoad",
           "title": "Virginia Road",
           "group": "Act 1",
@@ -61,23 +46,6 @@
           "chapterId": "",
           "startsEpisode": false,
           "flags": [],
-          "decided": [
-            "Episode 301 - Agreed to Stick Around"
-          ]
-        },
-        {
-          "id": "JunkyardHillTrailer",
-          "title": "Junkyard Hill - Trailer",
-          "group": "Act 1",
-          "script": "JunkyardHill",
-          "chapterId": "",
-          "startsEpisode": false,
-          "flags": [
-            {
-              "key": "bEnteredJunkyardHill",
-              "value": true
-            }
-          ],
           "decided": [
             "Episode 301 - Agreed to Stick Around"
           ]

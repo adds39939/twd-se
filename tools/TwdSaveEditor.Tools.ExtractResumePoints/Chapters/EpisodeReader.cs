@@ -22,14 +22,23 @@ public sealed partial class EpisodeReader(string dataDirectory, int season, Dial
         foreach (var dialog in Directory.EnumerateFiles(files, "*.dlog").Order())
             index.Scan(dialog);
 
-        var scenes = new SceneMap([.. Directory.EnumerateFiles(scripts, "*.lua").Order().Select(SceneScriptReader.Read).OfType<SceneScript>()]);
+        var sceneScripts = Directory.EnumerateFiles(scripts, "*.lua").Order().Select(SceneScriptReader.Read).OfType<SceneScript>().ToList();
+        var scenes = new SceneMap(sceneScripts, files);
+        var developerOnly = sceneScripts.Where(script => SceneScriptReader.SetupIsDeveloperOnly(script.Text))
+            .Select(script => script.Script)
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
         var chapters = index.Marks
             .DistinctBy(mark => mark.ChapterId)
             .OrderBy(mark => Order(mark.ChapterId))
             .Select(mark => new GameChapter(mark.ChapterId, mark.Dialog, scenes.ScriptsFor(mark.Dialog)))
             .ToList();
 
-        var entries = DebugMenuReader.Read(File.ReadAllText(menuPath), constants);
+        var listed = DebugMenuReader.Read(File.ReadAllText(menuPath), constants);
+        var entries = listed
+            .Where((entry, position) => position == 0
+                || !developerOnly.Contains(entry.Script)
+                || !listed[position - 1].Script.Equals(entry.Script, StringComparison.OrdinalIgnoreCase))
+            .ToList();
         var aligned = ChapterAligner.Align(entries, chapters);
         var made = decisions.Where(decision => decision.Episode == episode)
             .ToDictionary(decision => decision.ChoiceKey, decision => Scripts(decision, index, scenes));

@@ -1,9 +1,7 @@
-using System.Globalization;
 using System.Text.RegularExpressions;
 using TwdSaveEditor.Tools.Common.Dialogs;
 using TwdSaveEditor.Tools.Common.Hashing;
 using TwdSaveEditor.Tools.Common.Inventory;
-using TwdSaveEditor.Tools.Common.Meta;
 using TwdSaveEditor.Tools.ExtractChapters.Model;
 
 namespace TwdSaveEditor.Tools.ExtractChapters.Items;
@@ -34,7 +32,7 @@ public sealed partial class ItemChangeReader(IReadOnlyList<ItemDefinition> items
             if (action.Action == Increase)
                 Increases[item.Key] = Increases.GetValueOrDefault(item.Key) + 1;
 
-            Changes.Add(new ItemChange(item.Key, action.Action == Assign ? !Truthy(action.Value) : action.Action != Increase, owners, null));
+            Changes.Add(new ItemChange(item.Key, action.Action == Assign ? !ItemValue.Held(action.Value) : action.Action != Increase, owners, null));
         }
     }
 
@@ -46,14 +44,6 @@ public sealed partial class ItemChangeReader(IReadOnlyList<ItemDefinition> items
                 Changes.Add(new ItemChange(call.Groups["key"].Value, call.Groups["verb"].Value == "Remove", [name], null));
         }
     }
-
-    private static bool Truthy(MetaNode value) => value is MetaScalar scalar && scalar.Value switch
-    {
-        bool flag => flag,
-        string text => text.Length > 0,
-        IConvertible number => number.ToDouble(CultureInfo.InvariantCulture) > 0,
-        _ => false,
-    };
 
     [GeneratedRegex("\\bWDInventory_(?<verb>Add|Remove)Item\\(\\s*\"(?<key>[^\"]+)\"")]
     private static partial Regex Call();
