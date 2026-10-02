@@ -24,7 +24,10 @@ jobs:
         run: dotnet build --no-restore --configuration Release
 
       - name: Unit and Integration Tests
-        run: dotnet test tests/TwdSaveEditor.Core.Tests --no-build --configuration Release
+        run: |
+          for project in tests/*.Tests/*.csproj; do
+            dotnet test "$project" --no-build --configuration Release
+          done
 
       - name: Install Playwright browsers
         run: pwsh tests/TwdSaveEditor.Playwright/bin/Release/net10.0/playwright.ps1 install chromium --with-deps

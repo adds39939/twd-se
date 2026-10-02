@@ -19,8 +19,17 @@
     <Project Path="src/TwdSaveEditor.Web/TwdSaveEditor.Web.csproj" />
   </Folder>
   <Folder Name="/tests/">
+    <Project Path="tests/TwdSaveEditor.Core.Binary.Tests/TwdSaveEditor.Core.Binary.Tests.csproj" />
     <Project Path="tests/TwdSaveEditor.Core.Tests/TwdSaveEditor.Core.Tests.csproj" />
     <Project Path="tests/TwdSaveEditor.Playwright/TwdSaveEditor.Playwright.csproj" />
+    <Project Path="tests/TwdSaveEditor.Season.Base.Tests/TwdSaveEditor.Season.Base.Tests.csproj" />
+    <Project Path="tests/TwdSaveEditor.Season.Common.Tests/TwdSaveEditor.Season.Common.Tests.csproj" />
+    <Project Path="tests/TwdSaveEditor.Season.Michonne.Tests/TwdSaveEditor.Season.Michonne.Tests.csproj" />
+    <Project Path="tests/TwdSaveEditor.Season.S1.Tests/TwdSaveEditor.Season.S1.Tests.csproj" />
+    <Project Path="tests/TwdSaveEditor.Season.S2.Tests/TwdSaveEditor.Season.S2.Tests.csproj" />
+    <Project Path="tests/TwdSaveEditor.Season.S3.Tests/TwdSaveEditor.Season.S3.Tests.csproj" />
+    <Project Path="tests/TwdSaveEditor.Season.S4.Tests/TwdSaveEditor.Season.S4.Tests.csproj" />
+    <Project Path="tests/TwdSaveEditor.Tests.Common/TwdSaveEditor.Tests.Common.csproj" />
   </Folder>
   <Folder Name="/tools/">
     <Project Path="tools/TwdSaveEditor.Tools.AnalyzeSaves/TwdSaveEditor.Tools.AnalyzeSaves.csproj" />

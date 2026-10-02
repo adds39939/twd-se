@@ -166,8 +166,8 @@ Open `http://localhost:5163` in a Chromium-based browser (Chrome, Edge, Brave, e
 # All tests
 dotnet test
 
-# Unit and integration tests only
-dotnet test tests/TwdSaveEditor.Core.Tests
+# One project, for example the Season 3 tests
+dotnet test tests/TwdSaveEditor.Season.S3.Tests
 
 # Playwright E2E tests only
 dotnet test tests/TwdSaveEditor.Playwright
@@ -238,10 +238,16 @@ src/
 └── TwdSaveEditor.Web/              Blazor WASM host: Program.cs, index.html, manifest, service worker
 
 tests/
-├── TwdSaveEditor.Core.Tests/       Unit + integration tests
-│   ├── Unit/                       Binary format, hashing, season handlers, metadata
-│   ├── Integration/                Real save parsing, full create/edit/save cycles, game compatibility
-│   └── Support/                    Shared test helpers
+├── TwdSaveEditor.Core.Tests/       Hashing, property name database
+├── TwdSaveEditor.Core.Binary.Tests/ MetaStream, property sets, bundles, event log files
+├── TwdSaveEditor.Season.Base.Tests/ Choice accessor, embedded season data
+├── TwdSaveEditor.Season.Common.Tests/ Registry, handlers, created saves, backups, cascade
+├── TwdSaveEditor.Season.S1.Tests/  … one project per season, against real saves in TestData
+├── TwdSaveEditor.Season.S2.Tests/
+├── TwdSaveEditor.Season.S3.Tests/
+├── TwdSaveEditor.Season.S4.Tests/
+├── TwdSaveEditor.Season.Michonne.Tests/
+├── TwdSaveEditor.Tests.Common/     Shared helpers: test data paths, the season registry, real-save loaders
 ├── TwdSaveEditor.Playwright/       E2E browser tests
 └── TestData/                       Representative save files for all seasons
 

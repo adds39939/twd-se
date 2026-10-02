@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\TwdSaveEditor.Tests.Common\TwdSaveEditor.Tests.Common.csproj" />
+    <ProjectReference Include="..\..\src\TwdSaveEditor.Core\TwdSaveEditor.Core.csproj" />
+    <ProjectReference Include="..\..\src\TwdSaveEditor.Core.Binary\TwdSaveEditor.Core.Binary.csproj" />
+    <ProjectReference Include="..\..\src\TwdSaveEditor.Season.Base\TwdSaveEditor.Season.Base.csproj" />
+    <ProjectReference Include="..\..\src\TwdSaveEditor.Season.Common\TwdSaveEditor.Season.Common.csproj" />
+    <ProjectReference Include="..\..\src\TwdSaveEditor.Season.S4\TwdSaveEditor.Season.S4.csproj" />
+  </ItemGroup>
+
+</Project>
