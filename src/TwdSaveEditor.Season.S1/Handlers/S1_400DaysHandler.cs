@@ -20,5 +20,7 @@ public class S1_400DaysHandler : S1Handler
 
     public override IReadOnlyList<string> IncludedSeasonKeys => SeasonsInSave;
 
+    public override IReadOnlyList<ChoicePreset> Presets => [];
+
     public override string GetEpisodeId(int episode) => S1SlotFiles.EpisodeId(S1ResumePoint.ExtraEpisode);
 }

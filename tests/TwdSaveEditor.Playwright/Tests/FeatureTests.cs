@@ -176,6 +176,10 @@ public class FeatureTests
         var decisionsTab = page.Locator("[data-testid='tab-decisions']");
         await decisionsTab.ClickAsync();
 
+        var presets = page.Locator("[data-testid='presets']");
+        await Assertions.Expect(presets).Not.ToHaveAttributeAsync("open", "");
+        await presets.Locator("summary").ClickAsync();
+
         var saveLouisBtn = page.GetByRole(AriaRole.Button, new() { Name = "Save Louis Path" });
         await Assertions.Expect(saveLouisBtn).ToBeVisibleAsync();
 
@@ -183,6 +187,9 @@ public class FeatureTests
         await Assertions.Expect(saveVioletBtn).ToBeVisibleAsync();
 
         var trustAjBtn = page.GetByRole(AriaRole.Button, new() { Name = "Trust AJ Path" });
+        await Assertions.Expect(trustAjBtn).ToHaveCountAsync(0);
+
+        await page.Locator("[data-testid='presets-endings']").CheckAsync();
         await Assertions.Expect(trustAjBtn).ToBeVisibleAsync();
     }
 

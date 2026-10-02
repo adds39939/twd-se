@@ -32,6 +32,8 @@ public abstract class SeasonHandlerBase : ISeasonHandler
 
     public abstract string GetEpisodeId(int episode);
 
+    public virtual (string SeasonKey, int Episode) DecisionGroupOf(int episode) => (SeasonKey, episode);
+
     public IReadOnlyList<string> GetScenes(string episodeId)
         => _scenes.Value.TryGetValue(episodeId, out var scenes) ? scenes : [];
 

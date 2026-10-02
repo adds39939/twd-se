@@ -135,6 +135,57 @@ public class SeasonHandlerTests
     [InlineData("s3")]
     [InlineData("s4")]
     [InlineData("michonne")]
+    public void Presets_NameDecisionsAndOptionsTheSeasonHas(string seasonKey)
+    {
+        var season = Registry.Get(seasonKey)!;
+        var provider = Assert.IsAssignableFrom<IChoicePresetProvider>(season);
+
+        Assert.NotEmpty(provider.Presets);
+        Assert.Equal(provider.Presets.Count, provider.Presets.Select(preset => preset.Name).Distinct().Count());
+        foreach (var selection in provider.Presets.SelectMany(preset => preset.Selections))
+        {
+            var choice = season.Choices.SingleOrDefault(candidate => candidate.ChoiceKey == selection.ChoiceKey);
+            Assert.True(choice != null, $"{seasonKey}: no decision {selection.ChoiceKey}");
+            Assert.Contains(choice.Options, option => option.Value == selection.Value);
+        }
+    }
+
+    [Theory]
+    [InlineData("s1", 1, "s1", 1)]
+    [InlineData("s1", 5, "s1", 5)]
+    [InlineData("s1", 6, "s1_400days", 1)]
+    [InlineData("s3", 4, "s3", 4)]
+    public void DecisionGroupOf_PointsAtTheCardOfTheEpisode(string seasonKey, int episode, string groupSeason, int groupEpisode)
+    {
+        Assert.Equal((groupSeason, groupEpisode), Registry.Get(seasonKey)!.DecisionGroupOf(episode));
+    }
+
+    [Theory]
+    [InlineData("s1", 2)]
+    [InlineData("s2", 4)]
+    [InlineData("s3", 4)]
+    [InlineData("s4", 1)]
+    [InlineData("michonne", 0)]
+    public void Presets_MarkThoseThatRevealAnEnding(string seasonKey, int revealing)
+    {
+        var presets = Assert.IsAssignableFrom<IChoicePresetProvider>(Registry.Get(seasonKey)).Presets;
+
+        Assert.Equal(revealing, presets.Count(preset => preset.RevealsEnding));
+        Assert.All(presets.Where(preset => preset.RevealsEnding), preset => Assert.Matches("^(Ending|Season 2|Trust AJ)", preset.Name));
+    }
+
+    [Fact]
+    public void FourHundredDays_HasNoPresets()
+    {
+        Assert.Empty(Assert.IsAssignableFrom<IChoicePresetProvider>(Registry.Get("s1_400days")).Presets);
+    }
+
+    [Theory]
+    [InlineData("s1")]
+    [InlineData("s2")]
+    [InlineData("s3")]
+    [InlineData("s4")]
+    [InlineData("michonne")]
     public void EverySeasonWithSaveFilesBesideTheSlot_ImplementsTheCompanionCapability(string seasonKey)
     {
         Assert.True(Registry.Get(seasonKey) is ICompanionFileHandler);

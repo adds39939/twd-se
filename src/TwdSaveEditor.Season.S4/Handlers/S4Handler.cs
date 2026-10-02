@@ -51,7 +51,7 @@ public class S4Handler : StorySeasonHandler, IChoiceImporter, IChoicePresetProvi
         new("Trust AJ Path",
         [
             new(TrustedKey, "trusted_aj_to_make_his"),
-        ]),
+        ], RevealsEnding: true),
     ];
 
     public IReadOnlyList<string> InventoryNotes { get; } =

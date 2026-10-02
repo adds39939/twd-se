@@ -64,8 +64,7 @@
     max-width: 280px;
 }
 
-.import-section,
-.presets-section {
+.import-section {
     margin-bottom: 1.5rem;
     padding: 1rem;
     border: 1px solid var(--border);
@@ -87,8 +86,17 @@
 .preset-buttons {
     display: flex;
     gap: 0.5rem;
-    margin-top: 0.5rem;
+    margin-top: 0.25rem;
     flex-wrap: wrap;
+}
+
+.spoiler-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
 }
 
 .btn-sm {

@@ -21,6 +21,7 @@ public partial class DecisionEditor
     private Dictionary<string, int> _choiceStates = new();
     private List<(ISeasonHandler Season, List<IGrouping<int, ChoiceDefinition>> Episodes)>? _cachedTree;
     private string? _lastSlotFileName;
+    private bool _showEndingPresets;
 
     protected override void OnParametersSet()
     {
@@ -102,10 +103,13 @@ public partial class DecisionEditor
             .OfType<string>()
             .Distinct());
 
-    private static bool ShouldExpandEpisode(string seasonKey, int episode, string? detectedKey)
+    private (string SeasonKey, int Episode)? ExpandedGroup()
     {
-        if (seasonKey != detectedKey) return false;
-        return episode == 1;
+        if (Slot == null || CurrentSeason is not { } current)
+            return null;
+
+        var inProgress = current is IResumePointHandler resume ? resume.GetResumeState(Slot).Episode : 1;
+        return current.DecisionGroupOf(inProgress);
     }
 
     private void ImportChoices(IChoiceImporter importer)

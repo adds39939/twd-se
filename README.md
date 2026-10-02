@@ -17,7 +17,7 @@ A save editor for **The Walking Dead: The Telltale Definitive Series**. Edit cho
 - **Resume point editing** — restart a save of any season from the beginning of any episode, or from a chapter inside any episode including 400 Days, with the decisions you picked
 - **Inventory editing** — choose what Lee (Season 1), Clementine (Season 2), Javier (Season 3) or Michonne carries in a save, or which Season 4 collectibles were found and placed, or add the items picked up earlier in the episode after resuming from a chapter
 - **Cross-season cascade and import** — optionally propagate Season 1 choice changes into Season 2 saves, and import a Season 1 save into Season 2, a Season 2 save into Season 3 or a Season 3 save into Season 4 the way the game does
-- **S4 presets** — quick-apply "Save Louis", "Save Violet", or "Trust AJ" choice paths
+- **Presets** — one-click story paths for every season, such as "Side with Kenny", "Leave with Kate", "Merciful Michonne" or "Save Louis"; the ones that reveal an ending stay hidden until asked for
 - **New save creation** — create saves for any season with pre-populated choices; Season 1 saves start at the episode you choose
 - **File System Access API** — read/write directly to your save directory (Chromium-based browsers)
 - **Upload fallback** — file upload + download for browsers without directory access
@@ -298,7 +298,7 @@ Optional capabilities are separate interfaces a handler can also implement:
 | `IInventoryHandler` | List and change the items the player character carries in the save a slot resumes from, or the collectibles of the slot | all |
 | `IPropertyNameProvider` | Names for the property hashes shown in the Properties tab | S1 |
 | `IChoiceImporter` | Import all choices from a save of an earlier season | S2, S3, S4 |
-| `IChoicePresetProvider` | One-click presets that set several choices | S4 |
+| `IChoicePresetProvider` | One-click presets that set several choices | all |
 
 ### Adding a season
 
@@ -392,6 +392,6 @@ dotnet run --project tools/TwdSaveEditor.Tools.ExtractKey -- "/path/to/The Walki
 
 ## License
 
-MIT License. See [LICENSE](LICENSE) for details.
+GNU General Public License v3.0. See [LICENSE](LICENSE) for details.
 
 The Walking Dead is a trademark of Robert Kirkman, LLC. Telltale and the Telltale logo are trademarks of Telltale, Inc.

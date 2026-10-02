@@ -443,6 +443,7 @@ public class SaveLoadCycleTests
         var ending = page.Locator(".choice-row", new() { HasTextString = "Ending Choice?" }).First.Locator("select");
         await Assertions.Expect(ending).ToHaveValueAsync("0");
         await ending.SelectOptionAsync(new SelectOptionValue { Label = "Kenny" });
+        await page.Locator("[data-testid='presets'] summary").ClickAsync();
         await page.GetByRole(AriaRole.Button, new() { Name = "Save Violet Path" }).ClickAsync();
 
         await page.Locator("[data-testid='tab-resume']").ClickAsync();

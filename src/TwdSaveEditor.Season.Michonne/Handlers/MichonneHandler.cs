@@ -7,8 +7,12 @@ using TwdSaveEditor.Season.Michonne.Story;
 
 namespace TwdSaveEditor.Season.Michonne.Handlers;
 
-public class MichonneHandler : StorySeasonHandler, IInventoryHandler
+public class MichonneHandler : StorySeasonHandler, IInventoryHandler, IChoicePresetProvider
 {
+    private const string EndItKey = "Episode 101 - Did you try to end it";
+    private const string ZacharyKey = "Episode 101 - Did you let Sam shoot Zachary";
+    private const string RandallKey = "Episode 102 - What did you do to Randall";
+
     public override string SeasonKey => "michonne";
     public override string Name => "Michonne";
     public override string ShortName => "M";
@@ -28,6 +32,12 @@ public class MichonneHandler : StorySeasonHandler, IInventoryHandler
         "Michonne works out its decisions from a log of what was played. Restarting an episode removes its saves and cuts the log back to where that episode began; earlier episodes are marked as finished so the game does not offer to randomise their decisions.",
         "From a later chapter, a small checkpoint is written that opens the scene the way the developers' chapter menu does. Decisions made in scenes before the chapter are kept; the others are cleared so they can be made again.",
         "The game lists a slot without any save as empty, so a slot that would be left with none gets a checkpoint that starts the episode.",
+    ];
+
+    public IReadOnlyList<ChoicePreset> Presets { get; } =
+    [
+        new("Merciful Michonne", [new(EndItKey, "lowered_the_gun"), new(ZacharyKey, "tried_to_save_zachary"), new(RandallKey, "showed_him_mercy")]),
+        new("Ruthless Michonne", [new(EndItKey, "pulled_the_trigger"), new(ZacharyKey, "let_sam_take_her_revenge"), new(RandallKey, "bashed_randall_s_head_in")]),
     ];
 
     public IReadOnlyList<string> InventoryNotes { get; } =

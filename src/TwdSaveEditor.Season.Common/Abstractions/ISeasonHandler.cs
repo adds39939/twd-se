@@ -23,6 +23,8 @@ public interface ISeasonHandler
 
     string GetEpisodeId(int episode);
 
+    (string SeasonKey, int Episode) DecisionGroupOf(int episode);
+
     IReadOnlyList<string> GetScenes(string episodeId);
 
     bool CanHandle(string fileName);

@@ -12,8 +12,38 @@ using TwdSaveEditor.Season.S1.Saves;
 
 namespace TwdSaveEditor.Season.S1.Handlers;
 
-public class S1Handler : SeasonHandlerBase, ICompanionFileHandler, IResumePointHandler, IInventoryHandler, IPropertyNameProvider
+public class S1Handler : SeasonHandlerBase, ICompanionFileHandler, IResumePointHandler, IInventoryHandler, IPropertyNameProvider, IChoicePresetProvider
 {
+    private static readonly ChoicePreset[] StoryPresets =
+    [
+        new("Side with Kenny",
+        [
+            new("Sided With Kenny", "true"),
+            new("Helped Kill Larry", "true"),
+            new("Fought Kenny", "false"),
+            new("With Kenny", "true"),
+            new("Lost Temper", "false"),
+        ]),
+        new("Side with Lilly",
+        [
+            new("Sided With Kenny", "false"),
+            new("Helped Kill Larry", "false"),
+            new("Left Lilly", "false"),
+        ]),
+        new("Save Carley", [new("DougCarley Saved", "carley")]),
+        new("Save Doug", [new("DougCarley Saved", "doug")]),
+        new("Ending: Clementine Shoots Lee",
+        [
+            new("Cut Off Arm", "true"),
+            new("Clementine Shot Lee", "true"),
+        ], RevealsEnding: true),
+        new("Ending: Lee Is Left Behind",
+        [
+            new("Cut Off Arm", "false"),
+            new("Clementine Shot Lee", "false"),
+        ], RevealsEnding: true),
+    ];
+
     private static readonly string[] SeasonsInSave = [S1ChoiceCatalog.MainSeasonKey, S1ChoiceCatalog.ExtraEpisodeSeasonKey];
 
     private static readonly EpisodeInfo[] MainEpisodes =
@@ -37,6 +67,11 @@ public class S1Handler : SeasonHandlerBase, ICompanionFileHandler, IResumePointH
     public override IReadOnlyList<EpisodeInfo> Episodes { get; } = MainEpisodes;
 
     public override IReadOnlyList<string> IncludedSeasonKeys => SeasonsInSave;
+
+    public virtual IReadOnlyList<ChoicePreset> Presets => StoryPresets;
+
+    public override (string SeasonKey, int Episode) DecisionGroupOf(int episode) =>
+        episode == S1ResumePoint.ExtraEpisode ? (S1ChoiceCatalog.ExtraEpisodeSeasonKey, 1) : (S1ChoiceCatalog.MainSeasonKey, episode);
 
     public IReadOnlyList<EpisodeInfo> ResumeEpisodes { get; } = [.. MainEpisodes, ExtraEpisode];
 

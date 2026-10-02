@@ -16,8 +16,13 @@ using TwdSaveEditor.Season.S2.Saves;
 
 namespace TwdSaveEditor.Season.S2.Handlers;
 
-public class S2Handler : PropChoicesSeasonHandler, IChoiceImporter, ICompanionFileHandler, IResumePointHandler, IInventoryHandler
+public class S2Handler : PropChoicesSeasonHandler, IChoiceImporter, ICompanionFileHandler, IResumePointHandler, IInventoryHandler, IChoicePresetProvider
 {
+    private const string DinnerKey = "Episode 202 - Dinner Choice";
+    private const string WatchedKey = "Episode 203 - Watched Kenny Kill Carver";
+    private const string ShotKennyKey = "Episode 205 - Shot Kenny";
+    private const string EndingKey = "Episode 205 - In the end, who are you with";
+
     private const string SaveDateFormat = "yyyy-MM-dd HH:mm:ss";
 
     private static readonly string[] ImportedSeasons = [S1ChoiceCatalog.MainSeasonKey, S1ChoiceCatalog.ExtraEpisodeSeasonKey];
@@ -37,6 +42,16 @@ public class S2Handler : PropChoicesSeasonHandler, IChoiceImporter, ICompanionFi
     ];
 
     public override IReadOnlyList<string> ImportsFromSeasonKeys => ImportedSeasons;
+
+    public IReadOnlyList<ChoicePreset> Presets { get; } =
+    [
+        new("Side with Kenny", [new(DinnerKey, "kenny"), new(WatchedKey, "true")]),
+        new("Side with Luke", [new(DinnerKey, "luke"), new(WatchedKey, "false")]),
+        new("Ending: Stay with Kenny", [new(ShotKennyKey, "didn_t_shoot_kenny"), new(EndingKey, "are_with_kenny")], RevealsEnding: true),
+        new("Ending: Wellington", [new(ShotKennyKey, "didn_t_shoot_kenny"), new(EndingKey, "are_with_aj_at_wellington")], RevealsEnding: true),
+        new("Ending: Go with Jane", [new(ShotKennyKey, "shot_kenny"), new(EndingKey, "are_with_jane_and_the")], RevealsEnding: true),
+        new("Ending: Alone with AJ", [new(ShotKennyKey, "shot_kenny"), new(EndingKey, "are_alone_with_aj")], RevealsEnding: true),
+    ];
 
     protected override string ChoicesFileName => BundleFileNames.Season1Choices;
 

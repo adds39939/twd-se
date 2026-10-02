@@ -63,6 +63,9 @@ public class Season1Tests
     {
         var page = await OpenSeason1Save();
 
+        await Assertions.Expect(page.Locator("[data-testid='season-s1'] details").Nth(3)).ToHaveAttributeAsync("open", "");
+        await page.Locator("[data-testid='season-s1'] details").First.Locator("summary").ClickAsync();
+
         var choice = page.Locator(".choice-row", new() { HasTextString = "Who Lee saved in the drugstore" });
         await Assertions.Expect(choice.Locator("select")).ToHaveValueAsync("0");
         await choice.Locator("select").SelectOptionAsync(new SelectOptionValue { Label = "Saved Doug" });
@@ -169,5 +172,23 @@ public class Season1Tests
         await saveItems.First.ClickAsync();
         var choice = page.Locator(".choice-row", new() { HasTextString = "Who Lee saved in the drugstore" });
         await Assertions.Expect(choice.Locator("select")).ToHaveValueAsync("0");
+    }
+
+    [Fact]
+    public async Task NewSave_OpensOnTheEpisodeItStartsAt()
+    {
+        var page = await _fixture.NewPage();
+        await FakeSaveDirectory.InstallAsync(page, new Dictionary<string, string>());
+        await page.Locator("[data-testid='open-directory']").ClickAsync();
+
+        await page.Locator("[data-testid='new-save-btn']").ClickAsync();
+        var dialog = page.Locator("[data-testid='new-save-dialog']");
+        await dialog.Locator("select").First.SelectOptionAsync("s1_400days");
+        await dialog.GetByRole(AriaRole.Button, new() { Name = "Create" }).ClickAsync();
+        await page.Locator(".save-item").First.ClickAsync();
+
+        await Assertions.Expect(page.Locator("[data-testid='season-s1_400days']")).ToHaveAttributeAsync("open", "");
+        await Assertions.Expect(page.Locator("[data-testid='season-s1_400days'] details")).ToHaveAttributeAsync("open", "");
+        await Assertions.Expect(page.Locator("[data-testid='season-s1']")).Not.ToHaveAttributeAsync("open", "");
     }
 }

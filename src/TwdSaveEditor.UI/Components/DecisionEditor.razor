@@ -38,24 +38,37 @@
 
         @if (currentSeason is IChoicePresetProvider { Presets.Count: > 0 } presetProvider)
         {
-            <div class="presets-section">
-                <p class="text-muted">Quick presets:</p>
+            <details class="presets-section" data-testid="presets">
+                <summary>
+                    <span>Quick presets</span>
+                    <span class="badge">@presetProvider.Presets.Count(preset => _showEndingPresets || !preset.RevealsEnding)</span>
+                </summary>
                 <div class="preset-buttons">
-                    @foreach (var preset in presetProvider.Presets)
+                    @foreach (var preset in presetProvider.Presets.Where(preset => _showEndingPresets || !preset.RevealsEnding))
                     {
                         <button class="btn-sm" @onclick="() => ApplyPreset(preset)">@preset.Name</button>
                     }
                 </div>
-            </div>
+                @if (presetProvider.Presets.Any(preset => preset.RevealsEnding))
+                {
+                    <label class="spoiler-toggle">
+                        <input type="checkbox" checked="@_showEndingPresets" data-testid="presets-endings"
+                               @onchange="e => _showEndingPresets = (bool)(e.Value ?? false)" />
+                        Show presets that reveal an ending
+                    </label>
+                }
+            </details>
         }
 
         @if (_cachedTree != null)
         {
+            var expanded = ExpandedGroup();
+
             @foreach (var (season, episodes) in _cachedTree)
             {
                 var totalChoices = episodes.Sum(g => g.Count());
 
-                <details open="@(season.SeasonKey == seasonKey)" data-testid="season-@season.SeasonKey">
+                <details open="@(season.SeasonKey == (expanded?.SeasonKey ?? seasonKey))" data-testid="season-@season.SeasonKey">
                     <summary>
                         <span>@season.Name</span>
                         <span class="badge">@totalChoices choices</span>
@@ -66,7 +79,7 @@
                             var ep = season.Episodes.FirstOrDefault(e => e.Number == epGroup.Key);
                             var epTitle = ep != null ? $"Episode {epGroup.Key}: {ep.Title}" : epGroup.Key == 0 ? "Carried over from the previous season" : $"Episode {epGroup.Key}";
 
-                            <details open="@ShouldExpandEpisode(season.SeasonKey, epGroup.Key, seasonKey)">
+                            <details open="@(expanded == (season.SeasonKey, epGroup.Key))">
                                 <summary>
                                     <span>@epTitle</span>
                                     <span class="badge">@epGroup.Count()</span>
