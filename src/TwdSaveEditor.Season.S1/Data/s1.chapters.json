@@ -2527,13 +2527,30 @@
         "choiceKey": "Cut Off Arm",
         "agent": "logic_game",
         "key": "1Morgue - Cut Off Arm",
-        "decidedFrom": "OnElevatorShaft"
+        "decidedFrom": "OnElevatorShaft",
+        "values": {
+          "true": true,
+          "false": false
+        }
       },
       {
         "choiceKey": "Killed Campman",
         "agent": "logic_game",
         "key": "3Room - Killed Campman",
-        "decidedFrom": "OnMarshHouseInterior2"
+        "decidedFrom": "OnMarshHouseInterior2",
+        "values": {
+          "true": true,
+          "false": false
+        }
+      },
+      {
+        "choiceKey": "Surrendered Cleaver",
+        "agent": "logic_inventory_items",
+        "key": "Inventory - Cleaver",
+        "decidedFrom": "OnCampmanFight",
+        "values": {
+          "true": 0
+        }
       }
     ]
   }

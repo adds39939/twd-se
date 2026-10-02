@@ -188,6 +188,21 @@ public class Season1ChapterTests
         Assert.Equal(2, Properties(slot.Autosave!, S1SlotFiles.LogicGameProperties).GetInt("nAct"));
     }
 
+    [Theory]
+    [InlineData("OnMarshHouseExterior2", "true", 0)]
+    [InlineData("OnMarshHouseExterior2", "false", 1)]
+    [InlineData("OnMarshHouseInterior", "true", 1)]
+    public void RestartFromChapter_TakesTheCleaverAwayOnceItWasSurrendered(string chapter, string surrendered, int expected)
+    {
+        var slot = Season1Saves.LoadEpisode4Save();
+        Season1Saves.Accessor(slot).SetChoiceValue("Surrendered Cleaver", surrendered);
+
+        Season1Saves.Handler.RestartFromChapter(slot, 5, chapter);
+
+        var inventory = Properties(slot.Autosave!, S1RuntimeProperties.LogicName("logic_inventory_items"));
+        Assert.Equal(expected, inventory.GetInt("Inventory - Cleaver"));
+    }
+
     [Fact]
     public void RestartFromChapter_InsideTheFirstSceneGoesThroughTheRecap()
     {

@@ -53,7 +53,7 @@ When an episode starts the game copies the decisions of the earlier episodes fro
 *From a chapter (episodes 1–5):* each episode's `WDEpisode.lua` contains the developers' chapter menu, which lists the game-logic flags and inventory items a scene needs before `LoadScript` starts it. The editor writes a small autosave that reproduces such a jump:
 
 - `default.save` names the script of the scene *before* the chapter and the property sets that follow
-- the game-logic set holds the decisions made so far, the chapter's flags, and the flags that mirror a decision of the current episode once that decision is behind the chapter
+- the game-logic set holds the decisions made so far, the chapter's flags, and the flags or inventory items that mirror a decision of the current episode once that decision is behind the chapter
 - the checkpoint set's `Checkpoint Dialog Item` is `dlg_id: <node id>`, the node of that scene's dialog that runs `LoadScript` for the chapter's scene
 - the scene agent's set forces `Dialog Agent - File Primary` to the dialog file that contains the node
 

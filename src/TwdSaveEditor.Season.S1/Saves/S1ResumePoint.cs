@@ -29,7 +29,8 @@ public static class S1ResumePoint
             return new ResumeState(progress, null, null, slot.AutosaveDamaged);
 
         var episode = S1SlotFiles.EpisodeNumber(saved.GetString(SaveMetadataKeys.Episode)) ?? progress;
-        var checkpoint = GeneratedChapter(slot)?.Title ?? saved.GetString(SaveMetadataKeys.ChapterId) ?? string.Empty;
+        var chapterId = saved.GetString(SaveMetadataKeys.ChapterId) ?? string.Empty;
+        var checkpoint = S1ChapterCatalog.ForEpisode(episode)?.Find(chapterId)?.Title ?? chapterId;
         return new ResumeState(episode, checkpoint, saved.GetString(SaveMetadataKeys.Date), slot.AutosaveDamaged);
     }
 

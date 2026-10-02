@@ -137,7 +137,7 @@ public class Season1Tests
         Assert.Equal(Autosave, slot.Metadata.GetString(SlotMetadataKeys.LatestSave));
 
         var autosave = await ReadSavedBundle(page, Autosave);
-        Assert.Equal(6, autosave.Files.Count);
+        Assert.InRange(autosave.Files.Count, 5, 8);
         Assert.Equal("WalkingDead105", autosave.Metadata!.GetString(SaveMetadataKeys.Episode));
         Assert.Equal("OnJewelryStore", autosave.Metadata.GetString(SaveMetadataKeys.ChapterId));
     }

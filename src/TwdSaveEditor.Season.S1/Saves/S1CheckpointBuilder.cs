@@ -44,10 +44,12 @@ public static class S1CheckpointBuilder
         game.SetBool("bUsingJoystick", false);
         game.SetBool("Holding action", false);
         game.SetString("Current Mode", "mode_Main");
-        ApplyDecisions(slot, episode, chapter, sets);
+        ApplyDecisions(slot, episode, sets);
 
         foreach (var flag in chapter.Flags)
             Apply(Logic(sets, flag.Agent), flag.Key, flag.Value);
+
+        ApplyDecisionFlags(slot, episode, chapter, sets);
 
         Logic(sets, S1RuntimeProperties.CheckpointAgent, visible: true).SetString(CheckpointDialogItem, entry.Node ?? string.Empty);
 
@@ -86,7 +88,7 @@ public static class S1CheckpointBuilder
         return bundle;
     }
 
-    private static void ApplyDecisions(SaveSlot slot, S1EpisodeChapters episode, S1Chapter chapter, SortedDictionary<ulong, PropertySet> sets)
+    private static void ApplyDecisions(SaveSlot slot, S1EpisodeChapters episode, SortedDictionary<ulong, PropertySet> sets)
     {
         var accessor = new S1ChoiceAccessor(slot);
         var game = Logic(sets, S1RuntimeProperties.GameLogicAgent);
@@ -95,11 +97,15 @@ public static class S1CheckpointBuilder
             if (accessor.GetChoiceValue(choice.ChoiceKey) is { } value)
                 game.SetString(choice.ChoiceKey, value);
         }
+    }
 
+    private static void ApplyDecisionFlags(SaveSlot slot, S1EpisodeChapters episode, S1Chapter chapter, SortedDictionary<ulong, PropertySet> sets)
+    {
+        var accessor = new S1ChoiceAccessor(slot);
         foreach (var flag in episode.DecisionFlags.Where(flag => episode.IsDecided(flag, chapter)))
         {
-            if (accessor.GetChoiceValue(flag.ChoiceKey) is { } value)
-                Logic(sets, flag.Agent).SetBool(flag.Key, value == bool.TrueString.ToLowerInvariant());
+            if (accessor.GetChoiceValue(flag.ChoiceKey) is { } choice && flag.Values.TryGetValue(choice, out var value))
+                Apply(Logic(sets, flag.Agent), flag.Key, value);
         }
     }
 
