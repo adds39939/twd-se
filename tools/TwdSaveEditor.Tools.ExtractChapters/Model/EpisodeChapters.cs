@@ -8,4 +8,5 @@ public sealed record EpisodeChapters(
     IReadOnlyList<string> Toggles,
     IReadOnlyList<SceneTransition> Transitions,
     IReadOnlyList<CheckpointCall> Checkpoints,
-    IReadOnlyList<Decision> Decisions);
+    IReadOnlyList<Decision> Decisions,
+    IReadOnlyList<StoryAction> StoryActions);

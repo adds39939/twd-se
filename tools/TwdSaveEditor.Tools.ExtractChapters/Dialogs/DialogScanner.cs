@@ -5,7 +5,7 @@ using TwdSaveEditor.Tools.ExtractChapters.Model;
 
 namespace TwdSaveEditor.Tools.ExtractChapters.Dialogs;
 
-public sealed partial class DialogScanner(DialogLoader loader)
+public sealed partial class DialogScanner(DialogLoader loader, IReadOnlyDictionary<string, IReadOnlyList<string>> scriptLoaders)
 {
     private const string PersistentKey = "Persistent key";
     private const string PersistentValue = "Persistent value";
@@ -32,6 +32,12 @@ public sealed partial class DialogScanner(DialogLoader loader)
             foreach (Match match in LoadScript().Matches(node.Script!))
                 Transitions.Add(new SceneTransition(dialog.Name, node.Id, match.Groups[1].Value));
 
+            foreach (Match match in Call().Matches(node.Script!))
+            {
+                foreach (var target in scriptLoaders.GetValueOrDefault(match.Groups[1].Value) ?? [])
+                    Transitions.Add(new SceneTransition(dialog.Name, node.Id, target));
+            }
+
             foreach (Match match in Checkpoint().Matches(node.Script!))
             {
                 Checkpoints.Add(new CheckpointCall(
@@ -42,6 +48,9 @@ public sealed partial class DialogScanner(DialogLoader loader)
             }
         }
     }
+
+    [GeneratedRegex("\\b(\\w+)\\(\\s*\\)")]
+    private static partial Regex Call();
 
     [GeneratedRegex("LoadScript\\(\\s*\"([^\"]+)\"\\s*\\)")]
     private static partial Regex LoadScript();

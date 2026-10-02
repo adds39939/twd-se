@@ -38,6 +38,12 @@ public static partial class DebugMenuReader
         return chapters;
     }
 
+    public static Dictionary<string, IReadOnlyList<string>> ReadScriptLoaders(string script) =>
+        GlobalFunction().Matches(script)
+            .Select(match => (Name: match.Groups[1].Value, Targets: LoadScript().Matches(match.Groups[2].Value).Select(load => load.Groups[1].Value).ToList()))
+            .Where(function => function.Targets.Count > 0)
+            .ToDictionary(function => function.Name, function => (IReadOnlyList<string>)function.Targets);
+
     public static List<string> ReadToggles(string script) =>
         [.. Toggle().Matches(script).Select(match => match.Groups[1].Value).Distinct()];
 
@@ -111,6 +117,9 @@ public static partial class DebugMenuReader
 
     [GeneratedRegex("^WDInventory_AddItem\\((.+?)\\)$")]
     private static partial Regex InventoryItem();
+
+    [GeneratedRegex("^function (\\w+)\\(\\)\\n(.*?)^end$", RegexOptions.Multiline | RegexOptions.Singleline)]
+    private static partial Regex GlobalFunction();
 
     [GeneratedRegex("ToggleTrueFalse\\(\"([^\"]+)\"\\)")]
     private static partial Regex Toggle();

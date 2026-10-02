@@ -59,9 +59,89 @@ public class Season1ChapterTests
     }
 
     [Fact]
-    public void Catalog_HasNoChaptersFor400Days()
+    public void Catalog_400DaysStartsAtTheHubAndOffersItAfterEachStory()
     {
-        Assert.Empty(Season1Saves.Handler.GetChapters(S1ResumePoint.ExtraEpisode));
+        var chapters = Season1Saves.Handler.GetChapters(S1ResumePoint.ExtraEpisode);
+
+        Assert.Equal("OnChapterSelection", chapters[0].Id);
+        Assert.True(S1ChapterCatalog.ForEpisode(S1ResumePoint.ExtraEpisode)!.Chapters[0].StartsEpisode);
+        Assert.Equal(4, chapters.Count(chapter => chapter.Id.StartsWith("OnChapterSelectionAfter", StringComparison.Ordinal)));
+        Assert.Equal(["OnChapter6A", "OnChapter6B"], chapters.TakeLast(2).Select(chapter => chapter.Id));
+    }
+
+    [Theory]
+    [InlineData("OnChapter1ABusIntro", 0)]
+    [InlineData("OnChapterSelectionAfter1", 1)]
+    [InlineData("OnChapter3B", 2)]
+    [InlineData("OnChapterSelectionAfter4", 4)]
+    [InlineData("OnChapter6A", 5)]
+    public void RestartFrom400DaysChapter_MarksTheEarlierStoriesAsFinished(string chapter, int finished)
+    {
+        var slot = Season1Saves.LoadEpisode4Save();
+
+        Season1Saves.Handler.RestartFromChapter(slot, S1ResumePoint.ExtraEpisode, chapter);
+
+        var logic = Properties(slot.Autosave!, S1SlotFiles.LogicGameProperties);
+        for (var story = 1; story <= 5; story++)
+            Assert.Equal(story <= finished ? true : null, logic.GetBool($"{story} - Complete"));
+
+        Assert.Equal(finished == 0 ? null : finished, logic.GetInt("Last Chapter"));
+        Assert.Equal("WalkingDead106", slot.Autosave!.Metadata!.GetString(SaveMetadataKeys.Episode));
+    }
+
+    [Fact]
+    public void RestartFrom400DaysChapter_CarriesOnlyTheDecisionsOfFinishedStories()
+    {
+        var slot = Season1Saves.LoadEpisode4Save();
+        var accessor = Season1Saves.Accessor(slot);
+        accessor.SetChoiceValue("Shot Dan", "true");
+        accessor.SetChoiceValue("Left Nate", "true");
+        accessor.SetChoiceValue("Killed Stephanie", "true");
+
+        Season1Saves.Handler.RestartFromChapter(slot, S1ResumePoint.ExtraEpisode, "OnChapter4A");
+
+        var logic = Properties(slot.Autosave!, S1SlotFiles.LogicGameProperties);
+        Assert.Equal("true", logic.GetString("Shot Dan"));
+        Assert.True(logic.GetBool("1 - Shot Dan"));
+        Assert.Equal("true", logic.GetString("Left Nate"));
+        Assert.True(logic.GetBool("3 - Walked Away"));
+        Assert.NotNull(logic.GetString("Left Eddie"));
+        Assert.Equal(logic.GetString("Left Eddie") == "true", logic.GetBool("2 - Left Eddie"));
+        Assert.Null(logic.Find("Killed Stephanie"));
+        Assert.Null(logic.Find("5 - Killed Stephanie"));
+        Assert.Null(logic.Find("Lied To Leland"));
+        Assert.NotNull(accessor.GetChoiceValue("Left Eddie"));
+    }
+
+    [Fact]
+    public void ChangingAChoice_RebuildsAGenerated400DaysCheckpoint()
+    {
+        var slot = Season1Saves.LoadEpisode4Save();
+        Season1Saves.Accessor(slot).SetChoiceValue("Shot Dan", "false");
+        Season1Saves.Handler.RestartFromChapter(slot, S1ResumePoint.ExtraEpisode, "OnChapter6A");
+
+        var reloaded = Season1Saves.Reload(slot);
+        Season1Saves.Accessor(reloaded).SetChoiceValue("Shot Dan", "true");
+
+        var logic = Properties(Season1Saves.Reload(reloaded).Autosave!, S1SlotFiles.LogicGameProperties);
+        Assert.True(logic.GetBool("1 - Shot Dan"));
+        Assert.Equal("true", logic.GetString("Shot Dan"));
+        Assert.True(logic.GetBool("5 - Complete"));
+    }
+
+    [Fact]
+    public void RestartFrom400DaysChapter_TakesFinishedStoriesOffTheHubBoard()
+    {
+        var slot = Season1Saves.LoadEpisode4Save();
+
+        Season1Saves.Handler.RestartFromChapter(slot, S1ResumePoint.ExtraEpisode, "OnChapterSelectionAfter2");
+
+        var autosave = slot.Autosave!;
+        const string hub = "adv_truckStopChapterSelection.scene";
+        Assert.False(Properties(autosave, S1RuntimeProperties.Name("obj_photoSelectionBoardCh1", hub)).GetBool("Runtime: Visible"));
+        Assert.False(Properties(autosave, S1RuntimeProperties.Name("obj_photoSelectionBoardCh2", hub)).GetBool("Runtime: Visible"));
+        Assert.Null(autosave.FindFile(S1RuntimeProperties.Name("obj_photoSelectionBoardCh3", hub)));
+        Assert.Equal(0x1C8181068B76C9EBUL, S1RuntimeProperties.Name("obj_photoSelectionBoardCh1", hub));
     }
 
     [Fact]

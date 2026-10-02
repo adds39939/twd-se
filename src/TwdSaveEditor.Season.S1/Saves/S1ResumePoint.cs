@@ -13,7 +13,7 @@ public static class S1ResumePoint
 
     private const int FirstEpisode = 1;
     private const int GeneratedSerial = 1;
-    private const int MaxGeneratedFiles = 16;
+    private const int MaxGeneratedFiles = 128;
     private const int EpisodeBase = 100;
 
     public static ResumeState GetState(SaveSlot slot)
@@ -47,6 +47,8 @@ public static class S1ResumePoint
         RestartFromEpisode(slot, episode);
         if (chapter.StartsEpisode)
             return;
+
+        FillDecidedChoices(slot, chapters, chapter);
 
         var metadata = slot.Metadata!;
         var autosave = S1SlotFiles.AutosaveName(slot.FileName);
@@ -108,6 +110,17 @@ public static class S1ResumePoint
         var autosave = S1SlotFiles.AutosaveName(slot.FileName);
         if (!slot.ObsoleteFileNames.Contains(autosave))
             slot.ObsoleteFileNames.Add(autosave);
+    }
+
+    private static void FillDecidedChoices(SaveSlot slot, S1EpisodeChapters episode, S1Chapter chapter)
+    {
+        var accessor = new S1ChoiceAccessor(slot);
+        foreach (var point in episode.DecisionPoints.Where(point => episode.IsDecided(point.ChoiceKey, chapter)))
+        {
+            var choice = S1ChoiceCatalog.All.FirstOrDefault(candidate => candidate.ChoiceKey.Equals(point.ChoiceKey, StringComparison.OrdinalIgnoreCase));
+            if (choice != null && accessor.GetChoiceValue(choice.ChoiceKey) == null)
+                accessor.ApplyChoice(choice, 0);
+        }
     }
 
     private static void FillMissingChoices(SaveSlot slot, int persistentEpisode)

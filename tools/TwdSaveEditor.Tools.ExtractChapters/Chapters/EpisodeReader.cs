@@ -1,4 +1,5 @@
 using TwdSaveEditor.Tools.Common.Dialogs;
+using TwdSaveEditor.Tools.Common.Names;
 using TwdSaveEditor.Tools.ExtractChapters.Dialogs;
 using TwdSaveEditor.Tools.ExtractChapters.Model;
 using TwdSaveEditor.Tools.ExtractChapters.Scenes;
@@ -6,7 +7,7 @@ using TwdSaveEditor.Tools.ExtractChapters.Scripts;
 
 namespace TwdSaveEditor.Tools.ExtractChapters.Chapters;
 
-public sealed class EpisodeReader(string dataDirectory, DialogLoader loader)
+public sealed class EpisodeReader(string dataDirectory, DialogLoader loader, SymbolNames names)
 {
     public const string DebugMenuScript = "WDEpisode.lua";
 
@@ -19,13 +20,13 @@ public sealed class EpisodeReader(string dataDirectory, DialogLoader loader)
         if (!File.Exists(menuPath) || !Directory.Exists(files))
             return null;
 
+        var menu = File.ReadAllText(menuPath);
         var dialogs = Directory.EnumerateFiles(files, "*.dlog").Order().ToList();
-        var scanner = new DialogScanner(loader);
+        var scanner = new DialogScanner(loader, DebugMenuReader.ReadScriptLoaders(menu));
         foreach (var dialog in dialogs)
             scanner.Scan(dialog);
 
         var scenes = new SceneDialogReader(dialogs.Select(Path.GetFileName).OfType<string>());
-        var menu = File.ReadAllText(menuPath);
 
         return new EpisodeChapters(
             episode,
@@ -38,6 +39,15 @@ public sealed class EpisodeReader(string dataDirectory, DialogLoader loader)
             DebugMenuReader.ReadToggles(menu),
             scanner.Transitions,
             scanner.Checkpoints,
-            scanner.Decisions);
+            scanner.Decisions,
+            ReadStoryActions(episode, files));
+    }
+
+    private List<StoryAction> ReadStoryActions(int episode, string files)
+    {
+        var hub = Path.Combine(files, StoryChapters.HubDialog);
+        return episode == StoryChapters.Episode && File.Exists(hub)
+            ? new StoryBoardReader(names).Read(loader.Load(hub), StoryChapters.LastStoryKey)
+            : [];
     }
 }

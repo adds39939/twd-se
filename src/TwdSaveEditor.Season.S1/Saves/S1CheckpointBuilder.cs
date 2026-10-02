@@ -44,10 +44,10 @@ public static class S1CheckpointBuilder
         game.SetBool("bUsingJoystick", false);
         game.SetBool("Holding action", false);
         game.SetString("Current Mode", "mode_Main");
-        ApplyDecisions(slot, episode, sets);
+        ApplyDecisions(slot, episode, chapter, sets);
 
         foreach (var flag in chapter.Flags)
-            Apply(Logic(sets, flag.Agent), flag.Key, flag.Value);
+            Apply(Properties(sets, flag.Agent, flag.Scene ?? S1RuntimeProperties.LogicScene), flag.Key, flag.Value);
 
         ApplyDecisionFlags(slot, episode, chapter, sets);
 
@@ -88,12 +88,16 @@ public static class S1CheckpointBuilder
         return bundle;
     }
 
-    private static void ApplyDecisions(SaveSlot slot, S1EpisodeChapters episode, SortedDictionary<ulong, PropertySet> sets)
+    private static void ApplyDecisions(SaveSlot slot, S1EpisodeChapters episode, S1Chapter chapter, SortedDictionary<ulong, PropertySet> sets)
     {
         var accessor = new S1ChoiceAccessor(slot);
         var game = Logic(sets, S1RuntimeProperties.GameLogicAgent);
-        foreach (var choice in S1ChoiceCatalog.All.Where(choice => S1ChoiceCatalog.PersistentEpisode(choice) <= EpisodeBase + episode.Episode))
+        var current = EpisodeBase + episode.Episode;
+        foreach (var choice in S1ChoiceCatalog.All.Where(choice => S1ChoiceCatalog.PersistentEpisode(choice) <= current))
         {
+            if (S1ChoiceCatalog.PersistentEpisode(choice) == current && !episode.IsDecided(choice.ChoiceKey, chapter))
+                continue;
+
             if (accessor.GetChoiceValue(choice.ChoiceKey) is { } value)
                 game.SetString(choice.ChoiceKey, value);
         }
@@ -125,9 +129,12 @@ public static class S1CheckpointBuilder
         }
     }
 
-    private static PropertySet Logic(SortedDictionary<ulong, PropertySet> sets, string agent, bool visible = false)
+    private static PropertySet Logic(SortedDictionary<ulong, PropertySet> sets, string agent, bool visible = false) =>
+        Properties(sets, agent, S1RuntimeProperties.LogicScene, visible);
+
+    private static PropertySet Properties(SortedDictionary<ulong, PropertySet> sets, string agent, string scene, bool visible = false)
     {
-        var name = S1RuntimeProperties.LogicName(agent);
+        var name = S1RuntimeProperties.Name(agent, scene);
         if (!sets.TryGetValue(name, out var properties))
             sets[name] = properties = Runtime(visible);
 

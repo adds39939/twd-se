@@ -12,10 +12,12 @@ public sealed class ChapterPlanner(EpisodeChapters episode)
 
     private const int EpisodeBase = 100;
     private const string SceneExtension = ".scene";
+    private const string ScenePrefix = "adv_";
+    private const string DialogPrefix = "env_";
 
     private static readonly StringComparer IgnoreCase = StringComparer.OrdinalIgnoreCase;
 
-    private static readonly HashSet<string> Excluded = new(IgnoreCase) { RecapScript, "NextTimeOn.lua", "ChapterSelection.lua" };
+    private static readonly HashSet<string> Excluded = new(IgnoreCase) { RecapScript, "NextTimeOn.lua" };
 
     private const string TrueValue = "true";
     private const string FalseValue = "false";
@@ -38,7 +40,8 @@ public sealed class ChapterPlanner(EpisodeChapters episode)
     public JsonObject Plan()
     {
         var recap = _scripts.GetValueOrDefault(RecapScript);
-        var candidates = episode.Chapters.Where(chapter => chapter.Script != null && !Excluded.Contains(chapter.Script)).ToList();
+        var candidates = StoryChapters.Expand(episode,
+            episode.Chapters.Where(chapter => chapter.Script != null && !Excluded.Contains(chapter.Script)).ToList());
         var firstScene = recap?.LoadedScripts.FirstOrDefault() ?? candidates.FirstOrDefault()?.Script;
 
         var kept = new List<Chapter>();
@@ -70,46 +73,76 @@ public sealed class ChapterPlanner(EpisodeChapters episode)
                 ["flags"] = new JsonArray([.. chapter.Assignments.Where(assignment => assignment.Unresolved == null).Select(assignment => new JsonObject
                 {
                     ["agent"] = assignment.Agent,
+                    ["scene"] = assignment.Scene,
                     ["key"] = assignment.Key,
                     ["value"] = assignment.Value?.DeepClone(),
                 })]),
             })]),
-            ["decisionFlags"] = new JsonArray([.. DecisionFlags(keys, kept)]),
+            ["decisionFlags"] = new JsonArray([.. DecisionFlags(keys, kept), .. StoryChapters.DecisionFlags(episode.Episode)]),
+            ["decisionPoints"] = new JsonArray([.. StoryChapters.DecisionPoints(episode.Episode)]),
         };
     }
 
     private JsonObject? Entry(Chapter chapter, List<Chapter> earlier, string? firstScene, bool hasRecap, out bool supported)
     {
         supported = true;
-        var transition = episode.Transitions.FirstOrDefault(candidate => IgnoreCase.Equals(candidate.Target, chapter.Script));
-        var host = earlier.LastOrDefault(candidate => !IgnoreCase.Equals(candidate.Script, chapter.Script) && SceneOf(candidate.Script) != null);
-        if (transition != null && host != null)
+        var first = IgnoreCase.Equals(chapter.Script, firstScene);
+        if (first && !earlier.Any(candidate => IgnoreCase.Equals(candidate.Script, firstScene)) && chapter.Assignments.Count == 0)
+            return null;
+
+        var transitions = episode.Transitions.Where(candidate => IgnoreCase.Equals(candidate.Target, chapter.Script)).ToList();
+        var previous = earlier.LastOrDefault(candidate => !IgnoreCase.Equals(candidate.Script, chapter.Script) && SceneOf(candidate.Script) != null)?.Script;
+        var owned = transitions
+            .SelectMany(transition => Owners(transition.Dialog).Select(owner => (Transition: transition, Host: owner)))
+            .Where(candidate => !IgnoreCase.Equals(candidate.Host, chapter.Script))
+            .ToList();
+
+        var chosen = owned.Where(candidate => IgnoreCase.Equals(candidate.Host, previous)).Take(1)
+            .Concat(owned.Take(1))
+            .Concat(transitions.Take(previous == null ? 0 : 1).Select(transition => (Transition: transition, Host: previous!)))
+            .ToList();
+
+        if (chosen.Count > 0)
         {
+            var (transition, host) = chosen[0];
             return new JsonObject
             {
-                ["script"] = host.Script,
-                ["scene"] = SceneOf(host.Script) + SceneExtension,
+                ["script"] = host,
+                ["scene"] = SceneOf(host) + SceneExtension,
                 ["dialog"] = transition.Dialog,
                 ["node"] = NodePrefix + transition.Node.ToString(CultureInfo.InvariantCulture),
             };
         }
 
-        if (IgnoreCase.Equals(chapter.Script, firstScene))
-        {
-            if (!earlier.Any(candidate => IgnoreCase.Equals(candidate.Script, firstScene)) && chapter.Assignments.Count == 0)
-                return null;
-
-            if (hasRecap)
-                return new JsonObject { ["script"] = RecapScript };
-        }
+        if (first && hasRecap)
+            return new JsonObject { ["script"] = RecapScript };
 
         supported = false;
         return null;
     }
 
+    private IEnumerable<string> Owners(string dialog)
+    {
+        var name = Path.GetFileNameWithoutExtension(dialog);
+        return episode.Scripts.Where(script => script.Scene != null && (
+                script.Dialogs.Contains(dialog, IgnoreCase)
+                || episode.SceneDialogs.GetValueOrDefault(script.Scene)?.Contains(dialog, IgnoreCase) == true
+                || IsNamedAfter(name, script.Scene)))
+            .Select(script => script.Name);
+    }
+
+    private static bool IsNamedAfter(string dialog, string scene)
+    {
+        if (!scene.StartsWith(ScenePrefix, StringComparison.OrdinalIgnoreCase))
+            return false;
+
+        var expected = DialogPrefix + scene[ScenePrefix.Length..];
+        return IgnoreCase.Equals(dialog, expected) || dialog.StartsWith(expected + "_", StringComparison.OrdinalIgnoreCase);
+    }
+
     private IEnumerable<JsonObject> DecisionFlags(List<string> keys, List<Chapter> chapters)
     {
-        foreach (var toggle in episode.Toggles)
+        foreach (var toggle in episode.Episode == StoryChapters.Episode ? [] : episode.Toggles)
         {
             var key = keys.FirstOrDefault(candidate => toggle.EndsWith(" - " + candidate, StringComparison.OrdinalIgnoreCase));
             if (key == null)

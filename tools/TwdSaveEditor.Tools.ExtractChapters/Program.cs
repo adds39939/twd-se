@@ -4,15 +4,15 @@ using System.Text.Json.Nodes;
 using TwdSaveEditor.Tools.Common.Configuration;
 using TwdSaveEditor.Tools.Common.Dialogs;
 using TwdSaveEditor.Tools.Common.Meta;
+using TwdSaveEditor.Tools.Common.Names;
 using TwdSaveEditor.Tools.ExtractChapters.Chapters;
 using TwdSaveEditor.Tools.ExtractChapters.Model;
 
 const int FirstEpisode = 101;
-const int LastMainEpisode = 105;
 const int LastEpisode = 106;
 
 var data = Path.Combine(ToolPaths.ToolsDirectory, "data");
-var reader = new EpisodeReader(data, new DialogLoader(MetaReader.CreateDefault()));
+var reader = new EpisodeReader(data, new DialogLoader(MetaReader.CreateDefault()), SymbolNames.LoadDefault());
 var episodes = new List<EpisodeChapters>();
 
 for (var number = FirstEpisode; number <= LastEpisode; number++)
@@ -74,14 +74,14 @@ File.WriteAllText(rawPath, raw.ToJsonString(options));
 Console.WriteLine($"Wrote {rawPath}");
 
 var planned = new JsonArray();
-foreach (var episode in episodes.Where(episode => episode.Episode <= LastMainEpisode))
+foreach (var episode in episodes)
 {
     var planner = new ChapterPlanner(episode);
     var plan = planner.Plan();
     planned.Add(plan);
 
     var chapters = plan["chapters"]!.AsArray();
-    Console.WriteLine($"{episode.Episode}: {chapters.Count} of {episode.Chapters.Count} chapters, {plan["decisionFlags"]!.AsArray().Count} decision flags");
+    Console.WriteLine($"{episode.Episode}: {chapters.Count} chapters from {episode.Chapters.Count} menu entries, {plan["decisionFlags"]!.AsArray().Count} decision flags");
     foreach (var skipped in planner.Skipped)
         Console.WriteLine($"    skipped {skipped}");
 }

@@ -31,8 +31,8 @@
         "entry": {
           "script": "env_woodsClementine.lua",
           "scene": "adv_woodsClementine.scene.scene",
-          "dialog": "clementineHouse_clementine.dlog",
-          "node": "dlg_id: 3761005062603778362"
+          "dialog": "env_forest.dlog",
+          "node": "dlg_id: 6813577543998524910"
         },
         "flags": []
       },
@@ -50,11 +50,13 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "ClemHouseInt - Test Fight Prototype",
             "value": true
           },
           {
             "agent": "logic_debug",
+            "scene": null,
             "key": "Debug - TestZombieBabysitter",
             "value": false
           }
@@ -74,11 +76,13 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "ClemHouseInt - Test Fight Prototype",
             "value": true
           },
           {
             "agent": "logic_debug",
+            "scene": null,
             "key": "Debug - TestZombieBabysitter",
             "value": true
           }
@@ -124,6 +128,7 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "Farm - Zombies Present",
             "value": true
           }
@@ -169,6 +174,7 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "Drugstore - Secure",
             "value": true
           }
@@ -188,6 +194,7 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "Drugstore - Secure",
             "value": true
           }
@@ -199,14 +206,15 @@
         "group": "",
         "script": "env_drugstoreExteriorNight.lua",
         "entry": {
-          "script": "env_drugstoreOffice.lua",
-          "scene": "adv_drugstoreOffice.scene.scene",
+          "script": "env_drugstoreInterior.lua",
+          "scene": "adv_drugstoreInteriorAct3.scene.scene",
           "dialog": "env_drugstore.dlog",
           "node": "dlg_id: 3416637372685494768"
         },
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "Drugstore - Secure",
             "value": true
           }
@@ -226,11 +234,13 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "Drugstore - Secure",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "MotorInn - EndGame",
             "value": false
           }
@@ -242,29 +252,33 @@
         "group": "",
         "script": "env_drugstoreExteriorNight.lua",
         "entry": {
-          "script": "env_motorInn_stealthMission.lua",
-          "scene": "adv_motorInn_stealthMission.scene.scene",
+          "script": "env_drugstoreInterior.lua",
+          "scene": "adv_drugstoreInteriorAct3.scene.scene",
           "dialog": "env_drugstore.dlog",
           "node": "dlg_id: 3416637372685494768"
         },
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "Drugstore - Secure",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "MotorInn - Have Axe",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "MotorInn - Have Remote",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "Office - got photo",
             "value": true
           }
@@ -284,36 +298,43 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "Drugstore - Secure",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "MotorInn - Have Axe",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "MotorInn - Have Remote",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "Office - got photo",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "Drugstore - Got Keys",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "Drugstore - ArrivalComplete",
             "value": true
           },
           {
             "agent": "logic_module_script",
+            "scene": null,
             "key": "Script - Current Scene File",
             "value": "adv_drugstoreExteriorNight.scene"
           }
@@ -325,8 +346,8 @@
         "group": "",
         "script": "env_drugstoreInteriorPrologue.lua",
         "entry": {
-          "script": "env_drugstoreInterior.lua",
-          "scene": "adv_drugstoreInteriorAct3.scene.scene",
+          "script": "env_drugstoreOffice.lua",
+          "scene": "adv_drugstoreOffice.scene.scene",
           "dialog": "env_office.dlog",
           "node": "dlg_id: 1241207516126863607"
         },
@@ -340,12 +361,13 @@
         "entry": {
           "script": "env_drugstoreInteriorPrologue.lua",
           "scene": "adv_drugstoreInteriorPrologue.scene.scene",
-          "dialog": "env_drugstore.dlog",
-          "node": "dlg_id: 15970388365462938796"
+          "dialog": "env_drugstorePrologue.dlog",
+          "node": "dlg_id: 16848728699039221464"
         },
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "MotorInn - EndGame",
             "value": true
           }
@@ -357,34 +379,39 @@
         "group": "",
         "script": "env_drugstoreInterior.lua",
         "entry": {
-          "script": "env_motorInn_end.lua",
-          "scene": "adv_motorInn_end.scene.scene",
+          "script": "env_drugstoreExterior.lua",
+          "scene": "adv_drugstoreExterior.scene.scene",
           "dialog": "env_maconStreet.dlog",
           "node": "dlg_id: 3206751238299660000"
         },
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "Drugstore - Secure",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "MotorInn - Have Axe",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "MotorInn - Have Remote",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "Drugstore - BackFromMotorInn",
             "value": true
           },
           {
             "agent": "logic_module_script",
+            "scene": null,
             "key": "Script - Current Scene File",
             "value": "adv_motorInn_stealthMission.scene"
           }
@@ -396,19 +423,21 @@
         "group": "",
         "script": "env_drugstoreInterior.lua",
         "entry": {
-          "script": "env_motorInn_end.lua",
-          "scene": "adv_motorInn_end.scene.scene",
+          "script": "env_drugstoreExterior.lua",
+          "scene": "adv_drugstoreExterior.scene.scene",
           "dialog": "env_maconStreet.dlog",
           "node": "dlg_id: 3206751238299660000"
         },
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "Drugstore - Secure",
             "value": true
           },
           {
             "agent": "logic_module_script",
+            "scene": null,
             "key": "Script - Current Scene File",
             "value": "adv_drugstoreExteriorNight.scene"
           }
@@ -428,16 +457,19 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "Drugstore - Secure",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "MotorInn - EndGame",
             "value": false
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "MotorInn - Debug Skip To upstairs",
             "value": true
           }
@@ -449,19 +481,21 @@
         "group": "",
         "script": "env_clementineHouseInterior.lua",
         "entry": {
-          "script": "env_motorInn_stealthMission.lua",
-          "scene": "adv_motorInn_stealthMission.scene.scene",
+          "script": "env_clementineHouseExterior_night.lua",
+          "scene": "adv_clementineHouseExterior_Night.scene",
           "dialog": "env_clementineYard.dlog",
           "node": "dlg_id: 6277924244723972345"
         },
         "flags": [
           {
             "agent": "logic_debug",
+            "scene": null,
             "key": "Debug - TestZombieBabysitter",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "ClemHouseInt - Test Fight Prototype",
             "value": false
           }
@@ -473,14 +507,15 @@
         "group": "",
         "script": "env_drugstoreInteriorPrologue.lua",
         "entry": {
-          "script": "env_clementineHouseInterior.lua",
-          "scene": "adv_clementineHouseInterior.scene.scene",
+          "script": "env_drugstoreOffice.lua",
+          "scene": "adv_drugstoreOffice.scene.scene",
           "dialog": "env_office.dlog",
           "node": "dlg_id: 1241207516126863607"
         },
         "flags": [
           {
             "agent": "logic_debug",
+            "scene": null,
             "key": "Debug - PrologueStartFromChoice",
             "value": true
           }
@@ -492,14 +527,15 @@
         "group": "",
         "script": "env_drugstoreInteriorPrologue.lua",
         "entry": {
-          "script": "env_clementineHouseInterior.lua",
-          "scene": "adv_clementineHouseInterior.scene.scene",
+          "script": "env_drugstoreOffice.lua",
+          "scene": "adv_drugstoreOffice.scene.scene",
           "dialog": "env_office.dlog",
           "node": "dlg_id: 1241207516126863607"
         },
         "flags": [
           {
             "agent": "logic_debug",
+            "scene": null,
             "key": "Debug - PrologueStartFromSaveClem",
             "value": true
           }
@@ -519,6 +555,7 @@
         "flags": [
           {
             "agent": "logic_debug",
+            "scene": null,
             "key": "Debug - WoodsStartFromCop",
             "value": true
           }
@@ -530,54 +567,63 @@
         "group": "",
         "script": "env_drugstoreExteriorNight.lua",
         "entry": {
-          "script": "env_woodsClementine.lua",
-          "scene": "adv_woodsClementine.scene.scene",
+          "script": "env_drugstoreInterior.lua",
+          "scene": "adv_drugstoreInteriorAct3.scene.scene",
           "dialog": "env_drugstore.dlog",
           "node": "dlg_id: 3416637372685494768"
         },
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "Drugstore - Secure",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "MotorInn - Have Axe",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "MotorInn - Have Remote",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "Office - got photo",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "Macon St - Window broken",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "Macon St - Gate open",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "Macon St - Lock Chopped",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "Macon St - TVs on",
             "value": true
           },
           {
             "agent": "logic_debug",
+            "scene": null,
             "key": "Debug - DrugstoreExtStartFromBrother",
             "value": true
           }
@@ -597,13 +643,15 @@
         "flags": [
           {
             "agent": "logic_debug",
+            "scene": null,
             "key": "Debug - DrugstoreStartFromWCZombie",
             "value": true
           }
         ]
       }
     ],
-    "decisionFlags": []
+    "decisionFlags": [],
+    "decisionPoints": []
   },
   {
     "episode": 2,
@@ -627,6 +675,7 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "1BearTrap - Zombies Arrived",
             "value": true
           }
@@ -659,11 +708,13 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "1MotorInn - David Dead",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "1MotorInn - Debug To Attack",
             "value": true
           }
@@ -683,16 +734,19 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "1MotorInn - David Dead",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "1MotorInn - Larry Killed Zombie",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "1MotorInn - Debug To Brothers",
             "value": true
           }
@@ -719,8 +773,8 @@
         "entry": {
           "script": "env_woodsAbandonedCampDay.lua",
           "scene": "adv_woodsAbandonedCampDay.scene",
-          "dialog": "env_dairyBarnInterior.dlog",
-          "node": "dlg_id: 3150705583649040698"
+          "dialog": "env_forestAbandonedCampDay.dlog",
+          "node": "dlg_id: 12012222470012342656"
         },
         "flags": []
       },
@@ -732,17 +786,19 @@
         "entry": {
           "script": "env_woodsAbandonedCampDay.lua",
           "scene": "adv_woodsAbandonedCampDay.scene",
-          "dialog": "env_dairyBarnInterior.dlog",
-          "node": "dlg_id: 3150705583649040698"
+          "dialog": "env_forestAbandonedCampDay.dlog",
+          "node": "dlg_id: 12012222470012342656"
         },
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "nAct",
             "value": 2
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2Fence - Complete",
             "value": true
           }
@@ -756,27 +812,31 @@
         "entry": {
           "script": "env_woodsAbandonedCampDay.lua",
           "scene": "adv_woodsAbandonedCampDay.scene",
-          "dialog": "env_dairyBarnInterior.dlog",
-          "node": "dlg_id: 3150705583649040698"
+          "dialog": "env_forestAbandonedCampDay.dlog",
+          "node": "dlg_id: 12012222470012342656"
         },
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "nAct",
             "value": 2
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2Fence - Complete",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2Bandits - Complete",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2Dairy - Returned From Fence",
             "value": true
           }
@@ -796,6 +856,7 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "nAct",
             "value": 2
           }
@@ -815,11 +876,13 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "nAct",
             "value": 2
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2Fence - FixedFence",
             "value": true
           }
@@ -839,16 +902,19 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "nAct",
             "value": 2
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2Fence - Complete",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2Dairy - Returned From Fence",
             "value": true
           }
@@ -868,21 +934,25 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "nAct",
             "value": 2
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2Fence - Complete",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2Bandits - Jolene Entered",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2Dairy - Returned From Fence",
             "value": true
           }
@@ -894,34 +964,39 @@
         "group": "Act 2",
         "script": "env_dairyBarnDay.lua",
         "entry": {
-          "script": "env_woodsJoleneCamp.lua",
-          "scene": "adv_woodsJoleneCamp.scene",
+          "script": "env_dairyExteriorDay.lua",
+          "scene": "adv_dairyExteriorDay.scene",
           "dialog": "env_dairyExterior_atTheDairy.dlog",
           "node": "dlg_id: 13152482511116235002"
         },
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "nAct",
             "value": 2
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2Fence - Complete",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2Bandits - Complete",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2Dairy - Returned From Fence",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2Dairy - Returned From Camp",
             "value": true
           }
@@ -941,6 +1016,7 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "nAct",
             "value": 3
           }
@@ -960,11 +1036,13 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "nAct",
             "value": 3
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3House - Complete",
             "value": true
           }
@@ -984,6 +1062,7 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "nAct",
             "value": 3
           }
@@ -1003,11 +1082,13 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "nAct",
             "value": 3
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3MeatLocker - DebugToChoice",
             "value": true
           }
@@ -1027,11 +1108,13 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "nAct",
             "value": 3
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3MeatLocker - Complete",
             "value": true
           }
@@ -1051,11 +1134,13 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "nAct",
             "value": 3
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3MeatLocker - Complete",
             "value": true
           }
@@ -1075,21 +1160,25 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "nAct",
             "value": 3
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3House - Complete",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3MeatLocker - Complete",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3Rescue - Debug to Rescue",
             "value": true
           }
@@ -1109,16 +1198,19 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "nAct",
             "value": 3
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3MeatLocker - Complete",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3Rescue - Complete",
             "value": true
           }
@@ -1138,26 +1230,31 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "nAct",
             "value": 3
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3MeatLocker - Complete",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3Rescue - Complete",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3AndyFight - FightingDone",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3AndyFight - DebugToKillChoice",
             "value": true
           }
@@ -1177,6 +1274,7 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "nAct",
             "value": 3
           }
@@ -1196,13 +1294,15 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "nAct",
             "value": 3
           }
         ]
       }
     ],
-    "decisionFlags": []
+    "decisionFlags": [],
+    "decisionPoints": []
   },
   {
     "episode": 3,
@@ -1242,6 +1342,7 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "Debug - DrugInt Start over Counter",
             "value": true
           }
@@ -1274,6 +1375,7 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "1MotorInn - Finished Argument",
             "value": true
           }
@@ -1319,6 +1421,7 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2Road - Talked To Katjaa",
             "value": true
           }
@@ -1364,6 +1467,7 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3Train1 - Got Physical",
             "value": true
           }
@@ -1401,8 +1505,8 @@
         "group": "Act 3",
         "script": "env_overpass.lua",
         "entry": {
-          "script": "env_trainAfterStop.lua",
-          "scene": "adv_trainTile_afterStop.scene",
+          "script": "env_station.lua",
+          "scene": "adv_trainTileStation.scene",
           "dialog": "env_station.dlog",
           "node": "dlg_id: 18439122365649207746"
         },
@@ -1414,34 +1518,39 @@
         "group": "Act 3",
         "script": "env_overpass.lua",
         "entry": {
-          "script": "env_trainAfterStop.lua",
-          "scene": "adv_trainTile_afterStop.scene",
+          "script": "env_station.lua",
+          "scene": "adv_trainTileStation.scene",
           "dialog": "env_station.dlog",
           "node": "dlg_id: 18439122365649207746"
         },
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3Overpass - Met Omid \u0026 Christa",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3Overpass - Left Overpass",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3Station - Been to Station",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3Station - Got Blowtorch",
             "value": true
           },
           {
             "agent": "logic_inventory_items",
+            "scene": null,
             "key": "Inventory - Blowtorch",
             "value": 1
           }
@@ -1461,16 +1570,19 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3Overpass - Met Omid \u0026 Christa",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3Overpass - Left Overpass",
             "value": true
           },
           {
             "agent": "logic_inventory_items",
+            "scene": null,
             "key": "Inventory - Spanner",
             "value": 1
           }
@@ -1490,16 +1602,19 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3Overpass - Met Omid \u0026 Christa",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3Overpass - Left Overpass",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3Station - Debug to Fight",
             "value": true
           }
@@ -1511,15 +1626,16 @@
         "group": "Finale",
         "script": "env_epilogue.lua",
         "entry": {
-          "script": "env_station.lua",
-          "scene": "adv_trainTileStation.scene",
+          "script": "env_overpass.lua",
+          "scene": "adv_trainTileOverpass.scene",
           "dialog": "env_overpass.dlog",
           "node": "dlg_id: 15330407824846952659"
         },
         "flags": []
       }
     ],
-    "decisionFlags": []
+    "decisionFlags": [],
+    "decisionPoints": []
   },
   {
     "episode": 4,
@@ -1540,8 +1656,8 @@
         "entry": {
           "script": "env_savannahStreets.lua",
           "scene": "adv_savannahStreets.scene",
-          "dialog": "env_manorAttic_act1ZombieBoy.dlog",
-          "node": "dlg_id: 9732140301693174289"
+          "dialog": "env_savannahStreets_prologue.dlog",
+          "node": "dlg_id: 13655862514877824558"
         },
         "flags": []
       },
@@ -1577,14 +1693,15 @@
         "group": "Act 1",
         "script": "env_manorExteriorDay.lua",
         "entry": {
-          "script": "env_manorInteriorAttic.lua",
-          "scene": "adv_manorInteriorAttic.scene",
-          "dialog": "env_manorAttic_act1ZombieBoy.dlog",
-          "node": "dlg_id: 9732140301693174289"
+          "script": "env_savannahStreets.lua",
+          "scene": "adv_savannahStreets.scene",
+          "dialog": "env_savannahStreets_prologue.dlog",
+          "node": "dlg_id: 13655862514877824558"
         },
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "1ManorAttic - Zombie Boy Dead",
             "value": true
           }
@@ -1617,6 +1734,7 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2RiverStreet - Spotted Molly",
             "value": true
           }
@@ -1636,6 +1754,7 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2StreetFight - Finished Fight",
             "value": true
           }
@@ -1655,6 +1774,7 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2StreetFight - Finished Fight",
             "value": true
           }
@@ -1674,6 +1794,7 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2StreetFight - Finished Fight",
             "value": true
           }
@@ -1685,19 +1806,21 @@
         "group": "Act 2",
         "script": "env_manorExteriorDay.lua",
         "entry": {
-          "script": "env_manorInteriorClementineSearch.lua",
-          "scene": "adv_manorInterior_clementineSearch.scene",
-          "dialog": "env_manorAttic_act1ZombieBoy.dlog",
-          "node": "dlg_id: 9732140301693174289"
+          "script": "env_savannahStreets.lua",
+          "scene": "adv_savannahStreets.scene",
+          "dialog": "env_savannahStreets_prologue.dlog",
+          "node": "dlg_id: 13655862514877824558"
         },
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2StreetFight - Finished Fight",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2ClemSearch - Entered Backyard",
             "value": true
           }
@@ -1717,6 +1840,7 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2StreetFight - Finished Fight",
             "value": true
           }
@@ -1736,6 +1860,7 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2StreetFight - Finished Fight",
             "value": true
           }
@@ -1747,14 +1872,15 @@
         "group": "Act 3",
         "script": "env_crawfordExterior.lua",
         "entry": {
-          "script": "env_manorExteriorNight.lua",
-          "scene": "adv_manorExterior_night.scene",
+          "script": "env_crawfordAutoShop.lua",
+          "scene": "adv_crawfordAutoShop.scene",
           "dialog": "env_crawfordAutoShop_act3BatteryMission.dlog",
           "node": "dlg_id: 3902323370861416722"
         },
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2StreetFight - Finished Fight",
             "value": true
           }
@@ -1774,6 +1900,7 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2StreetFight - Finished Fight",
             "value": true
           }
@@ -1793,6 +1920,7 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2StreetFight - Finished Fight",
             "value": true
           }
@@ -1806,17 +1934,19 @@
         "entry": {
           "script": "env_crawfordSchoolClassroom.lua",
           "scene": "adv_crawfordSchoolClassroom.scene",
-          "dialog": "env_crawfordExterior_act3Alleyway.dlog",
-          "node": "dlg_id: 11594718354179521883"
+          "dialog": "env_crawfordSchoolClassroom_act3.dlog",
+          "node": "dlg_id: 10761195308048716201"
         },
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2StreetFight - Finished Fight",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3Classroom - Entered Classroom",
             "value": true
           }
@@ -1830,17 +1960,19 @@
         "entry": {
           "script": "env_crawfordSchoolHallways.lua",
           "scene": "adv_crawfordSchoolHallways.scene",
-          "dialog": "env_crawfordAutoShop_act3BatteryMission.dlog",
-          "node": "dlg_id: 3902323370861416722"
+          "dialog": "env_crawfordSchoolHallways_act3Exploring.dlog",
+          "node": "dlg_id: 5663323772587388102"
         },
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2StreetFight - Finished Fight",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3Classroom - Entered Classroom",
             "value": true
           }
@@ -1860,11 +1992,13 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2StreetFight - Finished Fight",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3Classroom - Entered Classroom",
             "value": true
           }
@@ -1876,29 +2010,33 @@
         "group": "Act 3",
         "script": "env_crawfordSchoolHallways.lua",
         "entry": {
-          "script": "env_crawfordAutoShop.lua",
-          "scene": "adv_crawfordAutoShop.scene",
+          "script": "env_crawfordExterior.lua",
+          "scene": "adv_crawfordExterior.scene",
           "dialog": "env_crawfordExterior_act3Alleyway.dlog",
           "node": "dlg_id: 11594718354179521883"
         },
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2StreetFight - Finished Fight",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3Classroom - Entered Classroom",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3Battery - Entered Auto Shop",
             "value": true
           },
           {
             "agent": "logic_debug",
+            "scene": null,
             "key": "Debug - EnterHallwayFromAlley",
             "value": true
           }
@@ -1918,16 +2056,19 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2StreetFight - Finished Fight",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3Classroom - Entered Classroom",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3Battery - Entered Auto Shop",
             "value": true
           }
@@ -1939,44 +2080,51 @@
         "group": "Act 3",
         "script": "env_crawfordExterior.lua",
         "entry": {
-          "script": "env_crawfordSchoolNursesOffice.lua",
-          "scene": "adv_crawfordSchoolNursesOffice.scene",
+          "script": "env_crawfordAutoShop.lua",
+          "scene": "adv_crawfordAutoShop.scene",
           "dialog": "env_crawfordAutoShop_act3BatteryMission.dlog",
           "node": "dlg_id: 3902323370861416722"
         },
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2StreetFight - Finished Fight",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3Classroom - Entered Classroom",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3Battery - Removed Battery",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3Battery - Finished",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3Medicine - Entered Nurse\u0027s Office",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3Medicine - Watched Tape 1",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3Battery - Entered Auto Shop",
             "value": true
           }
@@ -1988,39 +2136,45 @@
         "group": "Act 3 (Cont)",
         "script": "env_crawfordSchoolClassroom.lua",
         "entry": {
-          "script": "env_crawfordExterior.lua",
-          "scene": "adv_crawfordExterior.scene",
+          "script": "env_crawfordSchoolHallways.lua",
+          "scene": "adv_crawfordSchoolHallways.scene",
           "dialog": "env_crawfordSchoolHallways_act3Exploring.dlog",
           "node": "dlg_id: 995562450992766236"
         },
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2StreetFight - Finished Fight",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3Classroom - Entered Classroom",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3Battery - Finished",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3Fuel - Finished",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3Medicine - Finished",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3Battery - Entered Auto Shop",
             "value": true
           }
@@ -2040,6 +2194,7 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2StreetFight - Finished Fight",
             "value": true
           }
@@ -2059,11 +2214,13 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2StreetFight - Finished Fight",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3Belltower - Reached Top",
             "value": true
           }
@@ -2083,6 +2240,7 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2StreetFight - Finished Fight",
             "value": true
           }
@@ -2094,19 +2252,21 @@
         "group": "Finale",
         "script": "env_manorExteriorDay.lua",
         "entry": {
-          "script": "env_manorInteriorAfterCrawford.lua",
-          "scene": "adv_manorInterior_afterCrawford.scene",
-          "dialog": "env_manorAttic_act1ZombieBoy.dlog",
-          "node": "dlg_id: 9732140301693174289"
+          "script": "env_savannahStreets.lua",
+          "scene": "adv_savannahStreets.scene",
+          "dialog": "env_savannahStreets_prologue.dlog",
+          "node": "dlg_id: 13655862514877824558"
         },
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2StreetFight - Finished Fight",
             "value": true
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2ClemSearch - Found Boat",
             "value": true
           }
@@ -2126,13 +2286,15 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2StreetFight - Finished Fight",
             "value": true
           }
         ]
       }
     ],
-    "decisionFlags": []
+    "decisionFlags": [],
+    "decisionPoints": []
   },
   {
     "episode": 5,
@@ -2156,16 +2318,19 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "With Kenny",
             "value": "false"
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "With Christa And Omid",
             "value": "false"
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "1Morgue - Passed Out",
             "value": true
           }
@@ -2182,6 +2347,7 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "1Morgue - Complete",
             "value": true
           }
@@ -2214,6 +2380,7 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "nAct",
             "value": 2
           }
@@ -2233,6 +2400,7 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "nAct",
             "value": 2
           }
@@ -2252,11 +2420,13 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "nAct",
             "value": 2
           },
           {
             "agent": "logic_inventory_items",
+            "scene": null,
             "key": "Inventory - Cleaver",
             "value": 1
           }
@@ -2276,11 +2446,13 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "nAct",
             "value": 2
           },
           {
             "agent": "logic_inventory_items",
+            "scene": null,
             "key": "Inventory - Cleaver",
             "value": 1
           }
@@ -2300,16 +2472,19 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "nAct",
             "value": 2
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "2Bedroom - Crossed Alley",
             "value": true
           },
           {
             "agent": "logic_inventory_items",
+            "scene": null,
             "key": "Inventory - Cleaver",
             "value": 1
           }
@@ -2329,11 +2504,13 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "nAct",
             "value": 2
           },
           {
             "agent": "logic_inventory_items",
+            "scene": null,
             "key": "Inventory - Cleaver",
             "value": 1
           }
@@ -2353,11 +2530,13 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "nAct",
             "value": 2
           },
           {
             "agent": "logic_inventory_items",
+            "scene": null,
             "key": "Inventory - Cleaver",
             "value": 1
           }
@@ -2369,19 +2548,21 @@
         "group": "Act 2",
         "script": "env_marshHouseExterior.lua",
         "entry": {
-          "script": "env_riverStreet.lua",
-          "scene": "adv_savannahRiverStreet105.scene",
+          "script": "env_marshHouseInterior.lua",
+          "scene": "adv_marshHouseInteriorRoom.scene",
           "dialog": "env_marshHouseInteriorRoom.dlog",
           "node": "dlg_id: 13500869976816521805"
         },
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "nAct",
             "value": 2
           },
           {
             "agent": "logic_inventory_items",
+            "scene": null,
             "key": "Inventory - Cleaver",
             "value": 1
           }
@@ -2401,11 +2582,13 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "nAct",
             "value": 3
           },
           {
             "agent": "logic_inventory_items",
+            "scene": null,
             "key": "Inventory - Cleaver",
             "value": 1
           }
@@ -2425,11 +2608,13 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "nAct",
             "value": 3
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3Room - Clem Ready To Sneak",
             "value": true
           }
@@ -2449,11 +2634,13 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "nAct",
             "value": 3
           },
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "3Room - Campman Dead",
             "value": true
           }
@@ -2473,11 +2660,13 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "nAct",
             "value": 3
           },
           {
             "agent": "logic_inventory_items",
+            "scene": null,
             "key": "Inventory - Cleaver",
             "value": 1
           }
@@ -2497,6 +2686,7 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "nAct",
             "value": 3
           }
@@ -2516,6 +2706,7 @@
         "flags": [
           {
             "agent": "logic_game",
+            "scene": null,
             "key": "nAct",
             "value": 3
           }
@@ -2551,6 +2742,4479 @@
         "values": {
           "true": 0
         }
+      }
+    ],
+    "decisionPoints": []
+  },
+  {
+    "episode": 6,
+    "chapters": [
+      {
+        "id": "OnChapterSelection",
+        "title": "Chapter Selection",
+        "group": "",
+        "script": "ChapterSelection.lua",
+        "entry": null,
+        "flags": []
+      },
+      {
+        "id": "OnChapter1A",
+        "title": "Prison Bus",
+        "group": "Chapter 1: Prison Bus",
+        "script": "Chapter1A_Highway.lua",
+        "entry": {
+          "script": "ChapterSelection.lua",
+          "scene": "adv_truckStopChapterSelection.scene",
+          "dialog": "env_chapterSelection.dlog",
+          "node": "dlg_id: 3999006173416794713"
+        },
+        "flags": []
+      },
+      {
+        "id": "OnChapter1ABusIntro",
+        "title": "Bus Intro",
+        "group": "Chapter 1: Prison Bus",
+        "script": "Chapter1A_Highway.lua",
+        "entry": {
+          "script": "ChapterSelection.lua",
+          "scene": "adv_truckStopChapterSelection.scene",
+          "dialog": "env_chapterSelection.dlog",
+          "node": "dlg_id: 3999006173416794713"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "1 - Left Alley",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnChapter1ABusMurder",
+        "title": "Murder",
+        "group": "Chapter 1: Prison Bus",
+        "script": "Chapter1A_Highway.lua",
+        "entry": {
+          "script": "ChapterSelection.lua",
+          "scene": "adv_truckStopChapterSelection.scene",
+          "dialog": "env_chapterSelection.dlog",
+          "node": "dlg_id: 3999006173416794713"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "1 - Met Prisoners",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnChapter1AZombieJerry",
+        "title": "Zombie Jerry",
+        "group": "Chapter 1: Prison Bus",
+        "script": "Chapter1A_Highway.lua",
+        "entry": {
+          "script": "ChapterSelection.lua",
+          "scene": "adv_truckStopChapterSelection.scene",
+          "dialog": "env_chapterSelection.dlog",
+          "node": "dlg_id: 3999006173416794713"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "1 - Bennett Dead",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnChapter1APostZombie",
+        "title": "Post Zombie",
+        "group": "Chapter 1: Prison Bus",
+        "script": "Chapter1A_Highway.lua",
+        "entry": {
+          "script": "ChapterSelection.lua",
+          "scene": "adv_truckStopChapterSelection.scene",
+          "dialog": "env_chapterSelection.dlog",
+          "node": "dlg_id: 3999006173416794713"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "1 - Killed Zombie Jerry",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnChapter1AChoice",
+        "title": "Big Choice",
+        "group": "Chapter 1: Prison Bus",
+        "script": "Chapter1A_Highway.lua",
+        "entry": {
+          "script": "ChapterSelection.lua",
+          "scene": "adv_truckStopChapterSelection.scene",
+          "dialog": "env_chapterSelection.dlog",
+          "node": "dlg_id: 3999006173416794713"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "1 - Zombies on Board",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnChapterSelectionAfter1",
+        "title": "Chapter Selection (first story finished)",
+        "group": "Chapter 1: Prison Bus",
+        "script": "ChapterSelection.lua",
+        "entry": {
+          "script": "Chapter1A_highway.lua",
+          "scene": "adv_ruralHighwayCh1.scene",
+          "dialog": "env_ruralHighwayCh1.dlog",
+          "node": "dlg_id: 15888446384808066288"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "1 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "Last Chapter",
+            "value": 1
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          }
+        ]
+      },
+      {
+        "id": "OnChapter2A",
+        "title": "Highway",
+        "group": "Chapter 2: Roshambo",
+        "script": "Chapter2A_Highway.lua",
+        "entry": {
+          "script": "ChapterSelection.lua",
+          "scene": "adv_truckStopChapterSelection.scene",
+          "dialog": "env_chapterSelection.dlog",
+          "node": "dlg_id: 16553733806663136755"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "1 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "Last Chapter",
+            "value": 1
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          }
+        ]
+      },
+      {
+        "id": "OnChapter2B",
+        "title": "Road",
+        "group": "Chapter 2: Roshambo",
+        "script": "Chapter2B_Road.lua",
+        "entry": {
+          "script": "Chapter2A_highway.lua",
+          "scene": "adv_ruralHighwayTileCh2.scene",
+          "dialog": "env_ruralHighwayTileCh2.dlog",
+          "node": "dlg_id: 2716421405330777992"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "1 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "Last Chapter",
+            "value": 1
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          }
+        ]
+      },
+      {
+        "id": "OnChapter2BInvestigation",
+        "title": "Investigation",
+        "group": "Chapter 2: Roshambo",
+        "script": "Chapter2B_Road.lua",
+        "entry": {
+          "script": "Chapter2A_highway.lua",
+          "scene": "adv_ruralHighwayTileCh2.scene",
+          "dialog": "env_ruralHighwayTileCh2.dlog",
+          "node": "dlg_id: 2716421405330777992"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "1 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "Last Chapter",
+            "value": 1
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "2 - Hit Clyde",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnChapter2BRoshambo",
+        "title": "Roshambo",
+        "group": "Chapter 2: Roshambo",
+        "script": "Chapter2B_Road.lua",
+        "entry": {
+          "script": "Chapter2A_highway.lua",
+          "scene": "adv_ruralHighwayTileCh2.scene",
+          "dialog": "env_ruralHighwayTileCh2.dlog",
+          "node": "dlg_id: 2716421405330777992"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "1 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "Last Chapter",
+            "value": 1
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "2 - Investigation Complete",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnChapter2BPostRoshambo",
+        "title": "Post-Roshambo",
+        "group": "Chapter 2: Roshambo",
+        "script": "Chapter2B_Road.lua",
+        "entry": {
+          "script": "Chapter2A_highway.lua",
+          "scene": "adv_ruralHighwayTileCh2.scene",
+          "dialog": "env_ruralHighwayTileCh2.dlog",
+          "node": "dlg_id: 2716421405330777992"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "1 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "Last Chapter",
+            "value": 1
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "2 - Played Roshambo",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnChapter2BDragChoice",
+        "title": "Drag Choice",
+        "group": "Chapter 2: Roshambo",
+        "script": "Chapter2B_Road.lua",
+        "entry": {
+          "script": "Chapter2A_highway.lua",
+          "scene": "adv_ruralHighwayTileCh2.scene",
+          "dialog": "env_ruralHighwayTileCh2.dlog",
+          "node": "dlg_id: 2716421405330777992"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "1 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "Last Chapter",
+            "value": 1
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "2 - Zombies Attacked",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnChapter2BWyattAttacked",
+        "title": "Wyatt Attacked",
+        "group": "Chapter 2: Roshambo",
+        "script": "Chapter2B_Road.lua",
+        "entry": {
+          "script": "Chapter2A_highway.lua",
+          "scene": "adv_ruralHighwayTileCh2.scene",
+          "dialog": "env_ruralHighwayTileCh2.dlog",
+          "node": "dlg_id: 2716421405330777992"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "1 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "Last Chapter",
+            "value": 1
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "2 - Got Keys",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnChapterSelectionAfter2",
+        "title": "Chapter Selection (first 2 stories finished)",
+        "group": "Chapter 2: Roshambo",
+        "script": "ChapterSelection.lua",
+        "entry": {
+          "script": "Chapter2B_road.lua",
+          "scene": "adv_ruralRoadTileCh2.scene",
+          "dialog": "env_ruralRoadTileCh2.dlog",
+          "node": "dlg_id: 6462247458380404910"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "1 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "2 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "Last Chapter",
+            "value": 2
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          }
+        ]
+      },
+      {
+        "id": "OnChapter3A",
+        "title": "Road",
+        "group": "Chapter 3: Wildcard",
+        "script": "Chapter3A_Road.lua",
+        "entry": {
+          "script": "ChapterSelection.lua",
+          "scene": "adv_truckStopChapterSelection.scene",
+          "dialog": "env_chapterSelection.dlog",
+          "node": "dlg_id: 9110212040928922335"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "1 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "2 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "Last Chapter",
+            "value": 2
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          }
+        ]
+      },
+      {
+        "id": "OnChapter3ATruck",
+        "title": "Get In Truck",
+        "group": "Chapter 3: Wildcard",
+        "script": "Chapter3A_Road.lua",
+        "entry": {
+          "script": "ChapterSelection.lua",
+          "scene": "adv_truckStopChapterSelection.scene",
+          "dialog": "env_chapterSelection.dlog",
+          "node": "dlg_id: 9110212040928922335"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "1 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "2 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "Last Chapter",
+            "value": 2
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "3 - Hid from Truck",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnChapter3ADriveAway",
+        "title": "Nate Drives Away",
+        "group": "Chapter 3: Wildcard",
+        "script": "Chapter3A_Road.lua",
+        "entry": {
+          "script": "ChapterSelection.lua",
+          "scene": "adv_truckStopChapterSelection.scene",
+          "dialog": "env_chapterSelection.dlog",
+          "node": "dlg_id: 9110212040928922335"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "1 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "2 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "Last Chapter",
+            "value": 2
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "3 - Nate Drove Away",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnChapter3B",
+        "title": "Truck Stop",
+        "group": "Chapter 3: Wildcard",
+        "script": "Chapter3B_TruckStop.lua",
+        "entry": {
+          "script": "Chapter3A_road.lua",
+          "scene": "adv_roadTile106Ch3.scene",
+          "dialog": "env_roadTile106Ch3.dlog",
+          "node": "dlg_id: 5458329697755257502"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "1 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "2 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "Last Chapter",
+            "value": 2
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          }
+        ]
+      },
+      {
+        "id": "OnChapter3BRunToTruck",
+        "title": "Run To Truck",
+        "group": "Chapter 3: Wildcard",
+        "script": "Chapter3B_TruckStop.lua",
+        "entry": {
+          "script": "Chapter3A_road.lua",
+          "scene": "adv_roadTile106Ch3.scene",
+          "dialog": "env_roadTile106Ch3.dlog",
+          "node": "dlg_id: 5458329697755257502"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "1 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "2 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "Last Chapter",
+            "value": 2
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "3 - Got to Pumps",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnChapter3BTruckPeek",
+        "title": "Truck Peek",
+        "group": "Chapter 3: Wildcard",
+        "script": "Chapter3B_TruckStop.lua",
+        "entry": {
+          "script": "Chapter3A_road.lua",
+          "scene": "adv_roadTile106Ch3.scene",
+          "dialog": "env_roadTile106Ch3.dlog",
+          "node": "dlg_id: 5458329697755257502"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "1 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "2 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "Last Chapter",
+            "value": 2
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "3 - Got to Truck",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnChapter3BCoverChoice",
+        "title": "Cover Choice",
+        "group": "Chapter 3: Wildcard",
+        "script": "Chapter3B_TruckStop.lua",
+        "entry": {
+          "script": "Chapter3A_road.lua",
+          "scene": "adv_roadTile106Ch3.scene",
+          "dialog": "env_roadTile106Ch3.dlog",
+          "node": "dlg_id: 5458329697755257502"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "1 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "2 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "Last Chapter",
+            "value": 2
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "3 - Pushed Truck",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnChapter3C",
+        "title": "Truck Stop Interior",
+        "group": "Chapter 3: Wildcard",
+        "script": "Chapter3C_TruckStopInterior.lua",
+        "entry": {
+          "script": "Chapter3B_truckStop.lua",
+          "scene": "adv_truckStopCh3.scene",
+          "dialog": "env_truckStopCh3.dlog",
+          "node": "dlg_id: 5290224735039874939"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "1 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "2 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "Last Chapter",
+            "value": 2
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          }
+        ]
+      },
+      {
+        "id": "OnChapter3CGunman",
+        "title": "Jump Gunman",
+        "group": "Chapter 3: Wildcard",
+        "script": "Chapter3C_TruckStopInterior.lua",
+        "entry": {
+          "script": "Chapter3B_truckStop.lua",
+          "scene": "adv_truckStopCh3.scene",
+          "dialog": "env_truckStopCh3.dlog",
+          "node": "dlg_id: 5290224735039874939"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "1 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "2 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "Last Chapter",
+            "value": 2
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "3 - Killed Zombie",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnChapterSelectionAfter3",
+        "title": "Chapter Selection (first 3 stories finished)",
+        "group": "Chapter 3: Wildcard",
+        "script": "ChapterSelection.lua",
+        "entry": {
+          "script": "Chapter3C_truckStopInterior.lua",
+          "scene": "adv_truckStopInteriorCh3.scene",
+          "dialog": "env_truckStopInteriorCh3.dlog",
+          "node": "dlg_id: 11883574617252373180"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "1 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "2 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "3 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "Last Chapter",
+            "value": 3
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignRussel",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignRussel_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh3",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh3_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin3",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin3_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          }
+        ]
+      },
+      {
+        "id": "OnChapter4A",
+        "title": "Forest",
+        "group": "Chapter 4: Downpour",
+        "script": "Chapter4A_Forest.lua",
+        "entry": {
+          "script": "ChapterSelection.lua",
+          "scene": "adv_truckStopChapterSelection.scene",
+          "dialog": "env_chapterSelection.dlog",
+          "node": "dlg_id: 6709442044988835469"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "1 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "2 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "3 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "Last Chapter",
+            "value": 3
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignRussel",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignRussel_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh3",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh3_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin3",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin3_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          }
+        ]
+      },
+      {
+        "id": "OnChapter4AFinale",
+        "title": "Forest Finale",
+        "group": "Chapter 4: Downpour",
+        "script": "Chapter4A_Forest.lua",
+        "entry": {
+          "script": "ChapterSelection.lua",
+          "scene": "adv_truckStopChapterSelection.scene",
+          "dialog": "env_chapterSelection.dlog",
+          "node": "dlg_id: 6709442044988835469"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "1 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "2 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "3 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "Last Chapter",
+            "value": 3
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignRussel",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignRussel_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh3",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh3_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin3",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin3_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "4 - Done Arguing",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnChapter4B",
+        "title": "Cornfield",
+        "group": "Chapter 4: Downpour",
+        "script": "Chapter4B_Cornfield.lua",
+        "entry": {
+          "script": "Chapter4A_forest.lua",
+          "scene": "adv_forestWaterTowerCh4.scene",
+          "dialog": "env_forestWaterTowerCh4.dlog",
+          "node": "dlg_id: 13085049713718915198"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "1 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "2 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "3 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "Last Chapter",
+            "value": 3
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignRussel",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignRussel_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh3",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh3_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin3",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin3_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          }
+        ]
+      },
+      {
+        "id": "OnChapter4BStealth",
+        "title": "Cornfield Stealth",
+        "group": "Chapter 4: Downpour",
+        "script": "Chapter4B_Cornfield.lua",
+        "entry": {
+          "script": "Chapter4A_forest.lua",
+          "scene": "adv_forestWaterTowerCh4.scene",
+          "dialog": "env_forestWaterTowerCh4.dlog",
+          "node": "dlg_id: 13085049713718915198"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "1 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "2 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "3 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "Last Chapter",
+            "value": 3
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignRussel",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignRussel_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh3",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh3_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin3",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin3_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "4 - Cornfield Pursuit Begun",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnChapter4BAmbush",
+        "title": "Cornfield Ambush",
+        "group": "Chapter 4: Downpour",
+        "script": "Chapter4B_Cornfield.lua",
+        "entry": {
+          "script": "Chapter4A_forest.lua",
+          "scene": "adv_forestWaterTowerCh4.scene",
+          "dialog": "env_forestWaterTowerCh4.dlog",
+          "node": "dlg_id: 13085049713718915198"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "1 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "2 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "3 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "Last Chapter",
+            "value": 3
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignRussel",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignRussel_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh3",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh3_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin3",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin3_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "4 - Cornfield Pursuit Begun",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "4 - Cornfield Pursuit Ended",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnChapter4BEnd",
+        "title": "Field Post-Ambush",
+        "group": "Chapter 4: Downpour",
+        "script": "Chapter4B_Cornfield.lua",
+        "entry": {
+          "script": "Chapter4A_forest.lua",
+          "scene": "adv_forestWaterTowerCh4.scene",
+          "dialog": "env_forestWaterTowerCh4.dlog",
+          "node": "dlg_id: 13085049713718915198"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "1 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "2 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "3 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "Last Chapter",
+            "value": 3
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignRussel",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignRussel_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh3",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh3_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin3",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin3_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "4 - Cornfield Pursuit Begun",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "4 - Cornfield Pursuit Ended",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "4 - Attacked Dee",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnChapterSelectionAfter4",
+        "title": "Chapter Selection (first 4 stories finished)",
+        "group": "Chapter 4: Downpour",
+        "script": "ChapterSelection.lua",
+        "entry": {
+          "script": "Chapter4B_cornfield.lua",
+          "scene": "adv_cornfieldCh4.scene",
+          "dialog": "env_cornfieldCh4.dlog",
+          "node": "dlg_id: 1745746935796015881"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "1 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "2 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "3 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "4 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "Last Chapter",
+            "value": 4
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignRussel",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignRussel_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh3",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh3_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin3",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin3_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh4",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh4_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin2",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin2_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignBonnie",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignBonnie_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          }
+        ]
+      },
+      {
+        "id": "OnChapter5A",
+        "title": "Truck Stop Interior",
+        "group": "Chapter 5: Sisters",
+        "script": "Chapter5A_TruckStopInterior.lua",
+        "entry": {
+          "script": "ChapterSelection.lua",
+          "scene": "adv_truckStopChapterSelection.scene",
+          "dialog": "env_chapterSelection.dlog",
+          "node": "dlg_id: 391987449774459572"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "1 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "2 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "3 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "4 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "Last Chapter",
+            "value": 4
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignRussel",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignRussel_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh3",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh3_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin3",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin3_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh4",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh4_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin2",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin2_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignBonnie",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignBonnie_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          }
+        ]
+      },
+      {
+        "id": "OnChapter5B",
+        "title": "Truck Stop",
+        "group": "Chapter 5: Sisters",
+        "script": "Chapter5B_TruckStop.lua",
+        "entry": {
+          "script": "Chapter5A_truckStopInterior.lua",
+          "scene": "adv_truckStopInteriorCh5.scene",
+          "dialog": "env_truckStopInteriorCh5.dlog",
+          "node": "dlg_id: 8618427191148269171"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "1 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "2 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "3 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "4 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "Last Chapter",
+            "value": 4
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignRussel",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignRussel_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh3",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh3_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin3",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin3_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh4",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh4_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin2",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin2_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignBonnie",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignBonnie_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          }
+        ]
+      },
+      {
+        "id": "OnChapter5BCards",
+        "title": "Go Fish",
+        "group": "Chapter 5: Sisters",
+        "script": "Chapter5B_TruckStop.lua",
+        "entry": {
+          "script": "Chapter5A_truckStopInterior.lua",
+          "scene": "adv_truckStopInteriorCh5.scene",
+          "dialog": "env_truckStopInteriorCh5.dlog",
+          "node": "dlg_id: 8618427191148269171"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "1 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "2 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "3 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "4 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "Last Chapter",
+            "value": 4
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignRussel",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignRussel_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh3",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh3_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin3",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin3_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh4",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh4_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin2",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin2_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignBonnie",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignBonnie_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "5 - Done with Prisoner",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnChapter5BRoman",
+        "title": "Talk To Roman",
+        "group": "Chapter 5: Sisters",
+        "script": "Chapter5B_TruckStop.lua",
+        "entry": {
+          "script": "Chapter5A_truckStopInterior.lua",
+          "scene": "adv_truckStopInteriorCh5.scene",
+          "dialog": "env_truckStopInteriorCh5.dlog",
+          "node": "dlg_id: 8618427191148269171"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "1 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "2 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "3 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "4 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "Last Chapter",
+            "value": 4
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignRussel",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignRussel_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh3",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh3_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin3",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin3_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh4",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh4_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin2",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin2_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignBonnie",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignBonnie_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "5 - Left RV",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnChapter5BChoice",
+        "title": "Big Choice",
+        "group": "Chapter 5: Sisters",
+        "script": "Chapter5B_TruckStop.lua",
+        "entry": {
+          "script": "Chapter5A_truckStopInterior.lua",
+          "scene": "adv_truckStopInteriorCh5.scene",
+          "dialog": "env_truckStopInteriorCh5.dlog",
+          "node": "dlg_id: 8618427191148269171"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "1 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "2 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "3 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "4 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "Last Chapter",
+            "value": 4
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignRussel",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignRussel_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh3",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh3_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin3",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin3_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh4",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh4_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin2",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin2_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignBonnie",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignBonnie_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "5 - Know About Stephanie",
+            "value": true
+          }
+        ]
+      },
+      {
+        "id": "OnChapter6A",
+        "title": "Truck Stop",
+        "group": "Chapter 6: Epilogue",
+        "script": "Chapter6A_TruckStop.lua",
+        "entry": {
+          "script": "Chapter5B_truckStop.lua",
+          "scene": "adv_truckStopCh5.scene",
+          "dialog": "env_truckStopCh5_finale.dlog",
+          "node": "dlg_id: 3152127233032921487"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "1 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "2 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "3 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "4 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "5 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "Last Chapter",
+            "value": 5
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignRussel",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignRussel_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh3",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh3_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin3",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin3_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh4",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh4_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin2",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin2_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignBonnie",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignBonnie_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh5",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh5_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignShel",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignShel_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          }
+        ]
+      },
+      {
+        "id": "OnChapter6B",
+        "title": "Camp",
+        "group": "Chapter 6: Epilogue",
+        "script": "Chapter6B_Camp.lua",
+        "entry": {
+          "script": "Chapter6A_truckStop.lua",
+          "scene": "adv_truckStopCh6.scene",
+          "dialog": "env_truckStopCh6.dlog",
+          "node": "dlg_id: 12437948477498953103"
+        },
+        "flags": [
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "1 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "2 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "3 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "4 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "5 - Complete",
+            "value": true
+          },
+          {
+            "agent": "logic_game",
+            "scene": null,
+            "key": "Last Chapter",
+            "value": 5
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignVince_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin1_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh2_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin4_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignWyatt_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignRussel",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pageSelectionBoardSignRussel_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh3",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh3_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin3",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin3_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh4",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh4_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin2",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin2_Tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignBonnie",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignBonnie_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh5",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_photoSelectionBoardCh5_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_pushpin_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignShel",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          },
+          {
+            "agent": "obj_selectionBoardPhotoSignShel_tavia",
+            "scene": "adv_truckStopChapterSelection.scene",
+            "key": "Runtime: Visible",
+            "value": false
+          }
+        ]
+      }
+    ],
+    "decisionFlags": [
+      {
+        "choiceKey": "Shot Dan",
+        "agent": "logic_game",
+        "key": "1 - Shot Dan",
+        "decidedFrom": "OnChapterSelectionAfter1",
+        "values": {
+          "true": true,
+          "false": false
+        }
+      },
+      {
+        "choiceKey": "Left Eddie",
+        "agent": "logic_game",
+        "key": "2 - Left Eddie",
+        "decidedFrom": "OnChapterSelectionAfter2",
+        "values": {
+          "true": true,
+          "false": false
+        }
+      },
+      {
+        "choiceKey": "Left Nate",
+        "agent": "logic_game",
+        "key": "3 - Walked Away",
+        "decidedFrom": "OnChapterSelectionAfter3",
+        "values": {
+          "true": true,
+          "false": false
+        }
+      },
+      {
+        "choiceKey": "Lied To Leland",
+        "agent": "logic_game",
+        "key": "4 - Lied to Leland",
+        "decidedFrom": "OnChapterSelectionAfter4",
+        "values": {
+          "true": true,
+          "false": false
+        }
+      },
+      {
+        "choiceKey": "Killed Stephanie",
+        "agent": "logic_game",
+        "key": "5 - Killed Stephanie",
+        "decidedFrom": "OnChapter6A",
+        "values": {
+          "true": true,
+          "false": false
+        }
+      }
+    ],
+    "decisionPoints": [
+      {
+        "choiceKey": "Shot Dan",
+        "decidedFrom": "OnChapterSelectionAfter1"
+      },
+      {
+        "choiceKey": "Left Eddie",
+        "decidedFrom": "OnChapterSelectionAfter2"
+      },
+      {
+        "choiceKey": "Left Nate",
+        "decidedFrom": "OnChapterSelectionAfter3"
+      },
+      {
+        "choiceKey": "Lied To Leland",
+        "decidedFrom": "OnChapterSelectionAfter4"
+      },
+      {
+        "choiceKey": "Killed Stephanie",
+        "decidedFrom": "OnChapter6A"
       }
     ]
   }
