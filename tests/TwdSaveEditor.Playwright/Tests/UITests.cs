@@ -91,4 +91,38 @@ public class UITests
         Assert.True(await icon.EvaluateAsync<bool>("img => img.complete && img.naturalWidth > 0"));
         await Assertions.Expect(page.Locator(".header-title")).ToContainTextAsync("Save Editor");
     }
+
+    [Fact]
+    public async Task Footer_ShowsTheDevVersionWithoutAVersionFile()
+    {
+        var page = await _fixture.Browser.NewPageAsync();
+        await page.RouteAsync("**/version.json", route => route.FulfillAsync(new() { Status = 404 }));
+        await page.GotoAsync(_fixture.BaseUrl);
+        await page.WaitForSelectorAsync("[data-testid='app-ready']", new() { Timeout = 30000 });
+
+        await Assertions.Expect(page.Locator("[data-testid='app-version']")).ToHaveTextAsync("dev");
+    }
+
+    [Fact]
+    public async Task Footer_ShowsTheVersionFromTheVersionFile()
+    {
+        var page = await _fixture.Browser.NewPageAsync();
+        await page.RouteAsync("**/version.json", route => route.FulfillAsync(new()
+        {
+            ContentType = "application/json",
+            Body = "{\"version\":\"v1.2.3\"}",
+        }));
+        await page.GotoAsync(_fixture.BaseUrl);
+        await page.WaitForSelectorAsync("[data-testid='app-ready']", new() { Timeout = 30000 });
+
+        await Assertions.Expect(page.Locator("[data-testid='app-version']")).ToHaveTextAsync("v1.2.3");
+    }
+
+    [Fact]
+    public async Task Footer_ShowsTheDevVersionFromTheCheckedInVersionFile()
+    {
+        var page = await _fixture.NewPage();
+
+        await Assertions.Expect(page.Locator("[data-testid='app-version']")).ToHaveTextAsync("dev");
+    }
 }

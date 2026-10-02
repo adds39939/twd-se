@@ -181,6 +181,15 @@ dotnet publish src/TwdSaveEditor.Web -c Release -o output
 
 The static site is output to `output/wwwroot/`.
 
+### Release
+
+Pushing a tag such as `v1.2.0` runs the release workflow, which publishes the site to GitHub Pages and writes the tag into `version.json` next to it. The app reads that file at startup and shows the value in the footer; the checked-in file says `dev`, which is also what a missing file falls back to.
+
+```bash
+git tag v1.2.0
+git push origin v1.2.0
+```
+
 ## Save Directory
 
 The game stores saves in:
