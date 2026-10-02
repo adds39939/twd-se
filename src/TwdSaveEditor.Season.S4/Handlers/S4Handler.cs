@@ -1,12 +1,14 @@
+using TwdSaveEditor.Core.Model;
 using TwdSaveEditor.Season.Base.Handlers;
 using TwdSaveEditor.Season.Base.Story;
 using TwdSaveEditor.Season.Common.Abstractions;
 using TwdSaveEditor.Season.Common.Model;
+using TwdSaveEditor.Season.S4.Collectibles;
 using TwdSaveEditor.Season.S4.Story;
 
 namespace TwdSaveEditor.Season.S4.Handlers;
 
-public class S4Handler : StorySeasonHandler, IChoiceImporter, IChoicePresetProvider
+public class S4Handler : StorySeasonHandler, IChoiceImporter, IChoicePresetProvider, IInventoryHandler
 {
     private const string FollowedKey = "Episode 402 - Follow Violet or Louis";
     private const string SavedKey = "Episode 402 - Save Violet or Louis";
@@ -51,4 +53,16 @@ public class S4Handler : StorySeasonHandler, IChoiceImporter, IChoicePresetProvi
             new(TrustedKey, "trusted_aj_to_make_his"),
         ]),
     ];
+
+    public IReadOnlyList<string> InventoryNotes { get; } =
+    [
+        "Season 4 has no items to carry. What Clementine collects instead are the collectibles of the four episodes, kept in the slot file as found and placed in her room.",
+        "A collectible marked as found but not placed can still be placed in the room; one marked as placed should also be marked as found. The list covers every episode.",
+    ];
+
+    public InventoryState GetInventory(SaveSlot slot) => S4Collectibles.GetState(slot);
+
+    public void SetInventory(SaveSlot slot, IReadOnlyList<HeldItem> items) => S4Collectibles.SetItems(slot, items);
+
+    public IReadOnlyList<HeldItem> GetCarriedItems(SaveSlot slot) => [];
 }

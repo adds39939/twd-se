@@ -2,7 +2,68 @@
   "episodes": [
     {
       "episode": 1,
-      "items": [],
+      "items": [
+        {
+          "id": "Collectible Found - Tenn Drawing AJ",
+          "key": "Tenn Drawing AJ",
+          "name": "Tenn Drawing AJ"
+        },
+        {
+          "id": "Collectible Placed - Tenn Drawing AJ",
+          "key": "Tenn Drawing AJ",
+          "name": "Tenn Drawing AJ (placed)"
+        },
+        {
+          "id": "Collectible Found - Tenn Drawing Clem",
+          "key": "Tenn Drawing Clem",
+          "name": "Tenn Drawing Clem"
+        },
+        {
+          "id": "Collectible Placed - Tenn Drawing Clem",
+          "key": "Tenn Drawing Clem",
+          "name": "Tenn Drawing Clem (placed)"
+        },
+        {
+          "id": "Collectible Found - Flowers Fake",
+          "key": "Flowers Fake",
+          "name": "Flowers Fake"
+        },
+        {
+          "id": "Collectible Placed - Flowers Fake",
+          "key": "Flowers Fake",
+          "name": "Flowers Fake (placed)"
+        },
+        {
+          "id": "Collectible Found - Flowers Real",
+          "key": "Flowers Real",
+          "name": "Flowers Real"
+        },
+        {
+          "id": "Collectible Placed - Flowers Real",
+          "key": "Flowers Real",
+          "name": "Flowers Real (placed)"
+        },
+        {
+          "id": "Collectible Found - Skull Cat",
+          "key": "Skull Cat",
+          "name": "Skull Cat"
+        },
+        {
+          "id": "Collectible Placed - Skull Cat",
+          "key": "Skull Cat",
+          "name": "Skull Cat (placed)"
+        },
+        {
+          "id": "Collectible Found - Skull Deer",
+          "key": "Skull Deer",
+          "name": "Skull Deer"
+        },
+        {
+          "id": "Collectible Placed - Skull Deer",
+          "key": "Skull Deer",
+          "name": "Skull Deer (placed)"
+        }
+      ],
       "starting": [],
       "chapters": [
         {
@@ -109,7 +170,48 @@
     },
     {
       "episode": 2,
-      "items": [],
+      "items": [
+        {
+          "id": "Collectible Found - Firefighter",
+          "key": "Firefighter",
+          "name": "Firefighter"
+        },
+        {
+          "id": "Collectible Placed - Firefighter",
+          "key": "Firefighter",
+          "name": "Firefighter (placed)"
+        },
+        {
+          "id": "Collectible Found - Flytrap",
+          "key": "Flytrap",
+          "name": "Flytrap"
+        },
+        {
+          "id": "Collectible Placed - Flytrap",
+          "key": "Flytrap",
+          "name": "Flytrap (placed)"
+        },
+        {
+          "id": "Collectible Found - Mushroom",
+          "key": "Mushroom",
+          "name": "Mushroom"
+        },
+        {
+          "id": "Collectible Placed - Mushroom",
+          "key": "Mushroom",
+          "name": "Mushroom (placed)"
+        },
+        {
+          "id": "Collectible Found - Skull Boar",
+          "key": "Skull Boar",
+          "name": "Skull Boar"
+        },
+        {
+          "id": "Collectible Placed - Skull Boar",
+          "key": "Skull Boar",
+          "name": "Skull Boar (placed)"
+        }
+      ],
       "starting": [],
       "chapters": [
         {
@@ -246,7 +348,68 @@
     },
     {
       "episode": 3,
-      "items": [],
+      "items": [
+        {
+          "id": "Collectible Found - Beet Nick",
+          "key": "Beet Nick",
+          "name": "Beet Nick"
+        },
+        {
+          "id": "Collectible Placed - Beet Nick",
+          "key": "Beet Nick",
+          "name": "Beet Nick (placed)"
+        },
+        {
+          "id": "Collectible Found - Horseshoe",
+          "key": "Horseshoe",
+          "name": "Horseshoe"
+        },
+        {
+          "id": "Collectible Placed - Horseshoe",
+          "key": "Horseshoe",
+          "name": "Horseshoe (placed)"
+        },
+        {
+          "id": "Collectible Found - Pennant",
+          "key": "Pennant",
+          "name": "Pennant"
+        },
+        {
+          "id": "Collectible Placed - Pennant",
+          "key": "Pennant",
+          "name": "Pennant (placed)"
+        },
+        {
+          "id": "Collectible Found - Rabbit Foot",
+          "key": "Rabbit Foot",
+          "name": "Rabbit Foot"
+        },
+        {
+          "id": "Collectible Placed - Rabbit Foot",
+          "key": "Rabbit Foot",
+          "name": "Rabbit Foot (placed)"
+        },
+        {
+          "id": "Collectible Found - Sketch Pad",
+          "key": "Sketch Pad",
+          "name": "Sketch Pad"
+        },
+        {
+          "id": "Collectible Placed - Sketch Pad",
+          "key": "Sketch Pad",
+          "name": "Sketch Pad (placed)"
+        },
+        {
+          "id": "Collectible Found - Wind Chimes",
+          "key": "Wind Chimes",
+          "name": "Wind Chimes"
+        },
+        {
+          "id": "Collectible Placed - Wind Chimes",
+          "key": "Wind Chimes",
+          "name": "Wind Chimes (placed)"
+        }
+      ],
       "starting": [],
       "chapters": [
         {
@@ -303,7 +466,48 @@
     },
     {
       "episode": 4,
-      "items": [],
+      "items": [
+        {
+          "id": "Collectible Found - Calypso Cauliflower",
+          "key": "Calypso Cauliflower",
+          "name": "Calypso Cauliflower"
+        },
+        {
+          "id": "Collectible Placed - Calypso Cauliflower",
+          "key": "Calypso Cauliflower",
+          "name": "Calypso Cauliflower (placed)"
+        },
+        {
+          "id": "Collectible Found - Crystal",
+          "key": "Crystal",
+          "name": "Crystal"
+        },
+        {
+          "id": "Collectible Placed - Crystal",
+          "key": "Crystal",
+          "name": "Crystal (placed)"
+        },
+        {
+          "id": "Collectible Found - Skin Mask",
+          "key": "Skin Mask",
+          "name": "Skin Mask"
+        },
+        {
+          "id": "Collectible Placed - Skin Mask",
+          "key": "Skin Mask",
+          "name": "Skin Mask (placed)"
+        },
+        {
+          "id": "Collectible Found - Skull Human",
+          "key": "Skull Human",
+          "name": "Skull Human"
+        },
+        {
+          "id": "Collectible Placed - Skull Human",
+          "key": "Skull Human",
+          "name": "Skull Human (placed)"
+        }
+      ],
       "starting": [],
       "chapters": [
         {

@@ -43,7 +43,9 @@ var decisions = File.Exists(nodeLists) ? DecisionNodeReader.ReadNodeLists(nodeLi
 var reader = new EpisodeReader(data, season, loader, meta, ConstantReader.Read(projectScripts), decisions);
 Func<EpisodeResume, EpisodeItems> readItems = scriptItems
     ? new EpisodeItemReader(data, season, meta, loader).Read
-    : new LogicItemReader(data, season, loader).Read;
+    : File.Exists(Path.Combine(projectScripts, CollectibleReader.Script))
+        ? new CollectibleReader(projectScripts).Read
+        : new LogicItemReader(data, season, loader).Read;
 var episodes = new List<EpisodeResume>();
 var inventories = new List<EpisodeItems>();
 for (var number = FirstEpisode; number <= season.Episodes; number++)

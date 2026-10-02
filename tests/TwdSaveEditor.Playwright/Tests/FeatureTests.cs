@@ -151,7 +151,7 @@ public class FeatureTests
     }
 
     [Fact]
-    public async Task InventoryTab_SaysWhenASeasonHasNoEditableInventory()
+    public async Task InventoryTab_ShowsTheCollectiblesOfASeason4Save()
     {
         var page = await _fixture.NewPage();
         await InjectSaveFile(page, "S4", "wd4_saveslot1.bundle");
@@ -159,8 +159,11 @@ public class FeatureTests
 
         await page.Locator("[data-testid='tab-inventory']").ClickAsync();
 
-        await Assertions.Expect(page.Locator("[data-testid='inventory-unsupported']")).ToBeVisibleAsync();
-        await Assertions.Expect(page.Locator(".inventory-item")).ToHaveCountAsync(0);
+        await Assertions.Expect(page.Locator("[data-testid='inventory-summary']")).ToContainTextAsync("Clementine");
+        await Assertions.Expect(page.Locator(".inventory-item")).ToHaveCountAsync(40);
+        await Assertions.Expect(page.Locator("[data-testid='inventory-item-Collectible Found - Skull Cat']")).ToBeCheckedAsync();
+        await Assertions.Expect(page.Locator("[data-testid='inventory-item-Collectible Found - Crystal']")).Not.ToBeCheckedAsync();
+        await Assertions.Expect(page.Locator("[data-testid='inventory-carried']")).ToHaveCountAsync(0);
     }
 
     [Fact]

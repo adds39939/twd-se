@@ -15,7 +15,7 @@ A save editor for **The Walking Dead: The Telltale Definitive Series**. Edit cho
 - **Choice editing** — change any tracked decision via labeled dropdowns
 - **Metadata editing** — playtime, episode progress, autosave references, game completion
 - **Resume point editing** — restart a save of any season from the beginning of any episode, or from a chapter inside any episode including 400 Days, with the decisions you picked
-- **Inventory editing** — choose what Lee (Season 1), Clementine (Season 2), Javier (Season 3) or Michonne carries in a save, or add the items picked up earlier in the episode after resuming from a chapter
+- **Inventory editing** — choose what Lee (Season 1), Clementine (Season 2), Javier (Season 3) or Michonne carries in a save, or which Season 4 collectibles were found and placed, or add the items picked up earlier in the episode after resuming from a chapter
 - **Cross-season cascade and import** — optionally propagate Season 1 choice changes into Season 2 saves, and import a Season 1 save into Season 2, a Season 2 save into Season 3 or a Season 3 save into Season 4 the way the game does
 - **S4 presets** — quick-apply "Save Louis", "Save Violet", or "Trust AJ" choice paths
 - **New save creation** — create saves for any season with pre-populated choices; Season 1 saves start at the episode you choose
@@ -138,7 +138,7 @@ The Final Season runs the Season 3 framework with a few changes, so it is the th
 - **Skipped episodes** are filled by copying the generated logs into the slot's log (`SaveLoad_CopyGeneratedSave`), which is what the editor's restart writes, so no randomise prompt appears.
 - **Story builder.** Episode 1's first script is the story builder, which asks about the earlier seasons and appends its answers as a second block. Starting Episode 1 from its beginning therefore asks again; resuming from "Road Tile" keeps what was set in the editor.
 
-The inventory (`InventoryWD.lua`) is not editable yet.
+- **Collectibles.** Season 4 has no items to carry (`Inventory_*` is never called and no save holds a `logic_inventory` set); the Inventory tab lists its collectibles instead. `Collectible.lua` names them per episode, and the slot file keeps `Collectible Found - <name>` and `Collectible Placed - <name>` booleans, which `ExtractResumePoints 4` turns into `s4.items.json` and the tab shows as two entries per collectible. They need no save: the slot alone is edited.
 
 ## Using the App
 
@@ -295,7 +295,7 @@ Optional capabilities are separate interfaces a handler can also implement:
 |-----------|------------|----------------|
 | `ICompanionFileHandler` | State kept in files next to the bundle (autosave bundle, estore/epage EventLog) | all |
 | `IResumePointHandler` | Restart a save from the beginning of an episode or from a chapter | all |
-| `IInventoryHandler` | List and change the items the player character carries in the save a slot resumes from | S1, S2, S3, Michonne |
+| `IInventoryHandler` | List and change the items the player character carries in the save a slot resumes from, or the collectibles of the slot | all |
 | `IPropertyNameProvider` | Names for the property hashes shown in the Properties tab | S1 |
 | `IChoiceImporter` | Import all choices from a save of an earlier season | S2, S3, S4 |
 | `IChoicePresetProvider` | One-click presets that set several choices | S4 |
