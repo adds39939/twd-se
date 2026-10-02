@@ -79,4 +79,16 @@ public class UITests
 
         Assert.Empty(appErrors);
     }
+
+    [Fact]
+    public async Task TitleBar_ShowsTheAppIcon()
+    {
+        var page = await _fixture.NewPage();
+        await page.WaitForSelectorAsync("[data-testid='app-ready']", new() { Timeout = 30000 });
+
+        var icon = page.Locator("[data-testid='app-icon']");
+        await Assertions.Expect(icon).ToBeVisibleAsync();
+        Assert.True(await icon.EvaluateAsync<bool>("img => img.complete && img.naturalWidth > 0"));
+        await Assertions.Expect(page.Locator(".header-title")).ToContainTextAsync("Save Editor");
+    }
 }

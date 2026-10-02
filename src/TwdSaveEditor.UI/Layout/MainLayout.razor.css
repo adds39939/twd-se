@@ -27,6 +27,12 @@
     white-space: nowrap;
 }
 
+.header-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+}
+
 .header-status {
     font-size: 0.8rem;
     color: var(--text-muted);
