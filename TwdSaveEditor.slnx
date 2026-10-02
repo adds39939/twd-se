@@ -31,6 +31,7 @@
     <Project Path="tools/TwdSaveEditor.Tools.DumpBundle/TwdSaveEditor.Tools.DumpBundle.csproj" />
     <Project Path="tools/TwdSaveEditor.Tools.DumpDialog/TwdSaveEditor.Tools.DumpDialog.csproj" />
     <Project Path="tools/TwdSaveEditor.Tools.DumpMetadata/TwdSaveEditor.Tools.DumpMetadata.csproj" />
+    <Project Path="tools/TwdSaveEditor.Tools.EditSave/TwdSaveEditor.Tools.EditSave.csproj" />
     <Project Path="tools/TwdSaveEditor.Tools.ExtractAllChoices/TwdSaveEditor.Tools.ExtractAllChoices.csproj" />
     <Project Path="tools/TwdSaveEditor.Tools.ExtractArchive/TwdSaveEditor.Tools.ExtractArchive.csproj" />
     <Project Path="tools/TwdSaveEditor.Tools.ExtractChapters/TwdSaveEditor.Tools.ExtractChapters.csproj" />
@@ -38,6 +39,8 @@
     <Project Path="tools/TwdSaveEditor.Tools.ExtractNodeMappings/TwdSaveEditor.Tools.ExtractNodeMappings.csproj" />
     <Project Path="tools/TwdSaveEditor.Tools.ExtractScenes/TwdSaveEditor.Tools.ExtractScenes.csproj" />
     <Project Path="tools/TwdSaveEditor.Tools.ExtractSeason1Choices/TwdSaveEditor.Tools.ExtractSeason1Choices.csproj" />
+    <Project Path="tools/TwdSaveEditor.Tools.ExtractSeason2Chapters/TwdSaveEditor.Tools.ExtractSeason2Chapters.csproj" />
+    <Project Path="tools/TwdSaveEditor.Tools.ExtractSeason2Choices/TwdSaveEditor.Tools.ExtractSeason2Choices.csproj" />
     <Project Path="tools/TwdSaveEditor.Tools.FinalValidation/TwdSaveEditor.Tools.FinalValidation.csproj" />
     <Project Path="tools/TwdSaveEditor.Tools.Symbols/TwdSaveEditor.Tools.Symbols.csproj" />
     <Project Path="tools/TwdSaveEditor.Tools.TtarchDecrypt/TwdSaveEditor.Tools.TtarchDecrypt.csproj" />

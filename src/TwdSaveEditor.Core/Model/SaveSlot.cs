@@ -27,6 +27,12 @@ public sealed class SaveSlot
 
     public List<string> ObsoleteFileNames { get; } = [];
 
+    public EventLog? EventLog { get; set; }
+
+    public List<SaveSlot> Checkpoints { get; } = [];
+
+    public bool Modified { get; set; }
+
     public string? EStorePath { get; set; }
 
     public List<string>? EPagePaths { get; set; }

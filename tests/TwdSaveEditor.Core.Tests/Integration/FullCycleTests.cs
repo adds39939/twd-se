@@ -162,7 +162,7 @@ public class FullCycleTests
         var written = BundleWriter.Write(s2);
         var reloaded = BundleReader.Read(written, "wd2_test.bundle");
         Assert.Equal("doug", reloaded.Choices!.GetString("DougCarley Saved"));
-        Assert.NotNull(reloaded.Choices.Find("Episode 101"));
+        Assert.NotNull(reloaded.Choices.Find("ChoiceTracker - 101"));
     }
 
     [Theory]

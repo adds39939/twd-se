@@ -59,6 +59,13 @@ public class S1Handler : SeasonHandlerBase, ICompanionFileHandler, IResumePointH
     {
     }
 
+    public IReadOnlyList<string> ResumeNotes { get; } =
+    [
+        "From the start of an episode, the slot is listed in the game as a new game until the first checkpoint: select it, pick the episode and press Play.",
+        "From a later chapter, a small checkpoint is written. The game shows the scene before the chapter for a moment, then starts the chapter with the decisions set here and saves its own checkpoint.",
+        "In 400 Days, the stories listed before the chosen chapter count as finished, with their decisions.",
+    ];
+
     public ResumeState GetResumeState(SaveSlot slot) => S1ResumePoint.GetState(slot);
 
     public void RestartFromEpisode(SaveSlot slot, int episode) => S1ResumePoint.RestartFromEpisode(slot, episode);

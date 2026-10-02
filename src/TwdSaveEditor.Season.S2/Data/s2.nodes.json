@@ -1,0 +1,944 @@
+[
+  {
+    "choiceKey": "Episode 201 - Helped Christa",
+    "logicKey": "Episode 201 - Helped Christa",
+    "logicIsText": false,
+    "requires": [],
+    "options": [
+      {
+        "value": "true",
+        "logicValue": "true",
+        "nodes": [
+          "4F4D112E-DCAC-46FE-8EAC-20E675236391"
+        ]
+      },
+      {
+        "value": "false",
+        "logicValue": null,
+        "nodes": [
+          "1E178253-FB6E-438C-90CE-736372991DC6"
+        ]
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 201 - Killed Dog",
+    "logicKey": null,
+    "logicIsText": false,
+    "requires": [],
+    "options": [
+      {
+        "value": "killed_the_dog",
+        "logicValue": null,
+        "nodes": [
+          "1308BE11-F7D5-4B90-9C1B-D30F40875534"
+        ]
+      },
+      {
+        "value": "walked_away_from_the_dog",
+        "logicValue": null,
+        "nodes": [
+          "84383FB5-33B7-4CA6-A67D-76D761888929"
+        ]
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 201 - Gave Victor Water",
+    "logicKey": "Episode 201 - Gave Victor Water",
+    "logicIsText": false,
+    "requires": [],
+    "options": [
+      {
+        "value": "true",
+        "logicValue": "true",
+        "nodes": [
+          "2B24BFB5-4434-4572-A374-FBD4749C80A9"
+        ]
+      },
+      {
+        "value": "false",
+        "logicValue": null,
+        "nodes": [
+          "E6DE9BC7-5B92-405B-9601-842C67666B6F"
+        ]
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 201 - Nick Apology",
+    "logicKey": null,
+    "logicIsText": false,
+    "requires": [],
+    "options": [
+      {
+        "value": "accepted_nick_s_apology",
+        "logicValue": null,
+        "nodes": [
+          "6EBA043C-F82A-4A09-85D9-5631DF66D59D"
+        ]
+      },
+      {
+        "value": "did_not_accept_nick_s",
+        "logicValue": null,
+        "nodes": [
+          "B26C4C7C-9EC3-4F9C-89B4-2E1FFE1870E8",
+          "0F5D2A1C-8907-4BD9-8D35-AD1460E5BFA8"
+        ]
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 201 - Rescue Choice",
+    "logicKey": "Episode 201 - Rescue Choice",
+    "logicIsText": true,
+    "requires": [],
+    "options": [
+      {
+        "value": "pete",
+        "logicValue": "Pete",
+        "nodes": [
+          "B5ED46C5-2464-46E1-8220-250788652B86"
+        ]
+      },
+      {
+        "value": "nick",
+        "logicValue": "Nick",
+        "nodes": [
+          "EABF0681-856F-4033-9BB2-359C7DC6FCFA"
+        ]
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 201 - Got Alvin\u0027s Help",
+    "logicKey": "Episode 201 - Got Alvin\u0027s Help",
+    "logicIsText": false,
+    "requires": [],
+    "options": [
+      {
+        "value": "true",
+        "logicValue": "true",
+        "nodes": [
+          "E51A612A-18F5-42C2-8E54-03873F3A3AF4"
+        ]
+      },
+      {
+        "value": "false",
+        "logicValue": null,
+        "nodes": [
+          "92706A9A-EDC7-4D5A-B0C5-6F881F52BB33"
+        ]
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 201 - Befriended Sarah",
+    "logicKey": "Episode 201 - Befriended Sarah",
+    "logicIsText": false,
+    "requires": [],
+    "options": [
+      {
+        "value": "true",
+        "logicValue": "true",
+        "nodes": [
+          "4BA0B7C4-65AE-4CAF-A186-E8027C1F146C"
+        ]
+      },
+      {
+        "value": "false",
+        "logicValue": null,
+        "nodes": [
+          "86D5A286-3499-4D4F-B6D2-05031DA748D1"
+        ]
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 201 - Asked about Baby",
+    "logicKey": "Episode 201 - Asked about Baby",
+    "logicIsText": false,
+    "requires": [],
+    "options": [
+      {
+        "value": "true",
+        "logicValue": "true",
+        "nodes": [
+          "72C723FF-3711-47BE-8CD7-E22BD25294A0",
+          "8FB4D816-E291-4F1C-9CE3-CAD53D8E491F"
+        ]
+      },
+      {
+        "value": "false",
+        "logicValue": null,
+        "nodes": [
+          "8DDC0397-51AA-4931-9014-8703145F418A"
+        ]
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 201 - Stole Watch",
+    "logicKey": "Episode 201 - Stole Watch",
+    "logicIsText": false,
+    "requires": [],
+    "options": [
+      {
+        "value": "true",
+        "logicValue": "true",
+        "nodes": [
+          "76C2FEB7-8079-496A-9D38-E89000EE700C"
+        ]
+      },
+      {
+        "value": "false",
+        "logicValue": null,
+        "nodes": [
+          "F247EAE0-C380-4F95-9220-3290B1891931"
+        ]
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 201 - Staying Choice",
+    "logicKey": "Episode 201 - Staying Choice",
+    "logicIsText": true,
+    "requires": [],
+    "options": [
+      {
+        "value": "leave",
+        "logicValue": "Leave",
+        "nodes": [
+          "2F46D5D7-8AD5-452A-9AF6-B61C078F2A5C"
+        ]
+      },
+      {
+        "value": "stay",
+        "logicValue": "Stay",
+        "nodes": [
+          "5B1C47C5-93C8-4766-9DA4-34788A1A6672"
+        ]
+      },
+      {
+        "value": "maybe",
+        "logicValue": "Maybe",
+        "nodes": [
+          "B04E3355-78BC-45B4-8F2E-19BAF2A22021"
+        ]
+      },
+      {
+        "value": "none_of_these",
+        "logicValue": null,
+        "nodes": [
+          "17C4ADA8-D3A0-4FF0-ADC8-83ACAF56ECEB"
+        ]
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 202 - Photo Blame",
+    "logicKey": null,
+    "logicIsText": false,
+    "requires": [],
+    "options": [
+      {
+        "value": "took_the_blame",
+        "logicValue": null,
+        "nodes": [
+          "0E5FD89B-1584-47F1-8C61-2DCF78E29592"
+        ]
+      },
+      {
+        "value": "blamed_someone_else",
+        "logicValue": null,
+        "nodes": [
+          "9DB998CF-FDD8-44DB-84DA-CE943C4A5EC4",
+          "CE545CBD-8B3D-4B26-971B-758C78D8C272",
+          "394E2189-8DFC-4AD1-AD49-E267D4191612"
+        ]
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 202 - Dinner Choice",
+    "logicKey": "Episode 202 - Dinner Choice",
+    "logicIsText": true,
+    "requires": [],
+    "options": [
+      {
+        "value": "kenny",
+        "logicValue": "Kenny",
+        "nodes": [
+          "7B439A85-79B8-4FA0-AB27-81FBD6396026"
+        ]
+      },
+      {
+        "value": "luke",
+        "logicValue": "Luke",
+        "nodes": [
+          "6863B7D0-7409-4473-B4B6-A634DE782801"
+        ]
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 202 - Told Walter Truth",
+    "logicKey": "Episode 202 - Told Walter Truth",
+    "logicIsText": false,
+    "requires": [],
+    "options": [
+      {
+        "value": "true",
+        "logicValue": "true",
+        "nodes": [
+          "C66EDE09-EA40-4C55-B21E-8FB3113EF19E"
+        ]
+      },
+      {
+        "value": "false",
+        "logicValue": null,
+        "nodes": [
+          "B69400CD-FBF6-4D3E-82F2-98BBCB580591",
+          "B905828A-0846-46F0-A9F2-A2E704EF6DF2"
+        ]
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 202 - Nick Dead",
+    "logicKey": "Episode 202 - Nick Dead",
+    "logicIsText": false,
+    "requires": [],
+    "options": [
+      {
+        "value": "false",
+        "logicValue": null,
+        "nodes": [
+          "69B5D77A-3521-4F6F-BD2D-C819E31EE68B"
+        ]
+      },
+      {
+        "value": "true",
+        "logicValue": "true",
+        "nodes": [
+          "0FFA15A7-A18B-4C88-812C-962451381E10",
+          "9A5F25AD-9E71-4DF9-B011-5D03272DD5C4"
+        ]
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 202 - Surrendered",
+    "logicKey": "Episode 202 - Surrendered",
+    "logicIsText": false,
+    "requires": [],
+    "options": [
+      {
+        "value": "true",
+        "logicValue": "true",
+        "nodes": [
+          "7C019B31-C103-4995-B308-DA4A4614756E"
+        ]
+      },
+      {
+        "value": "false",
+        "logicValue": null,
+        "nodes": [
+          "2EFBE066-7DB9-44FF-A140-6FDBEF513A4F"
+        ]
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 202 - Alvin Dead",
+    "logicKey": "Episode 202 - Alvin Dead",
+    "logicIsText": false,
+    "requires": [],
+    "options": [
+      {
+        "value": "true",
+        "logicValue": "true",
+        "nodes": [
+          "3CD5C9A2-0E7A-4B38-AC39-C0214708A1E1"
+        ]
+      },
+      {
+        "value": "false",
+        "logicValue": null,
+        "nodes": [
+          "5A84AF3B-6E60-430B-915A-9BC658748881"
+        ]
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 202 - Drank with Nick",
+    "logicKey": "Episode 202 - Drank with Nick",
+    "logicIsText": false,
+    "requires": [],
+    "options": [
+      {
+        "value": "true",
+        "logicValue": "true",
+        "nodes": [
+          "0BD88F13-524F-4721-B2DB-0A362BDFCD2D"
+        ]
+      },
+      {
+        "value": "false",
+        "logicValue": null,
+        "nodes": [
+          "B6DEEFC8-62BB-4A2C-B62A-B731876F78D1",
+          "9C4C9789-61AE-494A-9C50-D95DDB5BB581"
+        ]
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 202 - Meet Bonnie Choice",
+    "logicKey": "Episode 202 - Meet Bonnie Choice",
+    "logicIsText": true,
+    "requires": [],
+    "options": [
+      {
+        "value": "dangerous",
+        "logicValue": "Dangerous",
+        "nodes": [
+          "A174FB82-0243-4C37-868C-C55168419322"
+        ]
+      },
+      {
+        "value": "weapons",
+        "logicValue": "Weapons",
+        "nodes": [
+          "7FC61561-C16C-466B-A1E4-F5A487B7D435"
+        ]
+      },
+      {
+        "value": "harmless",
+        "logicValue": "Harmless",
+        "nodes": [
+          "40BA2A5B-447A-4B5A-9195-52D239BE3044"
+        ]
+      },
+      {
+        "value": "silent",
+        "logicValue": "Silent",
+        "nodes": [
+          "A88EB14D-1D23-4115-BF1D-66FE2375786B"
+        ]
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 203 - Helped Sarah",
+    "logicKey": "Episode 203 - Helped Sarah",
+    "logicIsText": false,
+    "requires": [],
+    "options": [
+      {
+        "value": "true",
+        "logicValue": "true",
+        "nodes": [
+          "1E6A0E9C-A8EA-45EC-B7A6-87D22E6EA5BB"
+        ]
+      },
+      {
+        "value": "false",
+        "logicValue": null,
+        "nodes": [
+          "1731B7BC-D2FB-436A-BD73-C4BB944DC041"
+        ]
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 203 - Bonnie Truth",
+    "logicKey": null,
+    "logicIsText": false,
+    "requires": [
+      "FE44532D-C955-4603-8060-5ACFBA448C93"
+    ],
+    "options": [
+      {
+        "value": "told_bonnie_that_luke_contacted",
+        "logicValue": null,
+        "nodes": [
+          "E47CA924-4248-4878-A9DF-9E722DCFE2D1"
+        ]
+      },
+      {
+        "value": "chose_to_hide_luke_s",
+        "logicValue": null,
+        "nodes": [
+          "400E3688-2377-49FB-96F9-13259823A02A",
+          "D25A70B4-A034-44C7-A206-FF8A907D990E",
+          "5B3A1A29-49EA-415B-9209-0C79C7F5B6BB"
+        ]
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 203 - Walkie Talkie",
+    "logicKey": null,
+    "logicIsText": false,
+    "requires": [],
+    "options": [
+      {
+        "value": "tried_to_speak_up",
+        "logicValue": null,
+        "nodes": [
+          "22852ED8-DE3C-4EEC-97FA-675424651101"
+        ]
+      },
+      {
+        "value": "tried_to_hide_the_theft",
+        "logicValue": null,
+        "nodes": [
+          "9FF659DD-E64C-4195-967F-37CD05BC9051"
+        ]
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 203 - Watched Kenny Kill Carver",
+    "logicKey": "Episode 203 - Watched Kenny Kill Carver",
+    "logicIsText": false,
+    "requires": [],
+    "options": [
+      {
+        "value": "true",
+        "logicValue": "true",
+        "nodes": [
+          "2A8C6959-5A1A-4A3E-A0D8-2EB79374A7D0"
+        ]
+      },
+      {
+        "value": "false",
+        "logicValue": null,
+        "nodes": [
+          "13901A44-EDE1-4F39-9001-A7DF15240F03"
+        ]
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 203 - Chopped Sarita\u0027s Arm",
+    "logicKey": "Episode 203 - Chopped Sarita\u0027s Arm",
+    "logicIsText": false,
+    "requires": [],
+    "options": [
+      {
+        "value": "true",
+        "logicValue": "true",
+        "nodes": [
+          "0DA16D1D-28C1-453C-86B4-8BE93597771D"
+        ]
+      },
+      {
+        "value": "false",
+        "logicValue": null,
+        "nodes": [
+          "D74B74AD-25B4-4BA0-ACD9-269CA22BA2C1"
+        ]
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 203 - Got Knocked Out",
+    "logicKey": "Episode 203 - Got Knocked Out",
+    "logicIsText": false,
+    "requires": [],
+    "options": [
+      {
+        "value": "true",
+        "logicValue": "true",
+        "nodes": [
+          "7CEBD766-537C-4D0F-A28F-7AC030B79D10"
+        ]
+      },
+      {
+        "value": "false",
+        "logicValue": null,
+        "nodes": [
+          "D6FB08C6-147A-45AB-B6EB-AA6929D9B3A5",
+          "166E2AA6-49CE-4BFD-9DF7-E8C871428CD8"
+        ]
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 203 - Spoke Up for Sarah",
+    "logicKey": "Episode 203 - Spoke Up for Sarah",
+    "logicIsText": false,
+    "requires": [],
+    "options": [
+      {
+        "value": "true",
+        "logicValue": "true",
+        "nodes": [
+          "1EB2BD4C-30FE-43C3-B555-A842D3CE9D9D",
+          "5FB6E8BC-EF5C-43C5-A79C-EE11272CBE78",
+          "A936DD71-FE7B-4B80-B407-75D2DCFCD78C"
+        ]
+      },
+      {
+        "value": "false",
+        "logicValue": null,
+        "nodes": [
+          "1ADC2A6D-7121-49F5-BB5B-483D34645249"
+        ]
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 203 - Restrained Sarita",
+    "logicKey": "Episode 203 - Restrained Sarita",
+    "logicIsText": false,
+    "requires": [],
+    "options": [
+      {
+        "value": "true",
+        "logicValue": "true",
+        "nodes": [
+          "166E2AA6-49CE-4BFD-9DF7-E8C871428CD8"
+        ]
+      },
+      {
+        "value": "false",
+        "logicValue": null,
+        "nodes": []
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 203 - Shot Carver",
+    "logicKey": "Episode 203 - Shot Carver",
+    "logicIsText": false,
+    "requires": [],
+    "options": [
+      {
+        "value": "true",
+        "logicValue": "true",
+        "nodes": [
+          "277FB1DC-FA37-422C-8190-9414D574B450"
+        ]
+      },
+      {
+        "value": "false",
+        "logicValue": null,
+        "nodes": []
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 204 - Saved Sarah",
+    "logicKey": "Episode 204 - Saved Sarah",
+    "logicIsText": false,
+    "requires": [],
+    "options": [
+      {
+        "value": "true",
+        "logicValue": "true",
+        "nodes": [
+          "566E3668-6CC1-49F3-9C26-FF8498E45700"
+        ]
+      },
+      {
+        "value": "false",
+        "logicValue": null,
+        "nodes": [
+          "98377334-1C8C-4493-A1B2-E9918A3F8BB3"
+        ]
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 204 - Robbed Arvo",
+    "logicKey": "Episode 204 - Robbed Arvo",
+    "logicIsText": false,
+    "requires": [],
+    "options": [
+      {
+        "value": "true",
+        "logicValue": "true",
+        "nodes": [
+          "289453DC-A8D9-4DE1-8708-E9C5A5FBAF9D"
+        ]
+      },
+      {
+        "value": "false",
+        "logicValue": null,
+        "nodes": [
+          "92E4EE39-7DB6-486A-846F-55D5C79A5BCF",
+          "D4FDBA84-65C1-446D-A003-E03D46ED9A91"
+        ]
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 204 - Bonnie Attacked",
+    "logicKey": "Episode 204 - Bonnie Attacked",
+    "logicIsText": false,
+    "requires": [],
+    "options": [
+      {
+        "value": "false",
+        "logicValue": null,
+        "nodes": [
+          "6958FA4E-F46E-467D-A6B5-A373D36E1BB3"
+        ]
+      },
+      {
+        "value": "true",
+        "logicValue": "true",
+        "nodes": [
+          "68F1D8EF-68BC-4317-A1D5-F5C2933DE701"
+        ]
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 204 - Held Baby",
+    "logicKey": null,
+    "logicIsText": false,
+    "requires": [],
+    "options": [
+      {
+        "value": "held_the_baby",
+        "logicValue": null,
+        "nodes": [
+          "F52D9401-F13D-402B-917C-FEB64BD6912A"
+        ]
+      },
+      {
+        "value": "didn_t_hold_the_baby",
+        "logicValue": null,
+        "nodes": [
+          "84DCFD08-3426-4806-8F12-CFC5CE8E0340"
+        ]
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 204 - Shot Rebecca",
+    "logicKey": "Episode 204 - Shot Rebecca",
+    "logicIsText": false,
+    "requires": [],
+    "options": [
+      {
+        "value": "true",
+        "logicValue": "true",
+        "nodes": [
+          "D1EB4BD3-DC4C-46B1-92C1-092FBEBF0237"
+        ]
+      },
+      {
+        "value": "false",
+        "logicValue": null,
+        "nodes": [
+          "03399534-A43D-409D-9487-2DEE3450A8AB",
+          "3144EB71-E6C1-4066-9D63-F51B59FA2BA8"
+        ]
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 204 - Saw Kenny\u0027s Eye",
+    "logicKey": "Episode 204 - Saw Kenny\u0027s Eye",
+    "logicIsText": false,
+    "requires": [],
+    "options": [
+      {
+        "value": "true",
+        "logicValue": "true",
+        "nodes": [
+          "D04C5BB6-B43D-4DC0-8418-15E43F8E6556"
+        ]
+      },
+      {
+        "value": "false",
+        "logicValue": null,
+        "nodes": [
+          "07AAC40E-C0C6-48FF-81D5-02AAC4B024E6"
+        ]
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 204 - Took File",
+    "logicKey": "Episode 204 - Took File",
+    "logicIsText": false,
+    "requires": [],
+    "options": [
+      {
+        "value": "true",
+        "logicValue": "true",
+        "nodes": [
+          "0E69336A-FCCE-4579-9D1E-5F87258999E5"
+        ]
+      },
+      {
+        "value": "false",
+        "logicValue": null,
+        "nodes": [
+          "4F9FD80A-DA21-452E-8239-69F3CC07EE83",
+          "FF8D72F9-EFB6-4275-9AB8-80C823737659"
+        ]
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 204 - Gave Rebecca Pills",
+    "logicKey": "Episode 204 - Gave Rebecca Pills",
+    "logicIsText": false,
+    "requires": [],
+    "options": [
+      {
+        "value": "true",
+        "logicValue": "true",
+        "nodes": [
+          "FEB75AE8-6DEC-4E04-B259-B69B7FAFE3CE",
+          "CA8E09CA-85EB-40FA-8F2F-2AD07EA748FF"
+        ]
+      },
+      {
+        "value": "false",
+        "logicValue": null,
+        "nodes": []
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 205 - Protected the baby",
+    "logicKey": null,
+    "logicIsText": false,
+    "requires": [],
+    "options": [
+      {
+        "value": "protected_the_baby",
+        "logicValue": null,
+        "nodes": [
+          "8A18042E-4017-4849-8DB3-AC7563DBF8DB"
+        ]
+      },
+      {
+        "value": "went_for_cover",
+        "logicValue": null,
+        "nodes": [
+          "BF399A10-FB3A-4952-880F-08CF557C2D71"
+        ]
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 205 - Went to help Luke",
+    "logicKey": null,
+    "logicIsText": false,
+    "requires": [],
+    "options": [
+      {
+        "value": "tried_to_help_luke",
+        "logicValue": null,
+        "nodes": [
+          "E93FAEF8-F1E6-4E9D-A4E9-8D5762B8350F"
+        ]
+      },
+      {
+        "value": "did_not_try_to_help",
+        "logicValue": null,
+        "nodes": [
+          "38E21E71-F982-4C79-8E83-A69CD355D7F9"
+        ]
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 205 - Asked to leave with Mike",
+    "logicKey": null,
+    "logicIsText": false,
+    "requires": [],
+    "options": [
+      {
+        "value": "wanted_to_leave_with_mike",
+        "logicValue": null,
+        "nodes": [
+          "CC1247E6-8C79-4CD5-B336-C731BF2A490D"
+        ]
+      },
+      {
+        "value": "didn_t_ask_to_leave",
+        "logicValue": null,
+        "nodes": [
+          "E944AB11-FCEA-4A61-AF4C-ABA64415BEFE"
+        ]
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 205 - Shot Kenny",
+    "logicKey": null,
+    "logicIsText": false,
+    "requires": [],
+    "options": [
+      {
+        "value": "shot_kenny",
+        "logicValue": null,
+        "nodes": [
+          "885D6356-A86A-4356-9BF1-80ED05BEA378",
+          "FC0D4E96-E47F-4716-96C4-48261F8A32F4"
+        ]
+      },
+      {
+        "value": "didn_t_shoot_kenny",
+        "logicValue": null,
+        "nodes": [
+          "A2D6AD23-84DE-459D-B9C6-02D7083F794B"
+        ]
+      }
+    ]
+  },
+  {
+    "choiceKey": "Episode 205 - In the end, who are you with",
+    "logicKey": null,
+    "logicIsText": false,
+    "requires": [],
+    "options": [
+      {
+        "value": "are_with_aj_at_wellington",
+        "logicValue": null,
+        "nodes": [
+          "40D5909C-7356-4EBC-A7B4-CD465753848F"
+        ]
+      },
+      {
+        "value": "are_with_kenny",
+        "logicValue": null,
+        "nodes": [
+          "CDB22E82-B307-487B-9FD8-1F13BA8F503A"
+        ]
+      },
+      {
+        "value": "are_with_jane_and_the",
+        "logicValue": null,
+        "nodes": [
+          "7F928279-A8B4-4372-BCF6-30F5ADBFA0E0"
+        ]
+      },
+      {
+        "value": "are_with_jane",
+        "logicValue": null,
+        "nodes": [
+          "40056750-4DED-4D5D-81A6-8ED9A9EFEA4C"
+        ]
+      },
+      {
+        "value": "are_alone_with_aj",
+        "logicValue": null,
+        "nodes": [
+          "A589CF98-8E76-4810-AEE0-7826FFE17E0A"
+        ]
+      }
+    ]
+  }
+]

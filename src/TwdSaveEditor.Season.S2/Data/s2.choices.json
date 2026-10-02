@@ -3,278 +3,708 @@
     "seasonKey": "s2",
     "episode": 1,
     "description": "Did you try to save Christa?",
-    "choiceKey": "helped_christa",
+    "choiceKey": "Episode 201 - Helped Christa",
     "category": "Survival",
     "options": [
-      { "label": "Stopped to help Christa", "value": "true" },
-      { "label": "Ran away", "value": "false" }
+      {
+        "label": "Stopped to help Christa",
+        "value": "true"
+      },
+      {
+        "label": "Ran away",
+        "value": "false"
+      }
     ]
   },
   {
     "seasonKey": "s2",
     "episode": 1,
     "description": "Did you kill the dog?",
-    "choiceKey": "killed_dog",
+    "choiceKey": "Episode 201 - Killed Dog",
     "category": "Mercy",
     "options": [
-      { "label": "Killed the dog", "value": "true" },
-      { "label": "Walked away from the dog", "value": "false" }
-    ]
-  },
-  {
-    "seasonKey": "s2",
-    "episode": 1,
-    "description": "Did you accept Nick's apology?",
-    "choiceKey": "accepted_nick_apology",
-    "category": "Trust",
-    "options": [
-      { "label": "Accepted Nick's apology", "value": "true" },
-      { "label": "Did not accept", "value": "false" }
-    ]
-  },
-  {
-    "seasonKey": "s2",
-    "episode": 1,
-    "description": "Did you save Nick or Pete?",
-    "choiceKey": "petenick_saved",
-    "category": "Life/Death",
-    "options": [
-      { "label": "Went with Pete", "value": "pete" },
-      { "label": "Went with Nick", "value": "nick" }
+      {
+        "label": "Killed the dog",
+        "value": "killed_the_dog"
+      },
+      {
+        "label": "Walked away from the dog",
+        "value": "walked_away_from_the_dog"
+      }
     ]
   },
   {
     "seasonKey": "s2",
     "episode": 1,
     "description": "Did you give water to the dying man?",
-    "choiceKey": "gave_water",
+    "choiceKey": "Episode 201 - Gave Victor Water",
     "category": "Generosity",
     "options": [
-      { "label": "Gave water to the dying man", "value": "true" },
-      { "label": "Refused water", "value": "false" }
+      {
+        "label": "Gave water to the dying man",
+        "value": "true"
+      },
+      {
+        "label": "Refused water to the dying man",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s2",
+    "episode": 1,
+    "description": "Did you accept Nick\u0027s apology?",
+    "choiceKey": "Episode 201 - Nick Apology",
+    "category": "Trust",
+    "options": [
+      {
+        "label": "Accepted Nick\u0027s apology",
+        "value": "accepted_nick_s_apology"
+      },
+      {
+        "label": "Did not accept Nick\u0027s apology",
+        "value": "did_not_accept_nick_s"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s2",
+    "episode": 1,
+    "description": "Did you save Nick or Pete?",
+    "choiceKey": "Episode 201 - Rescue Choice",
+    "category": "Heroics",
+    "options": [
+      {
+        "label": "Went with Pete",
+        "value": "pete"
+      },
+      {
+        "label": "Went with Nick",
+        "value": "nick"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s2",
+    "episode": 1,
+    "description": "Got Alvin\u0027s Help?",
+    "choiceKey": "Episode 201 - Got Alvin\u0027s Help",
+    "category": "Other",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s2",
+    "episode": 1,
+    "description": "Befriended Sarah?",
+    "choiceKey": "Episode 201 - Befriended Sarah",
+    "category": "Other",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s2",
+    "episode": 1,
+    "description": "Asked about Baby?",
+    "choiceKey": "Episode 201 - Asked about Baby",
+    "category": "Other",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s2",
+    "episode": 1,
+    "description": "Stole Watch?",
+    "choiceKey": "Episode 201 - Stole Watch",
+    "category": "Other",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s2",
+    "episode": 1,
+    "description": "Staying Choice?",
+    "choiceKey": "Episode 201 - Staying Choice",
+    "category": "Other",
+    "options": [
+      {
+        "label": "Leave",
+        "value": "leave"
+      },
+      {
+        "label": "Stay",
+        "value": "stay"
+      },
+      {
+        "label": "Maybe",
+        "value": "maybe"
+      },
+      {
+        "label": "None of these",
+        "value": "none_of_these"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s2",
+    "episode": 2,
+    "description": "Took blame for Sarah\u0027s photo?",
+    "choiceKey": "Episode 202 - Photo Blame",
+    "category": "Friendship",
+    "options": [
+      {
+        "label": "Took the blame",
+        "value": "took_the_blame"
+      },
+      {
+        "label": "Blamed someone else",
+        "value": "blamed_someone_else"
+      }
     ]
   },
   {
     "seasonKey": "s2",
     "episode": 2,
     "description": "Who did you sit with at dinner?",
-    "choiceKey": "sat_with_kenny",
+    "choiceKey": "Episode 202 - Dinner Choice",
     "category": "Loyalty",
     "options": [
-      { "label": "Sat with Kenny", "value": "true" },
-      { "label": "Sat with Luke", "value": "false" }
+      {
+        "label": "Sat with Kenny",
+        "value": "kenny"
+      },
+      {
+        "label": "Sat with Luke",
+        "value": "luke"
+      }
     ]
   },
   {
     "seasonKey": "s2",
     "episode": 2,
     "description": "Told Walter the truth about Matthew?",
-    "choiceKey": "told_walter_truth",
+    "choiceKey": "Episode 202 - Told Walter Truth",
     "category": "Honesty",
     "options": [
-      { "label": "Told Walter the truth", "value": "true" },
-      { "label": "Didn't tell", "value": "false" }
+      {
+        "label": "Told Walter the truth",
+        "value": "true"
+      },
+      {
+        "label": "Didn\u0027t tell Walter the truth",
+        "value": "false"
+      }
     ]
   },
   {
     "seasonKey": "s2",
     "episode": 2,
-    "description": "Nick's fate?",
-    "choiceKey": "walter_forgave_nick",
-    "category": "Life/Death",
+    "description": "Nick\u0027s fate?",
+    "choiceKey": "Episode 202 - Nick Dead",
+    "category": "Forgiveness",
     "options": [
-      { "label": "Convinced Walter to forgive Nick", "value": "true" },
-      { "label": "Let Walter decide", "value": "false" }
+      {
+        "label": "Convinced Walter to forgive Nick",
+        "value": "false"
+      },
+      {
+        "label": "Let Walter make up his own mind",
+        "value": "true"
+      }
     ]
   },
   {
     "seasonKey": "s2",
     "episode": 2,
-    "description": "Took blame for Sarah's photo?",
-    "choiceKey": "took_blame_sarah",
-    "category": "Friendship",
+    "description": "Left to find Kenny?",
+    "choiceKey": "Episode 202 - Surrendered",
+    "category": "Bravery",
     "options": [
-      { "label": "Took the blame", "value": "true" },
-      { "label": "Blamed someone else", "value": "false" }
+      {
+        "label": "Stayed to help Carlos",
+        "value": "true"
+      },
+      {
+        "label": "Sought Kenny\u0027s help",
+        "value": "false"
+      }
     ]
   },
   {
     "seasonKey": "s2",
-    "episode": 3,
-    "description": "Told Bonnie about Luke?",
-    "choiceKey": "told_bonnie_luke",
-    "category": "Trust",
+    "episode": 2,
+    "description": "Alvin Dead?",
+    "choiceKey": "Episode 202 - Alvin Dead",
+    "category": "Other",
     "options": [
-      { "label": "Told Bonnie that Luke contacted you", "value": "true" },
-      { "label": "Chose to hide Luke's presence", "value": "false" }
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
     ]
   },
   {
     "seasonKey": "s2",
-    "episode": 3,
-    "description": "Watched Kenny kill Carver?",
-    "choiceKey": "watched_kenny_kill_carver",
-    "category": "Vengeance",
+    "episode": 2,
+    "description": "Drank with Nick?",
+    "choiceKey": "Episode 202 - Drank with Nick",
+    "category": "Other",
     "options": [
-      { "label": "Watched", "value": "true" },
-      { "label": "Left with Sarita", "value": "false" }
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
     ]
   },
   {
     "seasonKey": "s2",
-    "episode": 3,
-    "description": "Chopped off Sarita's arm?",
-    "choiceKey": "sarita_choice",
-    "category": "Risk",
+    "episode": 2,
+    "description": "Meet Bonnie Choice?",
+    "choiceKey": "Episode 202 - Meet Bonnie Choice",
+    "category": "Other",
     "options": [
-      { "label": "Chopped off Sarita's arm", "value": "chopped" },
-      { "label": "Killed the zombie that bit Sarita", "value": "killed" }
+      {
+        "label": "Dangerous",
+        "value": "dangerous"
+      },
+      {
+        "label": "Weapons",
+        "value": "weapons"
+      },
+      {
+        "label": "Harmless",
+        "value": "harmless"
+      },
+      {
+        "label": "Silent",
+        "value": "silent"
+      }
     ]
   },
   {
     "seasonKey": "s2",
     "episode": 3,
     "description": "Helped Sarah with her chores?",
-    "choiceKey": "helped_sarah_chores",
+    "choiceKey": "Episode 203 - Helped Sarah",
     "category": "Compassion",
     "options": [
-      { "label": "Helped Sarah", "value": "true" },
-      { "label": "Did your own work", "value": "false" }
+      {
+        "label": "Helped Sarah",
+        "value": "true"
+      },
+      {
+        "label": "Did your own work",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s2",
+    "episode": 3,
+    "description": "Told Bonnie about Luke?",
+    "choiceKey": "Episode 203 - Bonnie Truth",
+    "category": "Trust",
+    "options": [
+      {
+        "label": "Told Bonnie that Luke contacted you",
+        "value": "told_bonnie_that_luke_contacted"
+      },
+      {
+        "label": "Chose to hide Luke\u0027s presence",
+        "value": "chose_to_hide_luke_s"
+      }
     ]
   },
   {
     "seasonKey": "s2",
     "episode": 3,
     "description": "Admitted to stealing the walkie talkie?",
-    "choiceKey": "admitted_walkie",
+    "choiceKey": "Episode 203 - Walkie Talkie",
     "category": "Selflessness",
     "options": [
-      { "label": "Tried to speak up", "value": "true" },
-      { "label": "Tried to hide the theft", "value": "false" }
+      {
+        "label": "Tried to speak up",
+        "value": "tried_to_speak_up"
+      },
+      {
+        "label": "Tried to hide the theft",
+        "value": "tried_to_hide_the_theft"
+      }
     ]
   },
   {
     "seasonKey": "s2",
     "episode": 3,
-    "description": "Left to find Kenny?",
-    "choiceKey": "left_to_find_kenny",
-    "category": "Bravery",
+    "description": "Watched Kenny kill Carver?",
+    "choiceKey": "Episode 203 - Watched Kenny Kill Carver",
+    "category": "Vengeance",
     "options": [
-      { "label": "Stayed to help Carlos", "value": "true" },
-      { "label": "Sought Kenny's help", "value": "false" }
+      {
+        "label": "Watched",
+        "value": "true"
+      },
+      {
+        "label": "Left with Sarita",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s2",
+    "episode": 3,
+    "description": "Chopped off Sarita\u0027s arm?",
+    "choiceKey": "Episode 203 - Chopped Sarita\u0027s Arm",
+    "category": "Risk",
+    "options": [
+      {
+        "label": "Chopped off Sarita\u0027s arm",
+        "value": "true"
+      },
+      {
+        "label": "Killed the zombie that bit Sarita",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s2",
+    "episode": 3,
+    "description": "Got Knocked Out?",
+    "choiceKey": "Episode 203 - Got Knocked Out",
+    "category": "Other",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s2",
+    "episode": 3,
+    "description": "Spoke Up for Sarah?",
+    "choiceKey": "Episode 203 - Spoke Up for Sarah",
+    "category": "Other",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s2",
+    "episode": 3,
+    "description": "Restrained Sarita?",
+    "choiceKey": "Episode 203 - Restrained Sarita",
+    "category": "Other",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s2",
+    "episode": 3,
+    "description": "Shot Carver?",
+    "choiceKey": "Episode 203 - Shot Carver",
+    "category": "Other",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
     ]
   },
   {
     "seasonKey": "s2",
     "episode": 4,
     "description": "Left Sarah at the trailer park?",
-    "choiceKey": "saved_sarah",
+    "choiceKey": "Episode 204 - Saved Sarah",
     "category": "Pragmatism",
     "options": [
-      { "label": "Saved Sarah at the trailer park", "value": "true" },
-      { "label": "Left Sarah behind", "value": "false" }
+      {
+        "label": "Saved Sarah at the trailer park",
+        "value": "true"
+      },
+      {
+        "label": "Left Sarah behind at the trailer park",
+        "value": "false"
+      }
     ]
   },
   {
     "seasonKey": "s2",
     "episode": 4,
     "description": "Robbed Arvo?",
-    "choiceKey": "robbed_arvo",
+    "choiceKey": "Episode 204 - Robbed Arvo",
     "category": "Compassion",
     "options": [
-      { "label": "Stole pills from Arvo", "value": "true" },
-      { "label": "Refused to steal from Arvo", "value": "false" }
-    ]
-  },
-  {
-    "seasonKey": "s2",
-    "episode": 4,
-    "description": "Shot Rebecca?",
-    "choiceKey": "shot_rebecca",
-    "category": "Survivalism",
-    "options": [
-      { "label": "Chose to shoot Rebecca", "value": "true" },
-      { "label": "Did not shoot Rebecca", "value": "false" }
-    ]
-  },
-  {
-    "seasonKey": "s2",
-    "episode": 4,
-    "description": "Protected the baby?",
-    "choiceKey": "protected_baby",
-    "category": "Selflessness",
-    "options": [
-      { "label": "Protected the baby", "value": "true" },
-      { "label": "Went for cover", "value": "false" }
+      {
+        "label": "Stole pills from Arvo",
+        "value": "true"
+      },
+      {
+        "label": "Refused to steal from Arvo",
+        "value": "false"
+      }
     ]
   },
   {
     "seasonKey": "s2",
     "episode": 4,
     "description": "Crawled through ticket booth window?",
-    "choiceKey": "crawled_through_window",
+    "choiceKey": "Episode 204 - Bonnie Attacked",
     "category": "Selflessness",
     "options": [
-      { "label": "Volunteered to crawl through", "value": "true" },
-      { "label": "Let Bonnie reach through", "value": "false" }
+      {
+        "label": "Volunteered to crawl through",
+        "value": "false"
+      },
+      {
+        "label": "Let Bonnie reach through",
+        "value": "true"
+      }
     ]
   },
   {
     "seasonKey": "s2",
     "episode": 4,
     "description": "Held the baby?",
-    "choiceKey": "held_baby",
+    "choiceKey": "Episode 204 - Held Baby",
     "category": "Nurturing",
     "options": [
-      { "label": "Held the baby", "value": "true" },
-      { "label": "Didn't hold the baby", "value": "false" }
+      {
+        "label": "Held the baby",
+        "value": "held_the_baby"
+      },
+      {
+        "label": "Didn\u0027t hold the baby",
+        "value": "didn_t_hold_the_baby"
+      }
     ]
   },
   {
     "seasonKey": "s2",
     "episode": 4,
-    "description": "Asked to leave with Mike?",
-    "choiceKey": "asked_leave_mike",
-    "category": "Loyalty",
+    "description": "Shot Rebecca?",
+    "choiceKey": "Episode 204 - Shot Rebecca",
+    "category": "Survivalism",
     "options": [
-      { "label": "Wanted to leave with Mike", "value": "true" },
-      { "label": "Didn't ask to leave", "value": "false" }
+      {
+        "label": "Chose to shoot Rebecca",
+        "value": "true"
+      },
+      {
+        "label": "Did not shoot Rebecca",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s2",
+    "episode": 4,
+    "description": "Saw Kenny\u0027s Eye?",
+    "choiceKey": "Episode 204 - Saw Kenny\u0027s Eye",
+    "category": "Other",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s2",
+    "episode": 4,
+    "description": "Took File?",
+    "choiceKey": "Episode 204 - Took File",
+    "category": "Other",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s2",
+    "episode": 4,
+    "description": "Gave Rebecca Pills?",
+    "choiceKey": "Episode 204 - Gave Rebecca Pills",
+    "category": "Other",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s2",
+    "episode": 5,
+    "description": "Protected the baby?",
+    "choiceKey": "Episode 205 - Protected the baby",
+    "category": "Selflessness",
+    "options": [
+      {
+        "label": "Protected the baby",
+        "value": "protected_the_baby"
+      },
+      {
+        "label": "Went for cover",
+        "value": "went_for_cover"
+      }
     ]
   },
   {
     "seasonKey": "s2",
     "episode": 5,
     "description": "Went to help Luke?",
-    "choiceKey": "helped_luke_ice",
+    "choiceKey": "Episode 205 - Went to help Luke",
     "category": "Risk",
     "options": [
-      { "label": "Tried to help Luke", "value": "true" },
-      { "label": "Did not try to help", "value": "false" }
+      {
+        "label": "Tried to help Luke",
+        "value": "tried_to_help_luke"
+      },
+      {
+        "label": "Did not try to help Luke",
+        "value": "did_not_try_to_help"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s2",
+    "episode": 5,
+    "description": "Asked to leave with Mike?",
+    "choiceKey": "Episode 205 - Asked to leave with Mike",
+    "category": "Loyalty",
+    "options": [
+      {
+        "label": "Wanted to leave with Mike",
+        "value": "wanted_to_leave_with_mike"
+      },
+      {
+        "label": "Didn\u0027t ask to leave with Mike",
+        "value": "didn_t_ask_to_leave"
+      }
     ]
   },
   {
     "seasonKey": "s2",
     "episode": 5,
     "description": "Shot Kenny?",
-    "choiceKey": "shot_kenny",
+    "choiceKey": "Episode 205 - Shot Kenny",
     "category": "Survivalism",
     "options": [
-      { "label": "Shot Kenny", "value": "true" },
-      { "label": "Didn't shoot Kenny", "value": "false" }
+      {
+        "label": "Shot Kenny",
+        "value": "shot_kenny"
+      },
+      {
+        "label": "Didn\u0027t shoot Kenny",
+        "value": "didn_t_shoot_kenny"
+      }
     ]
   },
   {
     "seasonKey": "s2",
     "episode": 5,
     "description": "In the end, who are you with?",
-    "choiceKey": "s2_ending",
+    "choiceKey": "Episode 205 - In the end, who are you with",
     "category": "Friendship",
     "options": [
-      { "label": "With Jane and the family", "value": "jane_family" },
-      { "label": "With Jane", "value": "jane" },
-      { "label": "With AJ at Wellington", "value": "wellington" },
-      { "label": "Alone with AJ", "value": "alone" },
-      { "label": "With Kenny", "value": "kenny" }
+      {
+        "label": "Are with AJ at Wellington",
+        "value": "are_with_aj_at_wellington"
+      },
+      {
+        "label": "Are with Kenny",
+        "value": "are_with_kenny"
+      },
+      {
+        "label": "Are with Jane and the family",
+        "value": "are_with_jane_and_the"
+      },
+      {
+        "label": "Are with Jane",
+        "value": "are_with_jane"
+      },
+      {
+        "label": "Are alone with AJ",
+        "value": "are_alone_with_aj"
+      }
     ]
   }
 ]

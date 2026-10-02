@@ -14,4 +14,6 @@ public interface IResumePointHandler
     IReadOnlyList<ChapterInfo> GetChapters(int episode);
 
     void RestartFromChapter(SaveSlot slot, int episode, string chapterId);
+
+    IReadOnlyList<string> ResumeNotes { get; }
 }

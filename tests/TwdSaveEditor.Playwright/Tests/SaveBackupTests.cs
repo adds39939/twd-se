@@ -23,7 +23,7 @@ public class SaveBackupTests
     }
 
     [Fact]
-    public async Task SaveAutosave_BackupsBothFiles()
+    public async Task SaveSlotWithAutosave_BackupsBothFiles()
     {
         var page = await _fixture.NewPage();
 
@@ -37,8 +37,7 @@ public class SaveBackupTests
         var saveItems = page.Locator(".save-item");
         await saveItems.First.WaitForAsync(new LocatorWaitForOptions { Timeout = 10000 });
 
-        var autosaveItem = page.Locator(".save-item", new PageLocatorOptions { HasTextString = "autosave" });
-        await autosaveItem.First.ClickAsync();
+        await saveItems.First.ClickAsync();
 
         var saveBtn = page.Locator(".save-btn");
         await saveBtn.ClickAsync();

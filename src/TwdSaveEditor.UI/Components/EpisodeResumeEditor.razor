@@ -7,6 +7,10 @@
             {
                 <span class="checkpoint-damaged" data-testid="checkpoint-damaged"> &mdash; checkpoint damaged</span>
             }
+            else if (_state.SeasonFinished)
+            {
+                <span class="text-muted" data-testid="season-finished"> &mdash; finished</span>
+            }
             else if (_state.StartsFromBeginning)
             {
                 <span class="text-muted"> &mdash; from the beginning</span>
@@ -80,16 +84,9 @@
             Setting the resume point replaces the in-progress checkpoint. Decisions of earlier episodes that are
             not set yet are filled in.
         </p>
-        <p class="text-muted">
-            From the start of an episode, the slot is listed in the game as a new game until the first checkpoint:
-            select it, pick the episode and press Play.
-        </p>
-        <p class="text-muted">
-            From a later chapter, a small checkpoint is written. The game shows the scene before the chapter for a
-            moment, then starts the chapter with the decisions set here and saves its own checkpoint.
-        </p>
-        <p class="text-muted">
-            In 400 Days, the stories listed before the chosen chapter count as finished, with their decisions.
-        </p>
+        @foreach (var note in Handler.ResumeNotes)
+        {
+            <p class="text-muted">@note</p>
+        }
     </div>
 </div>

@@ -24,6 +24,10 @@ public sealed class MetaReader(ClassLayouts layouts, TypeRegistry types)
 
     private static readonly HashSet<string> CustomOnly = ["DlgChildSet", "JiraRecordManager"];
 
+    private const byte EventSymbol = 0;
+    private const byte EventInt = 1;
+    private const byte EventDouble = 2;
+
     private const uint UserPropsFlag = 0x1;
     private const uint ProductionPropsFlag = 0x2;
     private const uint ToolPropsFlag = 0x4;
@@ -250,6 +254,16 @@ public sealed class MetaReader(ClassLayouts layouts, TypeRegistry types)
                 if ((nodeFlags & ExchangeLinesFlag) != 0)
                     members.Add(KeyValuePair.Create<string, MetaNode>("lines", ReadValue("DlgLineCollection", reader)));
                 break;
+            case "EventStorage":
+                if (ReadValue("bool", reader) is MetaScalar { Value: true })
+                    members.Add(KeyValuePair.Create<string, MetaNode>("currentPage", ReadValue("EventStoragePage", reader)));
+                break;
+            case "EventStoragePage":
+                members.Add(KeyValuePair.Create<string, MetaNode>("events", ReadSequence("EventLoggerEvent", reader.U32(), reader)));
+                break;
+            case "EventLoggerEvent":
+                members.Add(KeyValuePair.Create<string, MetaNode>("data", ReadEventData(reader)));
+                break;
             case "NoteCollection":
                 members.Add(KeyValuePair.Create<string, MetaNode>("notes", ReadSequence("Note", reader.U32(), reader)));
                 break;
@@ -276,6 +290,48 @@ public sealed class MetaReader(ClassLayouts layouts, TypeRegistry types)
 
                 break;
         }
+    }
+
+    private static MetaList ReadEventData(PropReader reader)
+    {
+        var start = reader.Position;
+        var size = reader.U32();
+        var typeCount = reader.U32();
+        reader.U32();
+        CheckCount(typeCount, reader);
+
+        var headers = new List<(ulong Type, byte[] Kinds)>();
+        for (uint i = 0; i < typeCount; i++)
+        {
+            var type = reader.U64();
+            var count = reader.U32();
+            CheckCount(count, reader);
+            headers.Add((type, reader.Read(count).ToArray()));
+        }
+
+        var items = new List<MetaNode>();
+        foreach (var (type, kinds) in headers)
+        {
+            var values = new List<MetaNode>();
+            foreach (var kind in kinds)
+            {
+                values.Add(kind switch
+                {
+                    EventSymbol => new MetaSymbol(reader.U64(), false),
+                    EventInt => new MetaScalar((long)reader.U64()),
+                    EventDouble => new MetaScalar(BitConverter.Int64BitsToDouble((long)reader.U64())),
+                    _ => throw new MetaFormatException($"unknown event data kind {kind}"),
+                });
+                reader.U8();
+            }
+
+            items.Add(new MetaObject("EventData", [KeyValuePair.Create<string, MetaNode>("type", new MetaSymbol(type, false)), KeyValuePair.Create<string, MetaNode>("values", new MetaList(values))]));
+        }
+
+        if (reader.Position != start + size)
+            throw new MetaFormatException($"block of event data is {size} bytes, read {reader.Position - start}");
+
+        return new MetaList(items);
     }
 
     private MetaList ReadTypedSequence(PropReader reader)

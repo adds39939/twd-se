@@ -1,0 +1,100 @@
+using TwdSaveEditor.Core.Binary.Bundles;
+using TwdSaveEditor.Core.Model;
+using TwdSaveEditor.Season.Common.Abstractions;
+using TwdSaveEditor.Season.Common.Extensions;
+using TwdSaveEditor.Season.Common.Model;
+using TwdSaveEditor.Season.Common.Services;
+using TwdSaveEditor.Season.Michonne.Handlers;
+using TwdSaveEditor.Season.S1.Handlers;
+using TwdSaveEditor.Season.S2.Handlers;
+using TwdSaveEditor.Season.S3.Handlers;
+using TwdSaveEditor.Season.S4.Handlers;
+
+namespace TwdSaveEditor.Tools.EditSave.Editing;
+
+public sealed class SaveSession
+{
+    private static readonly ISeasonRegistry Registry = new SeasonRegistry(
+    [
+        new S1Handler(), new S1_400DaysHandler(), new S2Handler(),
+        new MichonneHandler(), new S3Handler(), new S4Handler(),
+    ]);
+
+    private SaveSession(SaveSlot slot, ISeasonHandler season)
+    {
+        Slot = slot;
+        Season = season;
+    }
+
+    public SaveSlot Slot { get; }
+
+    public ISeasonHandler Season { get; }
+
+    public IChoiceAccessor? Choices => Season.CreateChoiceAccessor(Slot);
+
+    public static SaveSession Create(string slotFileName, int episode)
+    {
+        var season = Registry.DetectFromFileName(slotFileName)
+            ?? throw new ArgumentException($"No season handles the file {slotFileName}.");
+
+        var slot = season.CreateSave(slotFileName, episode);
+        slot.DetectedSeasonKey = season.SeasonKey;
+        return new SaveSession(slot, season);
+    }
+
+    public static SaveSession Load(string directory, string slotFileName)
+    {
+        var season = Registry.DetectFromFileName(slotFileName)
+            ?? throw new ArgumentException($"No season handles the file {slotFileName}.");
+
+        var slot = BundleReader.Read(File.ReadAllBytes(Path.Combine(directory, slotFileName)), slotFileName);
+        slot.DetectedSeasonKey = season.SeasonKey;
+
+        if (season is ICompanionFileHandler companion)
+        {
+            var names = Directory.EnumerateFiles(directory).Select(Path.GetFileName).OfType<string>().ToList();
+            companion.AttachCompanionFiles(slot, [.. companion.FindCompanionFiles(slotFileName, names)
+                .Select(name => new CompanionFile(name, File.ReadAllBytes(Path.Combine(directory, name))))]);
+        }
+
+        return new SaveSession(slot, season);
+    }
+
+    public IEnumerable<ChoiceDefinition> ChoiceList =>
+        Season.IncludedSeasonKeys.Concat(Season.ImportsFromSeasonKeys).Distinct()
+            .Select(Registry.Get)
+            .OfType<ISeasonHandler>()
+            .SelectMany(season => season.Choices);
+
+    public List<string> FileNames =>
+        [Slot.FileName, .. Season is ICompanionFileHandler companion ? companion.GetCompanionFileNames(Slot) : []];
+
+    public void RestartFromEpisode(int episode)
+    {
+        if (Season is not IResumePointHandler resume)
+            throw new NotSupportedException($"{Season.Name} saves cannot be restarted from an episode.");
+
+        resume.RestartFromEpisode(Slot, episode);
+    }
+
+    public IReadOnlyList<ChapterInfo> Chapters(int episode) =>
+        Season is IResumePointHandler resume ? resume.GetChapters(episode) : [];
+
+    public bool RestartFromChapter(int episode, string chapterId)
+    {
+        if (Season is not IResumePointHandler resume || Chapters(episode).All(chapter => !chapter.Id.Equals(chapterId, StringComparison.OrdinalIgnoreCase)))
+            return false;
+
+        resume.RestartFromChapter(Slot, episode, chapterId);
+        return true;
+    }
+
+    public List<CompanionFile> Build()
+    {
+        var files = new List<CompanionFile> { new(Slot.FileName, BundleWriter.Write(Slot)) };
+        if (Season is ICompanionFileHandler companion)
+            files.AddRange(companion.BuildCompanionFiles(Slot));
+
+        return files;
+    }
+}

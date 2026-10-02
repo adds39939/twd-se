@@ -55,7 +55,7 @@ public class FeatureTests
     }
 
     [Fact]
-    public async Task ResumePointTab_ShowsAutosaveFileField()
+    public async Task ResumePointTab_ShowsTheEpisodeInProgressForSeason2()
     {
         var page = await _fixture.NewPage();
         await InjectSaveFile(page, "S2", "wd2_saveslot1.bundle");
@@ -64,8 +64,9 @@ public class FeatureTests
         var resumeTab = page.Locator("[data-testid='tab-resume']");
         await resumeTab.ClickAsync();
 
-        var label = page.Locator("label:has-text('Autosave File')");
-        await Assertions.Expect(label).ToBeVisibleAsync();
+        await Assertions.Expect(page.Locator("[data-testid='resume-state']")).ToContainTextAsync("Episode 1: All That Remains");
+        await Assertions.Expect(page.Locator("[data-testid='restart-chapter'] option")).ToHaveCountAsync(23);
+        await Assertions.Expect(page.Locator("[data-testid='restart-chapter'] optgroup")).ToHaveCountAsync(3);
     }
 
     [Fact]

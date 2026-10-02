@@ -1,0 +1,2154 @@
+{
+  "importedKeys": [
+    {
+      "episode": 101,
+      "keys": [
+        "DougCarley Saved",
+        "Gave Irene Gun",
+        "Lied To Hershel",
+        "ShawnDuck Choice",
+        "Sided With Kenny"
+      ]
+    },
+    {
+      "episode": 102,
+      "keys": [
+        "Chopped Leg",
+        "Shot Jolene",
+        "Helped Kill Larry",
+        "Killed St. John Brothers",
+        "Stole Food From Car"
+      ]
+    },
+    {
+      "episode": 103,
+      "keys": [
+        "Shot Beatrice",
+        "Left Lilly",
+        "Fought Kenny",
+        "Kill Duck Choice",
+        "ChristaOmid Choice",
+        "Weapon Choice",
+        "Got Punched"
+      ]
+    },
+    {
+      "episode": 104,
+      "keys": [
+        "Killed Zombie Boy",
+        "Threatened Or Lied To Vernon",
+        "Brought Clementine To Crawford",
+        "Saved Ben",
+        "Hid Bite",
+        "With Ben",
+        "With Christa And Omid",
+        "With Kenny"
+      ]
+    },
+    {
+      "episode": 105,
+      "keys": [
+        "Cut Off Arm",
+        "Lost Temper",
+        "Surrendered Cleaver",
+        "Killed Campman",
+        "Clementine Shot Lee"
+      ]
+    },
+    {
+      "episode": 106,
+      "keys": [
+        "Killed Stephanie",
+        "Left Eddie",
+        "Left Nate",
+        "Lied to Leland",
+        "Shot Dan"
+      ]
+    }
+  ],
+  "episodes": [
+    {
+      "episode": 1,
+      "chapters": [
+        {
+          "id": "PreviouslyOn",
+          "title": "Previously On",
+          "group": "Act I",
+          "script": "PreviouslyOn",
+          "chapterId": "chapter1",
+          "startsEpisode": true,
+          "flags": [],
+          "decided": []
+        },
+        {
+          "id": "TruckStop",
+          "title": "Truck Stop",
+          "group": "Act I",
+          "script": "TruckStopBathroom",
+          "chapterId": "chapter1",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": []
+        },
+        {
+          "id": "Campfire",
+          "title": "Campfire",
+          "group": "Act I",
+          "script": "ClearingCampfire",
+          "chapterId": "chapter2",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": []
+        },
+        {
+          "id": "CampfireBackpack",
+          "title": "Campfire Backpack",
+          "group": "Act I",
+          "script": "ClearingCampfire",
+          "chapterId": "chapter2",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "1Campfire - Reached Campfire",
+              "value": true
+            }
+          ],
+          "decided": []
+        },
+        {
+          "id": "RiverWoods",
+          "title": "River Woods",
+          "group": "Act I",
+          "script": "RiverWoods",
+          "chapterId": "chapter3",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 201 - Helped Christa"
+          ]
+        },
+        {
+          "id": "RiverWoodsAction",
+          "title": "River Woods Action",
+          "group": "Act I",
+          "script": "RiverWoods",
+          "chapterId": "chapter3",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "1RiverWoods - Winston Fight Stage",
+              "value": 10
+            }
+          ],
+          "decided": [
+            "Episode 201 - Helped Christa"
+          ]
+        },
+        {
+          "id": "RiverShore",
+          "title": "River Shore",
+          "group": "Act I",
+          "script": "RiverShore",
+          "chapterId": "chapter4",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 201 - Helped Christa"
+          ]
+        },
+        {
+          "id": "RiverShorePath",
+          "title": "River Shore Path",
+          "group": "Act I",
+          "script": "RiverShore",
+          "chapterId": "chapter4",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "1RiverShore - Used Stairs",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 201 - Helped Christa"
+          ]
+        },
+        {
+          "id": "RiverShoreForest",
+          "title": "River Shore Forest",
+          "group": "Act I",
+          "script": "RiverShore",
+          "chapterId": "chapter4",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "1RiverShore - Current Trail Path",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 201 - Helped Christa"
+          ]
+        },
+        {
+          "id": "RiverCamp",
+          "title": "River Camp",
+          "group": "Act II",
+          "script": "RiverCamp",
+          "chapterId": "chapter5",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 201 - Helped Christa"
+          ]
+        },
+        {
+          "id": "RiverCampFight",
+          "title": "River Camp Fight",
+          "group": "Act II",
+          "script": "RiverCamp",
+          "chapterId": "chapter6",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "2Camp - Dog Attacked",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 201 - Helped Christa"
+          ]
+        },
+        {
+          "id": "RiverCampWalk",
+          "title": "River Camp Walk",
+          "group": "Act II",
+          "script": "RiverCamp",
+          "chapterId": "chapter6",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "2Camp - Dog Attacked",
+              "value": true
+            },
+            {
+              "key": "2Camp - Killed Dog",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 201 - Helped Christa"
+          ]
+        },
+        {
+          "id": "CabinExteriorI",
+          "title": "Cabin Exterior I",
+          "group": "Act II",
+          "script": "CabinExterior",
+          "chapterId": "chapter7",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 201 - Helped Christa",
+            "Episode 201 - Killed Dog"
+          ]
+        },
+        {
+          "id": "CabinShedI",
+          "title": "Cabin Shed I",
+          "group": "Act II",
+          "script": "CabinShedInterior",
+          "chapterId": "chapter7",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 201 - Helped Christa",
+            "Episode 201 - Killed Dog"
+          ]
+        },
+        {
+          "id": "CabinExteriorII",
+          "title": "Cabin Exterior II",
+          "group": "Act II",
+          "script": "CabinExterior",
+          "chapterId": "chapter8",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "bEnteredCabinExterior",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 201 - Helped Christa",
+            "Episode 201 - Killed Dog"
+          ]
+        },
+        {
+          "id": "CabinInteriorI",
+          "title": "Cabin Interior I",
+          "group": "Act II",
+          "script": "CabinInterior",
+          "chapterId": "chapter8",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "bEnteredCabinExterior",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 201 - Helped Christa",
+            "Episode 201 - Killed Dog"
+          ]
+        },
+        {
+          "id": "CabinShedII",
+          "title": "Cabin Shed II",
+          "group": "Act III",
+          "script": "CabinShedInterior",
+          "chapterId": "chapter9",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 201 - Helped Christa",
+            "Episode 201 - Killed Dog"
+          ]
+        },
+        {
+          "id": "CabinShedFight",
+          "title": "Cabin Shed Fight",
+          "group": "Act III",
+          "script": "CabinShedInterior",
+          "chapterId": "chapter9",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            },
+            {
+              "key": "3Shed - Bandaged Arm",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 201 - Helped Christa",
+            "Episode 201 - Killed Dog"
+          ]
+        },
+        {
+          "id": "CabinInteriorII",
+          "title": "Cabin Interior II",
+          "group": "Act III",
+          "script": "CabinInterior",
+          "chapterId": "chapter10",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 201 - Helped Christa",
+            "Episode 201 - Killed Dog"
+          ]
+        },
+        {
+          "id": "BackwoodsStream",
+          "title": "Backwoods Stream",
+          "group": "Act III",
+          "script": "BackwoodsStream",
+          "chapterId": "chapter11",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 201 - Helped Christa",
+            "Episode 201 - Killed Dog",
+            "Episode 201 - Nick Apology",
+            "Episode 201 - Got Alvin\u0027s Help",
+            "Episode 201 - Befriended Sarah",
+            "Episode 201 - Stole Watch",
+            "Episode 201 - Staying Choice"
+          ]
+        },
+        {
+          "id": "StreamSandbar",
+          "title": "Stream Sandbar",
+          "group": "Act III",
+          "script": "BackwoodsStream",
+          "chapterId": "chapter11",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "3BackwoodsStream - Reached the Sandbar",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 201 - Helped Christa",
+            "Episode 201 - Killed Dog",
+            "Episode 201 - Nick Apology",
+            "Episode 201 - Got Alvin\u0027s Help",
+            "Episode 201 - Befriended Sarah",
+            "Episode 201 - Stole Watch",
+            "Episode 201 - Staying Choice"
+          ]
+        },
+        {
+          "id": "StreamWalkers",
+          "title": "Stream Walkers",
+          "group": "Act III",
+          "script": "BackwoodsStream",
+          "chapterId": "chapter11",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "3BackwoodsStream - Pete Bitten",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 201 - Helped Christa",
+            "Episode 201 - Killed Dog",
+            "Episode 201 - Nick Apology",
+            "Episode 201 - Got Alvin\u0027s Help",
+            "Episode 201 - Befriended Sarah",
+            "Episode 201 - Stole Watch",
+            "Episode 201 - Staying Choice"
+          ]
+        },
+        {
+          "id": "NextTimeOn",
+          "title": "Next Time On",
+          "group": "Act III",
+          "script": "NextTimeOn",
+          "chapterId": "chapter11",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 201 - Helped Christa",
+            "Episode 201 - Killed Dog",
+            "Episode 201 - Gave Victor Water",
+            "Episode 201 - Nick Apology",
+            "Episode 201 - Rescue Choice",
+            "Episode 201 - Got Alvin\u0027s Help",
+            "Episode 201 - Befriended Sarah",
+            "Episode 201 - Asked about Baby",
+            "Episode 201 - Stole Watch",
+            "Episode 201 - Staying Choice"
+          ]
+        }
+      ]
+    },
+    {
+      "episode": 2,
+      "chapters": [
+        {
+          "id": "PreviouslyOn",
+          "title": "Previously On",
+          "group": "Act I",
+          "script": "PreviouslyOn",
+          "chapterId": "202_chapter1A",
+          "startsEpisode": true,
+          "flags": [],
+          "decided": []
+        },
+        {
+          "id": "WoodsCellar",
+          "title": "Woods Cellar",
+          "group": "Act I",
+          "script": "LakeWoodsCellar",
+          "chapterId": "202_chapter1A",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": []
+        },
+        {
+          "id": "CellarEscape",
+          "title": "Cellar Escape",
+          "group": "Act I",
+          "script": "LakeWoodsCellar",
+          "chapterId": "202_chapter1A",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "1Cellar - Left Cellar",
+              "value": true
+            }
+          ],
+          "decided": []
+        },
+        {
+          "id": "WoodsClearing",
+          "title": "Woods Clearing",
+          "group": "Act I",
+          "script": "LakeWoodsClearing",
+          "chapterId": "202_chapter1B",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": []
+        },
+        {
+          "id": "ClearingEscape",
+          "title": "Clearing Escape",
+          "group": "Act I",
+          "script": "LakeWoodsClearing",
+          "chapterId": "202_chapter1B",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "1Clearing - Left Truck",
+              "value": true
+            }
+          ],
+          "decided": []
+        },
+        {
+          "id": "CabinInterior",
+          "title": "Cabin Interior",
+          "group": "Act I",
+          "script": "CabinInterior",
+          "chapterId": "202_chapter2",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": []
+        },
+        {
+          "id": "CabinIntruder",
+          "title": "Cabin Intruder",
+          "group": "Act I",
+          "script": "CabinInterior",
+          "chapterId": "202_chapter3",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "1CabinInterior - Intruder Arrives",
+              "value": true
+            }
+          ],
+          "decided": []
+        },
+        {
+          "id": "CabinGroupReturn",
+          "title": "Cabin Group Return",
+          "group": "Act I",
+          "script": "CabinInterior",
+          "chapterId": "202_chapter3",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "1CabinInterior - Group Returns",
+              "value": true
+            }
+          ],
+          "decided": []
+        },
+        {
+          "id": "WoodsCellar9",
+          "title": "Woods Cellar",
+          "group": "Act II",
+          "script": "LakeWoodsCellar",
+          "chapterId": "202_chapter3",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 202 - Photo Blame"
+          ]
+        },
+        {
+          "id": "WoodsClearing10",
+          "title": "Woods Clearing",
+          "group": "Act II",
+          "script": "LakeWoodsClearing",
+          "chapterId": "202_chapter3",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 202 - Photo Blame",
+            "Episode 202 - Drank with Nick"
+          ]
+        },
+        {
+          "id": "BridgeApproach",
+          "title": "Bridge Approach",
+          "group": "Act II",
+          "script": "LakeBridgeApproach",
+          "chapterId": "202_chapter4",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 202 - Photo Blame",
+            "Episode 202 - Drank with Nick"
+          ]
+        },
+        {
+          "id": "BridgeAppWalkers",
+          "title": "Bridge App. Walkers",
+          "group": "Act II",
+          "script": "LakeBridgeApproach",
+          "chapterId": "202_chapter4",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            },
+            {
+              "key": "2BridgeApproach - Reached the Bridge",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 202 - Photo Blame",
+            "Episode 202 - Drank with Nick"
+          ]
+        },
+        {
+          "id": "Bridge",
+          "title": "Bridge",
+          "group": "Act II",
+          "script": "LakeBridge",
+          "chapterId": "202_chapter5",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 202 - Photo Blame",
+            "Episode 202 - Drank with Nick"
+          ]
+        },
+        {
+          "id": "BridgeFirstWalker",
+          "title": "Bridge First Walker",
+          "group": "Act II",
+          "script": "LakeBridge",
+          "chapterId": "202_chapter5",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            },
+            {
+              "key": "2Bridge - Reached for Luke",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 202 - Photo Blame",
+            "Episode 202 - Drank with Nick"
+          ]
+        },
+        {
+          "id": "BridgeLastWalker",
+          "title": "Bridge Last Walker",
+          "group": "Act II",
+          "script": "LakeBridge",
+          "chapterId": "202_chapter5",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            },
+            {
+              "key": "2Bridge - Bridge Jump Success",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 202 - Photo Blame",
+            "Episode 202 - Drank with Nick"
+          ]
+        },
+        {
+          "id": "BridgeMatthew",
+          "title": "Bridge Matthew",
+          "group": "Act II",
+          "script": "LakeBridge",
+          "chapterId": "202_chapter5",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            },
+            {
+              "key": "2Bridge - Matthew Arrived",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 202 - Photo Blame",
+            "Episode 202 - Drank with Nick"
+          ]
+        },
+        {
+          "id": "StationHouse",
+          "title": "Station House",
+          "group": "Act II",
+          "script": "LakeBridgeStationHouse",
+          "chapterId": "202_chapter6",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 202 - Photo Blame",
+            "Episode 202 - Drank with Nick"
+          ]
+        },
+        {
+          "id": "LodgeRear",
+          "title": "Lodge Rear",
+          "group": "Act III",
+          "script": "LodgeExteriorRear",
+          "chapterId": "202_chapter7",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 202 - Photo Blame",
+            "Episode 202 - Drank with Nick"
+          ]
+        },
+        {
+          "id": "LodgeMain",
+          "title": "Lodge Main",
+          "group": "Act III",
+          "script": "LodgeMainRoom",
+          "chapterId": "202_chapter8",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 202 - Photo Blame",
+            "Episode 202 - Drank with Nick"
+          ]
+        },
+        {
+          "id": "LodgeMainDinner",
+          "title": "Lodge Main Dinner",
+          "group": "Act III",
+          "script": "LodgeMainRoom",
+          "chapterId": "202_chapter9",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            },
+            {
+              "key": "3Lodge - Topped Tree",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 202 - Photo Blame",
+            "Episode 202 - Drank with Nick"
+          ]
+        },
+        {
+          "id": "LodgeFrontI",
+          "title": "Lodge Front I",
+          "group": "Act III",
+          "script": "LodgeExteriorFront",
+          "chapterId": "202_chapter10",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 202 - Photo Blame",
+            "Episode 202 - Drank with Nick"
+          ]
+        },
+        {
+          "id": "LodgeMainPhoto",
+          "title": "Lodge Main Photo",
+          "group": "Act III",
+          "script": "LodgeMainRoom",
+          "chapterId": "202_chapter10",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            },
+            {
+              "key": "3LodgeFront - Met Bonnie",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 202 - Photo Blame",
+            "Episode 202 - Drank with Nick"
+          ]
+        },
+        {
+          "id": "LodgeFrontII",
+          "title": "Lodge Front II",
+          "group": "Act III",
+          "script": "LodgeExteriorFront",
+          "chapterId": "202_chapter11",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            },
+            {
+              "key": "3LodgeFront - Met Bonnie",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 202 - Photo Blame",
+            "Episode 202 - Dinner Choice",
+            "Episode 202 - Drank with Nick"
+          ]
+        },
+        {
+          "id": "LodgeFrontFight",
+          "title": "Lodge Front Fight",
+          "group": "Act III",
+          "script": "LodgeExteriorFront",
+          "chapterId": "202_chapter11",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            },
+            {
+              "key": "3LodgeFront - Zombies Surrounded",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 202 - Photo Blame",
+            "Episode 202 - Dinner Choice",
+            "Episode 202 - Drank with Nick"
+          ]
+        },
+        {
+          "id": "LodgeFinale",
+          "title": "Lodge Finale",
+          "group": "Act III",
+          "script": "LodgeExteriorAndMainRoom",
+          "chapterId": "202_chapter12",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 202 - Photo Blame",
+            "Episode 202 - Dinner Choice",
+            "Episode 202 - Told Walter Truth",
+            "Episode 202 - Nick Dead",
+            "Episode 202 - Drank with Nick",
+            "Episode 202 - Meet Bonnie Choice"
+          ]
+        },
+        {
+          "id": "NextTimeOn",
+          "title": "Next Time On",
+          "group": "Act III",
+          "script": "NextTimeOn",
+          "chapterId": "202_chapter12",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 202 - Photo Blame",
+            "Episode 202 - Dinner Choice",
+            "Episode 202 - Told Walter Truth",
+            "Episode 202 - Nick Dead",
+            "Episode 202 - Surrendered",
+            "Episode 202 - Alvin Dead",
+            "Episode 202 - Drank with Nick",
+            "Episode 202 - Meet Bonnie Choice"
+          ]
+        }
+      ]
+    },
+    {
+      "episode": 3,
+      "chapters": [
+        {
+          "id": "PreviouslyOn",
+          "title": "Previously On",
+          "group": "Act I",
+          "script": "PreviouslyOn",
+          "chapterId": "203_chapter1",
+          "startsEpisode": true,
+          "flags": [],
+          "decided": []
+        },
+        {
+          "id": "Forest",
+          "title": "Forest",
+          "group": "Act I",
+          "script": "HardwareStoreExteriorForest",
+          "chapterId": "203_chapter1",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": []
+        },
+        {
+          "id": "TruckArgument",
+          "title": "Truck Argument",
+          "group": "Act I",
+          "script": "HardwareStoreExteriorForest",
+          "chapterId": "203_chapter1",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "1 - Inside Truck",
+              "value": true
+            }
+          ],
+          "decided": []
+        },
+        {
+          "id": "StoreNight",
+          "title": "Store Night",
+          "group": "Act I",
+          "script": "HardwareStoreInteriorExteriorNight",
+          "chapterId": "203_chapter2",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": []
+        },
+        {
+          "id": "Yard",
+          "title": "Yard",
+          "group": "Act II",
+          "script": "HardwareStoreExteriorRoofAndYard",
+          "chapterId": "203_chapter3",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": []
+        },
+        {
+          "id": "Armory",
+          "title": "Armory",
+          "group": "Act II",
+          "script": "HardwareStoreInteriorMain",
+          "chapterId": "203_chapter3",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": []
+        },
+        {
+          "id": "Greenhouse",
+          "title": "Greenhouse",
+          "group": "Act II",
+          "script": "HardwareStoreExteriorRoofAndYard",
+          "chapterId": "203_chapter4",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            },
+            {
+              "key": "bEnteredHardwareStoreInteriorMain",
+              "value": true
+            }
+          ],
+          "decided": []
+        },
+        {
+          "id": "StoreExterior",
+          "title": "Store Exterior",
+          "group": "Act II",
+          "script": "HardwareStoreExterior",
+          "chapterId": "203_chapter5",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": []
+        },
+        {
+          "id": "ShoeStore",
+          "title": "Shoe Store",
+          "group": "Act II",
+          "script": "HardwareStoreExterior",
+          "chapterId": "203_chapter5",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            },
+            {
+              "key": "2 - Entered Shoe Store",
+              "value": true
+            }
+          ],
+          "decided": []
+        },
+        {
+          "id": "ShoeStoreBack",
+          "title": "Shoe Store Back",
+          "group": "Act II",
+          "script": "HardwareStoreExterior",
+          "chapterId": "203_chapter5",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            },
+            {
+              "key": "2 - Trapped Behind Shelf",
+              "value": true
+            }
+          ],
+          "decided": []
+        },
+        {
+          "id": "ComicStore",
+          "title": "Comic Store",
+          "group": "Act II",
+          "script": "HardwareStoreExterior",
+          "chapterId": "203_chapter5",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            },
+            {
+              "key": "2 - Grabbed at Comic Store",
+              "value": true
+            }
+          ],
+          "decided": []
+        },
+        {
+          "id": "CarversOffice",
+          "title": "Carver\u0027s Office",
+          "group": "Act II",
+          "script": "HardwareStoreInteriorOffice",
+          "chapterId": "203_chapter6",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": []
+        },
+        {
+          "id": "YardNight",
+          "title": "Yard Night",
+          "group": "Act II",
+          "script": "HardwareStoreExteriorYardNight",
+          "chapterId": "203_chapter7",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": []
+        },
+        {
+          "id": "RoofNight",
+          "title": "Roof Night",
+          "group": "Act II",
+          "script": "HardwareStoreInteriorExteriorRoofNight",
+          "chapterId": "203_chapter7",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": []
+        },
+        {
+          "id": "Yard15",
+          "title": "Yard",
+          "group": "Act III",
+          "script": "HardwareStoreExteriorRoofAndYard",
+          "chapterId": "203_chapter8",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": []
+        },
+        {
+          "id": "StoreInterior",
+          "title": "Store Interior",
+          "group": "Act III",
+          "script": "HardwareStoreInteriorMain",
+          "chapterId": "203_chapter8",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 203 - Helped Sarah",
+            "Episode 203 - Spoke Up for Sarah"
+          ]
+        },
+        {
+          "id": "ComicStore17",
+          "title": "Comic Store",
+          "group": "Act III",
+          "script": "HardwareStoreExterior",
+          "chapterId": "203_chapter9",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 203 - Helped Sarah",
+            "Episode 203 - Bonnie Truth",
+            "Episode 203 - Spoke Up for Sarah"
+          ]
+        },
+        {
+          "id": "YardAfternoon",
+          "title": "Yard Afternoon",
+          "group": "Act III",
+          "script": "HardwareStoreExteriorYardAfternoon",
+          "chapterId": "203_chapter10",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 203 - Helped Sarah",
+            "Episode 203 - Bonnie Truth",
+            "Episode 203 - Spoke Up for Sarah"
+          ]
+        },
+        {
+          "id": "YardNight19",
+          "title": "Yard Night",
+          "group": "Act III",
+          "script": "HardwareStoreExteriorYardNight",
+          "chapterId": "203_chapter10",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 203 - Helped Sarah",
+            "Episode 203 - Bonnie Truth",
+            "Episode 203 - Walkie Talkie",
+            "Episode 203 - Got Knocked Out",
+            "Episode 203 - Spoke Up for Sarah",
+            "Episode 203 - Restrained Sarita"
+          ]
+        },
+        {
+          "id": "RoofNight20",
+          "title": "Roof Night",
+          "group": "Act III",
+          "script": "HardwareStoreInteriorExteriorRoofNight",
+          "chapterId": "203_chapter11",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 203 - Helped Sarah",
+            "Episode 203 - Bonnie Truth",
+            "Episode 203 - Walkie Talkie",
+            "Episode 203 - Got Knocked Out",
+            "Episode 203 - Spoke Up for Sarah",
+            "Episode 203 - Restrained Sarita"
+          ]
+        },
+        {
+          "id": "Stockroom",
+          "title": "Stockroom",
+          "group": "Act III",
+          "script": "HardwareStoreInteriorExteriorRoofNight",
+          "chapterId": "203_chapter11",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            },
+            {
+              "key": "3 - Escaped Office",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 203 - Helped Sarah",
+            "Episode 203 - Bonnie Truth",
+            "Episode 203 - Walkie Talkie",
+            "Episode 203 - Got Knocked Out",
+            "Episode 203 - Spoke Up for Sarah",
+            "Episode 203 - Restrained Sarita"
+          ]
+        },
+        {
+          "id": "StoreRear",
+          "title": "Store Rear",
+          "group": "Act III",
+          "script": "HardwareStoreExteriorRear",
+          "chapterId": "203_chapter12",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 203 - Helped Sarah",
+            "Episode 203 - Bonnie Truth",
+            "Episode 203 - Walkie Talkie",
+            "Episode 203 - Watched Kenny Kill Carver",
+            "Episode 203 - Got Knocked Out",
+            "Episode 203 - Spoke Up for Sarah",
+            "Episode 203 - Restrained Sarita",
+            "Episode 203 - Shot Carver"
+          ]
+        },
+        {
+          "id": "HerdWalk",
+          "title": "Herd Walk",
+          "group": "Act III",
+          "script": "HardwareStoreExteriorRear",
+          "chapterId": "203_chapter12",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            },
+            {
+              "key": "3 - Zombie Walk",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 203 - Helped Sarah",
+            "Episode 203 - Bonnie Truth",
+            "Episode 203 - Walkie Talkie",
+            "Episode 203 - Watched Kenny Kill Carver",
+            "Episode 203 - Got Knocked Out",
+            "Episode 203 - Spoke Up for Sarah",
+            "Episode 203 - Restrained Sarita",
+            "Episode 203 - Shot Carver"
+          ]
+        },
+        {
+          "id": "NextTimeOn",
+          "title": "Next Time On",
+          "group": "Act III",
+          "script": "NextTimeOn",
+          "chapterId": "203_chapter12",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 203 - Helped Sarah",
+            "Episode 203 - Bonnie Truth",
+            "Episode 203 - Walkie Talkie",
+            "Episode 203 - Watched Kenny Kill Carver",
+            "Episode 203 - Chopped Sarita\u0027s Arm",
+            "Episode 203 - Got Knocked Out",
+            "Episode 203 - Spoke Up for Sarah",
+            "Episode 203 - Restrained Sarita",
+            "Episode 203 - Shot Carver"
+          ]
+        }
+      ]
+    },
+    {
+      "episode": 4,
+      "chapters": [
+        {
+          "id": "PreviouslyOn",
+          "title": "Previously On",
+          "group": "Act I",
+          "script": "PreviouslyOn",
+          "chapterId": "204_chapter1",
+          "startsEpisode": true,
+          "flags": [],
+          "decided": []
+        },
+        {
+          "id": "StoreRear",
+          "title": "Store Rear",
+          "group": "Act I",
+          "script": "HardwareStoreExteriorRear",
+          "chapterId": "204_chapter1",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": []
+        },
+        {
+          "id": "MemorialCenter",
+          "title": "Memorial Center",
+          "group": "Act I",
+          "script": "CivilWarMemorialCenterMorning",
+          "chapterId": "204_chapter2",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": []
+        },
+        {
+          "id": "TrailerPark",
+          "title": "Trailer Park",
+          "group": "Act II",
+          "script": "TrailerPark",
+          "chapterId": "204_chapter3",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": []
+        },
+        {
+          "id": "TrailerParkArrival",
+          "title": "Trailer Park Arrival",
+          "group": "Act II",
+          "script": "TrailerPark",
+          "chapterId": "204_chapter3",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            },
+            {
+              "key": "2 - Reached Trailer Park",
+              "value": true
+            }
+          ],
+          "decided": []
+        },
+        {
+          "id": "TrailerParkIncursion",
+          "title": "Trailer Park Incursion",
+          "group": "Act II",
+          "script": "TrailerPark",
+          "chapterId": "204_chapter3",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            },
+            {
+              "key": "2 - Killed ZombieFence",
+              "value": true
+            }
+          ],
+          "decided": []
+        },
+        {
+          "id": "TParkInvestigation",
+          "title": "T.Park Investigation",
+          "group": "Act II",
+          "script": "TrailerPark",
+          "chapterId": "204_chapter3",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            },
+            {
+              "key": "2 - Went Through Trailer",
+              "value": true
+            }
+          ],
+          "decided": []
+        },
+        {
+          "id": "MobileHome",
+          "title": "Mobile Home",
+          "group": "Act II",
+          "script": "MobileHome",
+          "chapterId": "204_chapter4",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": []
+        },
+        {
+          "id": "MobileHomeZombies",
+          "title": "Mobile Home Zombies!",
+          "group": "Act II",
+          "script": "MobileHome",
+          "chapterId": "204_chapter4",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            },
+            {
+              "key": "2 - Zombies at Mobile Home Door",
+              "value": true
+            }
+          ],
+          "decided": []
+        },
+        {
+          "id": "MemorialCenter10",
+          "title": "Memorial Center",
+          "group": "Act II",
+          "script": "CivilWarMemorialCenter",
+          "chapterId": "204_chapter5",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 204 - Saved Sarah"
+          ]
+        },
+        {
+          "id": "Museum",
+          "title": "Museum",
+          "group": "Act II",
+          "script": "CivilWarMemorialMuseum",
+          "chapterId": "204_chapter5",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 204 - Saved Sarah"
+          ]
+        },
+        {
+          "id": "DeckCourtyard",
+          "title": "Deck Courtyard",
+          "group": "Act II",
+          "script": "CivilWarMemorialObservationDeck",
+          "chapterId": "204_chapter5",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 204 - Saved Sarah",
+            "Episode 204 - Bonnie Attacked"
+          ]
+        },
+        {
+          "id": "ObservationDeck",
+          "title": "Observation Deck",
+          "group": "Act II",
+          "script": "CivilWarMemorialObservationDeck",
+          "chapterId": "204_chapter5",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            },
+            {
+              "key": "2 - Left Courtyard",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 204 - Saved Sarah",
+            "Episode 204 - Bonnie Attacked"
+          ]
+        },
+        {
+          "id": "CourtyardPartDeux",
+          "title": "Courtyard Part Deux",
+          "group": "Act II",
+          "script": "CivilWarMemorialObservationDeck",
+          "chapterId": "204_chapter5",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            },
+            {
+              "key": "2 - Told Luke about Arvo",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 204 - Saved Sarah",
+            "Episode 204 - Bonnie Attacked"
+          ]
+        },
+        {
+          "id": "CenterAfterMuseum",
+          "title": "Center After Museum",
+          "group": "Act II",
+          "script": "CivilWarMemorialCenter",
+          "chapterId": "204_chapter6",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            },
+            {
+              "key": "bEnteredCivilWarMemorialMuseum",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 204 - Saved Sarah",
+            "Episode 204 - Robbed Arvo",
+            "Episode 204 - Bonnie Attacked"
+          ]
+        },
+        {
+          "id": "CenterAfterDeck",
+          "title": "Center After Deck",
+          "group": "Act II",
+          "script": "CivilWarMemorialCenter",
+          "chapterId": "204_chapter7",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            },
+            {
+              "key": "bEnteredCivilWarMemorialObservationDeck",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 204 - Saved Sarah",
+            "Episode 204 - Robbed Arvo",
+            "Episode 204 - Bonnie Attacked"
+          ]
+        },
+        {
+          "id": "CenterEvening",
+          "title": "Center Evening",
+          "group": "Act II",
+          "script": "CivilWarMemorialCenter",
+          "chapterId": "204_chapter7",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            },
+            {
+              "key": "bEnteredCivilWarMemorialMuseum",
+              "value": true
+            },
+            {
+              "key": "bEnteredCivilWarMemorialObservationDeck",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 204 - Saved Sarah",
+            "Episode 204 - Robbed Arvo",
+            "Episode 204 - Bonnie Attacked"
+          ]
+        },
+        {
+          "id": "ObservationDeck18",
+          "title": "Observation Deck",
+          "group": "Act III",
+          "script": "CivilWarMemorialObservationDeckEvening",
+          "chapterId": "204_chapter8",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 204 - Saved Sarah",
+            "Episode 204 - Robbed Arvo",
+            "Episode 204 - Bonnie Attacked",
+            "Episode 204 - Saw Kenny\u0027s Eye"
+          ]
+        },
+        {
+          "id": "DeckZombiesOhMy",
+          "title": "Deck Zombies, Oh My!",
+          "group": "Act III",
+          "script": "CivilWarMemorialObservationDeckEvening",
+          "chapterId": "204_chapter9",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "3 - Shot Zombies",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 204 - Saved Sarah",
+            "Episode 204 - Robbed Arvo",
+            "Episode 204 - Bonnie Attacked",
+            "Episode 204 - Saw Kenny\u0027s Eye"
+          ]
+        },
+        {
+          "id": "DeckCannon",
+          "title": "Deck Cannon",
+          "group": "Act III",
+          "script": "CivilWarMemorialObservationDeckEvening",
+          "chapterId": "204_chapter9",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "3 - Comforted Rebecca",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 204 - Saved Sarah",
+            "Episode 204 - Robbed Arvo",
+            "Episode 204 - Bonnie Attacked",
+            "Episode 204 - Saw Kenny\u0027s Eye"
+          ]
+        },
+        {
+          "id": "DeckCollapse",
+          "title": "Deck Collapse",
+          "group": "Act III",
+          "script": "CivilWarMemorialObservationDeckEvening",
+          "chapterId": "204_chapter9",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "3 - Pushed Cannon",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 204 - Saved Sarah",
+            "Episode 204 - Robbed Arvo",
+            "Episode 204 - Bonnie Attacked",
+            "Episode 204 - Saw Kenny\u0027s Eye"
+          ]
+        },
+        {
+          "id": "PostnatalBlues",
+          "title": "Postnatal Blues",
+          "group": "Act III",
+          "script": "CivilWarMemorialObservationDeckEvening",
+          "chapterId": "204_chapter9",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "3 - Baby Born",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 204 - Saved Sarah",
+            "Episode 204 - Robbed Arvo",
+            "Episode 204 - Bonnie Attacked",
+            "Episode 204 - Saw Kenny\u0027s Eye"
+          ]
+        },
+        {
+          "id": "SnowyRoad",
+          "title": "Snowy Road",
+          "group": "Act III",
+          "script": "RoadSnowy",
+          "chapterId": "204_chapter10",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 204 - Saved Sarah",
+            "Episode 204 - Robbed Arvo",
+            "Episode 204 - Bonnie Attacked",
+            "Episode 204 - Held Baby",
+            "Episode 204 - Saw Kenny\u0027s Eye",
+            "Episode 204 - Took File",
+            "Episode 204 - Gave Rebecca Pills"
+          ]
+        }
+      ]
+    },
+    {
+      "episode": 5,
+      "chapters": [
+        {
+          "id": "PreviouslyOn",
+          "title": "Previously On",
+          "group": "Act I",
+          "script": "PreviouslyOn",
+          "chapterId": "205_chapter1",
+          "startsEpisode": true,
+          "flags": [],
+          "decided": []
+        },
+        {
+          "id": "SnowyRoad",
+          "title": "Snowy Road",
+          "group": "Act I",
+          "script": "RoadSnowy",
+          "chapterId": "205_chapter1",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": []
+        },
+        {
+          "id": "SnowyRoadJane",
+          "title": "Snowy Road Jane",
+          "group": "Act I",
+          "script": "RoadSnowy",
+          "chapterId": "205_chapter1",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "1 - Saved Alvie",
+              "value": true
+            }
+          ],
+          "decided": []
+        },
+        {
+          "id": "SnowyWoods",
+          "title": "Snowy Woods",
+          "group": "Act I",
+          "script": "SnowyWoods",
+          "chapterId": "205_chapter2",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 205 - Protected the baby"
+          ]
+        },
+        {
+          "id": "BandageKenny",
+          "title": "Bandage Kenny",
+          "group": "Act I",
+          "script": "SnowyWoods",
+          "chapterId": "205_chapter2",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "1 - Bandaged Kenny",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 205 - Protected the baby"
+          ]
+        },
+        {
+          "id": "PowerStation",
+          "title": "Power Station",
+          "group": "Act I",
+          "script": "SnowyPowerStation",
+          "chapterId": "205_chapter3",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 205 - Protected the baby"
+          ]
+        },
+        {
+          "id": "FrozenLake",
+          "title": "Frozen Lake",
+          "group": "Act I",
+          "script": "FrozenLake",
+          "chapterId": "205_chapter4",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 205 - Protected the baby"
+          ]
+        },
+        {
+          "id": "LukeFallsIn",
+          "title": "Luke Falls In",
+          "group": "Act I",
+          "script": "FrozenLake",
+          "chapterId": "205_chapter4",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "1 - Ice Cracked",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 205 - Protected the baby"
+          ]
+        },
+        {
+          "id": "StashHouseInterior",
+          "title": "Stash House Interior",
+          "group": "Act II",
+          "script": "StashHouseInterior",
+          "chapterId": "205_chapter5",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 205 - Protected the baby",
+            "Episode 205 - Went to help Luke"
+          ]
+        },
+        {
+          "id": "StashHouseExterior",
+          "title": "Stash House Exterior",
+          "group": "Act II",
+          "script": "StashHouseExterior",
+          "chapterId": "205_chapter6",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 205 - Protected the baby",
+            "Episode 205 - Went to help Luke"
+          ]
+        },
+        {
+          "id": "ReturntoInterior",
+          "title": "Return to Interior",
+          "group": "Act II",
+          "script": "StashHouseInterior",
+          "chapterId": "205_chapter6",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            },
+            {
+              "key": "2 - Went Outside",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 205 - Protected the baby",
+            "Episode 205 - Went to help Luke"
+          ]
+        },
+        {
+          "id": "ReturntoExterior",
+          "title": "Return to Exterior",
+          "group": "Act II",
+          "script": "StashHouseExterior",
+          "chapterId": "205_chapter6",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            },
+            {
+              "key": "2 - Went Outside",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 205 - Protected the baby",
+            "Episode 205 - Went to help Luke"
+          ]
+        },
+        {
+          "id": "StashHouseNight",
+          "title": "Stash House Night",
+          "group": "Act II",
+          "script": "StashHouseExteriorNight",
+          "chapterId": "205_chapter7",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 205 - Protected the baby",
+            "Episode 205 - Went to help Luke"
+          ]
+        },
+        {
+          "id": "Flashback",
+          "title": "Flashback",
+          "group": "Act III",
+          "script": "RoadTruckSnowstorm",
+          "chapterId": "205_chapter8",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 205 - Protected the baby",
+            "Episode 205 - Went to help Luke",
+            "Episode 205 - Asked to leave with Mike"
+          ]
+        },
+        {
+          "id": "Truck",
+          "title": "Truck",
+          "group": "Act III",
+          "script": "RoadTruckSnowstorm",
+          "chapterId": "205_chapter8",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            },
+            {
+              "key": "3 - Woke Up",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 205 - Protected the baby",
+            "Episode 205 - Went to help Luke",
+            "Episode 205 - Asked to leave with Mike"
+          ]
+        },
+        {
+          "id": "RestStop",
+          "title": "Rest Stop",
+          "group": "Act III",
+          "script": "RestStop",
+          "chapterId": "205_chapter9",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 205 - Protected the baby",
+            "Episode 205 - Went to help Luke",
+            "Episode 205 - Asked to leave with Mike"
+          ]
+        },
+        {
+          "id": "RestStopFight",
+          "title": "Rest Stop Fight",
+          "group": "Act III",
+          "script": "RestStop",
+          "chapterId": "205_chapter10",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            },
+            {
+              "key": "3 - Fight Started",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 205 - Protected the baby",
+            "Episode 205 - Went to help Luke",
+            "Episode 205 - Asked to leave with Mike"
+          ]
+        },
+        {
+          "id": "RestStopChoice",
+          "title": "Rest Stop Choice",
+          "group": "Act III",
+          "script": "RestStop",
+          "chapterId": "205_chapter10",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            },
+            {
+              "key": "3 - Fight Started",
+              "value": true
+            },
+            {
+              "key": "3 - Fight Stage",
+              "value": 6
+            }
+          ],
+          "decided": [
+            "Episode 205 - Protected the baby",
+            "Episode 205 - Went to help Luke",
+            "Episode 205 - Asked to leave with Mike"
+          ]
+        },
+        {
+          "id": "HardwareStore",
+          "title": "Hardware Store",
+          "group": "Act III",
+          "script": "FinaleHardwareStore",
+          "chapterId": "205_chapter10",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 205 - Protected the baby",
+            "Episode 205 - Went to help Luke",
+            "Episode 205 - Asked to leave with Mike",
+            "Episode 205 - Shot Kenny"
+          ]
+        },
+        {
+          "id": "OpenField",
+          "title": "Open Field",
+          "group": "Act III",
+          "script": "FinaleOpenField",
+          "chapterId": "205_chapter10",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 205 - Protected the baby",
+            "Episode 205 - Went to help Luke",
+            "Episode 205 - Asked to leave with Mike",
+            "Episode 205 - Shot Kenny"
+          ]
+        },
+        {
+          "id": "Wellington",
+          "title": "Wellington",
+          "group": "Act III",
+          "script": "FinaleWellington",
+          "chapterId": "205_chapter10",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 205 - Protected the baby",
+            "Episode 205 - Went to help Luke",
+            "Episode 205 - Asked to leave with Mike",
+            "Episode 205 - Shot Kenny"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -132,7 +132,6 @@ public class SeasonHandlerTests
     }
 
     [Theory]
-    [InlineData("s2")]
     [InlineData("s4")]
     public void SeasonsWithoutCompanionFiles_DoNotImplementTheCapability(string seasonKey)
     {

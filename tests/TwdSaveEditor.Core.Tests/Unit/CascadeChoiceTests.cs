@@ -32,7 +32,7 @@ public class CascadeChoiceTests
 
         s1Accessor.SetChoiceValue("DougCarley Saved", "doug");
 
-        Assert.Null(s2Accessor.GetChoiceValue("DougCarley Saved"));
+        Assert.Equal("carley", s2Accessor.GetChoiceValue("DougCarley Saved"));
     }
 
     [Fact]
@@ -47,14 +47,15 @@ public class CascadeChoiceTests
     }
 
     [Fact]
-    public void S2OwnChoices_StayInTheChoiceContainer()
+    public void S2OwnChoices_GoToTheEventLogAndNotTheSeason1Values()
     {
         var s2 = Registry.CreateSave("s2", 1, "wd2_saveslot1.bundle");
         var s2Accessor = Registry.Get("s2")!.CreateChoiceAccessor(s2)!;
 
-        s2Accessor.SetChoiceValue("shot_kenny", "true");
+        s2Accessor.SetChoiceValue("Episode 205 - Shot Kenny", "shot_kenny");
 
-        Assert.Equal("true", s2Accessor.GetChoiceValue("shot_kenny"));
-        Assert.Null(s2.Choices!.GetString("shot_kenny"));
+        Assert.Equal("shot_kenny", s2Accessor.GetChoiceValue("Episode 205 - Shot Kenny"));
+        Assert.Null(s2.Choices!.GetString("Episode 205 - Shot Kenny"));
+        Assert.Single(s2.EventLog!.Events, entry => entry.DialogNode != null);
     }
 }

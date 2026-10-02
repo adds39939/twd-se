@@ -1,5 +1,7 @@
 using Microsoft.Playwright;
 using TwdSaveEditor.Core.Binary.Bundles;
+using TwdSaveEditor.Core.Binary.EventLog;
+using TwdSaveEditor.Core.Constants;
 using TwdSaveEditor.Playwright.Fixtures;
 using TwdSaveEditor.Playwright.Support;
 
@@ -21,6 +23,12 @@ public class SaveLoadCycleTests
         await FakeSaveDirectory.AddSaveAsync(directory, testDataSeason, fileName);
         await FakeSaveDirectory.InstallAsync(page, directory);
     }
+
+    private static readonly string[] S2Files =
+    [
+        "wd2_saveslot1.bundle", "_wd2_saveslot1_autosave.bundle", "_wd2_saveslot1_id.estore",
+        "_wd2_saveslot1_id_Page913.epage", "_wd2_saveslot1_id_Page1897.epage", "_wd2_saveslot1_id_Page2734.epage",
+    ];
 
     private async Task InjectSaveFiles(IPage page, string testDataSeason, params string[] fileSpecs)
     {
@@ -69,173 +77,145 @@ public class SaveLoadCycleTests
     }
 
     [Fact]
-    public async Task LoadS2Autosave_DoesNotCrash()
+    public async Task S2SaveSet_IsListedAsOneSave()
     {
         var page = await _fixture.NewPage();
+        await InjectSaveFiles(page, "S2", S2Files);
 
-        var consoleErrors = new List<string>();
-        page.Console += (_, msg) =>
-        {
-            if (msg.Type == "error")
-                consoleErrors.Add(msg.Text);
-        };
-
-        await InjectSaveFiles(page, "S2", "_wd2_saveslot1_autosave.bundle");
-
-        var openDirBtn = page.Locator("[data-testid='open-directory']");
-        await openDirBtn.ClickAsync();
-
-        await page.WaitForTimeoutAsync(5000);
+        await page.Locator("[data-testid='open-directory']").ClickAsync();
 
         var saveItems = page.Locator(".save-item");
-        var saveCount = await saveItems.CountAsync();
-
-        var errorToasts = page.Locator(".toast-error");
-        var errorCount = await errorToasts.CountAsync();
-
-        if (saveCount == 0)
-        {
-            var statusText = await page.Locator(".header-status").TextContentAsync();
-            var toastTexts = new List<string>();
-            for (int i = 0; i < errorCount; i++)
-                toastTexts.Add(await errorToasts.Nth(i).TextContentAsync() ?? "");
-
-            Assert.Fail(
-                $"Autosave didn't load. Status: '{statusText}'. " +
-                $"Error toasts ({errorCount}): [{string.Join(", ", toastTexts)}]. " +
-                $"Console errors ({consoleErrors.Count}): [{string.Join(", ", consoleErrors.Take(5))}]");
-        }
+        await Assertions.Expect(saveItems).ToHaveCountAsync(1);
+        await Assertions.Expect(page.Locator(".toast-error")).ToHaveCountAsync(0);
 
         await saveItems.First.ClickAsync();
-        await page.WaitForTimeoutAsync(1000);
-
-        var appReady = page.Locator("[data-testid='app-ready']");
-        await Assertions.Expect(appReady).ToBeVisibleAsync();
-
-        var tabs = page.Locator(".tab-bar button");
-        var tabCount = await tabs.CountAsync();
-        Assert.True(tabCount >= 3, $"Expected tabs after selecting autosave, got {tabCount}. Console errors: [{string.Join(", ", consoleErrors.Take(3))}]");
+        await Assertions.Expect(page.Locator("[data-testid='app-ready']")).ToBeVisibleAsync();
+        Assert.True(await page.Locator(".tab-bar button").CountAsync() >= 3);
     }
 
     [Fact]
-    public async Task EditAutosaveMetadata_SaveAndReload()
+    public async Task S2RestartFromNextEpisode_RewindsTheSlotAndFillsTheEventLog()
     {
         var page = await _fixture.NewPage();
+        await InjectSaveFiles(page, "S2", S2Files);
 
-        var consoleErrors = new List<string>();
-        page.Console += (_, msg) =>
-        {
-            if (msg.Type == "error")
-                consoleErrors.Add(msg.Text);
-        };
+        await page.Locator("[data-testid='open-directory']").ClickAsync();
+        await page.Locator(".save-item").First.ClickAsync();
+        await page.Locator("[data-testid='tab-resume']").ClickAsync();
+        await page.Locator("[data-testid='restart-episode']").SelectOptionAsync("2");
+        await page.Locator("[data-testid='restart-button']").ClickAsync();
 
-        await InjectSaveFiles(page, "S2",
-            "_wd2_saveslot1_autosave.bundle",
-            "wd2_saveslot1.bundle");
+        var state = page.Locator("[data-testid='resume-state']");
+        await Assertions.Expect(state).ToContainTextAsync("Episode 2: A House Divided");
+        await Assertions.Expect(state).ToContainTextAsync("from the beginning");
 
-        var openDirBtn = page.Locator("[data-testid='open-directory']");
-        await openDirBtn.ClickAsync();
-
-        var saveItems = page.Locator(".save-item");
-        await saveItems.First.WaitForAsync(new LocatorWaitForOptions { Timeout = 10000 });
-
-        var autosaveItem = page.Locator(".save-item", new() { HasTextString = "_autosave" });
-        if (await autosaveItem.CountAsync() == 0)
-            autosaveItem = page.Locator(".save-item", new() { HasTextString = "autosave" });
-        if (await autosaveItem.CountAsync() == 0)
-        {
-            for (int i = 0; i < await saveItems.CountAsync(); i++)
-            {
-                var text = await saveItems.Nth(i).TextContentAsync();
-                if (text?.Contains("autosave", StringComparison.OrdinalIgnoreCase) == true)
-                {
-                    await saveItems.Nth(i).ClickAsync();
-                    break;
-                }
-            }
-        }
-        else
-        {
-            await autosaveItem.First.ClickAsync();
-        }
-
-        var resumeTab = page.Locator(".tab-bar button", new() { HasTextString = "Resume" });
-        await resumeTab.ClickAsync();
-        await page.WaitForTimeoutAsync(500);
-
-        var resumeEditor = page.Locator(".resume-editor");
-        await Assertions.Expect(resumeEditor).ToBeVisibleAsync();
-
-        var typeField = resumeEditor.Locator(".field-value", new() { HasTextString = "Autosave" });
-        await Assertions.Expect(typeField).ToBeVisibleAsync();
-
-        var episodeSelect = resumeEditor.Locator("select").First;
-        await episodeSelect.SelectOptionAsync(new SelectOptionValue { Index = 1 });
-        await page.WaitForTimeoutAsync(500);
-
-        var saveBtn = page.Locator(".save-btn");
-        await saveBtn.ClickAsync();
-        await page.WaitForTimeoutAsync(2000);
-
-        var errorToasts = page.Locator(".toast-error");
-        var errorCount = await errorToasts.CountAsync();
-        if (errorCount > 0)
-        {
-            var toastText = await errorToasts.First.TextContentAsync();
-            Assert.Fail($"Save produced error: {toastText}. Console: [{string.Join(", ", consoleErrors.Take(3))}]");
-        }
-
-        var savedBase64 = await FakeSaveDirectory.ReadFileAsync(page, "_wd2_saveslot1_autosave.bundle");
-        Assert.NotNull(savedBase64);
-        var savedBytes = Convert.FromBase64String(savedBase64);
-        Assert.True(savedBytes.Length > 0, "Saved file is empty");
-
-        var reloaded = BundleReader.Read(savedBytes, "_wd2_saveslot1_autosave.bundle");
-        Assert.NotNull(reloaded.Metadata);
-
-        var original = BundleReader.Read(TestDataHelper.GetPath("S2", "_wd2_saveslot1_autosave.bundle"));
-        Assert.Equal(original.Files.Count, reloaded.Files.Count);
-        for (var i = 1; i < original.Files.Count; i++)
-        {
-            Assert.Equal(original.Files[i].NameSymbol, reloaded.Files[i].NameSymbol);
-            Assert.True(original.Files[i].Data.AsSpan().SequenceEqual(reloaded.Files[i].Data),
-                $"Inner file {i} changed while editing the metadata");
-        }
+        await page.Locator(".save-btn").ClickAsync();
+        await Assertions.Expect(page.Locator(".toast-success", new() { HasTextString = "Saved wd2_saveslot1.bundle" }).First)
+            .ToBeVisibleAsync(new() { Timeout = 20000 });
+        await Assertions.Expect(page.Locator(".toast-error")).ToHaveCountAsync(0);
 
         var slotBase64 = await FakeSaveDirectory.ReadFileAsync(page, "wd2_saveslot1.bundle");
         Assert.NotNull(slotBase64);
-        var slotBytes = Convert.FromBase64String(slotBase64);
-        var slotReloaded = BundleReader.Read(slotBytes, "wd2_saveslot1.bundle");
-        Assert.NotNull(slotReloaded.Metadata);
+        var slot = BundleReader.Read(Convert.FromBase64String(slotBase64), "wd2_saveslot1.bundle");
+        Assert.Equal("WalkingDead202", slot.Metadata!.GetString(SlotMetadataKeys.EpisodeInProgress));
+        Assert.Equal("_wd2_saveslot1_autosave.bundle", slot.Metadata.GetString(SlotMetadataKeys.LatestSave));
 
-        var slotEpProp = slotReloaded.Metadata.AllProperties
-            .FirstOrDefault(p => p.KeySymbol.Value == 0xB218E7C003A67CE9);
-        Assert.NotNull(slotEpProp);
-        var slotEpValue = ((TwdSaveEditor.Core.Model.StringValue)slotEpProp.Value).Value;
-        Assert.Equal("WalkingDead202", slotEpValue);
+        var storageBase64 = await FakeSaveDirectory.ReadFileAsync(page, "_wd2_saveslot1_id.estore");
+        Assert.NotNull(storageBase64);
+        var storage = EventLogCodec.ReadStorage(Convert.FromBase64String(storageBase64));
+        Assert.Equal(3, storage.Pages.Count);
+        Assert.Equal(16, storage.CurrentPage!.Events.Last().SaveSerial);
+        Assert.Equal(355, storage.CurrentPage.Events.Count);
 
-        var slotProgressProp = slotReloaded.Metadata.AllProperties
-            .FirstOrDefault(p => p.KeySymbol.Value == 0x94C245DACB1ADDC3);
-        Assert.NotNull(slotProgressProp);
-        Assert.Equal(2, ((TwdSaveEditor.Core.Model.IntValue)slotProgressProp.Value).Value);
+        var original = TestDataHelper.GetPath("S2", "_wd2_saveslot1_autosave.bundle");
+        var autosaveBase64 = await FakeSaveDirectory.ReadFileAsync(page, "_wd2_saveslot1_autosave.bundle");
+        Assert.Equal(Convert.ToBase64String(File.ReadAllBytes(original)), autosaveBase64);
+    }
 
-        var reinjectBase64 = Convert.ToBase64String(savedBytes);
-        await FakeSaveDirectory.InstallAsync(page, new Dictionary<string, string>
-        {
-            ["_wd2_saveslot1_autosave.bundle"] = reinjectBase64,
-        });
+    [Fact]
+    public async Task S2ResumeFromChapter_WritesACheckpointForThatScene()
+    {
+        const string checkpointName = "_wd2_saveslot1_checkpoint1.bundle";
 
-        await openDirBtn.ClickAsync();
-        await saveItems.First.WaitForAsync(new LocatorWaitForOptions { Timeout = 10000 });
+        var page = await _fixture.NewPage();
+        await InjectSaveFiles(page, "S2", S2Files);
 
-        await saveItems.First.ClickAsync();
-        await page.WaitForTimeoutAsync(1000);
+        await page.Locator("[data-testid='open-directory']").ClickAsync();
+        await page.Locator(".save-item").First.ClickAsync();
+        await page.Locator("[data-testid='tab-resume']").ClickAsync();
+        await page.Locator("[data-testid='restart-episode']").SelectOptionAsync("2");
+        await Assertions.Expect(page.Locator("[data-testid='restart-chapter'] option")).ToHaveCountAsync(26);
+        await page.Locator("[data-testid='restart-chapter']").SelectOptionAsync("LodgeMainDinner");
+        await page.Locator("[data-testid='restart-button']").ClickAsync();
 
-        var tabs = page.Locator(".tab-bar button");
-        var tabCount = await tabs.CountAsync();
-        Assert.True(tabCount >= 3,
-            $"Expected tabs after reloading edited autosave, got {tabCount}. " +
-            $"Console errors: [{string.Join(", ", consoleErrors.Take(5))}]");
+        var state = page.Locator("[data-testid='resume-state']");
+        await Assertions.Expect(state).ToContainTextAsync("Episode 2: A House Divided");
+        await Assertions.Expect(state).ToContainTextAsync("checkpoint Lodge Main Dinner");
+
+        await page.Locator(".save-btn").ClickAsync();
+        await Assertions.Expect(page.Locator(".toast-success", new() { HasTextString = "Saved wd2_saveslot1.bundle" }).First)
+            .ToBeVisibleAsync(new() { Timeout = 20000 });
+        await Assertions.Expect(page.Locator(".toast-error")).ToHaveCountAsync(0);
+
+        var slotBase64 = await FakeSaveDirectory.ReadFileAsync(page, "wd2_saveslot1.bundle");
+        Assert.NotNull(slotBase64);
+        var slot = BundleReader.Read(Convert.FromBase64String(slotBase64), "wd2_saveslot1.bundle");
+        Assert.Equal("WalkingDead202", slot.Metadata!.GetString(SlotMetadataKeys.EpisodeInProgress));
+        Assert.Equal(checkpointName, slot.Metadata.GetString(SlotMetadataKeys.LatestSave));
+        Assert.Equal(17, slot.Metadata.GetInt(SlotMetadataKeys.LatestSerial));
+
+        var checkpointBase64 = await FakeSaveDirectory.ReadFileAsync(page, checkpointName);
+        Assert.NotNull(checkpointBase64);
+        var checkpoint = BundleReader.Read(Convert.FromBase64String(checkpointBase64), checkpointName);
+        Assert.Equal("WalkingDead202", checkpoint.Metadata!.GetString(SaveMetadataKeys.Episode));
+        Assert.Equal("202_chapter9", checkpoint.Metadata.GetString(SaveMetadataKeys.ChapterId));
+        Assert.Equal(17, checkpoint.Metadata.GetInt(SaveMetadataKeys.Serial));
+
+        var storageBase64 = await FakeSaveDirectory.ReadFileAsync(page, "_wd2_saveslot1_id.estore");
+        Assert.NotNull(storageBase64);
+        Assert.Equal(17, EventLogCodec.ReadStorage(Convert.FromBase64String(storageBase64)).CurrentPage!.Events.Last().SaveSerial);
+    }
+
+    [Fact]
+    public async Task S2NewSave_IsWrittenWithACheckpointAndAnEventLog()
+    {
+        const string checkpointName = "_wd2_saveslot1_checkpoint1.bundle";
+
+        var page = await _fixture.NewPage();
+        await FakeSaveDirectory.InstallAsync(page, new Dictionary<string, string>());
+        await page.Locator("[data-testid='open-directory']").ClickAsync();
+
+        await page.Locator("[data-testid='new-save-btn']").ClickAsync();
+        var dialog = page.Locator("[data-testid='new-save-dialog']");
+        await dialog.Locator("select").First.SelectOptionAsync("s2");
+        await dialog.Locator("select").Nth(1).SelectOptionAsync("2");
+        await dialog.GetByRole(AriaRole.Button, new() { Name = "Create" }).ClickAsync();
+
+        await Assertions.Expect(page.Locator(".save-item")).ToHaveCountAsync(1, new() { Timeout = 10000 });
+        await Assertions.Expect(page.Locator(".toast-error")).ToHaveCountAsync(0);
+
+        var slotBase64 = await FakeSaveDirectory.ReadFileAsync(page, "wd2_saveslot1.bundle");
+        Assert.NotNull(slotBase64);
+        var slot = BundleReader.Read(Convert.FromBase64String(slotBase64), "wd2_saveslot1.bundle");
+        Assert.Equal("WalkingDead202", slot.Metadata!.GetString(SlotMetadataKeys.EpisodeInProgress));
+        Assert.Equal(checkpointName, slot.Metadata.GetString(SlotMetadataKeys.LatestSave));
+
+        var checkpointBase64 = await FakeSaveDirectory.ReadFileAsync(page, checkpointName);
+        Assert.NotNull(checkpointBase64);
+        var checkpoint = BundleReader.Read(Convert.FromBase64String(checkpointBase64), checkpointName);
+        Assert.Equal("WalkingDead202", checkpoint.Metadata!.GetString(SaveMetadataKeys.Episode));
+
+        var storageBase64 = await FakeSaveDirectory.ReadFileAsync(page, "_wd2_saveslot1_id.estore");
+        Assert.NotNull(storageBase64);
+        var events = EventLogCodec.ReadStorage(Convert.FromBase64String(storageBase64)).CurrentPage!.Events;
+        Assert.Equal(1, events.Last().SaveSerial);
+        Assert.True(events.Count > 1);
+
+        await page.Locator(".save-item").First.ClickAsync();
+        await page.Locator("[data-testid='tab-resume']").ClickAsync();
+        var state = page.Locator("[data-testid='resume-state']");
+        await Assertions.Expect(state).ToContainTextAsync("Episode 2: A House Divided");
+        await Assertions.Expect(state).ToContainTextAsync("from the beginning");
     }
 
     [Fact]
