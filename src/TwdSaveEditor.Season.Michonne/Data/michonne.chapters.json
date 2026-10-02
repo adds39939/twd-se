@@ -1,0 +1,1009 @@
+{
+  "importedKeys": [],
+  "episodes": [
+    {
+      "episode": 1,
+      "chapters": [
+        {
+          "id": "CovePrologue",
+          "title": "Cove Prologue",
+          "group": "Act I",
+          "script": "ShoreLineCove",
+          "chapterId": "101_chapter1",
+          "startsEpisode": true,
+          "flags": [],
+          "decided": []
+        },
+        {
+          "id": "CovePrologueEndOfFight",
+          "title": "Cove Prologue - End Of Fight",
+          "group": "Act I",
+          "script": "ShoreLineCove",
+          "chapterId": "101_chapter1",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "1ShoreLineCove - Debug Jump To End Of Fight",
+              "value": true
+            }
+          ],
+          "decided": []
+        },
+        {
+          "id": "OpeningCredits",
+          "title": "Opening Credits",
+          "group": "Act I",
+          "script": "OpeningCredits101",
+          "chapterId": "101_chapter1",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 101 - Did you try to end it",
+            "Episode 101 - Prologue Decapitated Zombie?",
+            "Episode 101 - Prologue burned Zombie?"
+          ]
+        },
+        {
+          "id": "DockCBayPeteBoatBelowDeck",
+          "title": "Dock CBay Pete Boat - Below Deck",
+          "group": "Act I",
+          "script": "DockChesapeakeBay",
+          "chapterId": "101_chapter2",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 101 - Did you try to end it",
+            "Episode 101 - Prologue Decapitated Zombie?",
+            "Episode 101 - Prologue burned Zombie?"
+          ]
+        },
+        {
+          "id": "DockCBayPeteBoatTopDeck",
+          "title": "Dock CBay Pete Boat - Top Deck",
+          "group": "Act I",
+          "script": "DockChesapeakeBay",
+          "chapterId": "101_chapter2",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "1DockChesapeakeBay - On Top Deck",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 101 - Did you try to end it",
+            "Episode 101 - Prologue Decapitated Zombie?",
+            "Episode 101 - Prologue burned Zombie?"
+          ]
+        },
+        {
+          "id": "DockChesapeakBayRowBoat",
+          "title": "Dock Chesapeak Bay - Row Boat",
+          "group": "Act I",
+          "script": "DockChesapeakeBayRowBoat",
+          "chapterId": "101_chapter3",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 101 - Did you try to end it",
+            "Episode 101 - Radio Success",
+            "Episode 101 - Prologue Decapitated Zombie?",
+            "Episode 101 - Prologue burned Zombie?"
+          ]
+        },
+        {
+          "id": "ShorelineApproachFerry",
+          "title": "Shoreline Approach Ferry",
+          "group": "Act II",
+          "script": "ShorelineApproachFerry",
+          "chapterId": "101_chapter3",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 101 - Did you try to end it",
+            "Episode 101 - Radio Success",
+            "Episode 101 - Prologue Decapitated Zombie?",
+            "Episode 101 - Prologue burned Zombie?"
+          ]
+        },
+        {
+          "id": "FerryExteriorDeck",
+          "title": "Ferry Exterior Deck",
+          "group": "Act II",
+          "script": "FerryExteriorDeck",
+          "chapterId": "101_chapter4",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 101 - Did you try to end it",
+            "Episode 101 - How did you enter the abandoned ferry",
+            "Episode 101 - Pete missing earring",
+            "Episode 101 - Rowboat Choice",
+            "Episode 101 - Radio Success",
+            "Episode 101 - Prologue Decapitated Zombie?",
+            "Episode 101 - Prologue burned Zombie?"
+          ]
+        },
+        {
+          "id": "FerryInteriorMainLadder",
+          "title": "Ferry Interior - Main (Ladder)",
+          "group": "Act II",
+          "script": "FerryInterior",
+          "chapterId": "101_chapter4",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "2ShorelineApproachFerry - Used Ladder To Enter",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 101 - Did you try to end it",
+            "Episode 101 - How did you enter the abandoned ferry",
+            "Episode 101 - Pete missing earring",
+            "Episode 101 - Rowboat Choice",
+            "Episode 101 - Radio Success",
+            "Episode 101 - Prologue Decapitated Zombie?",
+            "Episode 101 - Prologue burned Zombie?"
+          ]
+        },
+        {
+          "id": "FerryInteriorMainWindow",
+          "title": "Ferry Interior - Main (Window)",
+          "group": "Act II",
+          "script": "FerryInterior",
+          "chapterId": "101_chapter4",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 101 - Did you try to end it",
+            "Episode 101 - How did you enter the abandoned ferry",
+            "Episode 101 - Pete missing earring",
+            "Episode 101 - Rowboat Choice",
+            "Episode 101 - Radio Success",
+            "Episode 101 - Prologue Decapitated Zombie?",
+            "Episode 101 - Prologue burned Zombie?"
+          ]
+        },
+        {
+          "id": "FerryInteriorSnackBar",
+          "title": "Ferry Interior - Snack Bar",
+          "group": "Act II",
+          "script": "FerryInterior",
+          "chapterId": "101_chapter4",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "2FerryInterior - In Snack Bar",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 101 - Did you try to end it",
+            "Episode 101 - How did you enter the abandoned ferry",
+            "Episode 101 - Pete missing earring",
+            "Episode 101 - Rowboat Choice",
+            "Episode 101 - Radio Success",
+            "Episode 101 - Prologue Decapitated Zombie?",
+            "Episode 101 - Prologue burned Zombie?"
+          ]
+        },
+        {
+          "id": "FerryInteriorSnackBarAction",
+          "title": "Ferry Interior - Snack Bar - Action",
+          "group": "Act II",
+          "script": "FerryInterior",
+          "chapterId": "101_chapter4",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "2FerryInterior - In Snack Bar",
+              "value": true
+            },
+            {
+              "key": "Debug - Action Snack Bar",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 101 - Did you try to end it",
+            "Episode 101 - How did you enter the abandoned ferry",
+            "Episode 101 - Pete missing earring",
+            "Episode 101 - Rowboat Choice",
+            "Episode 101 - Radio Success",
+            "Episode 101 - Prologue Decapitated Zombie?",
+            "Episode 101 - Prologue burned Zombie?"
+          ]
+        },
+        {
+          "id": "TransportBoatApproach",
+          "title": "Transport Boat Approach",
+          "group": "Act II",
+          "script": "BoatTownApproach",
+          "chapterId": "101_chapter5",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 101 - Did you try to end it",
+            "Episode 101 - How did you enter the abandoned ferry",
+            "Episode 101 - Pete missing earring",
+            "Episode 101 - Rowboat Choice",
+            "Episode 101 - Radio Success",
+            "Episode 101 - Prologue Decapitated Zombie?",
+            "Episode 101 - Prologue burned Zombie?"
+          ]
+        },
+        {
+          "id": "Monroe",
+          "title": "Monroe",
+          "group": "Act II",
+          "script": "FlagshipExterior",
+          "chapterId": "101_chapter5",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 101 - Did you try to end it",
+            "Episode 101 - How did you enter the abandoned ferry",
+            "Episode 101 - Pete missing earring",
+            "Episode 101 - Rowboat Choice",
+            "Episode 101 - Radio Success",
+            "Episode 101 - Prologue Decapitated Zombie?",
+            "Episode 101 - Prologue burned Zombie?"
+          ]
+        },
+        {
+          "id": "FlagshipInteriorStoreRoom",
+          "title": "Flagship Interior - Store Room",
+          "group": "Act II",
+          "script": "FlagshipInterior",
+          "chapterId": "101_chapter6",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 101 - Did you try to end it",
+            "Episode 101 - How did you enter the abandoned ferry",
+            "Episode 101 - Pete missing earring",
+            "Episode 101 - Rowboat Choice",
+            "Episode 101 - Radio Success",
+            "Episode 101 - Prologue Decapitated Zombie?",
+            "Episode 101 - Prologue burned Zombie?"
+          ]
+        },
+        {
+          "id": "FlagShipExteriorNormaBranches",
+          "title": "FlagShip Exterior - Norma Branches",
+          "group": "Act II",
+          "script": "FlagshipExteriorNormaBranch",
+          "chapterId": "101_chapter6",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 101 - Did you try to end it",
+            "Episode 101 - How did you enter the abandoned ferry",
+            "Episode 101 - Pete missing earring",
+            "Episode 101 - Rowboat Choice",
+            "Episode 101 - Radio Success",
+            "Episode 101 - Prologue Decapitated Zombie?",
+            "Episode 101 - Prologue burned Zombie?"
+          ]
+        },
+        {
+          "id": "FlagshipExteriorDeckNorma",
+          "title": "Flagship Exterior Deck - Norma",
+          "group": "Act II",
+          "script": "FlagshipExteriorDeck",
+          "chapterId": "101_chapter6",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 101 - Did you try to end it",
+            "Episode 101 - How did you enter the abandoned ferry",
+            "Episode 101 - Pete missing earring",
+            "Episode 101 - Rowboat Choice",
+            "Episode 101 - Radio Success",
+            "Episode 101 - Prologue Decapitated Zombie?",
+            "Episode 101 - Prologue burned Zombie?"
+          ]
+        },
+        {
+          "id": "FlagShipInteriorEscape",
+          "title": "FlagShip Interior Escape",
+          "group": "Act III",
+          "script": "FlagshipInteriorEscape",
+          "chapterId": "101_chapter6",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 101 - Did you try to end it",
+            "Episode 101 - How did you enter the abandoned ferry",
+            "Episode 101 - Did you sell Greg out to Norma",
+            "Episode 101 - Michonne Hit",
+            "Episode 101 - Pete missing earring",
+            "Episode 101 - Michonne Knocked Over",
+            "Episode 101 - Rowboat Choice",
+            "Episode 101 - Radio Success",
+            "Episode 101 - Prologue Decapitated Zombie?",
+            "Episode 101 - Prologue burned Zombie?"
+          ]
+        },
+        {
+          "id": "FlagshipInteriorEscapeGregShot",
+          "title": "Flagship Interior Escape - Greg Shot",
+          "group": "Act III",
+          "script": "FlagshipInteriorEscape",
+          "chapterId": "101_chapter6",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "3FlagshipInterior - Debug Jump To Greg Shot",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 101 - Did you try to end it",
+            "Episode 101 - How did you enter the abandoned ferry",
+            "Episode 101 - Did you sell Greg out to Norma",
+            "Episode 101 - Michonne Hit",
+            "Episode 101 - Pete missing earring",
+            "Episode 101 - Michonne Knocked Over",
+            "Episode 101 - Rowboat Choice",
+            "Episode 101 - Radio Success",
+            "Episode 101 - Prologue Decapitated Zombie?",
+            "Episode 101 - Prologue burned Zombie?"
+          ]
+        },
+        {
+          "id": "FlagshipInteriorEscapeKillGreg",
+          "title": "Flagship Interior Escape - Kill Greg",
+          "group": "Act III",
+          "script": "FlagshipInteriorEscape",
+          "chapterId": "101_chapter6",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "3FlagshipInterior - Debug Jump To Kill Greg",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 101 - Did you try to end it",
+            "Episode 101 - How did you enter the abandoned ferry",
+            "Episode 101 - Did you sell Greg out to Norma",
+            "Episode 101 - Michonne Hit",
+            "Episode 101 - Pete missing earring",
+            "Episode 101 - Michonne Knocked Over",
+            "Episode 101 - Rowboat Choice",
+            "Episode 101 - Radio Success",
+            "Episode 101 - Prologue Decapitated Zombie?",
+            "Episode 101 - Prologue burned Zombie?"
+          ]
+        },
+        {
+          "id": "FlagshipExteriorEscape",
+          "title": "Flagship Exterior Escape",
+          "group": "Act III",
+          "script": "FlagshipExteriorEscape",
+          "chapterId": "101_chapter6",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 101 - Did you try to end it",
+            "Episode 101 - How did you enter the abandoned ferry",
+            "Episode 101 - Did you ambush Randall in the store room",
+            "Episode 101 - Did you sell Greg out to Norma",
+            "Episode 101 - Did you let Sam shoot Zachary",
+            "Episode 101 - Michonne Hit",
+            "Episode 101 - Pete missing earring",
+            "Episode 101 - Michonne Knocked Over",
+            "Episode 101 - Zach is Dead",
+            "Episode 101 - Which toy?",
+            "Episode 101 - Rowboat Choice",
+            "Episode 101 - Killed Greg With Weapon",
+            "Episode 101 - Punched Zach",
+            "Episode 101 - Radio Success",
+            "Episode 101 - Prologue Decapitated Zombie?",
+            "Episode 101 - Prologue burned Zombie?",
+            "Episode 101 - Weapon"
+          ]
+        },
+        {
+          "id": "BoatTownShorelineEscape",
+          "title": "Boat Town Shoreline Escape",
+          "group": "Act III",
+          "script": "BoatTownEscape",
+          "chapterId": "101_chapter6",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 101 - Did you try to end it",
+            "Episode 101 - How did you enter the abandoned ferry",
+            "Episode 101 - Did you ambush Randall in the store room",
+            "Episode 101 - Did you sell Greg out to Norma",
+            "Episode 101 - Did you let Sam shoot Zachary",
+            "Episode 101 - Michonne Hit",
+            "Episode 101 - Pete missing earring",
+            "Episode 101 - Michonne Knocked Over",
+            "Episode 101 - Zach is Dead",
+            "Episode 101 - Which toy?",
+            "Episode 101 - Rowboat Choice",
+            "Episode 101 - Killed Greg With Weapon",
+            "Episode 101 - Punched Zach",
+            "Episode 101 - Radio Success",
+            "Episode 101 - Prologue Decapitated Zombie?",
+            "Episode 101 - Prologue burned Zombie?",
+            "Episode 101 - Weapon"
+          ]
+        },
+        {
+          "id": "NextTimeOn",
+          "title": "Next Time On",
+          "group": "Act III",
+          "script": "NextTimeOn",
+          "chapterId": "101_chapter6",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 101 - Did you try to end it",
+            "Episode 101 - How did you enter the abandoned ferry",
+            "Episode 101 - Did you ambush Randall in the store room",
+            "Episode 101 - Did you sell Greg out to Norma",
+            "Episode 101 - Did you let Sam shoot Zachary",
+            "Episode 101 - Michonne Hit",
+            "Episode 101 - Pete missing earring",
+            "Episode 101 - Michonne Knocked Over",
+            "Episode 101 - Zach is Dead",
+            "Episode 101 - Which toy?",
+            "Episode 101 - Rowboat Choice",
+            "Episode 101 - Killed Greg With Weapon",
+            "Episode 101 - Punched Zach",
+            "Episode 101 - Radio Success",
+            "Episode 101 - Prologue Decapitated Zombie?",
+            "Episode 101 - Prologue burned Zombie?",
+            "Episode 101 - Weapon"
+          ]
+        }
+      ]
+    },
+    {
+      "episode": 2,
+      "chapters": [
+        {
+          "id": "PreviouslyOn",
+          "title": "Previously On",
+          "group": "Act I",
+          "script": "PreviouslyOn",
+          "chapterId": "102_chapter1",
+          "startsEpisode": true,
+          "flags": [],
+          "decided": []
+        },
+        {
+          "id": "FlagShipInteriorEscape",
+          "title": "FlagShip Interior Escape",
+          "group": "Act I",
+          "script": "FlagshipInteriorEscape",
+          "chapterId": "102_chapter1",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": []
+        },
+        {
+          "id": "FlagShipExteriorEscape",
+          "title": "FlagShip Exterior Escape",
+          "group": "Act I",
+          "script": "FlagshipExteriorEscape",
+          "chapterId": "102_chapter1",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": []
+        },
+        {
+          "id": "FlagShipExteriorEscapePostNormaRandall",
+          "title": "FlagShip Exterior Escape - Post Norma/Randall",
+          "group": "Act I",
+          "script": "FlagshipExteriorEscape",
+          "chapterId": "102_chapter1",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "1FlagShipExterior - Beat Norma And Randall",
+              "value": true
+            }
+          ],
+          "decided": []
+        },
+        {
+          "id": "Credits",
+          "title": "Credits",
+          "group": "Act I",
+          "script": "OpeningCredits102",
+          "chapterId": "102_chapter1",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 102 - Did you keep Pete with you, or let him go off on his own"
+          ]
+        },
+        {
+          "id": "BoatTownEscape",
+          "title": "Boat Town Escape",
+          "group": "Act I",
+          "script": "ShorelineApproachWoods",
+          "chapterId": "102_chapter1",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 102 - Did you keep Pete with you, or let him go off on his own"
+          ]
+        },
+        {
+          "id": "ShorelineApproachFerryWoods",
+          "title": "Shoreline Approach Ferry - Woods",
+          "group": "Act I",
+          "script": "ShorelineApproachWoods",
+          "chapterId": "102_chapter1",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "1ShorelineApproachWoods - Skip to Ferry",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 102 - Did you keep Pete with you, or let him go off on his own"
+          ]
+        },
+        {
+          "id": "WoodsTower",
+          "title": "Woods Tower",
+          "group": "Act I",
+          "script": "WoodsTower",
+          "chapterId": "102_chapter3",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 102 - Did you keep Pete with you, or let him go off on his own",
+            "Episode 102 - Told Sam About Seeing Michonne Kids"
+          ]
+        },
+        {
+          "id": "JohnsHouseWoodsTile",
+          "title": "John\u0027s House Woods - Tile",
+          "group": "Act II",
+          "script": "JohnsHouseWoodsTile",
+          "chapterId": "102_chapter4",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 102 - Did you keep Pete with you, or let him go off on his own",
+            "Episode 102 - Told Sam About Seeing Michonne Kids"
+          ]
+        },
+        {
+          "id": "JohnsHouseExteriorWall",
+          "title": "John\u0027s House Exterior - Wall",
+          "group": "Act II",
+          "script": "JohnsHouseExteriorLateNight",
+          "chapterId": "102_chapter4",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 102 - Did you keep Pete with you, or let him go off on his own",
+            "Episode 102 - Told Sam About Seeing Michonne Kids"
+          ]
+        },
+        {
+          "id": "JohnsHouseInteriorIntro",
+          "title": "John\u0027s House Interior -Intro",
+          "group": "Act II",
+          "script": "JohnsHouseInteriorMain",
+          "chapterId": "102_chapter5",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 102 - Did you keep Pete with you, or let him go off on his own",
+            "Episode 102 - Told Sam About Seeing Michonne Kids"
+          ]
+        },
+        {
+          "id": "JohnsHouseInteriorFlashback",
+          "title": "John\u0027s House Interior - Flashback",
+          "group": "Act II",
+          "script": "JohnsHouseInteriorMain",
+          "chapterId": "102_chapter6",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "2JohnHouseInterior - bEnteredApartment?",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 102 - Did you keep Pete with you, or let him go off on his own",
+            "Episode 102 - Told Sam About Seeing Michonne Kids"
+          ]
+        },
+        {
+          "id": "JohnsHouseInteriorPaige",
+          "title": "John\u0027s House Interior - Paige",
+          "group": "Act II",
+          "script": "JohnsHouseInteriorMain",
+          "chapterId": "102_chapter6",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "2JohnHouseInterior - bLeftApartment?",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 102 - Did you keep Pete with you, or let him go off on his own",
+            "Episode 102 - Told Sam About Seeing Michonne Kids"
+          ]
+        },
+        {
+          "id": "JohnsHouseExteriorIntruder",
+          "title": "John\u0027s House Exterior - Intruder",
+          "group": "Act II",
+          "script": "JohnsHouseExteriorLateNight",
+          "chapterId": "102_chapter6",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "2JohnsHouseExteriorLawn - Intruder",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 102 - Did you keep Pete with you, or let him go off on his own",
+            "Episode 102 - Did you pick up the phone or go after the footsteps in the hallway",
+            "Episode 102 - Did you reveal to Paige that you nearly committed suicide",
+            "Episode 102 - Told Sam About Seeing Michonne Kids"
+          ]
+        },
+        {
+          "id": "JohnsHouseExteriorFlareFight",
+          "title": "John\u0027s House Exterior - Flare Fight",
+          "group": "Act II",
+          "script": "JohnsHouseExteriorLateNight",
+          "chapterId": "102_chapter6",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "2JohnsHouseExteriorLawn - Intruder",
+              "value": true
+            },
+            {
+              "key": "2JohnsHouseInteriorMain -  flare guy first?",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 102 - Did you keep Pete with you, or let him go off on his own",
+            "Episode 102 - Did you pick up the phone or go after the footsteps in the hallway",
+            "Episode 102 - Did you reveal to Paige that you nearly committed suicide",
+            "Episode 102 - Told Sam About Seeing Michonne Kids"
+          ]
+        },
+        {
+          "id": "JohnsHouseExteriorShotgunFight",
+          "title": "John\u0027s House Exterior - Shotgun Fight",
+          "group": "Act II",
+          "script": "JohnsHouseExteriorLateNight",
+          "chapterId": "102_chapter6",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "2JohnsHouseExteriorLawn - Intruder",
+              "value": true
+            },
+            {
+              "key": "2JohnsHouseInteriorMain -  shotgun guy first?",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 102 - Did you keep Pete with you, or let him go off on his own",
+            "Episode 102 - Did you pick up the phone or go after the footsteps in the hallway",
+            "Episode 102 - Did you reveal to Paige that you nearly committed suicide",
+            "Episode 102 - Told Sam About Seeing Michonne Kids"
+          ]
+        },
+        {
+          "id": "JohnsHouseExteriorGarageFight",
+          "title": "John\u0027s House Exterior - Garage Fight",
+          "group": "Act III",
+          "script": "JohnsHouseExteriorLateNight",
+          "chapterId": "102_chapter6",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "3JohnsHouseExteriorLawn -  Garage Fight",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 102 - Did you keep Pete with you, or let him go off on his own",
+            "Episode 102 - Did you pick up the phone or go after the footsteps in the hallway",
+            "Episode 102 - Did you reveal to Paige that you nearly committed suicide",
+            "Episode 102 - Told Sam About Seeing Michonne Kids"
+          ]
+        },
+        {
+          "id": "JohnsHouseExteriorRandall",
+          "title": "John\u0027s House Exterior - Randall",
+          "group": "Act III",
+          "script": "JohnsHouseExteriorLateNight",
+          "chapterId": "102_chapter6",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "2JohnsHouseInteriorMain -  Randall",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 102 - Did you keep Pete with you, or let him go off on his own",
+            "Episode 102 - Did you pick up the phone or go after the footsteps in the hallway",
+            "Episode 102 - Did you reveal to Paige that you nearly committed suicide",
+            "Episode 102 - Told Sam About Seeing Michonne Kids"
+          ]
+        },
+        {
+          "id": "NextTimeOn",
+          "title": "Next Time On",
+          "group": "Act III",
+          "script": "NextTimeOn",
+          "chapterId": "102_chapter6",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 102 - Did you keep Pete with you, or let him go off on his own",
+            "Episode 102 - Did you pick up the phone or go after the footsteps in the hallway",
+            "Episode 102 - Did you reveal to Paige that you nearly committed suicide",
+            "Episode 102 - Told Sam About Seeing Michonne Kids"
+          ]
+        }
+      ]
+    },
+    {
+      "episode": 3,
+      "chapters": [
+        {
+          "id": "PreviouslyOn",
+          "title": "Previously On",
+          "group": "Act I",
+          "script": "PreviouslyOn",
+          "chapterId": "103_chapter1",
+          "startsEpisode": true,
+          "flags": [],
+          "decided": []
+        },
+        {
+          "id": "PeteBoatPrologue",
+          "title": "Pete Boat Prologue",
+          "group": "Act I",
+          "script": "PeteBoatPrologue",
+          "chapterId": "103_chapter1",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "1JohnsHouseInteriorMain - Randall Not Yet A Zombie",
+              "value": true
+            }
+          ],
+          "decided": []
+        },
+        {
+          "id": "JohnsHouseGarage",
+          "title": "Johns House Garage",
+          "group": "Act I",
+          "script": "JohnsHouseGarage",
+          "chapterId": "103_chapter2",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "1JohnsHouseInteriorMain - Randall Not Yet A Zombie",
+              "value": true
+            }
+          ],
+          "decided": []
+        },
+        {
+          "id": "OpeningCredits",
+          "title": "Opening Credits",
+          "group": "Act I",
+          "script": "OpeningCredits103",
+          "chapterId": "103_chapter2",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "1JohnsHouseInteriorMain - Randall Not Yet A Zombie",
+              "value": false
+            },
+            {
+              "key": "1JohnsHouseInteriorMain - Burial",
+              "value": true
+            }
+          ],
+          "decided": []
+        },
+        {
+          "id": "JohnsHouseInteriorBurial",
+          "title": "Johns House Interior Burial",
+          "group": "Act I",
+          "script": "JohnsHouseInteriorMain103",
+          "chapterId": "103_chapter3",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "1JohnsHouseInteriorMain - Burial",
+              "value": true
+            },
+            {
+              "key": "1JohnsHouseInteriorMain - Randall Not Yet A Zombie",
+              "value": false
+            }
+          ],
+          "decided": []
+        },
+        {
+          "id": "JohnsHouseInteriorFreewalk",
+          "title": "Johns House Interior Freewalk",
+          "group": "Act I",
+          "script": "JohnsHouseInteriorMain103",
+          "chapterId": "103_chapter4",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "1JohnsHouseInteriorMainFreewalk - Turn Sams Shirt Blue?",
+              "value": true
+            }
+          ],
+          "decided": []
+        },
+        {
+          "id": "JohnsHouseInteriorUpstairsFreewalk",
+          "title": "Johns House Interior Upstairs Freewalk",
+          "group": "Act I",
+          "script": "JohnsHouseInteriorUpstairs103",
+          "chapterId": "103_chapter4",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": []
+        },
+        {
+          "id": "JohnsHouseInteriorFuneral",
+          "title": "Johns House Interior Funeral",
+          "group": "Act II",
+          "script": "JohnsHouseInteriorMain103",
+          "chapterId": "103_chapter4",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "1JohnsHouseInteriorMain - Funeral",
+              "value": true
+            },
+            {
+              "key": "1JohnsHouseInteriorMainFreewalk - Turn Sams Shirt Blue?",
+              "value": true
+            }
+          ],
+          "decided": []
+        },
+        {
+          "id": "JohnsHouseExteriorLawnNegotiate",
+          "title": "Johns House Exterior Lawn - Negotiate",
+          "group": "Act II",
+          "script": "JohnsHouseExteriorLawn_Negotiate",
+          "chapterId": "103_chapter5",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "1JohnsHouseInteriorMainFreewalk - Turn Sams Shirt Blue?",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 103 - Did you let Sam bury her father"
+          ]
+        },
+        {
+          "id": "JohnsHouseExteriorLawnRetreat",
+          "title": "Johns House Exterior Lawn - Retreat",
+          "group": "Act II",
+          "script": "JohnsHouseExteriorLawn_Retreat",
+          "chapterId": "103_chapter6",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "1JohnsHouseInteriorMainFreewalk - Turn Sams Shirt Blue?",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 103 - Did you let Sam bury her father",
+            "Episode 103 - Did you hand Randall over to Norma"
+          ]
+        },
+        {
+          "id": "JohnsHouseIntDownstairsMolotov",
+          "title": "Johns House Int Downstairs - Molotov",
+          "group": "Act III",
+          "script": "JohnsHouseInteriorMainFire103",
+          "chapterId": "103_chapter6",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "1JohnsHouseInteriorMainFreewalk - Turn Sams Shirt Blue?",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 103 - Did you let Sam bury her father",
+            "Episode 103 - Did you hand Randall over to Norma",
+            "Episode 103 - Did you put Norma out of her misery"
+          ]
+        },
+        {
+          "id": "JohnsHouseIntUpstairsDaugthers",
+          "title": "Johns House Int Upstairs - Daugthers",
+          "group": "Act III",
+          "script": "JohnsHouseInteriorUpstairs_Daughters",
+          "chapterId": "103_chapter6",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "1JohnsHouseInteriorMainFreewalk - Turn Sams Shirt Blue?",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 103 - Did you let Sam bury her father",
+            "Episode 103 - Did you hand Randall over to Norma",
+            "Episode 103 - Did you put Norma out of her misery"
+          ]
+        },
+        {
+          "id": "JohnsHouseIntUpstairsSaveKids",
+          "title": "Johns House Int Upstairs - Save Kids",
+          "group": "Act III",
+          "script": "JohnsHouseInteriorUpstairs_SaveKids",
+          "chapterId": "103_chapter6",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "1JohnsHouseInteriorMainFreewalk - Turn Sams Shirt Blue?",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 103 - Did you let Sam bury her father",
+            "Episode 103 - Did you hand Randall over to Norma",
+            "Episode 103 - Did you put Norma out of her misery"
+          ]
+        },
+        {
+          "id": "Epilogue",
+          "title": "Epilogue",
+          "group": "Act III",
+          "script": "Epilogue",
+          "chapterId": "103_chapter6",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "1JohnsHouseInteriorMainFreewalk - Turn Sams Shirt Blue?",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 103 - Did you let Sam bury her father",
+            "Episode 103 - Did you hand Randall over to Norma",
+            "Episode 103 - Did you put Norma out of her misery",
+            "Episode 103 - Did you choose to leave your daughters or stay with them"
+          ]
+        }
+      ]
+    }
+  ]
+}

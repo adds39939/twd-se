@@ -3,9 +3,9 @@ using TwdSaveEditor.Core.Hashing;
 using TwdSaveEditor.Core.Model;
 using TwdSaveEditor.Season.Base.DialogLog;
 
-namespace TwdSaveEditor.Season.S3.Saves;
+namespace TwdSaveEditor.Season.Base.Story;
 
-public sealed class S3EventLog(SaveSlot slot)
+public sealed class StoryEventLog(SaveSlot slot, StorySeason season)
 {
     public static readonly ulong PreviousGameBegin = TelltaleHash.ComputeCrc64("Previous Game Data Begin");
     public static readonly ulong PreviousGameEnd = TelltaleHash.ComputeCrc64("Previous Game Data End");
@@ -17,10 +17,10 @@ public sealed class S3EventLog(SaveSlot slot)
 
     public bool HasPreviousGameData => _editor.Exists && _editor.FindFirst(entry => entry.Has(PreviousGameBegin)) != null;
 
-    public void EnsurePreviousGameData()
+    public void Prepare()
     {
         slot.EventLog ??= DialogLogFiles.NewLog(slot.FileName);
-        if (HasPreviousGameData)
+        if (!season.PreviousGameData || HasPreviousGameData)
             return;
 
         if (_editor.FindFirst(_ => true) == null)
@@ -59,7 +59,7 @@ public sealed class S3EventLog(SaveSlot slot)
 
     public void ReplacePreviousGameData(IEnumerable<ulong> nodes)
     {
-        EnsurePreviousGameData();
+        Prepare();
         var inside = false;
         var old = new HashSet<ulong>();
         foreach (var entry in _editor.Log.Events)
@@ -78,14 +78,15 @@ public sealed class S3EventLog(SaveSlot slot)
             [.. nodes.Distinct().Select(node => (Func<uint, EventLogEvent>)(id => EventLogEvent.ForDialogNode(id, node)))]);
     }
 
-    public void TruncateFromEpisode(int episode) =>
-        TruncateAt(_editor.FindFirst(entry => entry.Number(EventLogEventTypes.BeginEpisode) >= episode));
+    public void TruncateFromEpisode(int episode)
+    {
+        if (_editor.FindFirst(entry => entry.Number(EventLogEventTypes.BeginEpisode) >= episode) is { } position)
+            _editor.TruncateFrom(position);
+    }
 
     public void FinishEpisode(int episode)
     {
-        if (_editor.FindFirst(entry => entry.Number(EventLogEventTypes.BeginEpisode) == episode) == null)
-            _editor.Append(id => EventLogEvent.ForNumber(id, EventLogEventTypes.BeginEpisode, episode));
-
+        BeginEpisode(episode);
         if (_editor.FindFirst(entry => entry.Number(EventLogEventTypes.EndEpisode) == episode) == null)
             _editor.Append(id => EventLogEvent.ForNumber(id, EventLogEventTypes.EndEpisode, episode));
     }
@@ -98,20 +99,11 @@ public sealed class S3EventLog(SaveSlot slot)
 
     public void AppendSaveSerial(int serial) => _editor.Append(id => EventLogEvent.ForSaveSerial(id, serial));
 
-    public int LastFinishedEpisode() =>
-        !_editor.Exists ? 0 : (int)(_editor.Log.Events.LastOrDefault(entry => entry.Has(EventLogEventTypes.EndEpisode))?.Number(EventLogEventTypes.EndEpisode) ?? 0);
-
-    private void TruncateAt((EventLogPage Page, int Index)? position)
-    {
-        if (position != null)
-            _editor.TruncateFrom(position);
-    }
-
     private (EventLogPage Page, int Index)? Anchor(int episode)
     {
         if (episode <= 0)
         {
-            EnsurePreviousGameData();
+            Prepare();
             return _editor.FindFirst(entry => entry.Has(PreviousGameEnd));
         }
 

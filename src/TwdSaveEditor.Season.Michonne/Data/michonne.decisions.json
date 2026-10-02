@@ -1,0 +1,1071 @@
+{
+  "decisions": [
+    {
+      "choiceKey": "Episode 101 - Did you try to end it",
+      "episode": 1,
+      "options": [
+        {
+          "value": "pulled_the_trigger",
+          "expression": "BFAF9499-8B31-4C25-AC17-876161F6B3AD"
+        },
+        {
+          "value": "lowered_the_gun",
+          "expression": "B4310B72-8435-4F62-9F56-473403B0BEB2"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 101 - How did you enter the abandoned ferry",
+      "episode": 1,
+      "options": [
+        {
+          "value": "climbed_the_ladder",
+          "expression": "8E51571A-EFD1-465C-AA66-FB0B4A168C80"
+        },
+        {
+          "value": "went_in_through_the_window",
+          "expression": "E6384271-CCAC-4A67-AA32-04D89E236A99"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 101 - Did you ambush Randall in the store room",
+      "episode": 1,
+      "options": [
+        {
+          "value": "head_butted_randall",
+          "expression": "16CB7424-EB64-4389-A508-916A54EC6A4F"
+        },
+        {
+          "value": "played_it_cool",
+          "expression": "49209B47-B181-4F94-9708-9D78360E549F"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 101 - Did you sell Greg out to Norma",
+      "episode": 1,
+      "options": [
+        {
+          "value": "told_norma_greg_was_a",
+          "expression": "C9DDB72B-2F35-4D49-9B40-52F169579299"
+        },
+        {
+          "value": "took_the_blame",
+          "expression": "8AA59B5E-5C0F-4534-BC19-2749EC9B2158 | 26CC3FC0-ECEC-4091-B64F-CC897284A564"
+        },
+        {
+          "value": "shared_the_blame_with_greg",
+          "expression": "514A197E-92FA-4266-858F-198376A52341"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 101 - Did you let Sam shoot Zachary",
+      "episode": 1,
+      "options": [
+        {
+          "value": "let_sam_take_her_revenge",
+          "expression": "007AF1BB-9B39-4D94-BCC6-F86712C13DF6"
+        },
+        {
+          "value": "tried_to_save_zachary",
+          "expression": "3AB7341A-F929-4266-A349-477FFBDF51A2"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 101 - Michonne Hit",
+      "episode": 1,
+      "options": [
+        {
+          "value": "true",
+          "expression": "244E4C73-B0EE-4F42-9F16-51872BCD8528 | 4B814FFA-602C-479B-9B73-0D157E8330FF | 90A4EFBD-338B-4D69-9A26-40A5E57A492A | 8C35BC37-A3A7-4F79-BCA5-9867A1F33B40 | 972AB7DE-1BC3-4527-8161-50221E6A9A66 | 4BE5C657-08BC-4392-94A0-D946230419E7 | 418A2CFE-F6E7-47FD-81C6-D7D5D77FBCBB"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 101 - Pete missing earring",
+      "episode": 1,
+      "options": [
+        {
+          "value": "true",
+          "expression": "BEFB4E4E-0783-4170-8F34-DCEB4922A06B | 039A5920-C19F-4959-96D6-09066CDE9F6C"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 101 - Michonne Knocked Over",
+      "episode": 1,
+      "options": [
+        {
+          "value": "true",
+          "expression": "39DCF8A4-410F-4B42-9F41-8C1ACCD216D8"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 101 - Zach is Dead",
+      "episode": 1,
+      "options": [
+        {
+          "value": "true",
+          "expression": "007AF1BB-9B39-4D94-BCC6-F86712C13DF6 | DE8F83A3-AC44-4CA5-95FE-D952585FD4DB"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 101 - Told Jonas about Zac",
+      "episode": 1,
+      "options": [
+        {
+          "value": "dead",
+          "expression": "24EA7C5A-60AA-481D-AD47-BA725AFE5FD9"
+        },
+        {
+          "value": "downstairs",
+          "expression": "8ACF52CF-CABB-4D62-BA90-4BA3F995A7BC"
+        },
+        {
+          "value": "looking",
+          "expression": "897155B3-4AD3-4D20-ADE7-82D80CE90948"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 101 - Which toy?",
+      "episode": 1,
+      "options": [
+        {
+          "value": "dinosaur",
+          "expression": "180E57AA-3216-454B-8B2C-70408E061351"
+        },
+        {
+          "value": "robot",
+          "expression": "27BD3B7E-89AA-461C-A77F-7CD642E41DE3"
+        },
+        {
+          "value": "teddybear",
+          "expression": "2BF76055-643F-4F5E-B895-A0989419D6C3"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 101 - Norma Answer",
+      "episode": 1,
+      "options": [
+        {
+          "value": "area",
+          "expression": "993A794B-4783-4C17-AB66-05FFD7D2E9C6"
+        },
+        {
+          "value": "boat",
+          "expression": "88CE09ED-B3D4-4D4A-8D15-561B73391D2C"
+        },
+        {
+          "value": "radio",
+          "expression": "346DAD1F-AA18-43AD-AFCE-945D47A6AF56"
+        },
+        {
+          "value": "silence2",
+          "expression": "206A2D08-C3A4-425D-B3E5-345E63600195"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 101 - Rowboat Choice",
+      "episode": 1,
+      "options": [
+        {
+          "value": "getrid",
+          "expression": "9E587727-0C3E-4128-AB66-9725A5017569"
+        },
+        {
+          "value": "likeyouguys",
+          "expression": "433DC917-162B-47B0-8024-93731717DDFE"
+        },
+        {
+          "value": "stickaround",
+          "expression": "C91C1336-9A29-4513-90B7-44C0A200FC85"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 101 - Killed Greg With Weapon",
+      "episode": 1,
+      "options": [
+        {
+          "value": "pipe",
+          "expression": "447351B0-5E20-4994-A9D4-3EA737FEC085"
+        },
+        {
+          "value": "screwdriver",
+          "expression": "88B69BE0-E5C9-4D04-B6CC-0B6F1C733304"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 101 - Punched Zach",
+      "episode": 1,
+      "options": [
+        {
+          "value": "true",
+          "expression": "05E7D608-A650-457E-B3DF-A469D2BF8E7C&~1C4E871F-DA51-4E96-AE7A-A942D9E8EE44"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 101 - Radio Success",
+      "episode": 1,
+      "options": [
+        {
+          "value": "true",
+          "expression": "076B4829-6427-40EA-9FC5-C910E28195DB"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 101 - Prologue Decapitated Zombie?",
+      "episode": 1,
+      "options": [
+        {
+          "value": "true",
+          "expression": "5A160896-96B7-49D8-97D5-DB5A9384D412"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 101 - Prologue burned Zombie?",
+      "episode": 1,
+      "options": [
+        {
+          "value": "true",
+          "expression": "B4049128-4F1B-4070-9361-C939FEADD979"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 101 - Weapon",
+      "episode": 1,
+      "options": [
+        {
+          "value": "pipe",
+          "expression": "447351B0-5E20-4994-A9D4-3EA737FEC085"
+        },
+        {
+          "value": "screwdriver",
+          "expression": "88B69BE0-E5C9-4D04-B6CC-0B6F1C733304"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 102 - Did you keep Pete with you, or let him go off on his own",
+      "episode": 2,
+      "options": [
+        {
+          "value": "stopped_pete",
+          "expression": "A334D000-DDC5-431C-BE81-E5C9197C61C8"
+        },
+        {
+          "value": "let_pete_go",
+          "expression": "B89F8C1A-748E-40A5-B1AA-1BC6EF5CA910"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 102 - Did you pick up the phone or go after the footsteps in the hallway",
+      "episode": 2,
+      "options": [
+        {
+          "value": "picked_up_the_phone",
+          "expression": "507F2CEF-BF23-4767-A130-F00C6E82F0AB"
+        },
+        {
+          "value": "went_to_see_who_or",
+          "expression": "CE5585EA-0FA6-421C-ADDE-3701E8F8BFA3 | 324463CC-AF45-4445-9856-4D9664429DB8"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 102 - Did you reveal to Paige that you nearly committed suicide",
+      "episode": 2,
+      "options": [
+        {
+          "value": "disclosed_your_darkest_moment",
+          "expression": "7A3E6A4C-9710-417A-B244-D5A7F912D3DE"
+        },
+        {
+          "value": "tried_to_offer_some_good",
+          "expression": "EA2D1274-9FBA-4DE2-ADA8-E3C89AD1506E | 17ACB3FB-686E-4F59-B06E-E79682E2BEE3"
+        },
+        {
+          "value": "expressed_sympathy_for_the_kids",
+          "expression": "C58DCD3F-A1E3-4E84-AFEF-BBFC77B0207D"
+        },
+        {
+          "value": "remained_silent_about_it",
+          "expression": "BD4CD905-2C29-43E7-B038-D42E6D6596BC"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 102 - How did you handle the radio call from Norma",
+      "episode": 2,
+      "options": [
+        {
+          "value": "picked_up_the_radio_and",
+          "expression": "FEBA1DFC-42E6-4E70-9210-659E5EFC4C00"
+        },
+        {
+          "value": "chose_to_make_randall_speak",
+          "expression": "B69239AE-6A3A-4A3E-98C3-E20E88242F0E"
+        },
+        {
+          "value": "chose_to_ignore_the_radio",
+          "expression": "47DE1BBC-D4FA-4699-8C9D-654A19FA1245 | E5DF1A51-7575-472D-B742-4327125B5093"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 102 - What did you do to Randall",
+      "episode": 2,
+      "options": [
+        {
+          "value": "bashed_randall_s_head_in",
+          "expression": "0DA4CC9C-0414-4F8F-9F9D-7403978C7F3D | 7A6B2C04-CB45-4F80-B36D-EF8EC8202041"
+        },
+        {
+          "value": "showed_him_mercy",
+          "expression": "8D70FBE3-F855-42F7-86F4-7C800F9F0732"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 102 - If you said 'I hope you have a good doctor' or 'I hurt him'",
+      "episode": 2,
+      "options": [
+        {
+          "value": "true",
+          "expression": "0EADA99E-218B-4624-9A7D-7AD5E15DF7B5 | D6B5476F-6F0E-410E-911D-A36D700C6CB6"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 102 - Tightened Vice On Randall Hands Twice",
+      "episode": 2,
+      "options": [
+        {
+          "value": "true",
+          "expression": "99282FFC-213E-4AC6-9BBC-E58585949A4D | 300A5619-2636-4ED4-A93F-3EF61148E254 | 0B21E4A8-394C-4849-B6D1-0F3D1671E226"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 102 - Told Sam About Seeing Michonne Kids",
+      "episode": 2,
+      "options": [
+        {
+          "value": "true",
+          "expression": "1C51EE6F-373F-4D62-882A-22E97E177F14"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 102 - Said 'He's fine'",
+      "episode": 2,
+      "options": [
+        {
+          "value": "true",
+          "expression": "68936B27-E347-4CEA-9AF7-C1780A693F67"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 102 - Tightened Vice On Randall Hands Once",
+      "episode": 2,
+      "options": [
+        {
+          "value": "true",
+          "expression": "BDB6C92E-E7A8-4FE4-8B5C-54E06ADD908E | 51CBC37F-133E-4C51-8E6E-EBF35A01F0F3 | 69061ED6-480C-4499-B3E5-D370083AE24F | C4313385-AF93-4FA1-947D-C293104866D2"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 102 - Hit Randall With Wrench Once But Didn't Kill Him?",
+      "episode": 2,
+      "options": [
+        {
+          "value": "true",
+          "expression": "E45D8393-99A3-48C4-A6C5-035DBA9D6FF6"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 102 - What Did You Say To Norma About Hurting Randall",
+      "episode": 2,
+      "options": [
+        {
+          "value": "deserved",
+          "expression": "27A8856D-268A-4050-A651-A447793A9933"
+        },
+        {
+          "value": "fine",
+          "expression": "C6DC9042-2F37-40BE-A765-2E70379A540C"
+        },
+        {
+          "value": "silence",
+          "expression": "F0879B01-50B3-480F-A341-B6D9B84CEC6C"
+        },
+        {
+          "value": "suredid",
+          "expression": "D6B5476F-6F0E-410E-911D-A36D700C6CB6"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 103 - Did you let Sam bury her father",
+      "episode": 3,
+      "options": [
+        {
+          "value": "helped_sam_move_her_father",
+          "expression": "685515CD-32DA-4C50-BD48-6CB08444B8FE"
+        },
+        {
+          "value": "didn_t_help_sam_bury",
+          "expression": "B2B156E3-FFAE-4CB8-8C02-70DEA42F4EBE | 5D6471A4-D18C-44A3-994F-A6080EA3FED6"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 103 - Did you tell Alex what happened to his father",
+      "episode": 3,
+      "options": [
+        {
+          "value": "told_alex_his_father_was",
+          "expression": "914F6634-0411-4FF1-833D-953A3E48356A"
+        },
+        {
+          "value": "told_alex_a_bad_man",
+          "expression": "C7925E58-E47C-4159-A432-E5F73D954D4B"
+        },
+        {
+          "value": "told_alex_his_father_couldn",
+          "expression": "A2ACEF40-7AF4-47D5-B5EE-0E7ABC04CAC0"
+        },
+        {
+          "value": "stayed_silent_when_alex_asked",
+          "expression": "D8403477-ED6E-49D8-9FF1-8C510CB7CE91"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 103 - Did you hand Randall over to Norma",
+      "episode": 3,
+      "options": [
+        {
+          "value": "decided_to_hand_randall_over",
+          "expression": "4EE63C10-713B-4FFB-B7D3-C270A7E62B5E | 3EC437A4-4E51-4178-B5B2-CAB3008590CA"
+        },
+        {
+          "value": "did_not_hand_randall_over",
+          "expression": "A787E318-7E1C-4107-B356-A413340D58BF | 686CB734-1627-4105-BE27-8161588FFF58"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 103 - Did you put Norma out of her misery",
+      "episode": 3,
+      "options": [
+        {
+          "value": "shot_norma_to_put_her",
+          "expression": "317F8C18-5D56-443A-A794-1B4FC1256B99"
+        },
+        {
+          "value": "let_norma_get_killed_by",
+          "expression": "0C855EF1-9E42-4E6F-B6E5-BFE6D64E3BAD"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 103 - Did you choose to leave your daughters or stay with them",
+      "episode": 3,
+      "options": [
+        {
+          "value": "chose_to_stay_with_your",
+          "expression": "7C97D402-B452-4F31-803B-165964D31B17 | 1892EB16-D2A3-4F78-B2BD-3209FC2C7343"
+        },
+        {
+          "value": "chose_to_leave_your_daughters",
+          "expression": "38E03171-5D18-4C77-8D5E-310366B27BAF"
+        }
+      ]
+    }
+  ],
+  "logicKeys": [
+    {
+      "key": "Episode 102 - If you said 'I hope you have a good doctor' or 'I hurt him'",
+      "readFrom": 3,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "0EADA99E-218B-4624-9A7D-7AD5E15DF7B5 | D6B5476F-6F0E-410E-911D-A36D700C6CB6"
+        }
+      ]
+    },
+    {
+      "key": "Episode 101 - Michonne Hit",
+      "readFrom": 3,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "244E4C73-B0EE-4F42-9F16-51872BCD8528 | 4B814FFA-602C-479B-9B73-0D157E8330FF | 90A4EFBD-338B-4D69-9A26-40A5E57A492A | 8C35BC37-A3A7-4F79-BCA5-9867A1F33B40 | 972AB7DE-1BC3-4527-8161-50221E6A9A66 | 4BE5C657-08BC-4392-94A0-D946230419E7 | 418A2CFE-F6E7-47FD-81C6-D7D5D77FBCBB"
+        }
+      ]
+    },
+    {
+      "key": "Episode 101 - Pete missing earring",
+      "readFrom": 3,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "BEFB4E4E-0783-4170-8F34-DCEB4922A06B | 039A5920-C19F-4959-96D6-09066CDE9F6C"
+        }
+      ]
+    },
+    {
+      "key": "Episode 102 - Tightened Vice On Randall Hands Twice",
+      "readFrom": 3,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "99282FFC-213E-4AC6-9BBC-E58585949A4D | 300A5619-2636-4ED4-A93F-3EF61148E254 | 0B21E4A8-394C-4849-B6D1-0F3D1671E226"
+        }
+      ]
+    },
+    {
+      "key": "Episode 102 - Ignored Walkie Talkie?",
+      "readFrom": 3,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "47DE1BBC-D4FA-4699-8C9D-654A19FA1245 | E5DF1A51-7575-472D-B742-4327125B5093"
+        }
+      ]
+    },
+    {
+      "key": "Episode 101 - Tried to Disarm Sam",
+      "readFrom": 3,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "3AB7341A-F929-4266-A349-477FFBDF51A2"
+        }
+      ]
+    },
+    {
+      "key": "Episode 102 - Told Sam About Seeing Michonne Kids",
+      "readFrom": 3,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "1C51EE6F-373F-4D62-882A-22E97E177F14"
+        }
+      ]
+    },
+    {
+      "key": "Episode 102 - Took Pete",
+      "readFrom": 3,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "A334D000-DDC5-431C-BE81-E5C9197C61C8"
+        }
+      ]
+    },
+    {
+      "key": "Episode 102 - Hit Randall With Wrench Twice?",
+      "readFrom": 3,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "7A6B2C04-CB45-4F80-B36D-EF8EC8202041"
+        }
+      ]
+    },
+    {
+      "key": "Episode 102 - Said 'He's fine'",
+      "readFrom": 3,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "68936B27-E347-4CEA-9AF7-C1780A693F67"
+        }
+      ]
+    },
+    {
+      "key": "Episode 101 - Michonne Knocked Over",
+      "readFrom": 3,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "39DCF8A4-410F-4B42-9F41-8C1ACCD216D8"
+        }
+      ]
+    },
+    {
+      "key": "Episode 102 - Tightened Vice On Randall Hands Once",
+      "readFrom": 3,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "BDB6C92E-E7A8-4FE4-8B5C-54E06ADD908E | 51CBC37F-133E-4C51-8E6E-EBF35A01F0F3 | 69061ED6-480C-4499-B3E5-D370083AE24F | C4313385-AF93-4FA1-947D-C293104866D2"
+        }
+      ]
+    },
+    {
+      "key": "Episode 102 - Randall is Dead",
+      "readFrom": 3,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "0DA4CC9C-0414-4F8F-9F9D-7403978C7F3D | 7A6B2C04-CB45-4F80-B36D-EF8EC8202041"
+        }
+      ]
+    },
+    {
+      "key": "Episode 102 - Answered Phone",
+      "readFrom": 3,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "507F2CEF-BF23-4767-A130-F00C6E82F0AB"
+        }
+      ]
+    },
+    {
+      "key": "Episode 102 - Hit Randall With Wrench Once But Didn't Kill Him?",
+      "readFrom": 3,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "E45D8393-99A3-48C4-A6C5-035DBA9D6FF6"
+        }
+      ]
+    },
+    {
+      "key": "Episode 101 - Greg Zombified",
+      "readFrom": 3,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "f"
+        }
+      ]
+    },
+    {
+      "key": "Episode 101 - Zach is Dead",
+      "readFrom": 3,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "08617209-9307-4B1B-A5FB-4CBD2632EF0E"
+        }
+      ]
+    },
+    {
+      "key": "Episode 101 - Entered Ferry Through Window?",
+      "readFrom": 3,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "E6384271-CCAC-4A67-AA32-04D89E236A99"
+        }
+      ]
+    },
+    {
+      "key": "Episode 101 - Told Jonas about Zac",
+      "readFrom": 3,
+      "text": true,
+      "values": [
+        {
+          "value": "dead",
+          "expression": "24EA7C5A-60AA-481D-AD47-BA725AFE5FD9"
+        },
+        {
+          "value": "downstairs",
+          "expression": "8ACF52CF-CABB-4D62-BA90-4BA3F995A7BC"
+        },
+        {
+          "value": "looking",
+          "expression": "897155B3-4AD3-4D20-ADE7-82D80CE90948"
+        }
+      ]
+    },
+    {
+      "key": "Episode 102 - What Did You Say To Norma About Hurting Randall",
+      "readFrom": 3,
+      "text": true,
+      "values": [
+        {
+          "value": "deserved",
+          "expression": "27A8856D-268A-4050-A651-A447793A9933"
+        },
+        {
+          "value": "fine",
+          "expression": "C6DC9042-2F37-40BE-A765-2E70379A540C"
+        },
+        {
+          "value": "silence",
+          "expression": "F0879B01-50B3-480F-A341-B6D9B84CEC6C"
+        },
+        {
+          "value": "suredid",
+          "expression": "D6B5476F-6F0E-410E-911D-A36D700C6CB6"
+        }
+      ]
+    },
+    {
+      "key": "Episode 101 - Which toy?",
+      "readFrom": 3,
+      "text": true,
+      "values": [
+        {
+          "value": "dinosaur",
+          "expression": "180E57AA-3216-454B-8B2C-70408E061351"
+        },
+        {
+          "value": "robot",
+          "expression": "27BD3B7E-89AA-461C-A77F-7CD642E41DE3"
+        },
+        {
+          "value": "teddybear",
+          "expression": "2BF76055-643F-4F5E-B895-A0989419D6C3"
+        }
+      ]
+    },
+    {
+      "key": "Episode 101 - Norma Answer",
+      "readFrom": 3,
+      "text": true,
+      "values": [
+        {
+          "value": "area",
+          "expression": "993A794B-4783-4C17-AB66-05FFD7D2E9C6"
+        },
+        {
+          "value": "boat",
+          "expression": "88CE09ED-B3D4-4D4A-8D15-561B73391D2C"
+        },
+        {
+          "value": "radio",
+          "expression": "346DAD1F-AA18-43AD-AFCE-945D47A6AF56"
+        }
+      ]
+    },
+    {
+      "key": "Episode 101 - Rowboat Choice",
+      "readFrom": 3,
+      "text": true,
+      "values": [
+        {
+          "value": "getrid",
+          "expression": "9E587727-0C3E-4128-AB66-9725A5017569"
+        },
+        {
+          "value": "likeyouguys",
+          "expression": "433DC917-162B-47B0-8024-93731717DDFE"
+        },
+        {
+          "value": "stickaround",
+          "expression": "C91C1336-9A29-4513-90B7-44C0A200FC85"
+        }
+      ]
+    },
+    {
+      "key": "Episode 101 - Killed Greg With Weapon",
+      "readFrom": 3,
+      "text": true,
+      "values": [
+        {
+          "value": "pipe",
+          "expression": "447351B0-5E20-4994-A9D4-3EA737FEC085"
+        },
+        {
+          "value": "screwdriver",
+          "expression": "88B69BE0-E5C9-4D04-B6CC-0B6F1C733304"
+        }
+      ]
+    },
+    {
+      "key": "Episode 101 - Michonne Hit",
+      "readFrom": 2,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "244E4C73-B0EE-4F42-9F16-51872BCD8528 | 4B814FFA-602C-479B-9B73-0D157E8330FF | 90A4EFBD-338B-4D69-9A26-40A5E57A492A | 8C35BC37-A3A7-4F79-BCA5-9867A1F33B40 | 972AB7DE-1BC3-4527-8161-50221E6A9A66 | 4BE5C657-08BC-4392-94A0-D946230419E7 | 418A2CFE-F6E7-47FD-81C6-D7D5D77FBCBB"
+        }
+      ]
+    },
+    {
+      "key": "Episode 101 - Pete missing earring",
+      "readFrom": 2,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "BEFB4E4E-0783-4170-8F34-DCEB4922A06B | 039A5920-C19F-4959-96D6-09066CDE9F6C"
+        }
+      ]
+    },
+    {
+      "key": "Episode 101 - Pulled trigger?",
+      "readFrom": 2,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "BFAF9499-8B31-4C25-AC17-876161F6B3AD"
+        }
+      ]
+    },
+    {
+      "key": "Episode 101 - Punched Zach",
+      "readFrom": 2,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "05E7D608-A650-457E-B3DF-A469D2BF8E7C&~1C4E871F-DA51-4E96-AE7A-A942D9E8EE44"
+        }
+      ]
+    },
+    {
+      "key": "Episode 101 - Tried to Disarm Sam",
+      "readFrom": 2,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "3AB7341A-F929-4266-A349-477FFBDF51A2"
+        }
+      ]
+    },
+    {
+      "key": "Episode 101 - Radio Success",
+      "readFrom": 2,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "076B4829-6427-40EA-9FC5-C910E28195DB"
+        }
+      ]
+    },
+    {
+      "key": "Episode 101 - Fought Randall",
+      "readFrom": 2,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "16CB7424-EB64-4389-A508-916A54EC6A4F"
+        }
+      ]
+    },
+    {
+      "key": "Episode 101 - Prologue Decapitated Zombie?",
+      "readFrom": 2,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "5A160896-96B7-49D8-97D5-DB5A9384D412"
+        }
+      ]
+    },
+    {
+      "key": "Episode 101 - Michonne Knocked Over",
+      "readFrom": 2,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "39DCF8A4-410F-4B42-9F41-8C1ACCD216D8"
+        }
+      ]
+    },
+    {
+      "key": "Episode 101 - Prologue burned Zombie?",
+      "readFrom": 2,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "B4049128-4F1B-4070-9361-C939FEADD979"
+        }
+      ]
+    },
+    {
+      "key": "Episode 101 - Zach is Dead",
+      "readFrom": 2,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "007AF1BB-9B39-4D94-BCC6-F86712C13DF6 | DE8F83A3-AC44-4CA5-95FE-D952585FD4DB"
+        }
+      ]
+    },
+    {
+      "key": "Episode 101 - Weapon",
+      "readFrom": 2,
+      "text": true,
+      "values": [
+        {
+          "value": "pipe",
+          "expression": "447351B0-5E20-4994-A9D4-3EA737FEC085"
+        },
+        {
+          "value": "screwdriver",
+          "expression": "88B69BE0-E5C9-4D04-B6CC-0B6F1C733304"
+        }
+      ]
+    },
+    {
+      "key": "Episode 101 - Which toy?",
+      "readFrom": 2,
+      "text": true,
+      "values": [
+        {
+          "value": "dinosaur",
+          "expression": "180E57AA-3216-454B-8B2C-70408E061351"
+        },
+        {
+          "value": "robot",
+          "expression": "27BD3B7E-89AA-461C-A77F-7CD642E41DE3"
+        },
+        {
+          "value": "teddybear",
+          "expression": "2BF76055-643F-4F5E-B895-A0989419D6C3"
+        }
+      ]
+    },
+    {
+      "key": "Episode 101 - Norma Answer",
+      "readFrom": 2,
+      "text": true,
+      "values": [
+        {
+          "value": "area",
+          "expression": "993A794B-4783-4C17-AB66-05FFD7D2E9C6"
+        },
+        {
+          "value": "boat",
+          "expression": "88CE09ED-B3D4-4D4A-8D15-561B73391D2C"
+        },
+        {
+          "value": "radio",
+          "expression": "346DAD1F-AA18-43AD-AFCE-945D47A6AF56"
+        },
+        {
+          "value": "silence2",
+          "expression": "206A2D08-C3A4-425D-B3E5-345E63600195"
+        }
+      ]
+    },
+    {
+      "key": "Episode 101 - Greg Punch Count",
+      "readFrom": 2,
+      "text": true,
+      "values": [
+        {
+          "value": "one",
+          "expression": "514A197E-92FA-4266-858F-198376A52341"
+        },
+        {
+          "value": "two",
+          "expression": "C9DDB72B-2F35-4D49-9B40-52F169579299"
+        },
+        {
+          "value": "zero",
+          "expression": "8AA59B5E-5C0F-4534-BC19-2749EC9B2158 | 26CC3FC0-ECEC-4091-B64F-CC897284A564"
+        }
+      ]
+    }
+  ]
+}

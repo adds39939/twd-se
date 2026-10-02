@@ -11,6 +11,7 @@ public static partial class DebugMenuReader
     {
         var entries = new List<MenuEntry>();
         var group = string.Empty;
+        var anchor = -1;
         foreach (Match match in Button().Matches(text))
         {
             var title = match.Groups["title"].Value;
@@ -24,10 +25,39 @@ public static partial class DebugMenuReader
                 continue;
 
             var command = match.Groups["command"].Value.Replace("\\\"", "\"");
-            entries.Add(new MenuEntry(group, title, match.Groups["script"].Value, [.. LogicSet().Matches(command).Select(flag => ReadFlag(flag, constants))]));
+            var entry = new MenuEntry(group, title.Trim(), match.Groups["script"].Value, [.. LogicSet().Matches(command).Select(flag => ReadFlag(flag, constants))]);
+            if (!DialogTitle().IsMatch(entry.Title))
+            {
+                entries.Add(entry);
+                anchor = entries.Count - 1;
+                continue;
+            }
+
+            var known = entries.FindIndex(existing => Same(existing, entry));
+            if (known >= 0)
+            {
+                anchor = known;
+                continue;
+            }
+
+            while (anchor + 1 < entries.Count && entries[anchor + 1].Script.Equals(entries[anchor].Script, StringComparison.OrdinalIgnoreCase))
+                anchor++;
+
+            entries.Insert(++anchor, entry with { Title = SceneTitle(entry.Title) });
         }
 
         return entries;
+    }
+
+    private static bool Same(MenuEntry first, MenuEntry second) =>
+        first.Script.Equals(second.Script, StringComparison.OrdinalIgnoreCase)
+        && first.Flags.Select(flag => flag.Key).Order().SequenceEqual(second.Flags.Select(flag => flag.Key).Order());
+
+    private static string SceneTitle(string dialogTitle)
+    {
+        var name = DialogTitle().Match(dialogTitle).Groups["name"].Value.Replace('_', ' ');
+        var words = Words().Replace(name, " $1");
+        return CultureInfo.InvariantCulture.TextInfo.ToTitleCase(words);
     }
 
     private static Flag ReadFlag(Match match, IReadOnlyDictionary<string, string> constants)
@@ -49,9 +79,15 @@ public static partial class DebugMenuReader
         });
     }
 
-    [GeneratedRegex("DebugMenu_AddButton\\(\\s*\\d+\\s*,\\s*\"(?<title>[^\"]*)\"(?<target>\\s*,\\s*(?:\"(?<script>[^\"]*)\"|nil))?(?:\\s*,\\s*\"(?<command>(?:[^\"\\\\]|\\\\.)*)\")?\\s*\\)")]
+    [GeneratedRegex("DebugMenu_AddButton\\(\\s*\\d+\\s*,\\s*(?:\\d+\\s*,\\s*)?\"(?<title>[^\"]*)\"(?<target>\\s*,\\s*(?:\"(?<script>[^\"]*)\"|nil))?(?:\\s*,\\s*\"(?<command>(?:[^\"\\\\]|\\\\.)*)\")?\\s*\\)")]
     private static partial Regex Button();
 
-    [GeneratedRegex("LogicSet\\(\\s*(?:\"(?<key>[^\"]*)\"|(?<constant>\\w+))\\s*,\\s*(?<value>[^)]*?)\\s*\\)")]
+    [GeneratedRegex("^env_(?<name>\\w+)\\.dlog")]
+    private static partial Regex DialogTitle();
+
+    [GeneratedRegex("(?<=[a-z0-9])([A-Z])")]
+    private static partial Regex Words();
+
+    [GeneratedRegex("LogicSet\\(\\s*(?:[\"'](?<key>[^\"']*)[\"']|(?<constant>\\w+))\\s*,\\s*(?<value>[^)]*?)\\s*\\)")]
     private static partial Regex LogicSet();
 }

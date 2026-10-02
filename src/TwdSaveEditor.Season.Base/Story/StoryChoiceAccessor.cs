@@ -1,14 +1,13 @@
+using TwdSaveEditor.Core.Constants;
 using TwdSaveEditor.Core.Model;
 using TwdSaveEditor.Season.Common.Abstractions;
 using TwdSaveEditor.Season.Common.Model;
-using TwdSaveEditor.Season.S3.Decisions;
-using TwdSaveEditor.Season.S3.Saves;
 
-namespace TwdSaveEditor.Season.S3.Accessors;
+namespace TwdSaveEditor.Season.Base.Story;
 
-public sealed class S3ChoiceAccessor(SaveSlot slot) : IChoiceAccessor
+public sealed class StoryChoiceAccessor(SaveSlot slot, StorySeason season) : IChoiceAccessor
 {
-    private readonly S3DecisionLog _decisions = new(slot);
+    private readonly StoryDecisionLog _decisions = new(slot, season);
 
     public int DetectCurrentChoice(ChoiceDefinition choice)
     {
@@ -22,30 +21,31 @@ public sealed class S3ChoiceAccessor(SaveSlot slot) : IChoiceAccessor
         SetChoiceValue(choice.ChoiceKey, choice.Options[optionIndex].Value);
 
     public string? GetChoiceValue(string choiceKey) =>
-        slot.EventLog != null && S3DecisionCatalog.Find(choiceKey) is { } decision ? _decisions.GetOption(decision)?.Value : null;
+        slot.EventLog != null && season.FindDecision(choiceKey) is { } decision ? _decisions.GetOption(decision)?.Value : null;
 
     public void SetChoiceValue(string choiceKey, string value)
     {
-        if (S3DecisionCatalog.Find(choiceKey) is not { } decision || decision.Find(value) is not { } option)
+        if (season.FindDecision(choiceKey) is not { } decision || decision.Find(value) is not { } option)
             return;
 
-        new S3EventLog(slot).EnsurePreviousGameData();
+        new StoryEventLog(slot, season).Prepare();
         _decisions.SetValue(decision, option);
-        UpdateSavedLogic(slot);
+        UpdateSavedLogic(slot, season);
     }
 
-    public static void UpdateSavedLogic(SaveSlot slot)
+    public static void UpdateSavedLogic(SaveSlot slot, StorySeason season)
     {
-        var nodes = new S3EventLog(slot).Nodes();
+        var nodes = new StoryEventLog(slot, season).Nodes();
         foreach (var save in slot.Checkpoints)
         {
-            if (S3ResumePoint.Properties(save, S3SlotFiles.LogicGameProperties) is not { } game)
+            if (StoryResumePoint.Properties(save, StoryFiles.LogicGameProperties) is not { } game)
                 continue;
 
-            foreach (var key in S3DecisionCatalog.LogicKeys)
+            var episode = save.Metadata?.GetInt(SaveMetadataKeys.Episode) ?? season.LastEpisode;
+            foreach (var key in season.LogicKeys.Where(key => key.ReadFrom <= episode))
             {
                 var current = game.Find(key.Key)?.Value;
-                var wanted = S3DecisionLog.Evaluate(key, nodes);
+                var wanted = StoryDecisionLog.Evaluate(key, nodes);
                 if (current is BoolValue flag && wanted is bool expected && flag.Value != expected)
                 {
                     flag.Value = expected;

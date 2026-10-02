@@ -70,18 +70,18 @@ public class BackupFileResolverTests
     }
 
     [Fact]
-    public void MichonneBundle_BackupsEstoreAndEpages()
+    public void MichonneBundle_BackupsItsEventLogAndSaves()
     {
-        var slot = CreateSlot("wdm_saveslot4.bundle");
-        slot.EStorePath = "_wdm_saveslot4_id.estore";
-        slot.EPagePaths = ["_wdm_saveslot4_id_Page971.epage"];
+        var slot = MichonneSaves.LoadEpisode1Save();
 
         var files = BackupFileResolver.GetFilesToBackup(slot, Registry(new MichonneHandler()));
 
-        Assert.Equal(3, files.Count);
-        Assert.Contains("wdm_saveslot4.bundle", files);
-        Assert.Contains("_wdm_saveslot4_id.estore", files);
-        Assert.Contains("_wdm_saveslot4_id_Page971.epage", files);
+        Assert.Equal(6, files.Count);
+        Assert.Equal(MichonneSaves.Slot, files[0]);
+        Assert.Contains(MichonneSaves.Autosave, files);
+        Assert.Contains(MichonneSaves.Checkpoint, files);
+        Assert.Contains(MichonneSaves.Storage, files);
+        Assert.All(MichonneSaves.Pages, page => Assert.Contains(page, files));
     }
 
     [Fact]

@@ -24,8 +24,8 @@ public static class EpisodeArchives
         ["WalkingDead402"] = "WDC_pc_WalkingDead402_data.ttarch2",
         ["WalkingDead403"] = "WDC_pc_WalkingDead403_data.ttarch2",
         ["WalkingDead404"] = "WDC_pc_WalkingDead404_data.ttarch2",
-        ["Michonne101"] = "WDC_pc_WalkingDeadM101_data.ttarch2",
-        ["Michonne102"] = "WDC_pc_WalkingDeadM102_data.ttarch2",
-        ["Michonne103"] = "WDC_pc_WalkingDeadM103_data.ttarch2",
+        ["WalkingDeadM101"] = "WDC_pc_WalkingDeadM101_data.ttarch2",
+        ["WalkingDeadM102"] = "WDC_pc_WalkingDeadM102_data.ttarch2",
+        ["WalkingDeadM103"] = "WDC_pc_WalkingDeadM103_data.ttarch2",
     };
 }

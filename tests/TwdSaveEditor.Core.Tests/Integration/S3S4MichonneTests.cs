@@ -8,7 +8,6 @@ using TwdSaveEditor.Season.Base.Services;
 using TwdSaveEditor.Season.Common.Abstractions;
 using TwdSaveEditor.Season.Common.Extensions;
 using TwdSaveEditor.Season.Common.Services;
-using TwdSaveEditor.Season.Michonne.Choices;
 using TwdSaveEditor.Season.Michonne.Handlers;
 using TwdSaveEditor.Season.S1.Handlers;
 using TwdSaveEditor.Season.S2.Handlers;
@@ -227,58 +226,6 @@ public class S3S4MichonneTests
         Assert.NotNull(slot.Metadata);
         Assert.Null(slot.Choices);
         Assert.Single(slot.Files);
-    }
-
-    [Fact]
-    public void NewSave_Michonne_CreatesEstoreEpage()
-    {
-        var tempDir = TestDataHelper.CreateTempDir();
-        try
-        {
-            var mgr = new SaveManager(CreateRegistry(), tempDir);
-            var slot = mgr.CreateNewSave("wdm_saveslot1.bundle", "michonne", 1);
-
-            Assert.True(File.Exists(slot.FilePath));
-            Assert.NotNull(slot.EStorePath);
-            Assert.True(File.Exists(slot.EStorePath));
-            Assert.NotNull(slot.EPagePaths);
-            Assert.True(slot.EPagePaths.Count > 0);
-            Assert.True(File.Exists(slot.EPagePaths[0]));
-
-            var entries = EStoreReader.ReadEventLog(slot.EStorePath);
-            Assert.True(entries.Count > 0, "Expected EventLog entries");
-        }
-        finally
-        {
-            Directory.Delete(tempDir, true);
-        }
-    }
-
-    [Fact]
-    public void Michonne_EventLogAccessor_ParsesRealEStore()
-    {
-        var bundlePath = TestDataHelper.GetPath("Michonne", "wdm_saveslot4.bundle");
-        var estorePath = TestDataHelper.GetPath("Michonne", "_wdm_saveslot4_id.estore");
-
-        var entries = EStoreReader.ReadEventLog(estorePath);
-        Assert.True(entries.Count > 0, $"Expected events from Michonne estore, got {entries.Count}");
-
-        var dialogNodes = entries.Where(e => e.IsDialogNode).ToList();
-        Assert.True(dialogNodes.Count > 0, $"Expected dialog node events, got {dialogNodes.Count}");
-
-        var slot = LoadSlot(bundlePath);
-        slot.EStorePath = estorePath;
-        slot.EPagePaths = Directory.GetFiles(
-                TestDataHelper.GetSeasonDir("Michonne"), "_wdm_saveslot4_id_Page*.epage")
-            .OrderBy(f => f).ToList();
-
-        var accessor = new EventLogAccessor(slot, MichonneChoiceNodes.Map);
-        Assert.True(accessor.HasEventLog);
-
-        var allChoices = accessor.GetAllChoices();
-        Assert.True(allChoices.Count >= 0,
-            $"Michonne EventLogAccessor GetAllChoices failed. " +
-            $"Total events: {entries.Count}, dialog nodes: {dialogNodes.Count}");
     }
 
     [Fact]

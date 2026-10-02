@@ -4,10 +4,10 @@ using TwdSaveEditor.Core.Constants;
 using TwdSaveEditor.Core.Model;
 using TwdSaveEditor.Core.Tests.Support;
 using TwdSaveEditor.Season.Base.DialogLog;
+using TwdSaveEditor.Season.Base.Story;
 using TwdSaveEditor.Season.Common.Extensions;
-using TwdSaveEditor.Season.S3.Chapters;
-using TwdSaveEditor.Season.S3.Decisions;
 using TwdSaveEditor.Season.S3.Saves;
+using TwdSaveEditor.Season.S3.Story;
 
 namespace TwdSaveEditor.Core.Tests.Integration;
 
@@ -63,20 +63,20 @@ public class Season3SaveTests
     public void RealSave_ReadsEveryStoryKeyAsTheGameStoredIt()
     {
         var slot = Season3Saves.LoadEpisode1Save();
-        var game = Runtime(Assert.Single(slot.Checkpoints), S3SlotFiles.LogicGameProperties);
-        var nodes = new S3EventLog(slot).Nodes();
+        var game = Runtime(Assert.Single(slot.Checkpoints), StoryFiles.LogicGameProperties);
+        var nodes = new StoryEventLog(slot, S3Story.Season).Nodes();
 
         var compared = 0;
-        foreach (var key in S3DecisionCatalog.LogicKeys.Where(key => key.ReadFrom <= 1))
+        foreach (var key in S3Story.Season.LogicKeys.Where(key => key.ReadFrom <= 1))
         {
             switch (game.Find(key.Key)?.Value)
             {
                 case BoolValue flag:
-                    Assert.Equal(flag.Value, S3DecisionLog.Evaluate(key, nodes));
+                    Assert.Equal(flag.Value, StoryDecisionLog.Evaluate(key, nodes));
                     compared++;
                     break;
                 case StringValue text:
-                    Assert.Equal(text.Value, S3DecisionLog.Evaluate(key, nodes));
+                    Assert.Equal(text.Value, StoryDecisionLog.Evaluate(key, nodes));
                     compared++;
                     break;
             }
@@ -97,7 +97,7 @@ public class Season3SaveTests
         var reloaded = Season3Saves.Reload(slot);
         Assert.Equal("kenny", Season3Saves.Accessor(reloaded).GetChoiceValue(Ending));
         Assert.Equal(events, reloaded.EventLog!.Events.Count());
-        Assert.Equal("Kenny", Runtime(Assert.Single(reloaded.Checkpoints), S3SlotFiles.LogicGameProperties).GetString(Ending));
+        Assert.Equal("Kenny", Runtime(Assert.Single(reloaded.Checkpoints), StoryFiles.LogicGameProperties).GetString(Ending));
     }
 
     [Fact]
@@ -160,7 +160,7 @@ public class Season3SaveTests
         Assert.Empty(slot.ObsoleteFileNames);
         Assert.Equal(3, metadata.GetInt(SlotMetadataKeys.EpisodeInProgress));
         Assert.Equal(Season3Saves.Autosave, metadata.GetString(SlotMetadataKeys.LatestSave));
-        Assert.Equal(2, S3ResumePoint.LastFinished(reloaded));
+        Assert.Equal(2, S3Story.Resume.LastFinished(reloaded));
         Assert.True(metadata.GetBool(SlotMetadataKeys.CompletedEpisode(1)));
         Assert.True(metadata.GetBool(SlotMetadataKeys.CompletedEpisode(2)));
         Assert.Equal(3, state.Episode);
@@ -192,16 +192,16 @@ public class Season3SaveTests
         Assert.Equal(Season3Saves.Autosave, save.FileName);
         Assert.Equal(1, metadata.GetInt(SaveMetadataKeys.Episode));
         Assert.Equal(22, metadata.GetInt(SaveMetadataKeys.Serial));
-        Assert.Equal("WalkingDead301", metadata.GetString(S3SlotFiles.SavedProject));
-        Assert.Equal("VirginiaRoad", metadata.GetString(S3SlotFiles.SavedScript));
+        Assert.Equal("WalkingDead301", metadata.GetString(StoryFiles.SavedProject));
+        Assert.Equal("VirginiaRoad", metadata.GetString(StoryFiles.SavedScript));
 
         var game = SaveGameCodec.Read(save.FindFile(BundleFileNames.SaveGame)!.Data);
         Assert.Equal("VirginiaRoad.lua", game.LuaDoFile);
         Assert.Equal(save.Files.Skip(2).Select(file => file.NameSymbol), game.RuntimePropertyNames);
         Assert.Equal(4, game.EnabledDynamicSets.Count);
 
-        Assert.Equal("DebugMenu", Runtime(save, S3SlotFiles.ScriptProperties).GetString(S3CheckpointBuilder.PreviousScript));
-        var logic = Runtime(save, S3SlotFiles.LogicGameProperties);
+        Assert.Equal("DebugMenu", Runtime(save, StoryFiles.ScriptProperties).GetString(StoryCheckpointBuilder.PreviousScript));
+        var logic = Runtime(save, StoryFiles.LogicGameProperties);
         Assert.True(logic.GetBool("bEnteredJunkyardHill"));
         Assert.Equal("Alone", logic.GetString(Ending));
         Assert.False(logic.GetBool("Episode 205 - Rejected Family"));
@@ -225,7 +225,7 @@ public class Season3SaveTests
         Season3Saves.Handler.RestartFromChapter(slot, 1, "HardwareStore");
 
         Assert.Equal("jane", Season3Saves.Accessor(slot).GetChoiceValue(Ending));
-        Assert.Equal("Jane", Runtime(Assert.Single(slot.Checkpoints), S3SlotFiles.LogicGameProperties).GetString(Ending));
+        Assert.Equal("Jane", Runtime(Assert.Single(slot.Checkpoints), StoryFiles.LogicGameProperties).GetString(Ending));
     }
 
     [Fact]
@@ -236,12 +236,12 @@ public class Season3SaveTests
 
         Season3Saves.Handler.RestartFromChapter(slot, 3, "RichmondChurch");
 
-        var logic = Runtime(Assert.Single(slot.Checkpoints), S3SlotFiles.LogicGameProperties);
+        var logic = Runtime(Assert.Single(slot.Checkpoints), StoryFiles.LogicGameProperties);
         Assert.True(logic.GetBool("Episode 302 - Shot Conrad"));
         Assert.Equal(3, Assert.Single(slot.Checkpoints).Metadata!.GetInt(SaveMetadataKeys.Episode));
-        Assert.All(S3DecisionCatalog.LogicKeys.Where(key => key.ReadFrom <= 3), key => Assert.NotNull(logic.Find(key.Key)));
-        Assert.All(S3DecisionCatalog.LogicKeys.Where(key => key.ReadFrom > 3), key => Assert.Null(logic.Find(key.Key)));
-        Assert.Equal(2, S3ResumePoint.LastFinished(slot));
+        Assert.All(S3Story.Season.LogicKeys.Where(key => key.ReadFrom <= 3), key => Assert.NotNull(logic.Find(key.Key)));
+        Assert.All(S3Story.Season.LogicKeys.Where(key => key.ReadFrom > 3), key => Assert.Null(logic.Find(key.Key)));
+        Assert.Equal(2, S3Story.Resume.LastFinished(slot));
     }
 
     [Fact]
@@ -250,11 +250,11 @@ public class Season3SaveTests
         var slot = TestSeasons.Registry.CreateSave("s3", 3, "wd3_saveslot2.bundle");
         slot.DetectedSeasonKey = "s3";
 
-        Assert.True(new S3EventLog(slot).HasPreviousGameData);
+        Assert.True(new StoryEventLog(slot, S3Story.Season).HasPreviousGameData);
         Assert.Empty(slot.Checkpoints);
         Assert.True(Assert.Single(slot.Files).IsNamed(BundleFileNames.SlotMetadata));
         Assert.Equal(3, slot.Metadata!.GetInt(SlotMetadataKeys.EpisodeInProgress));
-        Assert.Equal(2, S3ResumePoint.LastFinished(slot));
+        Assert.Equal(2, S3Story.Resume.LastFinished(slot));
 
         var files = Season3Saves.Handler.BuildCompanionFiles(slot);
         Assert.Equal("_wd3_saveslot2_id.estore", Assert.Single(files).Name);
@@ -283,8 +283,8 @@ public class Season3SaveTests
         Season3Saves.Handler.ImportChoices(source, target);
 
         var events = target.EventLog!.Events.ToList();
-        var begin = events.FindIndex(entry => entry.Has(S3EventLog.PreviousGameBegin));
-        var end = events.FindIndex(entry => entry.Has(S3EventLog.PreviousGameEnd));
+        var begin = events.FindIndex(entry => entry.Has(StoryEventLog.PreviousGameBegin));
+        var end = events.FindIndex(entry => entry.Has(StoryEventLog.PreviousGameEnd));
         Assert.Equal(0, begin);
         Assert.Equal(expected, events.Skip(1).Take(end - 1).Select(entry => entry.DialogNode!.Value));
         Assert.Equal(events.Count, events.Select(entry => entry.Id).Distinct().Count());
@@ -294,8 +294,8 @@ public class Season3SaveTests
     [Fact]
     public void ChapterList_CoversEveryEpisode()
     {
-        Assert.Equal([1, 2, 3, 4, 5], S3ChapterCatalog.All.Select(episode => episode.Episode));
-        foreach (var episode in S3ChapterCatalog.All)
+        Assert.Equal([1, 2, 3, 4, 5], S3Story.Season.Chapters.Select(episode => episode.Episode));
+        foreach (var episode in S3Story.Season.Chapters)
         {
             Assert.True(episode.Chapters[0].StartsEpisode);
             Assert.Single(episode.Chapters, chapter => chapter.StartsEpisode);
@@ -307,7 +307,7 @@ public class Season3SaveTests
     [Fact]
     public void ChapterList_LeavesOutEntriesThatOnlyWorkInDeveloperBuilds()
     {
-        var chapters = S3ChapterCatalog.ForEpisode(1)!.Chapters;
+        var chapters = S3Story.Season.ChaptersOf(1)!.Chapters;
 
         Assert.Equal(17, chapters.Count);
         Assert.Single(chapters, chapter => chapter.Script == "JunkyardHill");

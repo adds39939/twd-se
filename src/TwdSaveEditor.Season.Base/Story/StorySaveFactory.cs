@@ -2,19 +2,18 @@ using TwdSaveEditor.Core.Binary.Bundles;
 using TwdSaveEditor.Core.Constants;
 using TwdSaveEditor.Core.Model;
 
-namespace TwdSaveEditor.Season.S3.Saves;
+namespace TwdSaveEditor.Season.Base.Story;
 
-public static class S3SaveFactory
+public static class StorySaveFactory
 {
-    private const string SlotMetadataParent = "metadata_slot_s3.prop";
     private const uint LocalKeysFlag = 0x100;
 
-    public static SaveSlot Create(string fileName, int episode)
+    public static SaveSlot Create(string fileName, int episode, StorySeason season)
     {
         var metadata = new PropertySet
         {
             Flags = LocalKeysFlag,
-            ParentSymbols = [Symbol.FromString(SlotMetadataParent)],
+            ParentSymbols = [Symbol.FromString(season.SlotMetadataParent)],
         };
         metadata.SetInt(SlotMetadataKeys.LatestSerial, 0);
         metadata.SetInt(SlotMetadataKeys.EpisodeInProgress, episode);

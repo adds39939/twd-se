@@ -2,8 +2,10 @@ using TwdSaveEditor.Core.Binary.Bundles;
 using TwdSaveEditor.Core.Constants;
 using TwdSaveEditor.Core.Model;
 using TwdSaveEditor.Season.Base.DialogLog;
+using TwdSaveEditor.Season.Base.Story;
 using TwdSaveEditor.Season.Common.Model;
 using TwdSaveEditor.Season.S3.Saves;
+using TwdSaveEditor.Season.S3.Story;
 
 namespace TwdSaveEditor.Season.S3.Inventory;
 
@@ -20,8 +22,8 @@ public static class S3Inventory
 
     public static InventoryState GetState(SaveSlot slot)
     {
-        var resume = S3ResumePoint.GetState(slot);
-        if (S3ResumePoint.ResumeSave(slot) is not { } save)
+        var resume = S3Story.Resume.GetState(slot);
+        if (S3Story.Resume.ResumeSave(slot) is not { } save)
             return InventoryState.NotEditable(Owner, resume.Episode, resume.CheckpointDamaged ? Damaged : NoSave);
 
         var episode = EpisodeOf(save);
@@ -37,12 +39,12 @@ public static class S3Inventory
             null,
             [.. catalog.Items.Select(item => new InventoryItem(item.Id, item.Name))],
             [.. catalog.Items.Where(item => Count(save, item.Id) > 0).Select(item => new HeldItem(item.Id))],
-            S3ResumePoint.GeneratedChapter(save, episode) != null);
+            S3Story.Resume.GeneratedChapter(save, episode) != null);
     }
 
     public static void SetItems(SaveSlot slot, IReadOnlyList<HeldItem> held)
     {
-        var save = S3ResumePoint.ResumeSave(slot)
+        var save = S3Story.Resume.ResumeSave(slot)
             ?? throw new InvalidOperationException("Cannot set the inventory: the slot has no save of the episode in progress.");
 
         foreach (var item in S3ItemCatalog.ForEpisode(EpisodeOf(save))?.Items ?? [])
@@ -60,17 +62,17 @@ public static class S3Inventory
 
     public static IReadOnlyList<HeldItem> CarriedItems(SaveSlot slot)
     {
-        if (S3ResumePoint.ResumeSave(slot) is not { } save)
+        if (S3Story.Resume.ResumeSave(slot) is not { } save)
             return [];
 
         var episode = EpisodeOf(save);
-        return S3ResumePoint.GeneratedChapter(save, episode) is { } chapter && S3ItemCatalog.ForEpisode(episode)?.ForChapter(chapter.Id) is { } items
+        return S3Story.Resume.GeneratedChapter(save, episode) is { } chapter && S3ItemCatalog.ForEpisode(episode)?.ForChapter(chapter.Id) is { } items
             ? [.. items.Carried.Select(id => new HeldItem(id))]
             : [];
     }
 
-    private static int EpisodeOf(SaveSlot save) => save.Metadata?.GetInt(SaveMetadataKeys.Episode) ?? S3SlotFiles.FirstEpisode;
+    private static int EpisodeOf(SaveSlot save) => save.Metadata?.GetInt(SaveMetadataKeys.Episode) ?? StorySeason.FirstEpisode;
 
     private static int Count(SaveSlot save, string itemId) =>
-        Math.Max(Sets.Select(name => S3ResumePoint.Properties(save, name)?.GetInt(itemId)).FirstOrDefault(count => count != null) ?? 0, 0);
+        Math.Max(Sets.Select(name => StoryResumePoint.Properties(save, name)?.GetInt(itemId)).FirstOrDefault(count => count != null) ?? 0, 0);
 }

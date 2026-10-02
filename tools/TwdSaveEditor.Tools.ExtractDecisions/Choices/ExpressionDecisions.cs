@@ -2,6 +2,7 @@ using System.Text.Json.Nodes;
 using System.Text.RegularExpressions;
 using TwdSaveEditor.Tools.Common.Text;
 using TwdSaveEditor.Tools.ExtractDecisions.Model;
+using TwdSaveEditor.Tools.ExtractDecisions.Scripts;
 
 namespace TwdSaveEditor.Tools.ExtractDecisions.Choices;
 
@@ -13,6 +14,7 @@ public static partial class ExpressionDecisions
     private const string StatisticsCategory = "Statistics";
     private const int EpisodeBase = 100;
     private const int SlugWords = 5;
+    private const string Never = "f";
 
     public static List<DecisionRow> Build(List<StatChoice> stats, List<LogicKey> logic, int season)
     {
@@ -25,34 +27,49 @@ public static partial class ExpressionDecisions
         }).ToList();
 
         var own = new List<DecisionRow>();
-        foreach (var key in logic)
+        foreach (var definitions in logic.GroupBy(key => key.Name))
         {
-            var covering = rows.FirstOrDefault(row => Covers(row, key));
-            if (covering != null)
+            var covering = definitions.Select(key => rows.FirstOrDefault(row => Covers(row, key))).OfType<DecisionRow>().ToList();
+            if (covering.Count > 0)
             {
-                covering.Story = true;
+                covering.ForEach(row => row.Story = true);
                 continue;
             }
 
-            var title = key.Name[(key.Name.IndexOf(TitleSeparator, StringComparison.Ordinal) + TitleSeparator.Length)..];
+            var options = definitions.OrderBy(key => key.ReadFrom).SelectMany(Options).DistinctBy(option => option.Value).ToList();
+            if (options.Any(option => option.Expression.Length > 0 && !Node().IsMatch(option.Expression)))
+                continue;
+
+            var name = definitions.Key;
+            var title = name[(name.IndexOf(TitleSeparator, StringComparison.Ordinal) + TitleSeparator.Length)..];
             own.Add(new DecisionRow
             {
-                Episode = EpisodeOf(key.Name, season),
-                Key = key.Name,
-                Description = title + "?",
+                Episode = EpisodeOf(name, season),
+                Key = name,
+                Description = title.TrimEnd('?') + "?",
                 Story = true,
-                Options = key.IsMap
-                    ? [.. key.Values.Select(value => new RowOption(value.Value.ToLowerInvariant(), Words().Replace(value.Value, " $1"), value.Expression.Trim()))]
-                    : [new RowOption("true", "Yes", key.Values[0].Expression.Trim()), new RowOption("false", "No", string.Empty)],
+                Options = options,
             });
         }
 
         return [.. rows.Concat(own).OrderBy(row => row.Episode)];
     }
 
-    public static JsonObject Choice(DecisionRow row, int season) => new()
+    public static LogicKey WithoutBracedNodes(LogicKey key) => key with
     {
-        ["seasonKey"] = $"s{season}",
+        Values =
+        [
+            .. key.Values.Select(value =>
+            {
+                var expression = Braced().Replace(value.Expression, Never);
+                return (value.Value, NodeIds.In(expression), expression);
+            }),
+        ],
+    };
+
+    public static JsonObject Choice(DecisionRow row, string seasonKey) => new()
+    {
+        ["seasonKey"] = seasonKey,
         ["episode"] = row.Episode,
         ["description"] = row.Description,
         ["choiceKey"] = row.Key,
@@ -76,6 +93,10 @@ public static partial class ExpressionDecisions
             ["values"] = new JsonArray([.. key.Values.Select(value => new JsonObject { ["value"] = value.Value, ["expression"] = value.Expression.Trim() })]),
         })]),
     };
+
+    private static IEnumerable<RowOption> Options(LogicKey key) => key.IsMap
+        ? key.Values.Select(value => new RowOption(value.Value.ToLowerInvariant(), Words().Replace(value.Value, " $1"), value.Expression.Trim()))
+        : [new RowOption("true", "Yes", key.Values[0].Expression.Trim()), new RowOption("false", "No", string.Empty)];
 
     private static bool Covers(DecisionRow row, LogicKey key)
     {
@@ -127,6 +148,9 @@ public static partial class ExpressionDecisions
 
     [GeneratedRegex(@"(?<not>~\s*)?\{?(?<id>[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12})\}?")]
     private static partial Regex Node();
+
+    [GeneratedRegex(@"\{[0-9A-Fa-f-]{36}\}")]
+    private static partial Regex Braced();
 
     [GeneratedRegex(@"^You and [\d.]+ ?% of players (.+?)\.?$")]
     private static partial Regex PlayerText();

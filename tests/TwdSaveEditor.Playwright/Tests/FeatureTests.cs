@@ -136,6 +136,21 @@ public class FeatureTests
     }
 
     [Fact]
+    public async Task MichonneSave_ListsItsDecisionsAndChapters()
+    {
+        var page = await _fixture.NewPage();
+        await InjectMultipleSaveFiles(page, ("Michonne", "wdm_saveslot2.bundle"));
+        await LoadAndSelectFirstSave(page);
+
+        await Assertions.Expect(page.Locator("[data-testid='season-michonne'] > summary .badge")).ToContainTextAsync("36 choices");
+
+        await page.Locator("[data-testid='tab-resume']").ClickAsync();
+        await Assertions.Expect(page.Locator("[data-testid='resume-state']")).ToContainTextAsync("Episode 1: In Too Deep");
+        await Assertions.Expect(page.Locator("[data-testid='restart-episode'] option")).ToHaveCountAsync(3);
+        await Assertions.Expect(page.Locator("[data-testid='restart-chapter'] optgroup")).ToHaveCountAsync(3);
+    }
+
+    [Fact]
     public async Task InventoryTab_SaysWhenASeasonHasNoEditableInventory()
     {
         var page = await _fixture.NewPage();

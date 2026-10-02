@@ -1,12 +1,13 @@
 using System.Text.RegularExpressions;
 using TwdSaveEditor.Tools.Common.Dialogs;
+using TwdSaveEditor.Tools.Common.Seasons;
 using TwdSaveEditor.Tools.ExtractResumePoints.Dialogs;
 using TwdSaveEditor.Tools.ExtractResumePoints.Model;
 using TwdSaveEditor.Tools.ExtractResumePoints.Scripts;
 
 namespace TwdSaveEditor.Tools.ExtractResumePoints.Chapters;
 
-public sealed partial class EpisodeReader(string dataDirectory, int season, DialogLoader loader, IReadOnlyDictionary<string, string> constants, IReadOnlyList<DecisionNodes> decisions)
+public sealed partial class EpisodeReader(string dataDirectory, GameSeason season, DialogLoader loader, IReadOnlyDictionary<string, string> constants, IReadOnlyList<DecisionNodes> decisions)
 {
     public const string DebugMenuScript = "Episode.lua";
     public const string OpeningScript = "PreviouslyOn";

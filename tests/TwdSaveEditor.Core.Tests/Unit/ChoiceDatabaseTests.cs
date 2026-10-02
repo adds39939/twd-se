@@ -43,7 +43,7 @@ public class ChoiceDatabaseTests
     [InlineData("s2", 25)]
     [InlineData("s3", 24)]
     [InlineData("s4", 16)]
-    [InlineData("michonne", 15)]
+    [InlineData("michonne", 36)]
     public void ForSeason_GameSourcedSeasons_HaveChoices(string seasonKey, int minCount)
     {
         var choices = TestSeasons.ChoicesFor(seasonKey).ToList();
@@ -151,7 +151,7 @@ public class ChoiceDatabaseTests
     [InlineData("s2", "WalkingDead201")]
     [InlineData("s3", "WalkingDead301")]
     [InlineData("s4", "WalkingDead401")]
-    [InlineData("michonne", "Michonne101")]
+    [InlineData("michonne", "WalkingDeadM101")]
     public void Season_HasScenesForItsEpisodes(string seasonKey, string episodeId)
     {
         var season = TestSeasons.Registry.Get(seasonKey)!;

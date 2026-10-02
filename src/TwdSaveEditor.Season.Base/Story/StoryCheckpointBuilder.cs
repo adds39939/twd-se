@@ -5,53 +5,56 @@ using TwdSaveEditor.Core.Constants;
 using TwdSaveEditor.Core.Hashing;
 using TwdSaveEditor.Core.Model;
 using TwdSaveEditor.Season.Base.DialogLog;
-using TwdSaveEditor.Season.S3.Chapters;
-using TwdSaveEditor.Season.S3.Decisions;
 
-namespace TwdSaveEditor.Season.S3.Saves;
+namespace TwdSaveEditor.Season.Base.Story;
 
-public static class S3CheckpointBuilder
+public sealed class StoryCheckpointBuilder(StorySeason season)
 {
     public const string DeveloperMenuScript = "DebugMenu";
     public const string PreviousScript = "Script - Previous";
+    public const string ChapterId = "SaveLoad - Chapter ID";
 
-    private const string SaveMetadataParent = "metadata_save_s3.prop";
     private const string AutoSave = "SaveLoad - Auto Save";
     private const string ScriptExtension = ".lua";
     private const uint LocalKeysFlag = 0x100;
 
-    private static readonly string[] SharedResourceSets = ["UISeason3", "MenuSeason3", "ProjectSeason3"];
-
-    public static SaveSlot Build(SaveSlot slot, int episode, S3Chapter chapter, int serial, string date)
+    public SaveSlot Build(SaveSlot slot, int episode, StoryChapter chapter, string fileName, int serial, string date)
     {
-        var project = S3SlotFiles.ProjectName(episode);
+        var project = season.ProjectName(episode);
 
-        var metadata = new PropertySet { Flags = LocalKeysFlag, ParentSymbols = [Symbol.FromString(SaveMetadataParent)] };
+        var metadata = new PropertySet { Flags = LocalKeysFlag, ParentSymbols = [Symbol.FromString(season.SaveMetadataParent)] };
         metadata.SetInt(SaveMetadataKeys.Serial, serial);
         metadata.SetInt(SaveMetadataKeys.Episode, episode);
         metadata.SetString(SaveMetadataKeys.Date, date);
-        metadata.SetString(SaveMetadataKeys.ChapterId, string.Empty);
-        metadata.SetString(S3SlotFiles.SavedScript, chapter.Script);
-        metadata.SetString(S3SlotFiles.SavedProject, project);
+        metadata.SetString(SaveMetadataKeys.ChapterId, chapter.ChapterId);
+        metadata.SetString(StoryFiles.SavedScript, chapter.Script);
+        metadata.SetString(StoryFiles.SavedProject, project);
 
         var sets = new SortedDictionary<ulong, PropertySet>();
-        Runtime(sets, S3SlotFiles.SaveLoadProperties).SetBool(AutoSave, false);
-        Runtime(sets, S3SlotFiles.ScriptProperties).SetString(PreviousScript, DeveloperMenuScript);
+        var saveLoad = Runtime(sets, StoryFiles.SaveLoadProperties);
+        saveLoad.SetBool(AutoSave, false);
+        if (season.ChapterSaves)
+            saveLoad.SetString(ChapterId, chapter.ChapterId);
 
-        var game = Runtime(sets, S3SlotFiles.LogicGameProperties);
-        ApplyLogicKeys(slot, episode, game);
-        foreach (var flag in chapter.Flags)
-            Apply(game, flag.Key, flag.Value);
+        if (!chapter.StartsEpisode)
+        {
+            Runtime(sets, StoryFiles.ScriptProperties).SetString(PreviousScript, DeveloperMenuScript);
+
+            var game = Runtime(sets, StoryFiles.LogicGameProperties);
+            ApplyLogicKeys(slot, episode, game);
+            foreach (var flag in chapter.Flags)
+                Apply(game, flag.Key, flag.Value);
+        }
 
         var save = new SaveGameFile
         {
             LuaDoFile = chapter.Script + ScriptExtension,
             Agents = [],
             RuntimePropertyNames = [.. sets.Keys],
-            EnabledDynamicSets = [.. SharedResourceSets.Prepend(project).Select(TelltaleHash.ComputeCrc64)],
+            EnabledDynamicSets = [.. season.SharedResourceSets.Prepend(project).Select(TelltaleHash.ComputeCrc64)],
         };
 
-        var bundle = SaveSlotFactory.Create(S3SlotFiles.AutosaveName(slot.FileName));
+        var bundle = SaveSlotFactory.Create(fileName);
         bundle.DetectedSeasonKey = slot.DetectedSeasonKey;
         bundle.Modified = true;
         bundle.Files.Add(SaveSlotFactory.CreateFile(BundleFileNames.SaveMetadata, metadata));
@@ -68,16 +71,16 @@ public static class S3CheckpointBuilder
         return bundle;
     }
 
-    public static void ApplyLogicKeys(SaveSlot slot, int episode, PropertySet game)
+    public void ApplyLogicKeys(SaveSlot slot, int episode, PropertySet game)
     {
-        var nodes = new S3EventLog(slot).Nodes();
-        foreach (var key in S3DecisionCatalog.LogicKeys.Where(key => key.ReadFrom <= episode))
+        var nodes = new StoryEventLog(slot, season).Nodes();
+        foreach (var key in season.LogicKeys.Where(key => key.ReadFrom <= episode))
             Set(game, key, nodes);
     }
 
-    public static void Set(PropertySet game, S3LogicKey key, IReadOnlySet<ulong> nodes)
+    public static void Set(PropertySet game, StoryLogicKey key, IReadOnlySet<ulong> nodes)
     {
-        switch (S3DecisionLog.Evaluate(key, nodes))
+        switch (StoryDecisionLog.Evaluate(key, nodes))
         {
             case bool flag:
                 game.SetBool(key.Key, flag);

@@ -2,22 +2,24 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using TwdSaveEditor.Tools.Common.Configuration;
 using TwdSaveEditor.Tools.Common.Meta;
+using TwdSaveEditor.Tools.Common.Seasons;
 using TwdSaveEditor.Tools.ExtractDecisions.Choices;
 using TwdSaveEditor.Tools.ExtractDecisions.Model;
 using TwdSaveEditor.Tools.ExtractDecisions.Props;
 using TwdSaveEditor.Tools.ExtractDecisions.Scripts;
 
-if (args.Length != 1 || !int.TryParse(args[0], out var season) || season is not (2 or 3))
+if (args.Length != 1 || GameSeason.Find(args[0]) is not { } game)
 {
-    Console.WriteLine("Usage: ExtractDecisions <season: 2 | 3>");
+    Console.WriteLine($"Usage: ExtractDecisions <season: {GameSeason.Arguments}>");
     Console.WriteLine("Builds the season's decision list and node ids from persistent.prop and choice.prop,");
     Console.WriteLine("and for Season 2 the choice randomizer script, into the season project's Data folder.");
     return 1;
 }
 
+var season = game.Number;
 var data = Path.Combine(ToolPaths.ToolsDirectory, "data");
-var randomizer = Path.Combine(data, "lua", $"WDC_pc_MenuSeason{season}_data", "ChoiceRandomizer.lua");
-var project = Path.Combine(data, "extracted", $"WDC_pc_ProjectSeason{season}_data");
+var randomizer = Path.Combine(data, "lua", game.MenuArchive, "ChoiceRandomizer.lua");
+var project = Path.Combine(data, "extracted", game.ProjectArchive);
 var persistent = Path.Combine(project, "persistent.prop");
 var stats = Path.Combine(project, "choice.prop");
 
@@ -32,14 +34,17 @@ foreach (var path in new[] { persistent, stats })
 
 var props = new GameProps(MetaReader.CreateDefault());
 var options = new JsonSerializerOptions { WriteIndented = true, Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping };
-var output = Path.Combine(ToolPaths.RepositoryRoot, "src", $"TwdSaveEditor.Season.S{season}", "Data");
+var output = game.DataDirectory(ToolPaths.RepositoryRoot);
 
 if (!File.Exists(randomizer))
 {
     var keys = props.ReadLogicKeys(persistent);
+    if (!game.MatchesBracedNodes)
+        keys = [.. keys.Select(ExpressionDecisions.WithoutBracedNodes)];
+
     var rows = ExpressionDecisions.Build(props.ReadStats(stats), keys, season);
-    File.WriteAllText(Path.Combine(output, $"s{season}.choices.json"), new JsonArray([.. rows.Select(row => ExpressionDecisions.Choice(row, season))]).ToJsonString(options) + Environment.NewLine);
-    File.WriteAllText(Path.Combine(output, $"s{season}.decisions.json"), ExpressionDecisions.Decisions(rows, keys).ToJsonString(options) + Environment.NewLine);
+    File.WriteAllText(Path.Combine(output, $"{game.SeasonKey}.choices.json"), new JsonArray([.. rows.Select(row => ExpressionDecisions.Choice(row, game.SeasonKey))]).ToJsonString(options) + Environment.NewLine);
+    File.WriteAllText(Path.Combine(output, $"{game.SeasonKey}.decisions.json"), ExpressionDecisions.Decisions(rows, keys).ToJsonString(options) + Environment.NewLine);
     foreach (var row in rows)
         Console.WriteLine($"{row.Episode} {(row.Story ? "story" : "stats")} {row.Key,-60} {string.Join(" | ", row.Options.Select(option => $"{option.Value}={option.Label}"))}");
 
@@ -52,8 +57,8 @@ var decisions = DecisionMerger.Merge(random, props.ReadStats(stats), props.ReadL
 var linked = random.Count > 0;
 
 var indented = new JsonSerializerOptions { WriteIndented = true };
-File.WriteAllText(Path.Combine(output, $"s{season}.choices.json"), new JsonArray([.. decisions.Select(decision => DecisionWriter.Choice(decision, season, linked))]).ToJsonString(indented) + Environment.NewLine);
-File.WriteAllText(Path.Combine(output, $"s{season}.nodes.json"), new JsonArray([.. decisions.Select(decision => DecisionWriter.Nodes(decision, season))]).ToJsonString(indented) + Environment.NewLine);
+File.WriteAllText(Path.Combine(output, $"{game.SeasonKey}.choices.json"), new JsonArray([.. decisions.Select(decision => DecisionWriter.Choice(decision, season, linked))]).ToJsonString(indented) + Environment.NewLine);
+File.WriteAllText(Path.Combine(output, $"{game.SeasonKey}.nodes.json"), new JsonArray([.. decisions.Select(decision => DecisionWriter.Nodes(decision, season))]).ToJsonString(indented) + Environment.NewLine);
 
 foreach (var decision in decisions)
 {

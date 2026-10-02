@@ -8,7 +8,6 @@ using TwdSaveEditor.Season.Base.Services;
 using TwdSaveEditor.Season.Common.Abstractions;
 using TwdSaveEditor.Season.Common.Extensions;
 using TwdSaveEditor.Season.Common.Services;
-using TwdSaveEditor.Season.Michonne.Choices;
 using TwdSaveEditor.Season.Michonne.Handlers;
 using TwdSaveEditor.Season.S1.Handlers;
 using TwdSaveEditor.Season.S2.Handlers;
@@ -71,36 +70,6 @@ public class FullCycleTests
         var reloaded2 = BundleReader.Read(bytes2, "test_s4.bundle");
         var accessor2 = new ChoiceStatsAccessor(reloaded2);
         Assert.Equal("on", accessor2.GetChoiceValue("aj_bed"));
-    }
-
-    [Fact]
-    public void Michonne_CreateEditSaveReload_WithEventLog()
-    {
-        var tempDir = TestDataHelper.CreateTempDir();
-        try
-        {
-            var mgr = new SaveManager(Registry, tempDir);
-            var slot = mgr.CreateNewSave("wdm_saveslot1.bundle", "michonne", 1);
-
-            Assert.True(File.Exists(slot.FilePath));
-            Assert.NotNull(slot.EStorePath);
-            Assert.True(File.Exists(slot.EStorePath));
-
-            var reloaded = BundleReader.Read(slot.FilePath);
-            reloaded.EStorePath = slot.EStorePath;
-            reloaded.EPagePaths = slot.EPagePaths;
-            reloaded.DetectedSeasonKey = "michonne";
-
-            var accessor = new EventLogAccessor(reloaded, MichonneChoiceNodes.Map);
-            Assert.True(accessor.HasEventLog);
-
-            var allChoices = accessor.GetAllChoices();
-            Assert.True(allChoices.Count > 0, "Expected choices from created Michonne EventLog");
-        }
-        finally
-        {
-            Directory.Delete(tempDir, true);
-        }
     }
 
     [Fact]

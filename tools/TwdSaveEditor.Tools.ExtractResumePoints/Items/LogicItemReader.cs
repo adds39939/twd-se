@@ -1,13 +1,14 @@
 using TwdSaveEditor.Tools.Common.Dialogs;
 using TwdSaveEditor.Tools.Common.Hashing;
 using TwdSaveEditor.Tools.Common.Inventory;
+using TwdSaveEditor.Tools.Common.Seasons;
 using TwdSaveEditor.Tools.ExtractResumePoints.Chapters;
 using TwdSaveEditor.Tools.ExtractResumePoints.Model;
 using TwdSaveEditor.Tools.ExtractResumePoints.Scripts;
 
 namespace TwdSaveEditor.Tools.ExtractResumePoints.Items;
 
-public sealed class LogicItemReader(string dataDirectory, int season, DialogLoader loader)
+public sealed class LogicItemReader(string dataDirectory, GameSeason season, DialogLoader loader)
 {
     public const string Agent = "logic_inventory";
 

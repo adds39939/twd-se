@@ -1,0 +1,305 @@
+{
+  "episodes": [
+    {
+      "episode": 1,
+      "items": [],
+      "starting": [],
+      "chapters": [
+        {
+          "id": "CovePrologue",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "CovePrologueEndOfFight",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "OpeningCredits",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "DockCBayPeteBoatBelowDeck",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "DockCBayPeteBoatTopDeck",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "DockChesapeakBayRowBoat",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "ShorelineApproachFerry",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "FerryExteriorDeck",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "FerryInteriorMainLadder",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "FerryInteriorMainWindow",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "FerryInteriorSnackBar",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "FerryInteriorSnackBarAction",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "TransportBoatApproach",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "Monroe",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "FlagshipInteriorStoreRoom",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "FlagShipExteriorNormaBranches",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "FlagshipExteriorDeckNorma",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "FlagShipInteriorEscape",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "FlagshipInteriorEscapeGregShot",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "FlagshipInteriorEscapeKillGreg",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "FlagshipExteriorEscape",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "BoatTownShorelineEscape",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "NextTimeOn",
+          "carried": [],
+          "fromStart": []
+        }
+      ]
+    },
+    {
+      "episode": 2,
+      "items": [],
+      "starting": [],
+      "chapters": [
+        {
+          "id": "PreviouslyOn",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "FlagShipInteriorEscape",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "FlagShipExteriorEscape",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "FlagShipExteriorEscapePostNormaRandall",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "Credits",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "BoatTownEscape",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "ShorelineApproachFerryWoods",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "WoodsTower",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "JohnsHouseWoodsTile",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "JohnsHouseExteriorWall",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "JohnsHouseInteriorIntro",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "JohnsHouseInteriorFlashback",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "JohnsHouseInteriorPaige",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "JohnsHouseExteriorIntruder",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "JohnsHouseExteriorFlareFight",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "JohnsHouseExteriorShotgunFight",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "JohnsHouseExteriorGarageFight",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "JohnsHouseExteriorRandall",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "NextTimeOn",
+          "carried": [],
+          "fromStart": []
+        }
+      ]
+    },
+    {
+      "episode": 3,
+      "items": [],
+      "starting": [],
+      "chapters": [
+        {
+          "id": "PreviouslyOn",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "PeteBoatPrologue",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "JohnsHouseGarage",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "OpeningCredits",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "JohnsHouseInteriorBurial",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "JohnsHouseInteriorFreewalk",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "JohnsHouseInteriorUpstairsFreewalk",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "JohnsHouseInteriorFuneral",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "JohnsHouseExteriorLawnNegotiate",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "JohnsHouseExteriorLawnRetreat",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "JohnsHouseIntDownstairsMolotov",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "JohnsHouseIntUpstairsDaugthers",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "JohnsHouseIntUpstairsSaveKids",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "Epilogue",
+          "carried": [],
+          "fromStart": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,13 +1,14 @@
 using TwdSaveEditor.Tools.Common.Dialogs;
 using TwdSaveEditor.Tools.Common.Inventory;
 using TwdSaveEditor.Tools.Common.Meta;
+using TwdSaveEditor.Tools.Common.Seasons;
 using TwdSaveEditor.Tools.ExtractResumePoints.Chapters;
 using TwdSaveEditor.Tools.ExtractResumePoints.Model;
 using TwdSaveEditor.Tools.ExtractResumePoints.Scripts;
 
 namespace TwdSaveEditor.Tools.ExtractResumePoints.Items;
 
-public sealed class EpisodeItemReader(string dataDirectory, int season, MetaReader meta, DialogLoader loader)
+public sealed class EpisodeItemReader(string dataDirectory, GameSeason season, MetaReader meta, DialogLoader loader)
 {
     public EpisodeItems Read(EpisodeResume episode)
     {

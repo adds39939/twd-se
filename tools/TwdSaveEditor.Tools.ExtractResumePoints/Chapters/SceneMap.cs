@@ -1,4 +1,5 @@
 using System.Text;
+using TwdSaveEditor.Tools.Common.Hashing;
 using TwdSaveEditor.Tools.ExtractResumePoints.Model;
 
 namespace TwdSaveEditor.Tools.ExtractResumePoints.Chapters;
@@ -28,9 +29,17 @@ public sealed class SceneMap(IReadOnlyList<SceneScript> scripts, string sceneDir
             return [.. matches.Select(script => script.Script)];
 
         var named = scripts.Where(script => script.Text.Contains(file, StringComparison.OrdinalIgnoreCase)).Select(script => script.Script).ToList();
-        return named.Count > 0
-            ? named
-            : [.. scripts.Where(script => SceneText(script.Scene).Contains(file + DialogExtension, StringComparison.OrdinalIgnoreCase)).Select(script => script.Script)];
+        if (named.Count > 0)
+            return named;
+
+        var symbol = Encoding.Latin1.GetString(BitConverter.GetBytes(TelltaleCrc64.Compute(file + DialogExtension)));
+        return
+        [
+            .. scripts
+                .Where(script => SceneText(script.Scene).Contains(file + DialogExtension, StringComparison.OrdinalIgnoreCase)
+                    || SceneText(script.Scene).Contains(symbol, StringComparison.Ordinal))
+                .Select(script => script.Script),
+        ];
     }
 
     private string SceneText(string scene)

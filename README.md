@@ -14,7 +14,7 @@ A save editor for **The Walking Dead: The Telltale Definitive Series**. Edit cho
 - **Native format editing** — each season's save format is handled natively (no hacks or file injection)
 - **Choice editing** — change any tracked decision via labeled dropdowns
 - **Metadata editing** — playtime, episode progress, autosave references, game completion
-- **Resume point editing** — restart a Season 1, 2 or 3 save from the beginning of any episode, or from a chapter inside any episode including 400 Days, with the decisions you picked
+- **Resume point editing** — restart a Season 1, 2, 3 or Michonne save from the beginning of any episode, or from a chapter inside any episode including 400 Days, with the decisions you picked
 - **Inventory editing** — choose what Lee (Season 1), Clementine (Season 2) or Javier (Season 3) carries in a save, or add the items picked up earlier in the episode after resuming from a chapter
 - **Cross-season cascade and import** — optionally propagate Season 1 choice changes into Season 2 saves, and import a Season 1 save into Season 2 or a Season 2 save into Season 3 the way the game does
 - **S4 presets** — quick-apply "Save Louis", "Save Violet", or "Trust AJ" choice paths
@@ -32,7 +32,7 @@ Each season stores choices differently. The editor handles all five formats nati
 | Season 2 | EventLog + `season1.prop` | Dialog node events in the slot's estore/epage files; imported Season 1 values in the slot bundle |
 | Season 3 | EventLog | Dialog node events in the slot's estore/epage files, including the imported Season 2 block |
 | Season 4 | `choicestats.pro` | Tab-separated GUIDs in bundle |
-| Michonne | EventLog | 42-byte records with braced GUID hashes |
+| Michonne | EventLog | Dialog node events in the slot's estore/epage files |
 
 Choice definitions are sourced from the game's own data files (`persistent.prop`, `statsInfo_*.prop` and `choice.prop`).
 
@@ -102,7 +102,7 @@ A chapter checkpoint written by the editor starts with only what the scene's dev
 
 ### Season 3 saves
 
-A Season 3 slot is `wd3_saveslot<N>.bundle` (slot metadata only), one `_wd3_saveslot<N>_autosave.bundle`, and the event log `_wd3_saveslot<N>_id.estore` with its pages. The game's checkpoints carry no chapter ids in this season, so there is a single save per slot. The game scripts are the same framework as Season 2 and the editor shares that code (`Season.Base/DialogLog`).
+A Season 3 slot is `wd3_saveslot<N>.bundle` (slot metadata only), one `_wd3_saveslot<N>_autosave.bundle`, and the event log `_wd3_saveslot<N>_id.estore` with its pages. The game's checkpoints carry no chapter ids in this season, so there is a single save per slot. The game scripts are the same framework as Season 2 and the editor shares the log handling with it (`Season.Base/DialogLog`); what is specific to this generation of the framework is in `Season.Base/Story` and is shared with Michonne.
 
 **The log.** Besides dialog nodes and save serials the log holds `Begin Episode` and `End Episode` markers, dialog choice events, and at its start the block `Previous Game Data Begin` … `Previous Game Data End`: every dialog node of the Season 2 save that was imported, or of the story the player built instead. The game lists a slot as empty when its log has no such block, so the editor always writes one. Restarting an episode cuts the log at that episode's `Begin Episode` marker, as `EventLog_TruncateEpisode` does. The page that holds most of the imported block (about 9,500 events) is stored compressed; a compressed section is zero-padded to whole 64 KiB blocks, which `EventLogCodec` reads and writes.
 
@@ -115,6 +115,17 @@ A Season 3 slot is `wd3_saveslot<N>.bundle` (slot metadata only), one `_wd3_save
 **Inventory.** Only Episodes 1 and 2 have items, four each, registered by `Inventory_InitItem` in `Episode.lua`. An item is an integer `Inventory - <name>` on the `logic_inventory` agent, set by logic rules in the dialogs rather than by script calls. `Inventory.lua` keeps a copy per player character and restores the shared set from it whenever the player character is set, so a save holds the counts twice, in `logic_inventory` and in `logic_inventory_Javier`; the editor writes both. "Add items picked up earlier" uses the same rule as Season 2, with the dialog rules as its source: Junkyard Hill starts with the crowbar and the siphon, the truck scenes with the candy bar, and the Episode 2 scenes up to the car with the water bottle. Where giving an item away is a choice (the candy bar, the tape player) the item is taken as given once that scene is over.
 
 **Import.** "Import" on a Season 3 save copies the dialog nodes of a Season 2 save's log into the block, which is what the game's own import does.
+
+### Michonne saves
+
+Michonne's scripts are the earlier version of the Season 3 framework, so both seasons run on the same code (`Season.Base/Story`), each described by a `StorySeason` (project and metadata names, number of episodes, date format and the differences below). A slot is `wdm_saveslot<N>.bundle`, the autosave, one `_wdm_saveslot<N>_checkpoint<K>.bundle` per chapter as in Season 2, and the event log.
+
+- **No earlier game.** There is no imported block; the log starts with `Begin Episode 1`.
+- **Decisions.** `persistent.prop` and `choice.prop` have the Season 3 layout and `ExtractDecisions m` builds 36 rows from them. A story key can be listed for both Episode 2 and Episode 3, in two cases with different expressions; it is one row, and setting it searches for the node combination under which every definition reads the same. Michonne's evaluator does not strip braces from a node id, so the one key written with braces (`Greg Zombified`) is always false in the game and is not offered. The evaluator's results match every story key stored in the three sample saves.
+- **Empty slots.** As in Season 2 the menu lists a slot without any save bundle as empty. A new save, or a restart that would leave no save, therefore gets a checkpoint that runs the episode's first script without the developer-menu marker, which starts the episode normally. `Last Episode Finished` is a string in real saves and is written as one.
+- **Chapters.** The developer menu call takes a page and a position (`DebugMenu_AddButton(1, 2, "Cove Prologue", "ShoreLineCove", …)`), and Episode 1 lists its scenes a second time under their dialog file names; that second list has two scenes the first lacks. The lists are merged: an entry named after a dialog is dropped when the same script and flags were already listed, otherwise it is placed after the entry before it and titled from the dialog name. This gives 56 resume points, each with the game's chapter id (`101_chapter4`) for the checkpoint.
+
+The inventory (integers on `logic_inventory`, changed by `Inventory_AddItem` calls in dialog scripts) is not editable yet.
 
 ## Using the App
 
@@ -190,9 +201,11 @@ src/
 │   ├── Services/                   SeasonRegistry, BackupFileResolver
 │   └── Extensions/                 CreateSave / GetScenes helpers
 ├── TwdSaveEditor.Season.Base/      Building blocks shared by season implementations
-│   ├── Handlers/                   SeasonHandlerBase, PropChoicesSeasonHandler, EventLogSeasonHandler
-│   ├── Accessors/                  SaveAccessor (choices.prop), EventLogAccessor (estore/epage)
-│   ├── EventLog/                   ChoiceNodeMap, EventLog file naming
+│   ├── Handlers/                   SeasonHandlerBase, PropChoicesSeasonHandler, StorySeasonHandler
+│   ├── Accessors/                  SaveAccessor (choices.prop)
+│   ├── DialogLog/                  Event log editing, companion files and node expressions (Seasons 2, 3, Michonne)
+│   ├── Story/                      Decisions, resume points and checkpoints of Season 3 and Michonne
+│   ├── EventLog/                   ChoiceNodeMap, EventLog file naming (older tools)
 │   ├── Resources/                  Embedded choice/scene data loader
 │   └── Services/                   SaveManager (disk-based)
 ├── TwdSaveEditor.Season.S1/        Season 1 and 400 Days (persistent decisions, autosave, episode and chapter resume)
@@ -268,7 +281,7 @@ Optional capabilities are separate interfaces a handler can also implement:
 | Interface | Capability | Implemented by |
 |-----------|------------|----------------|
 | `ICompanionFileHandler` | State kept in files next to the bundle (autosave bundle, estore/epage EventLog) | S1, S2, S3, Michonne |
-| `IResumePointHandler` | Restart a save from the beginning of an episode or from a chapter | S1, S2, S3 |
+| `IResumePointHandler` | Restart a save from the beginning of an episode or from a chapter | S1, S2, S3, Michonne |
 | `IInventoryHandler` | List and change the items the player character carries in the save a slot resumes from | S1, S2, S3 |
 | `IPropertyNameProvider` | Names for the property hashes shown in the Properties tab | S1 |
 | `IChoiceImporter` | Import all choices from a save of an earlier season | S2, S3 |
@@ -278,7 +291,7 @@ Optional capabilities are separate interfaces a handler can also implement:
 
 1. Create a `TwdSaveEditor.Season.<Name>` project referencing `Season.Base` and `Season.Common`.
 2. Add `Data/<key>.choices.json` and `Data/<key>.scenes.json` (embedded automatically).
-3. Implement a handler under `Handlers/`, deriving from `PropChoicesSeasonHandler`, `EventLogSeasonHandler` or `SeasonHandlerBase` depending on how the season stores choices.
+3. Implement a handler under `Handlers/`, deriving from `PropChoicesSeasonHandler`, `StorySeasonHandler` or `SeasonHandlerBase` depending on how the season stores choices.
 4. Register it in `TwdSaveEditor.Bootstrap`.
 
 No changes to the UI are needed.
@@ -290,7 +303,7 @@ No changes to the UI are needed.
 - **MetaStream (MSV6)** — Telltale's container format with 3 sections (default, debug, async). A section whose size has the top bit set is TTCZ compressed: 64 KiB pages of raw deflate behind a page offset table. The debug section holds 4 bytes for every symbol in the default section
 - **PropertySet** — Typed key-value store using CRC64 symbol hashes, version 2, grouped by type and ordered by hash. `DCArray<String>` values are a count followed by length-prefixed strings
 - **Bundle** — Outer MetaStream whose default section is a table of 40-byte entries (offset, size, 16-byte name, name symbol, type symbol) and whose async section holds the inner MetaStream files. An autosave holds thousands of files; all but the first two are named by symbol only
-- **EventLog** — `EventStorage` (page list, last event id, current page) and `EventStoragePage` files of `EventLoggerEvent` records; see Season 2 and Season 3 above. Michonne is still read with an older scan for 42-byte records
+- **EventLog** — `EventStorage` (page list, last event id, current page) and `EventStoragePage` files of `EventLoggerEvent` records; see Season 2 and Season 3 above.
 - **Estore/Epage** — Paged EventLog storage (estore = index, epage = data pages)
 
 ### Choice Identification
@@ -299,7 +312,7 @@ No changes to the UI are needed.
 - **S2**: The same keys without the prefix for imported S1 decisions, string pairs (`"shot_kenny - true"`) for its own
 - **S3**: Expressions over dialog node GUIDs from `persistent.prop` and `choice.prop`, evaluated against the EventLog (CRC64 of `{GUID}`)
 - **S4**: GUIDs in `( {GUID} )` format (tab-separated in choicestats.pro)
-- **Michonne**: CRC64 of braced GUID strings (`CRC64("{GUID}")`)
+- **Michonne**: The same as Season 3, from its own `persistent.prop` and `choice.prop`
 
 ## Tools
 
@@ -331,8 +344,8 @@ dotnet run --project tools/TwdSaveEditor.Tools.TtarchDecrypt
 | `BuildCheckpoint` | Write a slot and the editor's chapter checkpoint for it with `chapter`, list chapter ids with `chapters`, build reduced or from-scratch checkpoints from a real autosave for experiments, or check with `--verify` that every `default.save` is rewritten identically | file arguments |
 | `VerifyRoundTrip` | Read and rewrite every bundle, `.estore` and `.epage` file under the given paths and check the result is identical | file arguments |
 | `EditSave` | Load a save the way the app does (or create one with `--new <episode>`), list its decisions, apply `key=value` changes, `--restart <episode>` or `--chapter <episode> <chapter id>`, change the inventory with `--carried`, `--give <item id>[:count]` and `--take <item id>`, and write the files (optionally as another slot number with `--out` and `--slot`) | file arguments |
-| `ExtractDecisions <season>` | Build the season's decision list from `persistent.prop` and `choice.prop` into the season project's `Data` folder: node lists joined through the randomizer script for Season 2, node expressions and story keys (`s3.decisions.json`) for Season 3 | `tools/data/lua`, `tools/data/extracted` |
-| `ExtractResumePoints <season>` | Read each episode's developer chapter menu and the chapter checkpoints in its dialogs and place every decision by the scene it is made in (`s<N>.chapters.json`); for Season 2 also list the imported Season 1 keys; read each episode's items (Season 2: `ui_item_*.prop`, names from `ui_episode.dlog` and `ui_episode_english.landb`; Season 3: `Inventory_InitItem` calls) and where scripts and dialog rules add or remove them (`s<N>.items.json`). A dialog is placed on the scene script whose scene is named like it, that names it, or whose `.scene` file refers to it | `tools/data/lua`, `tools/data/extracted`, the season's decision file |
+| `ExtractDecisions <season>` | Build the season's decision list from `persistent.prop` and `choice.prop` into the season project's `Data` folder: node lists joined through the randomizer script for Season 2, node expressions and story keys (`<season>.decisions.json`) for Season 3 and Michonne. `<season>` is `2`, `3` or `m` | `tools/data/lua`, `tools/data/extracted` |
+| `ExtractResumePoints <season>` | Read each episode's developer chapter menu and the chapter checkpoints in its dialogs and place every decision by the scene it is made in (`<season>.chapters.json`), for `2`, `3` or `m`; for Season 2 also list the imported Season 1 keys; read each episode's items (Season 2: `ui_item_*.prop`, names from `ui_episode.dlog` and `ui_episode_english.landb`; Season 3: `Inventory_InitItem` calls) and where scripts and dialog rules add or remove them (`s<N>.items.json`). A dialog is placed on the scene script whose scene is named like it, that names it, or whose `.scene` file refers to it | `tools/data/lua`, `tools/data/extracted`, the season's decision file |
 | `ExtractAllChoices` | Extract every season's choices into `tools/all_choices_summary.txt` | `TWD_ARCHIVES` |
 | `ExtractNodeMappings` | Map choices to dialog node hashes in `tools/node_hash_mappings.txt` and `.json` | `TWD_ARCHIVES`, optionally `TWD_SAMPLE_SAVES` |
 | `ExtractScenes` | List the scenes of each episode in `tools/data/episode_scenes.json` | `TWD_ARCHIVES` |

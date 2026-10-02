@@ -3,6 +3,7 @@ using System.Text.Json.Nodes;
 using TwdSaveEditor.Tools.Common.Configuration;
 using TwdSaveEditor.Tools.Common.Dialogs;
 using TwdSaveEditor.Tools.Common.Meta;
+using TwdSaveEditor.Tools.Common.Seasons;
 using TwdSaveEditor.Tools.ExtractResumePoints.Chapters;
 using TwdSaveEditor.Tools.ExtractResumePoints.Items;
 using TwdSaveEditor.Tools.ExtractResumePoints.Model;
@@ -10,43 +11,42 @@ using TwdSaveEditor.Tools.ExtractResumePoints.Props;
 using TwdSaveEditor.Tools.ExtractResumePoints.Scripts;
 
 const int FirstEpisode = 1;
-const int LastEpisode = 5;
-const int ItemSeason = 2;
-const int ItemEpisodes = 2;
+const int ScriptItemSeason = 2;
 
-if (args.Length != 1 || !int.TryParse(args[0], out var season) || season is not (2 or 3))
+if (args.Length != 1 || GameSeason.Find(args[0]) is not { } season)
 {
-    Console.WriteLine("Usage: ExtractResumePoints <season: 2 | 3>");
+    Console.WriteLine($"Usage: ExtractResumePoints <season: {GameSeason.Arguments}>");
     Console.WriteLine("Reads each episode's developer chapter menu and dialogs and writes the season's chapter list;");
     Console.WriteLine("and the inventory items with where they are picked up.");
     return 1;
 }
 
 var data = Path.Combine(ToolPaths.ToolsDirectory, "data");
-var output = Path.Combine(ToolPaths.RepositoryRoot, "src", $"TwdSaveEditor.Season.S{season}", "Data");
-var projectScripts = Path.Combine(data, "lua", $"WDC_pc_ProjectSeason{season}_data");
+var output = season.DataDirectory(ToolPaths.RepositoryRoot);
+var projectScripts = Path.Combine(data, "lua", season.ProjectArchive);
+var scriptItems = season.Number == ScriptItemSeason;
 var meta = MetaReader.CreateDefault();
 
-var nodeLists = Path.Combine(output, $"s{season}.nodes.json");
-var expressions = Path.Combine(output, $"s{season}.decisions.json");
-var imported = season == ItemSeason
+var nodeLists = Path.Combine(output, $"{season.SeasonKey}.nodes.json");
+var expressions = Path.Combine(output, $"{season.SeasonKey}.decisions.json");
+var imported = scriptItems
     ? new ImportedKeyReader(meta).Read(Path.Combine(data, "extracted", "WDC_pc_Project_data"))
     : [];
 if (imported == null || !Directory.Exists(projectScripts) || !(File.Exists(nodeLists) || File.Exists(expressions)))
 {
-    Console.Error.WriteLine($"Extract WDC_pc_Project_data, decompile WDC_pc_ProjectSeason{season}_data and run ExtractDecisions {season} first.");
+    Console.Error.WriteLine($"Extract WDC_pc_Project_data, decompile {season.ProjectArchive} and run ExtractDecisions {season.Argument} first.");
     return 1;
 }
 
 var loader = new DialogLoader(meta);
-var decisions = File.Exists(nodeLists) ? DecisionNodeReader.ReadNodeLists(nodeLists, season) : DecisionNodeReader.ReadExpressions(expressions);
+var decisions = File.Exists(nodeLists) ? DecisionNodeReader.ReadNodeLists(nodeLists, season.Number) : DecisionNodeReader.ReadExpressions(expressions);
 var reader = new EpisodeReader(data, season, loader, ConstantReader.Read(projectScripts), decisions);
-Func<EpisodeResume, EpisodeItems> readItems = season == ItemSeason
+Func<EpisodeResume, EpisodeItems> readItems = scriptItems
     ? new EpisodeItemReader(data, season, meta, loader).Read
     : new LogicItemReader(data, season, loader).Read;
 var episodes = new List<EpisodeResume>();
 var inventories = new List<EpisodeItems>();
-for (var number = FirstEpisode; number <= LastEpisode; number++)
+for (var number = FirstEpisode; number <= season.Episodes; number++)
 {
     var episode = reader.Read(number);
     if (episode == null)
@@ -57,9 +57,9 @@ for (var number = FirstEpisode; number <= LastEpisode; number++)
 
     episodes.Add(episode);
     inventories.Add(readItems(episode));
-    if (inventories[^1].Items.Count == 0 && (season == ItemSeason || number <= ItemEpisodes))
+    if (inventories[^1].Items.Count == 0 && scriptItems)
     {
-        Console.Error.WriteLine($"Episode {number}: no inventory items found; for Season 2 extract ui_item_*.prop, {ItemCatalogReader.TextDialog} and {ItemCatalogReader.TextDatabase} with ExtractArchive first.");
+        Console.Error.WriteLine($"Episode {number}: no inventory items found; extract ui_item_*.prop, {ItemCatalogReader.TextDialog} and {ItemCatalogReader.TextDatabase} with ExtractArchive first.");
         return 1;
     }
 }
@@ -89,7 +89,7 @@ var document = new JsonObject
 };
 
 var options = new JsonSerializerOptions { WriteIndented = true };
-File.WriteAllText(Path.Combine(output, $"s{season}.chapters.json"), document.ToJsonString(options) + Environment.NewLine);
+File.WriteAllText(Path.Combine(output, $"{season.SeasonKey}.chapters.json"), document.ToJsonString(options) + Environment.NewLine);
 
 var inventory = new JsonObject
 {
@@ -112,7 +112,7 @@ var inventory = new JsonObject
     })]),
 };
 
-File.WriteAllText(Path.Combine(output, $"s{season}.items.json"), inventory.ToJsonString(options) + Environment.NewLine);
+File.WriteAllText(Path.Combine(output, $"{season.SeasonKey}.items.json"), inventory.ToJsonString(options) + Environment.NewLine);
 
 foreach (var episode in episodes)
 {

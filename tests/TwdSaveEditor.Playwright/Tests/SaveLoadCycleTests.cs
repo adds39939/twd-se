@@ -31,6 +31,12 @@ public class SaveLoadCycleTests
         "_wd2_saveslot1_id_Page913.epage", "_wd2_saveslot1_id_Page1897.epage", "_wd2_saveslot1_id_Page2734.epage",
     ];
 
+    private static readonly string[] MichonneFiles =
+    [
+        "wdm_saveslot2.bundle", "_wdm_saveslot2_autosave.bundle", "_wdm_saveslot2_checkpoint1.bundle", "_wdm_saveslot2_id.estore",
+        "_wdm_saveslot2_id_Page969.epage", "_wdm_saveslot2_id_Page1963.epage",
+    ];
+
     private async Task InjectSaveFiles(IPage page, string testDataSeason, params string[] fileSpecs)
     {
         var directory = new Dictionary<string, string>();
@@ -348,6 +354,56 @@ public class SaveLoadCycleTests
         var slot = BundleReader.Read(Convert.FromBase64String(slotBase64), "wd3_saveslot1.bundle");
         Assert.Equal(autosaveName, slot.Metadata!.GetString(SlotMetadataKeys.LatestSave));
         Assert.Equal(22, slot.Metadata.GetInt(SlotMetadataKeys.LatestSerial));
+    }
+
+    [Fact]
+    public async Task MichonneDecisionAndChapter_AreWrittenToTheLogAndACheckpoint()
+    {
+        const string checkpointName = "_wdm_saveslot2_checkpoint1.bundle";
+
+        var page = await _fixture.NewPage();
+        await InjectSaveFiles(page, "Michonne", MichonneFiles);
+
+        await page.Locator("[data-testid='open-directory']").ClickAsync();
+        await page.Locator(".save-item").First.ClickAsync();
+
+        var endIt = page.Locator(".choice-row", new() { HasTextString = "Did you try to end it?" }).First.Locator("select");
+        await endIt.SelectOptionAsync(new SelectOptionValue { Label = "Pulled the trigger" });
+
+        await page.Locator("[data-testid='tab-resume']").ClickAsync();
+        await Assertions.Expect(page.Locator("[data-testid='resume-state']")).ToContainTextAsync("checkpoint Flagship Interior Escape");
+        await Assertions.Expect(page.Locator("[data-testid='restart-episode'] option")).ToHaveCountAsync(3);
+        await Assertions.Expect(page.Locator("[data-testid='restart-chapter'] option")).ToHaveCountAsync(23);
+        await page.Locator("[data-testid='restart-chapter']").SelectOptionAsync("FerryInteriorSnackBar");
+        await page.Locator("[data-testid='restart-button']").ClickAsync();
+        await Assertions.Expect(page.Locator("[data-testid='resume-state']")).ToContainTextAsync("checkpoint Ferry Interior - Snack Bar");
+
+        await page.Locator(".save-btn").ClickAsync();
+        await Assertions.Expect(page.Locator(".toast-success", new() { HasTextString = "Saved wdm_saveslot2.bundle" }).First)
+            .ToBeVisibleAsync(new() { Timeout = 20000 });
+        await Assertions.Expect(page.Locator(".toast-error")).ToHaveCountAsync(0);
+
+        var checkpointBase64 = await FakeSaveDirectory.ReadFileAsync(page, checkpointName);
+        Assert.NotNull(checkpointBase64);
+        var checkpoint = BundleReader.Read(Convert.FromBase64String(checkpointBase64), checkpointName);
+        Assert.Equal(1, checkpoint.Metadata!.GetInt(SaveMetadataKeys.Episode));
+        Assert.Equal(24, checkpoint.Metadata.GetInt(SaveMetadataKeys.Serial));
+        Assert.Equal("101_chapter4", checkpoint.Metadata.GetString(SaveMetadataKeys.ChapterId));
+        var game = checkpoint.FindFile(TelltaleHash.ComputeCrc64("\"logic_game:logic.scene\" Runtime Properties"));
+        Assert.NotNull(game);
+        Assert.True(BundleReader.TryParseProperties(game));
+        Assert.True(game.Properties!.GetBool("2FerryInterior - In Snack Bar"));
+        Assert.Null(await FakeSaveDirectory.ReadFileAsync(page, "_wdm_saveslot2_autosave.bundle"));
+
+        var storageBase64 = await FakeSaveDirectory.ReadFileAsync(page, "_wdm_saveslot2_id.estore");
+        Assert.NotNull(storageBase64);
+        Assert.Equal(24, EventLogCodec.ReadStorage(Convert.FromBase64String(storageBase64)).CurrentPage!.Events.Last().SaveSerial);
+
+        var slotBase64 = await FakeSaveDirectory.ReadFileAsync(page, "wdm_saveslot2.bundle");
+        Assert.NotNull(slotBase64);
+        var slot = BundleReader.Read(Convert.FromBase64String(slotBase64), "wdm_saveslot2.bundle");
+        Assert.Equal(checkpointName, slot.Metadata!.GetString(SlotMetadataKeys.LatestSave));
+        Assert.Equal(24, slot.Metadata.GetInt(SlotMetadataKeys.LatestSerial));
     }
 
     [Fact]

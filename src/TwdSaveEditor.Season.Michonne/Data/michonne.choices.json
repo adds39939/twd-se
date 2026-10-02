@@ -3,171 +3,664 @@
     "seasonKey": "michonne",
     "episode": 1,
     "description": "Did you try to end it?",
-    "choiceKey": "pulled_trigger",
-    "category": "Major",
+    "choiceKey": "Episode 101 - Did you try to end it",
+    "category": "Story",
     "options": [
-      { "label": "Pulled the trigger", "value": "true" },
-      { "label": "Lowered the gun", "value": "false" }
+      {
+        "label": "Pulled the trigger",
+        "value": "pulled_the_trigger"
+      },
+      {
+        "label": "Lowered the gun",
+        "value": "lowered_the_gun"
+      }
     ]
   },
   {
     "seasonKey": "michonne",
     "episode": 1,
     "description": "How did you enter the abandoned ferry?",
-    "choiceKey": "entered_ferry",
-    "category": "Major",
+    "choiceKey": "Episode 101 - How did you enter the abandoned ferry",
+    "category": "Story",
     "options": [
-      { "label": "Climbed the ladder", "value": "ladder" },
-      { "label": "Went in through the window", "value": "window" }
-    ]
-  },
-  {
-    "seasonKey": "michonne",
-    "episode": 1,
-    "description": "Did you sell Greg out to Norma?",
-    "choiceKey": "sold_greg_out",
-    "category": "Major",
-    "options": [
-      { "label": "Shared the blame with Greg", "value": "shared" },
-      { "label": "Told Norma Greg was a liar", "value": "liar" },
-      { "label": "Took the blame", "value": "blame" }
+      {
+        "label": "Climbed the ladder",
+        "value": "climbed_the_ladder"
+      },
+      {
+        "label": "Went in through the window",
+        "value": "went_in_through_the_window"
+      }
     ]
   },
   {
     "seasonKey": "michonne",
     "episode": 1,
     "description": "Did you ambush Randall in the store room?",
-    "choiceKey": "ambushed_randall",
-    "category": "Major",
+    "choiceKey": "Episode 101 - Did you ambush Randall in the store room",
+    "category": "Story",
     "options": [
-      { "label": "Head-butted Randall", "value": "true" },
-      { "label": "Played it cool", "value": "false" }
+      {
+        "label": "Head-butted Randall",
+        "value": "head_butted_randall"
+      },
+      {
+        "label": "Played it cool",
+        "value": "played_it_cool"
+      }
+    ]
+  },
+  {
+    "seasonKey": "michonne",
+    "episode": 1,
+    "description": "Did you sell Greg out to Norma?",
+    "choiceKey": "Episode 101 - Did you sell Greg out to Norma",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Told Norma Greg was a liar",
+        "value": "told_norma_greg_was_a"
+      },
+      {
+        "label": "Took the blame",
+        "value": "took_the_blame"
+      },
+      {
+        "label": "Shared the blame with Greg",
+        "value": "shared_the_blame_with_greg"
+      }
     ]
   },
   {
     "seasonKey": "michonne",
     "episode": 1,
     "description": "Did you let Sam shoot Zachary?",
-    "choiceKey": "sam_shot_zachary",
-    "category": "Life/Death",
+    "choiceKey": "Episode 101 - Did you let Sam shoot Zachary",
+    "category": "Story",
     "options": [
-      { "label": "Let Sam take her revenge", "value": "true" },
-      { "label": "Tried to save Zachary", "value": "false" }
+      {
+        "label": "Let Sam take her revenge",
+        "value": "let_sam_take_her_revenge"
+      },
+      {
+        "label": "Tried to save Zachary",
+        "value": "tried_to_save_zachary"
+      }
+    ]
+  },
+  {
+    "seasonKey": "michonne",
+    "episode": 1,
+    "description": "Michonne Hit?",
+    "choiceKey": "Episode 101 - Michonne Hit",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "michonne",
+    "episode": 1,
+    "description": "Pete missing earring?",
+    "choiceKey": "Episode 101 - Pete missing earring",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "michonne",
+    "episode": 1,
+    "description": "Michonne Knocked Over?",
+    "choiceKey": "Episode 101 - Michonne Knocked Over",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "michonne",
+    "episode": 1,
+    "description": "Zach is Dead?",
+    "choiceKey": "Episode 101 - Zach is Dead",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "michonne",
+    "episode": 1,
+    "description": "Told Jonas about Zac?",
+    "choiceKey": "Episode 101 - Told Jonas about Zac",
+    "category": "Story",
+    "options": [
+      {
+        "label": "dead",
+        "value": "dead"
+      },
+      {
+        "label": "downstairs",
+        "value": "downstairs"
+      },
+      {
+        "label": "looking",
+        "value": "looking"
+      }
+    ]
+  },
+  {
+    "seasonKey": "michonne",
+    "episode": 1,
+    "description": "Which toy?",
+    "choiceKey": "Episode 101 - Which toy?",
+    "category": "Story",
+    "options": [
+      {
+        "label": "dinosaur",
+        "value": "dinosaur"
+      },
+      {
+        "label": "robot",
+        "value": "robot"
+      },
+      {
+        "label": "teddybear",
+        "value": "teddybear"
+      }
+    ]
+  },
+  {
+    "seasonKey": "michonne",
+    "episode": 1,
+    "description": "Norma Answer?",
+    "choiceKey": "Episode 101 - Norma Answer",
+    "category": "Story",
+    "options": [
+      {
+        "label": "area",
+        "value": "area"
+      },
+      {
+        "label": "boat",
+        "value": "boat"
+      },
+      {
+        "label": "radio",
+        "value": "radio"
+      },
+      {
+        "label": "silence2",
+        "value": "silence2"
+      }
+    ]
+  },
+  {
+    "seasonKey": "michonne",
+    "episode": 1,
+    "description": "Rowboat Choice?",
+    "choiceKey": "Episode 101 - Rowboat Choice",
+    "category": "Story",
+    "options": [
+      {
+        "label": "getrid",
+        "value": "getrid"
+      },
+      {
+        "label": "likeyouguys",
+        "value": "likeyouguys"
+      },
+      {
+        "label": "stickaround",
+        "value": "stickaround"
+      }
+    ]
+  },
+  {
+    "seasonKey": "michonne",
+    "episode": 1,
+    "description": "Killed Greg With Weapon?",
+    "choiceKey": "Episode 101 - Killed Greg With Weapon",
+    "category": "Story",
+    "options": [
+      {
+        "label": "pipe",
+        "value": "pipe"
+      },
+      {
+        "label": "screwdriver",
+        "value": "screwdriver"
+      }
+    ]
+  },
+  {
+    "seasonKey": "michonne",
+    "episode": 1,
+    "description": "Punched Zach?",
+    "choiceKey": "Episode 101 - Punched Zach",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "michonne",
+    "episode": 1,
+    "description": "Radio Success?",
+    "choiceKey": "Episode 101 - Radio Success",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "michonne",
+    "episode": 1,
+    "description": "Prologue Decapitated Zombie?",
+    "choiceKey": "Episode 101 - Prologue Decapitated Zombie?",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "michonne",
+    "episode": 1,
+    "description": "Prologue burned Zombie?",
+    "choiceKey": "Episode 101 - Prologue burned Zombie?",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "michonne",
+    "episode": 1,
+    "description": "Weapon?",
+    "choiceKey": "Episode 101 - Weapon",
+    "category": "Story",
+    "options": [
+      {
+        "label": "pipe",
+        "value": "pipe"
+      },
+      {
+        "label": "screwdriver",
+        "value": "screwdriver"
+      }
     ]
   },
   {
     "seasonKey": "michonne",
     "episode": 2,
     "description": "Did you keep Pete with you, or let him go off on his own?",
-    "choiceKey": "stopped_pete",
-    "category": "Major",
+    "choiceKey": "Episode 102 - Did you keep Pete with you, or let him go off on his own",
+    "category": "Story",
     "options": [
-      { "label": "Stopped Pete", "value": "true" },
-      { "label": "Let Pete go", "value": "false" }
+      {
+        "label": "Stopped Pete",
+        "value": "stopped_pete"
+      },
+      {
+        "label": "Let Pete go",
+        "value": "let_pete_go"
+      }
     ]
   },
   {
     "seasonKey": "michonne",
     "episode": 2,
-    "description": "Did you pick up the phone or go after the footsteps?",
-    "choiceKey": "picked_up_phone",
-    "category": "Major",
+    "description": "Did you pick up the phone or go after the footsteps in the hallway?",
+    "choiceKey": "Episode 102 - Did you pick up the phone or go after the footsteps in the hallway",
+    "category": "Story",
     "options": [
-      { "label": "Picked up the phone", "value": "true" },
-      { "label": "Went to see who was in the hallway", "value": "false" }
+      {
+        "label": "Picked up the phone",
+        "value": "picked_up_the_phone"
+      },
+      {
+        "label": "Went to see who or what was in the hallway",
+        "value": "went_to_see_who_or"
+      }
+    ]
+  },
+  {
+    "seasonKey": "michonne",
+    "episode": 2,
+    "description": "Did you reveal to Paige that you nearly committed suicide?",
+    "choiceKey": "Episode 102 - Did you reveal to Paige that you nearly committed suicide",
+    "category": "Statistics",
+    "options": [
+      {
+        "label": "Disclosed your darkest moment",
+        "value": "disclosed_your_darkest_moment"
+      },
+      {
+        "label": "Tried to offer some good advice",
+        "value": "tried_to_offer_some_good"
+      },
+      {
+        "label": "Expressed sympathy for the kids",
+        "value": "expressed_sympathy_for_the_kids"
+      },
+      {
+        "label": "Remained silent about it",
+        "value": "remained_silent_about_it"
+      }
     ]
   },
   {
     "seasonKey": "michonne",
     "episode": 2,
     "description": "How did you handle the radio call from Norma?",
-    "choiceKey": "radio_norma",
-    "category": "Major",
+    "choiceKey": "Episode 102 - How did you handle the radio call from Norma",
+    "category": "Story",
     "options": [
-      { "label": "Ignored the radio", "value": "ignore" },
-      { "label": "Spoke with her directly", "value": "spoke" },
-      { "label": "Made Randall speak to her", "value": "randall" }
+      {
+        "label": "Picked up the radio and spoke with her directly",
+        "value": "picked_up_the_radio_and"
+      },
+      {
+        "label": "Chose to make Randall speak to her",
+        "value": "chose_to_make_randall_speak"
+      },
+      {
+        "label": "Chose to ignore the radio",
+        "value": "chose_to_ignore_the_radio"
+      }
     ]
   },
   {
     "seasonKey": "michonne",
     "episode": 2,
     "description": "What did you do to Randall?",
-    "choiceKey": "killed_randall",
-    "category": "Life/Death",
+    "choiceKey": "Episode 102 - What did you do to Randall",
+    "category": "Story",
     "options": [
-      { "label": "Bashed Randall's head in", "value": "true" },
-      { "label": "Showed him mercy", "value": "false" }
+      {
+        "label": "Bashed Randall's head in",
+        "value": "bashed_randall_s_head_in"
+      },
+      {
+        "label": "Showed him mercy",
+        "value": "showed_him_mercy"
+      }
     ]
   },
   {
     "seasonKey": "michonne",
     "episode": 2,
+    "description": "If you said 'I hope you have a good doctor' or 'I hurt him'?",
+    "choiceKey": "Episode 102 - If you said 'I hope you have a good doctor' or 'I hurt him'",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "michonne",
+    "episode": 2,
+    "description": "Tightened Vice On Randall Hands Twice?",
+    "choiceKey": "Episode 102 - Tightened Vice On Randall Hands Twice",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "michonne",
+    "episode": 2,
+    "description": "Told Sam About Seeing Michonne Kids?",
+    "choiceKey": "Episode 102 - Told Sam About Seeing Michonne Kids",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "michonne",
+    "episode": 2,
+    "description": "Said 'He's fine'?",
+    "choiceKey": "Episode 102 - Said 'He's fine'",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "michonne",
+    "episode": 2,
+    "description": "Tightened Vice On Randall Hands Once?",
+    "choiceKey": "Episode 102 - Tightened Vice On Randall Hands Once",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "michonne",
+    "episode": 2,
+    "description": "Hit Randall With Wrench Once But Didn't Kill Him?",
+    "choiceKey": "Episode 102 - Hit Randall With Wrench Once But Didn't Kill Him?",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "michonne",
+    "episode": 2,
+    "description": "What Did You Say To Norma About Hurting Randall?",
+    "choiceKey": "Episode 102 - What Did You Say To Norma About Hurting Randall",
+    "category": "Story",
+    "options": [
+      {
+        "label": "deserved",
+        "value": "deserved"
+      },
+      {
+        "label": "fine",
+        "value": "fine"
+      },
+      {
+        "label": "silence",
+        "value": "silence"
+      },
+      {
+        "label": "suredid",
+        "value": "suredid"
+      }
+    ]
+  },
+  {
+    "seasonKey": "michonne",
+    "episode": 3,
     "description": "Did you let Sam bury her father?",
-    "choiceKey": "let_sam_bury",
-    "category": "Major",
+    "choiceKey": "Episode 103 - Did you let Sam bury her father",
+    "category": "Statistics",
     "options": [
-      { "label": "Helped Sam move her father's body", "value": "true" },
-      { "label": "Didn't help", "value": "false" }
-    ]
-  },
-  {
-    "seasonKey": "michonne",
-    "episode": 3,
-    "description": "Did you hand Randall over to Norma?",
-    "choiceKey": "handed_randall_norma",
-    "category": "Major",
-    "options": [
-      { "label": "Handed Randall over", "value": "true" },
-      { "label": "Did not hand over", "value": "false" }
-    ]
-  },
-  {
-    "seasonKey": "michonne",
-    "episode": 3,
-    "description": "Did you put Norma out of her misery?",
-    "choiceKey": "shot_norma",
-    "category": "Life/Death",
-    "options": [
-      { "label": "Shot Norma to put her out of her misery", "value": "true" },
-      { "label": "Let Norma get killed by walkers", "value": "false" }
+      {
+        "label": "Helped Sam move her father's body",
+        "value": "helped_sam_move_her_father"
+      },
+      {
+        "label": "Didn't help Sam bury her father's body",
+        "value": "didn_t_help_sam_bury"
+      }
     ]
   },
   {
     "seasonKey": "michonne",
     "episode": 3,
     "description": "Did you tell Alex what happened to his father?",
-    "choiceKey": "told_alex_father",
-    "category": "Major",
+    "choiceKey": "Episode 103 - Did you tell Alex what happened to his father",
+    "category": "Statistics",
     "options": [
-      { "label": "Told Alex his father couldn't come right away", "value": "later" },
-      { "label": "Stayed silent", "value": "silent" },
-      { "label": "Told Alex his father was dead", "value": "dead" },
-      { "label": "Told Alex a bad man hurt his father", "value": "hurt" }
+      {
+        "label": "Told Alex his father was dead",
+        "value": "told_alex_his_father_was"
+      },
+      {
+        "label": "Told Alex a bad man hurt his father",
+        "value": "told_alex_a_bad_man"
+      },
+      {
+        "label": "Told Alex his father couldn't come right away",
+        "value": "told_alex_his_father_couldn"
+      },
+      {
+        "label": "Stayed silent when Alex asked about his father",
+        "value": "stayed_silent_when_alex_asked"
+      }
     ]
   },
   {
     "seasonKey": "michonne",
     "episode": 3,
-    "description": "Did you reveal to Paige that you nearly committed suicide?",
-    "choiceKey": "revealed_to_paige",
-    "category": "Major",
+    "description": "Did you hand Randall over to Norma?",
+    "choiceKey": "Episode 103 - Did you hand Randall over to Norma",
+    "category": "Statistics",
     "options": [
-      { "label": "Expressed sympathy for the kids", "value": "sympathy" },
-      { "label": "Remained silent", "value": "silent" },
-      { "label": "Disclosed your darkest moment", "value": "disclosed" },
-      { "label": "Tried to offer good advice", "value": "advice" }
+      {
+        "label": "Decided to hand Randall over to Norma",
+        "value": "decided_to_hand_randall_over"
+      },
+      {
+        "label": "Did not hand Randall over to Norma",
+        "value": "did_not_hand_randall_over"
+      }
+    ]
+  },
+  {
+    "seasonKey": "michonne",
+    "episode": 3,
+    "description": "Did you put Norma out of her misery?",
+    "choiceKey": "Episode 103 - Did you put Norma out of her misery",
+    "category": "Statistics",
+    "options": [
+      {
+        "label": "Shot Norma to put her out of her misery",
+        "value": "shot_norma_to_put_her"
+      },
+      {
+        "label": "Let Norma get killed by walkers",
+        "value": "let_norma_get_killed_by"
+      }
     ]
   },
   {
     "seasonKey": "michonne",
     "episode": 3,
     "description": "Did you choose to leave your daughters or stay with them?",
-    "choiceKey": "stayed_with_daughters",
-    "category": "Life/Death",
+    "choiceKey": "Episode 103 - Did you choose to leave your daughters or stay with them",
+    "category": "Statistics",
     "options": [
-      { "label": "Chose to stay with your daughters", "value": "true" },
-      { "label": "Chose to leave your daughters", "value": "false" }
+      {
+        "label": "Chose to stay with your daughters",
+        "value": "chose_to_stay_with_your"
+      },
+      {
+        "label": "Chose to leave your daughters",
+        "value": "chose_to_leave_your_daughters"
+      }
     ]
   }
 ]

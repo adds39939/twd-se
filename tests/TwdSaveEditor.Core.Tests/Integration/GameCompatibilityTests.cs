@@ -7,7 +7,6 @@ using TwdSaveEditor.Season.Base.Accessors;
 using TwdSaveEditor.Season.Common.Abstractions;
 using TwdSaveEditor.Season.Common.Extensions;
 using TwdSaveEditor.Season.Common.Services;
-using TwdSaveEditor.Season.Michonne.Choices;
 using TwdSaveEditor.Season.Michonne.Handlers;
 using TwdSaveEditor.Season.S1.Handlers;
 using TwdSaveEditor.Season.S2.Handlers;
@@ -447,17 +446,6 @@ public class GameCompatibilityTests
     {
         var computed = TelltaleHash.ComputeCrc64(name);
         Assert.Equal(expectedHash, computed);
-    }
-
-    [Fact]
-    public void MichonneNodeHashes_ProduceValidCrc64()
-    {
-        foreach (var (guid, (choiceKey, optionValue)) in MichonneChoiceNodes.Guids)
-        {
-            var hashInput = "{" + guid + "}";
-            var hash = TelltaleHash.ComputeCrc64(hashInput);
-            Assert.NotEqual(0UL, hash);
-        }
     }
 
     [Fact]
