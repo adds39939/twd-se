@@ -7,26 +7,28 @@ namespace TwdSaveEditor.Tools.ExtractResumePoints.Items;
 
 public static class DialogItemChanges
 {
-    public static List<ItemChange> Read(DialogFile dialog, IReadOnlyList<string> scripts, IReadOnlyCollection<string> items)
+    public static List<ItemChange> Read(DialogFile dialog, IReadOnlyList<string> scripts, IReadOnlyCollection<string> items, bool fullNames = false)
     {
         var changes = new List<ItemChange>();
         var visited = new HashSet<ulong>();
         foreach (var item in dialog.Items)
-            Add(changes, [.. Scripts(dialog, item.First, visited)], scripts, items);
+            Add(changes, [.. Scripts(dialog, item.First, visited)], scripts, items, fullNames);
 
         foreach (var node in dialog.Nodes.Values.Where(node => node.Script != null && !visited.Contains(node.Id)))
-            Add(changes, [node.Script!], scripts, items);
+            Add(changes, [node.Script!], scripts, items, fullNames);
 
         return changes;
     }
 
-    private static void Add(List<ItemChange> changes, List<string> texts, IReadOnlyList<string> scripts, IReadOnlyCollection<string> items)
+    private static void Add(List<ItemChange> changes, List<string> texts, IReadOnlyList<string> scripts, IReadOnlyCollection<string> items, bool fullNames)
     {
         var chapter = texts.SelectMany(CheckpointCalls.ChapterIds).FirstOrDefault();
         foreach (var text in texts)
         {
-            changes.AddRange(InventoryCalls.Added(text).Where(items.Contains).Select(item => new ItemChange(item, false, scripts, chapter)));
-            changes.AddRange((InventoryCalls.Clears(text) ? items : InventoryCalls.Removed(text).Where(items.Contains))
+            var added = fullNames ? InventoryCalls.AddedNames(text) : InventoryCalls.Added(text);
+            var removed = fullNames ? InventoryCalls.RemovedNames(text) : InventoryCalls.Removed(text);
+            changes.AddRange(added.Where(items.Contains).Select(item => new ItemChange(item, false, scripts, chapter)));
+            changes.AddRange((InventoryCalls.Clears(text) ? items : removed.Where(items.Contains))
                 .Select(item => new ItemChange(item, true, scripts, chapter)));
         }
     }

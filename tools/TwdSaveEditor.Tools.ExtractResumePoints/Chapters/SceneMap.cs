@@ -8,12 +8,17 @@ public sealed class SceneMap(IReadOnlyList<SceneScript> scripts, string sceneDir
 {
     private const string DialogExtension = ".dlog";
     private const string SceneExtension = ".scene";
+    private const string SetDialogCall = "Game_SetSceneDialog";
 
     private readonly Dictionary<string, string> _sceneText = new(StringComparer.OrdinalIgnoreCase);
 
     public IReadOnlyList<string> ScriptsFor(string dialog)
     {
         var file = Path.GetFileNameWithoutExtension(dialog);
+        var chosen = scripts.Where(script => SetsDialog(script.Text, file)).Select(script => script.Script).ToList();
+        if (chosen.Count > 0)
+            return chosen;
+
         var name = Base(file);
         var matches = scripts
             .Where(script => name.StartsWith(Base(script.Scene), StringComparison.OrdinalIgnoreCase))
@@ -41,6 +46,10 @@ public sealed class SceneMap(IReadOnlyList<SceneScript> scripts, string sceneDir
                 .Select(script => script.Script),
         ];
     }
+
+    private static bool SetsDialog(string script, string dialog) =>
+        script.Contains($"{SetDialogCall}(\"{dialog}\")", StringComparison.OrdinalIgnoreCase)
+        || script.Contains($"{SetDialogCall}(\"{dialog}{DialogExtension}\")", StringComparison.OrdinalIgnoreCase);
 
     private string SceneText(string scene)
     {

@@ -21,17 +21,21 @@ public sealed class LogicItemReader(string dataDirectory, GameSeason season, Dia
         var byKey = items.ToDictionary(item => TelltaleCrc64.Compute(item.Id), item => item.Id);
         var scenes = new SceneMap([.. Directory.EnumerateFiles(files.Scripts, "*.lua").Order().Select(SceneScriptReader.Read).OfType<SceneScript>()], files.Extracted);
 
+        var known = items.Select(item => item.Id).ToHashSet(StringComparer.Ordinal);
         var changes = Directory.EnumerateFiles(files.Extracted, "*.dlog").Order()
             .Select(loader.Load)
-            .SelectMany(dialog => Changes(dialog, scenes.ScriptsFor(dialog.Name), byKey))
+            .SelectMany(dialog => Changes(dialog, scenes.ScriptsFor(dialog.Name), byKey)
+                .Concat(DialogItemChanges.Read(dialog, scenes.ScriptsFor(dialog.Name), known, fullNames: true)))
             .ToList();
 
+        var given = changes.Where(change => !change.Removes).Select(change => change.Item).ToHashSet(StringComparer.Ordinal);
+        var used = items.Where(item => given.Contains(item.Id)).ToList();
         var carried = new CarriedItems(episode.Points, changes, Array.Empty<string>().ToLookup(script => script));
         return new EpisodeItems(
             episode.Episode,
-            items,
+            used,
             [],
-            [.. Enumerable.Range(0, episode.Points.Count).Select(position => carried.At(position, items, []))]);
+            [.. Enumerable.Range(0, episode.Points.Count).Select(position => carried.At(position, used, []))]);
     }
 
     private static IEnumerable<ItemChange> Changes(DialogFile dialog, IReadOnlyList<string> scripts, Dictionary<ulong, string> items) =>

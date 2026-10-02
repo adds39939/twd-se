@@ -12,6 +12,8 @@ public sealed partial class EpisodeReader(string dataDirectory, GameSeason seaso
     public const string DebugMenuScript = "Episode.lua";
     public const string OpeningScript = "PreviouslyOn";
 
+    private const string SceneExtension = ".scene";
+
     public EpisodeResume? Read(int episode)
     {
         var (scripts, files) = EpisodeFiles.For(dataDirectory, season, episode);
@@ -34,7 +36,17 @@ public sealed partial class EpisodeReader(string dataDirectory, GameSeason seaso
             .Select(mark => new GameChapter(mark.ChapterId, mark.Dialog, scenes.ScriptsFor(mark.Dialog)))
             .ToList();
 
-        var listed = DebugMenuReader.Read(File.ReadAllText(menuPath), constants);
+        var present = Directory.EnumerateFiles(files, "*" + SceneExtension)
+            .Select(Path.GetFileNameWithoutExtension)
+            .OfType<string>()
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var missing = present.Count == 0
+            ? []
+            : sceneScripts.Where(script => !present.Contains(script.Scene))
+                .Select(script => script.Script)
+                .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+        var listed = DebugMenuReader.Read(File.ReadAllText(menuPath), constants).Where(entry => !missing.Contains(entry.Script)).ToList();
         var entries = listed
             .Where((entry, position) => position == 0
                 || !developerOnly.Contains(entry.Script)

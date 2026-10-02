@@ -15,4 +15,5 @@ public static class StoryFiles
     public static readonly ulong LogicGameProperties = DialogLogFiles.RuntimeProperties("logic_game");
     public static readonly ulong SaveLoadProperties = DialogLogFiles.RuntimeProperties("logic_saveload");
     public static readonly ulong ScriptProperties = DialogLogFiles.RuntimeProperties("logic_script");
+    public static readonly ulong InventoryProperties = DialogLogFiles.RuntimeProperties("logic_inventory");
 }

@@ -9,16 +9,19 @@ public sealed class StorySeason
 
     private const string DecisionsSuffix = ".decisions.json";
     private const string ChaptersSuffix = ".chapters.json";
+    private const string ItemsSuffix = ".items.json";
 
     private static readonly JsonSerializerOptions JsonOptions = new() { PropertyNameCaseInsensitive = true };
 
     private readonly Lazy<StoryDecisionData> _decisions;
     private readonly Lazy<StoryChapterData> _chapters;
+    private readonly Lazy<StoryItemData> _items;
 
     public StorySeason(Assembly data)
     {
         _decisions = new(() => Load<StoryDecisionData>(data, DecisionsSuffix) ?? new StoryDecisionData([], []));
         _chapters = new(() => Load<StoryChapterData>(data, ChaptersSuffix) ?? new StoryChapterData([]));
+        _items = new(() => Load<StoryItemData>(data, ItemsSuffix) ?? new StoryItemData([]));
     }
 
     public required int LastEpisode { get; init; }
@@ -49,6 +52,8 @@ public sealed class StorySeason
         Decisions.FirstOrDefault(decision => decision.ChoiceKey.Equals(choiceKey, StringComparison.OrdinalIgnoreCase));
 
     public StoryEpisodeChapters? ChaptersOf(int episode) => Chapters.FirstOrDefault(entry => entry.Episode == episode);
+
+    public StoryEpisodeItems? ItemsOf(int episode) => _items.Value.Episodes.FirstOrDefault(entry => entry.Episode == episode);
 
     public string ProjectName(int episode) => ProjectPrefix + episode;
 

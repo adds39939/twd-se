@@ -3,7 +3,6 @@ using TwdSaveEditor.Season.Base.Handlers;
 using TwdSaveEditor.Season.Base.Story;
 using TwdSaveEditor.Season.Common.Abstractions;
 using TwdSaveEditor.Season.Common.Model;
-using TwdSaveEditor.Season.S3.Inventory;
 using TwdSaveEditor.Season.S3.Story;
 
 namespace TwdSaveEditor.Season.S3.Handlers;
@@ -42,11 +41,11 @@ public class S3Handler : StorySeasonHandler, IChoiceImporter, IInventoryHandler
         "Only Episodes 1 and 2 have items. The list holds the items of the episode in progress.",
     ];
 
-    public InventoryState GetInventory(SaveSlot slot) => S3Inventory.GetState(slot);
+    public InventoryState GetInventory(SaveSlot slot) => S3Story.Inventory.GetState(slot);
 
-    public void SetInventory(SaveSlot slot, IReadOnlyList<HeldItem> items) => S3Inventory.SetItems(slot, items);
+    public void SetInventory(SaveSlot slot, IReadOnlyList<HeldItem> items) => S3Story.Inventory.SetItems(slot, items);
 
-    public IReadOnlyList<HeldItem> GetCarriedItems(SaveSlot slot) => S3Inventory.CarriedItems(slot);
+    public IReadOnlyList<HeldItem> GetCarriedItems(SaveSlot slot) => S3Story.Inventory.CarriedItems(slot);
 
     public bool CanImportFrom(SaveSlot source) => source.DetectedSeasonKey == PreviousSeasonKey && source.EventLog != null;
 

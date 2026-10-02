@@ -229,6 +229,8 @@ public class MichonneSaveTests
         }
 
         Assert.DoesNotContain(MichonneStory.Season.Chapters[0].Chapters, chapter => chapter.Title.EndsWith(".dlog", StringComparison.Ordinal));
+        Assert.DoesNotContain(MichonneStory.Season.Chapters[0].Chapters, chapter => chapter.Script is "FlagshipExteriorEscape" or "BoatTownEscape");
+        Assert.Equal(21, MichonneStory.Season.Chapters[0].Chapters.Count);
         Assert.Equal(5, MichonneSaves.Handler.GetChapters(1).Select(chapter => chapter.Group).Distinct().Count() + 2);
     }
 

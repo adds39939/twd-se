@@ -17,4 +17,11 @@ public static class MichonneStory
     };
 
     public static readonly StoryResumePoint Resume = new(Season);
+
+    public static readonly StoryInventory Inventory = new(
+        Season,
+        Resume,
+        "Michonne",
+        [StoryFiles.InventoryProperties],
+        "Michonne carries no items in this episode; the game only hands out items in Episode 1.");
 }

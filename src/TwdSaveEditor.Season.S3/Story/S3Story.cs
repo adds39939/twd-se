@@ -1,4 +1,5 @@
 using TwdSaveEditor.Season.Base.Story;
+using TwdSaveEditor.Season.S3.Saves;
 
 namespace TwdSaveEditor.Season.S3.Story;
 
@@ -16,4 +17,11 @@ public static class S3Story
     };
 
     public static readonly StoryResumePoint Resume = new(Season);
+
+    public static readonly StoryInventory Inventory = new(
+        Season,
+        Resume,
+        "Javier",
+        [S3SlotFiles.OwnerInventoryProperties, S3SlotFiles.InventoryProperties],
+        "Javier carries no items in this episode; the season only has items in Episodes 1 and 2.");
 }

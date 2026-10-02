@@ -357,7 +357,7 @@ public class SaveLoadCycleTests
     }
 
     [Fact]
-    public async Task MichonneDecisionAndChapter_AreWrittenToTheLogAndACheckpoint()
+    public async Task MichonneDecisionChapterAndItems_AreWrittenToTheLogAndACheckpoint()
     {
         const string checkpointName = "_wdm_saveslot2_checkpoint1.bundle";
 
@@ -373,10 +373,19 @@ public class SaveLoadCycleTests
         await page.Locator("[data-testid='tab-resume']").ClickAsync();
         await Assertions.Expect(page.Locator("[data-testid='resume-state']")).ToContainTextAsync("checkpoint Flagship Interior Escape");
         await Assertions.Expect(page.Locator("[data-testid='restart-episode'] option")).ToHaveCountAsync(3);
-        await Assertions.Expect(page.Locator("[data-testid='restart-chapter'] option")).ToHaveCountAsync(23);
+        await Assertions.Expect(page.Locator("[data-testid='restart-chapter'] option")).ToHaveCountAsync(21);
         await page.Locator("[data-testid='restart-chapter']").SelectOptionAsync("FerryInteriorSnackBar");
         await page.Locator("[data-testid='restart-button']").ClickAsync();
         await Assertions.Expect(page.Locator("[data-testid='resume-state']")).ToContainTextAsync("checkpoint Ferry Interior - Snack Bar");
+
+        await page.Locator("[data-testid='tab-inventory']").ClickAsync();
+        var held = page.Locator(".inventory-item input:checked");
+        await Assertions.Expect(page.Locator("[data-testid='inventory-summary']")).ToContainTextAsync("Michonne");
+        await Assertions.Expect(page.Locator(".inventory-item")).ToHaveCountAsync(5);
+        await Assertions.Expect(held).ToHaveCountAsync(0);
+        await page.Locator("[data-testid='inventory-carried']").ClickAsync();
+        await Assertions.Expect(held).ToHaveCountAsync(3);
+        await Assertions.Expect(page.Locator("[data-testid='inventory-item-Inventory - Machete']")).ToBeCheckedAsync();
 
         await page.Locator(".save-btn").ClickAsync();
         await Assertions.Expect(page.Locator(".toast-success", new() { HasTextString = "Saved wdm_saveslot2.bundle" }).First)
@@ -393,6 +402,12 @@ public class SaveLoadCycleTests
         Assert.NotNull(game);
         Assert.True(BundleReader.TryParseProperties(game));
         Assert.True(game.Properties!.GetBool("2FerryInterior - In Snack Bar"));
+        var inventory = checkpoint.FindFile(TelltaleHash.ComputeCrc64("\"logic_inventory:logic.scene\" Runtime Properties"));
+        Assert.NotNull(inventory);
+        Assert.True(BundleReader.TryParseProperties(inventory));
+        Assert.Equal(1, inventory.Properties!.GetInt("Inventory - Machete"));
+        Assert.Equal(1, inventory.Properties.GetInt("Inventory - Flashlight"));
+        Assert.NotEqual(1, inventory.Properties.GetInt("Inventory - Screwdriver"));
         Assert.Null(await FakeSaveDirectory.ReadFileAsync(page, "_wdm_saveslot2_autosave.bundle"));
 
         var storageBase64 = await FakeSaveDirectory.ReadFileAsync(page, "_wdm_saveslot2_id.estore");
