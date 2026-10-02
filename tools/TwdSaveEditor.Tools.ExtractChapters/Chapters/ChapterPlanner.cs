@@ -12,8 +12,6 @@ public sealed class ChapterPlanner(EpisodeChapters episode)
 
     private const int EpisodeBase = 100;
     private const string SceneExtension = ".scene";
-    private const string ScenePrefix = "adv_";
-    private const string DialogPrefix = "env_";
 
     private static readonly StringComparer IgnoreCase = StringComparer.OrdinalIgnoreCase;
 
@@ -34,6 +32,8 @@ public sealed class ChapterPlanner(EpisodeChapters episode)
     ];
 
     private readonly Dictionary<string, SceneScript> _scripts = episode.Scripts.ToDictionary(script => script.Name, IgnoreCase);
+
+    private readonly DialogOwners _owners = new(episode);
 
     public List<string> Skipped { get; } = [];
 
@@ -93,7 +93,7 @@ public sealed class ChapterPlanner(EpisodeChapters episode)
         var transitions = episode.Transitions.Where(candidate => IgnoreCase.Equals(candidate.Target, chapter.Script)).ToList();
         var previous = earlier.LastOrDefault(candidate => !IgnoreCase.Equals(candidate.Script, chapter.Script) && SceneOf(candidate.Script) != null)?.Script;
         var owned = transitions
-            .SelectMany(transition => Owners(transition.Dialog).Select(owner => (Transition: transition, Host: owner)))
+            .SelectMany(transition => _owners.Of(transition.Dialog).Select(owner => (Transition: transition, Host: owner)))
             .Where(candidate => !IgnoreCase.Equals(candidate.Host, chapter.Script))
             .ToList();
 
@@ -119,25 +119,6 @@ public sealed class ChapterPlanner(EpisodeChapters episode)
 
         supported = false;
         return null;
-    }
-
-    private IEnumerable<string> Owners(string dialog)
-    {
-        var name = Path.GetFileNameWithoutExtension(dialog);
-        return episode.Scripts.Where(script => script.Scene != null && (
-                script.Dialogs.Contains(dialog, IgnoreCase)
-                || episode.SceneDialogs.GetValueOrDefault(script.Scene)?.Contains(dialog, IgnoreCase) == true
-                || IsNamedAfter(name, script.Scene)))
-            .Select(script => script.Name);
-    }
-
-    private static bool IsNamedAfter(string dialog, string scene)
-    {
-        if (!scene.StartsWith(ScenePrefix, StringComparison.OrdinalIgnoreCase))
-            return false;
-
-        var expected = DialogPrefix + scene[ScenePrefix.Length..];
-        return IgnoreCase.Equals(dialog, expected) || dialog.StartsWith(expected + "_", StringComparison.OrdinalIgnoreCase);
     }
 
     private IEnumerable<JsonObject> DecisionFlags(List<string> keys, List<Chapter> chapters)

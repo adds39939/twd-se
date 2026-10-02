@@ -9,7 +9,7 @@ public interface IInventoryHandler
 
     InventoryState GetInventory(SaveSlot slot);
 
-    void SetInventory(SaveSlot slot, IReadOnlyList<string> itemIds);
+    void SetInventory(SaveSlot slot, IReadOnlyList<HeldItem> items);
 
-    IReadOnlyList<string> GetCarriedItems(SaveSlot slot);
+    IReadOnlyList<HeldItem> GetCarriedItems(SaveSlot slot);
 }

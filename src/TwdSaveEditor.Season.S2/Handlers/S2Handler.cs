@@ -85,9 +85,9 @@ public class S2Handler : PropChoicesSeasonHandler, IChoiceImporter, ICompanionFi
 
     public InventoryState GetInventory(SaveSlot slot) => S2Inventory.GetState(slot);
 
-    public void SetInventory(SaveSlot slot, IReadOnlyList<string> itemIds) => S2Inventory.SetItems(slot, itemIds);
+    public void SetInventory(SaveSlot slot, IReadOnlyList<HeldItem> items) => S2Inventory.SetItems(slot, items);
 
-    public IReadOnlyList<string> GetCarriedItems(SaveSlot slot) => S2Inventory.CarriedItems(slot);
+    public IReadOnlyList<HeldItem> GetCarriedItems(SaveSlot slot) => S2Inventory.CarriedItems(slot);
 
     private static string Now() => DateTime.Now.ToString(SaveDateFormat, CultureInfo.InvariantCulture);
 

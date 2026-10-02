@@ -98,13 +98,20 @@ public sealed class SaveSession
 
         var items = state.Held
             .Concat(addCarried ? handler.GetCarriedItems(Slot) : [])
-            .Concat(give)
-            .Where(item => !take.Contains(item, StringComparer.OrdinalIgnoreCase))
-            .Distinct(StringComparer.Ordinal)
+            .Concat(give.Select(Holding))
+            .Where(item => !take.Contains(item.Id, StringComparer.OrdinalIgnoreCase))
+            .GroupBy(item => item.Id)
+            .Select(group => group.Last())
             .ToList();
 
         handler.SetInventory(Slot, items);
         return true;
+    }
+
+    private static HeldItem Holding(string text)
+    {
+        var separator = text.LastIndexOf(':');
+        return separator > 0 && int.TryParse(text[(separator + 1)..], out var count) ? new HeldItem(text[..separator], count) : new HeldItem(text);
     }
 
     public List<CompanionFile> Build()

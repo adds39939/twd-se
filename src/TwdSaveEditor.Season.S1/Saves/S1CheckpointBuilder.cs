@@ -16,10 +16,7 @@ public static class S1CheckpointBuilder
 
     private const string SaveMetadataParent = "metadata_save_s1.prop";
     private const string DialogFileProperty = "Dialog Agent - File Primary";
-    private const string VisibilityProxy = "Transient Visibility Proxy";
-    private const string RuntimeVisible = "Runtime: Visible";
     private const uint LocalKeysFlag = 0x100;
-    private const uint RuntimeFlag = 0x10;
     private const int EpisodeBase = 100;
 
     private static readonly string[] SharedResourceSets = ["MenuSeason1", "ProjectSeason1"];
@@ -141,11 +138,5 @@ public static class S1CheckpointBuilder
         return properties;
     }
 
-    private static PropertySet Runtime(bool visible)
-    {
-        var properties = new PropertySet { Flags = RuntimeFlag };
-        properties.SetInt(VisibilityProxy, -1);
-        properties.SetBool(RuntimeVisible, visible);
-        return properties;
-    }
+    private static PropertySet Runtime(bool visible) => S1RuntimeProperties.Create(visible);
 }

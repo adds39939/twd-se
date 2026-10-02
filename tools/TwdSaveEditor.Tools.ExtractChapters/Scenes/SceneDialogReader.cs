@@ -29,4 +29,17 @@ public sealed class SceneDialogReader(IEnumerable<string> dialogNames)
 
         return found;
     }
+
+    public List<string> ReadEveryReference(string path)
+    {
+        var data = MetaStreamParser.Parse(File.ReadAllBytes(path))?.Default ?? [];
+        var found = new List<string>();
+        for (var offset = 0; offset + 8 <= data.Length; offset++)
+        {
+            if (_dialogs.TryGetValue(Bytes.U64(data, offset), out var dialog) && !found.Contains(dialog))
+                found.Add(dialog);
+        }
+
+        return found;
+    }
 }

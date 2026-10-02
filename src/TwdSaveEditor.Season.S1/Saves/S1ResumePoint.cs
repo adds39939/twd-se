@@ -3,6 +3,7 @@ using TwdSaveEditor.Core.Model;
 using TwdSaveEditor.Season.Common.Model;
 using TwdSaveEditor.Season.S1.Accessors;
 using TwdSaveEditor.Season.S1.Chapters;
+using TwdSaveEditor.Season.S1.Inventory;
 using TwdSaveEditor.Season.S1.Persistence;
 
 namespace TwdSaveEditor.Season.S1.Saves;
@@ -68,11 +69,14 @@ public static class S1ResumePoint
         if (episode == null || S1ChapterCatalog.ForEpisode(episode.Value) is not { } chapters)
             return;
 
+        var inventory = S1Inventory.GetState(slot);
         slot.Autosave = S1CheckpointBuilder.Build(slot, chapters, chapter,
             saved.GetInt(SaveMetadataKeys.Serial) ?? GeneratedSerial, saved.GetString(SaveMetadataKeys.Date) ?? string.Empty);
+        if (inventory.Editable)
+            S1Inventory.SetItems(slot, inventory.Held, [.. chapters.DecisionFlags.Select(flag => flag.Key)]);
     }
 
-    private static S1Chapter? GeneratedChapter(SaveSlot slot)
+    public static S1Chapter? GeneratedChapter(SaveSlot slot)
     {
         if (slot.Autosave?.Metadata is not { } saved || slot.Autosave.Files.Count > MaxGeneratedFiles)
             return null;

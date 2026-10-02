@@ -225,6 +225,59 @@ public class SaveLoadCycleTests
     }
 
     [Fact]
+    public async Task S1Inventory_WritesCountedItemsIntoAChapterCheckpoint()
+    {
+        const string autosaveName = "_wd1_saveslot2_autosave.bundle";
+
+        var page = await _fixture.NewPage();
+        await InjectSaveFile(page, "S1", "wd1_saveslot2.bundle");
+
+        await page.Locator("[data-testid='open-directory']").ClickAsync();
+        await page.Locator(".save-item").First.ClickAsync();
+        await page.Locator("[data-testid='tab-resume']").ClickAsync();
+        await page.Locator("[data-testid='restart-episode']").SelectOptionAsync("1");
+        await page.Locator("[data-testid='restart-chapter']").SelectOptionAsync("OnDrugstoreExterior");
+        await page.Locator("[data-testid='restart-button']").ClickAsync();
+
+        await page.Locator("[data-testid='tab-inventory']").ClickAsync();
+        var summary = page.Locator("[data-testid='inventory-summary']");
+        await Assertions.Expect(summary).ToContainTextAsync("Lee");
+        await Assertions.Expect(summary).ToContainTextAsync("Episode 1: A New Day, 0 items");
+        await Assertions.Expect(page.Locator(".inventory-item")).ToHaveCountAsync(17);
+
+        await page.Locator("[data-testid='inventory-carried']").ClickAsync();
+        await Assertions.Expect(page.Locator(".inventory-item input:checked")).ToHaveCountAsync(3);
+        await Assertions.Expect(page.Locator("[data-testid='inventory-item-Office - got photo']")).ToBeCheckedAsync();
+
+        await page.Locator("[data-testid='inventory-item-Drugstore - PlayerFood']").CheckAsync();
+        var food = page.Locator("[data-testid='inventory-count-Drugstore - PlayerFood']");
+        await Assertions.Expect(food).ToHaveValueAsync("1");
+        await Assertions.Expect(food.Locator("option")).ToHaveCountAsync(4);
+        await food.SelectOptionAsync("3");
+        await page.Locator("[data-testid='inventory-item-Inventory - Remote Control']").UncheckAsync();
+        await Assertions.Expect(summary).ToContainTextAsync("3 items");
+
+        await page.Locator(".save-btn").ClickAsync();
+        await Assertions.Expect(page.Locator(".toast-success", new() { HasTextString = "Saved wd1_saveslot2.bundle" }).First)
+            .ToBeVisibleAsync(new() { Timeout = 20000 });
+        await Assertions.Expect(page.Locator(".toast-error")).ToHaveCountAsync(0);
+
+        var autosaveBase64 = await FakeSaveDirectory.ReadFileAsync(page, autosaveName);
+        Assert.NotNull(autosaveBase64);
+        var autosave = BundleReader.Read(Convert.FromBase64String(autosaveBase64), autosaveName);
+        var game = autosave.FindFile(TelltaleHash.ComputeCrc64("\"logic_game:module_logic.scene\" Runtime Properties"));
+        var inventory = autosave.FindFile(TelltaleHash.ComputeCrc64("\"logic_inventory_items:module_logic.scene\" Runtime Properties"));
+        Assert.NotNull(game);
+        Assert.NotNull(inventory);
+        Assert.True(BundleReader.TryParseProperties(game));
+        Assert.True(BundleReader.TryParseProperties(inventory));
+        Assert.Equal(3, game.Properties!.GetInt("Drugstore - PlayerFood"));
+        Assert.True(game.Properties.GetBool("Office - got photo"));
+        Assert.Equal(1, inventory.Properties!.GetInt("Inventory - Bandage"));
+        Assert.NotEqual(1, inventory.Properties.GetInt("Inventory - Remote Control"));
+    }
+
+    [Fact]
     public async Task S2NewSave_IsWrittenWithACheckpointAndAnEventLog()
     {
         const string checkpointName = "_wd2_saveslot1_checkpoint1.bundle";

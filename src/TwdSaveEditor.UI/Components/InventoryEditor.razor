@@ -24,13 +24,26 @@
                 <label class="inventory-item @(IsHeld(item) ? "held" : "")" @key="item.Id">
                     <input type="checkbox" checked="@IsHeld(item)" data-testid="inventory-item-@item.Id"
                            @onchange="e => Toggle(item, e.Value is true)" />
-                    <span>@item.Name</span>
+                    <span class="inventory-name">@item.Name</span>
+                    @if (item.MaxCount > 1 && IsHeld(item))
+                    {
+                        <select class="inventory-count" value="@_state.CountOf(item.Id)" data-testid="inventory-count-@item.Id"
+                                @onchange="e => SetCount(item, e.Value)">
+                            @for (var count = 1; count <= item.MaxCount; count++)
+                            {
+                                <option value="@count">@count</option>
+                            }
+                        </select>
+                    }
                 </label>
             }
         </div>
 
         <div class="inventory-actions">
-            <button class="btn-sm" data-testid="inventory-carried" @onclick="AddCarried">Add items picked up earlier</button>
+            @if (_state.CarriedItemsKnown)
+            {
+                <button class="btn-sm" data-testid="inventory-carried" @onclick="AddCarried">Add items picked up earlier</button>
+            }
             <button class="btn-sm" data-testid="inventory-clear" disabled="@(_state.Held.Count == 0)" @onclick="RemoveAll">Remove all</button>
         </div>
 

@@ -1,0 +1,1413 @@
+{
+  "episodes": [
+    {
+      "episode": 1,
+      "items": [
+        {
+          "id": "Inventory - Awl",
+          "agent": "logic_inventory_items",
+          "name": "Awl",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Axe",
+          "agent": "logic_inventory_items",
+          "name": "Axe",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Bandage",
+          "agent": "logic_inventory_items",
+          "name": "Bandage",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Hammer",
+          "agent": "logic_inventory_items",
+          "name": "Hammer",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Keys",
+          "agent": "logic_inventory_items",
+          "name": "Keys",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Pillow",
+          "agent": "logic_inventory_items",
+          "name": "Pillow",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Remote Control",
+          "agent": "logic_inventory_items",
+          "name": "Remote Control",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Shotgun",
+          "agent": "logic_inventory_items",
+          "name": "Shotgun",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Shotgun Shell",
+          "agent": "logic_inventory_items",
+          "name": "Shotgun Shell",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Spark Plug",
+          "agent": "logic_inventory_items",
+          "name": "Spark Plug",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Spark Plug Crushed",
+          "agent": "logic_inventory_items",
+          "name": "Spark Plug Crushed",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Walkie Talkie",
+          "agent": "logic_inventory_items",
+          "name": "Walkie Talkie",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Drugstore - Got Keys",
+          "agent": "logic_game",
+          "name": "Keys (Drugstore)",
+          "flag": true,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Macon St - Have Brick",
+          "agent": "logic_game",
+          "name": "Brick (Macon St)",
+          "flag": true,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Office - got photo",
+          "agent": "logic_game",
+          "name": "Photo (Office)",
+          "flag": true,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Drugstore - PlayerFood",
+          "agent": "logic_game",
+          "name": "Food (Drugstore)",
+          "flag": false,
+          "maxCount": 4,
+          "choiceKey": null
+        },
+        {
+          "id": "Drugstore - Player Batteries",
+          "agent": "logic_game",
+          "name": "Batteries (Drugstore)",
+          "flag": false,
+          "maxCount": 3,
+          "choiceKey": null
+        }
+      ],
+      "chapters": [
+        {
+          "id": "OnStreetOutskirts",
+          "carried": []
+        },
+        {
+          "id": "OnWoodsClementine",
+          "carried": []
+        },
+        {
+          "id": "OnClementineHouseExterior",
+          "carried": []
+        },
+        {
+          "id": "OnClementineHouseInterior",
+          "carried": []
+        },
+        {
+          "id": "OnClementineHouseAttack",
+          "carried": []
+        },
+        {
+          "id": "OnHershelFarmNight",
+          "carried": []
+        },
+        {
+          "id": "OnHershelFarmExterior",
+          "carried": []
+        },
+        {
+          "id": "OnHershelFarmExteriorAttack",
+          "carried": []
+        },
+        {
+          "id": "OnDrugstoreExteriorDay",
+          "carried": []
+        },
+        {
+          "id": "OnDrugstoreInterior",
+          "carried": []
+        },
+        {
+          "id": "OnDrugstoreInteriorSecure",
+          "carried": []
+        },
+        {
+          "id": "OnDrugstoreOffice",
+          "carried": []
+        },
+        {
+          "id": "OnDrugstoreExterior",
+          "carried": [
+            "Inventory - Bandage",
+            "Inventory - Remote Control",
+            "Office - got photo"
+          ]
+        },
+        {
+          "id": "OnMotorInnMission",
+          "carried": [
+            "Inventory - Bandage",
+            "Office - got photo"
+          ]
+        },
+        {
+          "id": "OnDrugstoreExteriorWStuff",
+          "carried": [
+            "Inventory - Bandage",
+            "Office - got photo"
+          ]
+        },
+        {
+          "id": "OnDrugstoreWKeys",
+          "carried": [
+            "Inventory - Bandage",
+            "Office - got photo"
+          ]
+        },
+        {
+          "id": "OnDrugstoreChoice",
+          "carried": [
+            "Inventory - Bandage",
+            "Office - got photo"
+          ]
+        },
+        {
+          "id": "OnMotorInnEnding",
+          "carried": [
+            "Inventory - Bandage",
+            "Office - got photo"
+          ]
+        },
+        {
+          "id": "OnDrugstoreInteriorSecureFromMotorInn",
+          "carried": [
+            "Inventory - Bandage",
+            "Office - got photo"
+          ]
+        },
+        {
+          "id": "OnDrugstoreInteriorSecureFromStreet",
+          "carried": [
+            "Inventory - Bandage",
+            "Office - got photo"
+          ]
+        },
+        {
+          "id": "OnMotorInnUpstairs",
+          "carried": [
+            "Inventory - Bandage",
+            "Office - got photo"
+          ]
+        },
+        {
+          "id": "OnBabyFightTest",
+          "carried": [
+            "Inventory - Bandage",
+            "Office - got photo"
+          ]
+        },
+        {
+          "id": "OnPrologueChoice",
+          "carried": [
+            "Inventory - Bandage",
+            "Office - got photo"
+          ]
+        },
+        {
+          "id": "OnPrologueSaveClem",
+          "carried": [
+            "Inventory - Bandage",
+            "Office - got photo"
+          ]
+        },
+        {
+          "id": "OnWoodsCopFight",
+          "carried": [
+            "Inventory - Bandage",
+            "Office - got photo"
+          ]
+        },
+        {
+          "id": "OnDrugstoreExtBrother",
+          "carried": [
+            "Inventory - Bandage",
+            "Office - got photo"
+          ]
+        },
+        {
+          "id": "OnDrugstoreInteriorWCZombie",
+          "carried": [
+            "Inventory - Bandage",
+            "Office - got photo"
+          ]
+        }
+      ]
+    },
+    {
+      "episode": 2,
+      "items": [
+        {
+          "id": "Inventory - Axe",
+          "agent": "logic_inventory_items",
+          "name": "Axe",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Apple",
+          "agent": "logic_inventory_items",
+          "name": "Apple",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Chips",
+          "agent": "logic_inventory_items",
+          "name": "Chips",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Crackers",
+          "agent": "logic_inventory_items",
+          "name": "Crackers",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Jerky",
+          "agent": "logic_inventory_items",
+          "name": "Jerky",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Board",
+          "agent": "logic_inventory_items",
+          "name": "Board",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - BoardAndRope",
+          "agent": "logic_inventory_items",
+          "name": "Board And Rope",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Rope",
+          "agent": "logic_inventory_items",
+          "name": "Rope",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - MultiTool",
+          "agent": "logic_inventory_items",
+          "name": "Multi Tool",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Camera",
+          "agent": "logic_inventory_items",
+          "name": "Camera",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Hat",
+          "agent": "logic_inventory_items",
+          "name": "Hat",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Coins",
+          "agent": "logic_inventory_items",
+          "name": "Coins",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - CattleProd",
+          "agent": "logic_inventory_items",
+          "name": "Cattle Prod",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - HayHook",
+          "agent": "logic_inventory_items",
+          "name": "Hay Hook",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Sickle",
+          "agent": "logic_inventory_items",
+          "name": "Sickle",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        }
+      ],
+      "chapters": [
+        {
+          "id": "OnWoodsBearTrap",
+          "carried": []
+        },
+        {
+          "id": "OnWoodsLegChop",
+          "carried": []
+        },
+        {
+          "id": "OnMotorInnAct1Intro",
+          "carried": []
+        },
+        {
+          "id": "OnMotorInnAct1Attack",
+          "carried": []
+        },
+        {
+          "id": "OnMotorInnAct1Brothers",
+          "carried": []
+        },
+        {
+          "id": "OnWoodsAbandonedCampDay",
+          "carried": []
+        },
+        {
+          "id": "OnDairyExteriorDay",
+          "carried": []
+        },
+        {
+          "id": "OnDairyExteriorDayPostFence",
+          "carried": []
+        },
+        {
+          "id": "OnDairyExteriorDayPostCamp",
+          "carried": []
+        },
+        {
+          "id": "OnDairyExteriorFence",
+          "carried": [
+            "Inventory - MultiTool"
+          ]
+        },
+        {
+          "id": "OnDairyExteriorFenceAttack",
+          "carried": [
+            "Inventory - MultiTool"
+          ]
+        },
+        {
+          "id": "OnWoodsJoleneCamp",
+          "carried": [
+            "Inventory - MultiTool"
+          ]
+        },
+        {
+          "id": "OnWoodsJoleneCampArgument",
+          "carried": [
+            "Inventory - MultiTool"
+          ]
+        },
+        {
+          "id": "OnDairyBarnDay",
+          "carried": [
+            "Inventory - MultiTool",
+            "Inventory - Camera",
+            "Inventory - Hat"
+          ]
+        },
+        {
+          "id": "OnDairyHouse",
+          "carried": [
+            "Inventory - MultiTool",
+            "Inventory - Camera"
+          ]
+        },
+        {
+          "id": "OnDairyHouseDinner",
+          "carried": [
+            "Inventory - MultiTool",
+            "Inventory - Camera"
+          ]
+        },
+        {
+          "id": "OnDairyMeatLocker",
+          "carried": [
+            "Inventory - MultiTool",
+            "Inventory - Camera"
+          ]
+        },
+        {
+          "id": "OnDairyMeatLockerChoice",
+          "carried": [
+            "Inventory - MultiTool",
+            "Inventory - Camera"
+          ]
+        },
+        {
+          "id": "OnDairyBarnNight",
+          "carried": [
+            "Inventory - Coins"
+          ]
+        },
+        {
+          "id": "OnDairyExteriorNight",
+          "carried": [
+            "Inventory - Coins"
+          ]
+        },
+        {
+          "id": "OnDairyExteriorNightRescue",
+          "carried": [
+            "Inventory - Coins"
+          ]
+        },
+        {
+          "id": "OnAndyFight",
+          "carried": [
+            "Inventory - Coins"
+          ]
+        },
+        {
+          "id": "OnAndyKillChoice",
+          "carried": [
+            "Inventory - Coins"
+          ]
+        },
+        {
+          "id": "OnWoodsAbandonedCamp",
+          "carried": [
+            "Inventory - Coins"
+          ]
+        },
+        {
+          "id": "OnMotorInnFinale",
+          "carried": [
+            "Inventory - Coins"
+          ]
+        }
+      ]
+    },
+    {
+      "episode": 3,
+      "items": [
+        {
+          "id": "Inventory - Flashlight",
+          "agent": "logic_inventory_items",
+          "name": "Flashlight",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Supply Bag",
+          "agent": "logic_inventory_items",
+          "name": "Supply Bag",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Animal Crackers",
+          "agent": "logic_inventory_items",
+          "name": "Animal Crackers",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Monkey Wrench",
+          "agent": "logic_inventory_items",
+          "name": "Monkey Wrench",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": "Weapon Choice"
+        },
+        {
+          "id": "Inventory - Notepad",
+          "agent": "logic_inventory_items",
+          "name": "Notepad",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Pencil",
+          "agent": "logic_inventory_items",
+          "name": "Pencil",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Route Map",
+          "agent": "logic_inventory_items",
+          "name": "Route Map",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Spanner",
+          "agent": "logic_inventory_items",
+          "name": "Spanner",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": "Weapon Choice"
+        },
+        {
+          "id": "Inventory - Spike Remover",
+          "agent": "logic_inventory_items",
+          "name": "Spike Remover",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": "Weapon Choice"
+        },
+        {
+          "id": "Inventory - Water",
+          "agent": "logic_inventory_items",
+          "name": "Water",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Rag",
+          "agent": "logic_inventory_items",
+          "name": "Rag",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Map",
+          "agent": "logic_inventory_items",
+          "name": "Map",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Scissors",
+          "agent": "logic_inventory_items",
+          "name": "Scissors",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Whiskey",
+          "agent": "logic_inventory_items",
+          "name": "Whiskey",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Tape",
+          "agent": "logic_inventory_items",
+          "name": "Tape",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Blowtorch",
+          "agent": "logic_inventory_items",
+          "name": "Blowtorch",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Key",
+          "agent": "logic_inventory_items",
+          "name": "Key",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        }
+      ],
+      "chapters": [
+        {
+          "id": "OnDrugstoreExterior",
+          "carried": []
+        },
+        {
+          "id": "OnDrugstoreInterior",
+          "carried": []
+        },
+        {
+          "id": "OnDrugstoreInteriorOverCounter",
+          "carried": []
+        },
+        {
+          "id": "OnMotorInnArgument",
+          "carried": []
+        },
+        {
+          "id": "OnMotorInn",
+          "carried": []
+        },
+        {
+          "id": "OnMotorInnBanditAttack",
+          "carried": [
+            "Inventory - Supply Bag"
+          ]
+        },
+        {
+          "id": "OnRoad",
+          "carried": []
+        },
+        {
+          "id": "OnRoadNightmare",
+          "carried": []
+        },
+        {
+          "id": "OnWreckedTrain",
+          "carried": []
+        },
+        {
+          "id": "OnTrainBeforeStop",
+          "carried": [
+            "Inventory - Monkey Wrench",
+            "Inventory - Spanner",
+            "Inventory - Spike Remover"
+          ]
+        },
+        {
+          "id": "OnTrainFight",
+          "carried": [
+            "Inventory - Monkey Wrench",
+            "Inventory - Spanner",
+            "Inventory - Spike Remover"
+          ]
+        },
+        {
+          "id": "OnClearing",
+          "carried": [
+            "Inventory - Monkey Wrench",
+            "Inventory - Spanner",
+            "Inventory - Spike Remover"
+          ]
+        },
+        {
+          "id": "OnTrainAfterStop",
+          "carried": [
+            "Inventory - Monkey Wrench",
+            "Inventory - Spanner",
+            "Inventory - Spike Remover"
+          ]
+        },
+        {
+          "id": "OnOverpassI",
+          "carried": [
+            "Inventory - Monkey Wrench",
+            "Inventory - Spanner",
+            "Inventory - Spike Remover"
+          ]
+        },
+        {
+          "id": "OnOverpassII",
+          "carried": [
+            "Inventory - Monkey Wrench",
+            "Inventory - Spanner",
+            "Inventory - Spike Remover"
+          ]
+        },
+        {
+          "id": "OnStation",
+          "carried": [
+            "Inventory - Monkey Wrench",
+            "Inventory - Spanner",
+            "Inventory - Spike Remover"
+          ]
+        },
+        {
+          "id": "OnStationFight",
+          "carried": [
+            "Inventory - Monkey Wrench",
+            "Inventory - Spanner",
+            "Inventory - Spike Remover"
+          ]
+        },
+        {
+          "id": "OnEpilogue",
+          "carried": [
+            "Inventory - Monkey Wrench",
+            "Inventory - Spanner",
+            "Inventory - Spike Remover",
+            "Inventory - Blowtorch"
+          ]
+        }
+      ]
+    },
+    {
+      "episode": 4,
+      "items": [
+        {
+          "id": "Inventory - Monkey Wrench",
+          "agent": "logic_inventory_items",
+          "name": "Monkey Wrench",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": "Weapon Choice"
+        },
+        {
+          "id": "Inventory - Spanner",
+          "agent": "logic_inventory_items",
+          "name": "Spanner",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": "Weapon Choice"
+        },
+        {
+          "id": "Inventory - Spike Remover",
+          "agent": "logic_inventory_items",
+          "name": "Spike Remover",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": "Weapon Choice"
+        },
+        {
+          "id": "Inventory - Walkie Talkie",
+          "agent": "logic_inventory_items",
+          "name": "Walkie Talkie",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Shovel",
+          "agent": "logic_inventory_items",
+          "name": "Shovel",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Pet Collar",
+          "agent": "logic_inventory_items",
+          "name": "Pet Collar",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Hat",
+          "agent": "logic_inventory_items",
+          "name": "Hat",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Dog Food",
+          "agent": "logic_inventory_items",
+          "name": "Dog Food",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Coins",
+          "agent": "logic_inventory_items",
+          "name": "Coins",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Ice Axe",
+          "agent": "logic_inventory_items",
+          "name": "Ice Axe",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Valve",
+          "agent": "logic_inventory_items",
+          "name": "Valve",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Video Tape 1",
+          "agent": "logic_inventory_items",
+          "name": "Video Tape 1",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Car Jack",
+          "agent": "logic_inventory_items",
+          "name": "Car Jack",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Video Tape 2",
+          "agent": "logic_inventory_items",
+          "name": "Video Tape 2",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Locker Combination",
+          "agent": "logic_inventory_items",
+          "name": "Locker Combination",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Video Tape 3",
+          "agent": "logic_inventory_items",
+          "name": "Video Tape 3",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        }
+      ],
+      "chapters": [
+        {
+          "id": "OnSavannahStreets",
+          "carried": []
+        },
+        {
+          "id": "OnManorBackyardDay",
+          "carried": []
+        },
+        {
+          "id": "OnManorHouseSearch",
+          "carried": []
+        },
+        {
+          "id": "OnManorAttic",
+          "carried": []
+        },
+        {
+          "id": "OnBurial",
+          "carried": []
+        },
+        {
+          "id": "OnRiverStreet",
+          "carried": []
+        },
+        {
+          "id": "OnStreetFight",
+          "carried": []
+        },
+        {
+          "id": "OnSavannahSewers",
+          "carried": [
+            "Inventory - Ice Axe"
+          ]
+        },
+        {
+          "id": "OnCancerSurvivors",
+          "carried": [
+            "Inventory - Ice Axe"
+          ]
+        },
+        {
+          "id": "OnManorClemSearch",
+          "carried": [
+            "Inventory - Ice Axe"
+          ]
+        },
+        {
+          "id": "OnDiscoverBoat",
+          "carried": [
+            "Inventory - Ice Axe"
+          ]
+        },
+        {
+          "id": "OnManorBeforeCrawford",
+          "carried": [
+            "Inventory - Ice Axe"
+          ]
+        },
+        {
+          "id": "OnManorBackyardNight",
+          "carried": [
+            "Inventory - Ice Axe"
+          ]
+        },
+        {
+          "id": "OnCrawfordExterior",
+          "carried": [
+            "Inventory - Ice Axe"
+          ]
+        },
+        {
+          "id": "OnCrawfordHallway",
+          "carried": [
+            "Inventory - Ice Axe"
+          ]
+        },
+        {
+          "id": "OnCrawfordClassroom",
+          "carried": [
+            "Inventory - Ice Axe"
+          ]
+        },
+        {
+          "id": "OnCrawfordHallwayPreBattery",
+          "carried": [
+            "Inventory - Ice Axe"
+          ]
+        },
+        {
+          "id": "OnCrawfordAlley",
+          "carried": [
+            "Inventory - Ice Axe"
+          ]
+        },
+        {
+          "id": "OnCrawfordAutoShop",
+          "carried": [
+            "Inventory - Ice Axe"
+          ]
+        },
+        {
+          "id": "OnCrawfordHallwayPostBattery",
+          "carried": []
+        },
+        {
+          "id": "OnCrawfordNurseOffice",
+          "carried": [
+            "Inventory - Video Tape 3"
+          ]
+        },
+        {
+          "id": "OnCrawfordAlleyMedsMission",
+          "carried": []
+        },
+        {
+          "id": "OnBenConfession",
+          "carried": [
+            "Inventory - Locker Combination"
+          ]
+        },
+        {
+          "id": "OnCrawfordBellTower",
+          "carried": [
+            "Inventory - Locker Combination"
+          ]
+        },
+        {
+          "id": "OnCrawfordBellTowerTop",
+          "carried": [
+            "Inventory - Locker Combination"
+          ]
+        },
+        {
+          "id": "OnManorAfterCrawford",
+          "carried": [
+            "Inventory - Locker Combination"
+          ]
+        },
+        {
+          "id": "OnBackyardFinale",
+          "carried": [
+            "Inventory - Locker Combination"
+          ]
+        },
+        {
+          "id": "OnEpilogue",
+          "carried": [
+            "Inventory - Locker Combination"
+          ]
+        }
+      ]
+    },
+    {
+      "episode": 5,
+      "items": [
+        {
+          "id": "Inventory - Bone Saw",
+          "agent": "logic_inventory_items",
+          "name": "Bone Saw",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Rib Spreader",
+          "agent": "logic_inventory_items",
+          "name": "Rib Spreader",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Cleaver",
+          "agent": "logic_inventory_items",
+          "name": "Cleaver",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Bat",
+          "agent": "logic_inventory_items",
+          "name": "Bat",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Handcuffs",
+          "agent": "logic_inventory_items",
+          "name": "Handcuffs",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        }
+      ],
+      "chapters": [
+        {
+          "id": "OnMorgue",
+          "carried": []
+        },
+        {
+          "id": "OnMorgueArmChop",
+          "carried": []
+        },
+        {
+          "id": "OnElevatorShaft",
+          "carried": []
+        },
+        {
+          "id": "OnRooftop",
+          "carried": []
+        },
+        {
+          "id": "OnManorExterior",
+          "carried": []
+        },
+        {
+          "id": "OnManorInterior",
+          "carried": []
+        },
+        {
+          "id": "OnManorAttic",
+          "carried": []
+        },
+        {
+          "id": "OnNeighborBedroom",
+          "carried": []
+        },
+        {
+          "id": "OnNeighborBedroomDeath",
+          "carried": []
+        },
+        {
+          "id": "OnRiverStreetRooftop",
+          "carried": []
+        },
+        {
+          "id": "OnRiverStreet",
+          "carried": []
+        },
+        {
+          "id": "OnMarshHouseExterior1",
+          "carried": []
+        },
+        {
+          "id": "OnMarshHouseInterior",
+          "carried": []
+        },
+        {
+          "id": "OnCampmanFight",
+          "carried": []
+        },
+        {
+          "id": "OnMarshHouseInterior2",
+          "carried": []
+        },
+        {
+          "id": "OnMarshHouseExterior2",
+          "carried": [
+            "Inventory - Cleaver"
+          ]
+        },
+        {
+          "id": "OnJewelryStore",
+          "carried": [
+            "Inventory - Cleaver"
+          ]
+        },
+        {
+          "id": "OnEpilogue",
+          "carried": [
+            "Inventory - Cleaver"
+          ]
+        }
+      ]
+    },
+    {
+      "episode": 6,
+      "items": [
+        {
+          "id": "Inventory - Pistol",
+          "agent": "logic_inventory_items",
+          "name": "Pistol",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        },
+        {
+          "id": "Inventory - Keys",
+          "agent": "logic_inventory_items",
+          "name": "Keys",
+          "flag": false,
+          "maxCount": 1,
+          "choiceKey": null
+        }
+      ],
+      "chapters": [
+        {
+          "id": "OnChapterSelection",
+          "carried": []
+        },
+        {
+          "id": "OnChapter1A",
+          "carried": []
+        },
+        {
+          "id": "OnChapter1ABusIntro",
+          "carried": []
+        },
+        {
+          "id": "OnChapter1ABusMurder",
+          "carried": []
+        },
+        {
+          "id": "OnChapter1AZombieJerry",
+          "carried": []
+        },
+        {
+          "id": "OnChapter1APostZombie",
+          "carried": []
+        },
+        {
+          "id": "OnChapter1AChoice",
+          "carried": []
+        },
+        {
+          "id": "OnChapterSelectionAfter1",
+          "carried": []
+        },
+        {
+          "id": "OnChapter2A",
+          "carried": []
+        },
+        {
+          "id": "OnChapter2B",
+          "carried": []
+        },
+        {
+          "id": "OnChapter2BInvestigation",
+          "carried": []
+        },
+        {
+          "id": "OnChapter2BRoshambo",
+          "carried": []
+        },
+        {
+          "id": "OnChapter2BPostRoshambo",
+          "carried": []
+        },
+        {
+          "id": "OnChapter2BDragChoice",
+          "carried": []
+        },
+        {
+          "id": "OnChapter2BWyattAttacked",
+          "carried": []
+        },
+        {
+          "id": "OnChapterSelectionAfter2",
+          "carried": []
+        },
+        {
+          "id": "OnChapter3A",
+          "carried": []
+        },
+        {
+          "id": "OnChapter3ATruck",
+          "carried": []
+        },
+        {
+          "id": "OnChapter3ADriveAway",
+          "carried": []
+        },
+        {
+          "id": "OnChapter3B",
+          "carried": []
+        },
+        {
+          "id": "OnChapter3BRunToTruck",
+          "carried": []
+        },
+        {
+          "id": "OnChapter3BTruckPeek",
+          "carried": []
+        },
+        {
+          "id": "OnChapter3BCoverChoice",
+          "carried": []
+        },
+        {
+          "id": "OnChapter3C",
+          "carried": []
+        },
+        {
+          "id": "OnChapter3CGunman",
+          "carried": []
+        },
+        {
+          "id": "OnChapterSelectionAfter3",
+          "carried": []
+        },
+        {
+          "id": "OnChapter4A",
+          "carried": []
+        },
+        {
+          "id": "OnChapter4AFinale",
+          "carried": []
+        },
+        {
+          "id": "OnChapter4B",
+          "carried": []
+        },
+        {
+          "id": "OnChapter4BStealth",
+          "carried": []
+        },
+        {
+          "id": "OnChapter4BAmbush",
+          "carried": []
+        },
+        {
+          "id": "OnChapter4BEnd",
+          "carried": []
+        },
+        {
+          "id": "OnChapterSelectionAfter4",
+          "carried": []
+        },
+        {
+          "id": "OnChapter5A",
+          "carried": []
+        },
+        {
+          "id": "OnChapter5B",
+          "carried": []
+        },
+        {
+          "id": "OnChapter5BCards",
+          "carried": []
+        },
+        {
+          "id": "OnChapter5BRoman",
+          "carried": []
+        },
+        {
+          "id": "OnChapter5BChoice",
+          "carried": []
+        },
+        {
+          "id": "OnChapter6A",
+          "carried": []
+        },
+        {
+          "id": "OnChapter6B",
+          "carried": []
+        }
+      ]
+    }
+  ]
+}

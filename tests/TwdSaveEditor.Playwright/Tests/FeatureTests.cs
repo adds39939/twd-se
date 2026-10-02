@@ -86,6 +86,23 @@ public class FeatureTests
     }
 
     [Fact]
+    public async Task InventoryTab_ShowsWhatLeeHoldsInSeason1()
+    {
+        var page = await _fixture.NewPage();
+        await InjectSaveFile(page, "S1", "wd1_saveslot2.bundle");
+        await LoadAndSelectFirstSave(page);
+
+        await page.Locator("[data-testid='tab-inventory']").ClickAsync();
+
+        await Assertions.Expect(page.Locator("[data-testid='inventory-summary']")).ToContainTextAsync("Lee");
+        await Assertions.Expect(page.Locator("[data-testid='inventory-summary']")).ToContainTextAsync("Episode 4: Around Every Corner, 1 item");
+        await Assertions.Expect(page.Locator(".inventory-item")).ToHaveCountAsync(16);
+        await Assertions.Expect(page.Locator("[data-testid='inventory-item-Inventory - Locker Combination']")).ToBeCheckedAsync();
+        await Assertions.Expect(page.Locator(".inventory-item input:checked")).ToHaveCountAsync(1);
+        await Assertions.Expect(page.Locator("[data-testid='inventory-carried']")).ToHaveCountAsync(0);
+    }
+
+    [Fact]
     public async Task InventoryTab_SaysWhenASeasonHasNoEditableInventory()
     {
         var page = await _fixture.NewPage();

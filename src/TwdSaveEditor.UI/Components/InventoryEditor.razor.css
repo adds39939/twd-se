@@ -50,3 +50,13 @@
     padding-top: 1rem;
     border-top: 1px solid var(--border);
 }
+
+.inventory-name {
+    flex: 1;
+}
+
+.inventory-count {
+    flex-shrink: 0;
+    width: auto;
+    padding: 0.15rem 1.7rem 0.15rem 0.5rem;
+}

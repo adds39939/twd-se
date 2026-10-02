@@ -37,17 +37,17 @@ public static class S2Inventory
             .Concat(held.Where(id => known.All(item => item.Id != id)).Select(id => new InventoryItem(id, id)))
             .ToList();
 
-        return new InventoryState(Owner, episode, null, items, [.. held]);
+        return new InventoryState(Owner, episode, null, items, [.. held.Select(id => new HeldItem(id))]);
     }
 
-    public static void SetItems(SaveSlot slot, IReadOnlyList<string> itemIds)
+    public static void SetItems(SaveSlot slot, IReadOnlyList<HeldItem> held)
     {
         var save = S2ResumePoint.ResumeSave(slot)
             ?? throw new InvalidOperationException("Cannot set the inventory: the slot has no save of the episode in progress.");
 
         var properties = InventoryProperties(save);
         var previous = properties.GetStrings(ItemsKey) ?? [];
-        var items = itemIds.Distinct(StringComparer.Ordinal).ToList();
+        var items = held.Where(item => item.Count > 0).Select(item => item.Id).Distinct(StringComparer.Ordinal).ToList();
         var game = S2ResumePoint.Properties(save, S2SlotFiles.LogicGameProperties);
 
         foreach (var removed in previous.Except(items, StringComparer.Ordinal))
@@ -64,7 +64,7 @@ public static class S2Inventory
         save.Modified = true;
     }
 
-    public static IReadOnlyList<string> CarriedItems(SaveSlot slot)
+    public static IReadOnlyList<HeldItem> CarriedItems(SaveSlot slot)
     {
         if (S2ResumePoint.ResumeSave(slot) is not { } save)
             return [];
@@ -84,7 +84,7 @@ public static class S2Inventory
         var starting = items.FromStart.Where(item => catalog.Starting.Any(entry =>
             entry.Item == item && entry.Requires.All(Decided) && !entry.Unless.Any(Decided)));
 
-        return [.. starting.Concat(items.Carried)];
+        return [.. starting.Concat(items.Carried).Select(id => new HeldItem(id))];
     }
 
     private static int EpisodeOf(SaveSlot save) =>

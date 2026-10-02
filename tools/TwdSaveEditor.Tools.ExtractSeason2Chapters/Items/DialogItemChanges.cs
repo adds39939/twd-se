@@ -1,4 +1,5 @@
 using TwdSaveEditor.Tools.Common.Dialogs;
+using TwdSaveEditor.Tools.Common.Inventory;
 using TwdSaveEditor.Tools.ExtractSeason2Chapters.Model;
 using TwdSaveEditor.Tools.ExtractSeason2Chapters.Scripts;
 

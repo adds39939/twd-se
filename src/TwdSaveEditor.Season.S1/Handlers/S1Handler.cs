@@ -6,12 +6,13 @@ using TwdSaveEditor.Season.Base.Handlers;
 using TwdSaveEditor.Season.Common.Abstractions;
 using TwdSaveEditor.Season.Common.Model;
 using TwdSaveEditor.Season.S1.Accessors;
+using TwdSaveEditor.Season.S1.Inventory;
 using TwdSaveEditor.Season.S1.Persistence;
 using TwdSaveEditor.Season.S1.Saves;
 
 namespace TwdSaveEditor.Season.S1.Handlers;
 
-public class S1Handler : SeasonHandlerBase, ICompanionFileHandler, IResumePointHandler, IPropertyNameProvider
+public class S1Handler : SeasonHandlerBase, ICompanionFileHandler, IResumePointHandler, IInventoryHandler, IPropertyNameProvider
 {
     private static readonly string[] SeasonsInSave = [S1ChoiceCatalog.MainSeasonKey, S1ChoiceCatalog.ExtraEpisodeSeasonKey];
 
@@ -74,6 +75,19 @@ public class S1Handler : SeasonHandlerBase, ICompanionFileHandler, IResumePointH
 
     public void RestartFromChapter(SaveSlot slot, int episode, string chapterId) =>
         S1ResumePoint.RestartFromChapter(slot, episode, chapterId, DateTime.Now.ToString(SaveDateFormat, CultureInfo.InvariantCulture));
+
+    public IReadOnlyList<string> InventoryNotes { get; } =
+    [
+        "The items are kept in the save the game resumes from. Setting a new resume point writes a new save, which starts with only what the developers' chapter setup hands out.",
+        "\"Add items picked up earlier\" gives only what is certain in the order of the developers' chapter list: items whose scenes all lie before the chapter and that no scene since could have used up. It is offered for a chapter set here, until the game replaces the save with its own.",
+        "Season 1 items open steps of its puzzles and its scenes are revisited, so look over the list before saving. The weapon follows the Episode 3 weapon decision.",
+    ];
+
+    public InventoryState GetInventory(SaveSlot slot) => S1Inventory.GetState(slot);
+
+    public void SetInventory(SaveSlot slot, IReadOnlyList<HeldItem> items) => S1Inventory.SetItems(slot, items);
+
+    public IReadOnlyList<HeldItem> GetCarriedItems(SaveSlot slot) => S1Inventory.CarriedItems(slot);
 
     public bool IsCompanionFile(string fileName) => !S1SlotFiles.IsSlotBundle(fileName);
 

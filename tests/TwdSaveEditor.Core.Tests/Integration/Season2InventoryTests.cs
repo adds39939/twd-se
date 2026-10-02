@@ -3,6 +3,7 @@ using TwdSaveEditor.Core.Binary.SaveGames;
 using TwdSaveEditor.Core.Constants;
 using TwdSaveEditor.Core.Model;
 using TwdSaveEditor.Core.Tests.Support;
+using TwdSaveEditor.Season.Common.Model;
 using TwdSaveEditor.Season.S2.Chapters;
 using TwdSaveEditor.Season.S2.Inventory;
 using TwdSaveEditor.Season.S2.Saves;
@@ -24,7 +25,7 @@ public class Season2InventoryTests
         Assert.True(state.Editable);
         Assert.Equal("Clementine", state.Owner);
         Assert.Equal(1, state.Episode);
-        Assert.Equal([Watch, Hammer], state.Held);
+        Assert.Equal([Watch, Hammer], Ids(state.Held));
         Assert.Equal(13, state.Items.Count);
         Assert.Equal("Pocket Knife", state.Items.Single(item => item.Id == "ui_item_knifePocket").Name);
     }
@@ -35,12 +36,12 @@ public class Season2InventoryTests
         var slot = Season2Saves.LoadEpisode1Save();
         var before = Season2Saves.ReadBytes(Season2Saves.Autosave);
 
-        Season2Saves.Handler.SetInventory(slot, [Hammer, Lighter]);
+        Season2Saves.Handler.SetInventory(slot, Held(Hammer, Lighter));
 
         var reloaded = Season2Saves.Reload(slot);
         var save = Assert.Single(reloaded.Checkpoints);
         var inventory = Runtime(save, S2SlotFiles.InventoryProperties);
-        Assert.Equal([Hammer, Lighter], Season2Saves.Handler.GetInventory(reloaded).Held);
+        Assert.Equal([Hammer, Lighter], Ids(Season2Saves.Handler.GetInventory(reloaded).Held));
         Assert.True(inventory.GetBool(Lighter + S2Inventory.ShownSuffix));
         Assert.True(inventory.GetBool(Hammer + S2Inventory.ShownSuffix));
         Assert.False(inventory.GetBool(Watch + S2Inventory.ShownSuffix));
@@ -58,7 +59,7 @@ public class Season2InventoryTests
     {
         var slot = Season2Saves.LoadEpisode1Save();
 
-        Season2Saves.Handler.SetInventory(slot, [Watch, Hammer]);
+        Season2Saves.Handler.SetInventory(slot, Held(Watch, Hammer));
 
         var written = Season2Saves.Handler.BuildCompanionFiles(slot).Single(file => file.Name == Season2Saves.Autosave).Data;
         var original = BundleReader.Read(Season2Saves.ReadBytes(Season2Saves.Autosave), Season2Saves.Autosave);
@@ -77,7 +78,7 @@ public class Season2InventoryTests
         Assert.False(state.Editable);
         Assert.NotNull(state.Unavailable);
         Assert.Empty(Season2Saves.Handler.GetCarriedItems(slot));
-        Assert.Throws<InvalidOperationException>(() => Season2Saves.Handler.SetInventory(slot, [Hammer]));
+        Assert.Throws<InvalidOperationException>(() => Season2Saves.Handler.SetInventory(slot, Held(Hammer)));
     }
 
     [Fact]
@@ -87,8 +88,8 @@ public class Season2InventoryTests
         Season2Saves.Handler.RestartFromChapter(slot, 1, "CabinShedII");
         Assert.Empty(Season2Saves.Handler.GetInventory(slot).Held);
 
-        var carried = Season2Saves.Handler.GetCarriedItems(slot);
-        Season2Saves.Handler.SetInventory(slot, carried);
+        var carried = Ids(Season2Saves.Handler.GetCarriedItems(slot));
+        Season2Saves.Handler.SetInventory(slot, Held([.. carried]));
 
         string[] expected =
         [
@@ -104,7 +105,7 @@ public class Season2InventoryTests
         var reloaded = Season2Saves.Reload(slot);
         var inventory = Runtime(Assert.Single(reloaded.Checkpoints), S2SlotFiles.InventoryProperties);
         Assert.Equal(expected, inventory.GetStrings(S2Inventory.ItemsKey));
-        Assert.Equal(expected, Season2Saves.Handler.GetInventory(reloaded).Held);
+        Assert.Equal(expected, Ids(Season2Saves.Handler.GetInventory(reloaded).Held));
         Assert.All(expected, item => Assert.True(inventory.GetBool(item + S2Inventory.ShownSuffix)));
         Assert.Equal("Cabin Shed II", Season2Saves.Handler.GetResumeState(reloaded).Checkpoint);
     }
@@ -118,7 +119,7 @@ public class Season2InventoryTests
         Season2Saves.Accessor(slot).SetChoiceValue(StoleWatch, stoleWatch);
         Season2Saves.Handler.RestartFromChapter(slot, 2, "LodgeRear");
 
-        var carried = Season2Saves.Handler.GetCarriedItems(slot);
+        var carried = Ids(Season2Saves.Handler.GetCarriedItems(slot));
 
         Assert.Equal(expected, carried.Contains(Watch));
         Assert.Contains("ui_item_knifeSurvival", carried);
@@ -157,6 +158,10 @@ public class Season2InventoryTests
             Assert.All(episode.Chapters.SelectMany(chapter => chapter.Carried.Concat(chapter.FromStart)), item => Assert.Contains(item, ids));
         }
     }
+
+    private static List<string> Ids(IEnumerable<HeldItem> items) => [.. items.Select(item => item.Id)];
+
+    private static List<HeldItem> Held(params string[] ids) => [.. ids.Select(id => new HeldItem(id))];
 
     private static PropertySet Runtime(SaveSlot save, ulong name)
     {

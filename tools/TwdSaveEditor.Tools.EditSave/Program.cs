@@ -8,7 +8,7 @@ if (args.Length < 2)
     Console.WriteLine("With --slot (and --out) the copy is written as that slot number.");
     Console.WriteLine("With --new a missing slot bundle is created as a new save starting at that episode.");
     Console.WriteLine("With --chapter the save resumes from that chapter; an unknown chapter id lists the episode's chapters.");
-    Console.WriteLine("With --carried the resume save gets the items picked up earlier in the episode; --give and --take change single items.");
+    Console.WriteLine("With --carried the resume save gets the items picked up earlier in the episode; --give <item id>[:count] and --take change single items.");
     return 1;
 }
 
@@ -66,10 +66,10 @@ foreach (var choice in session.ChoiceList)
 if (session.Inventory is { } inventory)
 {
     Console.WriteLine(inventory.Editable
-        ? $"{inventory.Owner}, episode {inventory.Episode}: {(inventory.Held.Count == 0 ? "no items" : string.Join(", ", inventory.Held))}"
+        ? $"{inventory.Owner}, episode {inventory.Episode}: {(inventory.Held.Count == 0 ? "no items" : string.Join(", ", inventory.Held.Select(item => item.Count > 1 ? $"{item.Id} x{item.Count}" : item.Id)))}"
         : inventory.Unavailable);
     foreach (var item in inventory.Items)
-        Console.WriteLine($"  {(inventory.Held.Contains(item.Id) ? "x" : " ")} {item.Id,-28} {item.Name}");
+        Console.WriteLine($"  {(inventory.CountOf(item.Id) > 0 ? "x" : " ")} {item.Id,-28} {item.Name}");
 }
 
 if (assignments.Count == 0 && restarts.Count == 0 && chapter.Count == 0 && slotNumber == null && created == null && !inventoryChanged)
