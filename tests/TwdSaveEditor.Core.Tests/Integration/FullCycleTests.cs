@@ -12,7 +12,6 @@ using TwdSaveEditor.Season.Michonne.Choices;
 using TwdSaveEditor.Season.Michonne.Handlers;
 using TwdSaveEditor.Season.S1.Handlers;
 using TwdSaveEditor.Season.S2.Handlers;
-using TwdSaveEditor.Season.S3.Choices;
 using TwdSaveEditor.Season.S3.Handlers;
 using TwdSaveEditor.Season.S4.Accessors;
 using TwdSaveEditor.Season.S4.Handlers;
@@ -47,47 +46,6 @@ public class FullCycleTests
         var reloaded2 = BundleReader.Read(bytes2, "test.bundle");
         var accessor2 = new SaveAccessor(reloaded2.Choices!);
         Assert.Equal(value2, accessor2.GetChoiceValue(choiceKey));
-    }
-
-    [Fact]
-    public void S3_CreateEditSaveReload_WithEventLog()
-    {
-        var tempDir = TestDataHelper.CreateTempDir();
-        try
-        {
-            var mgr = new SaveManager(Registry, tempDir);
-            var slot = mgr.CreateNewSave("wd3_saveslot1.bundle", "s3", 2);
-
-            Assert.True(File.Exists(slot.FilePath));
-            Assert.NotNull(slot.EStorePath);
-            Assert.True(File.Exists(slot.EStorePath));
-
-            var reloaded = BundleReader.Read(slot.FilePath);
-            reloaded.EStorePath = slot.EStorePath;
-            reloaded.EPagePaths = slot.EPagePaths;
-            reloaded.DetectedSeasonKey = "s3";
-
-            var accessor = new EventLogAccessor(reloaded, S3ChoiceNodes.Map);
-            Assert.True(accessor.HasEventLog);
-
-            var allChoices = accessor.GetAllChoices();
-            Assert.True(allChoices.Count > 0, "Expected choices from created S3 EventLog");
-
-            var choiceDef = TestSeasons.ChoicesFor("s3").FirstOrDefault(c => c.Options.Length >= 2);
-            if (choiceDef != null)
-            {
-                var originalVal = accessor.GetChoiceValue(choiceDef.ChoiceKey);
-                var altOption = choiceDef.Options.First(o => o.Value != originalVal);
-                accessor.SetChoiceValue(choiceDef.ChoiceKey, altOption.Value);
-
-                accessor.InvalidateCache();
-                Assert.Equal(altOption.Value, accessor.GetChoiceValue(choiceDef.ChoiceKey));
-            }
-        }
-        finally
-        {
-            Directory.Delete(tempDir, true);
-        }
     }
 
     [Fact]

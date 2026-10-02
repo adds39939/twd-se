@@ -103,6 +103,23 @@ public class FeatureTests
     }
 
     [Fact]
+    public async Task Season3Save_ListsItsDecisionsAndChapters()
+    {
+        var page = await _fixture.NewPage();
+        await InjectSaveFile(page, "S3", "wd3_saveslot1.bundle");
+        await LoadAndSelectFirstSave(page);
+
+        await Assertions.Expect(page.Locator("[data-testid='season-s3'] > summary .badge")).ToContainTextAsync("49 choices");
+        await Assertions.Expect(page.GetByText("Carried over from the previous season")).ToBeVisibleAsync();
+        await Assertions.Expect(page.Locator("[data-testid='season-s2']")).ToHaveCountAsync(0);
+
+        await page.Locator("[data-testid='tab-resume']").ClickAsync();
+        await Assertions.Expect(page.Locator("[data-testid='resume-state']")).ToContainTextAsync("Episode 1: Ties That Bind - Part One");
+        await Assertions.Expect(page.Locator("[data-testid='restart-episode'] option")).ToHaveCountAsync(5);
+        await Assertions.Expect(page.Locator("[data-testid='restart-chapter'] optgroup")).ToHaveCountAsync(3);
+    }
+
+    [Fact]
     public async Task InventoryTab_SaysWhenASeasonHasNoEditableInventory()
     {
         var page = await _fixture.NewPage();

@@ -1,12 +1,15 @@
 using TwdSaveEditor.Core.Constants;
 using TwdSaveEditor.Core.Hashing;
 using TwdSaveEditor.Core.Model;
+using TwdSaveEditor.Season.Base.DialogLog;
 using TwdSaveEditor.Season.S2.Decisions;
 
 namespace TwdSaveEditor.Season.S2.Saves;
 
 public sealed class S2EventLogEditor(SaveSlot slot)
 {
+    private readonly DialogLogEditor _editor = new(slot);
+
     private EventLog Log => slot.EventLog ?? throw new InvalidOperationException("The save has no event log.");
 
     public static ulong NodeSymbol(string node) => TelltaleHash.ComputeCrc64("{" + node + "}");
@@ -35,41 +38,8 @@ public sealed class S2EventLogEditor(SaveSlot slot)
 
     public void TruncateAfterSerial(long serial)
     {
-        var storage = Log.Storage;
-        var pages = Log.Pages.ToList();
-        var anchorPage = pages.FindLastIndex(page => page.Events.Any(entry => entry.SaveSerial == serial));
-        var keep = anchorPage < 0 ? 0 : pages[anchorPage].Events.FindLastIndex(entry => entry.SaveSerial == serial) + 1;
-
-        var unflushed = storage.CurrentPage;
-        EventLogPage? remainder = null;
-        for (var index = Math.Max(anchorPage, 0); index < pages.Count; index++)
-        {
-            var page = pages[index];
-            var kept = index == anchorPage ? keep : 0;
-            if (kept == page.Events.Count)
-                continue;
-
-            page.Events.RemoveRange(kept, page.Events.Count - kept);
-            if (ReferenceEquals(page, unflushed))
-                continue;
-
-            var file = Log.PageFiles.First(candidate => ReferenceEquals(candidate.Page, page));
-            Log.PageFiles.Remove(file);
-            storage.Pages.RemoveAll(entry => entry.PageSymbol == TelltaleHash.ComputeCrc64(file.Name));
-            if (!slot.ObsoleteFileNames.Contains(file.Name))
-                slot.ObsoleteFileNames.Add(file.Name);
-
-            if (page.Events.Count > 0)
-            {
-                page.FlushedName = string.Empty;
-                remainder = page;
-            }
-        }
-
-        storage.CurrentPage = remainder ?? (unflushed is { Events.Count: > 0 } ? unflushed : null);
-
-        storage.LastEventId = Log.Events.Select(entry => entry.Id).DefaultIfEmpty().Max();
-        Log.StorageModified = true;
+        var anchor = _editor.FindLast(entry => entry.SaveSerial == serial);
+        _editor.TruncateFrom(anchor == null ? null : (anchor.Value.Page, anchor.Value.Index + 1));
     }
 
     public void SetValue(S2Decision decision, S2DecisionOption target)
@@ -113,48 +83,8 @@ public sealed class S2EventLogEditor(SaveSlot slot)
         }
     }
 
-    private void Insert(ulong node, int episode)
-    {
-        var used = Log.Events.Select(entry => entry.Id).ToHashSet();
-        var anchor = FindAnchor(episode);
-        if (anchor == null)
-        {
-            Append(node, used);
-            return;
-        }
-
-        var (page, index) = anchor.Value;
-        var id = page.Events[index].Id;
-        var floor = index > 0
-            ? page.Events.Take(index).Min(entry => entry.Id)
-            : Log.Pages.TakeWhile(earlier => !ReferenceEquals(earlier, page)).Select(earlier => earlier.MaxEventId).DefaultIfEmpty().Max();
-        while (id > floor && used.Contains(id))
-            id--;
-
-        if ((used.Contains(id) || id == 0) && !MakeRoom(page, index, out id))
-        {
-            Append(node, used);
-            return;
-        }
-
-        page.Events.Insert(index, EventLogEvent.ForDialogNode(id, node));
-        Log.MarkModified(page);
-    }
-
-    private bool MakeRoom(EventLogPage page, int index, out uint id)
-    {
-        var storage = Log.Storage;
-        id = page.Events[index].Id;
-        if (!ReferenceEquals(page, storage.CurrentPage) || Log.PageFiles.Any(file => file.Page.Events.Any(entry => entry.Id > page.Events[index].Id)))
-            return false;
-
-        var first = id;
-        foreach (var later in page.Events.Where(entry => entry.Id >= first))
-            later.Id++;
-
-        storage.LastEventId = Math.Max(storage.LastEventId, page.Events.Max(entry => entry.Id));
-        return true;
-    }
+    private void Insert(ulong node, int episode) =>
+        _editor.InsertBefore(FindAnchor(episode), id => EventLogEvent.ForDialogNode(id, node));
 
     private (EventLogPage Page, int Index)? FindAnchor(int episode)
     {
@@ -184,19 +114,5 @@ public sealed class S2EventLogEditor(SaveSlot slot)
         return own.Concat(later).Append(latest).Where(serial => serial > 0);
     }
 
-    public void AppendSaveSerial(int serial) =>
-        Append(id => EventLogEvent.ForSaveSerial(id, serial), Log.Events.Select(entry => entry.Id).ToHashSet());
-
-    private void Append(ulong node, HashSet<uint> used) => Append(id => EventLogEvent.ForDialogNode(id, node), used);
-
-    private void Append(Func<uint, EventLogEvent> create, HashSet<uint> used)
-    {
-        var storage = Log.Storage;
-        storage.CurrentPage ??= new EventLogPage { Version = storage.Version, SessionId = storage.SessionId };
-
-        var id = Math.Max(storage.LastEventId, used.Count == 0 ? 0 : used.Max()) + 1;
-        storage.CurrentPage.Events.Add(create(id));
-        storage.LastEventId = id;
-        Log.StorageModified = true;
-    }
+    public void AppendSaveSerial(int serial) => _editor.Append(id => EventLogEvent.ForSaveSerial(id, serial));
 }

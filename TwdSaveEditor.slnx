@@ -39,8 +39,8 @@
     <Project Path="tools/TwdSaveEditor.Tools.ExtractNodeMappings/TwdSaveEditor.Tools.ExtractNodeMappings.csproj" />
     <Project Path="tools/TwdSaveEditor.Tools.ExtractScenes/TwdSaveEditor.Tools.ExtractScenes.csproj" />
     <Project Path="tools/TwdSaveEditor.Tools.ExtractSeason1Choices/TwdSaveEditor.Tools.ExtractSeason1Choices.csproj" />
-    <Project Path="tools/TwdSaveEditor.Tools.ExtractSeason2Chapters/TwdSaveEditor.Tools.ExtractSeason2Chapters.csproj" />
-    <Project Path="tools/TwdSaveEditor.Tools.ExtractSeason2Choices/TwdSaveEditor.Tools.ExtractSeason2Choices.csproj" />
+    <Project Path="tools/TwdSaveEditor.Tools.ExtractResumePoints/TwdSaveEditor.Tools.ExtractResumePoints.csproj" />
+    <Project Path="tools/TwdSaveEditor.Tools.ExtractDecisions/TwdSaveEditor.Tools.ExtractDecisions.csproj" />
     <Project Path="tools/TwdSaveEditor.Tools.FinalValidation/TwdSaveEditor.Tools.FinalValidation.csproj" />
     <Project Path="tools/TwdSaveEditor.Tools.Symbols/TwdSaveEditor.Tools.Symbols.csproj" />
     <Project Path="tools/TwdSaveEditor.Tools.TtarchDecrypt/TwdSaveEditor.Tools.TtarchDecrypt.csproj" />

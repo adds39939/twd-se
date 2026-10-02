@@ -1,0 +1,1142 @@
+{
+  "decisions": [
+    {
+      "choiceKey": "Episode 205 - Tried to Help Luke",
+      "episode": 0,
+      "options": [
+        {
+          "value": "true",
+          "expression": "E93FAEF8-F1E6-4E9D-A4E9-8D5762B8350F"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 205 - Rejected Family",
+      "episode": 0,
+      "options": [
+        {
+          "value": "true",
+          "expression": "40056750-4DED-4D5D-81A6-8ED9A9EFEA4C"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 205 - Ending Choice",
+      "episode": 0,
+      "options": [
+        {
+          "value": "alone",
+          "expression": "A589CF98-8E76-4810-AEE0-7826FFE17E0A"
+        },
+        {
+          "value": "jane",
+          "expression": "3925F399-BA46-4300-B892-50B27D81BE76"
+        },
+        {
+          "value": "kenny",
+          "expression": "CDB22E82-B307-487B-9FD8-1F13BA8F503A"
+        },
+        {
+          "value": "wellington",
+          "expression": "40D5909C-7356-4EBC-A7B4-CD465753848F"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 203 - Watched Kenny",
+      "episode": 0,
+      "options": [
+        {
+          "value": "true",
+          "expression": "2A8C6959-5A1A-4A3E-A0D8-2EB79374A7D0"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 204 - Held AJ",
+      "episode": 0,
+      "options": [
+        {
+          "value": "true",
+          "expression": "F52D9401-F13D-402B-917C-FEB64BD6912A"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 205 - Jane Held AJ",
+      "episode": 0,
+      "options": [
+        {
+          "value": "true",
+          "expression": "B209F90A-F043-48B7-9003-D99637F49966"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 203 - Cut Off Sarita's Arm",
+      "episode": 0,
+      "options": [
+        {
+          "value": "true",
+          "expression": "0DA16D1D-28C1-453C-86B4-8BE93597771D"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 205 - Killed Kenny",
+      "episode": 0,
+      "options": [
+        {
+          "value": "true",
+          "expression": "885D6356-A86A-4356-9BF1-80ED05BEA378 | FC0D4E96-E47F-4716-96C4-48261F8A32F4"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 301 - Did you stay the night at the junkyard",
+      "episode": 1,
+      "options": [
+        {
+          "value": "chose_to_stay_the_night",
+          "expression": "{5787A09F-132A-4CF7-A29C-4D46916BC150}"
+        },
+        {
+          "value": "chose_to_head_back_out",
+          "expression": "{7C73CBBF-0F35-4A75-8C23-08B15D36A601}"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 301 - Did you shoot the driver or let him go",
+      "episode": 1,
+      "options": [
+        {
+          "value": "chose_to_shoot_the_driver",
+          "expression": "{B10DC3F1-BD13-48CA-8AEC-34259B0CEF58}"
+        },
+        {
+          "value": "chose_to_let_the_driver",
+          "expression": "{63D534C8-C2E3-449E-95C5-22E28BAC92DA}"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 301 - What was the aftermath of the shooting",
+      "episode": 1,
+      "options": [
+        {
+          "value": "got_locked_up",
+          "expression": "{0F449FA3-1225-42E4-BE25-5DF549E38DBE}"
+        },
+        {
+          "value": "were_allowed_to_roam_free",
+          "expression": "{CCA19372-05F4-4D82-A614-8B68818AC097}"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 301 - Who brought you to the junkyard",
+      "episode": 1,
+      "options": [
+        {
+          "value": "went_with_eleanor_to_the",
+          "expression": "{393B3FF4-1A05-413F-963D-104B16B03CDD} | {E8E5D8D5-406C-44ED-A63C-15143576BBFF}"
+        },
+        {
+          "value": "went_with_tripp_to_the",
+          "expression": "{29C6DB17-7602-4DA4-B4CD-89BFC53BF7F2} | {A46E4AB1-7BF9-404B-8777-BA8A122D0DEE}"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 301 - Did you escape with your family or stay with Clementine",
+      "episode": 1,
+      "options": [
+        {
+          "value": "stayed_with_clementine",
+          "expression": "{4249B6E8-9A64-4764-AE37-7470CAB02758} | {6D8F1BCA-21F1-4957-882A-43CF3D3A05C8}"
+        },
+        {
+          "value": "escaped_with_your_family",
+          "expression": "{37210DF1-26D5-4F39-A33C-926763A05777}"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 301 - Agreed to Stick Around",
+      "episode": 1,
+      "options": [
+        {
+          "value": "true",
+          "expression": "9355CA43-8A62-4DC9-A27F-9193A963126A | 8D9BD2BE-50E6-41D8-BA45-24B07490BDD4"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 301 - Kissed Kate",
+      "episode": 1,
+      "options": [
+        {
+          "value": "true",
+          "expression": "C0BB1B1C-2058-4220-8503-755A63F74A14"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 302 - How did you deal with David and Kate’s argument",
+      "episode": 2,
+      "options": [
+        {
+          "value": "told_david_that_kate_wanted",
+          "expression": "{D3102495-8ED8-4CCA-B110-2880160FBF51}"
+        },
+        {
+          "value": "stayed_out_of_it",
+          "expression": "{1334D289-6035-464C-9758-D71F6F142EAE} | {364B3FB1-4F6C-4191-86B9-8FCC100D53BD}"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 302 - How did you handle the New Frontier at the gates of Prescott",
+      "episode": 2,
+      "options": [
+        {
+          "value": "opened_fire",
+          "expression": "{F4FA5A4E-56F0-4030-87FE-E7873796B0EA}"
+        },
+        {
+          "value": "surrendered",
+          "expression": "{D00330DA-138A-4575-B98B-C33663845687}"
+        },
+        {
+          "value": "tried_to_negotiate",
+          "expression": "{2A730C79-2CFB-4017-99CB-71AC7AB3D106}"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 302 - Did you trust Jesus",
+      "episode": 2,
+      "options": [
+        {
+          "value": "took_him_at_his_word",
+          "expression": "{F5D02F32-B123-4ABA-8102-3047A63C7A35}"
+        },
+        {
+          "value": "tied_his_hands_together",
+          "expression": "{BA4D4113-6BAA-43D3-9D20-B46DE7B1B9EA}"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 302 - How did you deal with Conrad’s threat to Clementine",
+      "episode": 2,
+      "options": [
+        {
+          "value": "killed_conrad",
+          "expression": "{AA68D63A-E38F-4489-9885-BECAC7B7B61D}"
+        },
+        {
+          "value": "let_conrad_capture_clementine",
+          "expression": "{FB3C920E-7E12-4174-831F-AC37F0D366C5}"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 302 - How far did you go to get into Richmond",
+      "episode": 2,
+      "options": [
+        {
+          "value": "capitulated_to_max_s_demands",
+          "expression": "{0A85E09D-C3B3-4BDA-92CE-8E813AC7574B} | {91EAF224-3964-42A8-B9AD-98E2C02CF31E}"
+        },
+        {
+          "value": "didn_t_capitulate_to_max",
+          "expression": "{289A414C-3077-456D-94A1-11089EC0A3BE}"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 302 - Left with Ava",
+      "episode": 2,
+      "options": [
+        {
+          "value": "true",
+          "expression": "05876732-9B26-457B-9067-D3A5ABDA1D8A"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 302 - Shot Conrad",
+      "episode": 2,
+      "options": [
+        {
+          "value": "true",
+          "expression": "91A59263-D0C8-4526-8C25-12DF27613C76"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 302 - Bound Jesus",
+      "episode": 2,
+      "options": [
+        {
+          "value": "true",
+          "expression": "2A894720-CE24-4963-ACBF-55088AF76657"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 302 - Ending Choice",
+      "episode": 2,
+      "options": [
+        {
+          "value": "standoff",
+          "expression": "289A414C-3077-456D-94A1-11089EC0A3BE"
+        },
+        {
+          "value": "surrender",
+          "expression": "0A85E09D-C3B3-4BDA-92CE-8E813AC7574B"
+        },
+        {
+          "value": "weaponsdown",
+          "expression": "91EAF224-3964-42A8-B9AD-98E2C02CF31E"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 302 - Held Kate's Hand",
+      "episode": 2,
+      "options": [
+        {
+          "value": "true",
+          "expression": "B703A9C8-BBEA-4667-814F-61D45FD8F931"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 303 - Did you honor your brother’s request",
+      "episode": 3,
+      "options": [
+        {
+          "value": "demanded_justice_for_mariana_s",
+          "expression": "{1F439090-ED1C-4230-9B40-869461C9CCD0}"
+        },
+        {
+          "value": "kept_mariana_s_murder_to",
+          "expression": "{1611A12B-F08E-435D-8C9D-970D41541DEA}"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 303 - Did you try to save AJ",
+      "episode": 3,
+      "options": [
+        {
+          "value": "injected_aj_with_the_medicine",
+          "expression": "{95608DF0-1827-4D02-A46A-F150D9A329FD}"
+        },
+        {
+          "value": "didn_t_risk_using_the",
+          "expression": "{9EFE6CE7-9562-4F89-BB4B-FD166DB79EEA}"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 303 - How did Badger die",
+      "episode": 3,
+      "options": [
+        {
+          "value": "killed_badger_quickly",
+          "expression": "~{57A1CE54-2601-4533-B0CE-1E0FCF3B05D8} & {F54E9663-4C3E-4E21-86BE-115F0652C149}"
+        },
+        {
+          "value": "destroyed_badger_s_skull",
+          "expression": "{57A1CE54-2601-4533-B0CE-1E0FCF3B05D8} & {F54E9663-4C3E-4E21-86BE-115F0652C149}"
+        },
+        {
+          "value": "let_badger_turn",
+          "expression": "{FE7C456B-11C7-4D02-8315-3303EFAC5528}"
+        },
+        {
+          "value": "let_someone_else_kill_badger",
+          "expression": "{5E9B35EB-2195-4703-A554-DCE2CED6D0A8} | {70FD72F9-936C-4229-AA8D-E7BE1F8F3476}"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 303 - What was Max’s fate",
+      "episode": 3,
+      "options": [
+        {
+          "value": "killed_max_or_watched_david",
+          "expression": "{5D3231F5-B279-42F8-9E5D-685D01663C0D} | {FF2E26A0-B086-43B7-9360-324337848143}"
+        },
+        {
+          "value": "brought_max_back_with_you",
+          "expression": "{09DBAA98-EF43-4C0B-8424-152128FAD266}"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 303 - Who did you side with in the end",
+      "episode": 3,
+      "options": [
+        {
+          "value": "chose_to_leave_with_kate",
+          "expression": "{FA48921F-26A5-4466-9301-87C2729A86A6} | {FBA5DF47-0238-4204-B071-049342192D4B}"
+        },
+        {
+          "value": "stuck_to_david_s_plan",
+          "expression": "{E277B228-A84F-4AA6-9F47-9853BC54891B}"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 303 - Respected Gabe's Choice",
+      "episode": 3,
+      "options": [
+        {
+          "value": "true",
+          "expression": "3AD43133-EB83-42F9-A0C2-A7520C0EEC62 | BA19285D-8C7A-4D00-A5FE-0480D6F17075"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 303 - Clementine Spit on David",
+      "episode": 3,
+      "options": [
+        {
+          "value": "true",
+          "expression": "4A7506A3-A5D3-4345-A83D-3EBF02A4C183"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 303 - Conrad Dead",
+      "episode": 3,
+      "options": [
+        {
+          "value": "true",
+          "expression": "91A59263-D0C8-4526-8C25-12DF27613C76 | BF4FA6D3-554E-4B29-8D3F-8F10B446BC60"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 303 - Who Killed Badger",
+      "episode": 3,
+      "options": [
+        {
+          "value": "conrad",
+          "expression": "5E9B35EB-2195-4703-A554-DCE2CED6D0A8"
+        },
+        {
+          "value": "javier",
+          "expression": "F54E9663-4C3E-4E21-86BE-115F0652C149"
+        },
+        {
+          "value": "tripp",
+          "expression": "70FD72F9-936C-4229-AA8D-E7BE1F8F3476"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 303 - Who Killed Max",
+      "episode": 3,
+      "options": [
+        {
+          "value": "david",
+          "expression": "FF2E26A0-B086-43B7-9360-324337848143"
+        },
+        {
+          "value": "javier",
+          "expression": "5D3231F5-B279-42F8-9E5D-685D01663C0D"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 304 - Did you promise that you would help Kate with the family if David left",
+      "episode": 4,
+      "options": [
+        {
+          "value": "told_david_it_was_his",
+          "expression": "{45BEB18A-E7D1-4B9E-B56E-0771D43FBAF5} | {A713F80A-D920-4BBE-9F4A-0AE674E81EAB}"
+        },
+        {
+          "value": "promised_you_d_help_kate",
+          "expression": "{0B279B9A-D768-40F2-B437-FAE7A5E1306B} | {2D8D685E-701D-43DC-93F6-9CA449F083EB}"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 304 - How did you respond to Dr. Lingard’s request",
+      "episode": 4,
+      "options": [
+        {
+          "value": "assisted_in_lingard_s_suicide",
+          "expression": "{8F5A2FF5-5D61-40C7-B24E-6B3B72323682}"
+        },
+        {
+          "value": "refused_to_kill_lingard",
+          "expression": "{AE1CD0CF-C60B-4144-A5CB-69F7C3CE068E}"
+        },
+        {
+          "value": "let_clementine_decide_lingard_s",
+          "expression": "{08304CDA-6BBF-4097-A9FC-972BF4278EBA}"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 304 - Did you tell Kate that you have feelings for her",
+      "episode": 4,
+      "options": [
+        {
+          "value": "didn_t_share_kate_s",
+          "expression": "{A87E0FE9-E387-45B8-A6FD-93145A6E3E9C} | {E30086E1-37D4-46F3-A6D9-3D229B3C78F4}"
+        },
+        {
+          "value": "told_kate_you_shared_her",
+          "expression": "{CA3E5C73-2B21-4DE2-89C5-FA7D3DBAEA6B}"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 304 - Who did you try to save at the execution",
+      "episode": 4,
+      "options": [
+        {
+          "value": "tried_to_save_ava",
+          "expression": "{49E7B2FD-1EC4-432D-B90B-CBAC3A1A41D4} | {BAE8404B-8262-4F33-A121-F3794DF790EE}"
+        },
+        {
+          "value": "tried_to_save_tripp",
+          "expression": "{85F937D2-3BA3-428B-BB23-BA94CF7AF339}"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 304 - Did you shoot Joan or take Clint’s deal",
+      "episode": 4,
+      "options": [
+        {
+          "value": "chose_to_shoot_joan",
+          "expression": "{AE624CE5-44D6-49F9-8303-C55F85CF3FE5}"
+        },
+        {
+          "value": "chose_to_take_the_deal",
+          "expression": "{A87207CE-308B-4E62-848E-840B99470037}"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 304 - Conrad Dead",
+      "episode": 4,
+      "options": [
+        {
+          "value": "true",
+          "expression": "91A59263-D0C8-4526-8C25-12DF27613C76 | BF4FA6D3-554E-4B29-8D3F-8F10B446BC60 | 06BCD5CF-5D3F-49D7-B275-A6B4D36EFFED"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 304 - Tripp Dead",
+      "episode": 4,
+      "options": [
+        {
+          "value": "true",
+          "expression": "7332CE5F-039C-40AC-BDAA-1581E81A38A1"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 304 - Pissed Off David",
+      "episode": 4,
+      "options": [
+        {
+          "value": "true",
+          "expression": "90661447-DBAD-4384-B7DF-BA8F8700B278"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 304 - Failed Tanker Dodge",
+      "episode": 4,
+      "options": [
+        {
+          "value": "true",
+          "expression": "06BCD5CF-5D3F-49D7-B275-A6B4D36EFFED | 0F37F259-ED2B-43C7-AAFB-AC87CC392889"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 305 - Did you stand with David on the ledge",
+      "episode": 5,
+      "options": [
+        {
+          "value": "stepped_up_to_help_david",
+          "expression": "{8165DD88-CAA8-4D74-8BB4-A87DBD680B60}"
+        },
+        {
+          "value": "disappointed_david_when_you_didn",
+          "expression": "{F37E8727-115B-4880-BE82-DE64F40EA3C3}"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 305 - What did you say to David about Kate",
+      "episode": 5,
+      "options": [
+        {
+          "value": "confessed_your_love_for_kate",
+          "expression": "{98D8BC0B-CAE7-4263-80D7-961A4F4656D0} | {D8AF3DEA-D3ED-4F55-998F-AA16766A9181}"
+        },
+        {
+          "value": "came_clean_about_your_relationship",
+          "expression": "{052F750C-9794-4500-9DE2-FC16870E94FE} | {B849C4AB-D5EB-4237-8BAB-E35B3D9980C1} | {CB0D49B5-B114-4559-987A-2B92014A6CA2}"
+        },
+        {
+          "value": "denied_having_a_relationship_with",
+          "expression": "{04793AF0-2E3E-4ED4-BFA4-F793CE6E31D7} | {26FF691E-D4BA-4FD9-8BE6-98FC7B3F17C2}"
+        },
+        {
+          "value": "said_nothing",
+          "expression": "{3DC11DC7-3951-495C-8257-28740F52E071} | {C70B7DF7-75BA-4C14-88CE-F5AE416325A4}"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 305 - Did you fight David back",
+      "episode": 5,
+      "options": [
+        {
+          "value": "fought_back_as_david_took",
+          "expression": "{5A24B4EB-AC14-426A-959B-4424686B55BC} | {6DE7FC62-2E85-47D9-879E-2FABC362BA9C} | {F225AF0E-FFCD-4CC4-AE98-4EFF466381AD}"
+        },
+        {
+          "value": "showed_your_love_for_david",
+          "expression": "{08A57DAB-F959-4522-BA5A-E9AFACB56239} | {7FF1AEFC-D4D7-430A-A554-D5D86A0FD586}"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 305 - Did you go after Gabe or with Kate",
+      "episode": 5,
+      "options": [
+        {
+          "value": "went_after_gabe",
+          "expression": "{16DF595A-2495-48D1-B11A-462EDEC35BF1} | {C013A803-31DC-4DE4-B32C-980A9B604872}"
+        },
+        {
+          "value": "went_with_kate_and_sealed",
+          "expression": "{DF98FE2A-E4B7-4DD5-8003-EA6851C55F01} | {F245C3DE-7EDF-424D-9B48-1ECC42ED7EFA}"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 305 - Did Clementine come along with you",
+      "episode": 5,
+      "options": [
+        {
+          "value": "after_the_fight_with_david",
+          "expression": "{16DF595A-2495-48D1-B11A-462EDEC35BF1} | {F245C3DE-7EDF-424D-9B48-1ECC42ED7EFA}"
+        },
+        {
+          "value": "after_the_fight_with_david_",
+          "expression": "{C013A803-31DC-4DE4-B32C-980A9B604872} | {DF98FE2A-E4B7-4DD5-8003-EA6851C55F01}"
+        }
+      ]
+    }
+  ],
+  "logicKeys": [
+    {
+      "key": "Episode 301 - Agreed to Stick Around",
+      "readFrom": 3,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "9355CA43-8A62-4DC9-A27F-9193A963126A | 8D9BD2BE-50E6-41D8-BA45-24B07490BDD4"
+        }
+      ]
+    },
+    {
+      "key": "Episode 302 - Left with Ava",
+      "readFrom": 3,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "05876732-9B26-457B-9067-D3A5ABDA1D8A"
+        }
+      ]
+    },
+    {
+      "key": "Episode 302 - Shot Conrad",
+      "readFrom": 3,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "91A59263-D0C8-4526-8C25-12DF27613C76"
+        }
+      ]
+    },
+    {
+      "key": "Episode 301 - Kissed Kate",
+      "readFrom": 3,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "C0BB1B1C-2058-4220-8503-755A63F74A14"
+        }
+      ]
+    },
+    {
+      "key": "Episode 301 - Shot Rufus",
+      "readFrom": 3,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "B10DC3F1-BD13-48CA-8AEC-34259B0CEF58"
+        }
+      ]
+    },
+    {
+      "key": "Episode 302 - Bound Jesus",
+      "readFrom": 3,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "2A894720-CE24-4963-ACBF-55088AF76657"
+        }
+      ]
+    },
+    {
+      "key": "Episode 205 - Tried to Help Luke",
+      "readFrom": 3,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "E93FAEF8-F1E6-4E9D-A4E9-8D5762B8350F"
+        }
+      ]
+    },
+    {
+      "key": "Episode 302 - Ending Choice",
+      "readFrom": 3,
+      "text": true,
+      "values": [
+        {
+          "value": "Standoff",
+          "expression": "289A414C-3077-456D-94A1-11089EC0A3BE"
+        },
+        {
+          "value": "Surrender",
+          "expression": "0A85E09D-C3B3-4BDA-92CE-8E813AC7574B"
+        },
+        {
+          "value": "WeaponsDown",
+          "expression": "91EAF224-3964-42A8-B9AD-98E2C02CF31E"
+        }
+      ]
+    },
+    {
+      "key": "Episode 301 - Chose Tripp",
+      "readFrom": 2,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "A46E4AB1-7BF9-404B-8777-BA8A122D0DEE | 29C6DB17-7602-4DA4-B4CD-89BFC53BF7F2"
+        }
+      ]
+    },
+    {
+      "key": "Episode 301 - Stayed with Clementine",
+      "readFrom": 2,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "6D8F1BCA-21F1-4957-882A-43CF3D3A05C8 | 4249B6E8-9A64-4764-AE37-7470CAB02758"
+        }
+      ]
+    },
+    {
+      "key": "Episode 205 - Rejected Family",
+      "readFrom": 1,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "40056750-4DED-4D5D-81A6-8ED9A9EFEA4C"
+        }
+      ]
+    },
+    {
+      "key": "Episode 205 - Ending Choice",
+      "readFrom": 1,
+      "text": true,
+      "values": [
+        {
+          "value": "Alone",
+          "expression": "A589CF98-8E76-4810-AEE0-7826FFE17E0A"
+        },
+        {
+          "value": "Jane",
+          "expression": "3925F399-BA46-4300-B892-50B27D81BE76"
+        },
+        {
+          "value": "Kenny",
+          "expression": "CDB22E82-B307-487B-9FD8-1F13BA8F503A"
+        },
+        {
+          "value": "Wellington",
+          "expression": "40D5909C-7356-4EBC-A7B4-CD465753848F"
+        }
+      ]
+    },
+    {
+      "key": "Episode 203 - Watched Kenny",
+      "readFrom": 4,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "2A8C6959-5A1A-4A3E-A0D8-2EB79374A7D0"
+        }
+      ]
+    },
+    {
+      "key": "Episode 303 - Gave AJ Shot",
+      "readFrom": 4,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "95608DF0-1827-4D02-A46A-F150D9A329FD"
+        }
+      ]
+    },
+    {
+      "key": "Episode 303 - Went to Safe House",
+      "readFrom": 4,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "E277B228-A84F-4AA6-9F47-9853BC54891B"
+        }
+      ]
+    },
+    {
+      "key": "Episode 302 - Told Off David",
+      "readFrom": 4,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "D3102495-8ED8-4CCA-B110-2880160FBF51"
+        }
+      ]
+    },
+    {
+      "key": "Episode 204 - Held AJ",
+      "readFrom": 4,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "F52D9401-F13D-402B-917C-FEB64BD6912A"
+        }
+      ]
+    },
+    {
+      "key": "Episode 303 - Respected Gabe's Choice",
+      "readFrom": 4,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "3AD43133-EB83-42F9-A0C2-A7520C0EEC62 | BA19285D-8C7A-4D00-A5FE-0480D6F17075"
+        }
+      ]
+    },
+    {
+      "key": "Episode 303 - Clementine Spit on David",
+      "readFrom": 4,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "4A7506A3-A5D3-4345-A83D-3EBF02A4C183"
+        }
+      ]
+    },
+    {
+      "key": "Episode 302 - Held Kate's Hand",
+      "readFrom": 4,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "B703A9C8-BBEA-4667-814F-61D45FD8F931"
+        }
+      ]
+    },
+    {
+      "key": "Episode 205 - Jane Held AJ",
+      "readFrom": 4,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "B209F90A-F043-48B7-9003-D99637F49966"
+        }
+      ]
+    },
+    {
+      "key": "Episode 303 - Conrad Dead",
+      "readFrom": 4,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "91A59263-D0C8-4526-8C25-12DF27613C76 | BF4FA6D3-554E-4B29-8D3F-8F10B446BC60"
+        }
+      ]
+    },
+    {
+      "key": "Episode 203 - Cut Off Sarita's Arm",
+      "readFrom": 4,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "0DA16D1D-28C1-453C-86B4-8BE93597771D"
+        }
+      ]
+    },
+    {
+      "key": "Episode 303 - Who Killed Badger",
+      "readFrom": 4,
+      "text": true,
+      "values": [
+        {
+          "value": "Conrad",
+          "expression": "5E9B35EB-2195-4703-A554-DCE2CED6D0A8"
+        },
+        {
+          "value": "Javier",
+          "expression": "F54E9663-4C3E-4E21-86BE-115F0652C149"
+        },
+        {
+          "value": "Tripp",
+          "expression": "70FD72F9-936C-4229-AA8D-E7BE1F8F3476"
+        }
+      ]
+    },
+    {
+      "key": "Episode 303 - Who Killed Max",
+      "readFrom": 4,
+      "text": true,
+      "values": [
+        {
+          "value": "David",
+          "expression": "FF2E26A0-B086-43B7-9360-324337848143"
+        },
+        {
+          "value": "Javier",
+          "expression": "5D3231F5-B279-42F8-9E5D-685D01663C0D"
+        }
+      ]
+    },
+    {
+      "key": "Episode 304 - Silent with Kate",
+      "readFrom": 5,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "E30086E1-37D4-46F3-A6D9-3D229B3C78F4"
+        }
+      ]
+    },
+    {
+      "key": "Episode 304 - Coupled with Kate",
+      "readFrom": 5,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "CA3E5C73-2B21-4DE2-89C5-FA7D3DBAEA6B"
+        }
+      ]
+    },
+    {
+      "key": "Episode 205 - Killed Kenny",
+      "readFrom": 5,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "885D6356-A86A-4356-9BF1-80ED05BEA378 | FC0D4E96-E47F-4716-96C4-48261F8A32F4"
+        }
+      ]
+    },
+    {
+      "key": "Episode 304 - Shot Joan",
+      "readFrom": 5,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "AE624CE5-44D6-49F9-8303-C55F85CF3FE5"
+        }
+      ]
+    },
+    {
+      "key": "Episode 304 - Conrad Dead",
+      "readFrom": 5,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "91A59263-D0C8-4526-8C25-12DF27613C76 | BF4FA6D3-554E-4B29-8D3F-8F10B446BC60 | 06BCD5CF-5D3F-49D7-B275-A6B4D36EFFED"
+        }
+      ]
+    },
+    {
+      "key": "Episode 304 - Tripp Dead",
+      "readFrom": 5,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "7332CE5F-039C-40AC-BDAA-1581E81A38A1"
+        }
+      ]
+    },
+    {
+      "key": "Episode 304 - Pissed Off David",
+      "readFrom": 5,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "90661447-DBAD-4384-B7DF-BA8F8700B278"
+        }
+      ]
+    },
+    {
+      "key": "Episode 304 - Failed Tanker Dodge",
+      "readFrom": 5,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "06BCD5CF-5D3F-49D7-B275-A6B4D36EFFED | 0F37F259-ED2B-43C7-AAFB-AC87CC392889"
+        }
+      ]
+    },
+    {
+      "key": "Episode 304 - Who Killed Lingard",
+      "readFrom": 5,
+      "text": true,
+      "values": [
+        {
+          "value": "Clementine",
+          "expression": "08304CDA-6BBF-4097-A9FC-972BF4278EBA"
+        },
+        {
+          "value": "Javier",
+          "expression": "8F5A2FF5-5D61-40C7-B24E-6B3B72323682"
+        }
+      ]
+    }
+  ]
+}

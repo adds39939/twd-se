@@ -12,7 +12,6 @@ using TwdSaveEditor.Season.Michonne.Choices;
 using TwdSaveEditor.Season.Michonne.Handlers;
 using TwdSaveEditor.Season.S1.Handlers;
 using TwdSaveEditor.Season.S2.Handlers;
-using TwdSaveEditor.Season.S3.Choices;
 using TwdSaveEditor.Season.S3.Handlers;
 using TwdSaveEditor.Season.S4.Accessors;
 using TwdSaveEditor.Season.S4.Handlers;
@@ -154,32 +153,6 @@ public class S3S4MichonneTests
     }
 
     [Fact]
-    public void S3_EventLogAccessor_DetectsChoicesFromCreatedEStore()
-    {
-        var tempDir = TestDataHelper.CreateTempDir();
-        try
-        {
-            var mgr = new SaveManager(CreateRegistry(), tempDir);
-            var slot = mgr.CreateNewSave("wd3_saveslot1.bundle", "s3", 2);
-
-            var reloaded = BundleReader.Read(slot.FilePath);
-            reloaded.EStorePath = slot.EStorePath;
-            reloaded.EPagePaths = slot.EPagePaths;
-            reloaded.DetectedSeasonKey = "s3";
-
-            var accessor = new EventLogAccessor(reloaded, S3ChoiceNodes.Map);
-            Assert.True(accessor.HasEventLog);
-
-            var allChoices = accessor.GetAllChoices();
-            Assert.True(allChoices.Count > 0, "Expected detected choices from created EventLog");
-        }
-        finally
-        {
-            Directory.Delete(tempDir, true);
-        }
-    }
-
-    [Fact]
     public void S4_ChoiceStatsAccessor_DetectsChoicesFromGUIDs()
     {
         var file = TestDataHelper.GetPath("S4", "wd4_saveslot1.bundle");
@@ -254,44 +227,6 @@ public class S3S4MichonneTests
         Assert.NotNull(slot.Metadata);
         Assert.Null(slot.Choices);
         Assert.Single(slot.Files);
-    }
-
-    [Fact]
-    public void NewSave_S3_CreatesEstoreEpage_AndChoicesRoundTrip()
-    {
-        var tempDir = TestDataHelper.CreateTempDir();
-        try
-        {
-            var mgr = new SaveManager(CreateRegistry(), tempDir);
-            var slot = mgr.CreateNewSave("wd3_saveslot1.bundle", "s3", 2);
-
-            Assert.True(File.Exists(slot.FilePath));
-
-            Assert.NotNull(slot.EStorePath);
-            Assert.True(File.Exists(slot.EStorePath), $"estore not found: {slot.EStorePath}");
-            Assert.NotNull(slot.EPagePaths);
-            Assert.True(slot.EPagePaths.Count > 0);
-            Assert.True(File.Exists(slot.EPagePaths[0]), $"epage not found: {slot.EPagePaths[0]}");
-
-            var entries = EStoreReader.ReadEventLog(slot.EStorePath);
-            Assert.True(entries.Count > 0, "Expected EventLog entries in created estore/epage");
-
-            var dialogNodes = entries.Where(e => e.IsDialogNode).ToList();
-            Assert.True(dialogNodes.Count > 0, "Expected dialog node events");
-
-            var reloaded = BundleReader.Read(slot.FilePath);
-            reloaded.EStorePath = slot.EStorePath;
-            reloaded.EPagePaths = slot.EPagePaths;
-            reloaded.DetectedSeasonKey = "s3";
-
-            var accessor = new EventLogAccessor(reloaded, S3ChoiceNodes.Map);
-            var val = accessor.GetChoiceValue("stayed_junkyard");
-            Assert.NotNull(val);
-        }
-        finally
-        {
-            Directory.Delete(tempDir, true);
-        }
     }
 
     [Fact]

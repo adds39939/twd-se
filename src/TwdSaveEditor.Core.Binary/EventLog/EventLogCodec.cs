@@ -34,6 +34,8 @@ public static class EventLogCodec
             Version = reader.ReadInt32(),
             SessionId = reader.ReadUInt64(),
             VersionEntries = content.Header.VersionEntries,
+            Compressed = content.Header.IsDefaultCompressed,
+            DebugCompressed = content.Header.IsDebugCompressed,
         };
 
         reader.ReadUInt32();
@@ -49,7 +51,7 @@ public static class EventLogCodec
         if (reader.ReadByte() == True)
             storage.CurrentPage = ReadPageBody(reader);
 
-        EnsureConsumed(reader, storage.Name);
+        EnsureConsumed(reader, storage.Name, storage.Compressed);
         return storage;
     }
 
@@ -81,6 +83,8 @@ public static class EventLogCodec
         var header = new MetaStreamHeader
         {
             Magic = MetaStreamHeader.MagicMsv6,
+            DefaultSectionSize = storage.Compressed ? MetaStreamHeader.CompressedFlag : 0,
+            DebugSectionSize = storage.DebugCompressed ? MetaStreamHeader.CompressedFlag : 0,
             VersionEntries = storage.VersionEntries.Count > 0 ? storage.VersionEntries : DefaultStorageVersions(),
         };
 
@@ -93,7 +97,9 @@ public static class EventLogCodec
         using var reader = new BinaryReader(new MemoryStream(content.Default));
         var page = ReadPageBody(reader);
         page.VersionEntries = content.Header.VersionEntries;
-        EnsureConsumed(reader, page.FlushedName);
+        page.Compressed = content.Header.IsDefaultCompressed;
+        page.DebugCompressed = content.Header.IsDebugCompressed;
+        EnsureConsumed(reader, page.FlushedName, page.Compressed);
         return page;
     }
 
@@ -106,6 +112,8 @@ public static class EventLogCodec
         var header = new MetaStreamHeader
         {
             Magic = MetaStreamHeader.MagicMsv6,
+            DefaultSectionSize = page.Compressed ? MetaStreamHeader.CompressedFlag : 0,
+            DebugSectionSize = page.DebugCompressed ? MetaStreamHeader.CompressedFlag : 0,
             VersionEntries = page.VersionEntries.Count > 0 ? page.VersionEntries : DefaultPageVersions(),
         };
 
@@ -205,9 +213,10 @@ public static class EventLogCodec
         writer.Write(bytes);
     }
 
-    private static void EnsureConsumed(BinaryReader reader, string name)
+    private static void EnsureConsumed(BinaryReader reader, string name, bool padded)
     {
-        if (reader.BaseStream.Position != reader.BaseStream.Length)
+        var rest = reader.ReadBytes((int)(reader.BaseStream.Length - reader.BaseStream.Position));
+        if (rest.Length > 0 && !(padded && rest.All(value => value == 0)))
             throw new InvalidDataException($"Event log file {name} has unread data.");
     }
 

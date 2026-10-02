@@ -19,4 +19,8 @@ public sealed class EventLogStorage
     public EventLogPage? CurrentPage { get; set; }
 
     public List<VersionEntry> VersionEntries { get; set; } = [];
+
+    public bool Compressed { get; set; }
+
+    public bool DebugCompressed { get; set; }
 }

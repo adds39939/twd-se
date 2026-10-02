@@ -30,6 +30,22 @@ public sealed class EventLogEvent
         Data = [new EventLogData(EventLogEventTypes.SaveSerial, [EventLogValue.Double(serial, DefaultSeverity)])],
     };
 
+    public static EventLogEvent ForNumber(uint id, ulong type, double value) => new()
+    {
+        Id = id,
+        Data = [new EventLogData(type, [EventLogValue.Double(value, DefaultSeverity)])],
+    };
+
+    public static EventLogEvent ForSymbol(uint id, ulong type, ulong symbol) => new()
+    {
+        Id = id,
+        Data = [new EventLogData(type, [EventLogValue.Symbol(symbol, DefaultSeverity)])],
+    };
+
+    public bool Has(ulong type) => Data.Any(entry => entry.Type == type);
+
+    public double? Number(ulong type) => Find(type)?.Number;
+
     public void SetDialogNode(ulong node)
     {
         var data = Data.First(entry => entry.Type == EventLogEventTypes.ExecutingDialogNode);

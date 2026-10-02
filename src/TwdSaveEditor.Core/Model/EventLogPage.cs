@@ -12,5 +12,9 @@ public sealed class EventLogPage
 
     public List<VersionEntry> VersionEntries { get; set; } = [];
 
+    public bool Compressed { get; set; }
+
+    public bool DebugCompressed { get; set; }
+
     public uint MaxEventId => Events.Count == 0 ? 0 : Events.Max(entry => entry.Id);
 }

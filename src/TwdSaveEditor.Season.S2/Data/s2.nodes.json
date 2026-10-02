@@ -2,6 +2,7 @@
   {
     "choiceKey": "Episode 201 - Helped Christa",
     "logicKey": "Episode 201 - Helped Christa",
+    "readFrom": 2,
     "logicIsText": false,
     "requires": [],
     "options": [
@@ -24,6 +25,7 @@
   {
     "choiceKey": "Episode 201 - Killed Dog",
     "logicKey": null,
+    "readFrom": 0,
     "logicIsText": false,
     "requires": [],
     "options": [
@@ -46,6 +48,7 @@
   {
     "choiceKey": "Episode 201 - Gave Victor Water",
     "logicKey": "Episode 201 - Gave Victor Water",
+    "readFrom": 2,
     "logicIsText": false,
     "requires": [],
     "options": [
@@ -68,6 +71,7 @@
   {
     "choiceKey": "Episode 201 - Nick Apology",
     "logicKey": null,
+    "readFrom": 0,
     "logicIsText": false,
     "requires": [],
     "options": [
@@ -91,6 +95,7 @@
   {
     "choiceKey": "Episode 201 - Rescue Choice",
     "logicKey": "Episode 201 - Rescue Choice",
+    "readFrom": 2,
     "logicIsText": true,
     "requires": [],
     "options": [
@@ -113,6 +118,7 @@
   {
     "choiceKey": "Episode 201 - Got Alvin\u0027s Help",
     "logicKey": "Episode 201 - Got Alvin\u0027s Help",
+    "readFrom": 2,
     "logicIsText": false,
     "requires": [],
     "options": [
@@ -135,6 +141,7 @@
   {
     "choiceKey": "Episode 201 - Befriended Sarah",
     "logicKey": "Episode 201 - Befriended Sarah",
+    "readFrom": 2,
     "logicIsText": false,
     "requires": [],
     "options": [
@@ -157,6 +164,7 @@
   {
     "choiceKey": "Episode 201 - Asked about Baby",
     "logicKey": "Episode 201 - Asked about Baby",
+    "readFrom": 2,
     "logicIsText": false,
     "requires": [],
     "options": [
@@ -180,6 +188,7 @@
   {
     "choiceKey": "Episode 201 - Stole Watch",
     "logicKey": "Episode 201 - Stole Watch",
+    "readFrom": 2,
     "logicIsText": false,
     "requires": [],
     "options": [
@@ -202,6 +211,7 @@
   {
     "choiceKey": "Episode 201 - Staying Choice",
     "logicKey": "Episode 201 - Staying Choice",
+    "readFrom": 2,
     "logicIsText": true,
     "requires": [],
     "options": [
@@ -238,6 +248,7 @@
   {
     "choiceKey": "Episode 202 - Photo Blame",
     "logicKey": null,
+    "readFrom": 0,
     "logicIsText": false,
     "requires": [],
     "options": [
@@ -262,6 +273,7 @@
   {
     "choiceKey": "Episode 202 - Dinner Choice",
     "logicKey": "Episode 202 - Dinner Choice",
+    "readFrom": 5,
     "logicIsText": true,
     "requires": [],
     "options": [
@@ -284,6 +296,7 @@
   {
     "choiceKey": "Episode 202 - Told Walter Truth",
     "logicKey": "Episode 202 - Told Walter Truth",
+    "readFrom": 5,
     "logicIsText": false,
     "requires": [],
     "options": [
@@ -307,6 +320,7 @@
   {
     "choiceKey": "Episode 202 - Nick Dead",
     "logicKey": "Episode 202 - Nick Dead",
+    "readFrom": 3,
     "logicIsText": false,
     "requires": [],
     "options": [
@@ -330,6 +344,7 @@
   {
     "choiceKey": "Episode 202 - Surrendered",
     "logicKey": "Episode 202 - Surrendered",
+    "readFrom": 3,
     "logicIsText": false,
     "requires": [],
     "options": [
@@ -352,6 +367,7 @@
   {
     "choiceKey": "Episode 202 - Alvin Dead",
     "logicKey": "Episode 202 - Alvin Dead",
+    "readFrom": 3,
     "logicIsText": false,
     "requires": [],
     "options": [
@@ -374,6 +390,7 @@
   {
     "choiceKey": "Episode 202 - Drank with Nick",
     "logicKey": "Episode 202 - Drank with Nick",
+    "readFrom": 5,
     "logicIsText": false,
     "requires": [],
     "options": [
@@ -397,6 +414,7 @@
   {
     "choiceKey": "Episode 202 - Meet Bonnie Choice",
     "logicKey": "Episode 202 - Meet Bonnie Choice",
+    "readFrom": 5,
     "logicIsText": true,
     "requires": [],
     "options": [
@@ -433,6 +451,7 @@
   {
     "choiceKey": "Episode 203 - Helped Sarah",
     "logicKey": "Episode 203 - Helped Sarah",
+    "readFrom": 4,
     "logicIsText": false,
     "requires": [],
     "options": [
@@ -455,6 +474,7 @@
   {
     "choiceKey": "Episode 203 - Bonnie Truth",
     "logicKey": null,
+    "readFrom": 0,
     "logicIsText": false,
     "requires": [
       "FE44532D-C955-4603-8060-5ACFBA448C93"
@@ -481,6 +501,7 @@
   {
     "choiceKey": "Episode 203 - Walkie Talkie",
     "logicKey": null,
+    "readFrom": 0,
     "logicIsText": false,
     "requires": [],
     "options": [
@@ -503,6 +524,7 @@
   {
     "choiceKey": "Episode 203 - Watched Kenny Kill Carver",
     "logicKey": "Episode 203 - Watched Kenny Kill Carver",
+    "readFrom": 4,
     "logicIsText": false,
     "requires": [],
     "options": [
@@ -525,6 +547,7 @@
   {
     "choiceKey": "Episode 203 - Chopped Sarita\u0027s Arm",
     "logicKey": "Episode 203 - Chopped Sarita\u0027s Arm",
+    "readFrom": 4,
     "logicIsText": false,
     "requires": [],
     "options": [
@@ -547,6 +570,7 @@
   {
     "choiceKey": "Episode 203 - Got Knocked Out",
     "logicKey": "Episode 203 - Got Knocked Out",
+    "readFrom": 4,
     "logicIsText": false,
     "requires": [],
     "options": [
@@ -570,6 +594,7 @@
   {
     "choiceKey": "Episode 203 - Spoke Up for Sarah",
     "logicKey": "Episode 203 - Spoke Up for Sarah",
+    "readFrom": 5,
     "logicIsText": false,
     "requires": [],
     "options": [
@@ -594,6 +619,7 @@
   {
     "choiceKey": "Episode 203 - Restrained Sarita",
     "logicKey": "Episode 203 - Restrained Sarita",
+    "readFrom": 4,
     "logicIsText": false,
     "requires": [],
     "options": [
@@ -614,6 +640,7 @@
   {
     "choiceKey": "Episode 203 - Shot Carver",
     "logicKey": "Episode 203 - Shot Carver",
+    "readFrom": 5,
     "logicIsText": false,
     "requires": [],
     "options": [
@@ -634,6 +661,7 @@
   {
     "choiceKey": "Episode 204 - Saved Sarah",
     "logicKey": "Episode 204 - Saved Sarah",
+    "readFrom": 5,
     "logicIsText": false,
     "requires": [],
     "options": [
@@ -656,6 +684,7 @@
   {
     "choiceKey": "Episode 204 - Robbed Arvo",
     "logicKey": "Episode 204 - Robbed Arvo",
+    "readFrom": 5,
     "logicIsText": false,
     "requires": [],
     "options": [
@@ -679,6 +708,7 @@
   {
     "choiceKey": "Episode 204 - Bonnie Attacked",
     "logicKey": "Episode 204 - Bonnie Attacked",
+    "readFrom": 5,
     "logicIsText": false,
     "requires": [],
     "options": [
@@ -701,6 +731,7 @@
   {
     "choiceKey": "Episode 204 - Held Baby",
     "logicKey": null,
+    "readFrom": 0,
     "logicIsText": false,
     "requires": [],
     "options": [
@@ -723,6 +754,7 @@
   {
     "choiceKey": "Episode 204 - Shot Rebecca",
     "logicKey": "Episode 204 - Shot Rebecca",
+    "readFrom": 5,
     "logicIsText": false,
     "requires": [],
     "options": [
@@ -746,6 +778,7 @@
   {
     "choiceKey": "Episode 204 - Saw Kenny\u0027s Eye",
     "logicKey": "Episode 204 - Saw Kenny\u0027s Eye",
+    "readFrom": 5,
     "logicIsText": false,
     "requires": [],
     "options": [
@@ -768,6 +801,7 @@
   {
     "choiceKey": "Episode 204 - Took File",
     "logicKey": "Episode 204 - Took File",
+    "readFrom": 5,
     "logicIsText": false,
     "requires": [],
     "options": [
@@ -791,6 +825,7 @@
   {
     "choiceKey": "Episode 204 - Gave Rebecca Pills",
     "logicKey": "Episode 204 - Gave Rebecca Pills",
+    "readFrom": 5,
     "logicIsText": false,
     "requires": [],
     "options": [
@@ -812,6 +847,7 @@
   {
     "choiceKey": "Episode 205 - Protected the baby",
     "logicKey": null,
+    "readFrom": 0,
     "logicIsText": false,
     "requires": [],
     "options": [
@@ -834,6 +870,7 @@
   {
     "choiceKey": "Episode 205 - Went to help Luke",
     "logicKey": null,
+    "readFrom": 0,
     "logicIsText": false,
     "requires": [],
     "options": [
@@ -856,6 +893,7 @@
   {
     "choiceKey": "Episode 205 - Asked to leave with Mike",
     "logicKey": null,
+    "readFrom": 0,
     "logicIsText": false,
     "requires": [],
     "options": [
@@ -878,6 +916,7 @@
   {
     "choiceKey": "Episode 205 - Shot Kenny",
     "logicKey": null,
+    "readFrom": 0,
     "logicIsText": false,
     "requires": [],
     "options": [
@@ -901,6 +940,7 @@
   {
     "choiceKey": "Episode 205 - In the end, who are you with",
     "logicKey": null,
+    "readFrom": 0,
     "logicIsText": false,
     "requires": [],
     "options": [

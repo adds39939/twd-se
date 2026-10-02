@@ -66,7 +66,6 @@ public class SeasonHandlerTests
     [Theory]
     [InlineData("s1", "s2")]
     [InlineData("s1_400days", "s2")]
-    [InlineData("s2", "s3")]
     [InlineData("s3", "s4")]
     public void ImportChain_FollowsTheGame(string sourceSeasonKey, string targetSeasonKey)
     {
@@ -141,36 +140,36 @@ public class SeasonHandlerTests
     [Fact]
     public void CompanionFiles_AreFoundInPageOrder()
     {
-        var companion = Assert.IsAssignableFrom<ICompanionFileHandler>(Registry.Get("s3"));
+        var companion = Assert.IsAssignableFrom<ICompanionFileHandler>(Registry.Get("michonne"));
 
         string[] directory =
         [
-            "wd3_saveslot1.bundle",
-            "_wd3_saveslot1_id_Page12180.epage",
-            "_wd3_saveslot1_id_Page734.epage",
-            "_wd3_saveslot1_id.estore",
-            "_wd3_saveslot2_id.estore",
-            "_wd3_saveslot2_id_Page734.epage",
+            "wdm_saveslot4.bundle",
+            "_wdm_saveslot4_id_Page1971.epage",
+            "_wdm_saveslot4_id_Page971.epage",
+            "_wdm_saveslot4_id.estore",
+            "_wdm_saveslot5_id.estore",
+            "_wdm_saveslot5_id_Page971.epage",
             "wd1_saveslot1.bundle",
         ];
 
-        var files = companion.FindCompanionFiles("wd3_saveslot1.bundle", directory);
+        var files = companion.FindCompanionFiles("wdm_saveslot4.bundle", directory);
 
         Assert.Equal(
         [
-            "_wd3_saveslot1_id.estore",
-            "_wd3_saveslot1_id_Page734.epage",
-            "_wd3_saveslot1_id_Page12180.epage",
+            "_wdm_saveslot4_id.estore",
+            "_wdm_saveslot4_id_Page971.epage",
+            "_wdm_saveslot4_id_Page1971.epage",
         ], files);
     }
 
     [Fact]
     public void CompanionFiles_NotFoundWithoutEStore()
     {
-        var companion = Assert.IsAssignableFrom<ICompanionFileHandler>(Registry.Get("s3"));
+        var companion = Assert.IsAssignableFrom<ICompanionFileHandler>(Registry.Get("michonne"));
 
-        var files = companion.FindCompanionFiles("wd3_saveslot1.bundle",
-            ["wd3_saveslot1.bundle", "_wd3_saveslot1_id_Page734.epage"]);
+        var files = companion.FindCompanionFiles("wdm_saveslot4.bundle",
+            ["wdm_saveslot4.bundle", "_wdm_saveslot4_id_Page971.epage"]);
 
         Assert.Empty(files);
     }
@@ -178,49 +177,21 @@ public class SeasonHandlerTests
     [Fact]
     public void CompanionFiles_AttachRealEventLog()
     {
-        var season = Registry.Get("s3")!;
+        var season = Registry.Get("michonne")!;
         var companion = Assert.IsAssignableFrom<ICompanionFileHandler>(season);
-        var slot = LoadRealS3Slot(companion);
+        var slot = LoadRealMichonneSlot(companion);
 
         Assert.NotNull(slot.LoadedEventLogEntries);
         Assert.NotEmpty(slot.LoadedEventLogEntries);
-        Assert.Equal("_wd3_saveslot1_id.estore", slot.EStorePath);
-        Assert.Equal(4, slot.EPagePaths!.Count);
+        Assert.Equal("_wdm_saveslot4_id.estore", slot.EStorePath);
+        Assert.Single(slot.EPagePaths!);
         Assert.Equal(
-            [slot.EStorePath!, .. slot.EPagePaths],
+            [slot.EStorePath!, .. slot.EPagePaths!],
             companion.GetCompanionFileNames(slot));
 
-        var accessor = season.CreateChoiceAccessor(slot)!;
-        Assert.Contains(season.Choices, c => accessor.DetectCurrentChoice(c) >= 0);
-    }
-
-    [Fact]
-    public void CompanionFiles_RoundTripEditedChoice()
-    {
-        var season = Registry.Get("s3")!;
-        var companion = Assert.IsAssignableFrom<ICompanionFileHandler>(season);
-        var slot = LoadRealS3Slot(companion);
-
-        var accessor = season.CreateChoiceAccessor(slot)!;
-        var choice = season.Choices.First(c => accessor.DetectCurrentChoice(c) >= 0 && c.Options.Length >= 2);
-        var newIndex = accessor.DetectCurrentChoice(choice) == 0 ? 1 : 0;
-        accessor.ApplyChoice(choice, newIndex);
-        Assert.Equal(newIndex, accessor.DetectCurrentChoice(choice));
-
-        var written = companion.BuildCompanionFiles(slot);
-        Assert.Equal(2, written.Count);
-
-        var reloaded = BundleReader.Read(TestDataHelper.GetPath("S3", "wd3_saveslot1.bundle"));
-        var names = companion.FindCompanionFiles(reloaded.FileName, written.Select(f => f.Name));
-        Assert.Equal(written.Select(f => f.Name), names);
-        companion.AttachCompanionFiles(reloaded, written);
-
-        Assert.Equal(slot.LoadedEventLogEntries!.Count, reloaded.LoadedEventLogEntries!.Count);
-        Assert.Equal(newIndex, season.CreateChoiceAccessor(reloaded)!.DetectCurrentChoice(choice));
     }
 
     [Theory]
-    [InlineData("s3", "wd3_saveslot1.bundle")]
     [InlineData("michonne", "wdm_saveslot1.bundle")]
     public void CompanionFiles_NewSaveCreatesEventLog(string seasonKey, string fileName)
     {
@@ -244,17 +215,17 @@ public class SeasonHandlerTests
     [Fact]
     public void CompanionFiles_SlotWithoutEventLog_BuildsNothing()
     {
-        var companion = Assert.IsAssignableFrom<ICompanionFileHandler>(Registry.Get("s3"));
-        var slot = BundleReader.Read(TestDataHelper.GetPath("S3", "wd3_saveslot1.bundle"));
+        var companion = Assert.IsAssignableFrom<ICompanionFileHandler>(Registry.Get("michonne"));
+        var slot = BundleReader.Read(TestDataHelper.GetPath("Michonne", "wdm_saveslot4.bundle"));
 
         Assert.Empty(companion.BuildCompanionFiles(slot));
         Assert.Empty(companion.GetCompanionFileNames(slot));
     }
 
-    private static SaveSlot LoadRealS3Slot(ICompanionFileHandler companion)
+    private static SaveSlot LoadRealMichonneSlot(ICompanionFileHandler companion)
     {
-        var dir = TestDataHelper.GetSeasonDir("S3");
-        var slot = BundleReader.Read(TestDataHelper.GetPath("S3", "wd3_saveslot1.bundle"));
+        var dir = TestDataHelper.GetSeasonDir("Michonne");
+        var slot = BundleReader.Read(TestDataHelper.GetPath("Michonne", "wdm_saveslot4.bundle"));
 
         var directory = Directory.GetFiles(dir).Select(Path.GetFileName).OfType<string>().ToList();
         var files = companion.FindCompanionFiles(slot.FileName, directory)

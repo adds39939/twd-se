@@ -1,272 +1,875 @@
 [
   {
     "seasonKey": "s3",
+    "episode": 0,
+    "description": "Tried to Help Luke?",
+    "choiceKey": "Episode 205 - Tried to Help Luke",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 0,
+    "description": "Rejected Family?",
+    "choiceKey": "Episode 205 - Rejected Family",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 0,
+    "description": "Ending Choice?",
+    "choiceKey": "Episode 205 - Ending Choice",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Alone",
+        "value": "alone"
+      },
+      {
+        "label": "Jane",
+        "value": "jane"
+      },
+      {
+        "label": "Kenny",
+        "value": "kenny"
+      },
+      {
+        "label": "Wellington",
+        "value": "wellington"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 0,
+    "description": "Watched Kenny?",
+    "choiceKey": "Episode 203 - Watched Kenny",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 0,
+    "description": "Held AJ?",
+    "choiceKey": "Episode 204 - Held AJ",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 0,
+    "description": "Jane Held AJ?",
+    "choiceKey": "Episode 205 - Jane Held AJ",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 0,
+    "description": "Cut Off Sarita's Arm?",
+    "choiceKey": "Episode 203 - Cut Off Sarita's Arm",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 0,
+    "description": "Killed Kenny?",
+    "choiceKey": "Episode 205 - Killed Kenny",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s3",
     "episode": 1,
     "description": "Did you stay the night at the junkyard?",
-    "choiceKey": "stayed_junkyard",
-    "category": "Major",
+    "choiceKey": "Episode 301 - Did you stay the night at the junkyard",
+    "category": "Statistics",
     "options": [
-      { "label": "Chose to stay the night", "value": "true" },
-      { "label": "Chose to head back out on the road", "value": "false" }
+      {
+        "label": "Chose to stay the night in the junkyard",
+        "value": "chose_to_stay_the_night"
+      },
+      {
+        "label": "Chose to head back out on the road",
+        "value": "chose_to_head_back_out"
+      }
     ]
   },
   {
     "seasonKey": "s3",
     "episode": 1,
     "description": "Did you shoot the driver or let him go?",
-    "choiceKey": "shot_driver",
-    "category": "Major",
+    "choiceKey": "Episode 301 - Did you shoot the driver or let him go",
+    "category": "Story",
     "options": [
-      { "label": "Chose to shoot the driver", "value": "true" },
-      { "label": "Chose to let the driver go", "value": "false" }
+      {
+        "label": "Chose to shoot the driver",
+        "value": "chose_to_shoot_the_driver"
+      },
+      {
+        "label": "Chose to let the driver go",
+        "value": "chose_to_let_the_driver"
+      }
     ]
   },
   {
     "seasonKey": "s3",
     "episode": 1,
     "description": "What was the aftermath of the shooting?",
-    "choiceKey": "shooting_aftermath",
-    "category": "Major",
+    "choiceKey": "Episode 301 - What was the aftermath of the shooting",
+    "category": "Statistics",
     "options": [
-      { "label": "Got locked up", "value": "locked" },
-      { "label": "Were allowed to roam free", "value": "free" }
+      {
+        "label": "Got locked up",
+        "value": "got_locked_up"
+      },
+      {
+        "label": "Were allowed to roam free",
+        "value": "were_allowed_to_roam_free"
+      }
     ]
   },
   {
     "seasonKey": "s3",
     "episode": 1,
     "description": "Who brought you to the junkyard?",
-    "choiceKey": "who_brought_junkyard",
-    "category": "Major",
+    "choiceKey": "Episode 301 - Who brought you to the junkyard",
+    "category": "Story",
     "options": [
-      { "label": "Went with Eleanor", "value": "eleanor" },
-      { "label": "Went with Tripp", "value": "tripp" }
+      {
+        "label": "Went with Eleanor to the junkyard",
+        "value": "went_with_eleanor_to_the"
+      },
+      {
+        "label": "Went with Tripp to the junkyard",
+        "value": "went_with_tripp_to_the"
+      }
     ]
   },
   {
     "seasonKey": "s3",
     "episode": 1,
     "description": "Did you escape with your family or stay with Clementine?",
-    "choiceKey": "escaped_or_stayed",
-    "category": "Major",
+    "choiceKey": "Episode 301 - Did you escape with your family or stay with Clementine",
+    "category": "Story",
     "options": [
-      { "label": "Stayed with Clementine", "value": "true" },
-      { "label": "Escaped with your family", "value": "false" }
+      {
+        "label": "Stayed with Clementine",
+        "value": "stayed_with_clementine"
+      },
+      {
+        "label": "Escaped with your family",
+        "value": "escaped_with_your_family"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 1,
+    "description": "Agreed to Stick Around?",
+    "choiceKey": "Episode 301 - Agreed to Stick Around",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 1,
+    "description": "Kissed Kate?",
+    "choiceKey": "Episode 301 - Kissed Kate",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
     ]
   },
   {
     "seasonKey": "s3",
     "episode": 2,
-    "description": "How did you deal with Conrad's threat to Clementine?",
-    "choiceKey": "shot_conrad",
-    "category": "Life/Death",
+    "description": "How did you deal with David and Kate’s argument?",
+    "choiceKey": "Episode 302 - How did you deal with David and Kate’s argument",
+    "category": "Story",
     "options": [
-      { "label": "Killed Conrad", "value": "true" },
-      { "label": "Let Conrad capture Clementine", "value": "false" }
-    ]
-  },
-  {
-    "seasonKey": "s3",
-    "episode": 2,
-    "description": "Did you trust Jesus?",
-    "choiceKey": "trusted_jesus",
-    "category": "Major",
-    "options": [
-      { "label": "Took him at his word", "value": "true" },
-      { "label": "Tied his hands together", "value": "false" }
+      {
+        "label": "Told David that Kate wanted to leave him",
+        "value": "told_david_that_kate_wanted"
+      },
+      {
+        "label": "Stayed out of it",
+        "value": "stayed_out_of_it"
+      }
     ]
   },
   {
     "seasonKey": "s3",
     "episode": 2,
     "description": "How did you handle the New Frontier at the gates of Prescott?",
-    "choiceKey": "prescott_response",
-    "category": "Major",
+    "choiceKey": "Episode 302 - How did you handle the New Frontier at the gates of Prescott",
+    "category": "Statistics",
     "options": [
-      { "label": "Tried to negotiate", "value": "negotiate" },
-      { "label": "Opened fire", "value": "fire" },
-      { "label": "Surrendered", "value": "surrender" }
+      {
+        "label": "Opened fire",
+        "value": "opened_fire"
+      },
+      {
+        "label": "Surrendered",
+        "value": "surrendered"
+      },
+      {
+        "label": "Tried to negotiate",
+        "value": "tried_to_negotiate"
+      }
     ]
   },
   {
     "seasonKey": "s3",
     "episode": 2,
-    "description": "How did you deal with David and Kate's argument?",
-    "choiceKey": "david_kate_argument",
-    "category": "Relationship",
+    "description": "Did you trust Jesus?",
+    "choiceKey": "Episode 302 - Did you trust Jesus",
+    "category": "Statistics",
     "options": [
-      { "label": "Told David that Kate wanted to leave him", "value": "true" },
-      { "label": "Stayed out of it", "value": "false" }
+      {
+        "label": "Took him at his word",
+        "value": "took_him_at_his_word"
+      },
+      {
+        "label": "Tied his hands together",
+        "value": "tied_his_hands_together"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 2,
+    "description": "How did you deal with Conrad’s threat to Clementine?",
+    "choiceKey": "Episode 302 - How did you deal with Conrad’s threat to Clementine",
+    "category": "Statistics",
+    "options": [
+      {
+        "label": "Killed Conrad",
+        "value": "killed_conrad"
+      },
+      {
+        "label": "Let Conrad capture Clementine",
+        "value": "let_conrad_capture_clementine"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 2,
+    "description": "How far did you go to get into Richmond?",
+    "choiceKey": "Episode 302 - How far did you go to get into Richmond",
+    "category": "Statistics",
+    "options": [
+      {
+        "label": "Capitulated to Max’s demands",
+        "value": "capitulated_to_max_s_demands"
+      },
+      {
+        "label": "Didn’t capitulate to Max’s demands",
+        "value": "didn_t_capitulate_to_max"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 2,
+    "description": "Left with Ava?",
+    "choiceKey": "Episode 302 - Left with Ava",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 2,
+    "description": "Shot Conrad?",
+    "choiceKey": "Episode 302 - Shot Conrad",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 2,
+    "description": "Bound Jesus?",
+    "choiceKey": "Episode 302 - Bound Jesus",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 2,
+    "description": "Ending Choice?",
+    "choiceKey": "Episode 302 - Ending Choice",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Standoff",
+        "value": "standoff"
+      },
+      {
+        "label": "Surrender",
+        "value": "surrender"
+      },
+      {
+        "label": "Weapons Down",
+        "value": "weaponsdown"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 2,
+    "description": "Held Kate's Hand?",
+    "choiceKey": "Episode 302 - Held Kate's Hand",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 3,
+    "description": "Did you honor your brother’s request?",
+    "choiceKey": "Episode 303 - Did you honor your brother’s request",
+    "category": "Statistics",
+    "options": [
+      {
+        "label": "Demanded justice for Mariana’s murder",
+        "value": "demanded_justice_for_mariana_s"
+      },
+      {
+        "label": "Kept Mariana’s murder to yourself",
+        "value": "kept_mariana_s_murder_to"
+      }
     ]
   },
   {
     "seasonKey": "s3",
     "episode": 3,
     "description": "Did you try to save AJ?",
-    "choiceKey": "gave_aj_medicine",
-    "category": "Major",
+    "choiceKey": "Episode 303 - Did you try to save AJ",
+    "category": "Story",
     "options": [
-      { "label": "Injected AJ with the medicine", "value": "true" },
-      { "label": "Didn't risk using the medicine", "value": "false" }
+      {
+        "label": "Injected AJ with the medicine",
+        "value": "injected_aj_with_the_medicine"
+      },
+      {
+        "label": "Didn’t risk using the medicine",
+        "value": "didn_t_risk_using_the"
+      }
     ]
   },
   {
     "seasonKey": "s3",
     "episode": 3,
     "description": "How did Badger die?",
-    "choiceKey": "badger_fate",
-    "category": "Life/Death",
+    "choiceKey": "Episode 303 - How did Badger die",
+    "category": "Statistics",
     "options": [
-      { "label": "Let Badger turn", "value": "turn" },
-      { "label": "Let someone else kill Badger", "value": "someone_else" },
-      { "label": "Killed Badger quickly", "value": "quick" },
-      { "label": "Destroyed Badger's skull", "value": "destroyed" }
+      {
+        "label": "Killed Badger quickly",
+        "value": "killed_badger_quickly"
+      },
+      {
+        "label": "Destroyed Badger’s skull",
+        "value": "destroyed_badger_s_skull"
+      },
+      {
+        "label": "Let Badger turn",
+        "value": "let_badger_turn"
+      },
+      {
+        "label": "Let someone else kill Badger",
+        "value": "let_someone_else_kill_badger"
+      }
     ]
   },
   {
     "seasonKey": "s3",
     "episode": 3,
-    "description": "Did you honor your brother's request?",
-    "choiceKey": "honored_brother",
-    "category": "Major",
+    "description": "What was Max’s fate?",
+    "choiceKey": "Episode 303 - What was Max’s fate",
+    "category": "Statistics",
     "options": [
-      { "label": "Demanded justice for Mariana's murder", "value": "true" },
-      { "label": "Kept Mariana's murder to yourself", "value": "false" }
+      {
+        "label": "Killed Max or watched David do it",
+        "value": "killed_max_or_watched_david"
+      },
+      {
+        "label": "Brought Max back with you",
+        "value": "brought_max_back_with_you"
+      }
     ]
   },
   {
     "seasonKey": "s3",
     "episode": 3,
-    "description": "How far did you go to get into Richmond?",
-    "choiceKey": "richmond_entry",
-    "category": "Major",
+    "description": "Who did you side with in the end?",
+    "choiceKey": "Episode 303 - Who did you side with in the end",
+    "category": "Story",
     "options": [
-      { "label": "Capitulated to Max's demands", "value": "true" },
-      { "label": "Didn't capitulate", "value": "false" }
+      {
+        "label": "Chose to leave with Kate",
+        "value": "chose_to_leave_with_kate"
+      },
+      {
+        "label": "Stuck to David’s plan",
+        "value": "stuck_to_david_s_plan"
+      }
     ]
   },
   {
     "seasonKey": "s3",
     "episode": 3,
-    "description": "What was Max's fate?",
-    "choiceKey": "max_fate",
-    "category": "Life/Death",
+    "description": "Respected Gabe's Choice?",
+    "choiceKey": "Episode 303 - Respected Gabe's Choice",
+    "category": "Story",
     "options": [
-      { "label": "Killed Max or watched David do it", "value": "killed" },
-      { "label": "Brought Max back with you", "value": "spared" }
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 3,
+    "description": "Clementine Spit on David?",
+    "choiceKey": "Episode 303 - Clementine Spit on David",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 3,
+    "description": "Conrad Dead?",
+    "choiceKey": "Episode 303 - Conrad Dead",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 3,
+    "description": "Who Killed Badger?",
+    "choiceKey": "Episode 303 - Who Killed Badger",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Conrad",
+        "value": "conrad"
+      },
+      {
+        "label": "Javier",
+        "value": "javier"
+      },
+      {
+        "label": "Tripp",
+        "value": "tripp"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 3,
+    "description": "Who Killed Max?",
+    "choiceKey": "Episode 303 - Who Killed Max",
+    "category": "Story",
+    "options": [
+      {
+        "label": "David",
+        "value": "david"
+      },
+      {
+        "label": "Javier",
+        "value": "javier"
+      }
     ]
   },
   {
     "seasonKey": "s3",
     "episode": 4,
-    "description": "How did you respond to Dr. Lingard's request?",
-    "choiceKey": "lingard_fate",
-    "category": "Life/Death",
+    "description": "Did you promise that you would help Kate with the family if David left?",
+    "choiceKey": "Episode 304 - Did you promise that you would help Kate with the family if David left",
+    "category": "Statistics",
     "options": [
-      { "label": "Let Clementine decide", "value": "clem" },
-      { "label": "Assisted in Lingard's suicide", "value": "assisted" },
-      { "label": "Refused to kill Lingard", "value": "refused" }
+      {
+        "label": "Told David it was his responsibility",
+        "value": "told_david_it_was_his"
+      },
+      {
+        "label": "Promised you’d help Kate",
+        "value": "promised_you_d_help_kate"
+      }
     ]
   },
   {
     "seasonKey": "s3",
     "episode": 4,
-    "description": "Did you promise to help Kate with the family if David left?",
-    "choiceKey": "promised_kate",
-    "category": "Relationship",
+    "description": "How did you respond to Dr. Lingard’s request?",
+    "choiceKey": "Episode 304 - How did you respond to Dr. Lingard’s request",
+    "category": "Story",
     "options": [
-      { "label": "Told David it was his responsibility", "value": "false" },
-      { "label": "Promised you'd help Kate", "value": "true" }
+      {
+        "label": "Assisted in Lingard’s suicide",
+        "value": "assisted_in_lingard_s_suicide"
+      },
+      {
+        "label": "Refused to kill Lingard",
+        "value": "refused_to_kill_lingard"
+      },
+      {
+        "label": "Let Clementine decide Lingard’s fate",
+        "value": "let_clementine_decide_lingard_s"
+      }
     ]
   },
   {
     "seasonKey": "s3",
     "episode": 4,
     "description": "Did you tell Kate that you have feelings for her?",
-    "choiceKey": "told_kate_feelings",
-    "category": "Relationship",
+    "choiceKey": "Episode 304 - Did you tell Kate that you have feelings for her",
+    "category": "Story",
     "options": [
-      { "label": "Didn't share Kate's feelings", "value": "false" },
-      { "label": "Told Kate you shared her feelings", "value": "true" }
+      {
+        "label": "Didn’t share Kate’s feelings",
+        "value": "didn_t_share_kate_s"
+      },
+      {
+        "label": "Told Kate you shared her feelings",
+        "value": "told_kate_you_shared_her"
+      }
     ]
   },
   {
     "seasonKey": "s3",
     "episode": 4,
     "description": "Who did you try to save at the execution?",
-    "choiceKey": "trippava_saved",
-    "category": "Life/Death",
+    "choiceKey": "Episode 304 - Who did you try to save at the execution",
+    "category": "Statistics",
     "options": [
-      { "label": "Tried to save Ava", "value": "ava" },
-      { "label": "Tried to save Tripp", "value": "tripp" }
+      {
+        "label": "Tried to save Ava",
+        "value": "tried_to_save_ava"
+      },
+      {
+        "label": "Tried to save Tripp",
+        "value": "tried_to_save_tripp"
+      }
     ]
   },
   {
     "seasonKey": "s3",
     "episode": 4,
-    "description": "Did you shoot Joan or take Clint's deal?",
-    "choiceKey": "shot_joan",
-    "category": "Major",
+    "description": "Did you shoot Joan or take Clint’s deal?",
+    "choiceKey": "Episode 304 - Did you shoot Joan or take Clint’s deal",
+    "category": "Story",
     "options": [
-      { "label": "Chose to shoot Joan", "value": "true" },
-      { "label": "Chose to take the deal", "value": "false" }
+      {
+        "label": "Chose to shoot Joan",
+        "value": "chose_to_shoot_joan"
+      },
+      {
+        "label": "Chose to take the deal",
+        "value": "chose_to_take_the_deal"
+      }
     ]
   },
   {
     "seasonKey": "s3",
-    "episode": 5,
-    "description": "What did you say to David about Kate?",
-    "choiceKey": "david_about_kate",
-    "category": "Relationship",
+    "episode": 4,
+    "description": "Conrad Dead?",
+    "choiceKey": "Episode 304 - Conrad Dead",
+    "category": "Story",
     "options": [
-      { "label": "Denied having a relationship", "value": "denied" },
-      { "label": "Said nothing", "value": "nothing" },
-      { "label": "Confessed your love for Kate", "value": "confessed" },
-      { "label": "Came clean about relationship", "value": "clean" }
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
     ]
   },
   {
     "seasonKey": "s3",
-    "episode": 5,
-    "description": "Did you fight David back?",
-    "choiceKey": "fought_david",
-    "category": "Major",
+    "episode": 4,
+    "description": "Tripp Dead?",
+    "choiceKey": "Episode 304 - Tripp Dead",
+    "category": "Story",
     "options": [
-      { "label": "Fought back", "value": "true" },
-      { "label": "Showed your love for David", "value": "false" }
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 4,
+    "description": "Pissed Off David?",
+    "choiceKey": "Episode 304 - Pissed Off David",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 4,
+    "description": "Failed Tanker Dodge?",
+    "choiceKey": "Episode 304 - Failed Tanker Dodge",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
     ]
   },
   {
     "seasonKey": "s3",
     "episode": 5,
     "description": "Did you stand with David on the ledge?",
-    "choiceKey": "stood_with_david",
-    "category": "Major",
+    "choiceKey": "Episode 305 - Did you stand with David on the ledge",
+    "category": "Statistics",
     "options": [
-      { "label": "Stepped up to help David", "value": "true" },
-      { "label": "Didn't stand with him", "value": "false" }
+      {
+        "label": "Stepped up to help David",
+        "value": "stepped_up_to_help_david"
+      },
+      {
+        "label": "Disappointed David when you didn’t stand with him",
+        "value": "disappointed_david_when_you_didn"
+      }
     ]
   },
   {
     "seasonKey": "s3",
     "episode": 5,
-    "description": "Who did you side with in the end?",
-    "choiceKey": "s3_ending",
-    "category": "Life/Death",
+    "description": "What did you say to David about Kate?",
+    "choiceKey": "Episode 305 - What did you say to David about Kate",
+    "category": "Statistics",
     "options": [
-      { "label": "Chose to leave with Kate", "value": "kate" },
-      { "label": "Stuck to David's plan", "value": "david" }
+      {
+        "label": "Confessed your love for Kate",
+        "value": "confessed_your_love_for_kate"
+      },
+      {
+        "label": "Came clean about your relationship with Kate",
+        "value": "came_clean_about_your_relationship"
+      },
+      {
+        "label": "Denied having a relationship with Kate, but David didn’t believe you",
+        "value": "denied_having_a_relationship_with"
+      },
+      {
+        "label": "Said nothing",
+        "value": "said_nothing"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 5,
+    "description": "Did you fight David back?",
+    "choiceKey": "Episode 305 - Did you fight David back",
+    "category": "Statistics",
+    "options": [
+      {
+        "label": "Fought back as David took his anger out on you",
+        "value": "fought_back_as_david_took"
+      },
+      {
+        "label": "Showed your love for David even as he took his anger out on you",
+        "value": "showed_your_love_for_david"
+      }
     ]
   },
   {
     "seasonKey": "s3",
     "episode": 5,
     "description": "Did you go after Gabe or with Kate?",
-    "choiceKey": "went_after_gabe",
-    "category": "Life/Death",
+    "choiceKey": "Episode 305 - Did you go after Gabe or with Kate",
+    "category": "Statistics",
     "options": [
-      { "label": "Went after Gabe", "value": "gabe" },
-      { "label": "Went with Kate and sealed the breach", "value": "kate" }
+      {
+        "label": "Went after Gabe",
+        "value": "went_after_gabe"
+      },
+      {
+        "label": "Went with Kate and sealed the Richmond breach",
+        "value": "went_with_kate_and_sealed"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s3",
+    "episode": 5,
+    "description": "Did Clementine come along with you?",
+    "choiceKey": "Episode 305 - Did Clementine come along with you",
+    "category": "Statistics",
+    "options": [
+      {
+        "label": "After the fight with David, Clementine teamed up with you.",
+        "value": "after_the_fight_with_david"
+      },
+      {
+        "label": "After the fight with David, Clementine followed her own plan, splitting up with you.",
+        "value": "after_the_fight_with_david_"
+      }
     ]
   }
 ]

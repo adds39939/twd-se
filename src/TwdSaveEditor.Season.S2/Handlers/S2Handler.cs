@@ -4,6 +4,7 @@ using TwdSaveEditor.Core.Binary.EventLog;
 using TwdSaveEditor.Core.Constants;
 using TwdSaveEditor.Core.Hashing;
 using TwdSaveEditor.Core.Model;
+using TwdSaveEditor.Season.Base.DialogLog;
 using TwdSaveEditor.Season.Base.Handlers;
 using TwdSaveEditor.Season.Common.Abstractions;
 using TwdSaveEditor.Season.Common.Model;
@@ -93,87 +94,14 @@ public class S2Handler : PropChoicesSeasonHandler, IChoiceImporter, ICompanionFi
 
     public bool IsCompanionFile(string fileName) => !S2SlotFiles.IsSlotBundle(fileName);
 
-    public IReadOnlyList<string> FindCompanionFiles(string bundleFileName, IEnumerable<string> directoryFileNames)
-    {
-        if (!S2SlotFiles.IsSlotBundle(bundleFileName))
-            return [];
+    public IReadOnlyList<string> FindCompanionFiles(string bundleFileName, IEnumerable<string> directoryFileNames) =>
+        DialogLogCompanions.Find(bundleFileName, directoryFileNames);
 
-        var storage = S2SlotFiles.StorageName(bundleFileName);
-        return directoryFileNames
-            .Where(name => name.Equals(storage, StringComparison.OrdinalIgnoreCase)
-                || S2SlotFiles.IsPage(bundleFileName, name)
-                || S2SlotFiles.IsSave(bundleFileName, name))
-            .Order(StringComparer.OrdinalIgnoreCase)
-            .ToList();
-    }
+    public void AttachCompanionFiles(SaveSlot slot, IReadOnlyList<CompanionFile> files) => DialogLogCompanions.Attach(slot, files, SeasonKey);
 
-    public void AttachCompanionFiles(SaveSlot slot, IReadOnlyList<CompanionFile> files)
-    {
-        slot.Checkpoints.Clear();
-        slot.EventLog = null;
+    public IReadOnlyList<CompanionFile> BuildCompanionFiles(SaveSlot slot) => DialogLogCompanions.Build(slot);
 
-        var storage = files.FirstOrDefault(file => file.Name.EndsWith(S2SlotFiles.StorageSuffix, StringComparison.OrdinalIgnoreCase));
-        if (storage != null && TryRead(() => EventLogCodec.ReadStorage(storage.Data)) is { } parsed)
-        {
-            slot.EventLog = new EventLog(storage.Name, parsed);
-            var listed = parsed.Pages.Select(entry => entry.PageSymbol).ToHashSet();
-            foreach (var file in files.Where(file => file.Name.EndsWith(S2SlotFiles.PageExtension, StringComparison.OrdinalIgnoreCase)
-                && listed.Contains(TelltaleHash.ComputeCrc64(file.Name))))
-            {
-                if (TryRead(() => EventLogCodec.ReadPage(file.Data)) is { } page)
-                    slot.EventLog.PageFiles.Add(new EventLogPageFile(file.Name, page));
-            }
-        }
-
-        foreach (var file in files.Where(file => file.Name.EndsWith(S2SlotFiles.BundleExtension, StringComparison.OrdinalIgnoreCase)))
-        {
-            if (TryRead(() => BundleReader.Read(file.Data, file.Name)) is { } save)
-            {
-                save.DetectedSeasonKey = SeasonKey;
-                slot.Checkpoints.Add(save);
-            }
-        }
-    }
-
-    public IReadOnlyList<CompanionFile> BuildCompanionFiles(SaveSlot slot)
-    {
-        var files = new List<CompanionFile>();
-        if (slot.EventLog is { } log)
-        {
-            if (log.StorageModified)
-                files.Add(new CompanionFile(log.StorageName, EventLogCodec.WriteStorage(log.Storage)));
-
-            files.AddRange(log.PageFiles.Where(page => page.Modified).Select(page => new CompanionFile(page.Name, EventLogCodec.WritePage(page.Page))));
-        }
-
-        files.AddRange(slot.Checkpoints.Where(save => save.Modified).Select(save => new CompanionFile(save.FileName, BundleWriter.Write(save))));
-        return files;
-    }
-
-    public IReadOnlyList<string> GetCompanionFileNames(SaveSlot slot)
-    {
-        if (!S2SlotFiles.IsSlotBundle(slot.FileName))
-            return [];
-
-        var names = slot.Checkpoints.Select(save => save.FileName).ToList();
-        if (slot.EventLog is { } log)
-            names.AddRange(log.PageFiles.Select(page => page.Name).Prepend(log.StorageName));
-
-        return names;
-    }
-
-    private static T? TryRead<T>(Func<T> read)
-        where T : class
-    {
-        try
-        {
-            return read();
-        }
-        catch (Exception e) when (e is InvalidDataException or EndOfStreamException or ArgumentException)
-        {
-            return null;
-        }
-    }
+    public IReadOnlyList<string> GetCompanionFileNames(SaveSlot slot) => DialogLogCompanions.Names(slot);
 
     public bool CanImportFrom(SaveSlot source)
         => source.DetectedSeasonKey == S1ChoiceCatalog.MainSeasonKey && source.Metadata != null && source.Choices != null;

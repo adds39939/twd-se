@@ -64,7 +64,7 @@
                         @foreach (var epGroup in episodes)
                         {
                             var ep = season.Episodes.FirstOrDefault(e => e.Number == epGroup.Key);
-                            var epTitle = ep != null ? $"Episode {epGroup.Key}: {ep.Title}" : $"Episode {epGroup.Key}";
+                            var epTitle = ep != null ? $"Episode {epGroup.Key}: {ep.Title}" : epGroup.Key == 0 ? "Carried over from the previous season" : $"Episode {epGroup.Key}";
 
                             <details open="@ShouldExpandEpisode(season.SeasonKey, epGroup.Key, seasonKey)">
                                 <summary>

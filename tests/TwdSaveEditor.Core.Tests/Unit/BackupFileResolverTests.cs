@@ -4,6 +4,7 @@ using TwdSaveEditor.Season.Common.Services;
 using TwdSaveEditor.Season.Michonne.Handlers;
 using TwdSaveEditor.Season.S1.Handlers;
 using TwdSaveEditor.Season.S3.Handlers;
+using TwdSaveEditor.Core.Tests.Support;
 using TwdSaveEditor.Season.S4.Handlers;
 
 namespace TwdSaveEditor.Core.Tests.Unit;
@@ -55,19 +56,17 @@ public class BackupFileResolverTests
     }
 
     [Fact]
-    public void S3Bundle_BackupsEstoreAndEpages()
+    public void S3Bundle_BackupsItsEventLogAndSaves()
     {
-        var slot = CreateSlot("wd3_saveslot1.bundle");
-        slot.EStorePath = "_wd3_saveslot1_id.estore";
-        slot.EPagePaths = ["_wd3_saveslot1_id_Page734.epage", "_wd3_saveslot1_id_Page10249.epage"];
+        var slot = Season3Saves.LoadEpisode1Save();
 
         var files = BackupFileResolver.GetFilesToBackup(slot, Registry(new S3Handler()));
 
-        Assert.Equal(4, files.Count);
-        Assert.Equal("wd3_saveslot1.bundle", files[0]);
-        Assert.Equal("_wd3_saveslot1_id.estore", files[1]);
-        Assert.Equal("_wd3_saveslot1_id_Page734.epage", files[2]);
-        Assert.Equal("_wd3_saveslot1_id_Page10249.epage", files[3]);
+        Assert.Equal(7, files.Count);
+        Assert.Equal(Season3Saves.Slot, files[0]);
+        Assert.Contains(Season3Saves.Autosave, files);
+        Assert.Contains(Season3Saves.Storage, files);
+        Assert.All(Season3Saves.Pages, page => Assert.Contains(page, files));
     }
 
     [Fact]

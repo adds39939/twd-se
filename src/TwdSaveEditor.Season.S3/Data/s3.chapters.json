@@ -1,0 +1,1637 @@
+{
+  "importedKeys": [],
+  "episodes": [
+    {
+      "episode": 1,
+      "chapters": [
+        {
+          "id": "GarciaHouse",
+          "title": "Garcia House",
+          "group": "Act 1",
+          "script": "GarciaDominguezHouse",
+          "chapterId": "",
+          "startsEpisode": true,
+          "flags": [],
+          "decided": []
+        },
+        {
+          "id": "GarciaHouseCredits",
+          "title": "Garcia House - Credits",
+          "group": "Act 1",
+          "script": "GarciaDominguezHouse",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "bEnteredGarciaDominguezHouse",
+              "value": true
+            }
+          ],
+          "decided": []
+        },
+        {
+          "id": "VirginiaRoad",
+          "title": "Virginia Road",
+          "group": "Act 1",
+          "script": "VirginiaRoad",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 301 - Agreed to Stick Around"
+          ]
+        },
+        {
+          "id": "Junkyard",
+          "title": "Junkyard",
+          "group": "Act 1",
+          "script": "Junkyard",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 301 - Agreed to Stick Around"
+          ]
+        },
+        {
+          "id": "JunkyardHill",
+          "title": "Junkyard Hill",
+          "group": "Act 1",
+          "script": "JunkyardHill",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 301 - Agreed to Stick Around"
+          ]
+        },
+        {
+          "id": "JunkyardHillTrailer",
+          "title": "Junkyard Hill - Trailer",
+          "group": "Act 1",
+          "script": "JunkyardHill",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "bEnteredJunkyardHill",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 301 - Agreed to Stick Around"
+          ]
+        },
+        {
+          "id": "VirginiaRoadTruck",
+          "title": "Virginia Road - Truck",
+          "group": "Act 1",
+          "script": "VirginiaRoad",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "bEnteredJunkyardHill",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 301 - Did you stay the night at the junkyard",
+            "Episode 301 - Agreed to Stick Around"
+          ]
+        },
+        {
+          "id": "VirginiaRoadWalk",
+          "title": "Virginia Road - Walk",
+          "group": "Act 1",
+          "script": "VirginiaRoad",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "bEnteredJunkyardHill",
+              "value": true
+            },
+            {
+              "key": "1 - Met Clementine",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 301 - Did you stay the night at the junkyard",
+            "Episode 301 - Agreed to Stick Around"
+          ]
+        },
+        {
+          "id": "AirportGate",
+          "title": "Airport Gate",
+          "group": "Act 2",
+          "script": "AirportExteriorGate",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 301 - Did you stay the night at the junkyard",
+            "Episode 301 - Did you shoot the driver or let him go",
+            "Episode 301 - Agreed to Stick Around"
+          ]
+        },
+        {
+          "id": "Airport",
+          "title": "Airport",
+          "group": "Act 2",
+          "script": "AirportExterior",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 301 - Did you stay the night at the junkyard",
+            "Episode 301 - Did you shoot the driver or let him go",
+            "Episode 301 - Agreed to Stick Around"
+          ]
+        },
+        {
+          "id": "Hangar",
+          "title": "Hangar",
+          "group": "Act 2",
+          "script": "AirportHangar",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 301 - Did you stay the night at the junkyard",
+            "Episode 301 - Did you shoot the driver or let him go",
+            "Episode 301 - Agreed to Stick Around"
+          ]
+        },
+        {
+          "id": "AirportMainStLockup",
+          "title": "Airport - Main St. Lockup",
+          "group": "Act 2",
+          "script": "AirportExterior",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            },
+            {
+              "key": "bEnteredAirportHangar",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 301 - Did you stay the night at the junkyard",
+            "Episode 301 - Did you shoot the driver or let him go",
+            "Episode 301 - What was the aftermath of the shooting",
+            "Episode 301 - Agreed to Stick Around"
+          ]
+        },
+        {
+          "id": "AirportMainStInfirmary",
+          "title": "Airport - Main St. Infirmary",
+          "group": "Act 2",
+          "script": "AirportExterior",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            },
+            {
+              "key": "bEnteredAirportHangar",
+              "value": true
+            },
+            {
+              "key": "2 - Betrayed Clementine",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 301 - Did you stay the night at the junkyard",
+            "Episode 301 - Did you shoot the driver or let him go",
+            "Episode 301 - What was the aftermath of the shooting",
+            "Episode 301 - Agreed to Stick Around"
+          ]
+        },
+        {
+          "id": "VirginiaRoadWinter",
+          "title": "Virginia Road Winter",
+          "group": "Act 2",
+          "script": "VirginiaRoadWinter",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            },
+            {
+              "key": "Episode 205 - Ending Choice",
+              "value": "Kenny"
+            }
+          ],
+          "decided": [
+            "Episode 301 - Did you stay the night at the junkyard",
+            "Episode 301 - Did you shoot the driver or let him go",
+            "Episode 301 - What was the aftermath of the shooting",
+            "Episode 301 - Who brought you to the junkyard",
+            "Episode 301 - Agreed to Stick Around"
+          ]
+        },
+        {
+          "id": "HardwareStore",
+          "title": "Hardware Store",
+          "group": "Act 2",
+          "script": "HardwareStore",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            },
+            {
+              "key": "Episode 205 - Ending Choice",
+              "value": "Jane"
+            }
+          ],
+          "decided": [
+            "Episode 301 - Did you stay the night at the junkyard",
+            "Episode 301 - Did you shoot the driver or let him go",
+            "Episode 301 - What was the aftermath of the shooting",
+            "Episode 301 - Who brought you to the junkyard",
+            "Episode 301 - Agreed to Stick Around"
+          ]
+        },
+        {
+          "id": "Wellington",
+          "title": "Wellington",
+          "group": "Act 2",
+          "script": "Wellington",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            },
+            {
+              "key": "Episode 205 - Ending Choice",
+              "value": "Wellington"
+            }
+          ],
+          "decided": [
+            "Episode 301 - Did you stay the night at the junkyard",
+            "Episode 301 - Did you shoot the driver or let him go",
+            "Episode 301 - What was the aftermath of the shooting",
+            "Episode 301 - Who brought you to the junkyard",
+            "Episode 301 - Agreed to Stick Around"
+          ]
+        },
+        {
+          "id": "VirginiaRailroad",
+          "title": "Virginia Railroad",
+          "group": "Act 2",
+          "script": "VirginiaRailroad",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            },
+            {
+              "key": "Episode 205 - Ending Choice",
+              "value": "Alone"
+            }
+          ],
+          "decided": [
+            "Episode 301 - Did you stay the night at the junkyard",
+            "Episode 301 - Did you shoot the driver or let him go",
+            "Episode 301 - What was the aftermath of the shooting",
+            "Episode 301 - Who brought you to the junkyard",
+            "Episode 301 - Agreed to Stick Around"
+          ]
+        },
+        {
+          "id": "JunkyardDayElle",
+          "title": "Junkyard Day - Elle",
+          "group": "Act 3",
+          "script": "JunkyardDay",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 301 - Did you stay the night at the junkyard",
+            "Episode 301 - Did you shoot the driver or let him go",
+            "Episode 301 - What was the aftermath of the shooting",
+            "Episode 301 - Who brought you to the junkyard",
+            "Episode 301 - Agreed to Stick Around"
+          ]
+        },
+        {
+          "id": "JunkyardDayTripp",
+          "title": "Junkyard Day - Tripp",
+          "group": "Act 3",
+          "script": "JunkyardDay",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            },
+            {
+              "key": "2 - Chose Tripp",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 301 - Did you stay the night at the junkyard",
+            "Episode 301 - Did you shoot the driver or let him go",
+            "Episode 301 - What was the aftermath of the shooting",
+            "Episode 301 - Who brought you to the junkyard",
+            "Episode 301 - Agreed to Stick Around"
+          ]
+        }
+      ]
+    },
+    {
+      "episode": 2,
+      "chapters": [
+        {
+          "id": "GarciaHouse",
+          "title": "Garcia House",
+          "group": "Act 1",
+          "script": "GarciaDominguezHouse",
+          "chapterId": "",
+          "startsEpisode": true,
+          "flags": [],
+          "decided": []
+        },
+        {
+          "id": "JunkyardDay",
+          "title": "Junkyard Day",
+          "group": "Act 1",
+          "script": "JunkyardDay",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 302 - How did you deal with David and Kate\u2019s argument",
+            "Episode 302 - Held Kate\u0027s Hand"
+          ]
+        },
+        {
+          "id": "Airport",
+          "title": "Airport",
+          "group": "Act 1",
+          "script": "AirportExteriorDusk",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 302 - How did you deal with David and Kate\u2019s argument",
+            "Episode 302 - Held Kate\u0027s Hand"
+          ]
+        },
+        {
+          "id": "AirportGate",
+          "title": "Airport Gate",
+          "group": "Act 1",
+          "script": "AirportExteriorGate",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 302 - How did you deal with David and Kate\u2019s argument",
+            "Episode 302 - Held Kate\u0027s Hand"
+          ]
+        },
+        {
+          "id": "VirginiaRoad",
+          "title": "Virginia Road",
+          "group": "Act 2",
+          "script": "VirginiaRoad",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 302 - How did you deal with David and Kate\u2019s argument",
+            "Episode 302 - How did you handle the New Frontier at the gates of Prescott",
+            "Episode 302 - Held Kate\u0027s Hand"
+          ]
+        },
+        {
+          "id": "VirginiaRoadCar",
+          "title": "Virginia Road Car",
+          "group": "Act 2",
+          "script": "VirginiaRoadCar",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 302 - How did you deal with David and Kate\u2019s argument",
+            "Episode 302 - How did you handle the New Frontier at the gates of Prescott",
+            "Episode 302 - Held Kate\u0027s Hand"
+          ]
+        },
+        {
+          "id": "VirginiaUnderpass",
+          "title": "Virginia Underpass",
+          "group": "Act 2",
+          "script": "VirginiaUnderpass",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 302 - How did you deal with David and Kate\u2019s argument",
+            "Episode 302 - How did you handle the New Frontier at the gates of Prescott",
+            "Episode 302 - Held Kate\u0027s Hand"
+          ]
+        },
+        {
+          "id": "VirginiaUnderpassAction",
+          "title": "Virginia Underpass - Action",
+          "group": "Act 2",
+          "script": "VirginiaUnderpass",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            },
+            {
+              "key": "2 - Winch Attached",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 302 - How did you deal with David and Kate\u2019s argument",
+            "Episode 302 - How did you handle the New Frontier at the gates of Prescott",
+            "Episode 302 - Held Kate\u0027s Hand"
+          ]
+        },
+        {
+          "id": "VirginiaUnderpassRoof",
+          "title": "Virginia Underpass - Roof",
+          "group": "Act 2",
+          "script": "VirginiaUnderpass",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            },
+            {
+              "key": "2 - Winch Powered",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 302 - How did you deal with David and Kate\u2019s argument",
+            "Episode 302 - How did you handle the New Frontier at the gates of Prescott",
+            "Episode 302 - Held Kate\u0027s Hand"
+          ]
+        },
+        {
+          "id": "VirginiaForestBus",
+          "title": "Virginia Forest Bus",
+          "group": "Act 3",
+          "script": "VirginiaForestBus",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 302 - How did you deal with David and Kate\u2019s argument",
+            "Episode 302 - How did you handle the New Frontier at the gates of Prescott",
+            "Episode 302 - Did you trust Jesus",
+            "Episode 302 - Bound Jesus",
+            "Episode 302 - Held Kate\u0027s Hand"
+          ]
+        },
+        {
+          "id": "RichmondTunnel",
+          "title": "Richmond Tunnel",
+          "group": "Act 3",
+          "script": "RichmondTunnel",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 302 - How did you deal with David and Kate\u2019s argument",
+            "Episode 302 - How did you handle the New Frontier at the gates of Prescott",
+            "Episode 302 - Did you trust Jesus",
+            "Episode 302 - Left with Ava",
+            "Episode 302 - Bound Jesus",
+            "Episode 302 - Held Kate\u0027s Hand"
+          ]
+        },
+        {
+          "id": "RichmondStreet",
+          "title": "Richmond Street",
+          "group": "Act 3",
+          "script": "RichmondStreet",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 302 - How did you deal with David and Kate\u2019s argument",
+            "Episode 302 - How did you handle the New Frontier at the gates of Prescott",
+            "Episode 302 - Did you trust Jesus",
+            "Episode 302 - How did you deal with Conrad\u2019s threat to Clementine",
+            "Episode 302 - Left with Ava",
+            "Episode 302 - Shot Conrad",
+            "Episode 302 - Bound Jesus",
+            "Episode 302 - Held Kate\u0027s Hand"
+          ]
+        },
+        {
+          "id": "RichmondGate",
+          "title": "Richmond Gate",
+          "group": "Act 3",
+          "script": "RichmondGate",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 302 - How did you deal with David and Kate\u2019s argument",
+            "Episode 302 - How did you handle the New Frontier at the gates of Prescott",
+            "Episode 302 - Did you trust Jesus",
+            "Episode 302 - How did you deal with Conrad\u2019s threat to Clementine",
+            "Episode 302 - Left with Ava",
+            "Episode 302 - Shot Conrad",
+            "Episode 302 - Bound Jesus",
+            "Episode 302 - Held Kate\u0027s Hand"
+          ]
+        }
+      ]
+    },
+    {
+      "episode": 3,
+      "chapters": [
+        {
+          "id": "PreviouslyOn",
+          "title": "Previously On",
+          "group": "Act 1",
+          "script": "PreviouslyOn",
+          "chapterId": "",
+          "startsEpisode": true,
+          "flags": [],
+          "decided": []
+        },
+        {
+          "id": "GarciaHouse",
+          "title": "Garcia House",
+          "group": "Act 1",
+          "script": "GarciaDominguezHouse",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": []
+        },
+        {
+          "id": "RichmondGate",
+          "title": "Richmond Gate",
+          "group": "Act 1",
+          "script": "RichmondGate",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": []
+        },
+        {
+          "id": "RichmondQuarantine",
+          "title": "Richmond Quarantine",
+          "group": "Act 1",
+          "script": "RichmondQuarantineInterior",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": []
+        },
+        {
+          "id": "RichmondSquare",
+          "title": "Richmond Square",
+          "group": "Act 2",
+          "script": "RichmondSquare",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": []
+        },
+        {
+          "id": "RichmondMedical",
+          "title": "Richmond Medical",
+          "group": "Act 2",
+          "script": "RichmondMedical",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": []
+        },
+        {
+          "id": "RichmondChurch",
+          "title": "Richmond Church",
+          "group": "Act 2",
+          "script": "RichmondChurchInterior",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": []
+        },
+        {
+          "id": "RichmondGateNight",
+          "title": "Richmond Gate Night",
+          "group": "Act 2",
+          "script": "RichmondGateNight",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": []
+        },
+        {
+          "id": "VirginiaRailroadNight",
+          "title": "Virginia Railroad Night",
+          "group": "Act 2",
+          "script": "VirginiaRailroadNight",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 303 - Conrad Dead"
+          ]
+        },
+        {
+          "id": "RailroadNightZombies",
+          "title": "Railroad Night - Zombies",
+          "group": "Act 2",
+          "script": "VirginiaRailroadNight",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            },
+            {
+              "key": "2 - Tripp Mess Choice",
+              "value": 1
+            }
+          ],
+          "decided": [
+            "Episode 303 - Conrad Dead"
+          ]
+        },
+        {
+          "id": "VirginiaForestCamp",
+          "title": "Virginia Forest Camp",
+          "group": "Act 2",
+          "script": "VirginiaForestCamp",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 303 - Conrad Dead"
+          ]
+        },
+        {
+          "id": "RichmondFactoryExterior",
+          "title": "Richmond Factory Exterior",
+          "group": "Act 3",
+          "script": "RichmondFactoryExterior",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 303 - Did you try to save AJ",
+            "Episode 303 - Clementine Spit on David",
+            "Episode 303 - Conrad Dead"
+          ]
+        },
+        {
+          "id": "RichmondFactoryInterior",
+          "title": "Richmond Factory Interior",
+          "group": "Act 3",
+          "script": "RichmondFactoryInterior",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 303 - Did you try to save AJ",
+            "Episode 303 - Clementine Spit on David",
+            "Episode 303 - Conrad Dead"
+          ]
+        },
+        {
+          "id": "FactoryInteriorFight",
+          "title": "Factory Interior - Fight",
+          "group": "Act 3",
+          "script": "RichmondFactoryInterior",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            },
+            {
+              "key": "3 - Let David In",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 303 - Did you try to save AJ",
+            "Episode 303 - Clementine Spit on David",
+            "Episode 303 - Conrad Dead"
+          ]
+        },
+        {
+          "id": "RichmondFactoryBack",
+          "title": "Richmond Factory Back",
+          "group": "Act 3",
+          "script": "RichmondFactoryExteriorBack",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            },
+            {
+              "key": "bEnteredRichmondFactoryInterior",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 303 - Did you try to save AJ",
+            "Episode 303 - How did Badger die",
+            "Episode 303 - What was Max\u2019s fate",
+            "Episode 303 - Clementine Spit on David",
+            "Episode 303 - Conrad Dead",
+            "Episode 303 - Who Killed Badger",
+            "Episode 303 - Who Killed Max"
+          ]
+        },
+        {
+          "id": "RichmondBackEntrance",
+          "title": "Richmond Back Entrance",
+          "group": "Act 3",
+          "script": "RichmondBackEntrance",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            },
+            {
+              "key": "bEnteredRichmondFactoryInterior",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 303 - Did you try to save AJ",
+            "Episode 303 - How did Badger die",
+            "Episode 303 - What was Max\u2019s fate",
+            "Episode 303 - Clementine Spit on David",
+            "Episode 303 - Conrad Dead",
+            "Episode 303 - Who Killed Badger",
+            "Episode 303 - Who Killed Max"
+          ]
+        },
+        {
+          "id": "RichmondMedicalReturn",
+          "title": "Richmond Medical - Return",
+          "group": "Act 3",
+          "script": "RichmondMedical",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            },
+            {
+              "key": "bEnteredRichmondFactoryInterior",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 303 - Did you try to save AJ",
+            "Episode 303 - How did Badger die",
+            "Episode 303 - What was Max\u2019s fate",
+            "Episode 303 - Clementine Spit on David",
+            "Episode 303 - Conrad Dead",
+            "Episode 303 - Who Killed Badger",
+            "Episode 303 - Who Killed Max"
+          ]
+        },
+        {
+          "id": "RichmondSafeHouse",
+          "title": "Richmond Safe House",
+          "group": "Act 3",
+          "script": "RichmondSafeHouse",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            },
+            {
+              "key": "bEnteredRichmondFactoryInterior",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 303 - Did you try to save AJ",
+            "Episode 303 - How did Badger die",
+            "Episode 303 - What was Max\u2019s fate",
+            "Episode 303 - Who did you side with in the end",
+            "Episode 303 - Respected Gabe\u0027s Choice",
+            "Episode 303 - Clementine Spit on David",
+            "Episode 303 - Conrad Dead",
+            "Episode 303 - Who Killed Badger",
+            "Episode 303 - Who Killed Max"
+          ]
+        },
+        {
+          "id": "RichmondChurchReturn",
+          "title": "Richmond Church - Return",
+          "group": "Act 3",
+          "script": "RichmondChurchInterior",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            },
+            {
+              "key": "bEnteredRichmondFactoryInterior",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 303 - Did you try to save AJ",
+            "Episode 303 - How did Badger die",
+            "Episode 303 - What was Max\u2019s fate",
+            "Episode 303 - Who did you side with in the end",
+            "Episode 303 - Respected Gabe\u0027s Choice",
+            "Episode 303 - Clementine Spit on David",
+            "Episode 303 - Conrad Dead",
+            "Episode 303 - Who Killed Badger",
+            "Episode 303 - Who Killed Max"
+          ]
+        }
+      ]
+    },
+    {
+      "episode": 4,
+      "chapters": [
+        {
+          "id": "PreviouslyOn",
+          "title": "Previously On",
+          "group": "Act 1",
+          "script": "PreviouslyOn",
+          "chapterId": "",
+          "startsEpisode": true,
+          "flags": [],
+          "decided": []
+        },
+        {
+          "id": "BattingCages",
+          "title": "Batting Cages",
+          "group": "Act 1",
+          "script": "BattingCages",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": []
+        },
+        {
+          "id": "RichmondQuarantine",
+          "title": "Richmond Quarantine",
+          "group": "Act 1",
+          "script": "RichmondQuarantineInterior304",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 304 - Did you promise that you would help Kate with the family if David left"
+          ]
+        },
+        {
+          "id": "RichmondSquareDusk",
+          "title": "Richmond Square Dusk",
+          "group": "Act 1",
+          "script": "RichmondSquareDusk",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 304 - Did you promise that you would help Kate with the family if David left",
+            "Episode 304 - Pissed Off David"
+          ]
+        },
+        {
+          "id": "RichmondApartments",
+          "title": "Richmond Apartments",
+          "group": "Act 2",
+          "script": "RichmondApartments",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 304 - Did you promise that you would help Kate with the family if David left",
+            "Episode 304 - Pissed Off David"
+          ]
+        },
+        {
+          "id": "RichmondArmory",
+          "title": "Richmond Armory",
+          "group": "Act 2",
+          "script": "RichmondArmory",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 304 - Did you promise that you would help Kate with the family if David left",
+            "Episode 304 - Pissed Off David"
+          ]
+        },
+        {
+          "id": "RichmondMedical",
+          "title": "Richmond Medical",
+          "group": "Act 2",
+          "script": "RichmondMedical304",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 304 - Did you promise that you would help Kate with the family if David left",
+            "Episode 304 - Pissed Off David"
+          ]
+        },
+        {
+          "id": "VirginiaForestBus",
+          "title": "Virginia Forest Bus",
+          "group": "Act 2",
+          "script": "VirginiaForestBus304",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 304 - Did you promise that you would help Kate with the family if David left",
+            "Episode 304 - Pissed Off David"
+          ]
+        },
+        {
+          "id": "VirginiaForestCamp",
+          "title": "Virginia Forest Camp",
+          "group": "Act 2",
+          "script": "VirginiaForestCamp304",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 304 - Did you promise that you would help Kate with the family if David left",
+            "Episode 304 - Pissed Off David"
+          ]
+        },
+        {
+          "id": "HardwareStoreForestHill",
+          "title": "Hardware Store Forest Hill",
+          "group": "Act 2",
+          "script": "HardwareStoreForestHill",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 304 - Did you promise that you would help Kate with the family if David left",
+            "Episode 304 - Pissed Off David"
+          ]
+        },
+        {
+          "id": "RichmondMedicalPostFB",
+          "title": "Richmond Medical Post FB",
+          "group": "Act 2",
+          "script": "RichmondMedical304",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            },
+            {
+              "key": "bEnteredVirginiaForestBus304",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 304 - Did you promise that you would help Kate with the family if David left",
+            "Episode 304 - Pissed Off David"
+          ]
+        },
+        {
+          "id": "RichmondApartmentNight",
+          "title": "Richmond Apartment Night",
+          "group": "Act 3",
+          "script": "RichmondApartmentNight",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 304 - Did you promise that you would help Kate with the family if David left",
+            "Episode 304 - How did you respond to Dr. Lingard\u2019s request",
+            "Episode 304 - Pissed Off David"
+          ]
+        },
+        {
+          "id": "RichmondWaterTower",
+          "title": "Richmond Water Tower",
+          "group": "Act 3",
+          "script": "RichmondWaterTower",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 304 - Did you promise that you would help Kate with the family if David left",
+            "Episode 304 - How did you respond to Dr. Lingard\u2019s request",
+            "Episode 304 - Pissed Off David"
+          ]
+        },
+        {
+          "id": "RichmondSafehouse",
+          "title": "Richmond Safehouse",
+          "group": "Act 3",
+          "script": "RichmondSafehouse",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 304 - Did you promise that you would help Kate with the family if David left",
+            "Episode 304 - How did you respond to Dr. Lingard\u2019s request",
+            "Episode 304 - Pissed Off David"
+          ]
+        },
+        {
+          "id": "RichmondSquareDawn",
+          "title": "Richmond Square Dawn",
+          "group": "Act 3",
+          "script": "RichmondSquareDawn",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 304 - Did you promise that you would help Kate with the family if David left",
+            "Episode 304 - How did you respond to Dr. Lingard\u2019s request",
+            "Episode 304 - Did you tell Kate that you have feelings for her",
+            "Episode 304 - Pissed Off David"
+          ]
+        },
+        {
+          "id": "RichmondSquareDawnAction",
+          "title": "Richmond Square Dawn Action",
+          "group": "Act 3",
+          "script": "RichmondSquareDawn",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 304 - Did you promise that you would help Kate with the family if David left",
+            "Episode 304 - How did you respond to Dr. Lingard\u2019s request",
+            "Episode 304 - Did you tell Kate that you have feelings for her",
+            "Episode 304 - Pissed Off David"
+          ]
+        }
+      ]
+    },
+    {
+      "episode": 5,
+      "chapters": [
+        {
+          "id": "PreviouslyOn",
+          "title": "Previously On",
+          "group": "Act 1",
+          "script": "PreviouslyOn",
+          "chapterId": "",
+          "startsEpisode": true,
+          "flags": [],
+          "decided": []
+        },
+        {
+          "id": "GarciaHouse",
+          "title": "Garcia House",
+          "group": "Act 1",
+          "script": "GarciaDominguezHouse",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": []
+        },
+        {
+          "id": "RichmondSquareWall",
+          "title": "Richmond Square Wall",
+          "group": "Act 1",
+          "script": "RichmondSquareWall",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": []
+        },
+        {
+          "id": "RichmondApartments",
+          "title": "Richmond Apartments",
+          "group": "Act 1",
+          "script": "RichmondApartments",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": []
+        },
+        {
+          "id": "RichmondApartmentsRoof",
+          "title": "Richmond Apartments Roof",
+          "group": "Act 1",
+          "script": "RichmondApartmentsRoof",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": []
+        },
+        {
+          "id": "RichmondOverpass",
+          "title": "Richmond Overpass",
+          "group": "Act 2",
+          "script": "RichmondOverpass",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 305 - Did you stand with David on the ledge"
+          ]
+        },
+        {
+          "id": "RichmondWaterTower",
+          "title": "Richmond Water Tower",
+          "group": "Act 2",
+          "script": "RichmondWaterTower",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 305 - Did you stand with David on the ledge"
+          ]
+        },
+        {
+          "id": "WaterTowerBroFight",
+          "title": "Water Tower - Bro Fight",
+          "group": "Act 2",
+          "script": "RichmondWaterTower",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            },
+            {
+              "key": "1 - Roof Choice",
+              "value": 1
+            }
+          ],
+          "decided": [
+            "Episode 305 - Did you stand with David on the ledge"
+          ]
+        },
+        {
+          "id": "RichmondStreetTile",
+          "title": "Richmond Street Tile",
+          "group": "Act 2 - Gabe",
+          "script": "RichmondStreetTile",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 305 - Did you stand with David on the ledge",
+            "Episode 305 - What did you say to David about Kate",
+            "Episode 305 - Did you fight David back",
+            "Episode 305 - Did you go after Gabe or with Kate",
+            "Episode 305 - Did Clementine come along with you"
+          ]
+        },
+        {
+          "id": "RichmondStreet",
+          "title": "Richmond Street",
+          "group": "Act 2 - Gabe",
+          "script": "RichmondStreet",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 305 - Did you stand with David on the ledge",
+            "Episode 305 - What did you say to David about Kate",
+            "Episode 305 - Did you fight David back",
+            "Episode 305 - Did you go after Gabe or with Kate",
+            "Episode 305 - Did Clementine come along with you"
+          ]
+        },
+        {
+          "id": "RichmondGate",
+          "title": "Richmond Gate",
+          "group": "Act 2 - Gabe",
+          "script": "RichmondGate",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 305 - Did you stand with David on the ledge",
+            "Episode 305 - What did you say to David about Kate",
+            "Episode 305 - Did you fight David back",
+            "Episode 305 - Did you go after Gabe or with Kate",
+            "Episode 305 - Did Clementine come along with you"
+          ]
+        },
+        {
+          "id": "RichmondSquareWallDusk",
+          "title": "Richmond Square Wall Dusk",
+          "group": "Act 2 - Gabe",
+          "script": "RichmondSquareWallDusk",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 305 - Did you stand with David on the ledge",
+            "Episode 305 - What did you say to David about Kate",
+            "Episode 305 - Did you fight David back",
+            "Episode 305 - Did you go after Gabe or with Kate",
+            "Episode 305 - Did Clementine come along with you"
+          ]
+        },
+        {
+          "id": "RichmondGate13",
+          "title": "Richmond Gate",
+          "group": "Act 2 - Kate",
+          "script": "RichmondGate",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            },
+            {
+              "key": "2 - Went After Gabe",
+              "value": false
+            }
+          ],
+          "decided": [
+            "Episode 305 - Did you stand with David on the ledge",
+            "Episode 305 - What did you say to David about Kate",
+            "Episode 305 - Did you fight David back",
+            "Episode 305 - Did you go after Gabe or with Kate",
+            "Episode 305 - Did Clementine come along with you"
+          ]
+        },
+        {
+          "id": "RichmondSquareWallDusk14",
+          "title": "Richmond Square Wall Dusk",
+          "group": "Act 2 - Kate",
+          "script": "RichmondSquareWallDusk",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            },
+            {
+              "key": "2 - Went After Gabe",
+              "value": false
+            }
+          ],
+          "decided": [
+            "Episode 305 - Did you stand with David on the ledge",
+            "Episode 305 - What did you say to David about Kate",
+            "Episode 305 - Did you fight David back",
+            "Episode 305 - Did you go after Gabe or with Kate",
+            "Episode 305 - Did Clementine come along with you"
+          ]
+        },
+        {
+          "id": "RichmondStreet15",
+          "title": "Richmond Street",
+          "group": "Act 2 - Kate",
+          "script": "RichmondStreet",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            },
+            {
+              "key": "2 - Went After Gabe",
+              "value": false
+            }
+          ],
+          "decided": [
+            "Episode 305 - Did you stand with David on the ledge",
+            "Episode 305 - What did you say to David about Kate",
+            "Episode 305 - Did you fight David back",
+            "Episode 305 - Did you go after Gabe or with Kate",
+            "Episode 305 - Did Clementine come along with you"
+          ]
+        },
+        {
+          "id": "RichmondChurch",
+          "title": "Richmond Church",
+          "group": "Act 3",
+          "script": "RichmondChurchInterior",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 305 - Did you stand with David on the ledge",
+            "Episode 305 - What did you say to David about Kate",
+            "Episode 305 - Did you fight David back",
+            "Episode 305 - Did you go after Gabe or with Kate",
+            "Episode 305 - Did Clementine come along with you"
+          ]
+        },
+        {
+          "id": "RichmondSquare",
+          "title": "Richmond Square",
+          "group": "Act 3",
+          "script": "RichmondSquare",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 305 - Did you stand with David on the ledge",
+            "Episode 305 - What did you say to David about Kate",
+            "Episode 305 - Did you fight David back",
+            "Episode 305 - Did you go after Gabe or with Kate",
+            "Episode 305 - Did Clementine come along with you"
+          ]
+        },
+        {
+          "id": "RichmondSquarePlayground",
+          "title": "Richmond Square Playground",
+          "group": "Act 3",
+          "script": "RichmondSquarePlayground",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 305 - Did you stand with David on the ledge",
+            "Episode 305 - What did you say to David about Kate",
+            "Episode 305 - Did you fight David back",
+            "Episode 305 - Did you go after Gabe or with Kate",
+            "Episode 305 - Did Clementine come along with you"
+          ]
+        },
+        {
+          "id": "RichmondGateFinale",
+          "title": "Richmond Gate Finale",
+          "group": "Act 3",
+          "script": "RichmondGateFinale",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 305 - Did you stand with David on the ledge",
+            "Episode 305 - What did you say to David about Kate",
+            "Episode 305 - Did you fight David back",
+            "Episode 305 - Did you go after Gabe or with Kate",
+            "Episode 305 - Did Clementine come along with you"
+          ]
+        },
+        {
+          "id": "VirginiaUnderpass",
+          "title": "Virginia Underpass",
+          "group": "Act 3",
+          "script": "VirginiaUnderpass",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 305 - Did you stand with David on the ledge",
+            "Episode 305 - What did you say to David about Kate",
+            "Episode 305 - Did you fight David back",
+            "Episode 305 - Did you go after Gabe or with Kate",
+            "Episode 305 - Did Clementine come along with you"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -11,7 +11,6 @@ using TwdSaveEditor.Season.Michonne.Choices;
 using TwdSaveEditor.Season.Michonne.Handlers;
 using TwdSaveEditor.Season.S1.Handlers;
 using TwdSaveEditor.Season.S2.Handlers;
-using TwdSaveEditor.Season.S3.Choices;
 using TwdSaveEditor.Season.S3.Handlers;
 using TwdSaveEditor.Season.S4.Handlers;
 
@@ -448,37 +447,6 @@ public class GameCompatibilityTests
     {
         var computed = TelltaleHash.ComputeCrc64(name);
         Assert.Equal(expectedHash, computed);
-    }
-
-    [Fact]
-    public void S3NodeHashes_AppearInRealEpageData()
-    {
-        var s3Dir = TestDataHelper.GetSeasonDir("S3");
-        var epageFiles = Directory.GetFiles(s3Dir, "*.epage");
-
-        var allNodeHashes = new HashSet<ulong>();
-        foreach (var epageFile in epageFiles)
-        {
-            var entries = EStoreReader.ReadEPage(epageFile);
-            foreach (var entry in entries)
-            {
-                if (entry.IsDialogNode)
-                    allNodeHashes.Add(entry.NodeHash);
-            }
-        }
-
-        Assert.NotEmpty(allNodeHashes);
-
-        var matchCount = 0;
-        foreach (var (hash, (key, val)) in S3ChoiceNodes.Nodes)
-        {
-            if (allNodeHashes.Contains(hash))
-                matchCount++;
-        }
-
-        Assert.True(matchCount > 0,
-            $"None of the {S3ChoiceNodes.Nodes.Count} S3 node hashes found in real epage data. " +
-            $"Total unique dialog nodes in real data: {allNodeHashes.Count}");
     }
 
     [Fact]

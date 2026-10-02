@@ -278,6 +278,55 @@ public class SaveLoadCycleTests
     }
 
     [Fact]
+    public async Task S3DecisionAndChapter_AreWrittenToTheLogAndANewSave()
+    {
+        const string autosaveName = "_wd3_saveslot1_autosave.bundle";
+
+        var page = await _fixture.NewPage();
+        await InjectSaveFile(page, "S3", "wd3_saveslot1.bundle");
+
+        await page.Locator("[data-testid='open-directory']").ClickAsync();
+        await page.Locator(".save-item").First.ClickAsync();
+
+        await page.GetByText("Carried over from the previous season").ClickAsync();
+        var ending = page.Locator(".choice-row", new() { HasTextString = "Ending Choice?" }).First.Locator("select");
+        await Assertions.Expect(ending).ToHaveValueAsync("0");
+        await ending.SelectOptionAsync(new SelectOptionValue { Label = "Kenny" });
+
+        await page.Locator("[data-testid='tab-resume']").ClickAsync();
+        await Assertions.Expect(page.Locator("[data-testid='restart-chapter'] option")).ToHaveCountAsync(19);
+        await page.Locator("[data-testid='restart-chapter']").SelectOptionAsync("JunkyardHillTrailer");
+        await page.Locator("[data-testid='restart-button']").ClickAsync();
+        await Assertions.Expect(page.Locator("[data-testid='resume-state']")).ToContainTextAsync("checkpoint Junkyard Hill - Trailer");
+
+        await page.Locator(".save-btn").ClickAsync();
+        await Assertions.Expect(page.Locator(".toast-success", new() { HasTextString = "Saved wd3_saveslot1.bundle" }).First)
+            .ToBeVisibleAsync(new() { Timeout = 20000 });
+        await Assertions.Expect(page.Locator(".toast-error")).ToHaveCountAsync(0);
+
+        var autosaveBase64 = await FakeSaveDirectory.ReadFileAsync(page, autosaveName);
+        Assert.NotNull(autosaveBase64);
+        var autosave = BundleReader.Read(Convert.FromBase64String(autosaveBase64), autosaveName);
+        Assert.Equal(1, autosave.Metadata!.GetInt(SaveMetadataKeys.Episode));
+        Assert.Equal(22, autosave.Metadata.GetInt(SaveMetadataKeys.Serial));
+        var game = autosave.FindFile(TelltaleHash.ComputeCrc64("\"logic_game:logic.scene\" Runtime Properties"));
+        Assert.NotNull(game);
+        Assert.True(BundleReader.TryParseProperties(game));
+        Assert.Equal("Kenny", game.Properties!.GetString("Episode 205 - Ending Choice"));
+        Assert.True(game.Properties.GetBool("bEnteredJunkyardHill"));
+
+        var storageBase64 = await FakeSaveDirectory.ReadFileAsync(page, "_wd3_saveslot1_id.estore");
+        Assert.NotNull(storageBase64);
+        Assert.Equal(22, EventLogCodec.ReadStorage(Convert.FromBase64String(storageBase64)).CurrentPage!.Events.Last().SaveSerial);
+
+        var slotBase64 = await FakeSaveDirectory.ReadFileAsync(page, "wd3_saveslot1.bundle");
+        Assert.NotNull(slotBase64);
+        var slot = BundleReader.Read(Convert.FromBase64String(slotBase64), "wd3_saveslot1.bundle");
+        Assert.Equal(autosaveName, slot.Metadata!.GetString(SlotMetadataKeys.LatestSave));
+        Assert.Equal(22, slot.Metadata.GetInt(SlotMetadataKeys.LatestSerial));
+    }
+
+    [Fact]
     public async Task S2NewSave_IsWrittenWithACheckpointAndAnEventLog()
     {
         const string checkpointName = "_wd2_saveslot1_checkpoint1.bundle";
