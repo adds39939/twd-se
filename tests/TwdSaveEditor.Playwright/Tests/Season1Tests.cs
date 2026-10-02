@@ -94,7 +94,6 @@ public class Season1Tests
 
         await page.Locator("[data-testid='tab-resume']").ClickAsync();
         await page.Locator("[data-testid='restart-episode']").SelectOptionAsync("2");
-        await page.Locator("[data-testid='restart-button']").ClickAsync();
 
         var state = page.Locator("[data-testid='resume-state']");
         await Assertions.Expect(state).ToContainTextAsync("Episode 2: Starved for Help");
@@ -127,7 +126,6 @@ public class Season1Tests
         await page.Locator("[data-testid='restart-episode']").SelectOptionAsync("5");
         await Assertions.Expect(page.Locator("[data-testid='restart-chapter'] option")).ToHaveCountAsync(18);
         await page.Locator("[data-testid='restart-chapter']").SelectOptionAsync("OnJewelryStore");
-        await page.Locator("[data-testid='restart-button']").ClickAsync();
 
         var state = page.Locator("[data-testid='resume-state']");
         await Assertions.Expect(state).ToContainTextAsync("Episode 5: No Time Left");

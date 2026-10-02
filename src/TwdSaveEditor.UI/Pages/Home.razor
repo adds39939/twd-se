@@ -23,22 +23,17 @@
             </div>
 
             <div class="tab-content">
-                <div class="tab-panel">
-                    @switch (ActiveTab)
-                    {
-                        case "decisions":
-                            <DecisionEditor Slot="Editor.SelectedSave" Accessor="GetAccessor()" />
-                            break;
-                        case "properties":
-                            <PropertyEditor Slot="Editor.SelectedSave" />
-                            break;
-                        case "resume":
-                            <ResumePointEditor Slot="Editor.SelectedSave" />
-                            break;
-                        case "inventory":
-                            <InventoryEditor Slot="Editor.SelectedSave" />
-                            break;
-                    }
+                <div class="tab-panel" hidden="@(ActiveTab != "decisions")">
+                    <DecisionEditor Slot="Editor.SelectedSave" Accessor="GetAccessor()" />
+                </div>
+                <div class="tab-panel" hidden="@(ActiveTab != "resume")">
+                    <ResumePointEditor Slot="Editor.SelectedSave" />
+                </div>
+                <div class="tab-panel" hidden="@(ActiveTab != "inventory")">
+                    <InventoryEditor Slot="Editor.SelectedSave" />
+                </div>
+                <div class="tab-panel" hidden="@(ActiveTab != "properties")">
+                    <PropertyEditor Slot="Editor.SelectedSave" />
                 </div>
             </div>
         }

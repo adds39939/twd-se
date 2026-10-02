@@ -116,7 +116,6 @@ public class SaveLoadCycleTests
         await page.Locator(".save-item").First.ClickAsync();
         await page.Locator("[data-testid='tab-resume']").ClickAsync();
         await page.Locator("[data-testid='restart-episode']").SelectOptionAsync("2");
-        await page.Locator("[data-testid='restart-button']").ClickAsync();
 
         var state = page.Locator("[data-testid='resume-state']");
         await Assertions.Expect(state).ToContainTextAsync("Episode 2: A House Divided");
@@ -159,7 +158,6 @@ public class SaveLoadCycleTests
         await page.Locator("[data-testid='restart-episode']").SelectOptionAsync("2");
         await Assertions.Expect(page.Locator("[data-testid='restart-chapter'] option")).ToHaveCountAsync(26);
         await page.Locator("[data-testid='restart-chapter']").SelectOptionAsync("LodgeMainDinner");
-        await page.Locator("[data-testid='restart-button']").ClickAsync();
 
         var state = page.Locator("[data-testid='resume-state']");
         await Assertions.Expect(state).ToContainTextAsync("Episode 2: A House Divided");
@@ -190,6 +188,42 @@ public class SaveLoadCycleTests
     }
 
     [Fact]
+    public async Task Tabs_KeepTheirStateAndFollowUnsavedChanges()
+    {
+        var page = await _fixture.NewPage();
+        await InjectSaveFiles(page, "S2", S2Files);
+
+        await page.Locator("[data-testid='open-directory']").ClickAsync();
+        await page.Locator(".save-item").First.ClickAsync();
+        await page.Locator("[data-testid='presets'] summary").ClickAsync();
+        await page.Locator("[data-testid='presets-endings']").CheckAsync();
+
+        await Assertions.Expect(page.Locator(".save-btn")).ToHaveTextAsync("Save Changes");
+        await page.Locator("[data-testid='tab-resume']").ClickAsync();
+        await Assertions.Expect(page.Locator("[data-testid='restart-episode']")).ToHaveValueAsync("1");
+        await page.Locator("[data-testid='restart-episode']").SelectOptionAsync("2");
+        await Assertions.Expect(page.Locator(".save-btn")).ToHaveTextAsync("Save Changes *");
+        await page.Locator("[data-testid='restart-chapter']").SelectOptionAsync("LodgeRear");
+        await Assertions.Expect(page.Locator("[data-testid='resume-state']")).ToContainTextAsync("checkpoint Lodge Rear");
+
+        await page.Locator("[data-testid='tab-inventory']").ClickAsync();
+        await Assertions.Expect(page.Locator("[data-testid='inventory-summary']")).ToContainTextAsync("Episode 2: A House Divided, 0 items");
+        await page.Locator("[data-testid='tab-resume']").ClickAsync();
+        await Assertions.Expect(page.Locator("[data-testid='restart-episode']")).ToHaveValueAsync("2");
+        await Assertions.Expect(page.Locator("[data-testid='restart-chapter']")).ToHaveValueAsync("LodgeRear");
+
+        await page.Locator("[data-testid='tab-inventory']").ClickAsync();
+        await Assertions.Expect(page.Locator("[data-testid='inventory-summary']")).ToContainTextAsync("Episode 2: A House Divided, 0 items");
+        await Assertions.Expect(page.Locator("[data-testid='inventory-carried']")).ToBeVisibleAsync();
+
+        await page.Locator("[data-testid='tab-decisions']").ClickAsync();
+        await Assertions.Expect(page.Locator("[data-testid='presets-endings']")).ToBeCheckedAsync();
+        await Assertions.Expect(page.GetByRole(AriaRole.Button, new() { Name = "Ending: Wellington" })).ToBeVisibleAsync();
+        var later = page.Locator(".choice-row", new() { HasTextString = "Who did you sit with at dinner?" }).First.Locator("select");
+        await Assertions.Expect(later).ToHaveValueAsync("-1");
+    }
+
+    [Fact]
     public async Task S2Inventory_GivesAChapterTheItemsPickedUpEarlier()
     {
         const string checkpointName = "_wd2_saveslot1_checkpoint1.bundle";
@@ -202,7 +236,6 @@ public class SaveLoadCycleTests
         await page.Locator("[data-testid='tab-resume']").ClickAsync();
         await page.Locator("[data-testid='restart-episode']").SelectOptionAsync("2");
         await page.Locator("[data-testid='restart-chapter']").SelectOptionAsync("LodgeRear");
-        await page.Locator("[data-testid='restart-button']").ClickAsync();
 
         await page.Locator("[data-testid='tab-inventory']").ClickAsync();
         var summary = page.Locator("[data-testid='inventory-summary']");
@@ -249,7 +282,6 @@ public class SaveLoadCycleTests
         await page.Locator("[data-testid='tab-resume']").ClickAsync();
         await page.Locator("[data-testid='restart-episode']").SelectOptionAsync("1");
         await page.Locator("[data-testid='restart-chapter']").SelectOptionAsync("OnDrugstoreExterior");
-        await page.Locator("[data-testid='restart-button']").ClickAsync();
 
         await page.Locator("[data-testid='tab-inventory']").ClickAsync();
         var summary = page.Locator("[data-testid='inventory-summary']");
@@ -308,7 +340,6 @@ public class SaveLoadCycleTests
         await page.Locator("[data-testid='tab-resume']").ClickAsync();
         await Assertions.Expect(page.Locator("[data-testid='restart-chapter'] option")).ToHaveCountAsync(17);
         await page.Locator("[data-testid='restart-chapter']").SelectOptionAsync("VirginiaRoadTruck");
-        await page.Locator("[data-testid='restart-button']").ClickAsync();
         await Assertions.Expect(page.Locator("[data-testid='resume-state']")).ToContainTextAsync("checkpoint Virginia Road - Truck");
 
         await page.Locator("[data-testid='tab-inventory']").ClickAsync();
@@ -381,7 +412,6 @@ public class SaveLoadCycleTests
         await Assertions.Expect(page.Locator("[data-testid='restart-episode'] option")).ToHaveCountAsync(3);
         await Assertions.Expect(page.Locator("[data-testid='restart-chapter'] option")).ToHaveCountAsync(21);
         await page.Locator("[data-testid='restart-chapter']").SelectOptionAsync("FerryInteriorSnackBar");
-        await page.Locator("[data-testid='restart-button']").ClickAsync();
         await Assertions.Expect(page.Locator("[data-testid='resume-state']")).ToContainTextAsync("checkpoint Ferry Interior - Snack Bar");
 
         await page.Locator("[data-testid='tab-inventory']").ClickAsync();
@@ -451,7 +481,6 @@ public class SaveLoadCycleTests
         await Assertions.Expect(page.Locator("[data-testid='restart-episode'] option")).ToHaveCountAsync(4);
         await page.Locator("[data-testid='restart-episode']").SelectOptionAsync("3");
         await page.Locator("[data-testid='restart-chapter']").SelectOptionAsync("ForestCamp");
-        await page.Locator("[data-testid='restart-button']").ClickAsync();
         await Assertions.Expect(page.Locator("[data-testid='resume-state']")).ToContainTextAsync("Episode 3: Broken Toys — checkpoint Forest Camp");
 
         await page.Locator(".save-btn").ClickAsync();

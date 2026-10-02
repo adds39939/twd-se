@@ -54,6 +54,10 @@
     overflow: auto;
 }
 
+.tab-panel[hidden] {
+    display: none;
+}
+
 .empty-state {
     display: flex;
     flex-direction: column;

@@ -26,22 +26,26 @@ public partial class DecisionEditor
     protected override void OnParametersSet()
     {
         var currentFile = Slot?.FileName;
-        if (currentFile == _lastSlotFileName && _cachedTree != null)
-            return;
+        if (currentFile != _lastSlotFileName)
+        {
+            _lastSlotFileName = currentFile;
+            _showEndingPresets = false;
+            _cachedTree = null;
+        }
 
-        _lastSlotFileName = currentFile;
         RebuildCache();
     }
 
     private void RebuildCache()
     {
         _choiceStates.Clear();
-        _cachedTree = null;
+        if (Slot == null || Accessor == null)
+        {
+            _cachedTree = null;
+            return;
+        }
 
-        if (Slot == null || Accessor == null) return;
-
-        var seasons = GetRelevantSeasons(Slot.DetectedSeasonKey);
-        _cachedTree = seasons
+        _cachedTree ??= GetRelevantSeasons(Slot.DetectedSeasonKey)
             .Select(s => (
                 Season: s,
                 Episodes: s.Choices

@@ -33,16 +33,32 @@ public partial class EpisodeResumeEditor
 
     private void OnEpisodeChanged(ChangeEventArgs e)
     {
-        if (int.TryParse(e.Value?.ToString(), out var episode))
-            SelectEpisode(episode);
+        if (!int.TryParse(e.Value?.ToString(), out var episode))
+            return;
+
+        SelectEpisode(episode);
+        Apply();
+    }
+
+    private void OnChapterChanged(ChangeEventArgs e)
+    {
+        _chapter = e.Value?.ToString() ?? string.Empty;
+        Apply();
     }
 
     private void SelectEpisode(int episode)
     {
         _episode = episode;
         _chapters = Handler.GetChapters(episode);
-        _chapter = _chapters.FirstOrDefault()?.Id ?? string.Empty;
+        _chapter = CurrentChapter() ?? _chapters.FirstOrDefault()?.Id ?? string.Empty;
     }
+
+    private string? CurrentChapter() =>
+        _episode == _state.Episode && _state.Checkpoint != null
+            ? _chapters.FirstOrDefault(chapter => chapter.Title == _state.Checkpoint)?.Id
+            : _episode == _state.Episode && _state.StartsFromBeginning
+                ? _chapters.FirstOrDefault()?.Id ?? string.Empty
+                : null;
 
     private string ChapterLabel(ChapterInfo chapter) =>
         ReferenceEquals(chapter, _chapters[0]) ? $"{chapter.Title} (start of the episode)" : chapter.Title;
@@ -53,8 +69,11 @@ public partial class EpisodeResumeEditor
         return episode == null ? $"Episode {number}" : $"Episode {episode.Number}: {episode.Title}";
     }
 
-    private void Restart()
+    private void Apply()
     {
+        if (_chapter == CurrentChapter())
+            return;
+
         if (_chapter.Length == 0)
             Handler.RestartFromEpisode(Slot, _episode);
         else

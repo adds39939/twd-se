@@ -44,7 +44,7 @@
 
     <div class="form-group">
         <label>Chapter</label>
-        <select @bind="_chapter" data-testid="restart-chapter">
+        <select value="@_chapter" @onchange="OnChapterChanged" data-testid="restart-chapter">
             @if (_chapters.Count == 0)
             {
                 <option value="">Start of the episode</option>
@@ -69,7 +69,6 @@
                 }
             }
         </select>
-        <button class="btn-sm" data-testid="restart-button" @onclick="Restart">Set resume point</button>
     </div>
 
     <div class="resume-info">
@@ -81,8 +80,8 @@
             </p>
         }
         <p class="text-muted">
-            Setting the resume point replaces the in-progress checkpoint. Decisions of earlier episodes that are
-            not set yet are filled in.
+            Choosing an episode or chapter replaces the in-progress checkpoint as soon as it is picked, and the save
+            is written when you press Save Changes. Decisions of earlier episodes that are not set yet are filled in.
         </p>
         @foreach (var note in Handler.ResumeNotes)
         {
