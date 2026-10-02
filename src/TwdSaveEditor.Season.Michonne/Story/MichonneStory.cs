@@ -13,7 +13,7 @@ public static class MichonneStory
         SharedResourceSets = ["UISeasonM", "MenuSeasonM", "ProjectSeasonM"],
         DateFormat = "yyyy-MM-dd HH:mm:ss",
         ChapterSaves = true,
-        FinishedEpisodeAsText = true,
+        FinishedEpisodeKind = StoryNumberKind.Text,
     };
 
     public static readonly StoryResumePoint Resume = new(Season);

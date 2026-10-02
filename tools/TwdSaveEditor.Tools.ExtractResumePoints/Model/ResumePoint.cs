@@ -8,4 +8,5 @@ public sealed record ResumePoint(
     string ChapterId,
     bool StartsEpisode,
     IReadOnlyList<Flag> Flags,
-    IReadOnlyList<string> Decided);
+    IReadOnlyList<string> Decided,
+    SceneEntry? Entry);

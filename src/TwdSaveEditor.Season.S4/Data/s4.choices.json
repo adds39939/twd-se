@@ -1,183 +1,1312 @@
 [
   {
     "seasonKey": "s4",
-    "episode": 1,
-    "description": "Hunting vs Fishing",
-    "choiceKey": "fishing_or_hunting",
-    "category": "Major",
+    "episode": 0,
+    "description": "Killed Kenny?",
+    "choiceKey": "Episode 205 - Killed Kenny",
+    "category": "Story",
     "options": [
-      { "label": "Went fishing with Violet and Brody", "value": "fishing" },
-      { "label": "Went hunting with Louis and Aasim", "value": "hunting" }
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
     ]
   },
   {
     "seasonKey": "s4",
-    "episode": 1,
-    "description": "Abel Food",
-    "choiceKey": "surrendered_food_abel",
-    "category": "Major",
+    "episode": 0,
+    "description": "Killed Lee?",
+    "choiceKey": "Episode 105 - Killed Lee",
+    "category": "Story",
     "options": [
-      { "label": "Surrendered food to Abel", "value": "true" },
-      { "label": "Attacked Abel rather than giving him food", "value": "false" }
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
     ]
   },
   {
     "seasonKey": "s4",
-    "episode": 1,
-    "description": "AJ Bed",
-    "choiceKey": "aj_bed",
-    "category": "Major",
+    "episode": 0,
+    "description": "Watched Kenny Kill Carver?",
+    "choiceKey": "Episode 203 - Watched Kenny Kill Carver",
+    "category": "Story",
     "options": [
-      { "label": "Let AJ sleep under the bed", "value": "under" },
-      { "label": "Convinced AJ to sleep on the bed", "value": "on" }
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
     ]
   },
   {
     "seasonKey": "s4",
-    "episode": 1,
-    "description": "Violet vs Marlon",
-    "choiceKey": "turned_to_for_help",
-    "category": "Major",
+    "episode": 0,
+    "description": "Ending Choice?",
+    "choiceKey": "Episode 205 - Ending Choice",
+    "category": "Story",
     "options": [
-      { "label": "Turned to Violet for help against Marlon", "value": "violet" },
-      { "label": "Turned to Louis for help against Marlon", "value": "louis" }
+      {
+        "label": "Alone",
+        "value": "alone"
+      },
+      {
+        "label": "Jane",
+        "value": "jane"
+      },
+      {
+        "label": "Kenny",
+        "value": "kenny"
+      },
+      {
+        "label": "Wellington",
+        "value": "wellington"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 0,
+    "description": "Saved Doug?",
+    "choiceKey": "Episode 101 - Saved Doug",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 0,
+    "description": "Left Lilly?",
+    "choiceKey": "Episode 103 - Left Lilly",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 0,
+    "description": "Lee Advice?",
+    "choiceKey": "Episode 105 - Lee Advice",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Cities",
+        "value": "cities"
+      },
+      {
+        "label": "Hair",
+        "value": "hair"
+      },
+      {
+        "label": "Moving",
+        "value": "moving"
+      }
     ]
   },
   {
     "seasonKey": "s4",
     "episode": 1,
     "description": "Happy Couple",
-    "choiceKey": "happy_couple",
-    "category": "Major",
+    "choiceKey": "Episode 401 - Happy Couple",
+    "category": "Story",
     "options": [
-      { "label": "Killed the walker couple in the train station", "value": "killed" },
-      { "label": "Let AJ go through the window", "value": "window" }
+      {
+        "label": "Killed the walker couple in the train station",
+        "value": "killed_the_walker_couple_in"
+      },
+      {
+        "label": "Chose to let AJ go through the window in the train station",
+        "value": "chose_to_let_aj_go"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 1,
+    "description": "Hunting vs Fishing",
+    "choiceKey": "Episode 401 - Hunting vs Fishing",
+    "category": "Statistics",
+    "options": [
+      {
+        "label": "Went fishing with Violet and Brody",
+        "value": "went_fishing_with_violet_and"
+      },
+      {
+        "label": "Went hunting with Louis and Aasim",
+        "value": "went_hunting_with_louis_and"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 1,
+    "description": "AJ Bed",
+    "choiceKey": "Episode 401 - AJ Bed",
+    "category": "Statistics",
+    "options": [
+      {
+        "label": "Let AJ sleep under the bed",
+        "value": "let_aj_sleep_under_the"
+      },
+      {
+        "label": "Convinced AJ to sleep on the bed",
+        "value": "convinced_aj_to_sleep_on"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 1,
+    "description": "Abel Food",
+    "choiceKey": "Episode 401 - Abel Food",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Surrendered food to Abel",
+        "value": "surrendered_food_to_abel"
+      },
+      {
+        "label": "Attacked Abel rather than giving him food",
+        "value": "attacked_abel_rather_than_giving"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 1,
+    "description": "Violet vs Marlon",
+    "choiceKey": "Episode 401 - Violet vs Marlon",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Turned to Violet for help against Marlon",
+        "value": "turned_to_violet_for_help"
+      },
+      {
+        "label": "Turned to Louis for help against Marlon",
+        "value": "turned_to_louis_for_help"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 1,
+    "description": "Said You're a Ninja?",
+    "choiceKey": "Episode 401 - Said You're a Ninja",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 1,
+    "description": "Said There's Just Darkness?",
+    "choiceKey": "Episode 401 - Said There's Just Darkness",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 1,
+    "description": "Heart Choice?",
+    "choiceKey": "Episode 401 - Heart Choice",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Art",
+        "value": "art"
+      },
+      {
+        "label": "Friends",
+        "value": "friends"
+      },
+      {
+        "label": "Girlfriends",
+        "value": "girlfriends"
+      },
+      {
+        "label": "Silent",
+        "value": "silent"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 1,
+    "description": "Firefighter Choice?",
+    "choiceKey": "Episode 401 - Firefighter Choice",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Died",
+        "value": "died"
+      },
+      {
+        "label": "Know",
+        "value": "know"
+      },
+      {
+        "label": "Meet",
+        "value": "meet"
+      },
+      {
+        "label": "Silent",
+        "value": "silent"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 1,
+    "description": "Let AJ Cuss?",
+    "choiceKey": "Episode 401 - Let AJ Cuss",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 1,
+    "description": "Marlon Choice Non-Fight?",
+    "choiceKey": "Episode 401 - Marlon Choice Non-Fight",
+    "category": "Story",
+    "options": [
+      {
+        "label": "leave",
+        "value": "leave"
+      },
+      {
+        "label": "prisoner",
+        "value": "prisoner"
+      },
+      {
+        "label": "silent",
+        "value": "silent"
+      },
+      {
+        "label": "stay",
+        "value": "stay"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 1,
+    "description": "Marlon Confrontation?",
+    "choiceKey": "Episode 401 - Marlon Confrontation",
+    "category": "Story",
+    "options": [
+      {
+        "label": "fix",
+        "value": "fix"
+      },
+      {
+        "label": "pathetic",
+        "value": "pathetic"
+      },
+      {
+        "label": "silent",
+        "value": "silent"
+      },
+      {
+        "label": "tackle",
+        "value": "tackle"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 1,
+    "description": "Gun Choice?",
+    "choiceKey": "Episode 401 - Gun Choice",
+    "category": "Story",
+    "options": [
+      {
+        "label": "bullet",
+        "value": "bullet"
+      },
+      {
+        "label": "head",
+        "value": "head"
+      },
+      {
+        "label": "hesitate",
+        "value": "hesitate"
+      },
+      {
+        "label": "silent",
+        "value": "silent"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 1,
+    "description": "Marlon Choice Post-Fight?",
+    "choiceKey": "Episode 401 - Marlon Choice Post-Fight",
+    "category": "Story",
+    "options": [
+      {
+        "label": "basement",
+        "value": "basement"
+      },
+      {
+        "label": "fix",
+        "value": "fix"
+      },
+      {
+        "label": "leave",
+        "value": "leave"
+      },
+      {
+        "label": "silent",
+        "value": "silent"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 1,
+    "description": "Used Tire Swing?",
+    "choiceKey": "Episode 401 - Used Tire Swing",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 1,
+    "description": "Learned Rosie Trick?",
+    "choiceKey": "Episode 401 - Learned Rosie Trick",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 1,
+    "description": "AJ Lesson Choice?",
+    "choiceKey": "Episode 401 - AJ Lesson Choice",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Exit",
+        "value": "exit"
+      },
+      {
+        "label": "Hide",
+        "value": "hide"
+      },
+      {
+        "label": "Silent",
+        "value": "silent"
+      },
+      {
+        "label": "Windows",
+        "value": "windows"
+      }
     ]
   },
   {
     "seasonKey": "s4",
     "episode": 2,
-    "description": "AJ's Gun",
-    "choiceKey": "ajs_gun",
-    "category": "Major",
+    "description": "AJ’s Gun",
+    "choiceKey": "Episode 402 - AJ’s Gun",
+    "category": "Statistics",
     "options": [
-      { "label": "Gave AJ's gun to Louis", "value": "gave" },
-      { "label": "Told AJ to keep his gun", "value": "kept" }
+      {
+        "label": "Gave AJ’s gun to Louis",
+        "value": "gave_aj_s_gun_to"
+      },
+      {
+        "label": "Told AJ to keep his gun",
+        "value": "told_aj_to_keep_his"
+      },
+      {
+        "label": "Didn’t intervene when AJ insisted on keeping his gun",
+        "value": "didn_t_intervene_when_aj"
+      },
+      {
+        "label": "Said nothing when AJ insisted on giving Louis his gun",
+        "value": "said_nothing_when_aj_insisted"
+      }
     ]
   },
   {
     "seasonKey": "s4",
     "episode": 2,
     "description": "Violet Run or Shoot",
-    "choiceKey": "violet_run_shoot",
-    "category": "Major",
+    "choiceKey": "Episode 402 - Violet Run or Shoot",
+    "category": "Story",
     "options": [
-      { "label": "Told Violet to shoot Lilly, got Louis shot", "value": "shoot" },
-      { "label": "Told Louis and Violet to run", "value": "run" }
+      {
+        "label": "Told Violet to shoot Lilly, and got Louis shot",
+        "value": "told_violet_to_shoot_lilly"
+      },
+      {
+        "label": "Told Louis and Violet to run from Lilly and Abel",
+        "value": "told_louis_and_violet_to"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 2,
+    "description": "Redirect or Kill Zombie",
+    "choiceKey": "Episode 402 - Redirect or Kill Zombie",
+    "category": "Statistics",
+    "options": [
+      {
+        "label": "Killed the walker after James asked you not to",
+        "value": "killed_the_walker_after_james"
+      },
+      {
+        "label": "Spared the walker, honoring James’s request",
+        "value": "spared_the_walker_honoring_james"
+      },
+      {
+        "label": "Let James throw the rock to distract the walker",
+        "value": "let_james_throw_the_rock"
+      }
     ]
   },
   {
     "seasonKey": "s4",
     "episode": 2,
     "description": "Follow Violet or Louis",
-    "choiceKey": "follow_violet_louis",
-    "category": "Major",
+    "choiceKey": "Episode 402 - Follow Violet or Louis",
+    "category": "Statistics",
     "options": [
-      { "label": "Spent time stargazing with Violet", "value": "violet" },
-      { "label": "Helped Louis tune the piano", "value": "louis" }
+      {
+        "label": "Spent time stargazing with Violet",
+        "value": "spent_time_stargazing_with_violet"
+      },
+      {
+        "label": "Helped Louis tune the piano",
+        "value": "helped_louis_tune_the_piano"
+      }
     ]
   },
   {
     "seasonKey": "s4",
     "episode": 2,
     "description": "Save Violet or Louis",
-    "choiceKey": "violetlouis_saved",
-    "category": "Life/Death",
+    "choiceKey": "Episode 402 - Save Violet or Louis",
+    "category": "Story",
     "options": [
-      { "label": "Rescued Louis instead of Violet", "value": "louis" },
-      { "label": "Rescued Violet instead of Louis", "value": "violet" }
+      {
+        "label": "Rescued Louis instead of Violet",
+        "value": "rescued_louis_instead_of_violet"
+      },
+      {
+        "label": "Rescued Violet instead of Louis",
+        "value": "rescued_violet_instead_of_louis"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 2,
+    "description": "Said We Were Family?",
+    "choiceKey": "Episode 402 - Said We Were Family",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 2,
+    "description": "Said You'd Kill Next Raider?",
+    "choiceKey": "Episode 402 - Said You'd Kill Next Raider",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 2,
+    "description": "Let AJ Call Dibs?",
+    "choiceKey": "Episode 402 - Let AJ Call Dibs",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 2,
+    "description": "Comforted Rosie?",
+    "choiceKey": "Episode 402 - Comforted Rosie",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 2,
+    "description": "Carved Heart?",
+    "choiceKey": "Episode 402 - Carved Heart",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 2,
+    "description": "Violet Romance Choice?",
+    "choiceKey": "Episode 402 - Violet Romance Choice",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Girlfriend",
+        "value": "girlfriend"
+      },
+      {
+        "label": "Kiss",
+        "value": "kiss"
+      },
+      {
+        "label": "Silent",
+        "value": "silent"
+      },
+      {
+        "label": "Slow",
+        "value": "slow"
+      },
+      {
+        "label": "Unsure",
+        "value": "unsure"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 2,
+    "description": "Violet Choice?",
+    "choiceKey": "Episode 402 - Violet Choice",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Friends",
+        "value": "friends"
+      },
+      {
+        "label": "Romance",
+        "value": "romance"
+      },
+      {
+        "label": "Silent",
+        "value": "silent"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 2,
+    "description": "AJ Murder Choice?",
+    "choiceKey": "Episode 402 - AJ Murder Choice",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Justified",
+        "value": "justified"
+      },
+      {
+        "label": "Murder",
+        "value": "murder"
+      },
+      {
+        "label": "Silent",
+        "value": "silent"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 2,
+    "description": "AJ Shirt Choice?",
+    "choiceKey": "Episode 402 - AJ Shirt Choice",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Disco",
+        "value": "disco"
+      },
+      {
+        "label": "Jersey",
+        "value": "jersey"
+      },
+      {
+        "label": "Science",
+        "value": "science"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 2,
+    "description": "AJ Cuss Rating?",
+    "choiceKey": "Episode 402 - AJ Cuss Rating",
+    "category": "Story",
+    "options": [
+      {
+        "label": "PG",
+        "value": "pg"
+      },
+      {
+        "label": "R",
+        "value": "r"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 2,
+    "description": "Fear Choice?",
+    "choiceKey": "Episode 402 - Fear Choice",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Breathe",
+        "value": "breathe"
+      },
+      {
+        "label": "Fuck Off",
+        "value": "fuckoff"
+      },
+      {
+        "label": "Push",
+        "value": "push"
+      },
+      {
+        "label": "Silent",
+        "value": "silent"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 2,
+    "description": "Lee Choice?",
+    "choiceKey": "Episode 402 - Lee Choice",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Conditional",
+        "value": "conditional"
+      },
+      {
+        "label": "Dare",
+        "value": "dare"
+      },
+      {
+        "label": "Silent",
+        "value": "silent"
+      },
+      {
+        "label": "Wrong",
+        "value": "wrong"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 2,
+    "description": "James Choice?",
+    "choiceKey": "Episode 402 - James Choice",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Flip",
+        "value": "flip"
+      },
+      {
+        "label": "Marry",
+        "value": "marry"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 2,
+    "description": "Lilly Choice?",
+    "choiceKey": "Episode 402 - Lilly Choice",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Family",
+        "value": "family"
+      },
+      {
+        "label": "Hell",
+        "value": "hell"
+      },
+      {
+        "label": "Shoot",
+        "value": "shoot"
+      },
+      {
+        "label": "Silent",
+        "value": "silent"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 2,
+    "description": "Louis Choice?",
+    "choiceKey": "Episode 402 - Louis Choice",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Friends",
+        "value": "friends"
+      },
+      {
+        "label": "Romance",
+        "value": "romance"
+      },
+      {
+        "label": "Silent",
+        "value": "silent"
+      }
     ]
   },
   {
     "seasonKey": "s4",
     "episode": 3,
     "description": "Zombie Abel",
-    "choiceKey": "mercy_killed_abel",
-    "category": "Major",
+    "choiceKey": "Episode 403 - Zombie Abel",
+    "category": "Statistics",
     "options": [
-      { "label": "Mercy killed Abel", "value": "true" },
-      { "label": "Forced Abel to turn into a walker", "value": "false" }
-    ]
-  },
-  {
-    "seasonKey": "s4",
-    "episode": 3,
-    "description": "Redirect or Kill Zombie",
-    "choiceKey": "killed_james_walkers",
-    "category": "Major",
-    "options": [
-      { "label": "Let James throw the rock to distract", "value": "distract" },
-      { "label": "Killed the walker after James asked you not to", "value": "killed" },
-      { "label": "Spared the walker, honoring James's request", "value": "spared" }
-    ]
-  },
-  {
-    "seasonKey": "s4",
-    "episode": 3,
-    "description": "AJ Attack Dorian",
-    "choiceKey": "aj_attack_dorian",
-    "category": "Major",
-    "options": [
-      { "label": "Stopped AJ and let Dorian cut off your friend's finger", "value": "stopped" },
-      { "label": "Allowed AJ to attack Dorian", "value": "allowed" }
-    ]
-  },
-  {
-    "seasonKey": "s4",
-    "episode": 3,
-    "description": "AJ Shoot Lilly",
-    "choiceKey": "killed_lilly",
-    "category": "Life/Death",
-    "options": [
-      { "label": "Told AJ to kill Lilly", "value": "true" },
-      { "label": "Refused to tell AJ to kill Lilly", "value": "false" }
+      {
+        "label": "Mercy killed Abel",
+        "value": "mercy_killed_abel"
+      },
+      {
+        "label": "Forced Abel to turn into a walker",
+        "value": "forced_abel_to_turn_into"
+      }
     ]
   },
   {
     "seasonKey": "s4",
     "episode": 3,
     "description": "Forest Walker Kills",
-    "choiceKey": "forest_walker_kills",
-    "category": "Major",
+    "choiceKey": "Episode 403 - Forest Walker Kills",
+    "category": "Statistics",
     "options": [
-      { "label": "Ignored James' wishes and killed all walkers in camp", "value": "all" },
-      { "label": "Respected James' beliefs and killed no walkers", "value": "none" },
-      { "label": "Only killed some of the walkers", "value": "some" }
+      {
+        "label": "Respected James’ beliefs and killed no walkers",
+        "value": "respected_james_beliefs_and_killed"
+      },
+      {
+        "label": "Only killed some of the walkers in James’ camp",
+        "value": "only_killed_some_of_the"
+      },
+      {
+        "label": "Ignored James’ wishes and killed all of the walkers in the camp",
+        "value": "ignored_james_wishes_and_killed"
+      }
     ]
   },
   {
     "seasonKey": "s4",
-    "episode": 4,
-    "description": "Trusted AJ",
-    "choiceKey": "trusted_aj",
-    "category": "Major",
-    "options": [
-      { "label": "Trusted AJ to make hard calls", "value": "true" },
-      { "label": "Did not fully trust AJ", "value": "false" }
-    ]
-  },
-  {
-    "seasonKey": "s4",
-    "episode": 4,
+    "episode": 3,
     "description": "Bomb Name",
-    "choiceKey": "bomb_name",
-    "category": "Major",
+    "choiceKey": "Episode 403 - Bomb Name",
+    "category": "Statistics",
     "options": [
-      { "label": "Named the bomb 'Willy Junior'", "value": "willy" },
-      { "label": "Named the bomb 'AJ'", "value": "aj" },
-      { "label": "Named the bomb 'Mitch's Masterpiece'", "value": "mitch" },
-      { "label": "Refused to name the bomb", "value": "none" },
-      { "label": "Named the bomb 'Ruby's Revenge'", "value": "ruby" }
+      {
+        "label": "Named the bomb “Mitch’s Masterpiece.”",
+        "value": "named_the_bomb_mitch_s"
+      },
+      {
+        "label": "Named the bomb “Ruby’s Revenge.”",
+        "value": "named_the_bomb_ruby_s"
+      },
+      {
+        "label": "Named the bomb “Willy Junior.”",
+        "value": "named_the_bomb_willy_junior"
+      },
+      {
+        "label": "Had a bomb named “AJ.”",
+        "value": "had_a_bomb_named_aj"
+      },
+      {
+        "label": "Refused to name the bomb",
+        "value": "refused_to_name_the_bomb"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 3,
+    "description": "AJ Attack Dorian",
+    "choiceKey": "Episode 403 - AJ Attack Dorian",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Stopped AJ and let Dorian cut off your friend’s finger",
+        "value": "stopped_aj_and_let_dorian"
+      },
+      {
+        "label": "Allowed AJ to attack Dorian, stopping her from cutting off your friend’s finger",
+        "value": "allowed_aj_to_attack_dorian"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 3,
+    "description": "AJ Shoot Lilly",
+    "choiceKey": "Episode 403 - AJ Shoot Lilly",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Told AJ to kill Lilly",
+        "value": "told_aj_to_kill_lilly"
+      },
+      {
+        "label": "Refused to tell AJ to kill Lilly",
+        "value": "refused_to_tell_aj_to"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 3,
+    "description": "Killed Abel?",
+    "choiceKey": "Episode 403 - Killed Abel",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 3,
+    "description": "Killed Armando?",
+    "choiceKey": "Episode 403 - Killed Armando",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 3,
+    "description": "Called James Crazy?",
+    "choiceKey": "Episode 403 - Called James Crazy",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 3,
+    "description": "Slammed Abel 2?",
+    "choiceKey": "Episode 403 - Slammed Abel 2",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 3,
+    "description": "Killed Michael?",
+    "choiceKey": "Episode 403 - Killed Michael",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 3,
+    "description": "Slammed Abel 1?",
+    "choiceKey": "Episode 403 - Slammed Abel 1",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 3,
+    "description": "Burned Abel?",
+    "choiceKey": "Episode 403 - Burned Abel",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "true"
+      },
+      {
+        "label": "No",
+        "value": "false"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 3,
+    "description": "Lilly Choice?",
+    "choiceKey": "Episode 403 - Lilly Choice",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Shoot",
+        "value": "shoot"
+      },
+      {
+        "label": "Silent",
+        "value": "silent"
+      },
+      {
+        "label": "Stand",
+        "value": "stand"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 3,
+    "description": "Trauma Choice?",
+    "choiceKey": "Episode 403 - Trauma Choice",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Help",
+        "value": "help"
+      },
+      {
+        "label": "Never",
+        "value": "never"
+      },
+      {
+        "label": "Silent",
+        "value": "silent"
+      },
+      {
+        "label": "Sock",
+        "value": "sock"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 3,
+    "description": "Pacifism Choice?",
+    "choiceKey": "Episode 403 - Pacifism Choice",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Killer",
+        "value": "killer"
+      },
+      {
+        "label": "Raise",
+        "value": "raise"
+      },
+      {
+        "label": "Safe",
+        "value": "safe"
+      },
+      {
+        "label": "Silent",
+        "value": "silent"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 3,
+    "description": "Bitten Choice?",
+    "choiceKey": "Episode 403 - Bitten Choice",
+    "category": "Story",
+    "options": [
+      {
+        "label": "Run",
+        "value": "run"
+      },
+      {
+        "label": "Shoot",
+        "value": "shoot"
+      },
+      {
+        "label": "Silent",
+        "value": "silent"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 4,
+    "description": "Trusted AJ to make his own decisions?",
+    "choiceKey": "Episode 404 - Trusted AJ to make his own decisions",
+    "category": "Statistics",
+    "options": [
+      {
+        "label": "Trusted AJ to make his own decisions",
+        "value": "trusted_aj_to_make_his"
+      },
+      {
+        "label": "Told AJ he wasn’t ready to make his own decisions",
+        "value": "told_aj_he_wasn_t"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 4,
+    "description": "Decided to add a skylight to Louis’ imaginary house?",
+    "choiceKey": "Episode 404 - Decided to add a skylight to Louis’ imaginary house",
+    "category": "Statistics",
+    "options": [
+      {
+        "label": "Decided to add a skylight to Louis’ imaginary house",
+        "value": "decided_to_add_a_skylight"
+      },
+      {
+        "label": "Decided to add a tree house to Louis’ imaginary house",
+        "value": "decided_to_add_a_tree"
+      },
+      {
+        "label": "Decided to add a statue of yourself to Louis’ imaginary house",
+        "value": "decided_to_add_a_statue"
+      },
+      {
+        "label": "Let Louis decide on the last flourish for his imaginary house",
+        "value": "let_louis_decide_on_the"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 4,
+    "description": "Let Violet rename the school herself?",
+    "choiceKey": "Episode 404 - Let Violet rename the school herself",
+    "category": "Statistics",
+    "options": [
+      {
+        "label": "Let Violet rename the school herself",
+        "value": "let_violet_rename_the_school"
+      },
+      {
+        "label": "Renamed the school “Happy Sunshine Land” with Violet",
+        "value": "renamed_the_school_happy_sunshine"
+      },
+      {
+        "label": "Renamed the school “The Rotting Shithole” with Violet",
+        "value": "renamed_the_school_the_rotting"
+      },
+      {
+        "label": "Renamed the school “Castle Violet” despite her protests",
+        "value": "renamed_the_school_castle_violet"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 4,
+    "description": "Asked AJ to kill you rather than let you become a walker?",
+    "choiceKey": "Episode 404 - Asked AJ to kill you rather than let you become a walker",
+    "category": "Statistics",
+    "options": [
+      {
+        "label": "Asked AJ to kill you rather than let you become a walker",
+        "value": "asked_aj_to_kill_you"
+      },
+      {
+        "label": "Asked AJ to leave you and let you become a walker",
+        "value": "asked_aj_to_leave_you"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 4,
+    "description": "Agreed to teach Tenn to be like you?",
+    "choiceKey": "Episode 404 - Agreed to teach Tenn to be like you",
+    "category": "Statistics",
+    "options": [
+      {
+        "label": "Agreed to teach Tenn to be like you",
+        "value": "agreed_to_teach_tenn_to"
+      },
+      {
+        "label": "Refused to teach Tenn to be like you",
+        "value": "refused_to_teach_tenn_to"
+      }
+    ]
+  },
+  {
+    "seasonKey": "s4",
+    "episode": 4,
+    "description": "Shot Tenn after he became a walker?",
+    "choiceKey": "Episode 404 - Shot Tenn after he became a walker",
+    "category": "Statistics",
+    "options": [
+      {
+        "label": "Shot Tenn after he became a walker",
+        "value": "shot_tenn_after_he_became"
+      },
+      {
+        "label": "Spared Tenn after he became a walker",
+        "value": "spared_tenn_after_he_became"
+      }
     ]
   }
 ]

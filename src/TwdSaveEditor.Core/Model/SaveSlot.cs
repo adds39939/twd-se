@@ -33,16 +33,6 @@ public sealed class SaveSlot
 
     public bool Modified { get; set; }
 
-    public string? EStorePath { get; set; }
-
-    public List<string>? EPagePaths { get; set; }
-
-    public List<EventLogEntry>? PendingEventLogEntries { get; set; }
-
-    public List<EventLogEntry>? LoadedEventLogEntries { get; set; }
-
-    public Dictionary<string, byte[]>? LoadedEventLogFiles { get; set; }
-
     public string? DetectedSeasonKey { get; set; }
 
     public bool EpisodeChanged { get; set; }

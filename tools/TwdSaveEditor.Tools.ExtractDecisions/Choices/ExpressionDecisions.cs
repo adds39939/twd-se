@@ -18,12 +18,17 @@ public static partial class ExpressionDecisions
 
     public static List<DecisionRow> Build(List<StatChoice> stats, List<LogicKey> logic, int season)
     {
-        var rows = stats.Select(stat => new DecisionRow
+        var rows = stats.Select(stat =>
         {
-            Episode = stat.Episode,
-            Key = $"{EpisodePrefix}{season}0{stat.Episode}{TitleSeparator}{TelltaleMarkup.Strip(stat.Description).TrimEnd('?')}",
-            Description = TelltaleMarkup.Strip(stat.Description),
-            Options = Distinct([.. stat.Options.Select(option => new RowOption(Slug(Label(option.Text)), Label(option.Text), option.Expression.Trim()))]),
+            var options = Distinct([.. stat.Options.Select(option => new RowOption(Slug(Label(option.Text)), Label(option.Text), option.Expression.Trim()))]);
+            var title = TelltaleMarkup.Strip(stat.Description) is { Length: > 0 } description ? description : options[0].Label + "?";
+            return new DecisionRow
+            {
+                Episode = stat.Episode,
+                Key = $"{EpisodePrefix}{season}0{stat.Episode}{TitleSeparator}{title.TrimEnd('?')}",
+                Description = title,
+                Options = options,
+            };
         }).ToList();
 
         var own = new List<DecisionRow>();
@@ -152,7 +157,7 @@ public static partial class ExpressionDecisions
     [GeneratedRegex(@"\{[0-9A-Fa-f-]{36}\}")]
     private static partial Regex Braced();
 
-    [GeneratedRegex(@"^You and [\d.]+ ?% of players (.+?)\.?$")]
+    [GeneratedRegex(@"^You and [\d.]+ ?%(?: of players)? (.+?)\.?$")]
     private static partial Regex PlayerText();
 
     [GeneratedRegex(@"you and [\d.]+ ?% of players", RegexOptions.IgnoreCase)]

@@ -1,20 +1,23 @@
-using TwdSaveEditor.Core.Binary.Bundles;
-using TwdSaveEditor.Core.Model;
 using TwdSaveEditor.Season.Base.Handlers;
+using TwdSaveEditor.Season.Base.Story;
 using TwdSaveEditor.Season.Common.Abstractions;
 using TwdSaveEditor.Season.Common.Model;
-using TwdSaveEditor.Season.S4.Accessors;
+using TwdSaveEditor.Season.S4.Story;
 
 namespace TwdSaveEditor.Season.S4.Handlers;
 
-public class S4Handler : SeasonHandlerBase, IChoicePresetProvider
+public class S4Handler : StorySeasonHandler, IChoiceImporter, IChoicePresetProvider
 {
-    private static readonly string[] ImportedSeasons = ["s3"];
+    private const string FollowedKey = "Episode 402 - Follow Violet or Louis";
+    private const string SavedKey = "Episode 402 - Save Violet or Louis";
+    private const string TrustedKey = "Episode 404 - Trusted AJ to make his own decisions";
 
     public override string SeasonKey => "s4";
     public override string Name => "The Final Season (Season 4)";
     public override string ShortName => "S4";
     public override string FilePrefix => "wd4_";
+
+    public override StorySeason Season => S4Story.Season;
 
     public override IReadOnlyList<EpisodeInfo> Episodes { get; } =
     [
@@ -24,43 +27,28 @@ public class S4Handler : SeasonHandlerBase, IChoicePresetProvider
         new(4, "Take Us Back", 6),
     ];
 
-    public override IReadOnlyList<string> ImportsFromSeasonKeys => ImportedSeasons;
+    public override IReadOnlyList<string> ResumeNotes { get; } =
+    [
+        "Season 4 works out its decisions from a log of what was played. Restarting an episode removes its save and cuts the log back to where that episode began; earlier episodes are marked as finished so the game does not offer to randomise their decisions.",
+        "From a later chapter, a small save is written that opens the scene the way the developers' chapter menu does. Decisions made in scenes before the chapter are kept; the others are cleared so they can be made again.",
+        "Episode 1 begins with the story builder, which asks about the earlier seasons again and adds its answers to the save. To keep the earlier seasons as set here, resume Episode 1 from \"Road Tile\" instead of its beginning.",
+    ];
 
     public IReadOnlyList<ChoicePreset> Presets { get; } =
     [
         new("Save Louis Path",
         [
-            new("follow_violet_louis", "louis"),
-            new("violetlouis_saved", "louis"),
+            new(FollowedKey, "helped_louis_tune_the_piano"),
+            new(SavedKey, "rescued_louis_instead_of_violet"),
         ]),
         new("Save Violet Path",
         [
-            new("follow_violet_louis", "violet"),
-            new("violetlouis_saved", "violet"),
+            new(FollowedKey, "spent_time_stargazing_with_violet"),
+            new(SavedKey, "rescued_violet_instead_of_louis"),
         ]),
         new("Trust AJ Path",
         [
-            new("trusted_aj", "true"),
+            new(TrustedKey, "trusted_aj_to_make_his"),
         ]),
     ];
-
-    public override string GetEpisodeId(int episode) => $"WalkingDead40{episode}";
-
-    public override SaveSlot CreateBlankSave(string fileName, string episodeId)
-        => SaveSlotFactory.CreateBlankWithChoiceStats(fileName, episodeId);
-
-    public override IChoiceAccessor? CreateChoiceAccessor(SaveSlot slot)
-        => slot.ChoiceStats != null ? new ChoiceStatsAccessor(slot) : null;
-
-    public override void PopulateChoices(SaveSlot slot, int episode)
-    {
-        var choices = GetChoicesUpTo(episode);
-
-        if (choices.Count == 0)
-            return;
-
-        var accessor = new ChoiceStatsAccessor(slot);
-        foreach (var c in choices)
-            accessor.ApplyChoice(c, 0);
-    }
 }

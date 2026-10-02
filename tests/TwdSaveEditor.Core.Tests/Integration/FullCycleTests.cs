@@ -4,7 +4,6 @@ using TwdSaveEditor.Core.Binary.Bundles;
 using TwdSaveEditor.Core.Model;
 using TwdSaveEditor.Core.Tests.Support;
 using TwdSaveEditor.Season.Base.Accessors;
-using TwdSaveEditor.Season.Base.Services;
 using TwdSaveEditor.Season.Common.Abstractions;
 using TwdSaveEditor.Season.Common.Extensions;
 using TwdSaveEditor.Season.Common.Services;
@@ -12,7 +11,6 @@ using TwdSaveEditor.Season.Michonne.Handlers;
 using TwdSaveEditor.Season.S1.Handlers;
 using TwdSaveEditor.Season.S2.Handlers;
 using TwdSaveEditor.Season.S3.Handlers;
-using TwdSaveEditor.Season.S4.Accessors;
 using TwdSaveEditor.Season.S4.Handlers;
 
 namespace TwdSaveEditor.Core.Tests.Integration;
@@ -48,31 +46,6 @@ public class FullCycleTests
     }
 
     [Fact]
-    public void S4_CreateEditSaveReload_WithChoiceStats()
-    {
-        var slot = Registry.CreateSave("s4", 1, "test_s4.bundle");
-        Assert.NotNull(slot.ChoiceStats);
-
-        var accessor = new ChoiceStatsAccessor(slot);
-
-        accessor.SetChoiceValue("aj_bed", "under");
-        Assert.Equal("under", accessor.GetChoiceValue("aj_bed"));
-
-        var bytes = BundleWriter.Write(slot);
-        var reloaded = BundleReader.Read(bytes, "test_s4.bundle");
-        Assert.NotNull(reloaded.ChoiceStats);
-
-        var reloadedAccessor = new ChoiceStatsAccessor(reloaded);
-        Assert.Equal("under", reloadedAccessor.GetChoiceValue("aj_bed"));
-
-        reloadedAccessor.SetChoiceValue("aj_bed", "on");
-        var bytes2 = BundleWriter.Write(reloaded);
-        var reloaded2 = BundleReader.Read(bytes2, "test_s4.bundle");
-        var accessor2 = new ChoiceStatsAccessor(reloaded2);
-        Assert.Equal("on", accessor2.GetChoiceValue("aj_bed"));
-    }
-
-    [Fact]
     public void S1ToS2_ChoiceImport_CopiesAllChoices()
     {
         var s1 = Registry.CreateSave("s1", 3, "wd1_test.bundle");
@@ -90,39 +63,6 @@ public class FullCycleTests
         var reloaded = BundleReader.Read(written, "wd2_test.bundle");
         Assert.Equal("doug", reloaded.Choices!.GetString("DougCarley Saved"));
         Assert.NotNull(reloaded.Choices.Find("ChoiceTracker - 101"));
-    }
-
-    [Theory]
-    [InlineData("follow_violet_louis", "louis")]
-    [InlineData("violetlouis_saved", "louis")]
-    public void S4_LouisPreset_SetsCorrectValues(string choiceKey, string expectedValue)
-    {
-        var slot = Registry.CreateSave("s4", 2, "wd4_test.bundle");
-        var accessor = new ChoiceStatsAccessor(slot);
-
-        accessor.SetChoiceValue("follow_violet_louis", "louis");
-        accessor.SetChoiceValue("violetlouis_saved", "louis");
-
-        Assert.Equal(expectedValue, accessor.GetChoiceValue(choiceKey));
-
-        var written = BundleWriter.Write(slot);
-        var reloaded = BundleReader.Read(written, "wd4_test.bundle");
-        var ra = new ChoiceStatsAccessor(reloaded);
-        Assert.Equal(expectedValue, ra.GetChoiceValue(choiceKey));
-    }
-
-    [Theory]
-    [InlineData("follow_violet_louis", "violet")]
-    [InlineData("violetlouis_saved", "violet")]
-    public void S4_VioletPreset_SetsCorrectValues(string choiceKey, string expectedValue)
-    {
-        var slot = Registry.CreateSave("s4", 2, "wd4_test.bundle");
-        var accessor = new ChoiceStatsAccessor(slot);
-
-        accessor.SetChoiceValue("follow_violet_louis", "violet");
-        accessor.SetChoiceValue("violetlouis_saved", "violet");
-
-        Assert.Equal(expectedValue, accessor.GetChoiceValue(choiceKey));
     }
 
     [Fact]

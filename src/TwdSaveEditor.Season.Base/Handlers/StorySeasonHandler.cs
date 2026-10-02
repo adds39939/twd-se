@@ -50,5 +50,17 @@ public abstract class StorySeasonHandler : SeasonHandlerBase, ICompanionFileHand
 
     public IReadOnlyList<string> GetCompanionFileNames(SaveSlot slot) => DialogLogCompanions.Names(slot);
 
+    public bool CanImportFrom(SaveSlot source) =>
+        Season.PreviousSeasonKey != null && source.DetectedSeasonKey == Season.PreviousSeasonKey && source.EventLog != null;
+
+    public void ImportChoices(SaveSlot source, SaveSlot target)
+    {
+        if (source.EventLog == null)
+            return;
+
+        new StoryEventLog(target, Season).ReplacePreviousGameData(source.EventLog.Events.Select(entry => entry.DialogNode).OfType<ulong>());
+        StoryChoiceAccessor.UpdateSavedLogic(target, Season);
+    }
+
     private string Now() => DateTime.Now.ToString(Season.DateFormat, CultureInfo.InvariantCulture);
 }

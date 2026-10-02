@@ -49,7 +49,7 @@ public sealed partial class GameProps(MetaReader reader)
                 .OrderBy(property => SymbolLookup.Index(property.Key))
                 .Select(property => property.Value)
                 .OfType<MetaPropertySet>()
-                .Select(option => (Text(option.Find("Description")), NodeIds.Required(Text(option.Find("expression"))), Text(option.Find("expression"))))
+                .Select(option => (Summary(option), NodeIds.Required(Text(option.Find("expression"))), Text(option.Find("expression"))))
                 .ToList() ?? [];
 
             choices.Add(new StatChoice(
@@ -65,6 +65,9 @@ public sealed partial class GameProps(MetaReader reader)
 
     [GeneratedRegex("\\d+$")]
     private static partial Regex Number();
+
+    private static string Summary(MetaPropertySet option) =>
+        Text(option.Find("SummaryDescription")) is { Length: > 0 } summary ? summary : Text(option.Find("Description"));
 
     private MetaPropertySet Load(string path) =>
         reader.ReadPropertySet(File.ReadAllBytes(path)) ?? throw new InvalidDataException($"{path} is not a property set.");

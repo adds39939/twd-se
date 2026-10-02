@@ -1,0 +1,367 @@
+{
+  "episodes": [
+    {
+      "episode": 1,
+      "items": [],
+      "starting": [],
+      "chapters": [
+        {
+          "id": "Configurator",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RoadTile",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "TrainStation",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "BoardingSchoolDorm",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "BoardingSchoolExterior",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "BoardingSchoolInterior",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "BoardingSchoolExtGate",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "BoardingSchoolExtNight",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "BoardingSchoolDormNight",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "BoardingSchoolInterior10",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "ForestTile",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "ForestTileFromShack",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "ForestShack",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "ForestShackFromTile",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "TrainStationNight",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "BoardingSchoolExtNight16",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "BoardingSchoolDormNight17",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "BoardingSchoolExtNight18",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "BoardingSchoolBasement",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "BoardingSchoolExtNight20",
+          "carried": [],
+          "fromStart": []
+        }
+      ]
+    },
+    {
+      "episode": 2,
+      "items": [],
+      "starting": [],
+      "chapters": [
+        {
+          "id": "PreviouslyOn",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "DormRoom",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "BoardingSchoolExterior",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "BoardingSchoolDorm",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "ForestTile",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "ForestTileChase",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "ForestTileZombat",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "ForestCamp",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "BSExtGate",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "BoardingSchoolInterior",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "Greenhouse",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "GreenhouseInterior",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "GreenhouseLab",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "BSDormNight",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "BSDormNightNightmare",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "BSExteriorDusk",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "TruthorDare",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "BellTowerViolet",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "BSIntNightLouis",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "BSExtGateNight",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "BSExtNightFight",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "BSIntNightFight",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "BSExtDamaged",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "BSEDamagedShooting",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "Constellation",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RockPaperScissors",
+          "carried": [],
+          "fromStart": []
+        }
+      ]
+    },
+    {
+      "episode": 3,
+      "items": [],
+      "starting": [],
+      "chapters": [
+        {
+          "id": "PreviouslyOn",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "BoardingSchoolBasement",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RiverShoreline",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "ForestCamp",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "ForestBarn",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "BoardingSchoolDorm",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "BoardingSchoolInterior",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "TrainTile",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RiverShorelineNight",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RiverBoat",
+          "carried": [],
+          "fromStart": []
+        }
+      ]
+    },
+    {
+      "episode": 4,
+      "items": [],
+      "starting": [],
+      "chapters": [
+        {
+          "id": "PreviouslyOn",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RiverBoat",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "RiverShoreline",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "Cave",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "CliffBridge",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "ForestBarn",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "ForestShack",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "ForestShackTrustedAJ",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "BoardingSchoolGate",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "BoardingSchoolExterior",
+          "carried": [],
+          "fromStart": []
+        },
+        {
+          "id": "BoardingSchoolDorm",
+          "carried": [],
+          "fromStart": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 using System.Text.RegularExpressions;
 using TwdSaveEditor.Tools.Common.Dialogs;
+using TwdSaveEditor.Tools.Common.Meta;
 using TwdSaveEditor.Tools.Common.Seasons;
 using TwdSaveEditor.Tools.ExtractResumePoints.Dialogs;
 using TwdSaveEditor.Tools.ExtractResumePoints.Model;
@@ -7,7 +8,7 @@ using TwdSaveEditor.Tools.ExtractResumePoints.Scripts;
 
 namespace TwdSaveEditor.Tools.ExtractResumePoints.Chapters;
 
-public sealed partial class EpisodeReader(string dataDirectory, GameSeason season, DialogLoader loader, IReadOnlyDictionary<string, string> constants, IReadOnlyList<DecisionNodes> decisions)
+public sealed partial class EpisodeReader(string dataDirectory, GameSeason season, DialogLoader loader, MetaReader meta, IReadOnlyDictionary<string, string> constants, IReadOnlyList<DecisionNodes> decisions)
 {
     public const string DebugMenuScript = "Episode.lua";
     public const string OpeningScript = "PreviouslyOn";
@@ -28,8 +29,7 @@ public sealed partial class EpisodeReader(string dataDirectory, GameSeason seaso
         var sceneScripts = Directory.EnumerateFiles(scripts, "*.lua").Order().Select(SceneScriptReader.Read).OfType<SceneScript>().ToList();
         var scenes = new SceneMap(sceneScripts, files);
         var developerOnly = sceneScripts.Where(script => SceneScriptReader.SetupIsDeveloperOnly(script.Text))
-            .Select(script => script.Script)
-            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+            .ToDictionary(script => script.Script, script => script.Text, StringComparer.OrdinalIgnoreCase);
         var chapters = index.Marks
             .DistinctBy(mark => mark.ChapterId)
             .OrderBy(mark => Order(mark.ChapterId))
@@ -46,12 +46,17 @@ public sealed partial class EpisodeReader(string dataDirectory, GameSeason seaso
                 .Select(script => script.Script)
                 .ToHashSet(StringComparer.OrdinalIgnoreCase);
 
-        var listed = DebugMenuReader.Read(File.ReadAllText(menuPath), constants).Where(entry => !missing.Contains(entry.Script)).ToList();
-        var entries = listed
-            .Where((entry, position) => position == 0
-                || !developerOnly.Contains(entry.Script)
-                || !listed[position - 1].Script.Equals(entry.Script, StringComparison.OrdinalIgnoreCase))
+        var entries = DebugMenuReader.Read(File.ReadAllText(menuPath), constants)
+            .Where(entry => !missing.Contains(entry.Script))
+            .Where(entry => !developerOnly.TryGetValue(entry.Script, out var text) || !entry.Flags.Any(flag => SceneScriptReader.Reads(text, flag.Key)))
             .ToList();
+        var entryReader = season.LoadedSceneRunsCheckpoint
+            ? new SceneEntryReader(meta, Path.Combine(dataDirectory, "extracted", season.ProjectArchive), files, constants)
+            : null;
+        var byScript = sceneScripts.ToDictionary(script => script.Script, StringComparer.OrdinalIgnoreCase);
+        if (entryReader != null)
+            entries = entries.Where(entry => byScript.TryGetValue(entry.Script, out var script) && entryReader.For(script, entry.Flags) != null).ToList();
+
         var aligned = ChapterAligner.Align(entries, chapters);
         var made = decisions.Where(decision => decision.Episode == episode)
             .ToDictionary(decision => decision.ChoiceKey, decision => Scripts(decision, index, scenes));
@@ -73,7 +78,8 @@ public sealed partial class EpisodeReader(string dataDirectory, GameSeason seaso
                 aligned[position],
                 position == 0,
                 entry.Flags,
-                decided));
+                decided,
+                entryReader != null && byScript.TryGetValue(entry.Script, out var sceneScript) ? entryReader.For(sceneScript, entry.Flags) : null));
         }
 
         return new EpisodeResume(episode, chapters, points, [.. made.Where(decision => decision.Value.Count == 0).Select(decision => decision.Key)]);

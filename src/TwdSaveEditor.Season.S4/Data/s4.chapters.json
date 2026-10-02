@@ -1,0 +1,1573 @@
+{
+  "importedKeys": [],
+  "episodes": [
+    {
+      "episode": 1,
+      "chapters": [
+        {
+          "id": "Configurator",
+          "title": "Configurator",
+          "group": "Act I",
+          "script": "Configurator",
+          "chapterId": "",
+          "startsEpisode": true,
+          "flags": [],
+          "decided": [],
+          "dialog": "ui_configurator.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "RoadTile",
+          "title": "Road Tile",
+          "group": "Act I",
+          "script": "RoadTile",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [],
+          "dialog": "env_roadTile_act1.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "TrainStation",
+          "title": "Train Station",
+          "group": "Act I",
+          "script": "TrainStation",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [],
+          "dialog": "env_trainStation_act1.dlog",
+          "dialogNode": "cs_pitStop"
+        },
+        {
+          "id": "BoardingSchoolDorm",
+          "title": "Boarding School Dorm",
+          "group": "Act I",
+          "script": "BoardingSchoolDorm",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 401 - Happy Couple",
+            "Episode 401 - Let AJ Cuss",
+            "Episode 401 - Gun Choice",
+            "Episode 401 - Used Tire Swing",
+            "Episode 401 - AJ Lesson Choice"
+          ],
+          "dialog": "env_boardingSchoolDorm_act1.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "BoardingSchoolExterior",
+          "title": "Boarding School Exterior",
+          "group": "Act I",
+          "script": "BoardingSchoolExterior",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 401 - Happy Couple",
+            "Episode 401 - Let AJ Cuss",
+            "Episode 401 - Gun Choice",
+            "Episode 401 - Used Tire Swing",
+            "Episode 401 - AJ Lesson Choice"
+          ],
+          "dialog": "env_boardingSchoolExterior_act1.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "BoardingSchoolInterior",
+          "title": "Boarding School Interior",
+          "group": "Act I",
+          "script": "BoardingSchoolInterior",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 401 - Happy Couple",
+            "Episode 401 - Let AJ Cuss",
+            "Episode 401 - Gun Choice",
+            "Episode 401 - Used Tire Swing",
+            "Episode 401 - AJ Lesson Choice"
+          ],
+          "dialog": "env_boardingSchoolInterior_act1.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "BoardingSchoolExtGate",
+          "title": "Boarding School Ext. Gate",
+          "group": "Act I",
+          "script": "BoardingSchoolExteriorGate",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 401 - Happy Couple",
+            "Episode 401 - Let AJ Cuss",
+            "Episode 401 - Gun Choice",
+            "Episode 401 - Used Tire Swing",
+            "Episode 401 - AJ Lesson Choice"
+          ],
+          "dialog": "env_boardingSchoolExteriorGate_act1.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "BoardingSchoolExtNight",
+          "title": "Boarding School Ext. Night",
+          "group": "Act I",
+          "script": "BoardingSchoolExteriorNight",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 401 - Happy Couple",
+            "Episode 401 - Let AJ Cuss",
+            "Episode 401 - Gun Choice",
+            "Episode 401 - Used Tire Swing",
+            "Episode 401 - AJ Lesson Choice"
+          ],
+          "dialog": "env_boardingSchoolExteriorNight_act1.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "BoardingSchoolDormNight",
+          "title": "Boarding School Dorm Night",
+          "group": "Act I",
+          "script": "BoardingSchoolDormNight",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 401 - Happy Couple",
+            "Episode 401 - Let AJ Cuss",
+            "Episode 401 - Gun Choice",
+            "Episode 401 - Used Tire Swing",
+            "Episode 401 - AJ Lesson Choice"
+          ],
+          "dialog": "env_boardingSchoolDormNight_act1.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "BoardingSchoolInterior10",
+          "title": "Boarding School Interior",
+          "group": "Act II",
+          "script": "BoardingSchoolInterior",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 401 - Happy Couple",
+            "Episode 401 - Let AJ Cuss",
+            "Episode 401 - Gun Choice",
+            "Episode 401 - Used Tire Swing",
+            "Episode 401 - AJ Lesson Choice"
+          ],
+          "dialog": "env_boardingSchoolInterior_act2.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "ForestTile",
+          "title": "Forest Tile",
+          "group": "Act II",
+          "script": "ForestTile",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 401 - Happy Couple",
+            "Episode 401 - Hunting vs Fishing",
+            "Episode 401 - Firefighter Choice",
+            "Episode 401 - Let AJ Cuss",
+            "Episode 401 - Gun Choice",
+            "Episode 401 - Used Tire Swing",
+            "Episode 401 - Learned Rosie Trick",
+            "Episode 401 - AJ Lesson Choice"
+          ],
+          "dialog": "env_forestTile_act2.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "ForestTileFromShack",
+          "title": "Forest Tile - From Shack",
+          "group": "Act II",
+          "script": "ForestTile",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            },
+            {
+              "key": "2 - Entered ForestShack",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 401 - Happy Couple",
+            "Episode 401 - Hunting vs Fishing",
+            "Episode 401 - Firefighter Choice",
+            "Episode 401 - Let AJ Cuss",
+            "Episode 401 - Gun Choice",
+            "Episode 401 - Used Tire Swing",
+            "Episode 401 - Learned Rosie Trick",
+            "Episode 401 - AJ Lesson Choice"
+          ],
+          "dialog": "env_forestTile_act2.dlog",
+          "dialogNode": "cs_fromShack"
+        },
+        {
+          "id": "ForestShack",
+          "title": "Forest Shack",
+          "group": "Act II",
+          "script": "ForestShack",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 401 - Happy Couple",
+            "Episode 401 - Hunting vs Fishing",
+            "Episode 401 - Said You\u0027re a Ninja",
+            "Episode 401 - Firefighter Choice",
+            "Episode 401 - Let AJ Cuss",
+            "Episode 401 - Gun Choice",
+            "Episode 401 - Used Tire Swing",
+            "Episode 401 - Learned Rosie Trick",
+            "Episode 401 - AJ Lesson Choice"
+          ],
+          "dialog": "env_forestShack_act2.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "ForestShackFromTile",
+          "title": "Forest Shack - From Tile",
+          "group": "Act II",
+          "script": "ForestShack",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            },
+            {
+              "key": "2 - Entered ForestTile",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 401 - Happy Couple",
+            "Episode 401 - Hunting vs Fishing",
+            "Episode 401 - Said You\u0027re a Ninja",
+            "Episode 401 - Firefighter Choice",
+            "Episode 401 - Let AJ Cuss",
+            "Episode 401 - Gun Choice",
+            "Episode 401 - Used Tire Swing",
+            "Episode 401 - Learned Rosie Trick",
+            "Episode 401 - AJ Lesson Choice"
+          ],
+          "dialog": "env_forestShack_act2.dlog",
+          "dialogNode": "cs_shackAttack"
+        },
+        {
+          "id": "TrainStationNight",
+          "title": "Train Station Night",
+          "group": "Act II",
+          "script": "TrainStationNight",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 401 - Happy Couple",
+            "Episode 401 - Hunting vs Fishing",
+            "Episode 401 - Said You\u0027re a Ninja",
+            "Episode 401 - Heart Choice",
+            "Episode 401 - Firefighter Choice",
+            "Episode 401 - Let AJ Cuss",
+            "Episode 401 - Gun Choice",
+            "Episode 401 - Used Tire Swing",
+            "Episode 401 - Learned Rosie Trick",
+            "Episode 401 - AJ Lesson Choice"
+          ],
+          "dialog": "env_trainStationNight_act2.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "BoardingSchoolExtNight16",
+          "title": "Boarding School Ext. Night",
+          "group": "Act II",
+          "script": "BoardingSchoolExteriorNight",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 401 - Happy Couple",
+            "Episode 401 - Hunting vs Fishing",
+            "Episode 401 - Abel Food",
+            "Episode 401 - Said You\u0027re a Ninja",
+            "Episode 401 - Heart Choice",
+            "Episode 401 - Firefighter Choice",
+            "Episode 401 - Let AJ Cuss",
+            "Episode 401 - Gun Choice",
+            "Episode 401 - Used Tire Swing",
+            "Episode 401 - Learned Rosie Trick",
+            "Episode 401 - AJ Lesson Choice"
+          ],
+          "dialog": "env_boardingSchoolExteriorNight_act2.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "BoardingSchoolDormNight17",
+          "title": "Boarding School Dorm Night",
+          "group": "Act III",
+          "script": "BoardingSchoolDormNight",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 401 - Happy Couple",
+            "Episode 401 - Hunting vs Fishing",
+            "Episode 401 - Abel Food",
+            "Episode 401 - Said You\u0027re a Ninja",
+            "Episode 401 - Heart Choice",
+            "Episode 401 - Firefighter Choice",
+            "Episode 401 - Let AJ Cuss",
+            "Episode 401 - Gun Choice",
+            "Episode 401 - Used Tire Swing",
+            "Episode 401 - Learned Rosie Trick",
+            "Episode 401 - AJ Lesson Choice"
+          ],
+          "dialog": "env_boardingSchoolDormNight_act3.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "BoardingSchoolExtNight18",
+          "title": "Boarding School Ext. Night",
+          "group": "Act III",
+          "script": "BoardingSchoolExteriorNight",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 401 - Happy Couple",
+            "Episode 401 - Hunting vs Fishing",
+            "Episode 401 - AJ Bed",
+            "Episode 401 - Abel Food",
+            "Episode 401 - Said You\u0027re a Ninja",
+            "Episode 401 - Heart Choice",
+            "Episode 401 - Firefighter Choice",
+            "Episode 401 - Let AJ Cuss",
+            "Episode 401 - Gun Choice",
+            "Episode 401 - Used Tire Swing",
+            "Episode 401 - Learned Rosie Trick",
+            "Episode 401 - AJ Lesson Choice"
+          ],
+          "dialog": "env_boardingSchoolExteriorNight_act3.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "BoardingSchoolBasement",
+          "title": "Boarding School Basement",
+          "group": "Act III",
+          "script": "BoardingSchoolBasement",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 401 - Happy Couple",
+            "Episode 401 - Hunting vs Fishing",
+            "Episode 401 - AJ Bed",
+            "Episode 401 - Abel Food",
+            "Episode 401 - Said You\u0027re a Ninja",
+            "Episode 401 - Heart Choice",
+            "Episode 401 - Firefighter Choice",
+            "Episode 401 - Let AJ Cuss",
+            "Episode 401 - Gun Choice",
+            "Episode 401 - Used Tire Swing",
+            "Episode 401 - Learned Rosie Trick",
+            "Episode 401 - AJ Lesson Choice"
+          ],
+          "dialog": "env_boardingSchoolBasement_act3.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "BoardingSchoolExtNight20",
+          "title": "Boarding School Ext. Night",
+          "group": "Act III",
+          "script": "BoardingSchoolExteriorNight",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            },
+            {
+              "key": "3 - Entered BoardingSchoolBasement",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 401 - Happy Couple",
+            "Episode 401 - Hunting vs Fishing",
+            "Episode 401 - AJ Bed",
+            "Episode 401 - Abel Food",
+            "Episode 401 - Said You\u0027re a Ninja",
+            "Episode 401 - Heart Choice",
+            "Episode 401 - Firefighter Choice",
+            "Episode 401 - Let AJ Cuss",
+            "Episode 401 - Gun Choice",
+            "Episode 401 - Used Tire Swing",
+            "Episode 401 - Learned Rosie Trick",
+            "Episode 401 - AJ Lesson Choice"
+          ],
+          "dialog": "env_boardingSchoolExteriorNight_act3.dlog",
+          "dialogNode": "cs_opening"
+        }
+      ]
+    },
+    {
+      "episode": 2,
+      "chapters": [
+        {
+          "id": "PreviouslyOn",
+          "title": "Previously On",
+          "group": "Act I",
+          "script": "PreviouslyOn",
+          "chapterId": "",
+          "startsEpisode": true,
+          "flags": [],
+          "decided": [],
+          "dialog": "env_previouslyOn.dlog",
+          "dialogNode": "cs_previouslyOn"
+        },
+        {
+          "id": "DormRoom",
+          "title": "Dorm Room",
+          "group": "Act I",
+          "script": "DormRoom",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [],
+          "dialog": "env_dormRoom_act1.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "BoardingSchoolExterior",
+          "title": "Boarding School Exterior",
+          "group": "Act I",
+          "script": "BoardingSchoolExterior",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 402 - AJ Murder Choice",
+            "Episode 402 - Lee Choice"
+          ],
+          "dialog": "env_boardingSchoolExterior_act1.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "BoardingSchoolDorm",
+          "title": "Boarding School Dorm",
+          "group": "Act I",
+          "script": "BoardingSchoolDorm",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 402 - AJ Murder Choice",
+            "Episode 402 - Lee Choice"
+          ],
+          "dialog": "env_boardingSchoolDorm_act1.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "ForestTile",
+          "title": "Forest Tile",
+          "group": "Act I",
+          "script": "ForestTile",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 402 - AJ\u2019s Gun",
+            "Episode 402 - AJ Murder Choice",
+            "Episode 402 - Lee Choice"
+          ],
+          "dialog": "env_forestTile_act1.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "ForestTileChase",
+          "title": "Forest Tile - Chase",
+          "group": "Act I",
+          "script": "ForestTile",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Debug ID",
+              "value": 1
+            }
+          ],
+          "decided": [
+            "Episode 402 - AJ\u2019s Gun",
+            "Episode 402 - AJ Murder Choice",
+            "Episode 402 - Lee Choice"
+          ],
+          "dialog": "env_forestTile_act1.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "ForestTileZombat",
+          "title": "Forest Tile - Zombat",
+          "group": "Act I",
+          "script": "ForestTile",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Debug ID",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 402 - AJ\u2019s Gun",
+            "Episode 402 - AJ Murder Choice",
+            "Episode 402 - Lee Choice"
+          ],
+          "dialog": "env_forestTile_act1.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "ForestCamp",
+          "title": "Forest Camp",
+          "group": "Act I",
+          "script": "ForestCamp",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 402 - AJ\u2019s Gun",
+            "Episode 402 - Violet Run or Shoot",
+            "Episode 402 - AJ Murder Choice",
+            "Episode 402 - Lee Choice"
+          ],
+          "dialog": "env_forestCamp_act1.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "BSExtGate",
+          "title": "BS Ext. Gate",
+          "group": "Act II",
+          "script": "BoardingSchoolExteriorGate",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 402 - AJ\u2019s Gun",
+            "Episode 402 - Violet Run or Shoot",
+            "Episode 402 - Redirect or Kill Zombie",
+            "Episode 402 - Said You\u0027d Kill Next Raider",
+            "Episode 402 - AJ Murder Choice",
+            "Episode 402 - Lee Choice"
+          ],
+          "dialog": "env_boardingSchoolExteriorGate_act2.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "BoardingSchoolInterior",
+          "title": "Boarding School Interior",
+          "group": "Act II",
+          "script": "BoardingSchoolInterior",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 402 - AJ\u2019s Gun",
+            "Episode 402 - Violet Run or Shoot",
+            "Episode 402 - Redirect or Kill Zombie",
+            "Episode 402 - Said You\u0027d Kill Next Raider",
+            "Episode 402 - AJ Murder Choice",
+            "Episode 402 - Lee Choice"
+          ],
+          "dialog": "env_boardingSchoolInterior_act2.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "Greenhouse",
+          "title": "Greenhouse",
+          "group": "Act II",
+          "script": "GreenHouse",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 402 - AJ\u2019s Gun",
+            "Episode 402 - Violet Run or Shoot",
+            "Episode 402 - Redirect or Kill Zombie",
+            "Episode 402 - Said You\u0027d Kill Next Raider",
+            "Episode 402 - AJ Murder Choice",
+            "Episode 402 - Fear Choice",
+            "Episode 402 - Lee Choice"
+          ],
+          "dialog": "env_greenhouse_act2.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "GreenhouseInterior",
+          "title": "Greenhouse - Interior",
+          "group": "Act II",
+          "script": "GreenHouse",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            },
+            {
+              "key": "Debug ID",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 402 - AJ\u2019s Gun",
+            "Episode 402 - Violet Run or Shoot",
+            "Episode 402 - Redirect or Kill Zombie",
+            "Episode 402 - Said You\u0027d Kill Next Raider",
+            "Episode 402 - AJ Murder Choice",
+            "Episode 402 - Fear Choice",
+            "Episode 402 - Lee Choice"
+          ],
+          "dialog": "env_greenhouse_act2.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "GreenhouseLab",
+          "title": "Greenhouse - Lab",
+          "group": "Act II",
+          "script": "GreenHouse",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            },
+            {
+              "key": "Debug ID",
+              "value": 1
+            }
+          ],
+          "decided": [
+            "Episode 402 - AJ\u2019s Gun",
+            "Episode 402 - Violet Run or Shoot",
+            "Episode 402 - Redirect or Kill Zombie",
+            "Episode 402 - Said You\u0027d Kill Next Raider",
+            "Episode 402 - AJ Murder Choice",
+            "Episode 402 - Fear Choice",
+            "Episode 402 - Lee Choice"
+          ],
+          "dialog": "env_greenhouse_act2.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "BSDormNight",
+          "title": "BS Dorm Night",
+          "group": "Act III",
+          "script": "BoardingSchoolDormNight",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 402 - AJ\u2019s Gun",
+            "Episode 402 - Violet Run or Shoot",
+            "Episode 402 - Redirect or Kill Zombie",
+            "Episode 402 - Said You\u0027d Kill Next Raider",
+            "Episode 402 - AJ Murder Choice",
+            "Episode 402 - Fear Choice",
+            "Episode 402 - Lee Choice"
+          ],
+          "dialog": "env_boardingSchoolDormNight_act3.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "BSDormNightNightmare",
+          "title": "BS Dorm Night - Nightmare",
+          "group": "Act III",
+          "script": "BoardingSchoolDormNight",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            },
+            {
+              "key": "Debug ID",
+              "value": 1
+            }
+          ],
+          "decided": [
+            "Episode 402 - AJ\u2019s Gun",
+            "Episode 402 - Violet Run or Shoot",
+            "Episode 402 - Redirect or Kill Zombie",
+            "Episode 402 - Said You\u0027d Kill Next Raider",
+            "Episode 402 - AJ Murder Choice",
+            "Episode 402 - Fear Choice",
+            "Episode 402 - Lee Choice"
+          ],
+          "dialog": "env_boardingSchoolDormNight_act3.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "BSExteriorDusk",
+          "title": "BS Exterior Dusk",
+          "group": "Act III",
+          "script": "BoardingSchoolExteriorDusk",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 402 - AJ\u2019s Gun",
+            "Episode 402 - Violet Run or Shoot",
+            "Episode 402 - Redirect or Kill Zombie",
+            "Episode 402 - Said You\u0027d Kill Next Raider",
+            "Episode 402 - AJ Murder Choice",
+            "Episode 402 - AJ Shirt Choice",
+            "Episode 402 - Fear Choice",
+            "Episode 402 - Lee Choice"
+          ],
+          "dialog": "env_boardingSchoolExteriorDusk_act3.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "TruthorDare",
+          "title": "Truth or Dare",
+          "group": "Act III",
+          "script": "BoardingSchoolExteriorDusk",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            },
+            {
+              "key": "Debug ID",
+              "value": 1
+            }
+          ],
+          "decided": [
+            "Episode 402 - AJ\u2019s Gun",
+            "Episode 402 - Violet Run or Shoot",
+            "Episode 402 - Redirect or Kill Zombie",
+            "Episode 402 - Said You\u0027d Kill Next Raider",
+            "Episode 402 - AJ Murder Choice",
+            "Episode 402 - AJ Shirt Choice",
+            "Episode 402 - Fear Choice",
+            "Episode 402 - Lee Choice"
+          ],
+          "dialog": "env_boardingSchoolExteriorDusk_act3.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "BellTowerViolet",
+          "title": "Bell Tower - Violet",
+          "group": "Act III",
+          "script": "BellTower",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 402 - AJ\u2019s Gun",
+            "Episode 402 - Violet Run or Shoot",
+            "Episode 402 - Redirect or Kill Zombie",
+            "Episode 402 - Follow Violet or Louis",
+            "Episode 402 - Said You\u0027d Kill Next Raider",
+            "Episode 402 - Comforted Rosie",
+            "Episode 402 - AJ Murder Choice",
+            "Episode 402 - AJ Shirt Choice",
+            "Episode 402 - Fear Choice",
+            "Episode 402 - Lee Choice",
+            "Episode 402 - James Choice"
+          ],
+          "dialog": "env_bellTower_act3.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "BSIntNightLouis",
+          "title": "BS Int. Night - Louis",
+          "group": "Act III",
+          "script": "BoardingSchoolInteriorNight",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 402 - AJ\u2019s Gun",
+            "Episode 402 - Violet Run or Shoot",
+            "Episode 402 - Redirect or Kill Zombie",
+            "Episode 402 - Follow Violet or Louis",
+            "Episode 402 - Said You\u0027d Kill Next Raider",
+            "Episode 402 - Comforted Rosie",
+            "Episode 402 - AJ Murder Choice",
+            "Episode 402 - AJ Shirt Choice",
+            "Episode 402 - Fear Choice",
+            "Episode 402 - Lee Choice",
+            "Episode 402 - James Choice"
+          ],
+          "dialog": "env_boardingSchoolInteriorNight_act3.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "BSExtGateNight",
+          "title": "BS Ext. Gate Night",
+          "group": "Act III",
+          "script": "BoardingSchoolExteriorGateNight",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 402 - AJ\u2019s Gun",
+            "Episode 402 - Violet Run or Shoot",
+            "Episode 402 - Redirect or Kill Zombie",
+            "Episode 402 - Follow Violet or Louis",
+            "Episode 402 - Said You\u0027d Kill Next Raider",
+            "Episode 402 - Comforted Rosie",
+            "Episode 402 - AJ Murder Choice",
+            "Episode 402 - AJ Shirt Choice",
+            "Episode 402 - Fear Choice",
+            "Episode 402 - Lee Choice",
+            "Episode 402 - James Choice"
+          ],
+          "dialog": "env_boardingSchoolExteriorGateNight_act3.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "BSExtNightFight",
+          "title": "BS Ext. Night Fight",
+          "group": "Act III",
+          "script": "BoardingSchoolExteriorNight",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            },
+            {
+              "key": "3 - Entered BoardingSchoolExteriorGateNight",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 402 - AJ\u2019s Gun",
+            "Episode 402 - Violet Run or Shoot",
+            "Episode 402 - Redirect or Kill Zombie",
+            "Episode 402 - Follow Violet or Louis",
+            "Episode 402 - Said You\u0027d Kill Next Raider",
+            "Episode 402 - Comforted Rosie",
+            "Episode 402 - AJ Murder Choice",
+            "Episode 402 - AJ Shirt Choice",
+            "Episode 402 - Fear Choice",
+            "Episode 402 - Lee Choice",
+            "Episode 402 - James Choice"
+          ],
+          "dialog": "env_boardingSchoolExteriorNight_act3Fight.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "BSIntNightFight",
+          "title": "BS Int. Night Fight",
+          "group": "Act III",
+          "script": "BoardingSchoolInteriorNight",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            },
+            {
+              "key": "3 - Entered BoardingSchoolExteriorGateNight",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 402 - AJ\u2019s Gun",
+            "Episode 402 - Violet Run or Shoot",
+            "Episode 402 - Redirect or Kill Zombie",
+            "Episode 402 - Follow Violet or Louis",
+            "Episode 402 - Said You\u0027d Kill Next Raider",
+            "Episode 402 - Comforted Rosie",
+            "Episode 402 - AJ Murder Choice",
+            "Episode 402 - AJ Shirt Choice",
+            "Episode 402 - Fear Choice",
+            "Episode 402 - Lee Choice",
+            "Episode 402 - James Choice"
+          ],
+          "dialog": "env_boardingSchoolInteriorNight_act3.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "BSExtDamaged",
+          "title": "BS Ext. Damaged",
+          "group": "Act III (cont\u0027d)",
+          "script": "BoardingSchoolExteriorDamaged",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 402 - AJ\u2019s Gun",
+            "Episode 402 - Violet Run or Shoot",
+            "Episode 402 - Redirect or Kill Zombie",
+            "Episode 402 - Follow Violet or Louis",
+            "Episode 402 - Said You\u0027d Kill Next Raider",
+            "Episode 402 - Comforted Rosie",
+            "Episode 402 - Carved Heart",
+            "Episode 402 - AJ Murder Choice",
+            "Episode 402 - AJ Shirt Choice",
+            "Episode 402 - Fear Choice",
+            "Episode 402 - Lee Choice",
+            "Episode 402 - James Choice",
+            "Episode 402 - Louis Choice"
+          ],
+          "dialog": "env_boardingSchoolExteriorDamaged_act3.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "BSEDamagedShooting",
+          "title": "BSE Damaged - Shooting",
+          "group": "Act III (cont\u0027d)",
+          "script": "BoardingSchoolExteriorDamaged",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            },
+            {
+              "key": "Debug ID",
+              "value": 1
+            }
+          ],
+          "decided": [
+            "Episode 402 - AJ\u2019s Gun",
+            "Episode 402 - Violet Run or Shoot",
+            "Episode 402 - Redirect or Kill Zombie",
+            "Episode 402 - Follow Violet or Louis",
+            "Episode 402 - Said You\u0027d Kill Next Raider",
+            "Episode 402 - Comforted Rosie",
+            "Episode 402 - Carved Heart",
+            "Episode 402 - AJ Murder Choice",
+            "Episode 402 - AJ Shirt Choice",
+            "Episode 402 - Fear Choice",
+            "Episode 402 - Lee Choice",
+            "Episode 402 - James Choice",
+            "Episode 402 - Louis Choice"
+          ],
+          "dialog": "env_boardingSchoolExteriorDamaged_act3.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "Constellation",
+          "title": "Constellation",
+          "group": "Debug",
+          "script": "BellTower",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            },
+            {
+              "key": "Debug ID",
+              "value": 1
+            }
+          ],
+          "decided": [
+            "Episode 402 - AJ\u2019s Gun",
+            "Episode 402 - Violet Run or Shoot",
+            "Episode 402 - Redirect or Kill Zombie",
+            "Episode 402 - Follow Violet or Louis",
+            "Episode 402 - Save Violet or Louis",
+            "Episode 402 - Said We Were Family",
+            "Episode 402 - Said You\u0027d Kill Next Raider",
+            "Episode 402 - Comforted Rosie",
+            "Episode 402 - Carved Heart",
+            "Episode 402 - AJ Murder Choice",
+            "Episode 402 - AJ Shirt Choice",
+            "Episode 402 - Fear Choice",
+            "Episode 402 - Lee Choice",
+            "Episode 402 - James Choice",
+            "Episode 402 - Lilly Choice",
+            "Episode 402 - Louis Choice"
+          ],
+          "dialog": "env_bellTower_act3.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "RockPaperScissors",
+          "title": "Rock Paper Scissors",
+          "group": "Debug",
+          "script": "BoardingSchoolExteriorGateNight",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            },
+            {
+              "key": "Debug ID",
+              "value": 1
+            }
+          ],
+          "decided": [
+            "Episode 402 - AJ\u2019s Gun",
+            "Episode 402 - Violet Run or Shoot",
+            "Episode 402 - Redirect or Kill Zombie",
+            "Episode 402 - Follow Violet or Louis",
+            "Episode 402 - Save Violet or Louis",
+            "Episode 402 - Said We Were Family",
+            "Episode 402 - Said You\u0027d Kill Next Raider",
+            "Episode 402 - Comforted Rosie",
+            "Episode 402 - Carved Heart",
+            "Episode 402 - Violet Romance Choice",
+            "Episode 402 - Violet Choice",
+            "Episode 402 - AJ Murder Choice",
+            "Episode 402 - AJ Shirt Choice",
+            "Episode 402 - Fear Choice",
+            "Episode 402 - Lee Choice",
+            "Episode 402 - James Choice",
+            "Episode 402 - Lilly Choice",
+            "Episode 402 - Louis Choice"
+          ],
+          "dialog": "env_boardingSchoolExteriorGateNight_act3.dlog",
+          "dialogNode": "cs_opening"
+        }
+      ]
+    },
+    {
+      "episode": 3,
+      "chapters": [
+        {
+          "id": "PreviouslyOn",
+          "title": "Previously On",
+          "group": "Act I",
+          "script": "PreviouslyOn",
+          "chapterId": "",
+          "startsEpisode": true,
+          "flags": [],
+          "decided": [],
+          "dialog": "env_previouslyOn.dlog",
+          "dialogNode": "cs_previouslyOn"
+        },
+        {
+          "id": "BoardingSchoolBasement",
+          "title": "Boarding School Basement",
+          "group": "Act I",
+          "script": "BoardingSchoolExteriorBasement",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [],
+          "dialog": "env_boardingSchoolExteriorBasement_act1.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "RiverShoreline",
+          "title": "River Shoreline",
+          "group": "Act I",
+          "script": "RiverShoreline",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 403 - Zombie Abel",
+            "Episode 403 - Killed Abel",
+            "Episode 403 - Slammed Abel 2",
+            "Episode 403 - Slammed Abel 1",
+            "Episode 403 - Burned Abel"
+          ],
+          "dialog": "env_riverShoreline_act1.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "ForestCamp",
+          "title": "Forest Camp",
+          "group": "Act I",
+          "script": "ForestCamp",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 403 - Zombie Abel",
+            "Episode 403 - Killed Abel",
+            "Episode 403 - Slammed Abel 2",
+            "Episode 403 - Slammed Abel 1",
+            "Episode 403 - Burned Abel"
+          ],
+          "dialog": "env_forestCamp_act1.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "ForestBarn",
+          "title": "Forest Barn",
+          "group": "Act I",
+          "script": "ForestBarn",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 403 - Zombie Abel",
+            "Episode 403 - Forest Walker Kills",
+            "Episode 403 - Killed Abel",
+            "Episode 403 - Slammed Abel 2",
+            "Episode 403 - Slammed Abel 1",
+            "Episode 403 - Burned Abel",
+            "Episode 403 - Trauma Choice"
+          ],
+          "dialog": "env_forestBarn_act1.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "BoardingSchoolDorm",
+          "title": "Boarding School Dorm",
+          "group": "Act II",
+          "script": "BoardingSchoolDorm",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 403 - Zombie Abel",
+            "Episode 403 - Forest Walker Kills",
+            "Episode 403 - Killed Abel",
+            "Episode 403 - Slammed Abel 2",
+            "Episode 403 - Slammed Abel 1",
+            "Episode 403 - Burned Abel",
+            "Episode 403 - Trauma Choice"
+          ],
+          "dialog": "env_boardingSchoolDorm_act2.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "BoardingSchoolInterior",
+          "title": "Boarding School Interior",
+          "group": "Act II",
+          "script": "BoardingSchoolInterior",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 403 - Zombie Abel",
+            "Episode 403 - Forest Walker Kills",
+            "Episode 403 - Killed Abel",
+            "Episode 403 - Called James Crazy",
+            "Episode 403 - Slammed Abel 2",
+            "Episode 403 - Slammed Abel 1",
+            "Episode 403 - Burned Abel",
+            "Episode 403 - Trauma Choice",
+            "Episode 403 - Bitten Choice"
+          ],
+          "dialog": "env_boardingSchoolInterior_act2.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "TrainTile",
+          "title": "Train Tile",
+          "group": "Act II",
+          "script": "TrainTile",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 403 - Zombie Abel",
+            "Episode 403 - Forest Walker Kills",
+            "Episode 403 - Bomb Name",
+            "Episode 403 - Killed Abel",
+            "Episode 403 - Called James Crazy",
+            "Episode 403 - Slammed Abel 2",
+            "Episode 403 - Slammed Abel 1",
+            "Episode 403 - Burned Abel",
+            "Episode 403 - Trauma Choice",
+            "Episode 403 - Bitten Choice"
+          ],
+          "dialog": "env_trainTile_act2.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "RiverShorelineNight",
+          "title": "River Shoreline Night",
+          "group": "Act II",
+          "script": "RiverShorelineNight",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 403 - Zombie Abel",
+            "Episode 403 - Forest Walker Kills",
+            "Episode 403 - Bomb Name",
+            "Episode 403 - Killed Abel",
+            "Episode 403 - Called James Crazy",
+            "Episode 403 - Slammed Abel 2",
+            "Episode 403 - Slammed Abel 1",
+            "Episode 403 - Burned Abel",
+            "Episode 403 - Trauma Choice",
+            "Episode 403 - Bitten Choice"
+          ],
+          "dialog": "env_riverShorelineNight_act2.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "RiverBoat",
+          "title": "River Boat",
+          "group": "Act III",
+          "script": "RiverBoat",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 403 - Zombie Abel",
+            "Episode 403 - Forest Walker Kills",
+            "Episode 403 - Bomb Name",
+            "Episode 403 - Killed Abel",
+            "Episode 403 - Called James Crazy",
+            "Episode 403 - Slammed Abel 2",
+            "Episode 403 - Slammed Abel 1",
+            "Episode 403 - Burned Abel",
+            "Episode 403 - Trauma Choice",
+            "Episode 403 - Pacifism Choice",
+            "Episode 403 - Bitten Choice"
+          ],
+          "dialog": "env_riverBoat_act3.dlog",
+          "dialogNode": "cs_opening"
+        }
+      ]
+    },
+    {
+      "episode": 4,
+      "chapters": [
+        {
+          "id": "PreviouslyOn",
+          "title": "Previously On",
+          "group": "Act I",
+          "script": "PreviouslyOn",
+          "chapterId": "",
+          "startsEpisode": true,
+          "flags": [],
+          "decided": [],
+          "dialog": "env_previouslyOn.dlog",
+          "dialogNode": "cs_previouslyOn"
+        },
+        {
+          "id": "RiverBoat",
+          "title": "River Boat",
+          "group": "Act I",
+          "script": "RiverBoat",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [],
+          "dialog": "env_riverBoat_act1.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "RiverShoreline",
+          "title": "River Shoreline",
+          "group": "Act I",
+          "script": "RiverShorelineNight",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [],
+          "dialog": "env_riverShorelineNight_act1.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "Cave",
+          "title": "Cave",
+          "group": "Act I",
+          "script": "Cave",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [],
+          "dialog": "env_cave_act1.dlog",
+          "dialogNode": "cs_roundTheBend"
+        },
+        {
+          "id": "CliffBridge",
+          "title": "Cliff Bridge",
+          "group": "Act I",
+          "script": "CliffBridge",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [],
+          "decided": [
+            "Episode 404 - Trusted AJ to make his own decisions"
+          ],
+          "dialog": "env_cliffBridge_act1.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "ForestBarn",
+          "title": "Forest Barn",
+          "group": "Act II",
+          "script": "ForestBarn",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 2
+            }
+          ],
+          "decided": [
+            "Episode 404 - Trusted AJ to make his own decisions",
+            "Episode 404 - Decided to add a skylight to Louis\u2019 imaginary house",
+            "Episode 404 - Let Violet rename the school herself"
+          ],
+          "dialog": "env_forestBarn_act2.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "ForestShack",
+          "title": "Forest Shack",
+          "group": "Act III",
+          "script": "ForestShack",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 404 - Trusted AJ to make his own decisions",
+            "Episode 404 - Decided to add a skylight to Louis\u2019 imaginary house",
+            "Episode 404 - Let Violet rename the school herself",
+            "Episode 404 - Asked AJ to kill you rather than let you become a walker"
+          ],
+          "dialog": "env_forestShack_act3.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "ForestShackTrustedAJ",
+          "title": "Forest Shack - Trusted AJ",
+          "group": "Act III",
+          "script": "ForestShack",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            },
+            {
+              "key": "1 - Trusted AJ",
+              "value": true
+            }
+          ],
+          "decided": [
+            "Episode 404 - Trusted AJ to make his own decisions",
+            "Episode 404 - Decided to add a skylight to Louis\u2019 imaginary house",
+            "Episode 404 - Let Violet rename the school herself",
+            "Episode 404 - Asked AJ to kill you rather than let you become a walker"
+          ],
+          "dialog": "env_forestShack_act3.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "BoardingSchoolGate",
+          "title": "Boarding School Gate",
+          "group": "Act III",
+          "script": "BoardingSchoolExteriorGate",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 404 - Trusted AJ to make his own decisions",
+            "Episode 404 - Decided to add a skylight to Louis\u2019 imaginary house",
+            "Episode 404 - Let Violet rename the school herself",
+            "Episode 404 - Asked AJ to kill you rather than let you become a walker",
+            "Episode 404 - Agreed to teach Tenn to be like you",
+            "Episode 404 - Shot Tenn after he became a walker"
+          ],
+          "dialog": "env_boardingSchoolExteriorGate_act3.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "BoardingSchoolExterior",
+          "title": "Boarding School Exterior",
+          "group": "Act III",
+          "script": "BoardingSchoolExterior",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 404 - Trusted AJ to make his own decisions",
+            "Episode 404 - Decided to add a skylight to Louis\u2019 imaginary house",
+            "Episode 404 - Let Violet rename the school herself",
+            "Episode 404 - Asked AJ to kill you rather than let you become a walker",
+            "Episode 404 - Agreed to teach Tenn to be like you",
+            "Episode 404 - Shot Tenn after he became a walker"
+          ],
+          "dialog": "env_boardingSchoolExterior_act3.dlog",
+          "dialogNode": "cs_opening"
+        },
+        {
+          "id": "BoardingSchoolDorm",
+          "title": "Boarding School Dorm",
+          "group": "Act III",
+          "script": "BoardingSchoolDorm",
+          "chapterId": "",
+          "startsEpisode": false,
+          "flags": [
+            {
+              "key": "Act",
+              "value": 3
+            }
+          ],
+          "decided": [
+            "Episode 404 - Trusted AJ to make his own decisions",
+            "Episode 404 - Decided to add a skylight to Louis\u2019 imaginary house",
+            "Episode 404 - Let Violet rename the school herself",
+            "Episode 404 - Asked AJ to kill you rather than let you become a walker",
+            "Episode 404 - Agreed to teach Tenn to be like you",
+            "Episode 404 - Shot Tenn after he became a walker"
+          ],
+          "dialog": "env_boardingSchoolDorm_act3.dlog",
+          "dialogNode": "cs_opening"
+        }
+      ]
+    }
+  ]
+}

@@ -12,11 +12,13 @@ public static partial class DebugMenuReader
         var entries = new List<MenuEntry>();
         var group = string.Empty;
         var anchor = -1;
+        var repeated = false;
         foreach (Match match in Button().Matches(text))
         {
             var title = match.Groups["title"].Value;
             if (!match.Groups["target"].Success)
             {
+                repeated = title != group && entries.Any(existing => existing.Group == title);
                 group = title;
                 continue;
             }
@@ -28,8 +30,9 @@ public static partial class DebugMenuReader
             var entry = new MenuEntry(group, title.Trim(), match.Groups["script"].Value, [.. LogicSet().Matches(command).Select(flag => ReadFlag(flag, constants))]);
             if (!DialogTitle().IsMatch(entry.Title))
             {
-                entries.Add(entry);
-                anchor = entries.Count - 1;
+                var position = repeated ? After(entries, entry) : entries.Count;
+                entries.Insert(position, entry);
+                anchor = position;
                 continue;
             }
 
@@ -47,6 +50,13 @@ public static partial class DebugMenuReader
         }
 
         return entries;
+    }
+
+    private static int After(List<MenuEntry> entries, MenuEntry entry)
+    {
+        var sameScene = entries.FindLastIndex(existing => existing.Group == entry.Group && existing.Script.Equals(entry.Script, StringComparison.OrdinalIgnoreCase));
+        var position = sameScene >= 0 ? sameScene : entries.FindLastIndex(existing => existing.Group == entry.Group);
+        return position + 1;
     }
 
     private static bool Same(MenuEntry first, MenuEntry second) =>

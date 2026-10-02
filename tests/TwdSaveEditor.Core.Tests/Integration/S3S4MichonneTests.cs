@@ -4,7 +4,6 @@ using TwdSaveEditor.Core.Constants;
 using TwdSaveEditor.Core.Model;
 using TwdSaveEditor.Core.Tests.Support;
 using TwdSaveEditor.Season.Base.Accessors;
-using TwdSaveEditor.Season.Base.Services;
 using TwdSaveEditor.Season.Common.Abstractions;
 using TwdSaveEditor.Season.Common.Extensions;
 using TwdSaveEditor.Season.Common.Services;
@@ -12,7 +11,6 @@ using TwdSaveEditor.Season.Michonne.Handlers;
 using TwdSaveEditor.Season.S1.Handlers;
 using TwdSaveEditor.Season.S2.Handlers;
 using TwdSaveEditor.Season.S3.Handlers;
-using TwdSaveEditor.Season.S4.Accessors;
 using TwdSaveEditor.Season.S4.Handlers;
 
 namespace TwdSaveEditor.Core.Tests.Integration;
@@ -149,59 +147,6 @@ public class S3S4MichonneTests
             Assert.True(choices.Count >= minCount,
                 $"Season {season}: expected >= {minCount}, got {choices.Count}");
         }
-    }
-
-    [Fact]
-    public void S4_ChoiceStatsAccessor_DetectsChoicesFromGUIDs()
-    {
-        var file = TestDataHelper.GetPath("S4", "wd4_saveslot1.bundle");
-        var slot = BundleReader.Read(file);
-        Assert.NotNull(slot.ChoiceStats);
-
-        var accessor = new ChoiceStatsAccessor(slot);
-        var allChoices = TestSeasons.ChoicesFor("s4").ToList();
-        var detected = allChoices
-            .Select(c => accessor.GetChoiceValue(c.ChoiceKey))
-            .Where(v => v != null)
-            .ToList();
-        Assert.True(detected.Count > 0,
-            "Expected at least one detectable S4 choice from Ep1 Ending save");
-    }
-
-    [Fact]
-    public void S4_ChoiceStatsAccessor_CanEditAndRoundTrip()
-    {
-        var file = TestDataHelper.GetPath("S4", "wd4_saveslot1.bundle");
-        var slot = BundleReader.Read(file);
-        Assert.NotNull(slot.ChoiceStats);
-
-        var accessor = new ChoiceStatsAccessor(slot);
-        accessor.SetChoiceValue("aj_bed", "under");
-        Assert.Equal("under", accessor.GetChoiceValue("aj_bed"));
-
-        var written = BundleWriter.Write(slot);
-        var reloaded = BundleReader.Read(written, file);
-        Assert.NotNull(reloaded.ChoiceStats);
-
-        var ra = new ChoiceStatsAccessor(reloaded);
-        Assert.Equal("under", ra.GetChoiceValue("aj_bed"));
-    }
-
-    [Fact]
-    public void NewSave_S4_HasChoiceStats()
-    {
-        var slot = CreateRegistry().CreateSave("s4", 1, "test_s4.bundle");
-        Assert.NotNull(slot.ChoiceStats);
-        Assert.Null(slot.Choices);
-
-        var accessor = new ChoiceStatsAccessor(slot);
-        var val = accessor.GetChoiceValue("fishing_or_hunting");
-        Assert.NotNull(val);
-
-        var written = BundleWriter.Write(slot);
-        var reloaded = BundleReader.Read(written, "test_s4.bundle");
-        Assert.NotNull(reloaded.ChoiceStats);
-        Assert.Null(reloaded.Choices);
     }
 
     [Fact]

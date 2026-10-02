@@ -1,0 +1,1926 @@
+{
+  "decisions": [
+    {
+      "choiceKey": "Episode 205 - Killed Kenny",
+      "episode": 0,
+      "options": [
+        {
+          "value": "true",
+          "expression": "885D6356-A86A-4356-9BF1-80ED05BEA378 | FC0D4E96-E47F-4716-96C4-48261F8A32F4"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 105 - Killed Lee",
+      "episode": 0,
+      "options": [
+        {
+          "value": "true",
+          "expression": "6A4BA224-54DA-4A68-8A7F-D63CBDA5E777"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 203 - Watched Kenny Kill Carver",
+      "episode": 0,
+      "options": [
+        {
+          "value": "true",
+          "expression": "2A8C6959-5A1A-4A3E-A0D8-2EB79374A7D0"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 205 - Ending Choice",
+      "episode": 0,
+      "options": [
+        {
+          "value": "alone",
+          "expression": "A589CF98-8E76-4810-AEE0-7826FFE17E0A"
+        },
+        {
+          "value": "jane",
+          "expression": "3925F399-BA46-4300-B892-50B27D81BE76"
+        },
+        {
+          "value": "kenny",
+          "expression": "CDB22E82-B307-487B-9FD8-1F13BA8F503A"
+        },
+        {
+          "value": "wellington",
+          "expression": "40D5909C-7356-4EBC-A7B4-CD465753848F"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 101 - Saved Doug",
+      "episode": 0,
+      "options": [
+        {
+          "value": "true",
+          "expression": "D4F56B51-81A8-4258-BD0E-678BF0B9E2F0"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 103 - Left Lilly",
+      "episode": 0,
+      "options": [
+        {
+          "value": "true",
+          "expression": "F004B610-9177-4D0E-8A1E-CDCF8AA4F68E"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 105 - Lee Advice",
+      "episode": 0,
+      "options": [
+        {
+          "value": "cities",
+          "expression": "3E061B9D-E638-4792-BE68-A6BF9C97C9CE"
+        },
+        {
+          "value": "hair",
+          "expression": "B4FF1177-51BE-4BA7-908B-2EF52DA4B273"
+        },
+        {
+          "value": "moving",
+          "expression": "EED59B2F-F429-4852-B481-28A0A3C97851"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 401 - Happy Couple",
+      "episode": 1,
+      "options": [
+        {
+          "value": "killed_the_walker_couple_in",
+          "expression": "( {170B10E1-289B-48FC-8B2E-9D775CFEBF2F} )"
+        },
+        {
+          "value": "chose_to_let_aj_go",
+          "expression": "( {D5CAC505-D44C-4338-A465-EFA30DF08A5E} )"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 401 - Hunting vs Fishing",
+      "episode": 1,
+      "options": [
+        {
+          "value": "went_fishing_with_violet_and",
+          "expression": "( {59287F15-5C7C-4C87-A3AA-792C16BB5603} )"
+        },
+        {
+          "value": "went_hunting_with_louis_and",
+          "expression": "( {141CD479-1A00-4F12-A07E-F97FA5E11E77} )"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 401 - AJ Bed",
+      "episode": 1,
+      "options": [
+        {
+          "value": "let_aj_sleep_under_the",
+          "expression": "( {E3BBFE95-0925-46CA-A64D-C83003084DD0} )"
+        },
+        {
+          "value": "convinced_aj_to_sleep_on",
+          "expression": "( {48C0A99E-C18D-45D7-B5CC-7798ABBE8296} )"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 401 - Abel Food",
+      "episode": 1,
+      "options": [
+        {
+          "value": "surrendered_food_to_abel",
+          "expression": "( {EB2EFF11-EA62-49B5-81AB-FF4C7742C213} )"
+        },
+        {
+          "value": "attacked_abel_rather_than_giving",
+          "expression": "( {D4DFE2E9-4A8B-4DA7-B05A-D1C3495D639F} )"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 401 - Violet vs Marlon",
+      "episode": 1,
+      "options": [
+        {
+          "value": "turned_to_violet_for_help",
+          "expression": "( {80E48E39-2D80-406A-B313-008509B46C30} )"
+        },
+        {
+          "value": "turned_to_louis_for_help",
+          "expression": "( {EF3B17D7-62D4-47D0-AD09-25788B84D18E} )"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 401 - Said You're a Ninja",
+      "episode": 1,
+      "options": [
+        {
+          "value": "true",
+          "expression": "15964994-9BB8-4632-9DD4-28F5321ECF2D"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 401 - Said There's Just Darkness",
+      "episode": 1,
+      "options": [
+        {
+          "value": "true",
+          "expression": "3FBA2615-784C-4215-BF64-57E092EC50B1"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 401 - Heart Choice",
+      "episode": 1,
+      "options": [
+        {
+          "value": "art",
+          "expression": "135FB96E-BA2A-4D8F-9A97-197A07051C5D"
+        },
+        {
+          "value": "friends",
+          "expression": "4989CF9F-4020-41D4-A04F-A856BDDBD8F1"
+        },
+        {
+          "value": "girlfriends",
+          "expression": "4C8BF3A5-7EA7-4100-9287-C8A8ED065FFA"
+        },
+        {
+          "value": "silent",
+          "expression": "DA7A0C96-67E2-42F6-9DB3-6A0D600F7593"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 401 - Firefighter Choice",
+      "episode": 1,
+      "options": [
+        {
+          "value": "died",
+          "expression": "CB5A2D2F-C99C-4F41-925C-F2BC0A2D7B5B"
+        },
+        {
+          "value": "know",
+          "expression": "47D3FEB3-7023-4B0E-A141-AF495A8151FF"
+        },
+        {
+          "value": "meet",
+          "expression": "1DB0AAB8-E162-4FB2-BE66-89E704137AD9"
+        },
+        {
+          "value": "silent",
+          "expression": "EF141574-2B56-4387-999E-5B041F69475D"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 401 - Let AJ Cuss",
+      "episode": 1,
+      "options": [
+        {
+          "value": "true",
+          "expression": "A557A13C-4656-4F67-BEC4-4EEDDE88D007"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 401 - Marlon Choice Non-Fight",
+      "episode": 1,
+      "options": [
+        {
+          "value": "leave",
+          "expression": "05673B3A-0994-46BB-84DF-DD28F2B7CC56"
+        },
+        {
+          "value": "prisoner",
+          "expression": "0139C38F-8210-417E-B38C-97254ACBDD83"
+        },
+        {
+          "value": "silent",
+          "expression": "50F124AB-0714-44CC-A8FB-5E9CBF57AECE"
+        },
+        {
+          "value": "stay",
+          "expression": "76EAC7B8-88B3-403E-8D89-DAD1CA4756B6"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 401 - Marlon Confrontation",
+      "episode": 1,
+      "options": [
+        {
+          "value": "fix",
+          "expression": "47C99C00-EED1-4DE3-B66E-E8D5549C0A3B"
+        },
+        {
+          "value": "pathetic",
+          "expression": "54E927A4-51FE-4DB8-BADF-630F7FE846C4"
+        },
+        {
+          "value": "silent",
+          "expression": "CE9E8FFD-6F93-47A3-818C-888852BF65F5"
+        },
+        {
+          "value": "tackle",
+          "expression": "FB353606-9C48-4B0E-96F2-CEC6282393E7"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 401 - Gun Choice",
+      "episode": 1,
+      "options": [
+        {
+          "value": "bullet",
+          "expression": "391FFFA0-7E3A-432A-BA6D-E808A6D271CD"
+        },
+        {
+          "value": "head",
+          "expression": "3B3877C3-D031-43E2-A614-E5EA6942B524"
+        },
+        {
+          "value": "hesitate",
+          "expression": "8B7E5795-E10A-4E3F-96B1-EEA342D5FD63"
+        },
+        {
+          "value": "silent",
+          "expression": "8EDBD302-1C67-49F1-A0B6-FA4286BB584D"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 401 - Marlon Choice Post-Fight",
+      "episode": 1,
+      "options": [
+        {
+          "value": "basement",
+          "expression": "2285A89C-F021-423F-97B5-CEDF31031FC3"
+        },
+        {
+          "value": "fix",
+          "expression": "6A292502-BD81-48BE-A99C-C97244CD4D1B"
+        },
+        {
+          "value": "leave",
+          "expression": "D4BA77DB-45D0-4606-A1D9-2C28CD2720B3"
+        },
+        {
+          "value": "silent",
+          "expression": "73E409FD-69E0-4664-9D76-2208EAD8C621"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 401 - Used Tire Swing",
+      "episode": 1,
+      "options": [
+        {
+          "value": "true",
+          "expression": "E4E0D9DB-C836-4CE8-8C74-C5897A5D63D1"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 401 - Learned Rosie Trick",
+      "episode": 1,
+      "options": [
+        {
+          "value": "true",
+          "expression": "5B2C0EC3-3679-43DC-880B-1D6F1336E03F"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 401 - AJ Lesson Choice",
+      "episode": 1,
+      "options": [
+        {
+          "value": "exit",
+          "expression": "3B68096B-EE3C-48A8-AFA7-73DE722074AC"
+        },
+        {
+          "value": "hide",
+          "expression": "D9878140-259A-4325-8E26-4B275A3B277E"
+        },
+        {
+          "value": "silent",
+          "expression": "B225FC64-8F8B-45E7-A55D-08946752ADD8"
+        },
+        {
+          "value": "windows",
+          "expression": "98D5C8BF-51B8-40F3-964B-7E56042E6755"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 402 - AJ’s Gun",
+      "episode": 2,
+      "options": [
+        {
+          "value": "gave_aj_s_gun_to",
+          "expression": "( {CBAC299B-41B0-4561-9D9B-3F0900EB8E97} )"
+        },
+        {
+          "value": "told_aj_to_keep_his",
+          "expression": "( {D670AC7F-AF66-4025-B6B7-47F57E4A90F1} )"
+        },
+        {
+          "value": "didn_t_intervene_when_aj",
+          "expression": "( {A965FCE4-D756-4C7F-BAB7-A6B1FCA5AA2F} )"
+        },
+        {
+          "value": "said_nothing_when_aj_insisted",
+          "expression": "( {4059EC2C-FF35-4CA4-AE3B-71214BE0B9C7} )"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 402 - Violet Run or Shoot",
+      "episode": 2,
+      "options": [
+        {
+          "value": "told_violet_to_shoot_lilly",
+          "expression": "( {F28A8FAC-A4EF-4E4C-B510-D947FAEF804E} )"
+        },
+        {
+          "value": "told_louis_and_violet_to",
+          "expression": "( {7BBED350-29A6-4BD3-B598-C48D39F3BED7} )"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 402 - Redirect or Kill Zombie",
+      "episode": 2,
+      "options": [
+        {
+          "value": "killed_the_walker_after_james",
+          "expression": "( {29E26E3D-A351-4856-B6EE-FD41F41E7D58} )"
+        },
+        {
+          "value": "spared_the_walker_honoring_james",
+          "expression": "( {AAC14C7F-61E0-4531-B255-DC17F9FCE173} )"
+        },
+        {
+          "value": "let_james_throw_the_rock",
+          "expression": "( {8075C794-535B-4A7C-B5F5-C5BF056B9466} )"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 402 - Follow Violet or Louis",
+      "episode": 2,
+      "options": [
+        {
+          "value": "spent_time_stargazing_with_violet",
+          "expression": "( {1882BD84-079A-4BFD-A984-A64AB71FA581} )"
+        },
+        {
+          "value": "helped_louis_tune_the_piano",
+          "expression": "( {D2106F2D-CA58-4F5B-AD6C-8D7CE017C048} )"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 402 - Save Violet or Louis",
+      "episode": 2,
+      "options": [
+        {
+          "value": "rescued_louis_instead_of_violet",
+          "expression": "( {64ACF62A-FBD5-4513-BA3B-0EBF08C99EF5} | {C6642063-7BF0-4301-9CD8-0D4AEB9C3BDF} )"
+        },
+        {
+          "value": "rescued_violet_instead_of_louis",
+          "expression": "( {126EB207-831C-4BFF-9D85-FB9D66493BB5} | {E20E5B4D-6404-46C1-979C-7CD96F720105} )"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 402 - Said We Were Family",
+      "episode": 2,
+      "options": [
+        {
+          "value": "true",
+          "expression": "B6947D59-9CA5-4DA3-B1CE-108713F2DB23"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 402 - Said You'd Kill Next Raider",
+      "episode": 2,
+      "options": [
+        {
+          "value": "true",
+          "expression": "64EE8F42-CDA8-4DD1-BBAC-89F50D3B4E86"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 402 - Let AJ Call Dibs",
+      "episode": 2,
+      "options": [
+        {
+          "value": "true",
+          "expression": "119345C7-1D7D-4125-B492-52F3F61739BC | 5CEE3E11-867F-4429-BDAD-04754CD4BC77"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 402 - Comforted Rosie",
+      "episode": 2,
+      "options": [
+        {
+          "value": "true",
+          "expression": "EADF4D21-8AA3-4B5E-B43E-D54E91A6A4CE | 77D98F1E-B5F4-4FF4-812B-84D2D3828C10"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 402 - Carved Heart",
+      "episode": 2,
+      "options": [
+        {
+          "value": "true",
+          "expression": "71F87571-AB62-48F9-9723-1AE4C5F9E7C8"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 402 - Violet Romance Choice",
+      "episode": 2,
+      "options": [
+        {
+          "value": "girlfriend",
+          "expression": "24E57737-A62C-410C-AE10-FAE08BCBCE69"
+        },
+        {
+          "value": "kiss",
+          "expression": "5CBEF5EC-1608-456F-8A5F-C0B987AC19CF"
+        },
+        {
+          "value": "silent",
+          "expression": "4DB42215-4903-4C54-BEE2-A25166B35DF5"
+        },
+        {
+          "value": "slow",
+          "expression": "94A42717-9D17-45FD-A1A0-7DBD19988B26"
+        },
+        {
+          "value": "unsure",
+          "expression": "92A7A682-978C-4D3F-B007-B7F6EEF62BED"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 402 - Violet Choice",
+      "episode": 2,
+      "options": [
+        {
+          "value": "friends",
+          "expression": "27E2FBE9-FCE2-4763-8D10-F246F4FF0176"
+        },
+        {
+          "value": "romance",
+          "expression": "13DBAFA7-1A3C-4BAC-9076-CF6353BADC78"
+        },
+        {
+          "value": "silent",
+          "expression": "158CAE7B-A053-4EAB-9E68-00610857ED2E"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 402 - AJ Murder Choice",
+      "episode": 2,
+      "options": [
+        {
+          "value": "justified",
+          "expression": "F879DA68-B5F3-4DF9-8A93-A26E6EE987C5 | C78D3912-EEC8-4EDC-989F-25A9AA416BC6"
+        },
+        {
+          "value": "murder",
+          "expression": "73C0146E-CB0F-4FDA-857A-280B9D43B4B9 | B99C5BC2-55AF-4473-BF43-3200AE438A97"
+        },
+        {
+          "value": "silent",
+          "expression": "B8BDC1A1-6BDC-46C1-BAF8-4BC7970FD127"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 402 - AJ Shirt Choice",
+      "episode": 2,
+      "options": [
+        {
+          "value": "disco",
+          "expression": "63FA18CA-B3FD-4B52-B589-E3ADC5D3F4AD"
+        },
+        {
+          "value": "jersey",
+          "expression": "12B82CA7-452B-4244-B1ED-3FF21273E232"
+        },
+        {
+          "value": "science",
+          "expression": "616137C9-5D31-438E-8F32-66CC9DC2E69B"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 402 - AJ Cuss Rating",
+      "episode": 2,
+      "options": [
+        {
+          "value": "pg",
+          "expression": "45F2F244-4E3B-4BD0-8089-590D7D72C8B0"
+        },
+        {
+          "value": "r",
+          "expression": "A557A13C-4656-4F67-BEC4-4EEDDE88D007 | AB0D3753-C4B2-4338-A164-F5B7A2746EAD"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 402 - Fear Choice",
+      "episode": 2,
+      "options": [
+        {
+          "value": "breathe",
+          "expression": "DBACAAF0-F378-4BDC-9088-99931FF26110"
+        },
+        {
+          "value": "fuckoff",
+          "expression": "8FEE0332-CF05-4E7C-8FF9-DDD4F85E6BD4 | 0C7ADE52-2DA1-4E0E-A9F0-4753ED9B1ED3"
+        },
+        {
+          "value": "push",
+          "expression": "D3D1AF03-40BC-48F9-80B3-BB23A8C03AD9"
+        },
+        {
+          "value": "silent",
+          "expression": "28D9939B-DAA4-4123-B9E0-3A4B99565A96"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 402 - Lee Choice",
+      "episode": 2,
+      "options": [
+        {
+          "value": "conditional",
+          "expression": "9167513F-A1D8-4A6B-AD32-865D597813FF | 01230EBD-CD02-437B-8976-DEF948CD439B"
+        },
+        {
+          "value": "dare",
+          "expression": "64B6C5F0-7317-4852-B061-ED647571B3E0"
+        },
+        {
+          "value": "silent",
+          "expression": "B69C5509-D61B-45DF-B170-99A5B7418E17"
+        },
+        {
+          "value": "wrong",
+          "expression": "2FD642EC-CDB3-49F7-9FDD-A40AEB07318F | A1394067-0ADF-4FAE-8028-34AC65B48555"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 402 - James Choice",
+      "episode": 2,
+      "options": [
+        {
+          "value": "flip",
+          "expression": "6AE77C60-31E6-45EE-A8B3-64F725F2B51E"
+        },
+        {
+          "value": "marry",
+          "expression": "E1E2019C-3FBE-487B-B1F1-7C4EE2D56181"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 402 - Lilly Choice",
+      "episode": 2,
+      "options": [
+        {
+          "value": "family",
+          "expression": "B6947D59-9CA5-4DA3-B1CE-108713F2DB23"
+        },
+        {
+          "value": "hell",
+          "expression": "ACE4B745-3D3E-4BF7-827F-1FCDB6617910"
+        },
+        {
+          "value": "shoot",
+          "expression": "91F81B5B-10B1-4AC7-9C55-8EAAF1E3A663"
+        },
+        {
+          "value": "silent",
+          "expression": "CF7D9445-472F-4DE1-99A5-F8AF55716E49"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 402 - Louis Choice",
+      "episode": 2,
+      "options": [
+        {
+          "value": "friends",
+          "expression": "4569F413-ECA1-4C73-904C-DAE3A6E2E006"
+        },
+        {
+          "value": "romance",
+          "expression": "F039A4D2-B082-448F-9D9A-4BF3941CEDCF"
+        },
+        {
+          "value": "silent",
+          "expression": "C593A540-2C58-4D9E-BED0-809A5C95CDBA"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 403 - Zombie Abel",
+      "episode": 3,
+      "options": [
+        {
+          "value": "mercy_killed_abel",
+          "expression": "( {C9E688C6-D2CF-47C6-929C-F1F852BE939E} )"
+        },
+        {
+          "value": "forced_abel_to_turn_into",
+          "expression": "( {5818A5A9-01C8-483C-9F06-365626F4E7E5} )"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 403 - Forest Walker Kills",
+      "episode": 3,
+      "options": [
+        {
+          "value": "respected_james_beliefs_and_killed",
+          "expression": "( {14F7FB2F-9116-4D47-9624-E7EEF9FF721A} )"
+        },
+        {
+          "value": "only_killed_some_of_the",
+          "expression": "(  ~{14F7FB2F-9116-4D47-9624-E7EEF9FF721A} & {27E86310-19FE-4481-B8F8-CF95BE091159} )"
+        },
+        {
+          "value": "ignored_james_wishes_and_killed",
+          "expression": "( {5E15E8C7-7E06-40B6-93CF-7668DB67708D} )"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 403 - Bomb Name",
+      "episode": 3,
+      "options": [
+        {
+          "value": "named_the_bomb_mitch_s",
+          "expression": "( {035DB8B1-43B7-4F70-B841-30C7A469A0FF} )"
+        },
+        {
+          "value": "named_the_bomb_ruby_s",
+          "expression": "( {9E7DE313-0274-4D3B-9AD9-CCCCF211A8FE} )"
+        },
+        {
+          "value": "named_the_bomb_willy_junior",
+          "expression": "( {4C3F4B08-6DBF-4AE4-A717-65441E20C6A5} )"
+        },
+        {
+          "value": "had_a_bomb_named_aj",
+          "expression": "( {CC9CB488-ED7D-479C-A235-37304F0E5F25} )"
+        },
+        {
+          "value": "refused_to_name_the_bomb",
+          "expression": "( {B785EB83-A849-49A3-A2CF-FABEB1DFB873} )"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 403 - AJ Attack Dorian",
+      "episode": 3,
+      "options": [
+        {
+          "value": "stopped_aj_and_let_dorian",
+          "expression": "( {5A3A8F4F-62BE-40C0-9F31-F39EC2F275DC} )"
+        },
+        {
+          "value": "allowed_aj_to_attack_dorian",
+          "expression": "( {AB059164-77F9-4FB4-8996-0BA4F96DC361} )"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 403 - AJ Shoot Lilly",
+      "episode": 3,
+      "options": [
+        {
+          "value": "told_aj_to_kill_lilly",
+          "expression": "( {44306977-619A-4B50-BCDB-52346B0E18B5} )"
+        },
+        {
+          "value": "refused_to_tell_aj_to",
+          "expression": "( {F84FDD53-A057-48A3-93F6-4A9FACEC8250} )"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 403 - Killed Abel",
+      "episode": 3,
+      "options": [
+        {
+          "value": "true",
+          "expression": "2C8655D6-9513-4B3E-9665-BE5FDADA60AD"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 403 - Killed Armando",
+      "episode": 3,
+      "options": [
+        {
+          "value": "true",
+          "expression": "6B124CA1-BBCE-45C6-A950-7CA725AD3E44"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 403 - Called James Crazy",
+      "episode": 3,
+      "options": [
+        {
+          "value": "true",
+          "expression": "D153D484-C9DE-4E1F-BC57-7E4A14F4DB10"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 403 - Slammed Abel 2",
+      "episode": 3,
+      "options": [
+        {
+          "value": "true",
+          "expression": "C856E91C-70BA-43C3-BD45-78390E9D853D"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 403 - Killed Michael",
+      "episode": 3,
+      "options": [
+        {
+          "value": "true",
+          "expression": "37C0BAA1-DB63-4B97-9843-2ABBD0C59340"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 403 - Slammed Abel 1",
+      "episode": 3,
+      "options": [
+        {
+          "value": "true",
+          "expression": "E79336B9-88A2-4F6B-93E3-39FE57332F44"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 403 - Burned Abel",
+      "episode": 3,
+      "options": [
+        {
+          "value": "true",
+          "expression": "ED3506EB-36EE-4537-845B-BC16B1F51A01"
+        },
+        {
+          "value": "false",
+          "expression": ""
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 403 - Lilly Choice",
+      "episode": 3,
+      "options": [
+        {
+          "value": "shoot",
+          "expression": "44306977-619A-4B50-BCDB-52346B0E18B5"
+        },
+        {
+          "value": "silent",
+          "expression": "9138B3C1-B46B-448B-B6F9-A3617EF0713E"
+        },
+        {
+          "value": "stand",
+          "expression": "DF3CE08B-E276-43AE-AD9C-2820C362040E"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 403 - Trauma Choice",
+      "episode": 3,
+      "options": [
+        {
+          "value": "help",
+          "expression": "F7350C04-87A8-4288-A2D9-CA2329543BD8"
+        },
+        {
+          "value": "never",
+          "expression": "487F1676-3389-4BBB-A567-C73C3F714910"
+        },
+        {
+          "value": "silent",
+          "expression": "2DAF9C8B-24B1-40BA-8F95-E6F818CFAA8B"
+        },
+        {
+          "value": "sock",
+          "expression": "AF1B29C6-D2E6-423E-A86A-E53EED297748"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 403 - Pacifism Choice",
+      "episode": 3,
+      "options": [
+        {
+          "value": "killer",
+          "expression": "F29D36DD-5EE9-425C-9432-262326301B15"
+        },
+        {
+          "value": "raise",
+          "expression": "40DD3FC7-3AA3-43A9-8727-D2F776D0AE76"
+        },
+        {
+          "value": "safe",
+          "expression": "D85084D7-052C-4644-AE96-733A793158AB"
+        },
+        {
+          "value": "silent",
+          "expression": "53D3771A-09CA-4C1F-A770-E993060EAA70"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 403 - Bitten Choice",
+      "episode": 3,
+      "options": [
+        {
+          "value": "run",
+          "expression": "E695067F-E8E3-4D23-A656-21A2670EC66C"
+        },
+        {
+          "value": "shoot",
+          "expression": "1A53D009-3B0A-4F02-B5FB-6EFB31C4C4BC"
+        },
+        {
+          "value": "silent",
+          "expression": "90B4AFF8-C6C8-4C5F-8863-F6F92E90089F"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 404 - Trusted AJ to make his own decisions",
+      "episode": 4,
+      "options": [
+        {
+          "value": "trusted_aj_to_make_his",
+          "expression": "( {2280AECF-E4EB-4511-85C9-E6504BC7AAD6} | {9CFA307C-5BBE-4205-B722-95046C5C58D4} )"
+        },
+        {
+          "value": "told_aj_he_wasn_t",
+          "expression": "( {825F90A0-40A1-40FC-A3C6-DD0907FA5F20} | {96FEB050-8B35-4B55-8FE0-D71B1B363024} )"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 404 - Decided to add a skylight to Louis’ imaginary house",
+      "episode": 4,
+      "options": [
+        {
+          "value": "decided_to_add_a_skylight",
+          "expression": "( {5524A0D7-62F1-4AA5-AABF-11F2107E4879} )"
+        },
+        {
+          "value": "decided_to_add_a_tree",
+          "expression": "( {2B2E75DC-9265-45BE-8976-A1D293591FE6} )"
+        },
+        {
+          "value": "decided_to_add_a_statue",
+          "expression": "( {6C580064-0D9B-49C6-90B2-1EC4A5752721} )"
+        },
+        {
+          "value": "let_louis_decide_on_the",
+          "expression": "( {10E44C14-173B-4465-A0E3-9A4C606F1958} | {5D5E1AC2-BF52-4CD7-9BFF-CC2C4CA87B43} )"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 404 - Let Violet rename the school herself",
+      "episode": 4,
+      "options": [
+        {
+          "value": "let_violet_rename_the_school",
+          "expression": "( {64594F3B-FE80-4290-8DD0-2E4565FA0066} | {ED22C199-6EEC-445B-8CF7-CEC8FDA4677D} )"
+        },
+        {
+          "value": "renamed_the_school_happy_sunshine",
+          "expression": "( {FC93EDA3-CA0C-49E8-8E53-B26B0451ED75} )"
+        },
+        {
+          "value": "renamed_the_school_the_rotting",
+          "expression": "( {0159D878-B1D0-40A7-8070-A81B1D7BFCCD} )"
+        },
+        {
+          "value": "renamed_the_school_castle_violet",
+          "expression": "( {7C2C5324-B198-4113-AC1D-8F192E700277} )"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 404 - Asked AJ to kill you rather than let you become a walker",
+      "episode": 4,
+      "options": [
+        {
+          "value": "asked_aj_to_kill_you",
+          "expression": "( {95EF9164-AEEC-4D1B-8F06-B715FDA52C10} )"
+        },
+        {
+          "value": "asked_aj_to_leave_you",
+          "expression": "( {7B65D06D-D8AB-498C-90A7-D78ACB001EA5} )"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 404 - Agreed to teach Tenn to be like you",
+      "episode": 4,
+      "options": [
+        {
+          "value": "agreed_to_teach_tenn_to",
+          "expression": "( {D6C8979F-C408-4433-8118-0756F851F268} )"
+        },
+        {
+          "value": "refused_to_teach_tenn_to",
+          "expression": "( {1E76746E-8E8F-46A9-BB90-59E19DDA5CA5} | {C769C7FC-ED4B-4988-9E46-06D5801BDA1C} )"
+        }
+      ]
+    },
+    {
+      "choiceKey": "Episode 404 - Shot Tenn after he became a walker",
+      "episode": 4,
+      "options": [
+        {
+          "value": "shot_tenn_after_he_became",
+          "expression": "( {B41EBFF0-6582-42E5-A7EB-66A0A95329D5} )"
+        },
+        {
+          "value": "spared_tenn_after_he_became",
+          "expression": "( {AAC3B126-09CF-41AF-BC42-BE81BC302957} )"
+        }
+      ]
+    }
+  ],
+  "logicKeys": [
+    {
+      "key": "Episode 403 - Killed Abel",
+      "readFrom": 4,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "2C8655D6-9513-4B3E-9665-BE5FDADA60AD"
+        }
+      ]
+    },
+    {
+      "key": "Episode 403 - Killed Armando",
+      "readFrom": 4,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "6B124CA1-BBCE-45C6-A950-7CA725AD3E44"
+        }
+      ]
+    },
+    {
+      "key": "Episode 402 - Said We Were Family",
+      "readFrom": 4,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "B6947D59-9CA5-4DA3-B1CE-108713F2DB23"
+        }
+      ]
+    },
+    {
+      "key": "Episode 403 - Called James Crazy",
+      "readFrom": 4,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "D153D484-C9DE-4E1F-BC57-7E4A14F4DB10"
+        }
+      ]
+    },
+    {
+      "key": "Episode 401 - Said You're a Ninja",
+      "readFrom": 4,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "15964994-9BB8-4632-9DD4-28F5321ECF2D"
+        }
+      ]
+    },
+    {
+      "key": "Episode 403 - Killed Lilly",
+      "readFrom": 4,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "44306977-619A-4B50-BCDB-52346B0E18B5"
+        }
+      ]
+    },
+    {
+      "key": "Episode 401 - Said There's Just Darkness",
+      "readFrom": 4,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "3FBA2615-784C-4215-BF64-57E092EC50B1"
+        }
+      ]
+    },
+    {
+      "key": "Episode 403 - Slammed Abel 2",
+      "readFrom": 4,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "C856E91C-70BA-43C3-BD45-78390E9D853D"
+        }
+      ]
+    },
+    {
+      "key": "Episode 401 - Killed Zombie Couple",
+      "readFrom": 4,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "170B10E1-289B-48FC-8B2E-9D775CFEBF2F"
+        }
+      ]
+    },
+    {
+      "key": "Episode 403 - Killed Michael",
+      "readFrom": 4,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "37C0BAA1-DB63-4B97-9843-2ABBD0C59340"
+        }
+      ]
+    },
+    {
+      "key": "Episode 402 - Said You'd Kill Next Raider",
+      "readFrom": 4,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "64EE8F42-CDA8-4DD1-BBAC-89F50D3B4E86"
+        }
+      ]
+    },
+    {
+      "key": "Episode 403 - Slammed Abel 1",
+      "readFrom": 4,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "E79336B9-88A2-4F6B-93E3-39FE57332F44"
+        }
+      ]
+    },
+    {
+      "key": "Episode 403 - Let AJ Attack Dorian",
+      "readFrom": 4,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "AB059164-77F9-4FB4-8996-0BA4F96DC361"
+        }
+      ]
+    },
+    {
+      "key": "Episode 403 - Burned Abel",
+      "readFrom": 4,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "ED3506EB-36EE-4537-845B-BC16B1F51A01"
+        }
+      ]
+    },
+    {
+      "key": "Episode 403 - Lilly Choice",
+      "readFrom": 4,
+      "text": true,
+      "values": [
+        {
+          "value": "Shoot",
+          "expression": "44306977-619A-4B50-BCDB-52346B0E18B5"
+        },
+        {
+          "value": "Silent",
+          "expression": "9138B3C1-B46B-448B-B6F9-A3617EF0713E"
+        },
+        {
+          "value": "Stand",
+          "expression": "DF3CE08B-E276-43AE-AD9C-2820C362040E"
+        }
+      ]
+    },
+    {
+      "key": "Episode 403 - Trauma Choice",
+      "readFrom": 4,
+      "text": true,
+      "values": [
+        {
+          "value": "Help",
+          "expression": "F7350C04-87A8-4288-A2D9-CA2329543BD8"
+        },
+        {
+          "value": "Never",
+          "expression": "487F1676-3389-4BBB-A567-C73C3F714910"
+        },
+        {
+          "value": "Silent",
+          "expression": "2DAF9C8B-24B1-40BA-8F95-E6F818CFAA8B"
+        },
+        {
+          "value": "Sock",
+          "expression": "AF1B29C6-D2E6-423E-A86A-E53EED297748"
+        }
+      ]
+    },
+    {
+      "key": "Episode 403 - Pacifism Choice",
+      "readFrom": 4,
+      "text": true,
+      "values": [
+        {
+          "value": "Killer",
+          "expression": "F29D36DD-5EE9-425C-9432-262326301B15"
+        },
+        {
+          "value": "Raise",
+          "expression": "40DD3FC7-3AA3-43A9-8727-D2F776D0AE76"
+        },
+        {
+          "value": "Safe",
+          "expression": "D85084D7-052C-4644-AE96-733A793158AB"
+        },
+        {
+          "value": "Silent",
+          "expression": "53D3771A-09CA-4C1F-A770-E993060EAA70"
+        }
+      ]
+    },
+    {
+      "key": "Episode 403 - Bitten Choice",
+      "readFrom": 4,
+      "text": true,
+      "values": [
+        {
+          "value": "Run",
+          "expression": "E695067F-E8E3-4D23-A656-21A2670EC66C"
+        },
+        {
+          "value": "Shoot",
+          "expression": "1A53D009-3B0A-4F02-B5FB-6EFB31C4C4BC"
+        },
+        {
+          "value": "Silent",
+          "expression": "90B4AFF8-C6C8-4C5F-8863-F6F92E90089F"
+        }
+      ]
+    },
+    {
+      "key": "Episode 401 - Heart Choice",
+      "readFrom": 4,
+      "text": true,
+      "values": [
+        {
+          "value": "Art",
+          "expression": "135FB96E-BA2A-4D8F-9A97-197A07051C5D"
+        },
+        {
+          "value": "Friends",
+          "expression": "4989CF9F-4020-41D4-A04F-A856BDDBD8F1"
+        },
+        {
+          "value": "Girlfriends",
+          "expression": "4C8BF3A5-7EA7-4100-9287-C8A8ED065FFA"
+        },
+        {
+          "value": "Silent",
+          "expression": "DA7A0C96-67E2-42F6-9DB3-6A0D600F7593"
+        }
+      ]
+    },
+    {
+      "key": "Episode 401 - Firefighter Choice",
+      "readFrom": 4,
+      "text": true,
+      "values": [
+        {
+          "value": "Died",
+          "expression": "CB5A2D2F-C99C-4F41-925C-F2BC0A2D7B5B"
+        },
+        {
+          "value": "Know",
+          "expression": "47D3FEB3-7023-4B0E-A141-AF495A8151FF"
+        },
+        {
+          "value": "Meet",
+          "expression": "1DB0AAB8-E162-4FB2-BE66-89E704137AD9"
+        },
+        {
+          "value": "Silent",
+          "expression": "EF141574-2B56-4387-999E-5B041F69475D"
+        }
+      ]
+    },
+    {
+      "key": "Episode 205 - Killed Kenny",
+      "readFrom": 1,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "885D6356-A86A-4356-9BF1-80ED05BEA378 | FC0D4E96-E47F-4716-96C4-48261F8A32F4"
+        }
+      ]
+    },
+    {
+      "key": "Episode 105 - Killed Lee",
+      "readFrom": 1,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "6A4BA224-54DA-4A68-8A7F-D63CBDA5E777"
+        }
+      ]
+    },
+    {
+      "key": "Episode 203 - Watched Kenny Kill Carver",
+      "readFrom": 1,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "2A8C6959-5A1A-4A3E-A0D8-2EB79374A7D0"
+        }
+      ]
+    },
+    {
+      "key": "Episode 205 - Ending Choice",
+      "readFrom": 1,
+      "text": true,
+      "values": [
+        {
+          "value": "Alone",
+          "expression": "A589CF98-8E76-4810-AEE0-7826FFE17E0A"
+        },
+        {
+          "value": "Jane",
+          "expression": "3925F399-BA46-4300-B892-50B27D81BE76"
+        },
+        {
+          "value": "Kenny",
+          "expression": "CDB22E82-B307-487B-9FD8-1F13BA8F503A"
+        },
+        {
+          "value": "Wellington",
+          "expression": "40D5909C-7356-4EBC-A7B4-CD465753848F"
+        }
+      ]
+    },
+    {
+      "key": "Episode 101 - Saved Doug",
+      "readFrom": 2,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "D4F56B51-81A8-4258-BD0E-678BF0B9E2F0"
+        }
+      ]
+    },
+    {
+      "key": "Episode 401 - Appealed to Louis",
+      "readFrom": 2,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "EF3B17D7-62D4-47D0-AD09-25788B84D18E"
+        }
+      ]
+    },
+    {
+      "key": "Episode 103 - Left Lilly",
+      "readFrom": 2,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "F004B610-9177-4D0E-8A1E-CDCF8AA4F68E"
+        }
+      ]
+    },
+    {
+      "key": "Episode 401 - Let AJ Cuss",
+      "readFrom": 2,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "A557A13C-4656-4F67-BEC4-4EEDDE88D007"
+        }
+      ]
+    },
+    {
+      "key": "Episode 401 - Attacked Abel",
+      "readFrom": 2,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "D4DFE2E9-4A8B-4DA7-B05A-D1C3495D639F"
+        }
+      ]
+    },
+    {
+      "key": "Episode 401 - Marlon Choice Non-Fight",
+      "readFrom": 2,
+      "text": true,
+      "values": [
+        {
+          "value": "leave",
+          "expression": "05673B3A-0994-46BB-84DF-DD28F2B7CC56"
+        },
+        {
+          "value": "prisoner",
+          "expression": "0139C38F-8210-417E-B38C-97254ACBDD83"
+        },
+        {
+          "value": "silent",
+          "expression": "50F124AB-0714-44CC-A8FB-5E9CBF57AECE"
+        },
+        {
+          "value": "stay",
+          "expression": "76EAC7B8-88B3-403E-8D89-DAD1CA4756B6"
+        }
+      ]
+    },
+    {
+      "key": "Episode 401 - Marlon Confrontation",
+      "readFrom": 2,
+      "text": true,
+      "values": [
+        {
+          "value": "fix",
+          "expression": "47C99C00-EED1-4DE3-B66E-E8D5549C0A3B"
+        },
+        {
+          "value": "pathetic",
+          "expression": "54E927A4-51FE-4DB8-BADF-630F7FE846C4"
+        },
+        {
+          "value": "silent",
+          "expression": "CE9E8FFD-6F93-47A3-818C-888852BF65F5"
+        },
+        {
+          "value": "tackle",
+          "expression": "FB353606-9C48-4B0E-96F2-CEC6282393E7"
+        }
+      ]
+    },
+    {
+      "key": "Episode 401 - Gun Choice",
+      "readFrom": 2,
+      "text": true,
+      "values": [
+        {
+          "value": "bullet",
+          "expression": "391FFFA0-7E3A-432A-BA6D-E808A6D271CD"
+        },
+        {
+          "value": "head",
+          "expression": "3B3877C3-D031-43E2-A614-E5EA6942B524"
+        },
+        {
+          "value": "hesitate",
+          "expression": "8B7E5795-E10A-4E3F-96B1-EEA342D5FD63"
+        },
+        {
+          "value": "silent",
+          "expression": "8EDBD302-1C67-49F1-A0B6-FA4286BB584D"
+        }
+      ]
+    },
+    {
+      "key": "Episode 401 - Marlon Choice Post-Fight",
+      "readFrom": 2,
+      "text": true,
+      "values": [
+        {
+          "value": "basement",
+          "expression": "2285A89C-F021-423F-97B5-CEDF31031FC3"
+        },
+        {
+          "value": "fix",
+          "expression": "6A292502-BD81-48BE-A99C-C97244CD4D1B"
+        },
+        {
+          "value": "leave",
+          "expression": "D4BA77DB-45D0-4606-A1D9-2C28CD2720B3"
+        },
+        {
+          "value": "silent",
+          "expression": "73E409FD-69E0-4664-9D76-2208EAD8C621"
+        }
+      ]
+    },
+    {
+      "key": "Episode 402 - Let AJ Call Dibs",
+      "readFrom": 3,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "119345C7-1D7D-4125-B492-52F3F61739BC | 5CEE3E11-867F-4429-BDAD-04754CD4BC77"
+        }
+      ]
+    },
+    {
+      "key": "Episode 402 - Comforted Rosie",
+      "readFrom": 3,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "EADF4D21-8AA3-4B5E-B43E-D54E91A6A4CE | 77D98F1E-B5F4-4FF4-812B-84D2D3828C10"
+        }
+      ]
+    },
+    {
+      "key": "Episode 402 - Lilly Shot Louis",
+      "readFrom": 3,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "F28A8FAC-A4EF-4E4C-B510-D947FAEF804E"
+        }
+      ]
+    },
+    {
+      "key": "Episode 402 - Saved Violet",
+      "readFrom": 3,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "E20E5B4D-6404-46C1-979C-7CD96F720105 | 126EB207-831C-4BFF-9D85-FB9D66493BB5"
+        }
+      ]
+    },
+    {
+      "key": "Episode 401 - Used Tire Swing",
+      "readFrom": 3,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "E4E0D9DB-C836-4CE8-8C74-C5897A5D63D1"
+        }
+      ]
+    },
+    {
+      "key": "Episode 402 - Carved Heart",
+      "readFrom": 3,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "71F87571-AB62-48F9-9723-1AE4C5F9E7C8"
+        }
+      ]
+    },
+    {
+      "key": "Episode 401 - Learned Rosie Trick",
+      "readFrom": 3,
+      "text": false,
+      "values": [
+        {
+          "value": "true",
+          "expression": "5B2C0EC3-3679-43DC-880B-1D6F1336E03F"
+        }
+      ]
+    },
+    {
+      "key": "Episode 401 - AJ Lesson Choice",
+      "readFrom": 3,
+      "text": true,
+      "values": [
+        {
+          "value": "Exit",
+          "expression": "3B68096B-EE3C-48A8-AFA7-73DE722074AC"
+        },
+        {
+          "value": "Hide",
+          "expression": "D9878140-259A-4325-8E26-4B275A3B277E"
+        },
+        {
+          "value": "Silent",
+          "expression": "B225FC64-8F8B-45E7-A55D-08946752ADD8"
+        },
+        {
+          "value": "Windows",
+          "expression": "98D5C8BF-51B8-40F3-964B-7E56042E6755"
+        }
+      ]
+    },
+    {
+      "key": "Episode 402 - Violet Romance Choice",
+      "readFrom": 3,
+      "text": true,
+      "values": [
+        {
+          "value": "Girlfriend",
+          "expression": "24E57737-A62C-410C-AE10-FAE08BCBCE69"
+        },
+        {
+          "value": "Kiss",
+          "expression": "5CBEF5EC-1608-456F-8A5F-C0B987AC19CF"
+        },
+        {
+          "value": "Silent",
+          "expression": "4DB42215-4903-4C54-BEE2-A25166B35DF5"
+        },
+        {
+          "value": "Slow",
+          "expression": "94A42717-9D17-45FD-A1A0-7DBD19988B26"
+        },
+        {
+          "value": "Unsure",
+          "expression": "92A7A682-978C-4D3F-B007-B7F6EEF62BED"
+        }
+      ]
+    },
+    {
+      "key": "Episode 402 - Violet Choice",
+      "readFrom": 3,
+      "text": true,
+      "values": [
+        {
+          "value": "Friends",
+          "expression": "27E2FBE9-FCE2-4763-8D10-F246F4FF0176"
+        },
+        {
+          "value": "Romance",
+          "expression": "13DBAFA7-1A3C-4BAC-9076-CF6353BADC78"
+        },
+        {
+          "value": "Silent",
+          "expression": "158CAE7B-A053-4EAB-9E68-00610857ED2E"
+        }
+      ]
+    },
+    {
+      "key": "Episode 402 - AJ Murder Choice",
+      "readFrom": 3,
+      "text": true,
+      "values": [
+        {
+          "value": "Justified",
+          "expression": "F879DA68-B5F3-4DF9-8A93-A26E6EE987C5 | C78D3912-EEC8-4EDC-989F-25A9AA416BC6"
+        },
+        {
+          "value": "Murder",
+          "expression": "73C0146E-CB0F-4FDA-857A-280B9D43B4B9 | B99C5BC2-55AF-4473-BF43-3200AE438A97"
+        },
+        {
+          "value": "Silent",
+          "expression": "B8BDC1A1-6BDC-46C1-BAF8-4BC7970FD127"
+        }
+      ]
+    },
+    {
+      "key": "Episode 402 - AJ Shirt Choice",
+      "readFrom": 3,
+      "text": true,
+      "values": [
+        {
+          "value": "Disco",
+          "expression": "63FA18CA-B3FD-4B52-B589-E3ADC5D3F4AD"
+        },
+        {
+          "value": "Jersey",
+          "expression": "12B82CA7-452B-4244-B1ED-3FF21273E232"
+        },
+        {
+          "value": "Science",
+          "expression": "616137C9-5D31-438E-8F32-66CC9DC2E69B"
+        }
+      ]
+    },
+    {
+      "key": "Episode 402 - AJ Cuss Rating",
+      "readFrom": 3,
+      "text": true,
+      "values": [
+        {
+          "value": "PG",
+          "expression": "45F2F244-4E3B-4BD0-8089-590D7D72C8B0"
+        },
+        {
+          "value": "R",
+          "expression": "A557A13C-4656-4F67-BEC4-4EEDDE88D007 | AB0D3753-C4B2-4338-A164-F5B7A2746EAD"
+        }
+      ]
+    },
+    {
+      "key": "Episode 402 - Fear Choice",
+      "readFrom": 3,
+      "text": true,
+      "values": [
+        {
+          "value": "Breathe",
+          "expression": "DBACAAF0-F378-4BDC-9088-99931FF26110"
+        },
+        {
+          "value": "FuckOff",
+          "expression": "8FEE0332-CF05-4E7C-8FF9-DDD4F85E6BD4 | 0C7ADE52-2DA1-4E0E-A9F0-4753ED9B1ED3"
+        },
+        {
+          "value": "Push",
+          "expression": "D3D1AF03-40BC-48F9-80B3-BB23A8C03AD9"
+        },
+        {
+          "value": "Silent",
+          "expression": "28D9939B-DAA4-4123-B9E0-3A4B99565A96"
+        }
+      ]
+    },
+    {
+      "key": "Episode 402 - Lee Choice",
+      "readFrom": 3,
+      "text": true,
+      "values": [
+        {
+          "value": "Conditional",
+          "expression": "9167513F-A1D8-4A6B-AD32-865D597813FF | 01230EBD-CD02-437B-8976-DEF948CD439B"
+        },
+        {
+          "value": "Dare",
+          "expression": "64B6C5F0-7317-4852-B061-ED647571B3E0"
+        },
+        {
+          "value": "Silent",
+          "expression": "B69C5509-D61B-45DF-B170-99A5B7418E17"
+        },
+        {
+          "value": "Wrong",
+          "expression": "2FD642EC-CDB3-49F7-9FDD-A40AEB07318F | A1394067-0ADF-4FAE-8028-34AC65B48555"
+        }
+      ]
+    },
+    {
+      "key": "Episode 105 - Lee Advice",
+      "readFrom": 3,
+      "text": true,
+      "values": [
+        {
+          "value": "Cities",
+          "expression": "3E061B9D-E638-4792-BE68-A6BF9C97C9CE"
+        },
+        {
+          "value": "Hair",
+          "expression": "B4FF1177-51BE-4BA7-908B-2EF52DA4B273"
+        },
+        {
+          "value": "Moving",
+          "expression": "EED59B2F-F429-4852-B481-28A0A3C97851"
+        }
+      ]
+    },
+    {
+      "key": "Episode 402 - James Choice",
+      "readFrom": 3,
+      "text": true,
+      "values": [
+        {
+          "value": "Flip",
+          "expression": "6AE77C60-31E6-45EE-A8B3-64F725F2B51E"
+        },
+        {
+          "value": "Marry",
+          "expression": "E1E2019C-3FBE-487B-B1F1-7C4EE2D56181"
+        }
+      ]
+    },
+    {
+      "key": "Episode 402 - Lilly Choice",
+      "readFrom": 3,
+      "text": true,
+      "values": [
+        {
+          "value": "Family",
+          "expression": "B6947D59-9CA5-4DA3-B1CE-108713F2DB23"
+        },
+        {
+          "value": "Hell",
+          "expression": "ACE4B745-3D3E-4BF7-827F-1FCDB6617910"
+        },
+        {
+          "value": "Shoot",
+          "expression": "91F81B5B-10B1-4AC7-9C55-8EAAF1E3A663"
+        },
+        {
+          "value": "Silent",
+          "expression": "CF7D9445-472F-4DE1-99A5-F8AF55716E49"
+        }
+      ]
+    },
+    {
+      "key": "Episode 402 - Louis Choice",
+      "readFrom": 3,
+      "text": true,
+      "values": [
+        {
+          "value": "Friends",
+          "expression": "4569F413-ECA1-4C73-904C-DAE3A6E2E006"
+        },
+        {
+          "value": "Romance",
+          "expression": "F039A4D2-B082-448F-9D9A-4BF3941CEDCF"
+        },
+        {
+          "value": "Silent",
+          "expression": "C593A540-2C58-4D9E-BED0-809A5C95CDBA"
+        }
+      ]
+    }
+  ]
+}

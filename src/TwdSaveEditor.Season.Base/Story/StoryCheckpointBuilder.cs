@@ -13,8 +13,11 @@ public sealed class StoryCheckpointBuilder(StorySeason season)
     public const string DeveloperMenuScript = "DebugMenu";
     public const string PreviousScript = "Script - Previous";
     public const string ChapterId = "SaveLoad - Chapter ID";
+    public const string CheckpointDialogFile = "SaveLoad - Checkpoint Dialog File";
+    public const string CheckpointDialogNode = "SaveLoad - Checkpoint Dialog Node";
 
     private const string AutoSave = "SaveLoad - Auto Save";
+    private const string RuntimeVisible = "Runtime: Visible";
     private const string ScriptExtension = ".lua";
     private const uint LocalKeysFlag = 0x100;
 
@@ -31,16 +34,24 @@ public sealed class StoryCheckpointBuilder(StorySeason season)
         metadata.SetString(StoryFiles.SavedProject, project);
 
         var sets = new SortedDictionary<ulong, PropertySet>();
-        var saveLoad = Runtime(sets, StoryFiles.SaveLoadProperties);
+        var saveLoad = Runtime(sets, season.SaveLoadProperties);
         saveLoad.SetBool(AutoSave, false);
         if (season.ChapterSaves)
             saveLoad.SetString(ChapterId, chapter.ChapterId);
+        if (chapter.Dialog != null && chapter.DialogNode != null)
+        {
+            saveLoad.SetString(CheckpointDialogFile, chapter.Dialog);
+            saveLoad.SetString(CheckpointDialogNode, chapter.DialogNode);
+        }
 
         if (!chapter.StartsEpisode)
         {
-            Runtime(sets, StoryFiles.ScriptProperties).SetString(PreviousScript, DeveloperMenuScript);
+            Runtime(sets, season.ScriptProperties).SetString(PreviousScript, DeveloperMenuScript);
 
             var game = Runtime(sets, StoryFiles.LogicGameProperties);
+            if (season.GameLogicVisible)
+                game.SetBool(RuntimeVisible, true);
+
             ApplyLogicKeys(slot, episode, game);
             foreach (var flag in chapter.Flags)
                 Apply(game, flag.Key, flag.Value);

@@ -9,8 +9,6 @@ namespace TwdSaveEditor.Season.S3.Handlers;
 
 public class S3Handler : StorySeasonHandler, IChoiceImporter, IInventoryHandler
 {
-    private const string PreviousSeasonKey = "s2";
-
     public override string SeasonKey => "s3";
     public override string Name => "A New Frontier (Season 3)";
     public override string ShortName => "S3";
@@ -46,15 +44,4 @@ public class S3Handler : StorySeasonHandler, IChoiceImporter, IInventoryHandler
     public void SetInventory(SaveSlot slot, IReadOnlyList<HeldItem> items) => S3Story.Inventory.SetItems(slot, items);
 
     public IReadOnlyList<HeldItem> GetCarriedItems(SaveSlot slot) => S3Story.Inventory.CarriedItems(slot);
-
-    public bool CanImportFrom(SaveSlot source) => source.DetectedSeasonKey == PreviousSeasonKey && source.EventLog != null;
-
-    public void ImportChoices(SaveSlot source, SaveSlot target)
-    {
-        if (source.EventLog == null)
-            return;
-
-        new StoryEventLog(target, Season).ReplacePreviousGameData(source.EventLog.Events.Select(entry => entry.DialogNode).OfType<ulong>());
-        StoryChoiceAccessor.UpdateSavedLogic(target, Season);
-    }
 }

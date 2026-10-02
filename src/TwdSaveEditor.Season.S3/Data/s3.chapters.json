@@ -452,52 +452,6 @@
           ]
         },
         {
-          "id": "VirginiaUnderpassAction",
-          "title": "Virginia Underpass - Action",
-          "group": "Act 2",
-          "script": "VirginiaUnderpass",
-          "chapterId": "",
-          "startsEpisode": false,
-          "flags": [
-            {
-              "key": "Act",
-              "value": 2
-            },
-            {
-              "key": "2 - Winch Attached",
-              "value": true
-            }
-          ],
-          "decided": [
-            "Episode 302 - How did you deal with David and Kate\u2019s argument",
-            "Episode 302 - How did you handle the New Frontier at the gates of Prescott",
-            "Episode 302 - Held Kate\u0027s Hand"
-          ]
-        },
-        {
-          "id": "VirginiaUnderpassRoof",
-          "title": "Virginia Underpass - Roof",
-          "group": "Act 2",
-          "script": "VirginiaUnderpass",
-          "chapterId": "",
-          "startsEpisode": false,
-          "flags": [
-            {
-              "key": "Act",
-              "value": 2
-            },
-            {
-              "key": "2 - Winch Powered",
-              "value": true
-            }
-          ],
-          "decided": [
-            "Episode 302 - How did you deal with David and Kate\u2019s argument",
-            "Episode 302 - How did you handle the New Frontier at the gates of Prescott",
-            "Episode 302 - Held Kate\u0027s Hand"
-          ]
-        },
-        {
           "id": "VirginiaForestBus",
           "title": "Virginia Forest Bus",
           "group": "Act 3",
@@ -711,27 +665,6 @@
           ]
         },
         {
-          "id": "RailroadNightZombies",
-          "title": "Railroad Night - Zombies",
-          "group": "Act 2",
-          "script": "VirginiaRailroadNight",
-          "chapterId": "",
-          "startsEpisode": false,
-          "flags": [
-            {
-              "key": "Act",
-              "value": 2
-            },
-            {
-              "key": "2 - Tripp Mess Choice",
-              "value": 1
-            }
-          ],
-          "decided": [
-            "Episode 303 - Conrad Dead"
-          ]
-        },
-        {
           "id": "VirginiaForestCamp",
           "title": "Virginia Forest Camp",
           "group": "Act 2",
@@ -778,29 +711,6 @@
             {
               "key": "Act",
               "value": 3
-            }
-          ],
-          "decided": [
-            "Episode 303 - Did you try to save AJ",
-            "Episode 303 - Clementine Spit on David",
-            "Episode 303 - Conrad Dead"
-          ]
-        },
-        {
-          "id": "FactoryInteriorFight",
-          "title": "Factory Interior - Fight",
-          "group": "Act 3",
-          "script": "RichmondFactoryInterior",
-          "chapterId": "",
-          "startsEpisode": false,
-          "flags": [
-            {
-              "key": "Act",
-              "value": 3
-            },
-            {
-              "key": "3 - Let David In",
-              "value": true
             }
           ],
           "decided": [
@@ -1315,27 +1225,6 @@
           ]
         },
         {
-          "id": "WaterTowerBroFight",
-          "title": "Water Tower - Bro Fight",
-          "group": "Act 2",
-          "script": "RichmondWaterTower",
-          "chapterId": "",
-          "startsEpisode": false,
-          "flags": [
-            {
-              "key": "Act",
-              "value": 2
-            },
-            {
-              "key": "1 - Roof Choice",
-              "value": 1
-            }
-          ],
-          "decided": [
-            "Episode 305 - Did you stand with David on the ledge"
-          ]
-        },
-        {
           "id": "RichmondStreetTile",
           "title": "Richmond Street Tile",
           "group": "Act 2 - Gabe",
@@ -1420,7 +1309,7 @@
           ]
         },
         {
-          "id": "RichmondGate13",
+          "id": "RichmondGate12",
           "title": "Richmond Gate",
           "group": "Act 2 - Kate",
           "script": "RichmondGate",
@@ -1445,7 +1334,7 @@
           ]
         },
         {
-          "id": "RichmondSquareWallDusk14",
+          "id": "RichmondSquareWallDusk13",
           "title": "Richmond Square Wall Dusk",
           "group": "Act 2 - Kate",
           "script": "RichmondSquareWallDusk",
@@ -1470,7 +1359,7 @@
           ]
         },
         {
-          "id": "RichmondStreet15",
+          "id": "RichmondStreet14",
           "title": "Richmond Street",
           "group": "Act 2 - Kate",
           "script": "RichmondStreet",

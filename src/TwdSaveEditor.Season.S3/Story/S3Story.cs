@@ -14,6 +14,7 @@ public static class S3Story
         SharedResourceSets = ["UISeason3", "MenuSeason3", "ProjectSeason3"],
         DateFormat = "yyyy-MM-dd HH:mm",
         PreviousGameData = true,
+        PreviousSeasonKey = "s2",
     };
 
     public static readonly StoryResumePoint Resume = new(Season);

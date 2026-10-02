@@ -8,4 +8,6 @@ public sealed record StoryChapter(
     string ChapterId,
     bool StartsEpisode,
     IReadOnlyList<StoryChapterFlag> Flags,
-    IReadOnlyList<string> Decided);
+    IReadOnlyList<string> Decided,
+    string? Dialog = null,
+    string? DialogNode = null);

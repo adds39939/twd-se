@@ -188,16 +188,6 @@
           "fromStart": []
         },
         {
-          "id": "VirginiaUnderpassAction",
-          "carried": [],
-          "fromStart": []
-        },
-        {
-          "id": "VirginiaUnderpassRoof",
-          "carried": [],
-          "fromStart": []
-        },
-        {
           "id": "VirginiaForestBus",
           "carried": [],
           "fromStart": []
@@ -270,11 +260,6 @@
           "fromStart": []
         },
         {
-          "id": "RailroadNightZombies",
-          "carried": [],
-          "fromStart": []
-        },
-        {
           "id": "VirginiaForestCamp",
           "carried": [],
           "fromStart": []
@@ -286,11 +271,6 @@
         },
         {
           "id": "RichmondFactoryInterior",
-          "carried": [],
-          "fromStart": []
-        },
-        {
-          "id": "FactoryInteriorFight",
           "carried": [],
           "fromStart": []
         },
@@ -449,11 +429,6 @@
           "fromStart": []
         },
         {
-          "id": "WaterTowerBroFight",
-          "carried": [],
-          "fromStart": []
-        },
-        {
           "id": "RichmondStreetTile",
           "carried": [],
           "fromStart": []
@@ -474,17 +449,17 @@
           "fromStart": []
         },
         {
-          "id": "RichmondGate13",
+          "id": "RichmondGate12",
           "carried": [],
           "fromStart": []
         },
         {
-          "id": "RichmondSquareWallDusk14",
+          "id": "RichmondSquareWallDusk13",
           "carried": [],
           "fromStart": []
         },
         {
-          "id": "RichmondStreet15",
+          "id": "RichmondStreet14",
           "carried": [],
           "fromStart": []
         },

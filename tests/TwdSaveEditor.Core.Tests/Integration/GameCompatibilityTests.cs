@@ -95,10 +95,6 @@ public class GameCompatibilityTests
         {
             Assert.Contains(createdSlot.Files, f => f.Name == "season1.prop");
         }
-        else if (seasonKey == "s4")
-        {
-            Assert.Contains(createdSlot.Files, f => f.Name == "choicestats.pro");
-        }
     }
 
     [Theory]
@@ -240,25 +236,6 @@ public class GameCompatibilityTests
 
         Assert.Contains(createdSlot.Choices.TypeGroups,
             g => g.TypeSymbol.Value == TelltaleTypes.ChoicesContainer);
-    }
-
-    [Fact]
-    public void CreatedSave_S4ChoiceStatsPropertySetMatchesRealFormat()
-    {
-        var realPath = TestDataHelper.GetPath("S4", "wd4_saveslot1.bundle");
-        var realSlot = BundleReader.Read(realPath);
-
-        var handler = Registry.Get("s4")!;
-        var createdSlot = handler.CreateBlankSave("wd4_test.bundle", handler.GetEpisodeId(1));
-
-        Assert.NotNull(realSlot.ChoiceStats);
-        Assert.NotNull(createdSlot.ChoiceStats);
-
-        Assert.Equal(realSlot.ChoiceStats!.Version, createdSlot.ChoiceStats!.Version);
-        Assert.Equal(realSlot.ChoiceStats.Flags, createdSlot.ChoiceStats.Flags);
-
-        Assert.Equal(2u, createdSlot.ChoiceStats.Version);
-        Assert.Equal(0x100u, createdSlot.ChoiceStats.Flags);
     }
 
     [Theory]

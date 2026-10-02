@@ -40,7 +40,15 @@ public sealed class StorySeason
 
     public bool ChapterSaves { get; init; }
 
-    public bool FinishedEpisodeAsText { get; init; }
+    public StoryNumberKind FinishedEpisodeKind { get; init; }
+
+    public string? PreviousSeasonKey { get; init; }
+
+    public bool GameLogicVisible { get; init; }
+
+    public ulong ScriptProperties { get; init; } = StoryFiles.ScriptProperties;
+
+    public ulong SaveLoadProperties { get; init; } = StoryFiles.SaveLoadProperties;
 
     public IReadOnlyList<StoryDecision> Decisions => _decisions.Value.Decisions;
 

@@ -66,7 +66,6 @@ public class SeasonHandlerTests
     [Theory]
     [InlineData("s1", "s2")]
     [InlineData("s1_400days", "s2")]
-    [InlineData("s3", "s4")]
     public void ImportChain_FollowsTheGame(string sourceSeasonKey, string targetSeasonKey)
     {
         var targets = Registry.All
@@ -131,9 +130,13 @@ public class SeasonHandlerTests
     }
 
     [Theory]
+    [InlineData("s1")]
+    [InlineData("s2")]
+    [InlineData("s3")]
     [InlineData("s4")]
-    public void SeasonsWithoutCompanionFiles_DoNotImplementTheCapability(string seasonKey)
+    [InlineData("michonne")]
+    public void EverySeasonWithSaveFilesBesideTheSlot_ImplementsTheCompanionCapability(string seasonKey)
     {
-        Assert.False(Registry.Get(seasonKey) is ICompanionFileHandler);
+        Assert.True(Registry.Get(seasonKey) is ICompanionFileHandler);
     }
 }

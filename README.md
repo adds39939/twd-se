@@ -14,9 +14,9 @@ A save editor for **The Walking Dead: The Telltale Definitive Series**. Edit cho
 - **Native format editing** — each season's save format is handled natively (no hacks or file injection)
 - **Choice editing** — change any tracked decision via labeled dropdowns
 - **Metadata editing** — playtime, episode progress, autosave references, game completion
-- **Resume point editing** — restart a Season 1, 2, 3 or Michonne save from the beginning of any episode, or from a chapter inside any episode including 400 Days, with the decisions you picked
+- **Resume point editing** — restart a save of any season from the beginning of any episode, or from a chapter inside any episode including 400 Days, with the decisions you picked
 - **Inventory editing** — choose what Lee (Season 1), Clementine (Season 2), Javier (Season 3) or Michonne carries in a save, or add the items picked up earlier in the episode after resuming from a chapter
-- **Cross-season cascade and import** — optionally propagate Season 1 choice changes into Season 2 saves, and import a Season 1 save into Season 2 or a Season 2 save into Season 3 the way the game does
+- **Cross-season cascade and import** — optionally propagate Season 1 choice changes into Season 2 saves, and import a Season 1 save into Season 2, a Season 2 save into Season 3 or a Season 3 save into Season 4 the way the game does
 - **S4 presets** — quick-apply "Save Louis", "Save Violet", or "Trust AJ" choice paths
 - **New save creation** — create saves for any season with pre-populated choices; Season 1 saves start at the episode you choose
 - **File System Access API** — read/write directly to your save directory (Chromium-based browsers)
@@ -31,7 +31,7 @@ Each season stores choices differently. The editor handles all five formats nati
 | Season 1 | `metadata_slot.prop` | `Persistent - <episode> - <key>` strings in the slot bundle, mirrored in the autosave's game logic |
 | Season 2 | EventLog + `season1.prop` | Dialog node events in the slot's estore/epage files; imported Season 1 values in the slot bundle |
 | Season 3 | EventLog | Dialog node events in the slot's estore/epage files, including the imported Season 2 block |
-| Season 4 | `choicestats.pro` | Tab-separated GUIDs in bundle |
+| Season 4 | EventLog | Dialog node events in the slot's estore/epage files, including the imported Season 3 block and the story builder's answers |
 | Michonne | EventLog | Dialog node events in the slot's estore/epage files |
 
 Choice definitions are sourced from the game's own data files (`persistent.prop`, `statsInfo_*.prop` and `choice.prop`).
@@ -102,7 +102,7 @@ A chapter checkpoint written by the editor starts with only what the scene's dev
 
 ### Season 3 saves
 
-A Season 3 slot is `wd3_saveslot<N>.bundle` (slot metadata only), one `_wd3_saveslot<N>_autosave.bundle`, and the event log `_wd3_saveslot<N>_id.estore` with its pages. The game's checkpoints carry no chapter ids in this season, so there is a single save per slot. The game scripts are the same framework as Season 2 and the editor shares the log handling with it (`Season.Base/DialogLog`); what is specific to this generation of the framework is in `Season.Base/Story` and is shared with Michonne.
+A Season 3 slot is `wd3_saveslot<N>.bundle` (slot metadata only), one `_wd3_saveslot<N>_autosave.bundle`, and the event log `_wd3_saveslot<N>_id.estore` with its pages. The game's checkpoints carry no chapter ids in this season, so there is a single save per slot. The game scripts are the same framework as Season 2 and the editor shares the log handling with it (`Season.Base/DialogLog`); what is specific to this generation of the framework is in `Season.Base/Story` and is shared with Michonne and Season 4.
 
 **The log.** Besides dialog nodes and save serials the log holds `Begin Episode` and `End Episode` markers, dialog choice events, and at its start the block `Previous Game Data Begin` … `Previous Game Data End`: every dialog node of the Season 2 save that was imported, or of the story the player built instead. The game lists a slot as empty when its log has no such block, so the editor always writes one. Restarting an episode cuts the log at that episode's `Begin Episode` marker, as `EventLog_TruncateEpisode` does. The page that holds most of the imported block (about 9,500 events) is stored compressed; a compressed section is zero-padded to whole 64 KiB blocks, which `EventLogCodec` reads and writes.
 
@@ -110,7 +110,7 @@ A Season 3 slot is `wd3_saveslot<N>.bundle` (slot metadata only), one `_wd3_save
 
 **Skipped episodes.** The game fills in the decisions of episodes that were not played from one of two prebuilt logs (`generatedLog10<N>A/B.estore`, chosen by `Generated Choices ID`) and unions them with the slot's log. The editor instead writes every earlier decision into the slot's log, adds `Begin Episode`/`End Episode` markers for the earlier episodes, sets `Last Episode Finished` and the `Completed Episode <N>` flags, and clears `Episodes Skipped`, so the game neither offers to randomise nor mixes in a prebuilt log.
 
-**Chapters.** As in Season 2, each episode's `Episode.lua` has the developers' chapter menu, and a save whose `logic_script` holds `Script - Previous` = `DebugMenu` makes the scene script set itself up. The generated autosave holds that marker, the entry's flags, and every story key the episode reads (computed from the log, because `PersistentLogic_SetGameLogic` is skipped under the marker). A menu entry that sets a story key, such as the four Episode 1 flashbacks that each belong to one Season 2 ending, also sets that decision in the log. Two Episode 1 entries ("Garcia House - Credits" and "Junkyard Hill - Trailer") are left out: their scene scripts only register the setup that reads the entry's flag in developer builds, so in the released game they would start the scene from its beginning. The 85 resume points come from `ExtractResumePoints 3`.
+**Chapters.** As in Season 2, each episode's `Episode.lua` has the developers' chapter menu, and a save whose `logic_script` holds `Script - Previous` = `DebugMenu` makes the scene script set itself up. The generated autosave holds that marker, the entry's flags, and every story key the episode reads (computed from the log, because `PersistentLogic_SetGameLogic` is skipped under the marker). A menu entry that sets a story key, such as the four Episode 1 flashbacks that each belong to one Season 2 ending, also sets that decision in the log. Two Episode 1 entries ("Garcia House - Credits" and "Junkyard Hill - Trailer") are left out: their scene scripts only register the setup that reads the entry's flag in developer builds, so in the released game they would start the scene from its beginning. The 80 resume points come from `ExtractResumePoints 3`; five more entries whose scene setup only runs in debug builds are left out, see Season 4 below.
 
 **Inventory.** Only Episodes 1 and 2 have items, four each, registered by `Inventory_InitItem` in `Episode.lua`. An item is an integer `Inventory - <name>` on the `logic_inventory` agent, set by logic rules in the dialogs rather than by script calls. `Inventory.lua` keeps a copy per player character and restores the shared set from it whenever the player character is set, so a save holds the counts twice, in `logic_inventory` and in `logic_inventory_Javier`; the editor writes both. "Add items picked up earlier" uses the same rule as Season 2, with the dialog rules as its source: Junkyard Hill starts with the crowbar and the siphon, the truck scenes with the candy bar, and the Episode 2 scenes up to the car with the water bottle. Where giving an item away is a choice (the candy bar, the tape player) the item is taken as given once that scene is over.
 
@@ -126,6 +126,19 @@ Michonne's scripts are the earlier version of the Season 3 framework, so both se
 - **Chapters.** The developer menu call takes a page and a position (`DebugMenu_AddButton(1, 2, "Cove Prologue", "ShoreLineCove", …)`), and Episode 1 lists its scenes a second time under their dialog file names; an entry named after a dialog is dropped when the same script and flags were already listed. That second list also names two scenes (`FlagshipExteriorEscape`, `BoatTownEscape`) whose scripts are still in the Episode 1 archive but whose scene and dialog files are not: they were moved to Episode 2, and a checkpoint for them never finishes loading. `ExtractResumePoints` therefore drops every menu entry whose scene file is not in the episode's archive (none in Seasons 2 and 3). This gives 54 resume points, each with the game's chapter id (`101_chapter4`) for the checkpoint.
 
 - **Inventory.** Items are integers on `logic_inventory` alone, registered in `Episode.lua` and changed by `Inventory_AddItem` and `Inventory_RemoveItem` calls in dialog scripts. Only Episode 1 hands any out: machete, binoculars and flashlight on the boat (all taken away on arrival at Monroe), the rebar within one scene, and the screwdriver during the escape, the episode's last scene. Items that are registered but that nothing ever gives (the map, and all of Episode 3's) are not listed. `StoryInventory` serves both this season and Season 3, which differ only in the property sets written.
+
+### Season 4 saves
+
+The Final Season runs the Season 3 framework with a few changes, so it is the third season on `Season.Base/Story`. A slot is `wd4_saveslot<N>.bundle`, one autosave and the event log. The slot bundle's `choicestats.prop`, which the editor used to change, only records which statistics the player has already seen on the stats screen; the decisions themselves are in the log.
+
+- **Imported blocks.** The log holds two `Previous Game Data` blocks: `Local Save`, the dialog nodes of the imported Season 3 log (which already contains the Season 2 nodes Season 3 imported), and `configuratorResults`, the answers of the story builder that opens Episode 1. The seven rows under "Carried over from the previous season" (Lee, Kenny, Doug, Lilly and the Season 2 ending) read from both; a change is written into the first block, where Season 4 reads it.
+- **Story keys and chapters** come from the same `persistent.prop`, `choice.prop` and `Episode.lua` layouts (`ExtractDecisions 4`, `ExtractResumePoints 4`): 66 rows and 67 resume points. Untitled statistics (Episode 4) take their first option as the title. The developer menu lists each act twice, the second time with jumps to points inside a scene; those pages are merged into story order, and the entries whose jump only works in debug builds (`if IsDebugBuild() then Callback_OnLogicReady:Add(OnLogicReady)`) are dropped, which also removed five such entries from Season 3.
+- **Save layout.** The script and save-system properties live on one agent, `logic_systems`, instead of `logic_script` and `logic_saveload`; `Last Episode Finished` is an integer; the game logic set is marked visible. The game evaluates the story keys once per episode and remembers that in `Persistent - Game Logic Is Set`; a chapter save written here starts under the developer-menu marker, so the game keeps the values the save carries.
+- **Loaded scenes resume, never enter.** Season 4's `Game.lua` takes the engine's `loaded` flag at face value: a scene opened from a save runs only the checkpoint dialog stored in `SaveLoad - Checkpoint Dialog File` and `Node`, not its own entry sequence (earlier seasons compared the script against `Script - Current` instead). A chapter save therefore carries the scene's entry dialog and node, read by `ExtractResumePoints` from `adv_<scene>.prop` (`Scene - Dialog`, a handle that is the CRC64 of the dialog file name, and `Scene - Dialog Node`, by default `cs_opening` from `scene.prop`), switched to the `_act<N>` dialog named by the entry's `Act` flag and to the node a flag selects in the scene script. Entries without a resolvable dialog are dropped (two at McCarroll Ranch), leaving 67.
+- **Skipped episodes** are filled by copying the generated logs into the slot's log (`SaveLoad_CopyGeneratedSave`), which is what the editor's restart writes, so no randomise prompt appears.
+- **Story builder.** Episode 1's first script is the story builder, which asks about the earlier seasons and appends its answers as a second block. Starting Episode 1 from its beginning therefore asks again; resuming from "Road Tile" keeps what was set in the editor.
+
+The inventory (`InventoryWD.lua`) is not editable yet.
 
 ## Using the App
 
@@ -280,11 +293,11 @@ Optional capabilities are separate interfaces a handler can also implement:
 
 | Interface | Capability | Implemented by |
 |-----------|------------|----------------|
-| `ICompanionFileHandler` | State kept in files next to the bundle (autosave bundle, estore/epage EventLog) | S1, S2, S3, Michonne |
-| `IResumePointHandler` | Restart a save from the beginning of an episode or from a chapter | S1, S2, S3, Michonne |
+| `ICompanionFileHandler` | State kept in files next to the bundle (autosave bundle, estore/epage EventLog) | all |
+| `IResumePointHandler` | Restart a save from the beginning of an episode or from a chapter | all |
 | `IInventoryHandler` | List and change the items the player character carries in the save a slot resumes from | S1, S2, S3, Michonne |
 | `IPropertyNameProvider` | Names for the property hashes shown in the Properties tab | S1 |
-| `IChoiceImporter` | Import all choices from a save of an earlier season | S2, S3 |
+| `IChoiceImporter` | Import all choices from a save of an earlier season | S2, S3, S4 |
 | `IChoicePresetProvider` | One-click presets that set several choices | S4 |
 
 ### Adding a season
@@ -311,7 +324,7 @@ No changes to the UI are needed.
 - **S1**: Persistent keys from the game's `persistent.prop` (`Persistent - 101 - DougCarley Saved` = `carley`)
 - **S2**: The same keys without the prefix for imported S1 decisions, string pairs (`"shot_kenny - true"`) for its own
 - **S3**: Expressions over dialog node GUIDs from `persistent.prop` and `choice.prop`, evaluated against the EventLog (CRC64 of `{GUID}`)
-- **S4**: GUIDs in `( {GUID} )` format (tab-separated in choicestats.pro)
+- **S4**: The same as Season 3, from its own `persistent.prop` and `choice.prop`
 - **Michonne**: The same as Season 3, from its own `persistent.prop` and `choice.prop`
 
 ## Tools
@@ -344,8 +357,8 @@ dotnet run --project tools/TwdSaveEditor.Tools.TtarchDecrypt
 | `BuildCheckpoint` | Write a slot and the editor's chapter checkpoint for it with `chapter`, list chapter ids with `chapters`, build reduced or from-scratch checkpoints from a real autosave for experiments, or check with `--verify` that every `default.save` is rewritten identically | file arguments |
 | `VerifyRoundTrip` | Read and rewrite every bundle, `.estore` and `.epage` file under the given paths and check the result is identical | file arguments |
 | `EditSave` | Load a save the way the app does (or create one with `--new <episode>`), list its decisions, apply `key=value` changes, `--restart <episode>` or `--chapter <episode> <chapter id>`, change the inventory with `--carried`, `--give <item id>[:count]` and `--take <item id>`, and write the files (optionally as another slot number with `--out` and `--slot`) | file arguments |
-| `ExtractDecisions <season>` | Build the season's decision list from `persistent.prop` and `choice.prop` into the season project's `Data` folder: node lists joined through the randomizer script for Season 2, node expressions and story keys (`<season>.decisions.json`) for Season 3 and Michonne. `<season>` is `2`, `3` or `m` | `tools/data/lua`, `tools/data/extracted` |
-| `ExtractResumePoints <season>` | Read each episode's developer chapter menu and the chapter checkpoints in its dialogs and place every decision by the scene it is made in (`<season>.chapters.json`), for `2`, `3` or `m`; for Season 2 also list the imported Season 1 keys; read each episode's items (Season 2: `ui_item_*.prop`, names from `ui_episode.dlog` and `ui_episode_english.landb`; Season 3 and Michonne: `Inventory_InitItem` calls) and where scripts and dialog rules add or remove them (`s<N>.items.json`). A dialog is placed on the scene script that sets it with `Game_SetSceneDialog`, whose scene is named like it, that names it, or whose `.scene` file refers to it | `tools/data/lua`, `tools/data/extracted`, the season's decision file |
+| `ExtractDecisions <season>` | Build the season's decision list from `persistent.prop` and `choice.prop` into the season project's `Data` folder: node lists joined through the randomizer script for Season 2, node expressions and story keys (`<season>.decisions.json`) for Seasons 3, 4 and Michonne. `<season>` is `2`, `3`, `4` or `m` | `tools/data/lua`, `tools/data/extracted` |
+| `ExtractResumePoints <season>` | Read each episode's developer chapter menu and the chapter checkpoints in its dialogs and place every decision by the scene it is made in (`<season>.chapters.json`), for `2`, `3`, `4` or `m`; for Season 2 also list the imported Season 1 keys; read each episode's items (Season 2: `ui_item_*.prop`, names from `ui_episode.dlog` and `ui_episode_english.landb`; Seasons 3, 4 and Michonne: `Inventory_InitItem` calls) and where scripts and dialog rules add or remove them (`s<N>.items.json`). A dialog is placed on the scene script that sets it with `Game_SetSceneDialog`, whose scene is named like it, that names it, or whose `.scene` file refers to it | `tools/data/lua`, `tools/data/extracted`, the season's decision file |
 | `ExtractAllChoices` | Extract every season's choices into `tools/all_choices_summary.txt` | `TWD_ARCHIVES` |
 | `ExtractNodeMappings` | Map choices to dialog node hashes in `tools/node_hash_mappings.txt` and `.json` | `TWD_ARCHIVES`, optionally `TWD_SAMPLE_SAVES` |
 | `ExtractScenes` | List the scenes of each episode in `tools/data/episode_scenes.json` | `TWD_ARCHIVES` |

@@ -37,6 +37,12 @@ public class SaveLoadCycleTests
         "_wdm_saveslot2_id_Page969.epage", "_wdm_saveslot2_id_Page1963.epage",
     ];
 
+    private static readonly string[] S4Files =
+    [
+        "wd4_saveslot2.bundle", "_wd4_saveslot2_autosave.bundle", "_wd4_saveslot2_id.estore",
+        "_wd4_saveslot2_id_Page734.epage", "_wd4_saveslot2_id_Page17124.epage", "_wd4_saveslot2_id_Page18120.epage", "_wd4_saveslot2_id_Page19079.epage",
+    ];
+
     private async Task InjectSaveFiles(IPage page, string testDataSeason, params string[] fileSpecs)
     {
         var directory = new Dictionary<string, string>();
@@ -419,6 +425,58 @@ public class SaveLoadCycleTests
         var slot = BundleReader.Read(Convert.FromBase64String(slotBase64), "wdm_saveslot2.bundle");
         Assert.Equal(checkpointName, slot.Metadata!.GetString(SlotMetadataKeys.LatestSave));
         Assert.Equal(24, slot.Metadata.GetInt(SlotMetadataKeys.LatestSerial));
+    }
+
+    [Fact]
+    public async Task S4PresetDecisionAndChapter_AreWrittenToTheLogAndTheSave()
+    {
+        const string autosaveName = "_wd4_saveslot2_autosave.bundle";
+
+        var page = await _fixture.NewPage();
+        await InjectSaveFiles(page, "S4", S4Files);
+
+        await page.Locator("[data-testid='open-directory']").ClickAsync();
+        await page.Locator(".save-item").First.ClickAsync();
+
+        await Assertions.Expect(page.Locator("[data-testid='season-s4'] > summary .badge")).ToContainTextAsync("66 choices");
+        await page.GetByText("Carried over from the previous season").ClickAsync();
+        var ending = page.Locator(".choice-row", new() { HasTextString = "Ending Choice?" }).First.Locator("select");
+        await Assertions.Expect(ending).ToHaveValueAsync("0");
+        await ending.SelectOptionAsync(new SelectOptionValue { Label = "Kenny" });
+        await page.GetByRole(AriaRole.Button, new() { Name = "Save Violet Path" }).ClickAsync();
+
+        await page.Locator("[data-testid='tab-resume']").ClickAsync();
+        await Assertions.Expect(page.Locator("[data-testid='resume-state']")).ToContainTextAsync("checkpoint Boarding School Interior");
+        await Assertions.Expect(page.Locator("[data-testid='restart-episode'] option")).ToHaveCountAsync(4);
+        await page.Locator("[data-testid='restart-episode']").SelectOptionAsync("3");
+        await page.Locator("[data-testid='restart-chapter']").SelectOptionAsync("ForestCamp");
+        await page.Locator("[data-testid='restart-button']").ClickAsync();
+        await Assertions.Expect(page.Locator("[data-testid='resume-state']")).ToContainTextAsync("Episode 3: Broken Toys — checkpoint Forest Camp");
+
+        await page.Locator(".save-btn").ClickAsync();
+        await Assertions.Expect(page.Locator(".toast-success", new() { HasTextString = "Saved wd4_saveslot2.bundle" }).First)
+            .ToBeVisibleAsync(new() { Timeout = 20000 });
+        await Assertions.Expect(page.Locator(".toast-error")).ToHaveCountAsync(0);
+
+        var autosaveBase64 = await FakeSaveDirectory.ReadFileAsync(page, autosaveName);
+        Assert.NotNull(autosaveBase64);
+        var autosave = BundleReader.Read(Convert.FromBase64String(autosaveBase64), autosaveName);
+        Assert.Equal(3, autosave.Metadata!.GetInt(SaveMetadataKeys.Episode));
+        var game = autosave.FindFile(TelltaleHash.ComputeCrc64("\"logic_game:logic.scene\" Runtime Properties"));
+        Assert.NotNull(game);
+        Assert.True(BundleReader.TryParseProperties(game));
+        Assert.Equal("Kenny", game.Properties!.GetString("Episode 205 - Ending Choice"));
+        var systems = autosave.FindFile(TelltaleHash.ComputeCrc64("\"logic_systems:logic.scene\" Runtime Properties"));
+        Assert.NotNull(systems);
+        Assert.True(BundleReader.TryParseProperties(systems));
+        Assert.Equal("DebugMenu", systems.Properties!.GetString("Script - Previous"));
+
+        var slotBase64 = await FakeSaveDirectory.ReadFileAsync(page, "wd4_saveslot2.bundle");
+        Assert.NotNull(slotBase64);
+        var slot = BundleReader.Read(Convert.FromBase64String(slotBase64), "wd4_saveslot2.bundle");
+        Assert.Equal(3, slot.Metadata!.GetInt(SlotMetadataKeys.EpisodeInProgress));
+        Assert.Equal(2, slot.Metadata.GetInt("Last Episode Finished"));
+        Assert.Equal(autosaveName, slot.Metadata.GetString(SlotMetadataKeys.LatestSave));
     }
 
     [Fact]

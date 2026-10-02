@@ -40,7 +40,7 @@ if (imported == null || !Directory.Exists(projectScripts) || !(File.Exists(nodeL
 
 var loader = new DialogLoader(meta);
 var decisions = File.Exists(nodeLists) ? DecisionNodeReader.ReadNodeLists(nodeLists, season.Number) : DecisionNodeReader.ReadExpressions(expressions);
-var reader = new EpisodeReader(data, season, loader, ConstantReader.Read(projectScripts), decisions);
+var reader = new EpisodeReader(data, season, loader, meta, ConstantReader.Read(projectScripts), decisions);
 Func<EpisodeResume, EpisodeItems> readItems = scriptItems
     ? new EpisodeItemReader(data, season, meta, loader).Read
     : new LogicItemReader(data, season, loader).Read;
@@ -74,17 +74,7 @@ var document = new JsonObject
     ["episodes"] = new JsonArray([.. episodes.Select(episode => new JsonObject
     {
         ["episode"] = episode.Episode,
-        ["chapters"] = new JsonArray([.. episode.Points.Select(point => new JsonObject
-        {
-            ["id"] = point.Id,
-            ["title"] = point.Title,
-            ["group"] = point.Group,
-            ["script"] = point.Script,
-            ["chapterId"] = point.ChapterId,
-            ["startsEpisode"] = point.StartsEpisode,
-            ["flags"] = new JsonArray([.. point.Flags.Select(flag => new JsonObject { ["key"] = flag.Key, ["value"] = flag.Value.DeepClone() })]),
-            ["decided"] = new JsonArray([.. point.Decided.Select(key => JsonValue.Create(key))]),
-        })]),
+        ["chapters"] = new JsonArray([.. episode.Points.Select(Chapter)]),
     })]),
 };
 
@@ -138,3 +128,26 @@ Console.WriteLine($"Wrote {episodes.Sum(episode => episode.Points.Count)} resume
 return 0;
 
 static JsonArray Strings(IEnumerable<string> values) => new([.. values.Select(value => JsonValue.Create(value))]);
+
+static JsonObject Chapter(ResumePoint point)
+{
+    var chapter = new JsonObject
+    {
+        ["id"] = point.Id,
+        ["title"] = point.Title,
+        ["group"] = point.Group,
+        ["script"] = point.Script,
+        ["chapterId"] = point.ChapterId,
+        ["startsEpisode"] = point.StartsEpisode,
+        ["flags"] = new JsonArray([.. point.Flags.Select(flag => new JsonObject { ["key"] = flag.Key, ["value"] = flag.Value.DeepClone() })]),
+        ["decided"] = new JsonArray([.. point.Decided.Select(key => JsonValue.Create(key))]),
+    };
+
+    if (point.Entry != null)
+    {
+        chapter["dialog"] = point.Entry.Dialog;
+        chapter["dialogNode"] = point.Entry.Node;
+    }
+
+    return chapter;
+}

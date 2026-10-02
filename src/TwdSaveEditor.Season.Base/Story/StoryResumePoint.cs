@@ -102,7 +102,7 @@ public sealed partial class StoryResumePoint(StorySeason season)
         if (save.Metadata?.GetString(StoryFiles.SavedScript) is not { } script || season.ChaptersOf(episode) is not { } chapters)
             return null;
 
-        if (Properties(save, StoryFiles.ScriptProperties)?.GetString(StoryCheckpointBuilder.PreviousScript) != StoryCheckpointBuilder.DeveloperMenuScript)
+        if (Properties(save, season.ScriptProperties)?.GetString(StoryCheckpointBuilder.PreviousScript) != StoryCheckpointBuilder.DeveloperMenuScript)
         {
             return save.FindFile(StoryFiles.LogicGameProperties) == null && script.Equals(chapters.Opening.Script, StringComparison.OrdinalIgnoreCase)
                 ? chapters.Opening
@@ -241,8 +241,11 @@ public sealed partial class StoryResumePoint(StorySeason season)
 
     private void SetFinished(PropertySet metadata, int episode)
     {
-        if (season.FinishedEpisodeAsText || metadata.Find(StoryFiles.LastEpisodeFinished)?.Value is StringValue)
+        var stored = metadata.Find(StoryFiles.LastEpisodeFinished)?.Value;
+        if (stored is StringValue || (stored == null && season.FinishedEpisodeKind == StoryNumberKind.Text))
             metadata.SetString(StoryFiles.LastEpisodeFinished, episode.ToString(CultureInfo.InvariantCulture));
+        else if (stored == null && season.FinishedEpisodeKind == StoryNumberKind.Integer)
+            metadata.SetInt(StoryFiles.LastEpisodeFinished, episode);
         else
             SetNumber(metadata, StoryFiles.LastEpisodeFinished, episode);
     }

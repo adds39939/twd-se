@@ -42,11 +42,6 @@ public static class SaveSlotFactory
     public static SaveSlot CreateBlankMetadataOnly(string fileName, string episodeId) =>
         Create(fileName, (BundleFileNames.SlotMetadata, CreateBlankMetadata(episodeId, fileName)));
 
-    public static SaveSlot CreateBlankWithChoiceStats(string fileName, string episodeId) =>
-        Create(fileName,
-            (BundleFileNames.SlotMetadata, CreateBlankMetadata(episodeId, fileName)),
-            (BundleFileNames.ChoiceStats, CreateBlankChoiceStats()));
-
     public static SaveSlot CreateBlank(string fileName, string episodeId = "WalkingDead101")
         => CreateBlankWithChoices(fileName, episodeId);
 
@@ -109,27 +104,6 @@ public static class SaveSlotFactory
                             new RawBytesValue(
                                 ChoicesContainer.Serialize([]),
                                 typeSymbol)),
-                    ]
-                },
-            ]
-        };
-    }
-
-    public static PropertySet CreateBlankChoiceStats()
-    {
-        var stringSymbol = new Symbol(TelltaleTypes.String);
-
-        return new PropertySet
-        {
-            Version = 2,
-            Flags = 0x100,
-            TypeGroups =
-            [
-                new TypeGroup(stringSymbol)
-                {
-                    Properties =
-                    [
-                        new Property(new Symbol(0x82433F1B9ADB69DA), new StringValue("")),
                     ]
                 },
             ]

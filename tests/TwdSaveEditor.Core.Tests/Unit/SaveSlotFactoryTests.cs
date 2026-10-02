@@ -1,4 +1,5 @@
 using TwdSaveEditor.Core.Binary.Bundles;
+using TwdSaveEditor.Core.Constants;
 using TwdSaveEditor.Core.Hashing;
 using TwdSaveEditor.Core.Tests.Support;
 using TwdSaveEditor.Season.Base.Accessors;
@@ -144,8 +145,9 @@ public class SaveSlotFactoryTests
         var bytes = BundleWriter.Write(slot);
         var reparsed = BundleReader.Read(bytes, "test.bundle");
 
-        Assert.NotNull(reparsed.ChoiceStats);
+        Assert.Null(reparsed.ChoiceStats);
         Assert.Null(reparsed.Choices);
+        Assert.Equal(2, reparsed.Metadata!.GetInt(SlotMetadataKeys.EpisodeInProgress));
     }
 
     [Fact]
