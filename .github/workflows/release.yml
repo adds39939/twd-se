@@ -29,10 +29,7 @@ jobs:
           dotnet-version: '10.0.x'
 
       - name: Publish Blazor WASM
-        run: dotnet publish src/TwdSaveEditor.Web/TwdSaveEditor.Web.csproj -c Release -o output
-
-      - name: Write version.json
-        run: echo "{\"version\":\"$GITHUB_REF_NAME\"}" > output/wwwroot/version.json
+        run: dotnet publish src/TwdSaveEditor.Web/TwdSaveEditor.Web.csproj -c Release -o output -p:InformationalVersion=$GITHUB_REF_NAME
 
       - name: Add .nojekyll
         run: touch output/wwwroot/.nojekyll

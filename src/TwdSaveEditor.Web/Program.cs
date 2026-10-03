@@ -11,14 +11,12 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-var http = new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) };
-builder.Services.AddScoped(_ => http);
-
-builder.Services.AddTwdSaveEditorServices();
-
-var appVersion = await new VersionFile(http).ReadVersionAsync();
-var appInfo = new AppInfo(appVersion);
-
-builder.Services.AddTwdSaveEditorUI(appInfo);
+ConfigureServices(builder.Services);
 
 await builder.Build().RunAsync();
+
+static void ConfigureServices(IServiceCollection services)
+{
+    services.AddTwdSaveEditorServices();
+    services.AddTwdSaveEditorUI(new AppInfo(AppVersion.Read()));
+}

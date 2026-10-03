@@ -41,7 +41,7 @@ src/
 │   └── Extensions/                 AddSeason<N>() registration
 ├── TwdSaveEditor.Bootstrap/        Composition root
 ├── TwdSaveEditor.UI/               Razor class library: pages, components, services, styles, images, JS
-└── TwdSaveEditor.Web/              Blazor WASM host: Program.cs, index.html, manifest, service worker, version.json
+└── TwdSaveEditor.Web/              Blazor WASM host: Program.cs, index.html, manifest, service worker
 ```
 
 Dependencies run one way:
@@ -109,7 +109,9 @@ The UI needs no change.
 
 `Home.razor` keeps all four tab panels (Decisions, Resume Point, Inventory, Properties) mounted and hides the inactive ones, so unsaved edits survive switching tabs and the Inventory tab follows a resume point that has not been saved yet. `SaveEditorService` owns the loaded saves, the dirty state and writing; `SaveBackupService` copies the files `IBackupFileResolver` names before a write. Component styles live in each component's `.razor.css`; only truly global rules are in `wwwroot/css/app.css`.
 
-The version in the footer comes from `wwwroot/version.json`, which the release workflow overwrites with the tag; the checked-in file says `dev`.
+The version in the footer is the informational version of the `Web` assembly: `dev` in a local build, the tag in a release, which the release workflow passes as `-p:InformationalVersion`.
+
+`dotnet publish` prerenders the start page into `index.html` with `BlazorWasmPreRendering.Build`, so the editor shows straight away instead of a loading spinner while the WebAssembly runtime downloads. The prerenderer calls the static `ConfigureServices` function in `Program.cs`, so every service registration belongs there. Until the runtime is up the page cannot respond, so components that need it check `RendererInfo.IsInteractive`: the Open Save Directory button reads Loading... and `app-ready` is only set once the app is interactive. `dotnet run` does not prerender and still shows the spinner.
 
 ## Tests
 

@@ -1,6 +1,6 @@
 @inherits LayoutComponentBase
 
-<div class="app-layout" data-testid="app-ready">
+<div class="app-layout" data-testid="@(RendererInfo.IsInteractive ? "app-ready" : null)">
     <header class="app-header">
         <div class="header-title">
             <img class="header-icon" src="_content/TwdSaveEditor.UI/images/icon-128.png" alt="" data-testid="app-icon" />

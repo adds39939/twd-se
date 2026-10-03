@@ -26,6 +26,8 @@ public partial class SaveBrowser : IDisposable
     private bool _isSupported = true;
     private bool _supportChecked;
 
+    private bool IsBusy => Editor.IsLoading || !RendererInfo.IsInteractive;
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)

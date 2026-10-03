@@ -2,8 +2,8 @@
     <div class="browser-header">
         @if (_isSupported || !_supportChecked)
         {
-            <button class="btn-accent w-full" data-testid="open-directory" @onclick="OpenDirectory" disabled="@Editor.IsLoading">
-                @if (Editor.IsLoading)
+            <button class="btn-accent w-full" data-testid="open-directory" @onclick="OpenDirectory" disabled="@IsBusy">
+                @if (IsBusy)
                 {
                     <span>Loading...</span>
                 }
