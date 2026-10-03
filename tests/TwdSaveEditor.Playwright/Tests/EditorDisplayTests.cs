@@ -97,6 +97,7 @@ public class EditorDisplayTests
         await SaveItem(page, "wd3_saveslot1.bundle").ClickAsync();
 
         await Assertions.Expect(page.Locator(".decision-editor [data-testid='log-damaged']")).ToBeVisibleAsync();
+        await Assertions.Expect(SaveItem(page, "wd3_saveslot1.bundle").Locator("[data-testid='save-damaged']")).ToBeVisibleAsync();
         await page.Locator("[data-testid='tab-resume']").ClickAsync();
         await Assertions.Expect(page.Locator("[data-testid='restart-episode']")).ToBeDisabledAsync();
         await Assertions.Expect(page.Locator("[data-testid='restart-chapter']")).ToBeDisabledAsync();
@@ -106,6 +107,38 @@ public class EditorDisplayTests
         await page.Locator(".save-btn").ClickAsync();
         await Assertions.Expect(page.Locator(".header-status")).ToContainTextAsync("Saved wd3_saveslot1.bundle");
         Assert.Equal(directory[storage], await FakeSaveDirectory.ReadFileAsync(page, storage));
+    }
+
+    [Fact]
+    public async Task SaveList_DescribesEachSave()
+    {
+        var page = await Open(("S1", "wd1_saveslot2.bundle", null), ("S3", "wd3_saveslot1.bundle", null));
+
+        var season1 = SaveItem(page, "wd1_saveslot2.bundle");
+        await Assertions.Expect(season1.Locator("[data-testid='save-title']")).ToHaveTextAsync("Season 1 · Slot 2");
+        await Assertions.Expect(season1.Locator("[data-testid='save-position']")).ToHaveTextAsync("Episode 4: Around Every Corner · Missing Clementine");
+        var season3 = SaveItem(page, "wd3_saveslot1.bundle");
+        await Assertions.Expect(season3.Locator("[data-testid='save-title']")).ToHaveTextAsync("A New Frontier (Season 3) · Slot 1");
+        await Assertions.Expect(season3.Locator("[data-testid='save-position']")).ToHaveTextAsync("Episode 1: Ties That Bind - Part One · Junkyard Day");
+        await Assertions.Expect(season3).ToContainTextAsync("saved 9 Sep 2025, 11:55");
+        await Assertions.Expect(page.Locator("[data-testid='save-damaged']")).ToHaveCountAsync(0);
+    }
+
+    [Fact]
+    public async Task DiscardChanges_ReloadsTheSaveFromTheFolder()
+    {
+        var page = await Open(("S1", "wd1_saveslot2.bundle", null));
+        await SaveItem(page, "wd1_saveslot2.bundle").ClickAsync();
+        var choice = page.Locator("[data-testid='season-s1'] details[open] .choice-row").First.Locator("select");
+        var original = await choice.InputValueAsync();
+        await choice.SelectOptionAsync(original == "0" ? "1" : "0");
+        page.Dialog += async (_, dialog) => await dialog.AcceptAsync();
+
+        await page.Locator("[data-testid='discard-btn']").ClickAsync();
+
+        await Assertions.Expect(choice).ToHaveValueAsync(original);
+        await Assertions.Expect(page.Locator("[data-testid='discard-btn']")).ToHaveCountAsync(0);
+        await Assertions.Expect(SaveItem(page, "wd1_saveslot2.bundle").Locator("[data-testid='save-unsaved']")).ToHaveCountAsync(0);
     }
 
     [Fact]

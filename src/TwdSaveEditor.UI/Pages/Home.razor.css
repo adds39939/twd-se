@@ -37,7 +37,13 @@
     line-height: 1;
 }
 
-.save-btn {
+.toolbar-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.save-btn,
+.discard-btn {
     white-space: nowrap;
 }
 

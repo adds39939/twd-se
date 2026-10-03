@@ -39,7 +39,11 @@ Saves are read and written in the game's own formats. Every file is backed up in
 
 ## Using it
 
-The game keeps its saves in `Documents\Telltale Games\The Walking Dead Definitive`. Open [twd-se.app](https://twd-se.app/) in Chrome, Edge or another Chromium browser, click **Open Save Directory** and pick that folder. Other browsers can upload a save and download the edited files instead.
+The game keeps its saves in `Documents\Telltale Games\The Walking Dead Definitive`.
+
+Open [twd-se.app](https://twd-se.app/) in Chrome, Edge or another Chromium browser, click **Open Save Directory** and pick that folder. The editor remembers the folder and opens it again on your next visit, or offers to reopen it when the browser asks for permission first. Click **Reload** after playing to read the folder again, and **Discard Changes** to reload one save and drop its unsaved edits.
+
+Other browsers can upload the save files instead. **Download Changes** then downloads a zip of the files that changed; copy them into the save folder and delete any files listed in `files-to-delete.txt`.
 
 Keep the game closed while you edit.
 

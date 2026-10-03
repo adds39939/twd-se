@@ -22,11 +22,27 @@
             </div>
         }
 
-        @if (Editor.DirectoryName != null)
+        @if (Editor.DirectoryName == null && Editor.RememberedDirectoryName != null)
         {
-            <button class="w-full new-save-btn" data-testid="new-save-btn" @onclick="ShowNewSaveDialog">
-                + New Save
+            <button class="w-full" data-testid="reopen-directory" @onclick="ReopenDirectory" disabled="@IsBusy">
+                Reopen @Editor.RememberedDirectoryName
             </button>
+        }
+
+        @if (Editor.DirectoryName != null || UploadsFiles)
+        {
+            <div class="browser-actions">
+                @if (Editor.DirectoryName != null)
+                {
+                    <button class="reload-btn" data-testid="reload-directory" @onclick="ReloadDirectory" disabled="@IsBusy"
+                            title="Read the save folder again, for example after playing">
+                        Reload
+                    </button>
+                }
+                <button class="new-save-btn" data-testid="new-save-btn" @onclick="ShowNewSaveDialog">
+                    + New Save
+                </button>
+            </div>
         }
     </div>
 
@@ -42,28 +58,31 @@
         @foreach (var save in Editor.Saves)
         {
             var isSelected = save == Editor.SelectedSave;
+            var summary = Summary(save);
             <div class="save-item @(isSelected ? "selected" : "")" @onclick="() => SelectSave(save)">
-                <div class="save-name">@save.FileName</div>
-                <div class="save-meta">
-                    @if (save.DetectedSeasonKey != null)
-                    {
-                        <span class="badge">@GetSeasonLabel(save.DetectedSeasonKey)</span>
-                    }
+                <div class="save-heading">
+                    <span class="save-title" data-testid="save-title">@summary.Title</span>
                     @if (Editor.IsModified(save))
                     {
                         <span class="badge badge-warning" data-testid="save-unsaved">Unsaved</span>
+                    }
+                    @if (summary.Damaged)
+                    {
+                        <span class="badge badge-danger" data-testid="save-damaged" title="Part of this save cannot be read">Damaged</span>
+                    }
+                </div>
+                @if (summary.Position.Length > 0)
+                {
+                    <div class="save-position" data-testid="save-position">@summary.Position</div>
+                }
+                <div class="save-meta">
+                    <span class="save-name">@save.FileName</span>
+                    @if (summary.SavedAt != null)
+                    {
+                        <span class="save-saved">saved @summary.SavedAt</span>
                     }
                 </div>
             </div>
         }
     </div>
-
-    @if (!_isSupported && _supportChecked && Editor.Saves.Count > 0)
-    {
-        <div class="browser-footer">
-            <button class="btn-sm w-full" @onclick="DownloadSelected" disabled="@(Editor.SelectedSave == null)">
-                &#x1F4E5; Download Selected Save
-            </button>
-        </div>
-    }
 </div>

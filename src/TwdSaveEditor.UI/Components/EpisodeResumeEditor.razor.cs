@@ -1,8 +1,8 @@
-using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
 using TwdSaveEditor.Core.Model;
 using TwdSaveEditor.Season.Common.Abstractions;
 using TwdSaveEditor.Season.Common.Model;
+using TwdSaveEditor.UI.Formatting;
 using TwdSaveEditor.UI.Services;
 
 namespace TwdSaveEditor.UI.Components;
@@ -87,23 +87,13 @@ public partial class EpisodeResumeEditor
     {
         { CheckpointDamaged: true } => "Current checkpoint is damaged",
         { SeasonFinished: true } => "Season finished",
-        _ => $"Current checkpoint: {CheckpointLabel(_state.Checkpoint)}"
+        _ => $"Current checkpoint: {ResumeLabels.Checkpoint(_state.Checkpoint)}"
     };
-
-    private static string CheckpointLabel(string? checkpoint) =>
-        string.IsNullOrEmpty(checkpoint) ? string.Empty : WordBreak().Replace(char.ToUpperInvariant(checkpoint[0]) + checkpoint[1..], " ");
 
     private string ChapterLabel(ChapterInfo chapter) =>
         ReferenceEquals(chapter, _chapters[0]) ? $"{chapter.Title} (start of the episode)" : chapter.Title;
 
-    private string EpisodeLabel(int number)
-    {
-        var episode = Handler.ResumeEpisodes.FirstOrDefault(e => e.Number == number);
-        return episode == null ? $"Episode {number}" : $"Episode {episode.Number}: {episode.Title}";
-    }
-
-    [GeneratedRegex("(?<=[a-z])(?=[A-Z])|(?<=[A-Za-z])(?=[0-9])")]
-    private static partial Regex WordBreak();
+    private string EpisodeLabel(int number) => ResumeLabels.Episode(Handler, number);
 
     private void Apply()
     {

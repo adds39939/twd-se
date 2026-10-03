@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using TwdSaveEditor.Core.Model;
 using TwdSaveEditor.Season.Common.Abstractions;
 using TwdSaveEditor.UI.Components;
@@ -10,6 +11,9 @@ public partial class Home : IDisposable
 {
     [Inject]
     public SaveEditorService Editor { get; set; } = default!;
+
+    [Inject]
+    public IJSRuntime JS { get; set; } = default!;
 
     private string ActiveTab { get; set; } = "decisions";
     private NewSaveDialog? _newSaveDialog;
@@ -51,6 +55,8 @@ public partial class Home : IDisposable
 
     private string TabClass(string tab) => ActiveTab == tab ? "active" : "";
 
+    private string SaveLabel => Editor.DownloadsChanges ? "Download Changes" : "Save Changes";
+
     private string ActiveTabTitle => ActiveTab switch
     {
         "decisions" => "Decisions",
@@ -73,6 +79,17 @@ public partial class Home : IDisposable
         await Editor.SaveFile(Editor.SelectedSave);
         _saving = false;
         await InvokeAsync(StateHasChanged);
+    }
+
+    private async Task DiscardChanges()
+    {
+        if (Editor.SelectedSave is not { } slot
+            || !await JS.InvokeAsync<bool>("confirm", $"Discard the unsaved changes to {slot.FileName} and reload it?"))
+        {
+            return;
+        }
+
+        await Editor.DiscardChanges(slot);
     }
 
     public void Dispose()

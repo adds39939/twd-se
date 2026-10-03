@@ -13,7 +13,13 @@
     gap: 0.5rem;
 }
 
-.new-save-btn {
+.browser-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.browser-actions button {
+    flex: 1;
     padding: 0.5em 1em;
 }
 
@@ -65,23 +71,43 @@
     border-left-color: var(--accent);
 }
 
-.save-name {
+.save-heading {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.4em;
+}
+
+.save-title {
     font-size: 0.85rem;
     font-weight: 500;
     color: var(--text-primary);
+    flex: 1;
+    min-width: 0;
+}
+
+.save-position {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.save-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 0.6em;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+}
+
+.save-name {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-.save-meta {
-    display: flex;
-    gap: 0.3em;
-}
-
-.browser-footer {
-    padding: 0.75rem;
-    border-top: 1px solid var(--border);
+.badge-danger {
+    background: #5d1a14;
+    color: var(--danger);
+    border-color: var(--danger);
 }
 
 .not-supported {

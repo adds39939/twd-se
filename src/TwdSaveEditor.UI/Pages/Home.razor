@@ -17,9 +17,15 @@
             </div>
             <div class="content-toolbar">
                 <h2 class="content-title">@ActiveTabTitle</h2>
-                <button class="btn-accent save-btn" @onclick="SaveChanges" disabled="@_saving">
-                    @(_saving ? "Saving..." : Editor.IsModified(Editor.SelectedSave) ? "Save Changes *" : "Save Changes")
-                </button>
+                <div class="toolbar-actions">
+                    @if (Editor.IsModified(Editor.SelectedSave))
+                    {
+                        <button class="discard-btn" data-testid="discard-btn" @onclick="DiscardChanges" disabled="@_saving">Discard Changes</button>
+                    }
+                    <button class="btn-accent save-btn" @onclick="SaveChanges" disabled="@_saving">
+                        @(_saving ? "Saving..." : SaveLabel + (Editor.IsModified(Editor.SelectedSave) ? " *" : string.Empty))
+                    </button>
+                </div>
             </div>
 
             <div class="tab-content">

@@ -8,6 +8,10 @@ public interface IFileSystemService
 
     Task<bool> PickDirectory();
 
+    Task<RememberedDirectory?> RememberedDirectory();
+
+    Task<bool> ReopenDirectory();
+
     Task<string[]> ListFiles(string extension);
 
     Task<byte[]?> ReadFile(string name);

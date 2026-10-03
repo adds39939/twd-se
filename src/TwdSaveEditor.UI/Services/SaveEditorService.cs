@@ -15,12 +15,16 @@ public class SaveEditorService
     private readonly SaveBackupService _backup;
     private readonly HashSet<SaveSlot> _modified = [];
     private readonly Dictionary<SaveSlot, int> _revisions = [];
+    private readonly Dictionary<string, byte[]> _uploaded = new(StringComparer.OrdinalIgnoreCase);
+    private bool _directoryOpen;
 
     private const string BundleExtension = ".bundle";
 
     public List<SaveSlot> Saves { get; } = [];
     public SaveSlot? SelectedSave { get; set; }
     public string? DirectoryName { get; private set; }
+    public string? RememberedDirectoryName { get; private set; }
+    public bool DownloadsChanges => !_directoryOpen;
     public string StatusMessage { get; set; } = "Select a save directory to begin.";
     public bool IsLoading { get; set; }
 
@@ -70,9 +74,54 @@ public class SaveEditorService
         var result = await _fs.PickDirectory();
         if (result)
         {
-            DirectoryName = await _fs.GetDirectoryName();
+            await OpenedDirectory();
         }
+
         return result;
+    }
+
+    public async Task<bool> ReopenDirectory()
+    {
+        var result = await _fs.ReopenDirectory();
+        if (result)
+        {
+            await OpenedDirectory();
+        }
+
+        return result;
+    }
+
+    public async Task RestoreDirectory()
+    {
+        if (await _fs.RememberedDirectory() is not { } remembered)
+        {
+            return;
+        }
+
+        if (!remembered.Granted)
+        {
+            RememberedDirectoryName = remembered.Name;
+            NotifyStateChanged();
+            return;
+        }
+
+        await OpenedDirectory();
+        await LoadDirectory();
+    }
+
+    public async Task ReloadDirectory()
+    {
+        var selected = SelectedSave?.FileName;
+        await LoadDirectory();
+        SelectedSave = Saves.FirstOrDefault(save => save.FileName.Equals(selected, StringComparison.OrdinalIgnoreCase));
+        NotifyStateChanged();
+    }
+
+    private async Task OpenedDirectory()
+    {
+        DirectoryName = await _fs.GetDirectoryName();
+        RememberedDirectoryName = null;
+        _directoryOpen = true;
     }
 
     public async Task LoadDirectory()
@@ -83,8 +132,7 @@ public class SaveEditorService
 
         try
         {
-            var directoryFiles = await _fs.ListFiles(string.Empty);
-            var loadedCount = await LoadSaves(directoryFiles, _fs.ReadFile);
+            var loadedCount = await LoadSaves(await SourceFileNames());
 
             StatusMessage = $"Loaded {loadedCount} save(s) from {DirectoryName}.";
             if (loadedCount == 0)
@@ -111,12 +159,19 @@ public class SaveEditorService
 
     public async Task LoadFiles(IReadOnlyDictionary<string, byte[]> files)
     {
-        var loadedCount = await LoadSaves(files.Keys.ToArray(), name => Task.FromResult(files.GetValueOrDefault(name)));
+        _directoryOpen = false;
+        _uploaded.Clear();
+        foreach (var (name, data) in files)
+        {
+            _uploaded[name] = data;
+        }
+
+        var loadedCount = await LoadSaves(await SourceFileNames());
         StatusMessage = $"Loaded {loadedCount} save(s).";
         NotifyStateChanged();
     }
 
-    private async Task<int> LoadSaves(string[] fileNames, Func<string, Task<byte[]?>> readFile)
+    private async Task<int> LoadSaves(string[] fileNames)
     {
         Saves.Clear();
         _modified.Clear();
@@ -136,16 +191,9 @@ public class SaveEditorService
                 StatusMessage = $"Loading {fileName}...";
                 NotifyStateChanged();
 
-                var data = await readFile(fileName);
-                if (data == null)
+                if (await ReadSave(fileName, fileNames) is not { } slot)
                 {
                     continue;
-                }
-
-                var slot = ReadBundle(data, fileName);
-                if (_registry.DetectFromFileName(slot.FileName) is ICompanionFileHandler companion)
-                {
-                    await LoadCompanionFiles(companion, slot, fileNames, readFile);
                 }
 
                 Saves.Add(slot);
@@ -170,13 +218,33 @@ public class SaveEditorService
         return slot;
     }
 
-    private static async Task LoadCompanionFiles(ICompanionFileHandler companion, SaveSlot slot, string[] fileNames,
-        Func<string, Task<byte[]?>> readFile)
+    private async Task<SaveSlot?> ReadSave(string fileName, string[] fileNames)
+    {
+        var data = await ReadSourceFile(fileName);
+        if (data == null)
+        {
+            return null;
+        }
+
+        var slot = ReadBundle(data, fileName);
+        if (_registry.DetectFromFileName(slot.FileName) is ICompanionFileHandler companion)
+        {
+            await LoadCompanionFiles(companion, slot, fileNames);
+        }
+
+        return slot;
+    }
+
+    private async Task<string[]> SourceFileNames() => _directoryOpen ? await _fs.ListFiles(string.Empty) : [.. _uploaded.Keys];
+
+    private async Task<byte[]?> ReadSourceFile(string name) => _directoryOpen ? await _fs.ReadFile(name) : _uploaded.GetValueOrDefault(name);
+
+    private async Task LoadCompanionFiles(ICompanionFileHandler companion, SaveSlot slot, string[] fileNames)
     {
         var files = new List<CompanionFile>();
         foreach (var name in companion.FindCompanionFiles(slot.FileName, fileNames))
         {
-            var data = await readFile(name);
+            var data = await ReadSourceFile(name);
             if (data != null)
             {
                 files.Add(new CompanionFile(name, data));
@@ -206,6 +274,15 @@ public class SaveEditorService
 
         try
         {
+            if (!_directoryOpen)
+            {
+                StatusMessage = await DownloadFiles(slot, BuildFiles(slot));
+                _modified.Remove(slot);
+                Notify(StatusMessage, "success");
+                NotifyStateChanged();
+                return;
+            }
+
             await BackupBeforeSave(slot);
 
             if (!await WriteFiles(slot))
@@ -230,6 +307,62 @@ public class SaveEditorService
         }
 
         NotifyStateChanged();
+    }
+
+    public async Task DiscardChanges(SaveSlot slot)
+    {
+        var index = Saves.IndexOf(slot);
+        if (index < 0)
+        {
+            return;
+        }
+
+        try
+        {
+            if (await ReadSave(slot.FileName, await SourceFileNames()) is not { } reloaded)
+            {
+                Notify($"{slot.FileName} is no longer in the save folder.", "error");
+                return;
+            }
+
+            Saves[index] = reloaded;
+            _modified.Remove(slot);
+            _revisions.Remove(slot);
+            if (SelectedSave == slot)
+            {
+                SelectedSave = reloaded;
+            }
+
+            StatusMessage = $"Discarded the changes to {slot.FileName}.";
+            Notify(StatusMessage, "info");
+        }
+        catch (Exception ex)
+        {
+            Notify($"Failed to reload {slot.FileName}: {ex.Message}", "error");
+        }
+        finally
+        {
+            NotifyStateChanged();
+        }
+    }
+
+    private async Task<string> DownloadFiles(SaveSlot slot, IReadOnlyList<CompanionFile> files)
+    {
+        var archive = SaveArchive.Name(slot.FileName);
+        await _fs.DownloadFile(archive, SaveArchive.Create(files, slot.ObsoleteFileNames));
+        foreach (var file in files)
+        {
+            _uploaded[file.Name] = file.Data;
+        }
+
+        foreach (var name in slot.ObsoleteFileNames)
+        {
+            _uploaded.Remove(name);
+        }
+
+        var delete = slot.ObsoleteFileNames.Count > 0 ? $" and delete {string.Join(", ", slot.ObsoleteFileNames)}" : string.Empty;
+        slot.ObsoleteFileNames.Clear();
+        return $"Downloaded {archive}. Copy its files into your save folder{delete}.";
     }
 
     private async Task<bool> WriteFiles(SaveSlot slot)
@@ -393,13 +526,20 @@ public class SaveEditorService
             var slot = _registry.CreateSave(seasonKey, episode, fileName);
             slot.DetectedSeasonKey = _registry.DetectFromFileName(fileName)?.SeasonKey ?? seasonKey;
 
-            await BackupBeforeSave(slot);
-
             var files = BuildFiles(slot);
-            if (!await WriteFiles(slot))
+            var downloaded = string.Empty;
+            if (_directoryOpen)
             {
-                NotifyStateChanged();
-                return null;
+                await BackupBeforeSave(slot);
+                if (!await WriteFiles(slot))
+                {
+                    NotifyStateChanged();
+                    return null;
+                }
+            }
+            else
+            {
+                downloaded = " " + await DownloadFiles(slot, files);
             }
 
             if (_registry.Get(seasonKey) is ICompanionFileHandler companion)
@@ -416,8 +556,8 @@ public class SaveEditorService
 
             Saves.Add(slot);
             SelectedSave = slot;
-            StatusMessage = $"Created {fileName}.";
-            Notify($"Created {fileName} successfully.", "success");
+            StatusMessage = $"Created {fileName}.{downloaded}";
+            Notify($"Created {fileName} successfully.{downloaded}", "success");
             NotifyStateChanged();
             return slot;
         }

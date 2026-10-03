@@ -1,3 +1,8 @@
+const databaseName = 'twd-save-editor';
+const storeName = 'directories';
+const rememberedKey = 'saves';
+const readWrite = { mode: 'readwrite' };
+
 let directoryHandle = null;
 
 export function isSupported() {
@@ -7,10 +12,32 @@ export function isSupported() {
 export async function pickDirectory() {
     try {
         directoryHandle = await window.showDirectoryPicker({ mode: 'readwrite', startIn: 'documents' });
-        return true;
     } catch {
         return false;
     }
+    await remember(directoryHandle);
+    return true;
+}
+
+export async function rememberedDirectory() {
+    const handle = await remembered();
+    if (!handle?.queryPermission) {
+        return null;
+    }
+    const granted = await handle.queryPermission(readWrite) === 'granted';
+    if (granted) {
+        directoryHandle = handle;
+    }
+    return { name: handle.name, granted };
+}
+
+export async function reopenDirectory() {
+    const handle = await remembered();
+    if (!handle?.requestPermission || await handle.requestPermission(readWrite) !== 'granted') {
+        return false;
+    }
+    directoryHandle = handle;
+    return true;
 }
 
 export async function listFiles(extension) {
@@ -177,4 +204,41 @@ export function downloadFile(fileName, base64Data) {
     a.download = fileName;
     a.click();
     URL.revokeObjectURL(url);
+}
+
+function openDatabase() {
+    return new Promise((resolve, reject) => {
+        const request = indexedDB.open(databaseName, 1);
+        request.onupgradeneeded = () => request.result.createObjectStore(storeName);
+        request.onsuccess = () => resolve(request.result);
+        request.onerror = () => reject(request.error);
+    });
+}
+
+async function withStore(mode, action) {
+    const database = await openDatabase();
+    try {
+        return await new Promise((resolve, reject) => {
+            const request = action(database.transaction(storeName, mode).objectStore(storeName));
+            request.onsuccess = () => resolve(request.result);
+            request.onerror = () => reject(request.error);
+        });
+    } finally {
+        database.close();
+    }
+}
+
+async function remember(handle) {
+    try {
+        await withStore('readwrite', store => store.put(handle, rememberedKey));
+    } catch {
+    }
+}
+
+async function remembered() {
+    try {
+        return await withStore('readonly', store => store.get(rememberedKey));
+    } catch {
+        return null;
+    }
 }

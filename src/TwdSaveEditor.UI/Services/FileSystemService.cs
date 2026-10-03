@@ -20,6 +20,12 @@ public class FileSystemService : IFileSystemService, IAsyncDisposable
     public async Task<bool> PickDirectory() =>
         await (await _module.Value).InvokeAsync<bool>("pickDirectory");
 
+    public async Task<RememberedDirectory?> RememberedDirectory() =>
+        await (await _module.Value).InvokeAsync<RememberedDirectory?>("rememberedDirectory");
+
+    public async Task<bool> ReopenDirectory() =>
+        await (await _module.Value).InvokeAsync<bool>("reopenDirectory");
+
     public async Task<string[]> ListFiles(string extension) =>
         await (await _module.Value).InvokeAsync<string[]>("listFiles", extension);
 
