@@ -136,6 +136,8 @@ tests/
 
 The Playwright fixture starts `TwdSaveEditor.Web` with `dotnet run` and replaces `window.showDirectoryPicker` with an in-memory directory (`Support/FakeSaveDirectory.cs`), so the tests can open real saves from `TestData`, edit them and read the written bytes back without touching disk.
 
+The Test workflow runs on every push and pull request to `main`. The Release workflow calls it on the tagged commit first and only publishes when every test passes.
+
 ## Build rules
 
 `Directory.Build.props` treats warnings as errors and turns on code-style enforcement, with `.editorconfig` requiring braces on every `if`/`for`/`foreach` body and no unused usings. Package versions are central in `Directory.Packages.props`. There are no comments in the source; the docs are here instead.
