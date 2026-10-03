@@ -1,6 +1,7 @@
 @inherits LayoutComponentBase
 
 <NavigationLock ConfirmExternalNavigation="Editor.HasUnsavedChanges" />
+<CloudflareAnalytics />
 
 <div class="app-layout" data-testid="@(RendererInfo.IsInteractive ? "app-ready" : null)">
     <header class="app-header">
