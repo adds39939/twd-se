@@ -1,5 +1,7 @@
 @inherits LayoutComponentBase
 
+<NavigationLock ConfirmExternalNavigation="Editor.HasUnsavedChanges" />
+
 <div class="app-layout" data-testid="@(RendererInfo.IsInteractive ? "app-ready" : null)">
     <header class="app-header">
         <div class="header-title">

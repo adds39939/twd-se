@@ -13,6 +13,7 @@ public class SaveEditorService
     private readonly ISeasonRegistry _registry;
     private readonly ISaveBundleSerializer _serializer;
     private readonly SaveBackupService _backup;
+    private readonly HashSet<SaveSlot> _modified = [];
 
     private const string BundleExtension = ".bundle";
 
@@ -22,7 +23,8 @@ public class SaveEditorService
     public string StatusMessage { get; set; } = "Select a save directory to begin.";
     public bool IsLoading { get; set; }
 
-    public bool HasUnsavedChanges { get; private set; }
+    public bool HasUnsavedChanges => _modified.Count > 0;
+    public IReadOnlyList<SaveSlot> ModifiedSaves => [.. Saves.Where(_modified.Contains)];
     public bool CascadeChoices { get; set; }
 
     public event Action? StateChanged;
@@ -44,9 +46,11 @@ public class SaveEditorService
         OnNotification?.Invoke(message, type);
     }
 
-    public void MarkModified()
+    public bool IsModified(SaveSlot slot) => _modified.Contains(slot);
+
+    public void MarkModified(SaveSlot slot)
     {
-        HasUnsavedChanges = true;
+        _modified.Add(slot);
         NotifyStateChanged();
     }
 
@@ -104,6 +108,7 @@ public class SaveEditorService
     private async Task<int> LoadSaves(string[] fileNames, Func<string, Task<byte[]?>> readFile)
     {
         Saves.Clear();
+        _modified.Clear();
         SelectedSave = null;
 
         var bundleFiles = fileNames
@@ -203,7 +208,7 @@ public class SaveEditorService
             }
 
             StatusMessage = $"Saved {slot.FileName} successfully.";
-            HasUnsavedChanges = false;
+            _modified.Remove(slot);
             Notify($"Saved {slot.FileName} successfully.", "success");
         }
         catch (Exception ex)
@@ -390,6 +395,7 @@ public class SaveEditorService
                 companion.AttachCompanionFiles(slot, files.Skip(1).ToList());
             }
 
+            _modified.RemoveWhere(save => save.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase));
             Saves.RemoveAll(save => save.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase));
             Saves.Add(slot);
             SelectedSave = slot;
@@ -419,6 +425,7 @@ public class SaveEditorService
             return;
         }
 
+        var changed = false;
         foreach (var save in Saves)
         {
             if (save.DetectedSeasonKey == null)
@@ -438,6 +445,7 @@ public class SaveEditorService
                 continue;
             }
 
+            var before = accessor.GetChoiceValue(choiceKey);
             try
             {
                 accessor.SetChoiceValue(choiceKey, value);
@@ -445,6 +453,16 @@ public class SaveEditorService
             catch (InvalidOperationException)
             {
             }
+
+            if (accessor.GetChoiceValue(choiceKey) != before)
+            {
+                changed |= _modified.Add(save);
+            }
+        }
+
+        if (changed)
+        {
+            NotifyStateChanged();
         }
     }
 }

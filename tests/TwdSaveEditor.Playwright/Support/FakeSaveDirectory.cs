@@ -24,6 +24,9 @@ internal static class FakeSaveDirectory
                     name: fileName,
                     getFile: async () => new Blob([dir.files[fileName]]),
                     createWritable: async () => {
+                        if (dir !== root && root.backupsBlocked) {
+                            throw new DOMException('Writing backups is not allowed', 'NotAllowedError');
+                        }
                         const chunks = [];
                         return {
                             write: async (data) => chunks.push(new Uint8Array(data.buffer ?? data)),
@@ -47,11 +50,14 @@ internal static class FakeSaveDirectory
                     return fileHandle(fileName);
                 };
 
-                dir.removeEntry = async (fileName) => {
-                    if (!(fileName in dir.files)) {
-                        throw notFound(fileName);
+                dir.removeEntry = async (entryName) => {
+                    if (entryName in dir.files) {
+                        delete dir.files[entryName];
+                    } else if (entryName in dir.directories) {
+                        delete dir.directories[entryName];
+                    } else {
+                        throw notFound(entryName);
                     }
-                    delete dir.files[fileName];
                 };
                 dir.getDirectoryHandle = async (dirName, options) => {
                     if (!(dirName in dir.directories)) {
@@ -85,6 +91,7 @@ internal static class FakeSaveDirectory
                 fileNames: () => Object.keys(root.files),
                 backups: () => Object.entries(root.directories)
                     .map(([folder, dir]) => ({ folder, files: Object.keys(dir.files) })),
+                blockBackups: () => { root.backupsBlocked = true; },
             };
             window.showDirectoryPicker = async () => root;
         }
@@ -104,6 +111,9 @@ internal static class FakeSaveDirectory
 
     public static Task<string[]?> GetLastBackupFilesAsync(IPage page)
         => page.EvaluateAsync<string[]?>("() => window.__saveDirectory.backups().at(-1)?.files ?? null");
+
+    public static Task BlockBackupsAsync(IPage page)
+        => page.EvaluateAsync("() => window.__saveDirectory.blockBackups()");
 
     public static async Task AddSaveAsync(IDictionary<string, string> files, string testDataSeason, string fileName,
         string? injectName = null)

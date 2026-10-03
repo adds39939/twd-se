@@ -105,24 +105,58 @@ export async function deleteFile(name) {
 
 export async function backupFiles(folderName, fileNames) {
     if (!directoryHandle) {
-        return false;
+        return { folder: null, error: null };
     }
-    try {
-        const backupDir = await directoryHandle.getDirectoryHandle(folderName, { create: true });
-        for (const name of fileNames) {
-            try {
-                const srcHandle = await directoryHandle.getFileHandle(name);
-                const srcFile = await srcHandle.getFile();
-                const srcData = await srcFile.arrayBuffer();
-                const destHandle = await backupDir.getFileHandle(name, { create: true });
-                const writable = await destHandle.createWritable();
-                await writable.write(srcData);
-                await writable.close();
-            } catch { }
+
+    let folder = null;
+    let backupDir = null;
+    for (const name of fileNames) {
+        try {
+            const source = await readSource(name);
+            if (!source) {
+                continue;
+            }
+            if (!backupDir) {
+                folder = await unusedEntryName(folderName);
+                backupDir = await directoryHandle.getDirectoryHandle(folder, { create: true });
+            }
+            const writable = await (await backupDir.getFileHandle(name, { create: true })).createWritable();
+            await writable.write(await source.arrayBuffer());
+            await writable.close();
+        } catch (e) {
+            if (folder) {
+                await directoryHandle.removeEntry(folder, { recursive: true }).catch(() => { });
+            }
+            return { folder: null, error: `${name}: ${e.message}` };
         }
-        return true;
-    } catch {
-        return false;
+    }
+    return { folder, error: null };
+}
+
+async function readSource(name) {
+    try {
+        return await (await directoryHandle.getFileHandle(name)).getFile();
+    } catch (e) {
+        if (e.name === 'NotFoundError') {
+            return null;
+        }
+        throw e;
+    }
+}
+
+async function unusedEntryName(baseName) {
+    for (let index = 1; ; index++) {
+        const name = index === 1 ? baseName : `${baseName}_${index}`;
+        try {
+            await directoryHandle.getDirectoryHandle(name);
+        } catch (e) {
+            if (e.name === 'NotFoundError') {
+                return name;
+            }
+            if (e.name !== 'TypeMismatchError') {
+                throw e;
+            }
+        }
     }
 }
 

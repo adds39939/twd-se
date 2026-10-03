@@ -73,7 +73,7 @@ public partial class DecisionEditor
 
     private void OnChoiceChanged(ChoiceDefinition choice, ChangeEventArgs e)
     {
-        if (Accessor == null)
+        if (Slot == null || Accessor == null)
         {
             return;
         }
@@ -82,8 +82,8 @@ public partial class DecisionEditor
         {
             Accessor.ApplyChoice(choice, idx);
             _choiceStates[choice.ChoiceKey] = idx;
-            Editor.MarkModified();
-            Editor.CascadeChoice(choice.ChoiceKey, choice.Options[idx].Value, Slot?.DetectedSeasonKey ?? "");
+            Editor.MarkModified(Slot);
+            Editor.CascadeChoice(choice.ChoiceKey, choice.Options[idx].Value, Slot.DetectedSeasonKey ?? "");
         }
     }
 
@@ -140,12 +140,12 @@ public partial class DecisionEditor
         importer.ImportChoices(source, Slot);
 
         RebuildCache();
-        Editor.MarkModified();
+        Editor.MarkModified(Slot);
     }
 
     private void ApplyPreset(ChoicePreset preset)
     {
-        if (Accessor == null)
+        if (Slot == null || Accessor == null)
         {
             return;
         }
@@ -156,7 +156,7 @@ public partial class DecisionEditor
         }
 
         RebuildCache();
-        Editor.MarkModified();
+        Editor.MarkModified(Slot);
     }
 
     private static string GetCategoryBadgeClass(string category) => category switch

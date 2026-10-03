@@ -18,7 +18,7 @@
             <div class="content-toolbar">
                 <h2 class="content-title">@ActiveTabTitle</h2>
                 <button class="btn-accent save-btn" @onclick="SaveChanges" disabled="@_saving">
-                    @(_saving ? "Saving..." : Editor.HasUnsavedChanges ? "Save Changes *" : "Save Changes")
+                    @(_saving ? "Saving..." : Editor.IsModified(Editor.SelectedSave) ? "Save Changes *" : "Save Changes")
                 </button>
             </div>
 

@@ -24,6 +24,8 @@ public sealed class BackupFileResolver(ISeasonRegistry registry) : IBackupFileRe
             filesToBackup.AddRange(companion.GetCompanionFileNames(slot));
         }
 
-        return filesToBackup;
+        filesToBackup.AddRange(slot.ObsoleteFileNames);
+
+        return [.. filesToBackup.Distinct(StringComparer.OrdinalIgnoreCase)];
     }
 }

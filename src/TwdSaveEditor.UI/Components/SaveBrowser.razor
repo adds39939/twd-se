@@ -49,6 +49,10 @@
                     {
                         <span class="badge">@GetSeasonLabel(save.DetectedSeasonKey)</span>
                     }
+                    @if (Editor.IsModified(save))
+                    {
+                        <span class="badge badge-warning" data-testid="save-unsaved">Unsaved</span>
+                    }
                 </div>
             </div>
         }

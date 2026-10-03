@@ -1,3 +1,5 @@
+using TwdSaveEditor.UI.Model;
+
 namespace TwdSaveEditor.UI.Services;
 
 public interface IFileSystemService
@@ -14,7 +16,7 @@ public interface IFileSystemService
 
     Task<bool> DeleteFile(string name);
 
-    Task<bool> BackupFiles(string folderName, string[] fileNames);
+    Task<BackupResult> BackupFiles(string folderName, string[] fileNames);
 
     Task<bool> HasDirectory();
 

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.JSInterop;
 using TwdSaveEditor.Core.Model;
 using TwdSaveEditor.Season.Common.Abstractions;
 using TwdSaveEditor.UI.Services;
@@ -16,6 +17,9 @@ public partial class SaveBrowser : IDisposable
 
     [Inject]
     public ISeasonRegistry Registry { get; set; } = default!;
+
+    [Inject]
+    public IJSRuntime JS { get; set; } = default!;
 
     [Parameter]
     public EventCallback OnNewSaveRequested { get; set; }
@@ -41,6 +45,11 @@ public partial class SaveBrowser : IDisposable
 
     private async Task OpenDirectory()
     {
+        if (!await ConfirmDiscardChanges())
+        {
+            return;
+        }
+
         var picked = await Editor.PickDirectory();
         if (picked)
         {
@@ -50,6 +59,11 @@ public partial class SaveBrowser : IDisposable
 
     private async Task OnFilesUploaded(InputFileChangeEventArgs e)
     {
+        if (!await ConfirmDiscardChanges())
+        {
+            return;
+        }
+
         var files = new Dictionary<string, byte[]>(StringComparer.OrdinalIgnoreCase);
         foreach (var file in e.GetMultipleFiles(MaxUploadedFiles))
         {
@@ -88,6 +102,17 @@ public partial class SaveBrowser : IDisposable
         }
 
         Editor.NotifyStateChanged();
+    }
+
+    private async Task<bool> ConfirmDiscardChanges()
+    {
+        if (!Editor.HasUnsavedChanges)
+        {
+            return true;
+        }
+
+        var names = string.Join(", ", Editor.ModifiedSaves.Select(save => save.FileName));
+        return await JS.InvokeAsync<bool>("confirm", $"Unsaved changes to {names} will be lost. Continue?");
     }
 
     private void SelectSave(SaveSlot save)

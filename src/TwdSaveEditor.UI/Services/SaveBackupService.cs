@@ -10,7 +10,12 @@ public class SaveBackupService(IFileSystemService fs, IBackupFileResolver backup
     public async Task<string?> BackupBeforeSave(SaveSlot slot)
     {
         var backupFolder = $"backup_{DateTime.Now.ToString(TimestampFormat)}";
-        var success = await fs.BackupFiles(backupFolder, [.. backupFiles.GetFilesToBackup(slot)]);
-        return success ? backupFolder : null;
+        var result = await fs.BackupFiles(backupFolder, [.. backupFiles.GetFilesToBackup(slot)]);
+        if (result.Error != null)
+        {
+            throw new IOException($"Backup failed for {result.Error}. Nothing was changed.");
+        }
+
+        return result.Folder;
     }
 }

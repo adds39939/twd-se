@@ -80,6 +80,30 @@ public class BackupFileResolverTests
     }
 
     [Fact]
+    public void MichonneRestart_BacksUpTheFilesItDeletes()
+    {
+        var slot = MichonneSaves.LoadEpisode1Save();
+        MichonneSaves.Handler.RestartFromEpisode(slot, 1);
+
+        var files = Resolver.GetFilesToBackup(slot);
+
+        Assert.NotEmpty(slot.ObsoleteFileNames);
+        Assert.All(slot.ObsoleteFileNames, name => Assert.Contains(name, files));
+        Assert.Equal(files.Count, files.Distinct(StringComparer.OrdinalIgnoreCase).Count());
+    }
+
+    [Fact]
+    public void ObsoleteFiles_AreListedOnceAfterTheSlot()
+    {
+        var slot = CreateSlot("_wd1_saveslot1_autosave.bundle");
+        slot.ObsoleteFileNames.AddRange(["_wd1_saveslot1_checkpoint2.bundle", "WD1_SAVESLOT1.bundle"]);
+
+        var files = WithoutSeasons().GetFilesToBackup(slot);
+
+        Assert.Equal(["_wd1_saveslot1_autosave.bundle", "wd1_saveslot1.bundle", "_wd1_saveslot1_checkpoint2.bundle"], files);
+    }
+
+    [Fact]
     public void S3Autosave_BackupsAutosaveAndSlot_NoEstore()
     {
         var files = Resolver.GetFilesToBackup(CreateSlot("_wd3_saveslot1_autosave.bundle"));

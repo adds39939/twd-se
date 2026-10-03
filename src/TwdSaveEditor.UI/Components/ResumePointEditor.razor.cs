@@ -120,7 +120,7 @@ public partial class ResumePointEditor
         var val = e.Value?.ToString() ?? "";
         _autosaveFile = val;
         Slot?.Metadata?.SetString(SlotMetadataKeys.LatestSave, val);
-        Editor.MarkModified();
+        Editor.MarkModified(Slot!);
     }
 
     private void OnEpisodeIdChanged(ChangeEventArgs e)
@@ -141,7 +141,7 @@ public partial class ResumePointEditor
             Slot.EpisodeChanged = EpisodeChanged;
         }
 
-        Editor.MarkModified();
+        Editor.MarkModified(Slot!);
     }
 
     private void OnSceneNameChanged(ChangeEventArgs e)
@@ -149,7 +149,7 @@ public partial class ResumePointEditor
         var val = e.Value?.ToString() ?? "";
         _sceneName = val;
         SetPropertyString(AutosaveHashes.SceneName, val);
-        Editor.MarkModified();
+        Editor.MarkModified(Slot!);
     }
 
     private void SetPropertyString(ulong hash, string value)

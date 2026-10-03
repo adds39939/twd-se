@@ -1,4 +1,5 @@
 using Microsoft.JSInterop;
+using TwdSaveEditor.UI.Model;
 
 namespace TwdSaveEditor.UI.Services;
 
@@ -42,8 +43,8 @@ public class FileSystemService : IFileSystemService, IAsyncDisposable
     public async Task<bool> DeleteFile(string name) =>
         await (await _module.Value).InvokeAsync<bool>("deleteFile", name);
 
-    public async Task<bool> BackupFiles(string folderName, string[] fileNames) =>
-        await (await _module.Value).InvokeAsync<bool>("backupFiles", folderName, fileNames);
+    public async Task<BackupResult> BackupFiles(string folderName, string[] fileNames) =>
+        await (await _module.Value).InvokeAsync<BackupResult>("backupFiles", folderName, fileNames);
 
     public async Task<bool> HasDirectory() =>
         await (await _module.Value).InvokeAsync<bool>("hasDirectory");

@@ -90,6 +90,6 @@ public partial class EpisodeResumeEditor
         }
 
         _state = Handler.GetResumeState(Slot);
-        Editor.MarkModified();
+        Editor.MarkModified(Slot);
     }
 }

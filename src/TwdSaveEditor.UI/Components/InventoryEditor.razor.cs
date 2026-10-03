@@ -56,6 +56,6 @@ public partial class InventoryEditor
     {
         _handler!.SetInventory(Slot!, [.. items.GroupBy(item => item.Id).Select(group => group.MaxBy(item => item.Count)!)]);
         _state = _handler.GetInventory(Slot!);
-        Editor.MarkModified();
+        Editor.MarkModified(Slot!);
     }
 }
