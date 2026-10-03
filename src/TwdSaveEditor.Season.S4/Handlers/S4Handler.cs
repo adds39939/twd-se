@@ -1,4 +1,5 @@
 using TwdSaveEditor.Core.Model;
+using TwdSaveEditor.Season.Base.DialogLog;
 using TwdSaveEditor.Season.Base.Handlers;
 using TwdSaveEditor.Season.Base.Story;
 using TwdSaveEditor.Season.Common.Abstractions;
@@ -8,7 +9,8 @@ using TwdSaveEditor.Season.S4.Story;
 
 namespace TwdSaveEditor.Season.S4.Handlers;
 
-public class S4Handler : StorySeasonHandler, IChoiceImporter, IChoicePresetProvider, IInventoryHandler
+public class S4Handler(IDialogLogCompanions companions, IStorySaveFactory saves, IS4Collectibles collectibles)
+    : StorySeasonHandler(companions, saves), IChoiceImporter, IChoicePresetProvider, IInventoryHandler
 {
     private const string FollowedKey = "Episode 402 - Follow Violet or Louis";
     private const string SavedKey = "Episode 402 - Save Violet or Louis";
@@ -60,9 +62,9 @@ public class S4Handler : StorySeasonHandler, IChoiceImporter, IChoicePresetProvi
         "A collectible marked as found but not placed can still be placed in the room; one marked as placed should also be marked as found. The list covers every episode.",
     ];
 
-    public InventoryState GetInventory(SaveSlot slot) => S4Collectibles.GetState(slot);
+    public InventoryState GetInventory(SaveSlot slot) => collectibles.GetState(slot);
 
-    public void SetInventory(SaveSlot slot, IReadOnlyList<HeldItem> items) => S4Collectibles.SetItems(slot, items);
+    public void SetInventory(SaveSlot slot, IReadOnlyList<HeldItem> items) => collectibles.SetItems(slot, items);
 
     public IReadOnlyList<HeldItem> GetCarriedItems(SaveSlot slot) => [];
 }

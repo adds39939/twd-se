@@ -7,12 +7,12 @@ using TwdSaveEditor.Season.S1.Persistence;
 
 namespace TwdSaveEditor.Season.S2.Saves;
 
-public static class S2SaveFactory
+public sealed class S2SaveFactory : IS2SaveFactory
 {
     private const string SlotMetadataParent = "metadata_slot_s2.prop";
     private const uint LocalKeysFlag = 0x100;
 
-    public static SaveSlot Create(string fileName, string episodeId)
+    public SaveSlot Create(string fileName, string episodeId)
     {
         var metadata = new PropertySet
         {

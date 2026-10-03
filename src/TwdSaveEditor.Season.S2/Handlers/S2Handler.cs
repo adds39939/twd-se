@@ -1,6 +1,4 @@
 using System.Globalization;
-using TwdSaveEditor.Core.Binary.Bundles;
-using TwdSaveEditor.Core.Binary.EventLog;
 using TwdSaveEditor.Core.Constants;
 using TwdSaveEditor.Core.Hashing;
 using TwdSaveEditor.Core.Model;
@@ -16,7 +14,8 @@ using TwdSaveEditor.Season.S2.Saves;
 
 namespace TwdSaveEditor.Season.S2.Handlers;
 
-public class S2Handler : PropChoicesSeasonHandler, IChoiceImporter, ICompanionFileHandler, IResumePointHandler, IInventoryHandler, IChoicePresetProvider
+public class S2Handler(IS2ResumePoint resume, IS2Inventory inventory, IS2SaveFactory saves, IDialogLogCompanions companions)
+    : PropChoicesSeasonHandler, IChoiceImporter, ICompanionFileHandler, IResumePointHandler, IInventoryHandler, IChoicePresetProvider
 {
     private const string DinnerKey = "Episode 202 - Dinner Choice";
     private const string WatchedKey = "Episode 203 - Watched Kenny Kill Carver";
@@ -60,7 +59,7 @@ public class S2Handler : PropChoicesSeasonHandler, IChoiceImporter, ICompanionFi
     public override IChoiceAccessor? CreateChoiceAccessor(SaveSlot slot)
         => slot.Choices != null && S2SlotFiles.IsSlotBundle(slot.FileName) ? new S2ChoiceAccessor(slot) : null;
 
-    public override SaveSlot CreateBlankSave(string fileName, string episodeId) => S2SaveFactory.Create(fileName, episodeId);
+    public override SaveSlot CreateBlankSave(string fileName, string episodeId) => saves.Create(fileName, episodeId);
 
     public override void PopulateChoices(SaveSlot slot, int episode)
     {
@@ -71,7 +70,7 @@ public class S2Handler : PropChoicesSeasonHandler, IChoiceImporter, ICompanionFi
         foreach (var choice in GetChoicesUpTo(episode - 1).Where(choice => choice.SeasonKey == SeasonKey))
             accessor.ApplyChoice(choice, 0);
 
-        S2ResumePoint.RestartFromEpisode(slot, episode, Now());
+        resume.RestartFromEpisode(slot, episode, Now());
     }
 
     public IReadOnlyList<EpisodeInfo> ResumeEpisodes => Episodes;
@@ -83,14 +82,14 @@ public class S2Handler : PropChoicesSeasonHandler, IChoiceImporter, ICompanionFi
         "Decisions of the chosen episode are kept when their scene comes before the chapter. The others are cleared so they can be made again in the game.",
     ];
 
-    public ResumeState GetResumeState(SaveSlot slot) => S2ResumePoint.GetState(slot);
+    public ResumeState GetResumeState(SaveSlot slot) => resume.GetState(slot);
 
-    public void RestartFromEpisode(SaveSlot slot, int episode) => S2ResumePoint.RestartFromEpisode(slot, episode, Now());
+    public void RestartFromEpisode(SaveSlot slot, int episode) => resume.RestartFromEpisode(slot, episode, Now());
 
-    public IReadOnlyList<ChapterInfo> GetChapters(int episode) => S2ResumePoint.GetChapters(episode);
+    public IReadOnlyList<ChapterInfo> GetChapters(int episode) => resume.GetChapters(episode);
 
     public void RestartFromChapter(SaveSlot slot, int episode, string chapterId) =>
-        S2ResumePoint.RestartFromChapter(slot, episode, chapterId, Now());
+        resume.RestartFromChapter(slot, episode, chapterId, Now());
 
     public IReadOnlyList<string> InventoryNotes { get; } =
     [
@@ -99,24 +98,24 @@ public class S2Handler : PropChoicesSeasonHandler, IChoiceImporter, ICompanionFi
         "The list holds the items of the episode in progress; the game has no icons for items of other episodes.",
     ];
 
-    public InventoryState GetInventory(SaveSlot slot) => S2Inventory.GetState(slot);
+    public InventoryState GetInventory(SaveSlot slot) => inventory.GetState(slot);
 
-    public void SetInventory(SaveSlot slot, IReadOnlyList<HeldItem> items) => S2Inventory.SetItems(slot, items);
+    public void SetInventory(SaveSlot slot, IReadOnlyList<HeldItem> items) => inventory.SetItems(slot, items);
 
-    public IReadOnlyList<HeldItem> GetCarriedItems(SaveSlot slot) => S2Inventory.CarriedItems(slot);
+    public IReadOnlyList<HeldItem> GetCarriedItems(SaveSlot slot) => inventory.CarriedItems(slot);
 
     private static string Now() => DateTime.Now.ToString(SaveDateFormat, CultureInfo.InvariantCulture);
 
     public bool IsCompanionFile(string fileName) => !S2SlotFiles.IsSlotBundle(fileName);
 
     public IReadOnlyList<string> FindCompanionFiles(string bundleFileName, IEnumerable<string> directoryFileNames) =>
-        DialogLogCompanions.Find(bundleFileName, directoryFileNames);
+        companions.Find(bundleFileName, directoryFileNames);
 
-    public void AttachCompanionFiles(SaveSlot slot, IReadOnlyList<CompanionFile> files) => DialogLogCompanions.Attach(slot, files, SeasonKey);
+    public void AttachCompanionFiles(SaveSlot slot, IReadOnlyList<CompanionFile> files) => companions.Attach(slot, files, SeasonKey);
 
-    public IReadOnlyList<CompanionFile> BuildCompanionFiles(SaveSlot slot) => DialogLogCompanions.Build(slot);
+    public IReadOnlyList<CompanionFile> BuildCompanionFiles(SaveSlot slot) => companions.Build(slot);
 
-    public IReadOnlyList<string> GetCompanionFileNames(SaveSlot slot) => DialogLogCompanions.Names(slot);
+    public IReadOnlyList<string> GetCompanionFileNames(SaveSlot slot) => companions.Names(slot);
 
     public bool CanImportFrom(SaveSlot source)
         => source.DetectedSeasonKey == S1ChoiceCatalog.MainSeasonKey && source.Metadata != null && source.Choices != null;

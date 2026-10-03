@@ -1,3 +1,4 @@
+using TwdSaveEditor.Tests.Common.Seasons;
 using TwdSaveEditor.Core.Binary.Bundles;
 using TwdSaveEditor.Core.Model;
 using TwdSaveEditor.Season.Common.Abstractions;
@@ -20,7 +21,7 @@ public static class Season2Saves
         "_wd2_saveslot1_id_Page2734.epage",
     ];
 
-    public static readonly S2Handler Handler = new();
+    public static readonly S2Handler Handler = TestSeasons.Handler<S2Handler>("s2");
 
     public static IEnumerable<string> CompanionNames => [Autosave, Storage, .. Pages];
 

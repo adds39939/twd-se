@@ -1,19 +1,15 @@
+using FakeItEasy;
 using TwdSaveEditor.Core.Model;
 using TwdSaveEditor.Season.Common.Abstractions;
-using TwdSaveEditor.Season.Michonne.Handlers;
 using TwdSaveEditor.Season.Common.Services;
-using TwdSaveEditor.Season.S3.Handlers;
-using TwdSaveEditor.Season.S1.Handlers;
-using TwdSaveEditor.Season.S4.Handlers;
-using TwdSaveEditor.Tests.Common.Seasons;
 using TwdSaveEditor.Tests.Common.Saves;
+using TwdSaveEditor.Tests.Common.Seasons;
 
 namespace TwdSaveEditor.Season.Common.Tests.Services;
 
 public class BackupFileResolverTests
 {
-    private static ISeasonRegistry Registry(params ISeasonHandler[] handlers) =>
-        new SeasonRegistry(handlers);
+    private static readonly BackupFileResolver Resolver = new(TestSeasons.Registry);
 
     private static SaveSlot CreateSlot(string fileName) => new()
     {
@@ -23,37 +19,35 @@ public class BackupFileResolverTests
         Files = [],
     };
 
+    private static BackupFileResolver WithoutSeasons()
+    {
+        var registry = A.Fake<ISeasonRegistry>();
+        A.CallTo(() => registry.DetectFromFileName(A<string>._)).Returns(null);
+        return new BackupFileResolver(registry);
+    }
+
     [Fact]
     public void S1SlotBundle_BackupsSlotAndAutosave()
     {
-        var slot = CreateSlot("wd1_saveslot1.bundle");
-        var files = BackupFileResolver.GetFilesToBackup(slot, Registry(new S1Handler()));
+        var files = Resolver.GetFilesToBackup(CreateSlot("wd1_saveslot1.bundle"));
 
-        Assert.Equal(2, files.Count);
-        Assert.Equal("wd1_saveslot1.bundle", files[0]);
-        Assert.Equal("_wd1_saveslot1_autosave.bundle", files[1]);
+        Assert.Equal(["wd1_saveslot1.bundle", "_wd1_saveslot1_autosave.bundle"], files);
     }
 
     [Fact]
     public void AutosaveBundle_BackupsAutosaveAndSlot()
     {
-        var slot = CreateSlot("_wd1_saveslot1_autosave.bundle");
-        var files = BackupFileResolver.GetFilesToBackup(slot, Registry(new S1Handler()));
+        var files = Resolver.GetFilesToBackup(CreateSlot("_wd1_saveslot1_autosave.bundle"));
 
-        Assert.Equal(2, files.Count);
-        Assert.Equal("_wd1_saveslot1_autosave.bundle", files[0]);
-        Assert.Equal("wd1_saveslot1.bundle", files[1]);
+        Assert.Equal(["_wd1_saveslot1_autosave.bundle", "wd1_saveslot1.bundle"], files);
     }
 
     [Fact]
     public void S2AutosaveBundle_DerivesCorrectSlotName()
     {
-        var slot = CreateSlot("_wd2_saveslot3_autosave.bundle");
-        var files = BackupFileResolver.GetFilesToBackup(slot);
+        var files = WithoutSeasons().GetFilesToBackup(CreateSlot("_wd2_saveslot3_autosave.bundle"));
 
-        Assert.Equal(2, files.Count);
-        Assert.Equal("_wd2_saveslot3_autosave.bundle", files[0]);
-        Assert.Equal("wd2_saveslot3.bundle", files[1]);
+        Assert.Equal(["_wd2_saveslot3_autosave.bundle", "wd2_saveslot3.bundle"], files);
     }
 
     [Fact]
@@ -61,7 +55,7 @@ public class BackupFileResolverTests
     {
         var slot = Season3Saves.LoadEpisode1Save();
 
-        var files = BackupFileResolver.GetFilesToBackup(slot, Registry(new S3Handler()));
+        var files = Resolver.GetFilesToBackup(slot);
 
         Assert.Equal(7, files.Count);
         Assert.Equal(Season3Saves.Slot, files[0]);
@@ -75,7 +69,7 @@ public class BackupFileResolverTests
     {
         var slot = MichonneSaves.LoadEpisode1Save();
 
-        var files = BackupFileResolver.GetFilesToBackup(slot, Registry(new MichonneHandler()));
+        var files = Resolver.GetFilesToBackup(slot);
 
         Assert.Equal(6, files.Count);
         Assert.Equal(MichonneSaves.Slot, files[0]);
@@ -88,46 +82,46 @@ public class BackupFileResolverTests
     [Fact]
     public void S3Autosave_BackupsAutosaveAndSlot_NoEstore()
     {
-        var slot = CreateSlot("_wd3_saveslot1_autosave.bundle");
+        var files = Resolver.GetFilesToBackup(CreateSlot("_wd3_saveslot1_autosave.bundle"));
 
-        var files = BackupFileResolver.GetFilesToBackup(slot, Registry(new S3Handler()));
-
-        Assert.Equal(2, files.Count);
-        Assert.Equal("_wd3_saveslot1_autosave.bundle", files[0]);
-        Assert.Equal("wd3_saveslot1.bundle", files[1]);
+        Assert.Equal(["_wd3_saveslot1_autosave.bundle", "wd3_saveslot1.bundle"], files);
     }
 
     [Fact]
     public void S4Bundle_NoEstoreFiles()
     {
-        var slot = CreateSlot("wd4_saveslot1.bundle");
+        var files = Resolver.GetFilesToBackup(CreateSlot("wd4_saveslot1.bundle"));
 
-        var files = BackupFileResolver.GetFilesToBackup(slot, Registry(new S4Handler()));
-
-        Assert.Single(files);
-        Assert.Equal("wd4_saveslot1.bundle", files[0]);
+        Assert.Equal(["wd4_saveslot1.bundle"], files);
     }
 
     [Fact]
-    public void NoRegistry_StillBackupsAutosaveAndSlot()
+    public void UnknownSeason_StillBackupsAutosaveAndSlot()
     {
-        var slot = CreateSlot("_wd1_saveslot2_autosave.bundle");
+        var files = WithoutSeasons().GetFilesToBackup(CreateSlot("_wd1_saveslot2_autosave.bundle"));
 
-        var files = BackupFileResolver.GetFilesToBackup(slot);
-
-        Assert.Equal(2, files.Count);
-        Assert.Equal("_wd1_saveslot2_autosave.bundle", files[0]);
-        Assert.Equal("wd1_saveslot2.bundle", files[1]);
+        Assert.Equal(["_wd1_saveslot2_autosave.bundle", "wd1_saveslot2.bundle"], files);
     }
 
     [Fact]
     public void NonAutosaveUnderscore_NotTreatedAsAutosave()
     {
-        var slot = CreateSlot("_wd1_saveslot1_checkpoint.bundle");
+        var files = WithoutSeasons().GetFilesToBackup(CreateSlot("_wd1_saveslot1_checkpoint.bundle"));
 
-        var files = BackupFileResolver.GetFilesToBackup(slot);
+        Assert.Equal(["_wd1_saveslot1_checkpoint.bundle"], files);
+    }
 
-        Assert.Single(files);
-        Assert.Equal("_wd1_saveslot1_checkpoint.bundle", files[0]);
+    [Fact]
+    public void CompanionHandler_AddsItsFileNamesAfterTheSlot()
+    {
+        var slot = CreateSlot("wd9_saveslot1.bundle");
+        var handler = A.Fake<ISeasonHandler>(options => options.Implements<ICompanionFileHandler>());
+        A.CallTo(() => ((ICompanionFileHandler)handler).GetCompanionFileNames(slot)).Returns(["first.estore", "second.epage"]);
+        var registry = A.Fake<ISeasonRegistry>();
+        A.CallTo(() => registry.DetectFromFileName(slot.FileName)).Returns(handler);
+
+        var files = new BackupFileResolver(registry).GetFilesToBackup(slot);
+
+        Assert.Equal(["wd9_saveslot1.bundle", "first.estore", "second.epage"], files);
     }
 }

@@ -30,6 +30,7 @@
     <Project Path="tests/TwdSaveEditor.Season.S3.Tests/TwdSaveEditor.Season.S3.Tests.csproj" />
     <Project Path="tests/TwdSaveEditor.Season.S4.Tests/TwdSaveEditor.Season.S4.Tests.csproj" />
     <Project Path="tests/TwdSaveEditor.Tests.Common/TwdSaveEditor.Tests.Common.csproj" />
+    <Project Path="tests/TwdSaveEditor.UI.Tests/TwdSaveEditor.UI.Tests.csproj" />
   </Folder>
   <Folder Name="/tools/">
     <Project Path="tools/TwdSaveEditor.Tools.AnalyzeSaves/TwdSaveEditor.Tools.AnalyzeSaves.csproj" />

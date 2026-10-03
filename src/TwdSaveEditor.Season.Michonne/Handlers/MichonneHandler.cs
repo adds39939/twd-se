@@ -1,4 +1,5 @@
 using TwdSaveEditor.Core.Model;
+using TwdSaveEditor.Season.Base.DialogLog;
 using TwdSaveEditor.Season.Base.Handlers;
 using TwdSaveEditor.Season.Base.Story;
 using TwdSaveEditor.Season.Common.Abstractions;
@@ -7,7 +8,8 @@ using TwdSaveEditor.Season.Michonne.Story;
 
 namespace TwdSaveEditor.Season.Michonne.Handlers;
 
-public class MichonneHandler : StorySeasonHandler, IInventoryHandler, IChoicePresetProvider
+public class MichonneHandler(IDialogLogCompanions companions, IStorySaveFactory saves)
+    : StorySeasonHandler(companions, saves), IInventoryHandler, IChoicePresetProvider
 {
     private const string EndItKey = "Episode 101 - Did you try to end it";
     private const string ZacharyKey = "Episode 101 - Did you let Sam shoot Zachary";

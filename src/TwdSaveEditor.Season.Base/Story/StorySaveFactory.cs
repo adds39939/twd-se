@@ -4,11 +4,11 @@ using TwdSaveEditor.Core.Model;
 
 namespace TwdSaveEditor.Season.Base.Story;
 
-public static class StorySaveFactory
+public sealed class StorySaveFactory : IStorySaveFactory
 {
     private const uint LocalKeysFlag = 0x100;
 
-    public static SaveSlot Create(string fileName, int episode, StorySeason season)
+    public SaveSlot Create(string fileName, int episode, StorySeason season)
     {
         var metadata = new PropertySet
         {

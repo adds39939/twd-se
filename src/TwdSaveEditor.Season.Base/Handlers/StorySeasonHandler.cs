@@ -7,7 +7,7 @@ using TwdSaveEditor.Season.Common.Model;
 
 namespace TwdSaveEditor.Season.Base.Handlers;
 
-public abstract class StorySeasonHandler : SeasonHandlerBase, ICompanionFileHandler, IResumePointHandler
+public abstract class StorySeasonHandler(IDialogLogCompanions companions, IStorySaveFactory saves) : SeasonHandlerBase, ICompanionFileHandler, IResumePointHandler
 {
     private StoryResumePoint? _resume;
 
@@ -22,7 +22,7 @@ public abstract class StorySeasonHandler : SeasonHandlerBase, ICompanionFileHand
     public override string GetEpisodeId(int episode) => Season.ProjectName(episode);
 
     public override SaveSlot CreateBlankSave(string fileName, string episodeId) =>
-        StorySaveFactory.Create(fileName, Season.EpisodeNumber(episodeId), Season);
+        saves.Create(fileName, Season.EpisodeNumber(episodeId), Season);
 
     public override IChoiceAccessor? CreateChoiceAccessor(SaveSlot slot) =>
         slot.Metadata != null && DialogLogFiles.IsSlotBundle(slot.FileName) ? new StoryChoiceAccessor(slot, Season) : null;
@@ -42,13 +42,13 @@ public abstract class StorySeasonHandler : SeasonHandlerBase, ICompanionFileHand
     public bool IsCompanionFile(string fileName) => !DialogLogFiles.IsSlotBundle(fileName);
 
     public IReadOnlyList<string> FindCompanionFiles(string bundleFileName, IEnumerable<string> directoryFileNames) =>
-        DialogLogCompanions.Find(bundleFileName, directoryFileNames);
+        companions.Find(bundleFileName, directoryFileNames);
 
-    public void AttachCompanionFiles(SaveSlot slot, IReadOnlyList<CompanionFile> files) => DialogLogCompanions.Attach(slot, files, SeasonKey);
+    public void AttachCompanionFiles(SaveSlot slot, IReadOnlyList<CompanionFile> files) => companions.Attach(slot, files, SeasonKey);
 
-    public IReadOnlyList<CompanionFile> BuildCompanionFiles(SaveSlot slot) => DialogLogCompanions.Build(slot);
+    public IReadOnlyList<CompanionFile> BuildCompanionFiles(SaveSlot slot) => companions.Build(slot);
 
-    public IReadOnlyList<string> GetCompanionFileNames(SaveSlot slot) => DialogLogCompanions.Names(slot);
+    public IReadOnlyList<string> GetCompanionFileNames(SaveSlot slot) => companions.Names(slot);
 
     public bool CanImportFrom(SaveSlot source) =>
         Season.PreviousSeasonKey != null && source.DetectedSeasonKey == Season.PreviousSeasonKey && source.EventLog != null;

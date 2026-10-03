@@ -9,7 +9,7 @@ using TwdSaveEditor.Season.S2.Decisions;
 
 namespace TwdSaveEditor.Season.S2.Saves;
 
-public static class S2CheckpointBuilder
+public sealed class S2CheckpointBuilder : IS2CheckpointBuilder
 {
     public const string DeveloperMenuScript = "DebugMenu";
     public const string PreviousScript = "Script - Previous";
@@ -23,7 +23,7 @@ public static class S2CheckpointBuilder
 
     private static readonly string[] SharedResourceSets = ["MenuSeason2", "ProjectSeason2"];
 
-    public static SaveSlot Build(SaveSlot slot, S2EpisodeChapters episode, S2Chapter chapter, string fileName, int serial, string date)
+    public SaveSlot Build(SaveSlot slot, S2EpisodeChapters episode, S2Chapter chapter, string fileName, int serial, string date)
     {
         var episodeId = S2SlotFiles.EpisodeId(episode.Episode);
 

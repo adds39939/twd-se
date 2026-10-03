@@ -1,3 +1,4 @@
+using TwdSaveEditor.Tests.Common.Seasons;
 using TwdSaveEditor.Core.Binary.Bundles;
 using TwdSaveEditor.Core.Model;
 using TwdSaveEditor.Season.Common.Abstractions;
@@ -21,7 +22,7 @@ public static class Season4Saves
         "_wd4_saveslot2_id_Page19079.epage",
     ];
 
-    public static readonly S4Handler Handler = new();
+    public static readonly S4Handler Handler = TestSeasons.Handler<S4Handler>("s4");
 
     public static byte[] ReadBytes(string fileName) => File.ReadAllBytes(TestDataHelper.GetPath("S4", fileName));
 

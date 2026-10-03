@@ -9,7 +9,7 @@ using TwdSaveEditor.Season.S1.Saves;
 
 namespace TwdSaveEditor.Season.S1.Accessors;
 
-public sealed class S1ChoiceAccessor(SaveSlot slot) : IChoiceAccessor
+public sealed class S1ChoiceAccessor(SaveSlot slot, IS1CheckpointRefresher? checkpoints = null) : IChoiceAccessor
 {
     public int DetectCurrentChoice(ChoiceDefinition choice)
     {
@@ -43,7 +43,7 @@ public sealed class S1ChoiceAccessor(SaveSlot slot) : IChoiceAccessor
         slot.Metadata.SetString(PersistentKeys.SlotKey(episode, choiceKey), value);
         UpdateTracker(episode, choiceKey, value);
         UpdateAutosave(choiceKey, value);
-        S1ResumePoint.RefreshGeneratedCheckpoint(slot);
+        checkpoints?.Refresh(slot);
     }
 
     private void UpdateTracker(int episode, string choiceKey, string value)

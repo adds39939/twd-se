@@ -8,7 +8,7 @@ using TwdSaveEditor.Season.S2.Saves;
 
 namespace TwdSaveEditor.Season.S2.Inventory;
 
-public static class S2Inventory
+public sealed class S2Inventory(IS2ResumePoint resume) : IS2Inventory
 {
     public const string Owner = "Clementine";
     public const string ItemsKey = "Items - " + Owner;
@@ -20,15 +20,15 @@ public static class S2Inventory
     private const string Damaged = "The checkpoint of this save cannot be read, so its inventory cannot be edited.";
     private const string Unreadable = "Cannot set the inventory: the save's inventory properties cannot be read.";
 
-    public static InventoryState GetState(SaveSlot slot)
+    public InventoryState GetState(SaveSlot slot)
     {
-        var resume = S2ResumePoint.GetState(slot);
-        if (S2ResumePoint.ResumeSave(slot) is not { } save)
-            return InventoryState.NotEditable(Owner, resume.Episode, resume.CheckpointDamaged ? Damaged : NoSave);
+        var state = resume.GetState(slot);
+        if (resume.ResumeSave(slot) is not { } save)
+            return InventoryState.NotEditable(Owner, state.Episode, state.CheckpointDamaged ? Damaged : NoSave);
 
         var file = save.FindFile(S2SlotFiles.InventoryProperties);
         if (file != null && !BundleReader.TryParseProperties(file))
-            return InventoryState.NotEditable(Owner, resume.Episode, Damaged);
+            return InventoryState.NotEditable(Owner, state.Episode, Damaged);
 
         var episode = EpisodeOf(save);
         var held = file?.Properties?.GetStrings(ItemsKey) ?? [];
@@ -40,15 +40,15 @@ public static class S2Inventory
         return new InventoryState(Owner, episode, null, items, [.. held.Select(id => new HeldItem(id))]);
     }
 
-    public static void SetItems(SaveSlot slot, IReadOnlyList<HeldItem> held)
+    public void SetItems(SaveSlot slot, IReadOnlyList<HeldItem> held)
     {
-        var save = S2ResumePoint.ResumeSave(slot)
+        var save = resume.ResumeSave(slot)
             ?? throw new InvalidOperationException("Cannot set the inventory: the slot has no save of the episode in progress.");
 
         var properties = DialogLogSaves.RuntimeProperties(save, S2SlotFiles.InventoryProperties, Unreadable);
         var previous = properties.GetStrings(ItemsKey) ?? [];
         var items = held.Where(item => item.Count > 0).Select(item => item.Id).Distinct(StringComparer.Ordinal).ToList();
-        var game = S2ResumePoint.Properties(save, S2SlotFiles.LogicGameProperties);
+        var game = resume.Properties(save, S2SlotFiles.LogicGameProperties);
 
         foreach (var removed in previous.Except(items, StringComparer.Ordinal))
         {
@@ -64,14 +64,14 @@ public static class S2Inventory
         save.Modified = true;
     }
 
-    public static IReadOnlyList<HeldItem> CarriedItems(SaveSlot slot)
+    public IReadOnlyList<HeldItem> CarriedItems(SaveSlot slot)
     {
-        if (S2ResumePoint.ResumeSave(slot) is not { } save)
+        if (resume.ResumeSave(slot) is not { } save)
             return [];
 
         var episode = EpisodeOf(save);
         if (S2ItemCatalog.ForEpisode(episode) is not { } catalog
-            || S2ResumePoint.Chapter(save, episode) is not { } chapter
+            || resume.Chapter(save, episode) is not { } chapter
             || catalog.ForChapter(chapter.Id) is not { } items)
         {
             return [];

@@ -1,15 +1,15 @@
-using TwdSaveEditor.Core.Binary.Bundles;
 using TwdSaveEditor.Core.Binary.EventLog;
 using TwdSaveEditor.Core.Hashing;
 using TwdSaveEditor.Core.Model;
+using TwdSaveEditor.Core.Serialization;
 using GameLog = TwdSaveEditor.Core.Model.EventLog;
 using TwdSaveEditor.Season.Common.Model;
 
 namespace TwdSaveEditor.Season.Base.DialogLog;
 
-public static class DialogLogCompanions
+public sealed class DialogLogCompanions(ISaveBundleSerializer serializer) : IDialogLogCompanions
 {
-    public static IReadOnlyList<string> Find(string bundleFileName, IEnumerable<string> directoryFileNames)
+    public IReadOnlyList<string> Find(string bundleFileName, IEnumerable<string> directoryFileNames)
     {
         if (!DialogLogFiles.IsSlotBundle(bundleFileName))
             return [];
@@ -23,7 +23,7 @@ public static class DialogLogCompanions
             .ToList();
     }
 
-    public static void Attach(SaveSlot slot, IReadOnlyList<CompanionFile> files, string seasonKey)
+    public void Attach(SaveSlot slot, IReadOnlyList<CompanionFile> files, string seasonKey)
     {
         slot.Checkpoints.Clear();
         slot.EventLog = null;
@@ -43,7 +43,7 @@ public static class DialogLogCompanions
 
         foreach (var file in files.Where(file => file.Name.EndsWith(DialogLogFiles.BundleExtension, StringComparison.OrdinalIgnoreCase)))
         {
-            if (TryRead(() => BundleReader.Read(file.Data, file.Name)) is { } save)
+            if (TryRead(() => serializer.Read(file.Data, file.Name)) is { } save)
             {
                 save.DetectedSeasonKey = seasonKey;
                 slot.Checkpoints.Add(save);
@@ -51,7 +51,7 @@ public static class DialogLogCompanions
         }
     }
 
-    public static IReadOnlyList<CompanionFile> Build(SaveSlot slot)
+    public IReadOnlyList<CompanionFile> Build(SaveSlot slot)
     {
         var files = new List<CompanionFile>();
         if (slot.EventLog is { } log)
@@ -62,11 +62,11 @@ public static class DialogLogCompanions
             files.AddRange(log.PageFiles.Where(page => page.Modified).Select(page => new CompanionFile(page.Name, EventLogCodec.WritePage(page.Page))));
         }
 
-        files.AddRange(slot.Checkpoints.Where(save => save.Modified).Select(save => new CompanionFile(save.FileName, BundleWriter.Write(save))));
+        files.AddRange(slot.Checkpoints.Where(save => save.Modified).Select(save => new CompanionFile(save.FileName, serializer.Write(save))));
         return files;
     }
 
-    public static IReadOnlyList<string> Names(SaveSlot slot)
+    public IReadOnlyList<string> Names(SaveSlot slot)
     {
         if (!DialogLogFiles.IsSlotBundle(slot.FileName))
             return [];

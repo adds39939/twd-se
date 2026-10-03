@@ -11,6 +11,10 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+    </ItemGroup>
+
+    <ItemGroup>
       <ProjectReference Include="..\TwdSaveEditor.Core\TwdSaveEditor.Core.csproj" />
       <ProjectReference Include="..\TwdSaveEditor.Core.Binary\TwdSaveEditor.Core.Binary.csproj" />
       <ProjectReference Include="..\TwdSaveEditor.Season.Base\TwdSaveEditor.Season.Base.csproj" />

@@ -1,11 +1,14 @@
 using TwdSaveEditor.Core.Model;
+using TwdSaveEditor.Core.Serialization;
 using TwdSaveEditor.Season.Common.Model;
+using TwdSaveEditor.Season.S1.Inventory;
 using TwdSaveEditor.Season.S1.Persistence;
 using TwdSaveEditor.Season.S1.Saves;
 
 namespace TwdSaveEditor.Season.S1.Handlers;
 
-public class S1_400DaysHandler : S1Handler
+public class S1_400DaysHandler(IS1ResumePoint resume, IS1Inventory inventory, IS1SaveFactory saves, IS1CheckpointRefresher checkpoints, ISaveBundleSerializer serializer)
+    : S1Handler(resume, inventory, saves, checkpoints, serializer)
 {
     private static readonly string[] SeasonsInSave = [S1ChoiceCatalog.ExtraEpisodeSeasonKey];
 

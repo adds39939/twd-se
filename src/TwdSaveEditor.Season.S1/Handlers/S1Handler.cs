@@ -1,7 +1,7 @@
 using System.Globalization;
-using TwdSaveEditor.Core.Binary.Bundles;
 using TwdSaveEditor.Core.Constants;
 using TwdSaveEditor.Core.Model;
+using TwdSaveEditor.Core.Serialization;
 using TwdSaveEditor.Season.Base.Handlers;
 using TwdSaveEditor.Season.Common.Abstractions;
 using TwdSaveEditor.Season.Common.Model;
@@ -12,7 +12,8 @@ using TwdSaveEditor.Season.S1.Saves;
 
 namespace TwdSaveEditor.Season.S1.Handlers;
 
-public class S1Handler : SeasonHandlerBase, ICompanionFileHandler, IResumePointHandler, IInventoryHandler, IPropertyNameProvider, IChoicePresetProvider
+public class S1Handler(IS1ResumePoint resume, IS1Inventory inventory, IS1SaveFactory saves, IS1CheckpointRefresher checkpoints, ISaveBundleSerializer serializer)
+    : SeasonHandlerBase, ICompanionFileHandler, IResumePointHandler, IInventoryHandler, IPropertyNameProvider, IChoicePresetProvider
 {
     private static readonly ChoicePreset[] StoryPresets =
     [
@@ -86,10 +87,10 @@ public class S1Handler : SeasonHandlerBase, ICompanionFileHandler, IResumePointH
     public override string GetEpisodeId(int episode) => S1SlotFiles.EpisodeId(episode);
 
     public override SaveSlot CreateBlankSave(string fileName, string episodeId) =>
-        S1SaveFactory.Create(fileName, S1SlotFiles.EpisodeNumber(episodeId) ?? 1);
+        saves.Create(fileName, S1SlotFiles.EpisodeNumber(episodeId) ?? 1);
 
     public override IChoiceAccessor? CreateChoiceAccessor(SaveSlot slot) =>
-        slot.Metadata != null && S1SlotFiles.IsSlotBundle(slot.FileName) ? new S1ChoiceAccessor(slot) : null;
+        slot.Metadata != null && S1SlotFiles.IsSlotBundle(slot.FileName) ? new S1ChoiceAccessor(slot, checkpoints) : null;
 
     public override void PopulateChoices(SaveSlot slot, int episode)
     {
@@ -102,14 +103,14 @@ public class S1Handler : SeasonHandlerBase, ICompanionFileHandler, IResumePointH
         "In 400 Days, the stories listed before the chosen chapter count as finished, with their decisions.",
     ];
 
-    public ResumeState GetResumeState(SaveSlot slot) => S1ResumePoint.GetState(slot);
+    public ResumeState GetResumeState(SaveSlot slot) => resume.GetState(slot);
 
-    public void RestartFromEpisode(SaveSlot slot, int episode) => S1ResumePoint.RestartFromEpisode(slot, episode);
+    public void RestartFromEpisode(SaveSlot slot, int episode) => resume.RestartFromEpisode(slot, episode);
 
-    public IReadOnlyList<ChapterInfo> GetChapters(int episode) => S1ResumePoint.GetChapters(episode);
+    public IReadOnlyList<ChapterInfo> GetChapters(int episode) => resume.GetChapters(episode);
 
     public void RestartFromChapter(SaveSlot slot, int episode, string chapterId) =>
-        S1ResumePoint.RestartFromChapter(slot, episode, chapterId, DateTime.Now.ToString(SaveDateFormat, CultureInfo.InvariantCulture));
+        resume.RestartFromChapter(slot, episode, chapterId, DateTime.Now.ToString(SaveDateFormat, CultureInfo.InvariantCulture));
 
     public IReadOnlyList<string> InventoryNotes { get; } =
     [
@@ -118,11 +119,11 @@ public class S1Handler : SeasonHandlerBase, ICompanionFileHandler, IResumePointH
         "Season 1 items open steps of its puzzles and its scenes are revisited, so look over the list before saving. The weapon follows the Episode 3 weapon decision.",
     ];
 
-    public InventoryState GetInventory(SaveSlot slot) => S1Inventory.GetState(slot);
+    public InventoryState GetInventory(SaveSlot slot) => inventory.GetState(slot);
 
-    public void SetInventory(SaveSlot slot, IReadOnlyList<HeldItem> items) => S1Inventory.SetItems(slot, items);
+    public void SetInventory(SaveSlot slot, IReadOnlyList<HeldItem> items) => inventory.SetItems(slot, items);
 
-    public IReadOnlyList<HeldItem> GetCarriedItems(SaveSlot slot) => S1Inventory.CarriedItems(slot);
+    public IReadOnlyList<HeldItem> GetCarriedItems(SaveSlot slot) => inventory.CarriedItems(slot);
 
     public bool IsCompanionFile(string fileName) => !S1SlotFiles.IsSlotBundle(fileName);
 
@@ -143,7 +144,7 @@ public class S1Handler : SeasonHandlerBase, ICompanionFileHandler, IResumePointH
 
         try
         {
-            slot.Autosave = BundleReader.Read(autosave.Data, autosave.Name);
+            slot.Autosave = serializer.Read(autosave.Data, autosave.Name);
             slot.Autosave.DetectedSeasonKey = SeasonKey;
             slot.AutosaveDamaged = slot.Autosave.Metadata == null || !slot.Autosave.Files.All(IsMetaStream);
         }
@@ -159,7 +160,7 @@ public class S1Handler : SeasonHandlerBase, ICompanionFileHandler, IResumePointH
         && BitConverter.ToUInt32(file.Data, 0) is MetaStreamHeader.MagicMsv5 or MetaStreamHeader.MagicMsv6;
 
     public IReadOnlyList<CompanionFile> BuildCompanionFiles(SaveSlot slot) =>
-        slot.Autosave == null ? [] : [new CompanionFile(slot.Autosave.FileName, BundleWriter.Write(slot.Autosave))];
+        slot.Autosave == null ? [] : [new CompanionFile(slot.Autosave.FileName, serializer.Write(slot.Autosave))];
 
     public IReadOnlyList<string> GetCompanionFileNames(SaveSlot slot) =>
         S1SlotFiles.IsSlotBundle(slot.FileName) ? [S1SlotFiles.AutosaveName(slot.FileName)] : [];

@@ -256,6 +256,7 @@ tests/
 ├── TwdSaveEditor.Season.S3.Tests/
 ├── TwdSaveEditor.Season.S4.Tests/
 ├── TwdSaveEditor.Season.Michonne.Tests/
+├── TwdSaveEditor.UI.Tests/         UI services with faked dependencies
 ├── TwdSaveEditor.Tests.Common/     Shared helpers: test data paths, the season registry, real-save loaders
 ├── TwdSaveEditor.Playwright/       E2E browser tests
 └── TestData/                       Representative save files for all seasons

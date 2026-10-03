@@ -1,5 +1,6 @@
 using TwdSaveEditor.Core.Binary.Bundles;
 using TwdSaveEditor.Core.Model;
+using TwdSaveEditor.Season.Base.DialogLog;
 using TwdSaveEditor.Season.Common.Abstractions;
 using TwdSaveEditor.Season.Common.Model;
 using TwdSaveEditor.Season.S1.Persistence;
@@ -45,7 +46,7 @@ public sealed class S2ChoiceAccessor(SaveSlot slot) : IChoiceAccessor
         if (S2DecisionCatalog.Find(choiceKey) is not { } decision || decision.Find(value) is not { } option)
             return;
 
-        slot.EventLog ??= S2EventLogFactory.Create(slot.FileName);
+        slot.EventLog ??= DialogLogFiles.NewLog(slot.FileName);
         _log.SetValue(decision, option);
         UpdateSavedLogic(decision, option);
     }

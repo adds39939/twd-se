@@ -37,7 +37,7 @@ public sealed class CheckpointCommands(string outputDirectory, TextWriter output
             accessor.SetChoiceValue(choice[..separator], choice[(separator + 1)..]);
         }
 
-        S1ResumePoint.RestartFromChapter(slot, episode, chapterId, date);
+        new S1ResumePoint(new S1CheckpointBuilder()).RestartFromChapter(slot, episode, chapterId, date);
         if (slot.Autosave == null)
         {
             output.WriteLine($"{chapterId} starts episode {episode}: no checkpoint is needed.");

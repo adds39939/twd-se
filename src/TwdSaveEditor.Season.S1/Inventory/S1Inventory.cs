@@ -9,20 +9,20 @@ using TwdSaveEditor.Season.S1.Saves;
 
 namespace TwdSaveEditor.Season.S1.Inventory;
 
-public static class S1Inventory
+public sealed class S1Inventory(IS1ResumePoint resume) : IS1Inventory
 {
     private const string MainOwner = "Lee";
     private const string ExtraOwner = "The story's survivor";
     private const string NoSave = "The inventory is kept in the save the game resumes from. This slot starts an episode from its beginning, so there is nothing to edit yet. Set a chapter under Resume Point first.";
     private const string Damaged = "The checkpoint of this save cannot be read, so its inventory cannot be edited.";
 
-    public static InventoryState GetState(SaveSlot slot)
+    public InventoryState GetState(SaveSlot slot)
     {
-        var resume = S1ResumePoint.GetState(slot);
+        var state = resume.GetState(slot);
         if (ResumeSave(slot) is not { } save)
-            return InventoryState.NotEditable(Owner(resume.Episode), resume.Episode, slot.AutosaveDamaged ? Damaged : NoSave);
+            return InventoryState.NotEditable(Owner(state.Episode), state.Episode, slot.AutosaveDamaged ? Damaged : NoSave);
 
-        var episode = EpisodeOf(save) ?? resume.Episode;
+        var episode = EpisodeOf(save) ?? state.Episode;
         var items = S1ItemCatalog.ForEpisode(episode)?.Items ?? [];
         if (items.Select(item => item.Agent).Distinct().Any(agent => save.FindFile(S1RuntimeProperties.LogicName(agent)) is { } file && !BundleReader.TryParseProperties(file)))
             return InventoryState.NotEditable(Owner(episode), episode, Damaged);
@@ -33,10 +33,10 @@ public static class S1Inventory
             null,
             [.. items.Select(item => new InventoryItem(item.Id, item.Name, item.MaxCount))],
             [.. items.Select(item => new HeldItem(item.Id, Count(save, item))).Where(item => item.Count > 0)],
-            S1ResumePoint.GeneratedChapter(slot) != null);
+            resume.GeneratedChapter(slot) != null);
     }
 
-    public static void SetItems(SaveSlot slot, IReadOnlyList<HeldItem> held, IReadOnlyCollection<string>? untouched = null)
+    public void SetItems(SaveSlot slot, IReadOnlyList<HeldItem> held, IReadOnlyCollection<string>? untouched = null)
     {
         var save = ResumeSave(slot)
             ?? throw new InvalidOperationException("Cannot set the inventory: the slot has no save of the episode in progress.");
@@ -58,10 +58,10 @@ public static class S1Inventory
         }
     }
 
-    public static IReadOnlyList<HeldItem> CarriedItems(SaveSlot slot)
+    public IReadOnlyList<HeldItem> CarriedItems(SaveSlot slot)
     {
         if (ResumeSave(slot) is not { } save
-            || S1ResumePoint.GeneratedChapter(slot) is not { } chapter
+            || resume.GeneratedChapter(slot) is not { } chapter
             || S1ItemCatalog.ForEpisode(EpisodeOf(save) ?? 0) is not { } catalog
             || catalog.ForChapter(chapter.Id) is not { } items)
         {

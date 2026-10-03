@@ -3,12 +3,11 @@ using TwdSaveEditor.Core.Model;
 using TwdSaveEditor.Season.Common.Model;
 using TwdSaveEditor.Season.S1.Accessors;
 using TwdSaveEditor.Season.S1.Chapters;
-using TwdSaveEditor.Season.S1.Inventory;
 using TwdSaveEditor.Season.S1.Persistence;
 
 namespace TwdSaveEditor.Season.S1.Saves;
 
-public static class S1ResumePoint
+public sealed class S1ResumePoint(IS1CheckpointBuilder builder) : IS1ResumePoint
 {
     public const int ExtraEpisode = 6;
 
@@ -17,7 +16,7 @@ public static class S1ResumePoint
     private const int MaxGeneratedFiles = 128;
     private const int EpisodeBase = 100;
 
-    public static ResumeState GetState(SaveSlot slot)
+    public ResumeState GetState(SaveSlot slot)
     {
         var metadata = slot.Metadata;
         var progress = Math.Clamp(metadata?.GetInt(SlotMetadataKeys.Progress) ?? FirstEpisode, FirstEpisode, ExtraEpisode);
@@ -35,10 +34,10 @@ public static class S1ResumePoint
         return new ResumeState(episode, checkpoint, saved.GetString(SaveMetadataKeys.Date), slot.AutosaveDamaged);
     }
 
-    public static IReadOnlyList<ChapterInfo> GetChapters(int episode) =>
+    public IReadOnlyList<ChapterInfo> GetChapters(int episode) =>
         S1ChapterCatalog.ForEpisode(episode)?.Chapters.Select(chapter => new ChapterInfo(chapter.Id, chapter.Title, chapter.Group)).ToList() ?? [];
 
-    public static void RestartFromChapter(SaveSlot slot, int episode, string chapterId, string date)
+    public void RestartFromChapter(SaveSlot slot, int episode, string chapterId, string date)
     {
         var chapters = S1ChapterCatalog.ForEpisode(episode)
             ?? throw new ArgumentException($"Episode {episode} has no chapter list.", nameof(episode));
@@ -56,27 +55,11 @@ public static class S1ResumePoint
         metadata.SetInt(SlotMetadataKeys.LatestSerial, GeneratedSerial);
         metadata.SetString(SlotMetadataKeys.LatestSave, autosave);
 
-        slot.Autosave = S1CheckpointBuilder.Build(slot, chapters, chapter, GeneratedSerial, date);
+        slot.Autosave = builder.Build(slot, chapters, chapter, GeneratedSerial, date);
         slot.ObsoleteFileNames.Remove(autosave);
     }
 
-    public static void RefreshGeneratedCheckpoint(SaveSlot slot)
-    {
-        if (GeneratedChapter(slot) is not { } chapter || slot.Autosave?.Metadata is not { } saved)
-            return;
-
-        var episode = S1SlotFiles.EpisodeNumber(saved.GetString(SaveMetadataKeys.Episode));
-        if (episode == null || S1ChapterCatalog.ForEpisode(episode.Value) is not { } chapters)
-            return;
-
-        var inventory = S1Inventory.GetState(slot);
-        slot.Autosave = S1CheckpointBuilder.Build(slot, chapters, chapter,
-            saved.GetInt(SaveMetadataKeys.Serial) ?? GeneratedSerial, saved.GetString(SaveMetadataKeys.Date) ?? string.Empty);
-        if (inventory.Editable)
-            S1Inventory.SetItems(slot, inventory.Held, [.. chapters.DecisionFlags.Select(flag => flag.Key)]);
-    }
-
-    public static S1Chapter? GeneratedChapter(SaveSlot slot)
+    public S1Chapter? GeneratedChapter(SaveSlot slot)
     {
         if (slot.Autosave?.Metadata is not { } saved || slot.Autosave.Files.Count > MaxGeneratedFiles)
             return null;
@@ -86,7 +69,7 @@ public static class S1ResumePoint
         return episode == null || chapterId == null ? null : S1ChapterCatalog.ForEpisode(episode.Value)?.Find(chapterId);
     }
 
-    public static void RestartFromEpisode(SaveSlot slot, int episode)
+    public void RestartFromEpisode(SaveSlot slot, int episode)
     {
         var metadata = slot.Metadata
             ?? throw new InvalidOperationException("Cannot set the resume point: the save has no slot metadata.");

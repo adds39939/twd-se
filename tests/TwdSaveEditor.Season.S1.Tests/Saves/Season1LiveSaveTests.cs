@@ -1,3 +1,4 @@
+using TwdSaveEditor.Tests.Common.Seasons;
 using TwdSaveEditor.Tests.Common.Data;
 using TwdSaveEditor.Season.Michonne.Handlers;
 using TwdSaveEditor.Season.Common.Abstractions;
@@ -14,11 +15,7 @@ namespace TwdSaveEditor.Season.S1.Tests.Saves;
 
 public class LiveSaveTests
 {
-    private static readonly ISeasonRegistry Registry = new SeasonRegistry(
-    [
-        new S1Handler(), new S1_400DaysHandler(), new S2Handler(),
-        new S3Handler(), new S4Handler(), new MichonneHandler(),
-    ]);
+    private static readonly ISeasonRegistry Registry = TestSeasons.Registry;
 
     [Fact]
     public void LiveS1Save_ParsesSuccessfully()

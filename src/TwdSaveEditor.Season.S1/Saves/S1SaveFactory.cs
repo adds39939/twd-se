@@ -5,12 +5,12 @@ using TwdSaveEditor.Season.S1.Persistence;
 
 namespace TwdSaveEditor.Season.S1.Saves;
 
-public static class S1SaveFactory
+public sealed class S1SaveFactory(IS1ResumePoint resume) : IS1SaveFactory
 {
     private const string SlotMetadataParent = "metadata_slot_s1.prop";
     private const uint LocalKeysFlag = 0x100;
 
-    public static SaveSlot Create(string fileName, int episode)
+    public SaveSlot Create(string fileName, int episode)
     {
         var metadata = new PropertySet
         {
@@ -22,7 +22,7 @@ public static class S1SaveFactory
             (BundleFileNames.SlotMetadata, metadata),
             (BundleFileNames.Choices, new PropertySet()));
 
-        S1ResumePoint.RestartFromEpisode(slot, episode);
+        resume.RestartFromEpisode(slot, episode);
         return slot;
     }
 }

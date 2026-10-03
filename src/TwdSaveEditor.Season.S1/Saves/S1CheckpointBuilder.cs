@@ -10,7 +10,7 @@ using TwdSaveEditor.Season.S1.Persistence;
 
 namespace TwdSaveEditor.Season.S1.Saves;
 
-public static class S1CheckpointBuilder
+public sealed class S1CheckpointBuilder : IS1CheckpointBuilder
 {
     public const string CheckpointDialogItem = "Checkpoint Dialog Item";
 
@@ -21,7 +21,7 @@ public static class S1CheckpointBuilder
 
     private static readonly string[] SharedResourceSets = ["MenuSeason1", "ProjectSeason1"];
 
-    public static SaveSlot Build(SaveSlot slot, S1EpisodeChapters episode, S1Chapter chapter, int serial, string date)
+    public SaveSlot Build(SaveSlot slot, S1EpisodeChapters episode, S1Chapter chapter, int serial, string date)
     {
         var entry = chapter.Entry ?? throw new InvalidOperationException($"Chapter {chapter.Id} starts its episode and needs no checkpoint.");
         var episodeId = S1SlotFiles.EpisodeId(episode.Episode);

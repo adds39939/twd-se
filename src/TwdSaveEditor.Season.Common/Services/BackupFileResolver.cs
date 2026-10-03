@@ -3,25 +3,23 @@ using TwdSaveEditor.Season.Common.Abstractions;
 
 namespace TwdSaveEditor.Season.Common.Services;
 
-public static class BackupFileResolver
+public sealed class BackupFileResolver(ISeasonRegistry registry) : IBackupFileResolver
 {
-    public static List<string> GetFilesToBackup(SaveSlot slot, ISeasonRegistry? registry = null)
+    private const string AutosaveSuffix = "_autosave";
+    private const string BundleExtension = ".bundle";
+
+    public IReadOnlyList<string> GetFilesToBackup(SaveSlot slot)
     {
         var fileName = Path.GetFileName(slot.FileName);
-        var isAutosave = fileName.StartsWith('_');
         var filesToBackup = new List<string> { fileName };
 
-        if (isAutosave)
+        var autoName = Path.GetFileNameWithoutExtension(fileName);
+        if (autoName.StartsWith('_') && autoName.EndsWith(AutosaveSuffix, StringComparison.Ordinal))
         {
-            var autoName = Path.GetFileNameWithoutExtension(fileName);
-            if (autoName.StartsWith('_') && autoName.EndsWith("_autosave"))
-            {
-                var slotName = autoName[1..^9] + ".bundle";
-                filesToBackup.Add(slotName);
-            }
+            filesToBackup.Add(autoName[1..^AutosaveSuffix.Length] + BundleExtension);
         }
 
-        if (registry?.DetectFromFileName(slot.FileName) is ICompanionFileHandler companion)
+        if (registry.DetectFromFileName(slot.FileName) is ICompanionFileHandler companion)
         {
             filesToBackup.AddRange(companion.GetCompanionFileNames(slot));
         }

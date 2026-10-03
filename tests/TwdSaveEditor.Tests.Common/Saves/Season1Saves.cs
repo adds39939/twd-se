@@ -1,3 +1,4 @@
+using TwdSaveEditor.Tests.Common.Seasons;
 using TwdSaveEditor.Core.Binary.Bundles;
 using TwdSaveEditor.Core.Model;
 using TwdSaveEditor.Season.Common.Abstractions;
@@ -13,7 +14,7 @@ public static class Season1Saves
     public const string Autosave = "_wd1_saveslot2_autosave.bundle";
     public const ulong LogicGameProperties = 0x1D3802238E8CE045;
 
-    public static readonly S1Handler Handler = new();
+    public static readonly S1Handler Handler = TestSeasons.Handler<S1Handler>("s1");
 
     public static byte[] ReadBytes(string fileName) => File.ReadAllBytes(TestDataHelper.GetPath("S1", fileName));
 

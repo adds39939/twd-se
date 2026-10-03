@@ -2,13 +2,14 @@ using Microsoft.Extensions.DependencyInjection;
 using TwdSaveEditor.Core.Binary.Bundles;
 using TwdSaveEditor.Core.Database;
 using TwdSaveEditor.Core.Serialization;
+using TwdSaveEditor.Season.Base.Extensions;
 using TwdSaveEditor.Season.Common.Abstractions;
 using TwdSaveEditor.Season.Common.Services;
-using TwdSaveEditor.Season.Michonne.Handlers;
-using TwdSaveEditor.Season.S1.Handlers;
-using TwdSaveEditor.Season.S2.Handlers;
-using TwdSaveEditor.Season.S3.Handlers;
-using TwdSaveEditor.Season.S4.Handlers;
+using TwdSaveEditor.Season.Michonne.Extensions;
+using TwdSaveEditor.Season.S1.Extensions;
+using TwdSaveEditor.Season.S2.Extensions;
+using TwdSaveEditor.Season.S3.Extensions;
+using TwdSaveEditor.Season.S4.Extensions;
 
 namespace TwdSaveEditor.Bootstrap.Extensions;
 
@@ -20,13 +21,15 @@ public static class ServiceCollectionExtensions
         {
             services.AddSingleton<ISaveBundleSerializer, SaveBundleSerializer>();
 
-            services.AddSingleton<ISeasonHandler, S1Handler>();
-            services.AddSingleton<ISeasonHandler, S1_400DaysHandler>();
-            services.AddSingleton<ISeasonHandler, S2Handler>();
-            services.AddSingleton<ISeasonHandler, MichonneHandler>();
-            services.AddSingleton<ISeasonHandler, S3Handler>();
-            services.AddSingleton<ISeasonHandler, S4Handler>();
+            services.AddStorySeasonServices();
+            services.AddSeason1();
+            services.AddSeason2();
+            services.AddMichonne();
+            services.AddSeason3();
+            services.AddSeason4();
+
             services.AddSingleton<ISeasonRegistry, SeasonRegistry>();
+            services.AddSingleton<IBackupFileResolver, BackupFileResolver>();
 
             services.AddSingleton(sp =>
             {

@@ -1,4 +1,5 @@
 using TwdSaveEditor.Core.Model;
+using TwdSaveEditor.Season.Base.DialogLog;
 using TwdSaveEditor.Season.Base.Handlers;
 using TwdSaveEditor.Season.Base.Story;
 using TwdSaveEditor.Season.Common.Abstractions;
@@ -7,7 +8,8 @@ using TwdSaveEditor.Season.S3.Story;
 
 namespace TwdSaveEditor.Season.S3.Handlers;
 
-public class S3Handler : StorySeasonHandler, IChoiceImporter, IInventoryHandler, IChoicePresetProvider
+public class S3Handler(IDialogLogCompanions companions, IStorySaveFactory saves)
+    : StorySeasonHandler(companions, saves), IChoiceImporter, IInventoryHandler, IChoicePresetProvider
 {
     private const string EndingKey = "Episode 205 - Ending Choice";
     private const string KilledKennyKey = "Episode 205 - Killed Kenny";

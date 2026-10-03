@@ -1,18 +1,19 @@
 using TwdSaveEditor.Core.Binary.Bundles;
 using TwdSaveEditor.Core.Constants;
 using TwdSaveEditor.Core.Model;
+using TwdSaveEditor.Season.Base.DialogLog;
 using TwdSaveEditor.Season.Common.Model;
 using TwdSaveEditor.Season.S2.Chapters;
 using TwdSaveEditor.Season.S2.Decisions;
 
 namespace TwdSaveEditor.Season.S2.Saves;
 
-public static class S2ResumePoint
+public sealed class S2ResumePoint(IS2CheckpointBuilder builder) : IS2ResumePoint
 {
     public const int FirstEpisode = 1;
     public const int LastEpisode = 5;
 
-    public static ResumeState GetState(SaveSlot slot)
+    public ResumeState GetState(SaveSlot slot)
     {
         var metadata = slot.Metadata;
         var progress = metadata?.GetString(SlotMetadataKeys.EpisodeInProgress);
@@ -42,7 +43,7 @@ public static class S2ResumePoint
             : new ResumeState(savedEpisode, chapter?.Title ?? saved.GetString(SaveMetadataKeys.ChapterId) ?? string.Empty, saved.GetString(SaveMetadataKeys.Date));
     }
 
-    public static SaveSlot? ResumeSave(SaveSlot slot)
+    public SaveSlot? ResumeSave(SaveSlot slot)
     {
         var metadata = slot.Metadata;
         var progress = metadata?.GetString(SlotMetadataKeys.EpisodeInProgress);
@@ -59,7 +60,7 @@ public static class S2ResumePoint
         return savedEpisode < episode || GeneratedChapter(save, savedEpisode) is { StartsEpisode: true } ? null : save;
     }
 
-    public static S2Chapter? Chapter(SaveSlot save, int episode)
+    public S2Chapter? Chapter(SaveSlot save, int episode)
     {
         if (GeneratedChapter(save, episode) is { } generated)
             return generated;
@@ -70,10 +71,10 @@ public static class S2ResumePoint
         return chapters.FirstOrDefault(chapter => chapter.Script.Equals(script, StringComparison.OrdinalIgnoreCase)) ?? chapters.FirstOrDefault();
     }
 
-    public static IReadOnlyList<ChapterInfo> GetChapters(int episode) =>
+    public IReadOnlyList<ChapterInfo> GetChapters(int episode) =>
         S2ChapterCatalog.ForEpisode(episode)?.Chapters.Select(chapter => new ChapterInfo(chapter.Id, chapter.Title, chapter.Group)).ToList() ?? [];
 
-    public static void RestartFromEpisode(SaveSlot slot, int episode, string date)
+    public void RestartFromEpisode(SaveSlot slot, int episode, string date)
     {
         episode = Math.Clamp(episode, FirstEpisode, LastEpisode);
         Rewind(slot, episode);
@@ -81,7 +82,7 @@ public static class S2ResumePoint
             AddCheckpoint(slot, chapters, chapters.Opening, date);
     }
 
-    public static void RestartFromChapter(SaveSlot slot, int episode, string chapterId, string date)
+    public void RestartFromChapter(SaveSlot slot, int episode, string chapterId, string date)
     {
         var chapters = S2ChapterCatalog.ForEpisode(episode)
             ?? throw new ArgumentException($"Episode {episode} has no chapter list.", nameof(episode));
@@ -110,7 +111,7 @@ public static class S2ResumePoint
         var metadata = slot.Metadata
             ?? throw new InvalidOperationException("Cannot set the resume point: the save has no slot metadata.");
 
-        slot.EventLog ??= S2EventLogFactory.Create(slot.FileName);
+        slot.EventLog ??= DialogLogFiles.NewLog(slot.FileName);
 
         var log = new S2EventLogEditor(slot);
         var earlier = S2DecisionCatalog.All.Where(decision => decision.Episode < episode).ToList();
@@ -137,13 +138,13 @@ public static class S2ResumePoint
             log.SetValue(decision, option);
     }
 
-    private static void AddCheckpoint(SaveSlot slot, S2EpisodeChapters episode, S2Chapter chapter, string date)
+    private void AddCheckpoint(SaveSlot slot, S2EpisodeChapters episode, S2Chapter chapter, string date)
     {
         var metadata = slot.Metadata!;
         var serial = (metadata.GetInt(SlotMetadataKeys.LatestSerial) ?? 0) + 1;
         var fileName = NextCheckpointName(slot);
 
-        slot.Checkpoints.Add(S2CheckpointBuilder.Build(slot, episode, chapter, fileName, serial, date));
+        slot.Checkpoints.Add(builder.Build(slot, episode, chapter, fileName, serial, date));
         slot.ObsoleteFileNames.RemoveAll(name => name.Equals(fileName, StringComparison.OrdinalIgnoreCase));
         new S2EventLogEditor(slot).AppendSaveSerial(serial);
 
@@ -161,7 +162,7 @@ public static class S2ResumePoint
         }
     }
 
-    private static S2Chapter? GeneratedChapter(SaveSlot save, int episode)
+    private S2Chapter? GeneratedChapter(SaveSlot save, int episode)
     {
         if (save.Metadata?.GetString(S2CheckpointBuilder.SavedScript) is not { } script || S2ChapterCatalog.ForEpisode(episode) is not { } chapters)
             return null;
@@ -179,6 +180,6 @@ public static class S2ResumePoint
             .MaxBy(chapter => chapter.Flags.Count);
     }
 
-    public static PropertySet? Properties(SaveSlot save, ulong name) =>
+    public PropertySet? Properties(SaveSlot save, ulong name) =>
         save.FindFile(name) is { } file && BundleReader.TryParseProperties(file) ? file.Properties : null;
 }

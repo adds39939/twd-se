@@ -5,13 +5,13 @@ using TwdSaveEditor.Season.S4.Story;
 
 namespace TwdSaveEditor.Season.S4.Collectibles;
 
-public static class S4Collectibles
+public sealed class S4Collectibles : IS4Collectibles
 {
     public const string Owner = "Clementine";
 
     private const string NoSlot = "The collectibles are kept in the slot file, which this save does not have.";
 
-    public static InventoryState GetState(SaveSlot slot)
+    public InventoryState GetState(SaveSlot slot)
     {
         var episode = S4Story.Resume.GetState(slot).Episode;
         if (slot.Metadata is not { } metadata)
@@ -27,7 +27,7 @@ public static class S4Collectibles
             false);
     }
 
-    public static void SetItems(SaveSlot slot, IReadOnlyList<HeldItem> held)
+    public void SetItems(SaveSlot slot, IReadOnlyList<HeldItem> held)
     {
         var metadata = slot.Metadata
             ?? throw new InvalidOperationException("Cannot set the collectibles: the save has no slot metadata.");

@@ -1,3 +1,4 @@
+using TwdSaveEditor.Tests.Common.Seasons;
 using TwdSaveEditor.Core.Binary.Bundles;
 using TwdSaveEditor.Core.Model;
 using TwdSaveEditor.Season.Common.Abstractions;
@@ -20,7 +21,7 @@ public static class MichonneSaves
         "_wdm_saveslot2_id_Page1963.epage",
     ];
 
-    public static readonly MichonneHandler Handler = new();
+    public static readonly MichonneHandler Handler = TestSeasons.Handler<MichonneHandler>("michonne");
 
     public static byte[] ReadBytes(string fileName) => File.ReadAllBytes(TestDataHelper.GetPath("Michonne", fileName));
 
