@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using TwdSaveEditor.Core.Model;
 using TwdSaveEditor.Season.Common.Abstractions;
 using TwdSaveEditor.UI.Services;
 
@@ -76,6 +77,20 @@ public partial class NewSaveDialog
             ?? names[0];
     }
 
+    private string BundleName
+    {
+        get
+        {
+            var name = _fileName.Trim();
+            return name.EndsWith(".bundle", StringComparison.OrdinalIgnoreCase) ? name : name + ".bundle";
+        }
+    }
+
+    private SaveSlot? ExistingSave =>
+        string.IsNullOrWhiteSpace(_fileName)
+            ? null
+            : Editor.Saves.FirstOrDefault(save => save.FileName.Equals(BundleName, StringComparison.OrdinalIgnoreCase));
+
     private async Task Create()
     {
         if (string.IsNullOrWhiteSpace(_fileName))
@@ -86,13 +101,7 @@ public partial class NewSaveDialog
         _creating = true;
         StateHasChanged();
 
-        var name = _fileName.Trim();
-        if (!name.EndsWith(".bundle", StringComparison.OrdinalIgnoreCase))
-        {
-            name += ".bundle";
-        }
-
-        await Editor.CreateNewSave(_seasonKey, _episode, name);
+        await Editor.CreateNewSave(_seasonKey, _episode, BundleName);
         await Close();
 
         _creating = false;

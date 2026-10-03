@@ -17,7 +17,7 @@
             }
             else
             {
-                <span class="text-muted"> &mdash; checkpoint @_state.Checkpoint</span>
+                <span class="text-muted"> &mdash; checkpoint @CheckpointLabel(_state.Checkpoint)</span>
             }
         </div>
     </div>
@@ -45,6 +45,10 @@
     <div class="form-group">
         <label>Chapter</label>
         <select value="@_chapter" @onchange="OnChapterChanged" data-testid="restart-chapter">
+            @if (_chapter == CurrentPosition)
+            {
+                <option value="@CurrentPosition" disabled data-testid="restart-current">@CurrentPositionLabel()</option>
+            }
             @if (_chapters.Count == 0)
             {
                 <option value="">Start of the episode</option>

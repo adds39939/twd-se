@@ -57,7 +57,24 @@ public sealed class S2ChoiceAccessor(SaveSlot slot) : IChoiceAccessor
         UpdateSavedLogic(decision, option);
     }
 
-    private void UpdateSavedLogic(S2Decision decision, S2DecisionOption option)
+    public void ClearChoiceValue(string choiceKey)
+    {
+        if (IsImportedKey(choiceKey))
+        {
+            slot.Choices?.Remove(Symbol.FromString(choiceKey));
+            return;
+        }
+
+        if (slot.EventLog == null || S2DecisionCatalog.Find(choiceKey) is not { } decision)
+        {
+            return;
+        }
+
+        _log.Clear(decision);
+        UpdateSavedLogic(decision, null);
+    }
+
+    private void UpdateSavedLogic(S2Decision decision, S2DecisionOption? option)
     {
         if (decision.LogicKey == null)
         {
@@ -74,11 +91,11 @@ public sealed class S2ChoiceAccessor(SaveSlot slot) : IChoiceAccessor
             switch (logic.Properties!.Find(decision.LogicKey)?.Value)
             {
                 case BoolValue flag when !decision.LogicIsText:
-                    flag.Value = option.LogicValue != null;
+                    flag.Value = option?.LogicValue != null;
                     save.Modified = true;
                     break;
                 case StringValue text when decision.LogicIsText:
-                    text.Value = option.LogicValue ?? string.Empty;
+                    text.Value = option?.LogicValue ?? string.Empty;
                     save.Modified = true;
                     break;
             }

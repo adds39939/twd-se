@@ -34,6 +34,16 @@ public partial class DecisionEditor
         }
 
         RebuildCache();
+        SelectImportSource();
+    }
+
+    private void SelectImportSource()
+    {
+        var sources = CurrentSeason is IChoiceImporter importer ? GetImportSources(importer) : [];
+        if (sources.All(source => source.FileName != _selectedImportSave))
+        {
+            _selectedImportSave = sources.FirstOrDefault()?.FileName;
+        }
     }
 
     private void RebuildCache()
@@ -71,20 +81,37 @@ public partial class DecisionEditor
     private int GetChoiceState(string choiceKey)
         => _choiceStates.GetValueOrDefault(choiceKey, -1);
 
-    private void OnChoiceChanged(ChoiceDefinition choice, ChangeEventArgs e)
+    private void OnChoiceChanged(ChoiceDefinition choice, int index)
     {
-        if (Slot == null || Accessor == null)
+        if (Slot == null || Accessor == null || index >= choice.Options.Length)
         {
             return;
         }
 
-        if (int.TryParse(e.Value?.ToString(), out var idx) && idx >= 0 && idx < choice.Options.Length)
+        var value = index >= 0 ? choice.Options[index].Value : null;
+        try
         {
-            Accessor.ApplyChoice(choice, idx);
-            _choiceStates[choice.ChoiceKey] = idx;
-            Editor.MarkModified(Slot);
-            Editor.CascadeChoice(choice.ChoiceKey, choice.Options[idx].Value, Slot.DetectedSeasonKey ?? "");
+            if (value == null)
+            {
+                Accessor.ClearChoiceValue(choice.ChoiceKey);
+            }
+            else
+            {
+                Accessor.ApplyChoice(choice, index);
+            }
         }
+        catch (InvalidOperationException ex)
+        {
+            Editor.ShowError(ex.Message);
+            return;
+        }
+        finally
+        {
+            _choiceStates[choice.ChoiceKey] = Accessor.DetectCurrentChoice(choice);
+        }
+
+        Editor.MarkModified(Slot);
+        Editor.CascadeChoice(choice.ChoiceKey, value, Slot.DetectedSeasonKey ?? "");
     }
 
     private ISeasonHandler? CurrentSeason

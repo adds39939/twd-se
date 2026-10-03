@@ -76,6 +76,42 @@ public class Season3SaveTests
     }
 
     [Fact]
+    public void ClearingDecisions_LeavesThemUnsetAfterReloading()
+    {
+        var slot = Season3Saves.LoadEpisode1Save();
+        var made = S3Story.Season.Decisions.Where(new StoryDecisionLog(slot, S3Story.Season).IsSet).ToList();
+        Assert.NotEmpty(made);
+
+        var accessor = Season3Saves.Accessor(slot);
+        foreach (var decision in made)
+        {
+            accessor.ClearChoiceValue(decision.ChoiceKey);
+        }
+
+        var reloaded = Season3Saves.Reload(slot);
+        var log = new StoryDecisionLog(reloaded, S3Story.Season);
+        Assert.All(made, decision => Assert.False(log.IsSet(decision), decision.ChoiceKey));
+        Assert.All(made.Where(decision => decision.Options.All(option => option.Expression.Length > 0)),
+            decision => Assert.Null(Season3Saves.Accessor(reloaded).GetChoiceValue(decision.ChoiceKey)));
+    }
+
+    [Fact]
+    public void ClearingADecision_UpdatesTheLogicOfTheCheckpoint()
+    {
+        var slot = Season3Saves.LoadEpisode1Save();
+        var accessor = Season3Saves.Accessor(slot);
+        accessor.SetChoiceValue(Ending, "kenny");
+
+        accessor.ClearChoiceValue(Ending);
+
+        var reloaded = Season3Saves.Reload(slot);
+        var key = S3Story.Season.LogicKeys.First(key => key.Key == Ending);
+        var stored = Runtime(Assert.Single(reloaded.Checkpoints), StoryFiles.LogicGameProperties).GetString(Ending);
+        Assert.NotEqual("Kenny", stored);
+        Assert.Equal(StoryDecisionLog.Evaluate(key, new StoryEventLog(reloaded, S3Story.Season).Nodes()), stored);
+    }
+
+    [Fact]
     public void DecisionWithCompoundConditions_SetsAndClearsTheRightNodes()
     {
         var slot = Season3Saves.LoadEpisode1Save();

@@ -28,17 +28,17 @@
                                 @if (prop.Value is StringValue sv)
                                 {
                                     <input type="text" value="@sv.Value"
-                                           @onchange="e => sv.Value = e.Value?.ToString() ?? string.Empty" />
+                                           @onchange="e => SetString(sv, e)" />
                                 }
                                 else if (prop.Value is IntValue iv)
                                 {
                                     <input type="number" value="@iv.Value"
-                                           @onchange="e => { if (int.TryParse(e.Value?.ToString(), out var v)) iv.Value = v; }" />
+                                           @onchange="e => SetInt(iv, e)" />
                                 }
                                 else if (prop.Value is BoolValue bv)
                                 {
                                     <input type="checkbox" checked="@bv.Value"
-                                           @onchange="e => bv.Value = (bool)(e.Value ?? false)" />
+                                           @onchange="e => SetBool(bv, e)" />
                                 }
                                 else
                                 {
@@ -61,7 +61,7 @@
                                 @if (prop.Value is StringValue sv)
                                 {
                                     <input type="text" value="@sv.Value"
-                                           @onchange="e => sv.Value = e.Value?.ToString() ?? string.Empty" />
+                                           @onchange="e => SetString(sv, e)" />
                                 }
                                 else if (prop.Value is RawBytesValue rbv)
                                 {
@@ -88,7 +88,7 @@
                                 @if (prop.Value is StringValue sv)
                                 {
                                     <input type="text" value="@sv.Value" class="wide-input"
-                                           @onchange="e => sv.Value = e.Value?.ToString() ?? string.Empty" />
+                                           @onchange="e => SetString(sv, e)" />
                                 }
                                 else
                                 {

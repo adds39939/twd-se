@@ -124,7 +124,7 @@ public class Season1Tests
 
         await page.Locator("[data-testid='tab-resume']").ClickAsync();
         await page.Locator("[data-testid='restart-episode']").SelectOptionAsync("5");
-        await Assertions.Expect(page.Locator("[data-testid='restart-chapter'] option")).ToHaveCountAsync(18);
+        await Assertions.Expect(page.Locator("[data-testid='restart-chapter'] option:not([disabled])")).ToHaveCountAsync(18);
         await page.Locator("[data-testid='restart-chapter']").SelectOptionAsync("OnJewelryStore");
 
         var state = page.Locator("[data-testid='resume-state']");

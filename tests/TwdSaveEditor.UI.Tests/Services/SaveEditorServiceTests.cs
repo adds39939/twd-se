@@ -106,6 +106,22 @@ public class SaveEditorServiceTests
     }
 
     [Fact]
+    public void CascadeChoice_ClearsTheDecisionInLaterSeasons()
+    {
+        var season2 = Season2Saves.LoadEpisode1Save();
+        var accessor = Season2Saves.Accessor(season2);
+        var choice = TestSeasons.ChoicesFor("s1").First(choice => accessor.GetChoiceValue(choice.ChoiceKey) != null);
+        var service = Service(TestSeasons.Registry);
+        service.Saves.Add(season2);
+        service.CascadeChoices = true;
+
+        service.CascadeChoice(choice.ChoiceKey, null, "s1");
+
+        Assert.Null(accessor.GetChoiceValue(choice.ChoiceKey));
+        Assert.True(service.IsModified(season2));
+    }
+
+    [Fact]
     public void CascadeChoice_MarksTheSavesItChanges()
     {
         var season2 = Season2Saves.LoadEpisode1Save();

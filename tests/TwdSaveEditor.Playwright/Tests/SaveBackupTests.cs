@@ -116,7 +116,7 @@ public class SaveBackupTests
         await page.Locator("[data-testid='open-directory']").ClickAsync();
         await page.Locator(".save-item").First.ClickAsync();
         await page.Locator("[data-testid='tab-resume']").ClickAsync();
-        var firstChapter = await page.Locator("[data-testid='restart-chapter'] option").First.GetAttributeAsync("value");
+        var firstChapter = await page.Locator("[data-testid='restart-chapter'] option:not([disabled])").First.GetAttributeAsync("value");
         await page.Locator("[data-testid='restart-chapter']").SelectOptionAsync(firstChapter!);
         await Assertions.Expect(page.Locator("[data-testid='resume-state']")).ToContainTextAsync("from the beginning");
 

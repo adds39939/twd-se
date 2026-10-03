@@ -104,6 +104,32 @@ public sealed class SaveAccessor : IChoiceAccessor
         _choices.TypeGroups.Add(newGroup);
     }
 
+    public void ClearChoiceValue(string choiceKey)
+    {
+        if (_choices == null)
+        {
+            return;
+        }
+
+        var prefix = choiceKey + " - ";
+        var containers = _choices.TypeGroups
+            .Where(group => group.TypeSymbol.Value == TelltaleTypes.ChoicesContainer)
+            .SelectMany(group => group.Properties);
+        foreach (var prop in containers)
+        {
+            if (prop.Value is not RawBytesValue raw)
+            {
+                continue;
+            }
+
+            var entries = ChoicesContainer.Parse(raw.Data);
+            if (entries.RemoveAll(entry => entry.str.StartsWith(prefix, StringComparison.Ordinal)) > 0)
+            {
+                prop.Value = new RawBytesValue(ChoicesContainer.Serialize(entries), raw.TypeSymbol);
+            }
+        }
+    }
+
     public int DetectCurrentChoice(ChoiceDefinition choice)
     {
         var currentValue = GetChoiceValue(choice.ChoiceKey);

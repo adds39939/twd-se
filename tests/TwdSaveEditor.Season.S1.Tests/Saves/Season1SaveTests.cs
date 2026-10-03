@@ -80,6 +80,26 @@ public class Season1SaveTests
     }
 
     [Fact]
+    public void ClearChoice_RemovesTheSlotValueStatsTrackerEntryAndAutosaveLogic()
+    {
+        var slot = Season1Saves.LoadEpisode4Save();
+        var kenny = Season1Saves.Accessor(slot).GetChoiceValue("Sided With Kenny");
+
+        Season1Saves.Accessor(slot).ClearChoiceValue("DougCarley Saved");
+
+        var reloaded = Season1Saves.Reload(slot);
+        Assert.Null(reloaded.Metadata!.GetString("Persistent - 101 - DougCarley Saved"));
+        Assert.Null(Season1Saves.LogicGame(reloaded).Find("DougCarley Saved"));
+        Assert.Null(Season1Saves.Accessor(reloaded).GetChoiceValue("DougCarley Saved"));
+        Assert.NotNull(kenny);
+        Assert.Equal(kenny, Season1Saves.Accessor(reloaded).GetChoiceValue("Sided With Kenny"));
+
+        var tracker = ChoicesContainer.Parse(((RawBytesValue)reloaded.Choices!.Find("Episode 101")!.Value).Data);
+        Assert.NotEmpty(tracker);
+        Assert.DoesNotContain(tracker, entry => entry.str.StartsWith("dougcarley_saved - ", StringComparison.Ordinal));
+    }
+
+    [Fact]
     public void SetChoice_KeepsEveryOtherAutosaveFileByteIdentical()
     {
         var slot = Season1Saves.LoadEpisode4Save();

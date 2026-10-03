@@ -156,7 +156,7 @@ public class SaveLoadCycleTests
         await page.Locator(".save-item").First.ClickAsync();
         await page.Locator("[data-testid='tab-resume']").ClickAsync();
         await page.Locator("[data-testid='restart-episode']").SelectOptionAsync("2");
-        await Assertions.Expect(page.Locator("[data-testid='restart-chapter'] option")).ToHaveCountAsync(26);
+        await Assertions.Expect(page.Locator("[data-testid='restart-chapter'] option:not([disabled])")).ToHaveCountAsync(26);
         await page.Locator("[data-testid='restart-chapter']").SelectOptionAsync("LodgeMainDinner");
 
         var state = page.Locator("[data-testid='resume-state']");
@@ -338,7 +338,7 @@ public class SaveLoadCycleTests
         await ending.SelectOptionAsync(new SelectOptionValue { Label = "Kenny" });
 
         await page.Locator("[data-testid='tab-resume']").ClickAsync();
-        await Assertions.Expect(page.Locator("[data-testid='restart-chapter'] option")).ToHaveCountAsync(17);
+        await Assertions.Expect(page.Locator("[data-testid='restart-chapter'] option:not([disabled])")).ToHaveCountAsync(17);
         await page.Locator("[data-testid='restart-chapter']").SelectOptionAsync("VirginiaRoadTruck");
         await Assertions.Expect(page.Locator("[data-testid='resume-state']")).ToContainTextAsync("checkpoint Virginia Road - Truck");
 
@@ -410,7 +410,7 @@ public class SaveLoadCycleTests
         await page.Locator("[data-testid='tab-resume']").ClickAsync();
         await Assertions.Expect(page.Locator("[data-testid='resume-state']")).ToContainTextAsync("checkpoint Flagship Interior Escape");
         await Assertions.Expect(page.Locator("[data-testid='restart-episode'] option")).ToHaveCountAsync(3);
-        await Assertions.Expect(page.Locator("[data-testid='restart-chapter'] option")).ToHaveCountAsync(21);
+        await Assertions.Expect(page.Locator("[data-testid='restart-chapter'] option:not([disabled])")).ToHaveCountAsync(21);
         await page.Locator("[data-testid='restart-chapter']").SelectOptionAsync("FerryInteriorSnackBar");
         await Assertions.Expect(page.Locator("[data-testid='resume-state']")).ToContainTextAsync("checkpoint Ferry Interior - Snack Bar");
 

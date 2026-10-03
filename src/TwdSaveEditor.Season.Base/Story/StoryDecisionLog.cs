@@ -19,13 +19,20 @@ public sealed class StoryDecisionLog(SaveSlot slot, StorySeason season)
 
     public StoryDecisionOption? GetOption(StoryDecision decision) => Current(decision, _log.Nodes());
 
-    public bool IsSet(StoryDecision decision)
-    {
-        var nodes = _log.Nodes();
-        return decision.Options.Any(option => option.Expression.Length > 0 && NodeExpression.Evaluate(option.Expression, nodes));
-    }
+    public bool IsSet(StoryDecision decision) => IsSet(decision, _log.Nodes());
 
-    public void SetValue(StoryDecision decision, StoryDecisionOption target)
+    public static bool IsSet(StoryDecision decision, IReadOnlySet<ulong> nodes) =>
+        decision.Options.Any(option => option.Expression.Length > 0 && NodeExpression.Evaluate(option.Expression, nodes));
+
+    public void SetValue(StoryDecision decision, StoryDecisionOption target) =>
+        Rewrite(decision, state => ReferenceEquals(Current(decision, state), target), target.Value,
+            $"No set of dialog nodes makes {decision.ChoiceKey} read as {target.Value}.");
+
+    public void Clear(StoryDecision decision) =>
+        Rewrite(decision, state => !IsSet(decision, state), null,
+            $"No set of dialog nodes leaves {decision.ChoiceKey} unset.");
+
+    private void Rewrite(StoryDecision decision, Func<IReadOnlySet<ulong>, bool> accepts, string? value, string impossible)
     {
         var definitions = season.LogicKeys.Where(key => key.Key.Equals(decision.ChoiceKey, StringComparison.OrdinalIgnoreCase)).ToList();
         var involved = decision.Options.Select(option => option.Expression)
@@ -35,7 +42,7 @@ public sealed class StoryDecisionLog(SaveSlot slot, StorySeason season)
             .ToList();
         if (involved.Count > MaxNodes)
         {
-            throw new InvalidOperationException($"The decision {decision.ChoiceKey} depends on too many dialog nodes to set.");
+            throw new InvalidOperationException($"The decision {decision.ChoiceKey} depends on too many dialog nodes to change.");
         }
 
         var current = _log.Nodes();
@@ -61,13 +68,13 @@ public sealed class StoryDecisionLog(SaveSlot slot, StorySeason season)
                 }
             }
 
-            if (!ReferenceEquals(Current(decision, state), target))
+            if (!accepts(state))
             {
                 continue;
             }
 
             var cost = (
-                definitions.Count(key => !Reads(key, state, target.Value)),
+                definitions.Count(key => !Reads(key, state, value)),
                 related.Count(other => !ReferenceEquals(Current(other.Decision, state), other.Before)),
                 involved.Count(node => state.Contains(node) != current.Contains(node)),
                 involved.Count(state.Contains));
@@ -79,7 +86,7 @@ public sealed class StoryDecisionLog(SaveSlot slot, StorySeason season)
 
         if (best == null)
         {
-            throw new InvalidOperationException($"No set of dialog nodes makes {decision.ChoiceKey} read as {target.Value}.");
+            throw new InvalidOperationException(impossible);
         }
 
         _log.Replace(
@@ -88,12 +95,17 @@ public sealed class StoryDecisionLog(SaveSlot slot, StorySeason season)
             decision.Episode);
     }
 
-    private static bool Reads(StoryLogicKey key, IReadOnlySet<ulong> nodes, string value) => Evaluate(key, nodes) switch
-    {
-        bool flag => bool.TryParse(value, out var wanted) && flag == wanted,
-        string text => key.Values.Any(known => known.Value.Equals(value, StringComparison.OrdinalIgnoreCase))
-            ? text.Equals(value, StringComparison.OrdinalIgnoreCase)
-            : text.Length == 0,
-        _ => true,
-    };
+    private static bool Reads(StoryLogicKey key, IReadOnlySet<ulong> nodes, string? value) =>
+        Evaluate(key, nodes) switch
+        {
+            bool flag when value is null => !flag,
+            bool flag => bool.TryParse(value, out var wanted) && flag == wanted,
+            string text when IsKnownValue(key, value) => text.Equals(value, StringComparison.OrdinalIgnoreCase),
+            string text => text.Length == 0,
+            _ => true,
+        };
+
+    private static bool IsKnownValue(StoryLogicKey key, string? value) =>
+        value is not null
+        && key.Values.Any(known => known.Value.Equals(value, StringComparison.OrdinalIgnoreCase));
 }

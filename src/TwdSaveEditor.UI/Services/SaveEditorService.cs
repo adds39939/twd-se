@@ -46,6 +46,8 @@ public class SaveEditorService
         OnNotification?.Invoke(message, type);
     }
 
+    public void ShowError(string message) => Notify(message, "error");
+
     public bool IsModified(SaveSlot slot) => _modified.Contains(slot);
 
     public void MarkModified(SaveSlot slot)
@@ -418,7 +420,7 @@ public class SaveEditorService
         return _registry.DetectFromFileName(slot.FileName)?.CreateChoiceAccessor(slot);
     }
 
-    public void CascadeChoice(string choiceKey, string value, string sourceSeasonKey)
+    public void CascadeChoice(string choiceKey, string? value, string sourceSeasonKey)
     {
         if (!CascadeChoices)
         {
@@ -448,7 +450,14 @@ public class SaveEditorService
             var before = accessor.GetChoiceValue(choiceKey);
             try
             {
-                accessor.SetChoiceValue(choiceKey, value);
+                if (value == null)
+                {
+                    accessor.ClearChoiceValue(choiceKey);
+                }
+                else
+                {
+                    accessor.SetChoiceValue(choiceKey, value);
+                }
             }
             catch (InvalidOperationException)
             {

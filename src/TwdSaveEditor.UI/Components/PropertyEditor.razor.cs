@@ -1,3 +1,4 @@
+using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using TwdSaveEditor.UI.Services;
 using TwdSaveEditor.Core.Database;
@@ -14,6 +15,27 @@ public partial class PropertyEditor
     public PropertyNameDb NameDb { get; set; } = default!;
 
     [Parameter] public SaveSlot? Slot { get; set; }
+
+    private void SetString(StringValue property, ChangeEventArgs e)
+    {
+        property.Value = e.Value?.ToString() ?? string.Empty;
+        Editor.MarkModified(Slot!);
+    }
+
+    private void SetInt(IntValue property, ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value?.ToString(), CultureInfo.InvariantCulture, out var value))
+        {
+            property.Value = value;
+            Editor.MarkModified(Slot!);
+        }
+    }
+
+    private void SetBool(BoolValue property, ChangeEventArgs e)
+    {
+        property.Value = e.Value is true;
+        Editor.MarkModified(Slot!);
+    }
 
     private static string TruncateValue(object? value)
     {

@@ -30,10 +30,21 @@
             <input type="text" @bind="_fileName" @bind:event="oninput" placeholder="e.g. wd1_saveslot1.bundle" />
         </div>
 
+        @if (ExistingSave is { } existing)
+        {
+            <p class="replace-warning" data-testid="new-save-replaces">
+                @existing.FileName already exists. Creating the new save replaces it; its current files are backed up first.
+                @if (Editor.IsModified(existing))
+                {
+                    <span>Its unsaved changes are lost.</span>
+                }
+            </p>
+        }
+
         <div class="dialog-actions">
             <button @onclick="Close">Cancel</button>
             <button class="btn-accent" @onclick="Create" disabled="@(string.IsNullOrWhiteSpace(_fileName) || _creating)">
-                @(_creating ? "Creating..." : "Create")
+                @(_creating ? "Creating..." : ExistingSave != null ? "Replace" : "Create")
             </button>
         </div>
     </div>

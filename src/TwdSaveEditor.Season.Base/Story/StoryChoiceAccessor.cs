@@ -35,6 +35,17 @@ public sealed class StoryChoiceAccessor(SaveSlot slot, StorySeason season) : ICh
         UpdateSavedLogic(slot, season);
     }
 
+    public void ClearChoiceValue(string choiceKey)
+    {
+        if (slot.EventLog == null || season.FindDecision(choiceKey) is not { } decision)
+        {
+            return;
+        }
+
+        _decisions.Clear(decision);
+        UpdateSavedLogic(slot, season);
+    }
+
     public static void UpdateSavedLogic(SaveSlot slot, StorySeason season)
     {
         var nodes = new StoryEventLog(slot, season).Nodes();

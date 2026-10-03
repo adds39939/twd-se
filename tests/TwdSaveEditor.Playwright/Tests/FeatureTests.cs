@@ -50,7 +50,9 @@ public class FeatureTests
 
         var state = page.Locator("[data-testid='resume-state']");
         await Assertions.Expect(state).ToContainTextAsync("Episode 4: Around Every Corner");
-        await Assertions.Expect(state).ToContainTextAsync("missingClementine");
+        await Assertions.Expect(state).ToContainTextAsync("checkpoint Missing Clementine");
+        await Assertions.Expect(page.Locator("[data-testid='restart-chapter']")).ToHaveValueAsync("current-position");
+        await Assertions.Expect(page.Locator("[data-testid='restart-current']")).ToHaveTextAsync("Current checkpoint: Missing Clementine");
 
         var episodes = page.Locator("[data-testid='restart-episode'] option");
         await Assertions.Expect(episodes).ToHaveCountAsync(6);
@@ -66,8 +68,8 @@ public class FeatureTests
         var resumeTab = page.Locator("[data-testid='tab-resume']");
         await resumeTab.ClickAsync();
 
-        await Assertions.Expect(page.Locator("[data-testid='resume-state']")).ToContainTextAsync("Episode 1: All That Remains");
-        await Assertions.Expect(page.Locator("[data-testid='restart-chapter'] option")).ToHaveCountAsync(23);
+        await Assertions.Expect(page.Locator("[data-testid='resume-state']")).ToContainTextAsync("Episode 1: All That Remains — checkpoint Chapter 11");
+        await Assertions.Expect(page.Locator("[data-testid='restart-chapter'] option:not([disabled])")).ToHaveCountAsync(23);
         await Assertions.Expect(page.Locator("[data-testid='restart-chapter'] optgroup")).ToHaveCountAsync(3);
     }
 

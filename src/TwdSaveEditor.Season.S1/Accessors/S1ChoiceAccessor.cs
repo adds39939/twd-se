@@ -52,7 +52,20 @@ public sealed class S1ChoiceAccessor(SaveSlot slot, IS1CheckpointRefresher? chec
         checkpoints?.Refresh(slot);
     }
 
-    private void UpdateTracker(int episode, string choiceKey, string value)
+    public void ClearChoiceValue(string choiceKey)
+    {
+        if (slot.Metadata == null || S1ChoiceCatalog.PersistentEpisode(choiceKey) is not { } episode)
+        {
+            return;
+        }
+
+        slot.Metadata.Remove(Symbol.FromString(PersistentKeys.SlotKey(episode, choiceKey)));
+        UpdateTracker(episode, choiceKey, null);
+        UpdateAutosave(choiceKey, null);
+        checkpoints?.Refresh(slot);
+    }
+
+    private void UpdateTracker(int episode, string choiceKey, string? value)
     {
         if (slot.Choices == null)
         {
@@ -66,23 +79,36 @@ public sealed class S1ChoiceAccessor(SaveSlot slot, IS1CheckpointRefresher? chec
             : [];
 
         var prefix = PersistentKeys.TrackerPrefix(choiceKey);
-        entries.RemoveAll(entry => entry.str.StartsWith(prefix, StringComparison.Ordinal));
-
-        var added = PersistentKeys.TrackerEntry(choiceKey, value);
-        var index = entries.FindIndex(entry => string.CompareOrdinal(entry.str, added) > 0);
-        entries.Insert(index < 0 ? entries.Count : index, (added, true));
+        var removed = entries.RemoveAll(entry => entry.str.StartsWith(prefix, StringComparison.Ordinal));
+        if (value == null)
+        {
+            if (removed == 0)
+            {
+                return;
+            }
+        }
+        else
+        {
+            var added = PersistentKeys.TrackerEntry(choiceKey, value);
+            var index = entries.FindIndex(entry => string.CompareOrdinal(entry.str, added) > 0);
+            entries.Insert(index < 0 ? entries.Count : index, (added, true));
+        }
 
         slot.Choices.Set(container, type, new RawBytesValue(ChoicesContainer.Serialize(entries), type));
     }
 
-    private void UpdateAutosave(string choiceKey, string value)
+    private void UpdateAutosave(string choiceKey, string? value)
     {
         if (slot.Autosave?.FindFile(S1SlotFiles.LogicGameProperties) is not { } logic || !BundleReader.TryParseProperties(logic))
         {
             return;
         }
 
-        if (logic.Properties!.Find(choiceKey)?.Value is StringValue current)
+        if (value == null)
+        {
+            logic.Properties!.Remove(Symbol.FromString(choiceKey));
+        }
+        else if (logic.Properties!.Find(choiceKey)?.Value is StringValue current)
         {
             current.Value = value;
         }

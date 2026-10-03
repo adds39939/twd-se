@@ -184,6 +184,40 @@ public class Season2SaveTests
     }
 
     [Fact]
+    public void ClearingADecision_RemovesItsNodesAndResetsTheFlagInSaves()
+    {
+        var slot = Season2Saves.LoadEpisode1Save();
+        var save = Assert.Single(slot.Checkpoints);
+        var logic = save.FindFile(S2SlotFiles.LogicGameProperties)!;
+        Assert.True(BundleReader.TryParseProperties(logic));
+        logic.Properties!.SetString(Rescue, "Pete");
+        logic.Properties.SetBool(Christa, true);
+        var accessor = Season2Saves.Accessor(slot);
+        accessor.SetChoiceValue(Rescue, "nick");
+
+        accessor.ClearChoiceValue(Rescue);
+        accessor.ClearChoiceValue(Christa);
+
+        var nodes = S2DecisionCatalog.Find(Rescue)!.Options.SelectMany(option => option.Nodes).Select(S2EventLogEditor.NodeSymbol).ToHashSet();
+        Assert.DoesNotContain(slot.EventLog!.Events, entry => entry.DialogNode is { } node && nodes.Contains(node));
+        Assert.Null(Season2Saves.Accessor(Season2Saves.Reload(slot)).GetChoiceValue(Rescue));
+        Assert.Equal(string.Empty, logic.Properties.GetString(Rescue));
+        Assert.False(logic.Properties.GetBool(Christa));
+    }
+
+    [Fact]
+    public void ClearingAnImportedSeason1Decision_RemovesItFromTheSave()
+    {
+        var slot = Season2Saves.LoadEpisode1Save();
+        var accessor = Season2Saves.Accessor(slot);
+        var choice = TestSeasons.ChoicesFor("s1").First(choice => accessor.GetChoiceValue(choice.ChoiceKey) != null);
+
+        accessor.ClearChoiceValue(choice.ChoiceKey);
+
+        Assert.Null(Season2Saves.Accessor(Season2Saves.Reload(slot)).GetChoiceValue(choice.ChoiceKey));
+    }
+
+    [Fact]
     public void RestartFromNextEpisode_KeepsTheSavesAndFillsEveryEarlierDecision()
     {
         var slot = Season2Saves.LoadEpisode1Save();

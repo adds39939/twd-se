@@ -93,8 +93,7 @@
                                                 <span class="choice-desc">@choice.Description</span>
                                                 <span class="badge @GetCategoryBadgeClass(choice.Category)">@choice.Category</span>
                                             </div>
-                                            <select value="@currentIdx"
-                                                    @onchange="e => OnChoiceChanged(choice, e)">
+                                            <select @bind:get="currentIdx" @bind:set="index => OnChoiceChanged(choice, index)">
                                                 <option value="-1">-- Not set --</option>
                                                 @for (int i = 0; i < choice.Options.Length; i++)
                                                 {
