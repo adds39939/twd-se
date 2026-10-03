@@ -11,6 +11,9 @@
 <p align="center">
   <img src="https://img.shields.io/badge/.NET-10.0-512bd4" alt=".NET 10">
   <img src="https://github.com/adds39939/twd-se/actions/workflows/test.yml/badge.svg" alt="Tests">
+  <a href="https://github.com/adds39939/twd-se/releases"><img src="https://img.shields.io/github/v/tag/adds39939/twd-se?label=release" alt="Release"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/adds39939/twd-se" alt="License"></a>
+  <a href="https://ko-fi.com/adds39939"><img src="https://img.shields.io/badge/Ko--fi-support-ff5e5b?logo=ko-fi&logoColor=white" alt="Ko-fi"></a>
 </p>
 
 Open your save folder and the editor lists every save in it. For each one you can:
