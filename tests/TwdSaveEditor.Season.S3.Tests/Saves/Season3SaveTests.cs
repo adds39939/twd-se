@@ -47,6 +47,21 @@ public class Season3SaveTests
         Assert.Contains(states, state => state >= 0);
     }
 
+    [Theory]
+    [InlineData(Season3Saves.Storage)]
+    [InlineData("_wd3_saveslot1_id_Page734.epage")]
+    public void UnreadableDialogLog_LeavesTheSaveReadOnly(string damagedFile)
+    {
+        var slot = Season3Saves.LoadEpisode1Save(damagedFile);
+
+        Assert.True(slot.EventLogDamaged);
+        Assert.Null(slot.EventLog);
+        Assert.Null(Season3Saves.Handler.CreateChoiceAccessor(slot));
+        Assert.Throws<InvalidOperationException>(() => Season3Saves.Handler.RestartFromEpisode(slot, 1));
+        Assert.False(Season3Saves.Handler.GetInventory(slot).Editable);
+        Assert.Empty(Season3Saves.Handler.BuildCompanionFiles(slot));
+    }
+
     [Fact]
     public void RealSave_ReadsEveryStoryKeyAsTheGameStoredIt()
     {

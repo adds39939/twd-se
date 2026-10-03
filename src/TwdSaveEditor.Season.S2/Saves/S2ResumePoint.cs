@@ -127,7 +127,7 @@ public sealed class S2ResumePoint(IS2CheckpointBuilder builder) : IS2ResumePoint
         var metadata = slot.Metadata
             ?? throw new InvalidOperationException("Cannot set the resume point: the save has no slot metadata.");
 
-        slot.EventLog ??= DialogLogFiles.NewLog(slot.FileName);
+        DialogLogFiles.EnsureLog(slot);
 
         var log = new S2EventLogEditor(slot);
         var earlier = S2DecisionCatalog.All.Where(decision => decision.Episode < episode).ToList();

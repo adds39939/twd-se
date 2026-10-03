@@ -1,5 +1,6 @@
 using System.Text;
 using TwdSaveEditor.Core.Binary.MetaStream;
+using TwdSaveEditor.Core.Binary.Primitives;
 using TwdSaveEditor.Core.Hashing;
 using TwdSaveEditor.Core.Model;
 
@@ -24,10 +25,10 @@ public static class EventLogCodec
     private static readonly ulong PageType = TelltaleHash.ComputeCrc64("EventStoragePage");
     private static readonly ulong EventType = TelltaleHash.ComputeCrc64("EventLoggerEvent");
 
-    public static EventLogStorage ReadStorage(byte[] file)
+    public static EventLogStorage ReadStorage(byte[] file) => MalformedData.Guard(() =>
     {
         var content = MetaStreamCodec.Read(file);
-        using var reader = new BinaryReader(new MemoryStream(content.Default));
+        using var reader = new BinaryReaderEx(new MemoryStream(content.Default));
 
         var storage = new EventLogStorage
         {
@@ -55,7 +56,7 @@ public static class EventLogCodec
 
         EnsureConsumed(reader, storage.Name, storage.Compressed);
         return storage;
-    }
+    });
 
     public static byte[] WriteStorage(EventLogStorage storage)
     {
@@ -95,17 +96,17 @@ public static class EventLogCodec
         return MetaStreamCodec.Write(new MetaStreamContent(header, stream.ToArray(), new byte[symbols * DebugBytesPerSymbol], []));
     }
 
-    public static EventLogPage ReadPage(byte[] file)
+    public static EventLogPage ReadPage(byte[] file) => MalformedData.Guard(() =>
     {
         var content = MetaStreamCodec.Read(file);
-        using var reader = new BinaryReader(new MemoryStream(content.Default));
+        using var reader = new BinaryReaderEx(new MemoryStream(content.Default));
         var page = ReadPageBody(reader);
         page.VersionEntries = content.Header.VersionEntries;
         page.Compressed = content.Header.IsDefaultCompressed;
         page.DebugCompressed = content.Header.IsDebugCompressed;
         EnsureConsumed(reader, page.FlushedName, page.Compressed);
         return page;
-    }
+    });
 
     public static byte[] WritePage(EventLogPage page)
     {
@@ -126,7 +127,7 @@ public static class EventLogCodec
         return MetaStreamCodec.Write(new MetaStreamContent(header, stream.ToArray(), new byte[CountSymbols(page) * DebugBytesPerSymbol], []));
     }
 
-    private static EventLogPage ReadPageBody(BinaryReader reader)
+    private static EventLogPage ReadPageBody(BinaryReaderEx reader)
     {
         var page = new EventLogPage
         {
@@ -155,10 +156,10 @@ public static class EventLogCodec
         }
     }
 
-    private static EventLogEvent ReadEvent(BinaryReader reader)
+    private static EventLogEvent ReadEvent(BinaryReaderEx reader)
     {
         var entry = new EventLogEvent { Id = reader.ReadUInt32(), MaxSeverity = reader.ReadInt32() };
-        var end = reader.BaseStream.Position + reader.ReadUInt32();
+        var end = reader.Position + reader.ReadUInt32();
         var typeCount = reader.ReadUInt32();
         entry.ChildCount = reader.ReadUInt32();
 
@@ -177,7 +178,7 @@ public static class EventLogCodec
             }
         }
 
-        if (reader.BaseStream.Position != end)
+        if (reader.Position != end)
         {
             throw new InvalidDataException($"Event {entry.Id} does not end where its block says.");
         }
@@ -215,7 +216,7 @@ public static class EventLogCodec
     private static int CountSymbols(EventLogPage page) =>
         page.Events.Sum(entry => entry.Data.Count + entry.Data.Sum(data => data.Values.Count(value => value.IsSymbol)));
 
-    private static string ReadString(BinaryReader reader)
+    private static string ReadString(BinaryReaderEx reader)
     {
         reader.ReadUInt32();
         return Encoding.Latin1.GetString(reader.ReadBytes(reader.ReadInt32()));
@@ -229,9 +230,9 @@ public static class EventLogCodec
         writer.Write(bytes);
     }
 
-    private static void EnsureConsumed(BinaryReader reader, string name, bool padded)
+    private static void EnsureConsumed(BinaryReaderEx reader, string name, bool padded)
     {
-        var rest = reader.ReadBytes((int)(reader.BaseStream.Length - reader.BaseStream.Position));
+        var rest = reader.ReadBytes((int)reader.Remaining);
         if (rest.Length > 0 && !(padded && rest.All(value => value == 0)))
         {
             throw new InvalidDataException($"Event log file {name} has unread data.");

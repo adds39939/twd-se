@@ -1,8 +1,12 @@
+using TwdSaveEditor.Core.Binary.Primitives;
+
 namespace TwdSaveEditor.Core.Binary.PropertySets;
 
 public static class ChoicesContainer
 {
-    public static List<(string str, bool boolVal)> Parse(byte[] data)
+    public static List<(string str, bool boolVal)> Parse(byte[] data) => MalformedData.Guard(() => ParseEntries(data));
+
+    private static List<(string str, bool boolVal)> ParseEntries(byte[] data)
     {
         var result = new List<(string, bool)>();
         var pos = 0;

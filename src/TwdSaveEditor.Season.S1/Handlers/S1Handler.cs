@@ -152,7 +152,7 @@ public class S1Handler(IS1ResumePoint resume, IS1Inventory inventory, IS1SaveFac
             slot.Autosave.DetectedSeasonKey = SeasonKey;
             slot.AutosaveDamaged = slot.Autosave.Metadata == null || !slot.Autosave.Files.All(IsMetaStream);
         }
-        catch (Exception e) when (e is InvalidDataException or EndOfStreamException or ArgumentException)
+        catch (InvalidDataException)
         {
             slot.Autosave = null;
             slot.AutosaveDamaged = true;

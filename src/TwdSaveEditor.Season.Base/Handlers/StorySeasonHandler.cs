@@ -25,7 +25,7 @@ public abstract class StorySeasonHandler(IDialogLogCompanions companions, IStory
         saves.Create(fileName, Season.EpisodeNumber(episodeId), Season);
 
     public override IChoiceAccessor? CreateChoiceAccessor(SaveSlot slot) =>
-        slot.Metadata != null && DialogLogFiles.IsSlotBundle(slot.FileName) ? new StoryChoiceAccessor(slot, Season) : null;
+        slot.Metadata != null && !slot.EventLogDamaged && DialogLogFiles.IsSlotBundle(slot.FileName) ? new StoryChoiceAccessor(slot, Season) : null;
 
     public override void PopulateChoices(SaveSlot slot, int episode) =>
         Resume.RestartFromEpisode(slot, Math.Max(episode, StorySeason.FirstEpisode), Now());

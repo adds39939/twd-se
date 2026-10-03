@@ -34,7 +34,7 @@
 
     <div class="form-group">
         <label>Restart from</label>
-        <select value="@_episode" @onchange="OnEpisodeChanged" data-testid="restart-episode">
+        <select value="@_episode" @onchange="OnEpisodeChanged" disabled="@Slot.EventLogDamaged" data-testid="restart-episode">
             @foreach (var episode in Handler.ResumeEpisodes)
             {
                 <option value="@episode.Number">@EpisodeLabel(episode.Number)</option>
@@ -44,7 +44,7 @@
 
     <div class="form-group">
         <label>Chapter</label>
-        <select value="@_chapter" @onchange="OnChapterChanged" data-testid="restart-chapter">
+        <select value="@_chapter" @onchange="OnChapterChanged" disabled="@Slot.EventLogDamaged" data-testid="restart-chapter">
             @if (_chapter == CurrentPosition)
             {
                 <option value="@CurrentPosition" disabled data-testid="restart-current">@CurrentPositionLabel()</option>
@@ -76,7 +76,14 @@
     </div>
 
     <div class="resume-info">
-        @if (_state.CheckpointDamaged)
+        @if (Slot.EventLogDamaged)
+        {
+            <p class="checkpoint-damaged" data-testid="log-damaged">
+                The dialog log of this save (its .estore and .epage files) cannot be read. Restarting would replace it,
+                so the resume point cannot be changed.
+            </p>
+        }
+        else if (_state.CheckpointDamaged)
         {
             <p class="checkpoint-damaged">
                 The checkpoint file of this save cannot be read, so the game cannot load it. Restart the episode to

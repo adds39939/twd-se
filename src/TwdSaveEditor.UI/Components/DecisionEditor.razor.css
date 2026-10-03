@@ -159,3 +159,7 @@ summary::-webkit-details-marker {
 details > :not(summary) {
     padding: 0 0.8em 0.6em;
 }
+
+.log-damaged {
+    color: var(--color-warning, #f0ad4e);
+}

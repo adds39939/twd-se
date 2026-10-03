@@ -18,7 +18,9 @@ src/
 │   ├── PropertySets/               PropertySet and choices-container codecs
 │   ├── Compression/                TTCZ page compression
 │   ├── Bundles/                    Bundle reader/writer, slot factory, the serializer
-│   └── EventLog/                   Estore/epage reader, writer, codec
+│   ├── SaveGames/                  default.save codec
+│   ├── EventLog/                   Estore/epage reader, writer, codec
+│   └── Data/                       Layouts of the engine types found in property sets (embedded)
 ├── TwdSaveEditor.Season.Common/    Contracts a season implements
 │   ├── Abstractions/               ISeasonHandler, ISeasonRegistry, IChoiceAccessor, capability interfaces
 │   ├── Model/                      ChoiceDefinition, EpisodeInfo, ChoicePreset, CompanionFile, ResumeState, InventoryState

@@ -24,7 +24,7 @@ public static class BundleReader
     public static SaveSlot Read(byte[] data, string filePath)
     {
         var content = MetaStreamCodec.Read(data);
-        var files = ReadFiles(content.Default, content.Async);
+        var files = MalformedData.Guard(() => ReadFiles(content.Default, content.Async));
 
         foreach (var file in files.Where(file => PropertyFiles.Any(file.IsNamed)))
         {
@@ -52,7 +52,7 @@ public static class BundleReader
             file.Properties = PropertyFileCodec.Read(file.Data);
             return true;
         }
-        catch (Exception e) when (e is InvalidDataException or EndOfStreamException or ArgumentException)
+        catch (InvalidDataException)
         {
             return false;
         }
@@ -60,11 +60,12 @@ public static class BundleReader
 
     private static List<BundleFileEntry> ReadFiles(byte[] table, byte[] content)
     {
-        var files = new List<BundleFileEntry>();
-        if (table.Length < 8)
+        if (table.Length < 2 * sizeof(uint))
         {
-            return files;
+            throw new InvalidDataException($"Bundle file table is truncated ({table.Length} bytes).");
         }
+
+        var files = new List<BundleFileEntry>();
 
         using var stream = new MemoryStream(table);
         using var reader = new BinaryReaderEx(stream);

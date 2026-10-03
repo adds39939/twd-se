@@ -56,7 +56,7 @@ public class S2Handler(IS2ResumePoint resume, IS2Inventory inventory, IS2SaveFac
     public override string GetEpisodeId(int episode) => $"WalkingDead20{episode}";
 
     public override IChoiceAccessor? CreateChoiceAccessor(SaveSlot slot)
-        => slot.Choices != null && S2SlotFiles.IsSlotBundle(slot.FileName) ? new S2ChoiceAccessor(slot) : null;
+        => slot.Choices != null && !slot.EventLogDamaged && S2SlotFiles.IsSlotBundle(slot.FileName) ? new S2ChoiceAccessor(slot) : null;
 
     public override SaveSlot CreateBlankSave(string fileName, string episodeId) => saves.Create(fileName, episodeId);
 

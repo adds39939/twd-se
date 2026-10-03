@@ -85,6 +85,30 @@ public class EditorDisplayTests
     }
 
     [Fact]
+    public async Task UnreadableDialogLog_ExplainsWhyTheSaveCannotBeEditedAndIsLeftAlone()
+    {
+        const string storage = "_wd3_saveslot1_id.estore";
+        var page = await _fixture.NewPage();
+        var directory = new Dictionary<string, string>();
+        await FakeSaveDirectory.AddSaveAsync(directory, "S3", "wd3_saveslot1.bundle");
+        directory[storage] = Convert.ToBase64String(Convert.FromBase64String(directory[storage])[..100]);
+        await FakeSaveDirectory.InstallAsync(page, directory);
+        await page.Locator("[data-testid='open-directory']").ClickAsync();
+        await SaveItem(page, "wd3_saveslot1.bundle").ClickAsync();
+
+        await Assertions.Expect(page.Locator(".decision-editor [data-testid='log-damaged']")).ToBeVisibleAsync();
+        await page.Locator("[data-testid='tab-resume']").ClickAsync();
+        await Assertions.Expect(page.Locator("[data-testid='restart-episode']")).ToBeDisabledAsync();
+        await Assertions.Expect(page.Locator("[data-testid='restart-chapter']")).ToBeDisabledAsync();
+        await page.Locator("[data-testid='tab-inventory']").ClickAsync();
+        await Assertions.Expect(page.Locator(".tab-panel:not([hidden])")).ToContainTextAsync("dialog log of this save cannot be read");
+
+        await page.Locator(".save-btn").ClickAsync();
+        await Assertions.Expect(page.Locator(".header-status")).ToContainTextAsync("Saved wd3_saveslot1.bundle");
+        Assert.Equal(directory[storage], await FakeSaveDirectory.ReadFileAsync(page, storage));
+    }
+
+    [Fact]
     public async Task MidEpisodeSave_ShowsItsCheckpointAndCanRestartFromTheStart()
     {
         var page = await Open(("S3", "wd3_saveslot1.bundle", null));

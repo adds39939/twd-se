@@ -29,20 +29,13 @@ public sealed class DialogLogCompanions(ISaveBundleSerializer serializer) : IDia
     {
         slot.Checkpoints.Clear();
         slot.EventLog = null;
+        slot.EventLogDamaged = false;
 
         var storage = files.FirstOrDefault(file => file.Name.EndsWith(DialogLogFiles.StorageSuffix, StringComparison.OrdinalIgnoreCase));
-        if (storage != null && TryRead(() => EventLogCodec.ReadStorage(storage.Data)) is { } parsed)
+        if (storage != null)
         {
-            slot.EventLog = new GameLog(storage.Name, parsed);
-            var listed = parsed.Pages.Select(entry => entry.PageSymbol).ToHashSet();
-            foreach (var file in files.Where(file => file.Name.EndsWith(DialogLogFiles.PageExtension, StringComparison.OrdinalIgnoreCase)
-                && listed.Contains(TelltaleHash.ComputeCrc64(file.Name))))
-            {
-                if (TryRead(() => EventLogCodec.ReadPage(file.Data)) is { } page)
-                {
-                    slot.EventLog.PageFiles.Add(new EventLogPageFile(file.Name, page));
-                }
-            }
+            slot.EventLog = ReadLog(storage, files);
+            slot.EventLogDamaged = slot.EventLog == null;
         }
 
         foreach (var file in files.Where(file => file.Name.EndsWith(DialogLogFiles.BundleExtension, StringComparison.OrdinalIgnoreCase)))
@@ -88,6 +81,29 @@ public sealed class DialogLogCompanions(ISaveBundleSerializer serializer) : IDia
         return names;
     }
 
+    private static GameLog? ReadLog(CompanionFile storage, IReadOnlyList<CompanionFile> files)
+    {
+        if (TryRead(() => EventLogCodec.ReadStorage(storage.Data)) is not { } parsed)
+        {
+            return null;
+        }
+
+        var log = new GameLog(storage.Name, parsed);
+        var listed = parsed.Pages.Select(entry => entry.PageSymbol).ToHashSet();
+        foreach (var file in files.Where(file => file.Name.EndsWith(DialogLogFiles.PageExtension, StringComparison.OrdinalIgnoreCase)
+            && listed.Contains(TelltaleHash.ComputeCrc64(file.Name))))
+        {
+            if (TryRead(() => EventLogCodec.ReadPage(file.Data)) is not { } page)
+            {
+                return null;
+            }
+
+            log.PageFiles.Add(new EventLogPageFile(file.Name, page));
+        }
+
+        return log;
+    }
+
     private static T? TryRead<T>(Func<T> read)
         where T : class
     {
@@ -95,7 +111,7 @@ public sealed class DialogLogCompanions(ISaveBundleSerializer serializer) : IDia
         {
             return read();
         }
-        catch (Exception e) when (e is InvalidDataException or EndOfStreamException or ArgumentException)
+        catch (InvalidDataException)
         {
             return null;
         }

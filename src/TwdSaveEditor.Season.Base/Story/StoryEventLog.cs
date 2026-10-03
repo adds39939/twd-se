@@ -19,7 +19,7 @@ public sealed class StoryEventLog(SaveSlot slot, StorySeason season)
 
     public void Prepare()
     {
-        slot.EventLog ??= DialogLogFiles.NewLog(slot.FileName);
+        DialogLogFiles.EnsureLog(slot);
         if (!season.PreviousGameData || HasPreviousGameData)
         {
             return;

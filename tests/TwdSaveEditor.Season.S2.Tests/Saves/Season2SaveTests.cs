@@ -45,6 +45,21 @@ public class Season2SaveTests
         Assert.Contains(states, state => state >= 0);
     }
 
+    [Theory]
+    [InlineData(Season2Saves.Storage)]
+    [InlineData("_wd2_saveslot1_id_Page913.epage")]
+    public void UnreadableDialogLog_LeavesTheSaveReadOnly(string damagedFile)
+    {
+        var slot = Season2Saves.LoadEpisode1Save(damagedFile);
+
+        Assert.True(slot.EventLogDamaged);
+        Assert.Null(slot.EventLog);
+        Assert.Null(Season2Saves.Handler.CreateChoiceAccessor(slot));
+        Assert.Throws<InvalidOperationException>(() => Season2Saves.Handler.RestartFromEpisode(slot, 1));
+        Assert.False(Season2Saves.Handler.GetInventory(slot).Editable);
+        Assert.Empty(Season2Saves.Handler.BuildCompanionFiles(slot));
+    }
+
     [Fact]
     public void RealSave_LoadsItsEventLogAndSaves()
     {

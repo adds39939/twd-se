@@ -7,7 +7,9 @@ namespace TwdSaveEditor.Core.Binary.MetaStream;
 
 public static class MetaStreamCodec
 {
-    public static MetaStreamContent Read(byte[] data)
+    public static MetaStreamContent Read(byte[] data) => MalformedData.Guard(() => ReadContent(data));
+
+    private static MetaStreamContent ReadContent(byte[] data)
     {
         using var stream = new MemoryStream(data);
         using var reader = new BinaryReaderEx(stream);
@@ -83,11 +85,6 @@ public static class MetaStreamCodec
         }
 
         var raw = reader.ReadBytes(size);
-        if (raw.Length != size)
-        {
-            throw new InvalidDataException("MetaStream section is truncated.");
-        }
-
         if ((sizeField & MetaStreamHeader.CompressedFlag) == 0)
         {
             return raw;
@@ -113,7 +110,18 @@ public static class MetaStreamCodec
         using (inflater)
         {
             using var output = new MemoryStream();
-            inflater.CopyTo(output);
+            var buffer = new byte[Ttcz.PageSize];
+            int read;
+            while ((read = inflater.Read(buffer)) > 0)
+            {
+                if (output.Length + read > Ttcz.MaxDecompressedSize)
+                {
+                    throw new InvalidDataException("MetaStream section inflates beyond the size limit.");
+                }
+
+                output.Write(buffer, 0, read);
+            }
+
             return output.ToArray();
         }
     }

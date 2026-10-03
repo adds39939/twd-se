@@ -29,6 +29,8 @@ public sealed class SaveSlot
 
     public EventLog? EventLog { get; set; }
 
+    public bool EventLogDamaged { get; set; }
+
     public List<SaveSlot> Checkpoints { get; } = [];
 
     public bool Modified { get; set; }

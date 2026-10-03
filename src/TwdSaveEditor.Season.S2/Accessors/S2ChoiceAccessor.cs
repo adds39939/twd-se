@@ -44,7 +44,7 @@ public sealed class S2ChoiceAccessor(SaveSlot slot) : IChoiceAccessor
             return;
         }
 
-        slot.EventLog ??= DialogLogFiles.NewLog(slot.FileName);
+        DialogLogFiles.EnsureLog(slot);
         _log.SetValue(decision, option);
         UpdateSavedLogic(decision, option);
     }

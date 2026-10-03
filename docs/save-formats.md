@@ -18,9 +18,13 @@ The editor lists the slot bundle and loads the rest with it as companion files. 
 
 Every file is a MetaStream, Telltale's container. The header is the magic (`MSV6`, or `MSV5` in a few old files), a list of version entries (type CRC64 + version CRC32) and three section sizes: default, debug and async. A section whose size has the top bit set is TTCZ compressed: 64 KiB pages of raw deflate behind a page offset table, and the data is zero-padded to whole blocks. The debug section holds four zero bytes for every symbol in the default section.
 
+The readers treat every file as untrusted: a length that runs past the end of its data, a property set nested more than 16 deep or a section that inflates past 64 MiB makes the file unreadable, and every such failure surfaces as `InvalidDataException`, so one bad file cannot crash the app or stop the rest of the folder from loading.
+
 ## Property sets
 
 A `.prop` is a typed key-value store, version 2. Keys are CRC64 symbols, values are grouped by type and ordered by hash. The types the saves use are bools, ints, floats, strings, symbols, handles, and `DCArray<String>` (a count followed by length-prefixed strings). A set can list parent sets (`metadata_slot_s1.prop` and the like); flag `0x100` means the keys are local.
+
+The runtime sets in checkpoints also hold engine types. Their layouts are in `Core.Binary/Data/property-value-layouts.json`: plain structs of floats or symbols have a fixed size (`Color`, `Vector3`, `PhonemeKey`), every `Handle<T>` is the 8-byte symbol of the resource and counts as a symbol in the debug section, classes such as `LocationInfo`, `AnimOrChore`, `SoundEventName<N>` and `ScriptEnum:<name>` write their members in blocks that start with their own size, and the maps and arrays are a count followed by fixed-size entries. A type that is not in the list makes the set unreadable instead of being guessed; with these layouts every property set in the test saves reads and writes back byte for byte.
 
 ## Bundles
 
@@ -33,6 +37,8 @@ Runtime property sets are named by the hash of `"<agent>:<scene file>" Runtime P
 ## Event logs
 
 Seasons 2 to 4 and Michonne keep a log of what was played. `EventStorage` (the `.estore`) holds the page list, the last event id and the current unflushed page; each `EventStoragePage` (`.epage`) holds its events. An event is an id, a severity and a block of typed data: a type symbol and values that are symbols, integers or doubles (save serials are doubles). Ids rise through the log but are neither contiguous nor strictly ordered.
+
+If the `.estore` or one of the pages it lists cannot be read, the save is marked as having a damaged dialog log and nothing that writes the log is allowed: its decisions are not shown, restarting and the inventory are refused, and saving leaves the log files as they are.
 
 Event types that matter:
 

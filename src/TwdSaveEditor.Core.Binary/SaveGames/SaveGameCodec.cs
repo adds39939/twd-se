@@ -1,5 +1,6 @@
 using System.Text;
 using TwdSaveEditor.Core.Binary.MetaStream;
+using TwdSaveEditor.Core.Binary.Primitives;
 using TwdSaveEditor.Core.Hashing;
 using TwdSaveEditor.Core.Model;
 
@@ -14,10 +15,10 @@ public static class SaveGameCodec
     private const uint AgentInfoVersion = 0x5C9F9D09;
     private const uint SymbolVersion = 0xB539B0FF;
 
-    public static SaveGameFile Read(byte[] file)
+    public static SaveGameFile Read(byte[] file) => MalformedData.Guard(() =>
     {
         var content = MetaStreamCodec.Read(file);
-        using var reader = new BinaryReader(new MemoryStream(content.Default));
+        using var reader = new BinaryReaderEx(new MemoryStream(content.Default));
 
         reader.ReadUInt32();
         var script = Encoding.Latin1.GetString(reader.ReadBytes(reader.ReadInt32()));
@@ -32,7 +33,7 @@ public static class SaveGameCodec
         var names = ReadSymbols(reader);
         var sets = ReadSymbols(reader);
 
-        if (reader.BaseStream.Position != reader.BaseStream.Length)
+        if (reader.Remaining != 0)
         {
             throw new InvalidDataException("default.save has unread data.");
         }
@@ -45,7 +46,7 @@ public static class SaveGameCodec
             EnabledDynamicSets = sets,
             VersionEntries = content.Header.VersionEntries,
         };
-    }
+    });
 
     public static byte[] Write(SaveGameFile save)
     {
@@ -85,7 +86,7 @@ public static class SaveGameCodec
         new(TelltaleTypes.Symbol, SymbolVersion),
     ];
 
-    private static List<ulong> ReadSymbols(BinaryReader reader)
+    private static List<ulong> ReadSymbols(BinaryReaderEx reader)
     {
         reader.ReadUInt32();
         var symbols = new List<ulong>();

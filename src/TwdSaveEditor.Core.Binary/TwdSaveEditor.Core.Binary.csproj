@@ -7,6 +7,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <EmbeddedResource Include="Data\*.json" />
+    </ItemGroup>
+
+    <ItemGroup>
       <ProjectReference Include="..\TwdSaveEditor.Core\TwdSaveEditor.Core.csproj" />
     </ItemGroup>
 

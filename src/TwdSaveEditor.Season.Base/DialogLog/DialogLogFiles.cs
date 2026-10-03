@@ -40,6 +40,16 @@ public static class DialogLogFiles
         return properties;
     }
 
+    public static GameLog EnsureLog(SaveSlot slot)
+    {
+        if (slot.EventLogDamaged)
+        {
+            throw new InvalidOperationException("The dialog log of this save cannot be read, so it cannot be changed.");
+        }
+
+        return slot.EventLog ??= NewLog(slot.FileName);
+    }
+
     public static GameLog NewLog(string slotFileName)
     {
         var name = StorageName(slotFileName);

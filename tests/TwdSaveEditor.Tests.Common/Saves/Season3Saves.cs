@@ -26,10 +26,10 @@ public static class Season3Saves
 
     public static byte[] ReadBytes(string fileName) => File.ReadAllBytes(TestDataHelper.GetPath("S3", fileName));
 
-    public static SaveSlot LoadEpisode1Save()
+    public static SaveSlot LoadEpisode1Save(string? damagedFile = null)
     {
         var files = Handler.FindCompanionFiles(Slot, [Slot, Autosave, Storage, .. Pages])
-            .Select(name => new CompanionFile(name, ReadBytes(name)))
+            .Select(name => new CompanionFile(name, name == damagedFile ? MalformedFiles.Truncated(ReadBytes(name)) : ReadBytes(name)))
             .ToList();
         return Load(ReadBytes(Slot), Slot, files);
     }

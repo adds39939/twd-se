@@ -6,21 +6,28 @@ namespace TwdSaveEditor.Core.Binary.PropertySets;
 
 public sealed class PropertySetReader
 {
-    public PropertySet Read(byte[] data)
+    public const int MaxDepth = 16;
+
+    public PropertySet Read(byte[] data) => MalformedData.Guard(() =>
     {
         using var ms = new MemoryStream(data);
         using var reader = new BinaryReaderEx(ms);
-        var propSet = ReadPropertySet(reader);
+        var propSet = ReadPropertySet(reader, 1);
         if (reader.Remaining != 0)
         {
             throw new InvalidDataException($"PropertySet has {reader.Remaining} unread bytes.");
         }
 
         return propSet;
-    }
+    });
 
-    private PropertySet ReadPropertySet(BinaryReaderEx reader)
+    private PropertySet ReadPropertySet(BinaryReaderEx reader, int depth)
     {
+        if (depth > MaxDepth)
+        {
+            throw new InvalidDataException($"PropertySet is nested more than {MaxDepth} levels deep.");
+        }
+
         var propSet = new PropertySet();
 
         propSet.Version = reader.ReadUInt32();
@@ -43,7 +50,7 @@ public sealed class PropertySetReader
             for (uint p = 0; p < propCount; p++)
             {
                 var keySymbol = reader.ReadSymbol();
-                var value = ReadValue(reader, typeSymbol);
+                var value = ReadValue(reader, typeSymbol, depth);
                 group.Properties.Add(new Property(keySymbol, value));
             }
 
@@ -58,7 +65,7 @@ public sealed class PropertySetReader
         return propSet;
     }
 
-    private PropertyValue ReadValue(BinaryReaderEx reader, Symbol typeSymbol)
+    private PropertyValue ReadValue(BinaryReaderEx reader, Symbol typeSymbol, int depth)
     {
         var hash = typeSymbol.Value;
 
@@ -94,7 +101,7 @@ public sealed class PropertySetReader
 
         if (hash == TelltaleTypes.PropertySet)
         {
-            return new PropertySetValue(ReadPropertySet(reader));
+            return new PropertySetValue(ReadPropertySet(reader, depth + 1));
         }
 
         if (hash == TelltaleTypes.StringArray)
@@ -107,7 +114,7 @@ public sealed class PropertySetReader
             return ReadChoicesContainer(reader, typeSymbol);
         }
 
-        return ReadRawValue(reader, typeSymbol);
+        return PropertyValueLayouts.Read(reader, typeSymbol);
     }
 
     private static StringArrayValue ReadStringArray(BinaryReaderEx reader)
@@ -147,23 +154,5 @@ public sealed class PropertySetReader
 
         bw.Flush();
         return new RawBytesValue(buffer.ToArray(), typeSymbol);
-    }
-
-    private static RawBytesValue ReadRawValue(BinaryReaderEx reader, Symbol typeSymbol)
-    {
-        var startPos = reader.Position;
-        var length = reader.ReadInt32();
-
-        if (length >= 0 && length <= reader.Remaining)
-        {
-            var data = reader.ReadBytes(length);
-            var fullData = new byte[4 + data.Length];
-            BitConverter.GetBytes(length).CopyTo(fullData, 0);
-            data.CopyTo(fullData, 4);
-            return new RawBytesValue(fullData, typeSymbol);
-        }
-
-        throw new InvalidDataException(
-            $"Unknown type 0x{typeSymbol.Value:X16} at position {startPos} with invalid length {length}");
     }
 }

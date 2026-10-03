@@ -7,6 +7,7 @@ using TwdSaveEditor.Core.Model;
 using TwdSaveEditor.Season.Common.Model;
 using TwdSaveEditor.Season.Common.Extensions;
 using TwdSaveEditor.Tests.Common.Seasons;
+using TwdSaveEditor.Tests.Common.Data;
 
 namespace TwdSaveEditor.Season.S1.Tests.Saves;
 
@@ -97,6 +98,18 @@ public class Season1SaveTests
         var tracker = ChoicesContainer.Parse(((RawBytesValue)reloaded.Choices!.Find("Episode 101")!.Value).Data);
         Assert.NotEmpty(tracker);
         Assert.DoesNotContain(tracker, entry => entry.str.StartsWith("dougcarley_saved - ", StringComparison.Ordinal));
+    }
+
+    [Fact]
+    public void AutosaveThatCannotBeDecompressed_IsMarkedDamagedAndTheSlotStillLoads()
+    {
+        var slot = BundleReader.Read(Season1Saves.ReadBytes(Season1Saves.Slot), Season1Saves.Slot);
+
+        Season1Saves.Handler.AttachCompanionFiles(slot, [new CompanionFile(Season1Saves.Autosave, MalformedFiles.CompressedWithOversizedPage())]);
+
+        Assert.True(slot.AutosaveDamaged);
+        Assert.Null(slot.Autosave);
+        Assert.NotNull(slot.Metadata);
     }
 
     [Fact]

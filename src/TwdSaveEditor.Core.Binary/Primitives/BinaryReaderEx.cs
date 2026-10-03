@@ -17,7 +17,17 @@ public sealed class BinaryReaderEx : IDisposable
     public long Remaining => Length - Position;
 
     public byte ReadByte() => _reader.ReadByte();
-    public byte[] ReadBytes(int count) => _reader.ReadBytes(count);
+
+    public byte[] ReadBytes(int count)
+    {
+        if (count < 0 || count > Remaining)
+        {
+            throw new InvalidDataException($"Cannot read {count} bytes at position {Position}; {Remaining} remain.");
+        }
+
+        return _reader.ReadBytes(count);
+    }
+
     public uint ReadUInt32() => _reader.ReadUInt32();
     public int ReadInt32() => _reader.ReadInt32();
     public ulong ReadUInt64() => _reader.ReadUInt64();
@@ -37,8 +47,7 @@ public sealed class BinaryReaderEx : IDisposable
             return string.Empty;
         }
 
-        var bytes = _reader.ReadBytes(length);
-        return Encoding.Latin1.GetString(bytes);
+        return Encoding.Latin1.GetString(ReadBytes(length));
     }
 
     public Symbol ReadSymbol() => new(_reader.ReadUInt64());

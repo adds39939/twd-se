@@ -1,5 +1,12 @@
 <div class="decision-editor">
-    @if (Slot == null || Accessor == null)
+    @if (Slot is { EventLogDamaged: true })
+    {
+        <p class="log-damaged" data-testid="log-damaged">
+            The dialog log of this save (its .estore and .epage files) cannot be read, so its decisions cannot be
+            shown or changed.
+        </p>
+    }
+    else if (Slot == null || Accessor == null)
     {
         <p class="text-muted">No choice data available for this save.</p>
     }

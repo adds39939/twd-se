@@ -59,7 +59,7 @@ public static class PropertyFileCodec
         {
             return PropertySetSymbols.Count(new PropertySetReader().Read(data));
         }
-        catch (Exception e) when (e is InvalidDataException or EndOfStreamException)
+        catch (InvalidDataException)
         {
             return 0;
         }
