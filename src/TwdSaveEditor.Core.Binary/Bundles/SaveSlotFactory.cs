@@ -1,5 +1,3 @@
-using TwdSaveEditor.Core.Binary.PropertySets;
-using TwdSaveEditor.Core.Constants;
 using TwdSaveEditor.Core.Hashing;
 using TwdSaveEditor.Core.Model;
 
@@ -31,82 +29,5 @@ public static class SaveSlotFactory
         var file = BundleFileEntry.Create(name, TelltaleTypes.PropertySet, []);
         file.Properties = properties;
         return file;
-    }
-
-    public static SaveSlot CreateBlankWithChoices(string fileName, string episodeId = "WalkingDead101",
-        string choicesFileName = BundleFileNames.Choices) =>
-        Create(fileName,
-            (BundleFileNames.SlotMetadata, CreateBlankMetadata(episodeId, fileName)),
-            (choicesFileName, CreateBlankChoices()));
-
-    public static SaveSlot CreateBlankMetadataOnly(string fileName, string episodeId) =>
-        Create(fileName, (BundleFileNames.SlotMetadata, CreateBlankMetadata(episodeId, fileName)));
-
-    public static SaveSlot CreateBlank(string fileName, string episodeId = "WalkingDead101")
-        => CreateBlankWithChoices(fileName, episodeId);
-
-    public static PropertySet CreateBlankMetadata(string episodeId, string fileName)
-    {
-        var int32Symbol = Symbol.FromString("int32");
-        var boolSymbol = Symbol.FromString("bool");
-        var stringSymbol = Symbol.FromString("String");
-
-        return new PropertySet
-        {
-            Version = 2,
-            Flags = 0x100,
-            TypeGroups =
-            [
-                new TypeGroup(int32Symbol)
-                {
-                    Properties =
-                    [
-                        new Property(Symbol.FromString(SlotMetadataKeys.LatestSerial), new IntValue(1)),
-                        new Property(Symbol.FromString(SlotMetadataKeys.Progress), new IntValue(1)),
-                    ]
-                },
-                new TypeGroup(boolSymbol)
-                {
-                    Properties =
-                    [
-                        new Property(Symbol.FromString(SlotMetadataKeys.CompletedEpisode(1)), new BoolValue(true)),
-                    ]
-                },
-                new TypeGroup(stringSymbol)
-                {
-                    Properties =
-                    [
-                        new Property(Symbol.FromString(SlotMetadataKeys.EpisodeInProgress), new StringValue(episodeId)),
-                        new Property(Symbol.FromString(SlotMetadataKeys.LatestSave), new StringValue(
-                            "_" + Path.GetFileNameWithoutExtension(fileName) + "_autosave.bundle")),
-                    ]
-                },
-            ]
-        };
-    }
-
-    public static PropertySet CreateBlankChoices()
-    {
-        var typeSymbol = new Symbol(TelltaleTypes.ChoicesContainer);
-
-        return new PropertySet
-        {
-            Version = 2,
-            Flags = 0x0,
-            TypeGroups =
-            [
-                new TypeGroup(typeSymbol)
-                {
-                    Properties =
-                    [
-                        new Property(
-                            Symbol.FromString("choices"),
-                            new RawBytesValue(
-                                ChoicesContainer.Serialize([]),
-                                typeSymbol)),
-                    ]
-                },
-            ]
-        };
     }
 }

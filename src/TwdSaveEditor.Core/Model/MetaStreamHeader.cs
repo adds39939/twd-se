@@ -18,11 +18,5 @@ public sealed class MetaStreamHeader
     public bool IsDebugCompressed => (DebugSectionSize & CompressedFlag) != 0;
     public bool IsAsyncCompressed => (AsyncSectionSize & CompressedFlag) != 0;
 
-    public uint DefaultDataSize => DefaultSectionSize & ~CompressedFlag;
-    public uint DebugDataSize => DebugSectionSize & ~CompressedFlag;
-    public uint AsyncDataSize => AsyncSectionSize & ~CompressedFlag;
-
     public List<VersionEntry> VersionEntries { get; set; } = [];
-
-    public bool IsMsv6 => Magic == MagicMsv6;
 }

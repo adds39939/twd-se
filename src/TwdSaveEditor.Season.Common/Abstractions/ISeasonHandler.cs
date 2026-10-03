@@ -25,8 +25,6 @@ public interface ISeasonHandler
 
     (string SeasonKey, int Episode) DecisionGroupOf(int episode);
 
-    IReadOnlyList<string> GetScenes(string episodeId);
-
     bool CanHandle(string fileName);
 
     SaveSlot CreateBlankSave(string fileName, string episodeId);

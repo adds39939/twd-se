@@ -31,14 +31,4 @@ public static class TestDataHelper
 
     public static string GetSeasonDir(string season)
         => Path.Combine(TestDataDir, season);
-
-    public static bool Exists(string season, string fileName)
-        => File.Exists(GetPath(season, fileName));
-
-    public static string CreateTempDir()
-    {
-        var dir = Path.Combine(Path.GetTempPath(), "twd_test_" + Guid.NewGuid().ToString("N")[..8]);
-        Directory.CreateDirectory(dir);
-        return dir;
-    }
 }

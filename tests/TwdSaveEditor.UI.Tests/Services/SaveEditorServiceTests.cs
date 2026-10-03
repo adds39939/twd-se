@@ -25,7 +25,7 @@ public class SaveEditorServiceTests
         A.CallTo(() => _fs.BackupFiles(A<string>._, A<string[]>._))
             .ReturnsLazily((string folder, string[] _) => new BackupResult(folder, null));
         A.CallTo(() => _fs.WriteFile(A<string>._, A<byte[]>._)).Returns(true);
-        A.CallTo(() => _fs.ListFiles(A<string>._)).Returns(Array.Empty<string>());
+        A.CallTo(() => _fs.ListFiles()).Returns(Array.Empty<string>());
         A.CallTo(() => _fs.PickDirectory()).Returns(true);
         A.CallTo(() => _fs.GetDirectoryName()).Returns(FolderName);
     }
@@ -167,7 +167,7 @@ public class SaveEditorServiceTests
     [Fact]
     public async Task ReloadDirectory_ReadsTheFolderAgainAndKeepsTheSelectedSave()
     {
-        A.CallTo(() => _fs.ListFiles(A<string>._)).Returns([Season1Saves.Slot, Season1Saves.Autosave]);
+        A.CallTo(() => _fs.ListFiles()).Returns([Season1Saves.Slot, Season1Saves.Autosave]);
         A.CallTo(() => _fs.ReadFile(A<string>._)).ReturnsLazily((string name) => Season1Saves.ReadBytes(name));
         var service = ServiceReadingSaves();
         await service.PickDirectory();
@@ -190,7 +190,7 @@ public class SaveEditorServiceTests
 
         Assert.Equal(FolderName, service.DirectoryName);
         Assert.False(service.DownloadsChanges);
-        A.CallTo(() => _fs.ListFiles(A<string>._)).MustHaveHappened();
+        A.CallTo(() => _fs.ListFiles()).MustHaveHappened();
     }
 
     [Fact]
@@ -203,7 +203,7 @@ public class SaveEditorServiceTests
 
         Assert.Null(service.DirectoryName);
         Assert.Equal(FolderName, service.RememberedDirectoryName);
-        A.CallTo(() => _fs.ListFiles(A<string>._)).MustNotHaveHappened();
+        A.CallTo(() => _fs.ListFiles()).MustNotHaveHappened();
     }
 
     [Fact]

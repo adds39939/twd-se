@@ -8,14 +8,12 @@ namespace TwdSaveEditor.Season.Base.Handlers;
 public abstract class SeasonHandlerBase : ISeasonHandler
 {
     private readonly Lazy<IReadOnlyList<ChoiceDefinition>> _choices;
-    private readonly Lazy<IReadOnlyDictionary<string, string[]>> _scenes;
     private IReadOnlyList<string>? _includedSeasonKeys;
 
     protected SeasonHandlerBase()
     {
         var assembly = GetType().Assembly;
         _choices = new(() => EmbeddedSeasonData.LoadChoices(assembly, SeasonKey));
-        _scenes = new(() => EmbeddedSeasonData.LoadScenes(assembly));
     }
 
     public abstract string SeasonKey { get; }
@@ -33,9 +31,6 @@ public abstract class SeasonHandlerBase : ISeasonHandler
     public abstract string GetEpisodeId(int episode);
 
     public virtual (string SeasonKey, int Episode) DecisionGroupOf(int episode) => (SeasonKey, episode);
-
-    public IReadOnlyList<string> GetScenes(string episodeId)
-        => _scenes.Value.TryGetValue(episodeId, out var scenes) ? scenes : [];
 
     public virtual bool CanHandle(string fileName)
     {

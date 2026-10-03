@@ -7,7 +7,6 @@ namespace TwdSaveEditor.Season.Base.Resources;
 public static class EmbeddedSeasonData
 {
     private const string ChoicesSuffix = ".choices.json";
-    private const string ScenesSuffix = ".scenes.json";
 
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
@@ -31,30 +30,6 @@ public static class EmbeddedSeasonData
         }
 
         return choices.AsReadOnly();
-    }
-
-    public static IReadOnlyDictionary<string, string[]> LoadScenes(Assembly assembly)
-    {
-        var scenes = new Dictionary<string, string[]>();
-
-        foreach (var stream in OpenResources(assembly, ScenesSuffix))
-        {
-            using (stream)
-            {
-                var episodes = JsonSerializer.Deserialize<Dictionary<string, string[]>>(stream);
-                if (episodes == null)
-                {
-                    continue;
-                }
-
-                foreach (var (episodeId, episodeScenes) in episodes)
-                {
-                    scenes[episodeId] = episodeScenes;
-                }
-            }
-        }
-
-        return scenes;
     }
 
     private static IEnumerable<Stream> OpenResources(Assembly assembly, string suffix)

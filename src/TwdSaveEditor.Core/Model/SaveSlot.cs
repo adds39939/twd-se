@@ -37,8 +37,6 @@ public sealed class SaveSlot
 
     public string? DetectedSeasonKey { get; set; }
 
-    public bool EpisodeChanged { get; set; }
-
     public BundleFileEntry? FindFile(string fileName) => Files.FirstOrDefault(file => file.IsNamed(fileName));
 
     public BundleFileEntry? FindFile(ulong nameSymbol) => Files.FirstOrDefault(file => file.NameSymbol == nameSymbol);

@@ -2,17 +2,6 @@
     max-width: 600px;
 }
 
-.editor-toolbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1.5rem;
-}
-
-.editor-toolbar h2 {
-    margin: 0;
-}
-
 .resume-form {
     display: flex;
     flex-direction: column;
@@ -32,24 +21,7 @@
     flex-shrink: 0;
 }
 
-.form-group select {
-    flex: 1;
-    max-width: 350px;
-}
-
 .field-value {
     font-weight: 500;
     color: var(--text-primary);
-}
-
-.form-group input[type="number"],
-.form-group input[type="text"] {
-    flex: 1;
-    max-width: 350px;
-}
-
-.resume-info {
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--border);
 }

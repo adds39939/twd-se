@@ -1,6 +1,7 @@
 using Microsoft.Playwright;
 using TwdSaveEditor.Playwright.Fixtures;
 using TwdSaveEditor.Playwright.Support;
+using TwdSaveEditor.Tests.Common.Data;
 
 namespace TwdSaveEditor.Playwright.Tests;
 

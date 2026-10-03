@@ -1,4 +1,5 @@
 using Microsoft.Playwright;
+using TwdSaveEditor.Tests.Common.Data;
 
 namespace TwdSaveEditor.Playwright.Support;
 
@@ -29,7 +30,7 @@ internal static class FakeSaveDirectory
                         }
                         const chunks = [];
                         return {
-                            write: async (data) => chunks.push(new Uint8Array(data.buffer ?? data)),
+                            write: async (data) => chunks.push(ArrayBuffer.isView(data) ? new Uint8Array(data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength)) : new Uint8Array(data)),
                             close: async () => {
                                 const bytes = new Uint8Array(chunks.reduce((n, c) => n + c.length, 0));
                                 let offset = 0;

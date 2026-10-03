@@ -26,25 +26,14 @@ public class FileSystemService : IFileSystemService, IAsyncDisposable
     public async Task<bool> ReopenDirectory() =>
         await (await _module.Value).InvokeAsync<bool>("reopenDirectory");
 
-    public async Task<string[]> ListFiles(string extension) =>
-        await (await _module.Value).InvokeAsync<string[]>("listFiles", extension);
+    public async Task<string[]> ListFiles() =>
+        await (await _module.Value).InvokeAsync<string[]>("listFiles");
 
-    public async Task<byte[]?> ReadFile(string name)
-    {
-        var base64 = await (await _module.Value).InvokeAsync<string?>("readFile", name);
-        if (base64 == null)
-        {
-            return null;
-        }
+    public async Task<byte[]?> ReadFile(string name) =>
+        await (await _module.Value).InvokeAsync<byte[]?>("readFile", name);
 
-        return Convert.FromBase64String(base64);
-    }
-
-    public async Task<bool> WriteFile(string name, byte[] data)
-    {
-        var base64 = Convert.ToBase64String(data);
-        return await (await _module.Value).InvokeAsync<bool>("writeFile", name, base64);
-    }
+    public async Task<bool> WriteFile(string name, byte[] data) =>
+        await (await _module.Value).InvokeAsync<bool>("writeFile", name, data);
 
     public async Task<bool> DeleteFile(string name) =>
         await (await _module.Value).InvokeAsync<bool>("deleteFile", name);
@@ -52,14 +41,11 @@ public class FileSystemService : IFileSystemService, IAsyncDisposable
     public async Task<BackupResult> BackupFiles(string folderName, string[] fileNames) =>
         await (await _module.Value).InvokeAsync<BackupResult>("backupFiles", folderName, fileNames);
 
-    public async Task<bool> HasDirectory() =>
-        await (await _module.Value).InvokeAsync<bool>("hasDirectory");
-
     public async Task<string> GetDirectoryName() =>
         await (await _module.Value).InvokeAsync<string>("getDirectoryName");
 
     public async Task DownloadFile(string name, byte[] data) =>
-        await (await _module.Value).InvokeVoidAsync("downloadFile", name, Convert.ToBase64String(data));
+        await (await _module.Value).InvokeVoidAsync("downloadFile", name, data);
 
     public async ValueTask DisposeAsync()
     {

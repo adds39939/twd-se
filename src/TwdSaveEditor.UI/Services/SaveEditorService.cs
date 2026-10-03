@@ -1,4 +1,3 @@
-using TwdSaveEditor.Core.Constants;
 using TwdSaveEditor.Core.Model;
 using TwdSaveEditor.Core.Serialization;
 using TwdSaveEditor.Season.Common.Abstractions;
@@ -235,7 +234,7 @@ public class SaveEditorService
         return slot;
     }
 
-    private async Task<string[]> SourceFileNames() => _directoryOpen ? await _fs.ListFiles(string.Empty) : [.. _uploaded.Keys];
+    private async Task<string[]> SourceFileNames() => _directoryOpen ? await _fs.ListFiles() : [.. _uploaded.Keys];
 
     private async Task<byte[]?> ReadSourceFile(string name) => _directoryOpen ? await _fs.ReadFile(name) : _uploaded.GetValueOrDefault(name);
 
@@ -257,15 +256,13 @@ public class SaveEditorService
     public IReadOnlyList<CompanionFile> BuildFiles(SaveSlot slot)
     {
         var files = new List<CompanionFile> { new(slot.FileName, _serializer.Write(slot)) };
-        if (!IsAutosave(slot) && _registry.DetectFromFileName(slot.FileName) is ICompanionFileHandler companion)
+        if (_registry.DetectFromFileName(slot.FileName) is ICompanionFileHandler companion)
         {
             files.AddRange(companion.BuildCompanionFiles(slot));
         }
 
         return files;
     }
-
-    private static bool IsAutosave(SaveSlot slot) => Path.GetFileName(slot.FileName).StartsWith('_');
 
     public async Task SaveFile(SaveSlot slot)
     {
@@ -289,11 +286,6 @@ public class SaveEditorService
             {
                 NotifyStateChanged();
                 return;
-            }
-
-            if (IsAutosave(slot))
-            {
-                await SyncSlotBundleEpisodeId(slot);
             }
 
             StatusMessage = $"Saved {slot.FileName} successfully.";
@@ -389,122 +381,6 @@ public class SaveEditorService
 
         slot.ObsoleteFileNames.Clear();
         return true;
-    }
-
-    private async Task SyncSlotBundleEpisodeId(SaveSlot autosaveSlot)
-    {
-        var episodeIdProp = autosaveSlot.Metadata?.AllProperties
-            .FirstOrDefault(p => p.KeySymbol.Value == AutosaveHashes.EpisodeId);
-        if (episodeIdProp?.Value is not StringValue episodeIdValue)
-        {
-            Notify("Sync: no episode ID found in autosave metadata.", "warning");
-            return;
-        }
-
-        var autoName = Path.GetFileNameWithoutExtension(autosaveSlot.FileName);
-        if (!autoName.StartsWith('_') || !autoName.EndsWith("_autosave"))
-        {
-            Notify($"Sync: autosave name '{autoName}' doesn't match expected pattern.", "warning");
-            return;
-        }
-        var slotName = autoName[1..^9] + ".bundle";
-
-        var slotSave = Saves.FirstOrDefault(s =>
-            Path.GetFileName(s.FileName).Equals(slotName, StringComparison.OrdinalIgnoreCase));
-
-        if (slotSave == null)
-        {
-            Notify($"Could not find slot bundle '{slotName}' to sync episode. Load both files.", "warning");
-            return;
-        }
-        if (slotSave.Metadata == null)
-        {
-            return;
-        }
-
-        const ulong slotEpisodeIdHash = 0xB218E7C003A67CE9;
-        var slotEpProp = slotSave.Metadata.AllProperties
-            .FirstOrDefault(p => p.KeySymbol.Value == slotEpisodeIdHash);
-
-        SetSlotProperty(slotSave.Metadata, slotEpisodeIdHash,
-            new StringValue(episodeIdValue.Value), "String");
-
-        var epNumStr = episodeIdValue.Value.Length >= 3
-            ? episodeIdValue.Value[^2..]
-            : "01";
-        if (int.TryParse(epNumStr, out var epNum))
-        {
-            const ulong progressHash = 0x94C245DACB1ADDC3;
-            SetSlotProperty(slotSave.Metadata, progressHash,
-                new IntValue(epNum), "int32");
-
-            if (epNum > 1)
-            {
-                const ulong lastEpFinishedHash = 0x0399C2FFE0D50348;
-                SetSlotProperty(slotSave.Metadata, lastEpFinishedHash,
-                    new IntValue(epNum - 1), "int32");
-
-                const ulong episodesCompletedHash = 0xFD50E3BE7B29A8B1;
-                SetSlotProperty(slotSave.Metadata, episodesCompletedHash,
-                    new IntValue(epNum - 1), "int32");
-            }
-        }
-
-        try
-        {
-            var slotBytes = _serializer.Write(slotSave);
-            var wrote = await _fs.WriteFile(slotSave.FileName, slotBytes);
-            if (wrote)
-            {
-                Notify($"Updated slot bundle episode to {episodeIdValue.Value}.", "info");
-            }
-            else
-            {
-                Notify($"Failed to write slot bundle '{slotName}'.", "warning");
-            }
-        }
-        catch (Exception ex)
-        {
-            Notify($"Warning: could not sync episode to slot bundle: {ex.Message}", "warning");
-        }
-    }
-
-    private static void SetSlotProperty(PropertySet metadata, ulong hash, PropertyValue value, string typeName)
-    {
-        var existing = metadata.AllProperties.FirstOrDefault(p => p.KeySymbol.Value == hash);
-        if (existing != null)
-        {
-            foreach (var group in metadata.TypeGroups)
-            {
-                var prop = group.Properties.FirstOrDefault(p => p.KeySymbol.Value == hash);
-                if (prop != null)
-                {
-                    if (value is StringValue sv && prop.Value is StringValue existingSv)
-                    {
-                        existingSv.Value = sv.Value;
-                    }
-                    else if (value is IntValue iv && prop.Value is IntValue existingIv)
-                    {
-                        existingIv.Value = iv.Value;
-                    }
-                    else if (value is BoolValue bv && prop.Value is BoolValue existingBv)
-                    {
-                        existingBv.Value = bv.Value;
-                    }
-
-                    return;
-                }
-            }
-        }
-
-        var typeSymbol = Symbol.FromString(typeName);
-        var targetGroup = metadata.TypeGroups.FirstOrDefault(g => g.TypeSymbol == typeSymbol);
-        if (targetGroup == null)
-        {
-            targetGroup = new TypeGroup(typeSymbol);
-            metadata.TypeGroups.Add(targetGroup);
-        }
-        targetGroup.Properties.Add(new Property(new Symbol(hash), value));
     }
 
     private async Task BackupBeforeSave(SaveSlot slot)

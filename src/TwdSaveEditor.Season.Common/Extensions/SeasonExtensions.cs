@@ -23,19 +23,5 @@ public static class SeasonExtensions
                 ?? throw new ArgumentException($"Unknown season: {seasonKey}");
             return handler.CreateSave(fileName, episode);
         }
-
-        public IReadOnlyList<string> GetScenes(string episodeId)
-        {
-            foreach (var handler in registry.All)
-            {
-                var scenes = handler.GetScenes(episodeId);
-                if (scenes.Count > 0)
-                {
-                    return scenes;
-                }
-            }
-
-            return [];
-        }
     }
 }

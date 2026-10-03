@@ -12,7 +12,7 @@ public interface IFileSystemService
 
     Task<bool> ReopenDirectory();
 
-    Task<string[]> ListFiles(string extension);
+    Task<string[]> ListFiles();
 
     Task<byte[]?> ReadFile(string name);
 
@@ -21,8 +21,6 @@ public interface IFileSystemService
     Task<bool> DeleteFile(string name);
 
     Task<BackupResult> BackupFiles(string folderName, string[] fileNames);
-
-    Task<bool> HasDirectory();
 
     Task<string> GetDirectoryName();
 

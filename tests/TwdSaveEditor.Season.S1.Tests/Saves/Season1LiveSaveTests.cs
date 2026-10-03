@@ -3,7 +3,6 @@ using TwdSaveEditor.Tests.Common.Data;
 using TwdSaveEditor.Season.Common.Abstractions;
 using TwdSaveEditor.Core.Model;
 using TwdSaveEditor.Core.Binary.Bundles;
-using TwdSaveEditor.Season.Base.Accessors;
 
 namespace TwdSaveEditor.Season.S1.Tests.Saves;
 
@@ -47,7 +46,7 @@ public class LiveSaveTests
     }
 
     [Fact]
-    public void LiveS1Save_HasChoices()
+    public void LiveS1Save_ReadsEveryDecision()
     {
         var path = TestDataHelper.GetPath("S1", "wd1_saveslot1_live.bundle");
         if (!File.Exists(path))
@@ -57,12 +56,8 @@ public class LiveSaveTests
 
         var slot = BundleReader.Read(path);
 
-        if (slot.Choices != null)
-        {
-            var accessor = new SaveAccessor(slot.Choices, slot.Metadata);
-            var choices = accessor.GetAllChoices();
-            Assert.NotNull(choices);
-        }
+        var accessor = Registry.Get("s1")!.CreateChoiceAccessor(slot)!;
+        Assert.All(TestSeasons.ChoicesFor("s1"), choice => Assert.InRange(accessor.DetectCurrentChoice(choice), -1, choice.Options.Length - 1));
     }
 
     [Fact]

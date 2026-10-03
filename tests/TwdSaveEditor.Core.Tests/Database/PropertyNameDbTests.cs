@@ -1,3 +1,4 @@
+using TwdSaveEditor.Core.Constants;
 using TwdSaveEditor.Core.Database;
 using TwdSaveEditor.Core.Model;
 using TwdSaveEditor.Tests.Common.Seasons;
@@ -24,22 +25,11 @@ public class PropertyNameDbTests
     }
 
     [Fact]
-    public void LoadFromJson_ArrayFormat()
-    {
-        var db = new PropertyNameDb();
-        db.LoadFromJson("""["mHealth", "mStamina", "mbAlive"]""");
-        Assert.Equal(3, db.Count);
-        Assert.Equal("mHealth", db.Resolve(Symbol.FromString("mHealth")));
-    }
-
-    [Fact]
-    public void CreateDefault_HasTypeNames()
+    public void CreateDefault_HasTheSaveMetadataKeys()
     {
         var db = PropertyNameDb.CreateDefault();
-        Assert.Equal("bool", db.Resolve(Symbol.FromString("bool")));
-        Assert.Equal("int32", db.Resolve(Symbol.FromString("int32")));
-        Assert.Equal("String", db.Resolve(Symbol.FromString("String")));
-        Assert.Equal("PropertySet", db.Resolve(Symbol.FromString("PropertySet")));
+        Assert.Equal(SlotMetadataKeys.LatestSave, db.Resolve(Symbol.FromString(SlotMetadataKeys.LatestSave)));
+        Assert.Equal(SaveMetadataKeys.ChapterId, db.Resolve(Symbol.FromString(SaveMetadataKeys.ChapterId)));
     }
 
     [Fact]

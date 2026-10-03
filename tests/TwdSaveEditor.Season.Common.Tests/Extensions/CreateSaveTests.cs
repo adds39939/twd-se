@@ -1,61 +1,12 @@
 using TwdSaveEditor.Core.Binary.Bundles;
 using TwdSaveEditor.Core.Constants;
 using TwdSaveEditor.Season.Common.Extensions;
-using TwdSaveEditor.Season.Base.Accessors;
 using TwdSaveEditor.Tests.Common.Seasons;
 
 namespace TwdSaveEditor.Season.Common.Tests.Extensions;
 
-public class SaveSlotFactoryTests
+public class CreateSaveTests
 {
-    [Fact]
-    public void CreateBlank_HasValidStructure()
-    {
-        var slot = SaveSlotFactory.CreateBlank("test.bundle");
-
-        Assert.NotNull(slot.OuterHeader);
-        Assert.Equal(0x4D535636U, slot.OuterHeader.Magic);
-        Assert.Equal(2, slot.OuterHeader.VersionEntries.Count);
-        Assert.Equal(2, slot.Files.Count);
-        Assert.Equal("metadata_slot.p", slot.Files[0].Name);
-        Assert.Equal("choices.prop", slot.Files[1].Name);
-        Assert.NotNull(slot.Metadata);
-        Assert.NotNull(slot.Choices);
-    }
-
-    [Fact]
-    public void CreateBlank_MetadataHasCorrectFlags()
-    {
-        var slot = SaveSlotFactory.CreateBlank("test.bundle");
-
-        Assert.Equal(2U, slot.Metadata!.Version);
-        Assert.Equal(0x100U, slot.Metadata.Flags);
-    }
-
-    [Fact]
-    public void CreateBlank_ChoicesHasCorrectFlags()
-    {
-        var slot = SaveSlotFactory.CreateBlank("test.bundle");
-
-        Assert.Equal(2U, slot.Choices!.Version);
-        Assert.Equal(0U, slot.Choices.Flags);
-    }
-
-    [Fact]
-    public void CreateBlank_RoundTripsThroughBundleWriter()
-    {
-        var slot = SaveSlotFactory.CreateBlank("test.bundle");
-        var bytes = BundleWriter.Write(slot);
-
-        Assert.NotNull(bytes);
-        Assert.True(bytes.Length > 0);
-
-        var reparsed = BundleReader.Read(bytes, "test.bundle");
-        Assert.NotNull(reparsed.Metadata);
-        Assert.NotNull(reparsed.Choices);
-        Assert.Equal(2, reparsed.Files.Count);
-    }
-
     [Fact]
     public void CreateForSeason_HasPrePopulatedChoices()
     {
@@ -107,25 +58,18 @@ public class SaveSlotFactoryTests
         }
     }
 
-    [Theory]
-    [InlineData("s2", 3)]
-    public void CreateForSeason_S2_RoundTrips(string seasonKey, int episode)
+    [Fact]
+    public void CreateForSeason_S2_RoundTripsTheSeason1Decisions()
     {
-        var slot = TestSeasons.Registry.CreateSave(seasonKey, episode, "test.bundle");
-        var bytes = BundleWriter.Write(slot);
-        var reparsed = BundleReader.Read(bytes, "test.bundle");
+        var handler = TestSeasons.Registry.Get("s2")!;
+        var slot = TestSeasons.Registry.CreateSave("s2", 3, "wd2_saveslot1.bundle");
+        var reparsed = BundleReader.Read(BundleWriter.Write(slot), "wd2_saveslot1.bundle");
 
-        var origAccessor = new SaveAccessor(slot.Choices!);
-        var newAccessor = new SaveAccessor(reparsed.Choices!);
-
-        var origChoices = origAccessor.GetAllChoices();
-        var newChoices = newAccessor.GetAllChoices();
-        Assert.Equal(origChoices.Count, newChoices.Count);
-
-        foreach (var (key, value) in origChoices)
-        {
-            Assert.Equal(value, newAccessor.GetChoiceValue(key)!);
-        }
+        var original = handler.CreateChoiceAccessor(slot)!;
+        var reloaded = handler.CreateChoiceAccessor(reparsed)!;
+        var season1 = TestSeasons.ChoicesFor("s1").ToList();
+        Assert.All(season1, choice => Assert.NotNull(original.GetChoiceValue(choice.ChoiceKey)));
+        Assert.All(season1, choice => Assert.Equal(original.GetChoiceValue(choice.ChoiceKey), reloaded.GetChoiceValue(choice.ChoiceKey)));
     }
 
     [Fact]
@@ -189,26 +133,19 @@ public class SaveSlotFactoryTests
         }
     }
 
-    [Theory]
-    [InlineData("s2", "shot_kenny", "true", "false")]
-    public void S2_CreateEditSaveReload(string season, string choiceKey, string value1, string value2)
+    [Fact]
+    public void S2_CreateEditSaveReload()
     {
-        var slot = TestSeasons.Registry.CreateSave(season, 5, "test.bundle");
-        var accessor = new SaveAccessor(slot.Choices!);
+        var handler = TestSeasons.Registry.Get("s2")!;
+        var choice = TestSeasons.ChoicesFor("s1").First();
+        var slot = TestSeasons.Registry.CreateSave("s2", 5, "wd2_saveslot1.bundle");
 
-        accessor.SetChoiceValue(choiceKey, value1);
-        Assert.Equal(value1, accessor.GetChoiceValue(choiceKey));
+        handler.CreateChoiceAccessor(slot)!.ApplyChoice(choice, 1);
+        var reloaded = BundleReader.Read(BundleWriter.Write(slot), "wd2_saveslot1.bundle");
+        Assert.Equal(1, handler.CreateChoiceAccessor(reloaded)!.DetectCurrentChoice(choice));
 
-        var bytes = BundleWriter.Write(slot);
-        var reloaded = BundleReader.Read(bytes, "test.bundle");
-        var reloadedAccessor = new SaveAccessor(reloaded.Choices!);
-        Assert.Equal(value1, reloadedAccessor.GetChoiceValue(choiceKey));
-
-        reloadedAccessor.SetChoiceValue(choiceKey, value2);
-        var bytes2 = BundleWriter.Write(reloaded);
-        var reloaded2 = BundleReader.Read(bytes2, "test.bundle");
-        var accessor2 = new SaveAccessor(reloaded2.Choices!);
-        Assert.Equal(value2, accessor2.GetChoiceValue(choiceKey));
+        handler.CreateChoiceAccessor(reloaded)!.ApplyChoice(choice, 0);
+        var reloadedAgain = BundleReader.Read(BundleWriter.Write(reloaded), "wd2_saveslot1.bundle");
+        Assert.Equal(0, handler.CreateChoiceAccessor(reloadedAgain)!.DetectCurrentChoice(choice));
     }
-
 }

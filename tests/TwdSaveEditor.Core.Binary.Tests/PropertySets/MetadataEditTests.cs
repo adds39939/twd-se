@@ -1,5 +1,5 @@
-using TwdSaveEditor.Core.Binary.Bundles;
 using TwdSaveEditor.Core.Binary.PropertySets;
+using TwdSaveEditor.Core.Constants;
 using TwdSaveEditor.Core.Model;
 
 namespace TwdSaveEditor.Core.Binary.Tests.PropertySets;
@@ -7,7 +7,15 @@ namespace TwdSaveEditor.Core.Binary.Tests.PropertySets;
 public class MetadataEditTests
 {
     private static PropertySet CreateMetadata()
-        => SaveSlotFactory.CreateBlankMetadata("WalkingDead101", "test.bundle");
+    {
+        var metadata = new PropertySet { Flags = 0x100 };
+        metadata.SetInt(SlotMetadataKeys.LatestSerial, 1);
+        metadata.SetInt(SlotMetadataKeys.Progress, 1);
+        metadata.SetBool(SlotMetadataKeys.CompletedEpisode(1), true);
+        metadata.SetString(SlotMetadataKeys.EpisodeInProgress, "WalkingDead101");
+        metadata.SetString(SlotMetadataKeys.LatestSave, "_test_autosave.bundle");
+        return metadata;
+    }
 
     [Fact]
     public void PlaytimeProperty_CanBeReadAndModified()
@@ -180,9 +188,9 @@ public class MetadataEditTests
     [Fact]
     public void ModifyingMetadata_ChangesPropertyInPlace()
     {
-        var slot = SaveSlotFactory.CreateBlank("test.bundle");
+        var metadata = CreateMetadata();
 
-        var prop = slot.Metadata!.AllProperties
+        var prop = metadata.AllProperties
             .First(p => p.Value is IntValue);
 
         var original = ((IntValue)prop.Value).Value;

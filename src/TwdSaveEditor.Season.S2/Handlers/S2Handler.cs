@@ -1,5 +1,4 @@
 using System.Globalization;
-using TwdSaveEditor.Core.Constants;
 using TwdSaveEditor.Core.Model;
 using TwdSaveEditor.Season.Base.DialogLog;
 using TwdSaveEditor.Season.Base.Handlers;
@@ -14,7 +13,7 @@ using TwdSaveEditor.Season.S2.Saves;
 namespace TwdSaveEditor.Season.S2.Handlers;
 
 public class S2Handler(IS2ResumePoint resume, IS2Inventory inventory, IS2SaveFactory saves, IDialogLogCompanions companions)
-    : PropChoicesSeasonHandler, IChoiceImporter, ICompanionFileHandler, IResumePointHandler, IInventoryHandler, IChoicePresetProvider
+    : SeasonHandlerBase, IChoiceImporter, ICompanionFileHandler, IResumePointHandler, IInventoryHandler, IChoicePresetProvider
 {
     private const string DinnerKey = "Episode 202 - Dinner Choice";
     private const string WatchedKey = "Episode 203 - Watched Kenny Kill Carver";
@@ -50,8 +49,6 @@ public class S2Handler(IS2ResumePoint resume, IS2Inventory inventory, IS2SaveFac
         new("Ending: Go with Jane", [new(ShotKennyKey, "shot_kenny"), new(EndingKey, "are_with_jane_and_the")], RevealsEnding: true),
         new("Ending: Alone with AJ", [new(ShotKennyKey, "shot_kenny"), new(EndingKey, "are_alone_with_aj")], RevealsEnding: true),
     ];
-
-    protected override string ChoicesFileName => BundleFileNames.Season1Choices;
 
     public override string GetEpisodeId(int episode) => $"WalkingDead20{episode}";
 

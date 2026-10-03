@@ -1,28 +1,9 @@
-using TwdSaveEditor.Season.Common.Model;
-using TwdSaveEditor.Season.Base.Accessors;
-using TwdSaveEditor.Core.Hashing;
-using TwdSaveEditor.Season.Common.Extensions;
-using TwdSaveEditor.Core.Binary.PropertySets;
-using TwdSaveEditor.Core.Model;
 using TwdSaveEditor.Tests.Common.Seasons;
 
 namespace TwdSaveEditor.Season.Base.Tests.Resources;
 
 public class ChoiceDatabaseTests
 {
-    private static readonly ChoiceDefinition DougCarley = new()
-    {
-        SeasonKey = "test",
-        Episode = 1,
-        Description = "Doug or Carley",
-        ChoiceKey = "dougcarley_saved",
-        Options =
-        [
-            new ChoiceOption { Label = "Doug", Value = "doug" },
-            new ChoiceOption { Label = "Carley", Value = "carley" },
-        ],
-    };
-
     [Fact]
     public void AllChoices_HasEntries()
     {
@@ -70,60 +51,6 @@ public class ChoiceDatabaseTests
     }
 
     [Fact]
-    public void DetectCurrentChoice_MatchesChoice()
-    {
-        var ps = new PropertySet();
-        var typeSymbol = new Symbol(TelltaleTypes.ChoicesContainer);
-        var group = new TypeGroup(typeSymbol);
-        var raw = ChoicesContainer.Serialize([
-            ("dougcarley_saved - carley", true)
-        ]);
-        group.Properties.Add(new Property(
-            Symbol.FromString("episode_1_choices"),
-            new RawBytesValue(raw, typeSymbol)));
-        ps.TypeGroups.Add(group);
-
-        var accessor = new SaveAccessor(ps);
-
-        var choice = DougCarley;
-
-        var detected = accessor.DetectCurrentChoice(choice);
-        Assert.Equal(1, detected);
-    }
-
-    [Fact]
-    public void ApplyChoice_WritesCorrectValues()
-    {
-        var ps = new PropertySet();
-        var typeSymbol = new Symbol(TelltaleTypes.ChoicesContainer);
-        var group = new TypeGroup(typeSymbol);
-        var raw = ChoicesContainer.Serialize([
-            ("dougcarley_saved - carley", true)
-        ]);
-        group.Properties.Add(new Property(
-            Symbol.FromString("episode_1_choices"),
-            new RawBytesValue(raw, typeSymbol)));
-        ps.TypeGroups.Add(group);
-
-        var accessor = new SaveAccessor(ps);
-
-        var choice = DougCarley;
-
-        accessor.ApplyChoice(choice, 0);
-        Assert.Equal("doug", accessor.GetChoiceValue("dougcarley_saved"));
-    }
-
-    [Fact]
-    public void DetectCurrentChoice_ReturnsNegativeOne_WhenNoData()
-    {
-        var ps = new PropertySet();
-        var accessor = new SaveAccessor(ps);
-
-        var choice = TestSeasons.AllChoices.First();
-        Assert.Equal(-1, accessor.DetectCurrentChoice(choice));
-    }
-
-    [Fact]
     public void Registry_HasAllSeasons()
     {
         Assert.Equal(6, TestSeasons.Registry.All.Count);
@@ -145,24 +72,4 @@ public class ChoiceDatabaseTests
         Assert.NotNull(TestSeasons.Registry.Get("MICHONNE"));
     }
 
-    [Theory]
-    [InlineData("s1", "WalkingDead101")]
-    [InlineData("s1_400days", "WalkingDead104")]
-    [InlineData("s2", "WalkingDead201")]
-    [InlineData("s3", "WalkingDead301")]
-    [InlineData("s4", "WalkingDead401")]
-    [InlineData("michonne", "WalkingDeadM101")]
-    public void Season_HasScenesForItsEpisodes(string seasonKey, string episodeId)
-    {
-        var season = TestSeasons.Registry.Get(seasonKey)!;
-        Assert.NotEmpty(season.GetScenes(episodeId));
-        Assert.Equal(season.GetScenes(episodeId), TestSeasons.Registry.GetScenes(episodeId));
-    }
-
-    [Fact]
-    public void Season_HasNoScenesForOtherSeasonsEpisodes()
-    {
-        Assert.Empty(TestSeasons.Registry.Get("s1")!.GetScenes("WalkingDead201"));
-        Assert.Empty(TestSeasons.Registry.GetScenes("NoSuchEpisode"));
-    }
 }

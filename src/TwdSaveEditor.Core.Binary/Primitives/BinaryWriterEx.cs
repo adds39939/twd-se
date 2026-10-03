@@ -14,7 +14,6 @@ public sealed class BinaryWriterEx : IDisposable
 
     public long Position => _writer.BaseStream.Position;
 
-    public void WriteByte(byte value) => _writer.Write(value);
     public void WriteBytes(byte[] data) => _writer.Write(data);
     public void WriteUInt32(uint value) => _writer.Write(value);
     public void WriteInt32(int value) => _writer.Write(value);

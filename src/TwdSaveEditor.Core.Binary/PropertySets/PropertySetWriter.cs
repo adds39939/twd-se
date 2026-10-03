@@ -70,9 +70,6 @@ public sealed class PropertySetWriter
             case SymbolValue sym:
                 writer.WriteSymbol(sym.Value);
                 break;
-            case UInt64Value u:
-                writer.WriteUInt64(u.Value);
-                break;
             case PropertySetValue ps:
                 var nested = Write(ps.Value);
                 writer.WriteBytes(nested);
@@ -88,6 +85,8 @@ public sealed class PropertySetWriter
             case RawBytesValue raw:
                 writer.WriteBytes(raw.Data);
                 break;
+            default:
+                throw new InvalidOperationException($"Cannot write a property value of type {value.GetType().Name}.");
         }
     }
 }
