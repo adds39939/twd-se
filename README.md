@@ -24,14 +24,19 @@ Open your save folder and the editor lists every save in it. For each one you ca
 - import decisions from the previous season's save the way the game does
 - create a new save for any season, starting at the episode you choose
 
-Saves are read and written in the game's own formats. Every file is backed up into a `backup_<timestamp>` folder before it is changed.
+Saves are read and written in the game's own formats. Every file is backed up into a `backup_<timestamp>` folder inside the save folder before it is changed.
+
+<p align="center">
+  <img src="docs/images/decisions.png" width="49%" alt="The Decisions tab of a Season 1 save">
+  <img src="docs/images/inventory.png" width="49%" alt="The Inventory tab of a Season 1 save">
+</p>
 
 ## Seasons
 
 | Season | Decisions | Resume points | Inventory |
 |--------|-----------|---------------|-----------|
 | Season 1 | ✅ | episode or chapter | Lee's items |
-| 400 Days | ✅ | story or chapter | — |
+| 400 Days | ✅ | story or chapter | the survivor's items |
 | Season 2 | ✅ | episode or chapter | Clementine's items |
 | Michonne | ✅ | episode or chapter | Michonne's items |
 | A New Frontier (Season 3) | ✅ | episode or chapter | Javier's items |
@@ -41,11 +46,20 @@ Saves are read and written in the game's own formats. Every file is backed up in
 
 The game keeps its saves in `Documents\Telltale Games\The Walking Dead Definitive`.
 
-Open [twd-se.app](https://twd-se.app/) in Chrome, Edge or another Chromium browser, click **Open Save Directory** and pick that folder. The editor remembers the folder and opens it again on your next visit, or offers to reopen it when the browser asks for permission first. Click **Reload** after playing to read the folder again, and **Discard Changes** to reload one save and drop its unsaved edits.
+On Linux and Steam Deck the folder is inside the Steam library the game is installed in: `steamapps/compatdata/1449690/pfx/drive_c/users/steamuser/Documents/Telltale Games/The Walking Dead Definitive`.
+
+Open [twd-se.app](https://twd-se.app/) in Chrome, Edge or another Chromium browser, click **Open Save Directory** and pick that folder. The editor remembers the folder and opens it again on your next visit, or offers to reopen it when the browser asks for permission first. Click **Reload** after playing to read the folder again, and **Discard Changes** to reload one save and drop its unsaved edits. Chrome and Edge can also install the editor as an app from the address bar, and once installed it works offline.
 
 Other browsers can upload the save files instead. **Download Changes** then downloads a zip of the files that changed; copy them into the save folder and delete any files listed in `files-to-delete.txt`.
 
-Keep the game closed while you edit.
+## In the game
+
+- Keep the game closed while you edit.
+- The game shows four slots per season.
+- A save set to the start of an episode is listed as a new game: select the slot, pick the episode and press Play.
+- If Steam reports a cloud sync conflict when the game starts, keep the local files.
+
+If a save doesn't load or looks wrong, [open an issue](https://github.com/adds39939/twd-se/issues/new) and attach the slot's files: `wdN_saveslotX.bundle` and the `_wdN_saveslotX_*` files next to it.
 
 ## Building
 
