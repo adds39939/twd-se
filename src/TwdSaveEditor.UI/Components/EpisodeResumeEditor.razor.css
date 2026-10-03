@@ -11,7 +11,7 @@
 }
 
 .form-group label {
-    width: 120px;
+    width: 8.57rem;
     font-weight: 500;
     color: var(--text-secondary);
     flex-shrink: 0;
@@ -19,7 +19,7 @@
 
 .form-group select {
     flex: 1;
-    max-width: 350px;
+    max-width: 25rem;
 }
 
 .field-value {

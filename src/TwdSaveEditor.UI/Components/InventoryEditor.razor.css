@@ -1,5 +1,5 @@
 .inventory-editor {
-    max-width: 600px;
+    max-width: 42.86rem;
 }
 
 .inventory-summary {
@@ -13,7 +13,7 @@
 
 .inventory-items {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(12.86rem, 1fr));
     gap: 0.5rem;
 }
 

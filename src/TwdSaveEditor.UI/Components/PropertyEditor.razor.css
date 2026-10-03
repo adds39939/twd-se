@@ -32,11 +32,11 @@
 .property-editor input[type="text"],
 .property-editor input[type="number"] {
     width: 100%;
-    max-width: 300px;
+    max-width: 21.43rem;
 }
 
 .wide-input {
-    max-width: 500px !important;
+    max-width: 35.71rem !important;
 }
 
 table {

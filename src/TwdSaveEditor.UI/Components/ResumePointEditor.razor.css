@@ -1,5 +1,5 @@
 .resume-editor {
-    max-width: 600px;
+    max-width: 42.86rem;
 }
 
 .resume-form {
@@ -15,7 +15,7 @@
 }
 
 .form-group label {
-    width: 120px;
+    width: 8.57rem;
     font-weight: 500;
     color: var(--text-secondary);
     flex-shrink: 0;
