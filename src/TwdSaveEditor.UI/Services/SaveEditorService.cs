@@ -183,7 +183,7 @@ public class SaveEditorService
             .ToArray();
 
         var loadedCount = 0;
-        foreach (var fileName in bundleFiles.Where(name => !IsCompanionFile(name)))
+        foreach (var fileName in bundleFiles.Where(IsSaveFile))
         {
             try
             {
@@ -207,8 +207,12 @@ public class SaveEditorService
         return loadedCount;
     }
 
-    private bool IsCompanionFile(string fileName) =>
-        _registry.DetectFromFileName(fileName) is ICompanionFileHandler companion && companion.IsCompanionFile(fileName);
+    private bool IsSaveFile(string fileName) => _registry.DetectFromFileName(fileName) switch
+    {
+        null => false,
+        ICompanionFileHandler companion => !companion.IsCompanionFile(fileName),
+        _ => true,
+    };
 
     public SaveSlot ReadBundle(byte[] data, string fileName)
     {

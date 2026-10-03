@@ -181,6 +181,21 @@ public class SaveEditorServiceTests
     }
 
     [Fact]
+    public async Task LoadDirectory_LeavesOutTheGamesOwnBundles()
+    {
+        A.CallTo(() => _fs.ListFiles()).Returns(["global.bundle", "menu.bundle", Season1Saves.Slot, Season1Saves.Autosave]);
+        A.CallTo(() => _fs.ReadFile(A<string>._)).ReturnsLazily((string name) => Season1Saves.ReadBytes(name));
+        var service = ServiceReadingSaves();
+        await service.PickDirectory();
+
+        await service.LoadDirectory();
+
+        Assert.Equal(Season1Saves.Slot, service.Saves.Single().FileName);
+        A.CallTo(() => _fs.ReadFile("global.bundle")).MustNotHaveHappened();
+        A.CallTo(() => _fs.ReadFile("menu.bundle")).MustNotHaveHappened();
+    }
+
+    [Fact]
     public async Task RestoreDirectory_LoadsARememberedFolderThatStillHasAccess()
     {
         A.CallTo(() => _fs.RememberedDirectory()).Returns(new RememberedDirectory(FolderName, true));

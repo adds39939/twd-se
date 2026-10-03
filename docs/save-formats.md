@@ -14,6 +14,8 @@ The Definitive Series keeps every season's saves in `Documents\Telltale Games\Th
 
 The editor lists the slot bundle and loads the rest with it as companion files. Before writing anything it copies every file it is about to touch into a `backup_<timestamp>` folder.
 
+The folder also holds files that belong to the game rather than to a slot, and the editor leaves them out of the list: only bundles a season recognises by their prefix are read. `global.bundle` holds `achievement_status.prop`, a copy of which achievements are unlocked that `Achievements.lua` rewrites from the platform's own record, so editing it would change nothing that lasts. `menu.bundle` holds `viewed_entries.prop`, the episodes whose "new" badge in the chapter menu has been seen (`ViewTracker.lua`). `prefs.prop` and `ttcd.prop` are the game's settings, and the `menu_log_*` and `session_*` estores are event logs the game keeps for itself.
+
 ## MetaStream
 
 Every file is a MetaStream, Telltale's container. The header is the magic (`MSV6`, or `MSV5` in a few old files), a list of version entries (type CRC64 + version CRC32) and three section sizes: default, debug and async. A section whose size has the top bit set is TTCZ compressed: 64 KiB pages of raw deflate behind a page offset table, and the data is zero-padded to whole blocks. The debug section holds four zero bytes for every symbol in the default section.
