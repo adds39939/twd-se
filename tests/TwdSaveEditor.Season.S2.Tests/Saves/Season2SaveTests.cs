@@ -446,6 +446,32 @@ public class Season2SaveTests
         Assert.Equal(35, S2ChapterCatalog.ImportedKeys.Sum(entry => entry.Keys.Count));
     }
 
+    [Fact]
+    public void RestartFromChapter_IsReadBackAsThatChapter()
+    {
+        var resume = TestSeasons.Resolve<IS2ResumePoint>();
+        for (var episode = S2ResumePoint.FirstEpisode; episode <= S2ResumePoint.LastEpisode; episode++)
+        {
+            foreach (var chapter in S2ChapterCatalog.ForEpisode(episode)!.Chapters.Where(chapter => !chapter.StartsEpisode))
+            {
+                var slot = Season2Saves.LoadEpisode1Save();
+                Season2Saves.Handler.RestartFromChapter(slot, episode, chapter.Id);
+                Assert.Equal(chapter.Id, resume.Chapter(resume.ResumeSave(slot)!, episode)?.Id);
+            }
+        }
+    }
+
+    [Fact]
+    public void RestartFromAnActThreeChapter_CarriesTheActThreeItems()
+    {
+        var slot = Season2Saves.LoadEpisode1Save();
+
+        Season2Saves.Handler.RestartFromChapter(slot, 3, "Yard15");
+
+        Assert.Equal("Yard", Season2Saves.Handler.GetResumeState(slot).Checkpoint);
+        Assert.Equal(["ui_item_derringer", "ui_item_walkieTalkie"], Season2Saves.Handler.GetCarriedItems(slot).Select(item => item.Id));
+    }
+
     private static PropertySet Runtime(SaveSlot save, ulong name)
     {
         var file = save.FindFile(name);

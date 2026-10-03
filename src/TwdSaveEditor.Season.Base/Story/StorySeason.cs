@@ -1,5 +1,5 @@
 using System.Reflection;
-using System.Text.Json;
+using TwdSaveEditor.Season.Base.Resources;
 
 namespace TwdSaveEditor.Season.Base.Story;
 
@@ -11,17 +11,15 @@ public sealed class StorySeason
     private const string ChaptersSuffix = ".chapters.json";
     private const string ItemsSuffix = ".items.json";
 
-    private static readonly JsonSerializerOptions JsonOptions = new() { PropertyNameCaseInsensitive = true };
-
     private readonly Lazy<StoryDecisionData> _decisions;
     private readonly Lazy<StoryChapterData> _chapters;
     private readonly Lazy<StoryItemData> _items;
 
     public StorySeason(Assembly data)
     {
-        _decisions = new(() => Load<StoryDecisionData>(data, DecisionsSuffix) ?? new StoryDecisionData([], []));
-        _chapters = new(() => Load<StoryChapterData>(data, ChaptersSuffix) ?? new StoryChapterData([]));
-        _items = new(() => Load<StoryItemData>(data, ItemsSuffix) ?? new StoryItemData([]));
+        _decisions = new(() => EmbeddedSeasonData.Load<StoryDecisionData>(data, DecisionsSuffix) ?? new StoryDecisionData([], []));
+        _chapters = new(() => EmbeddedSeasonData.Load<StoryChapterData>(data, ChaptersSuffix) ?? new StoryChapterData([]));
+        _items = new(() => EmbeddedSeasonData.Load<StoryItemData>(data, ItemsSuffix) ?? new StoryItemData([]));
     }
 
     public required int LastEpisode { get; init; }
@@ -69,11 +67,4 @@ public sealed class StorySeason
         project != null && project.StartsWith(ProjectPrefix, StringComparison.OrdinalIgnoreCase) && int.TryParse(project[ProjectPrefix.Length..], out var episode)
             ? episode
             : FirstEpisode;
-
-    private static T? Load<T>(Assembly assembly, string suffix)
-    {
-        var name = assembly.GetManifestResourceNames().First(resource => resource.EndsWith(suffix, StringComparison.OrdinalIgnoreCase));
-        using var stream = assembly.GetManifestResourceStream(name)!;
-        return JsonSerializer.Deserialize<T>(stream, JsonOptions);
-    }
 }

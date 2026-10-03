@@ -257,6 +257,20 @@ public class Season4SaveTests
         Assert.Equal("Configurator", S4Story.Season.Chapters[0].Opening.Script);
     }
 
+    [Fact]
+    public void RestartFromChapter_IsReadBackAsThatChapter()
+    {
+        foreach (var episode in S4Story.Season.Chapters)
+        {
+            foreach (var chapter in episode.Chapters.Where(chapter => !chapter.StartsEpisode))
+            {
+                var slot = Season4Saves.LoadEpisode1Save();
+                Season4Saves.Handler.RestartFromChapter(slot, episode.Episode, chapter.Id);
+                Assert.Equal(chapter.Id, S4Story.Resume.Chapter(S4Story.Resume.ResumeSave(slot)!, episode.Episode)?.Id);
+            }
+        }
+    }
+
     private static PropertySet Runtime(SaveSlot save, ulong name)
     {
         var file = save.FindFile(name);

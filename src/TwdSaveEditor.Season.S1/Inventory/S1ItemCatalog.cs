@@ -1,12 +1,10 @@
-using System.Text.Json;
+using TwdSaveEditor.Season.Base.Resources;
 
 namespace TwdSaveEditor.Season.S1.Inventory;
 
 public static class S1ItemCatalog
 {
     private const string ResourceSuffix = "s1.items.json";
-
-    private static readonly JsonSerializerOptions JsonOptions = new() { PropertyNameCaseInsensitive = true };
 
     private static readonly Lazy<S1ItemData> Data = new(Load);
 
@@ -16,9 +14,6 @@ public static class S1ItemCatalog
 
     private static S1ItemData Load()
     {
-        var assembly = typeof(S1ItemCatalog).Assembly;
-        var name = assembly.GetManifestResourceNames().First(resource => resource.EndsWith(ResourceSuffix, StringComparison.OrdinalIgnoreCase));
-        using var stream = assembly.GetManifestResourceStream(name)!;
-        return JsonSerializer.Deserialize<S1ItemData>(stream, JsonOptions) ?? new S1ItemData([]);
+        return EmbeddedSeasonData.Load<S1ItemData>(typeof(S1ItemCatalog).Assembly, ResourceSuffix) ?? new S1ItemData([]);
     }
 }

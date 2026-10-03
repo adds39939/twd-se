@@ -32,6 +32,13 @@ public static class EmbeddedSeasonData
         return choices.AsReadOnly();
     }
 
+    public static T? Load<T>(Assembly assembly, string suffix)
+    {
+        var name = assembly.GetManifestResourceNames().First(resource => resource.EndsWith(suffix, StringComparison.OrdinalIgnoreCase));
+        using var stream = assembly.GetManifestResourceStream(name)!;
+        return JsonSerializer.Deserialize<T>(stream, JsonOptions);
+    }
+
     private static IEnumerable<Stream> OpenResources(Assembly assembly, string suffix)
     {
         foreach (var resourceName in assembly.GetManifestResourceNames())

@@ -58,7 +58,7 @@ public sealed class S2Inventory(IS2ResumePoint resume) : IS2Inventory
         var properties = DialogLogSaves.RuntimeProperties(save, S2SlotFiles.InventoryProperties, Unreadable);
         var previous = properties.GetStrings(ItemsKey) ?? [];
         var items = held.Where(item => item.Count > 0).Select(item => item.Id).Distinct(StringComparer.Ordinal).ToList();
-        var game = resume.Properties(save, S2SlotFiles.LogicGameProperties);
+        var game = DialogLogSaves.FindRuntimeProperties(save, S2SlotFiles.LogicGameProperties);
 
         foreach (var removed in previous.Except(items, StringComparer.Ordinal))
         {

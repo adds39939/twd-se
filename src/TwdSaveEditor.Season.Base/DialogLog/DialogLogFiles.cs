@@ -10,6 +10,7 @@ public static class DialogLogFiles
     public const string PageExtension = ".epage";
     public const string BundleExtension = ".bundle";
     public const string AutosaveName = "autosave";
+    public const string CheckpointName = "checkpoint";
 
     private const string PageInfix = "_id_Page";
     private const string RuntimeVisible = "Runtime: Visible";
@@ -22,6 +23,18 @@ public static class DialogLogFiles
     public static string StorageName(string slotFileName) => $"_{Path.GetFileNameWithoutExtension(slotFileName)}{StorageSuffix}";
 
     public static string SaveName(string slotFileName, string save) => $"{Prefix(slotFileName)}{save}{BundleExtension}";
+
+    public static string NextCheckpointName(SaveSlot slot)
+    {
+        for (var index = 1; ; index++)
+        {
+            var name = SaveName(slot.FileName, CheckpointName + index);
+            if (!slot.Checkpoints.Any(save => save.FileName.Equals(name, StringComparison.OrdinalIgnoreCase)))
+            {
+                return name;
+            }
+        }
+    }
 
     public static bool IsPage(string slotFileName, string fileName) =>
         fileName.StartsWith($"_{Path.GetFileNameWithoutExtension(slotFileName)}{PageInfix}", StringComparison.OrdinalIgnoreCase)

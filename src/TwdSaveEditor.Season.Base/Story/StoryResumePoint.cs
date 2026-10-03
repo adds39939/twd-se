@@ -1,7 +1,6 @@
 using System.Globalization;
 using System.Text.Json;
 using System.Text.RegularExpressions;
-using TwdSaveEditor.Core.Binary.Bundles;
 using TwdSaveEditor.Core.Constants;
 using TwdSaveEditor.Core.Hashing;
 using TwdSaveEditor.Core.Model;
@@ -112,18 +111,14 @@ public sealed partial class StoryResumePoint(StorySeason season)
             return null;
         }
 
-        if (Properties(save, season.ScriptProperties)?.GetString(StoryCheckpointBuilder.PreviousScript) != StoryCheckpointBuilder.DeveloperMenuScript)
+        if (DialogLogSaves.FindRuntimeProperties(save, season.ScriptProperties)?.GetString(StoryCheckpointBuilder.PreviousScript) != StoryCheckpointBuilder.DeveloperMenuScript)
         {
             return save.FindFile(StoryFiles.LogicGameProperties) == null && script.Equals(chapters.Opening.Script, StringComparison.OrdinalIgnoreCase)
                 ? chapters.Opening
                 : null;
         }
 
-        var flags = Properties(save, StoryFiles.LogicGameProperties);
-        return chapters.Chapters
-            .Where(chapter => !chapter.StartsEpisode && chapter.Script.Equals(script, StringComparison.OrdinalIgnoreCase))
-            .Where(chapter => chapter.Flags.All(flag => flags?.Find(flag.Key) != null))
-            .MaxBy(chapter => chapter.Flags.Count);
+        return chapters.Generated(script, DialogLogSaves.FindRuntimeProperties(save, StoryFiles.LogicGameProperties));
     }
 
     public StoryChapter? Chapter(SaveSlot save, int episode)
@@ -145,9 +140,6 @@ public sealed partial class StoryResumePoint(StorySeason season)
             .ToList() ?? [];
         return chapters.Count == 1 ? chapters[0] : null;
     }
-
-    public static PropertySet? Properties(SaveSlot save, ulong name) =>
-        save.FindFile(name) is { } file && BundleReader.TryParseProperties(file) ? file.Properties : null;
 
     private void Rewind(SaveSlot slot, int episode)
     {
@@ -210,7 +202,7 @@ public sealed partial class StoryResumePoint(StorySeason season)
     {
         var metadata = slot.Metadata!;
         var serial = (metadata.GetInt(SlotMetadataKeys.LatestSerial) ?? 0) + 1;
-        var fileName = season.ChapterSaves ? NextCheckpointName(slot) : DialogLogFiles.SaveName(slot.FileName, DialogLogFiles.AutosaveName);
+        var fileName = season.ChapterSaves ? DialogLogFiles.NextCheckpointName(slot) : DialogLogFiles.SaveName(slot.FileName, DialogLogFiles.AutosaveName);
 
         var save = _builder.Build(slot, episode, chapter, fileName, serial, date);
         slot.Checkpoints.RemoveAll(existing => existing.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase));
@@ -220,18 +212,6 @@ public sealed partial class StoryResumePoint(StorySeason season)
 
         metadata.SetString(SlotMetadataKeys.LatestSave, fileName);
         metadata.SetInt(SlotMetadataKeys.LatestSerial, serial);
-    }
-
-    private static string NextCheckpointName(SaveSlot slot)
-    {
-        for (var index = 1; ; index++)
-        {
-            var name = DialogLogFiles.SaveName(slot.FileName, StoryFiles.CheckpointName + index);
-            if (!slot.Checkpoints.Any(save => save.FileName.Equals(name, StringComparison.OrdinalIgnoreCase)))
-            {
-                return name;
-            }
-        }
     }
 
     private static SaveSlot? LatestSave(SaveSlot slot)

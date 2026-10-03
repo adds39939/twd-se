@@ -10,7 +10,6 @@ public static class StoryFiles
     public const string GeneratedChoices = "Generated Choices ID";
     public const string SavedProject = "Saved Game Project";
     public const string SavedScript = "Saved Game Script";
-    public const string CheckpointName = "checkpoint";
 
     public static readonly ulong LogicGameProperties = DialogLogFiles.RuntimeProperties("logic_game");
     public static readonly ulong SaveLoadProperties = DialogLogFiles.RuntimeProperties("logic_saveload");

@@ -248,6 +248,20 @@ public class MichonneSaveTests
         Assert.Equal(5, MichonneSaves.Handler.GetChapters(1).Select(chapter => chapter.Group).Distinct().Count() + 2);
     }
 
+    [Fact]
+    public void RestartFromChapter_IsReadBackAsThatChapter()
+    {
+        foreach (var episode in MichonneStory.Season.Chapters)
+        {
+            foreach (var chapter in episode.Chapters.Where(chapter => !chapter.StartsEpisode))
+            {
+                var slot = MichonneSaves.LoadEpisode1Save();
+                MichonneSaves.Handler.RestartFromChapter(slot, episode.Episode, chapter.Id);
+                Assert.Equal(chapter.Id, MichonneStory.Resume.Chapter(MichonneStory.Resume.ResumeSave(slot)!, episode.Episode)?.Id);
+            }
+        }
+    }
+
     private static PropertySet Runtime(SaveSlot save, ulong name)
     {
         var file = save.FindFile(name);

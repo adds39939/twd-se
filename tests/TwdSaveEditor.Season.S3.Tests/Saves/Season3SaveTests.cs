@@ -17,6 +17,7 @@ public class Season3SaveTests
     private const string BadgerKiller = "Episode 303 - Who Killed Badger";
     private const string Gabe = "Episode 305 - Did you go after Gabe or with Kate";
     private const string Clementine = "Episode 305 - Did Clementine come along with you";
+    private const string TwinOfRichmondSquareDawn = "RichmondSquareDawnAction";
 
     [Fact]
     public void RealSave_LoadsItsLogAndAutosave()
@@ -352,6 +353,20 @@ public class Season3SaveTests
         Assert.Single(chapters, chapter => chapter.Script == "JunkyardHill");
         Assert.Single(chapters, chapter => chapter.Script == "GarciaDominguezHouse");
         Assert.Equal(3, chapters.Count(chapter => chapter.Script == "VirginiaRoad"));
+    }
+
+    [Fact]
+    public void RestartFromChapter_IsReadBackAsThatChapter()
+    {
+        foreach (var episode in S3Story.Season.Chapters)
+        {
+            foreach (var chapter in episode.Chapters.Where(chapter => !chapter.StartsEpisode && chapter.Id != TwinOfRichmondSquareDawn))
+            {
+                var slot = Season3Saves.LoadEpisode1Save();
+                Season3Saves.Handler.RestartFromChapter(slot, episode.Episode, chapter.Id);
+                Assert.Equal(chapter.Id, S3Story.Resume.Chapter(S3Story.Resume.ResumeSave(slot)!, episode.Episode)?.Id);
+            }
+        }
     }
 
     private static PropertySet Runtime(SaveSlot save, ulong name)

@@ -1,12 +1,10 @@
-using System.Text.Json;
+using TwdSaveEditor.Season.Base.Resources;
 
 namespace TwdSaveEditor.Season.S2.Decisions;
 
 public static class S2DecisionCatalog
 {
     private const string ResourceSuffix = "s2.nodes.json";
-
-    private static readonly JsonSerializerOptions JsonOptions = new() { PropertyNameCaseInsensitive = true };
 
     private static readonly Lazy<IReadOnlyList<S2Decision>> Decisions = new(Load);
 
@@ -17,9 +15,6 @@ public static class S2DecisionCatalog
 
     private static IReadOnlyList<S2Decision> Load()
     {
-        var assembly = typeof(S2DecisionCatalog).Assembly;
-        var name = assembly.GetManifestResourceNames().First(resource => resource.EndsWith(ResourceSuffix, StringComparison.OrdinalIgnoreCase));
-        using var stream = assembly.GetManifestResourceStream(name)!;
-        return JsonSerializer.Deserialize<List<S2Decision>>(stream, JsonOptions) ?? [];
+        return EmbeddedSeasonData.Load<List<S2Decision>>(typeof(S2DecisionCatalog).Assembly, ResourceSuffix) ?? [];
     }
 }

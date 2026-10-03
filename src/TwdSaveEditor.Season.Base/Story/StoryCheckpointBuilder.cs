@@ -1,10 +1,6 @@
-using System.Text.Json;
-using TwdSaveEditor.Core.Binary.Bundles;
-using TwdSaveEditor.Core.Binary.SaveGames;
 using TwdSaveEditor.Core.Constants;
-using TwdSaveEditor.Core.Hashing;
 using TwdSaveEditor.Core.Model;
-using TwdSaveEditor.Season.Base.DialogLog;
+using TwdSaveEditor.Season.Base.Checkpoints;
 
 namespace TwdSaveEditor.Season.Base.Story;
 
@@ -34,7 +30,7 @@ public sealed class StoryCheckpointBuilder(StorySeason season)
         metadata.SetString(StoryFiles.SavedProject, project);
 
         var sets = new SortedDictionary<ulong, PropertySet>();
-        var saveLoad = Runtime(sets, season.SaveLoadProperties);
+        var saveLoad = CheckpointBundle.Runtime(sets, season.SaveLoadProperties);
         saveLoad.SetBool(AutoSave, false);
         if (season.ChapterSaves)
         {
@@ -49,9 +45,9 @@ public sealed class StoryCheckpointBuilder(StorySeason season)
 
         if (!chapter.StartsEpisode)
         {
-            Runtime(sets, season.ScriptProperties).SetString(PreviousScript, DeveloperMenuScript);
+            CheckpointBundle.Runtime(sets, season.ScriptProperties).SetString(PreviousScript, DeveloperMenuScript);
 
-            var game = Runtime(sets, StoryFiles.LogicGameProperties);
+            var game = CheckpointBundle.Runtime(sets, StoryFiles.LogicGameProperties);
             if (season.GameLogicVisible)
             {
                 game.SetBool(RuntimeVisible, true);
@@ -60,32 +56,12 @@ public sealed class StoryCheckpointBuilder(StorySeason season)
             ApplyLogicKeys(slot, episode, game);
             foreach (var flag in chapter.Flags)
             {
-                Apply(game, flag.Key, flag.Value);
+                CheckpointBundle.Apply(game, flag.Key, flag.Value);
             }
         }
 
-        var save = new SaveGameFile
-        {
-            LuaDoFile = chapter.Script + ScriptExtension,
-            Agents = [],
-            RuntimePropertyNames = [.. sets.Keys],
-            EnabledDynamicSets = [.. season.SharedResourceSets.Prepend(project).Select(TelltaleHash.ComputeCrc64)],
-        };
-
-        var bundle = SaveSlotFactory.Create(fileName);
-        bundle.DetectedSeasonKey = slot.DetectedSeasonKey;
+        var bundle = CheckpointBundle.Create(slot, fileName, metadata, chapter.Script + ScriptExtension, season.SharedResourceSets.Prepend(project), sets);
         bundle.Modified = true;
-        bundle.Files.Add(SaveSlotFactory.CreateFile(BundleFileNames.SaveMetadata, metadata));
-        bundle.Files.Add(BundleFileEntry.Create(BundleFileNames.SaveGame, TelltaleTypes.SaveGame, SaveGameCodec.Write(save)));
-        bundle.Files.AddRange(sets.Select(entry => new BundleFileEntry
-        {
-            NameField = new byte[BundleFileEntry.NameFieldSize],
-            NameSymbol = entry.Key,
-            TypeSymbol = TelltaleTypes.PropertySet,
-            Data = [],
-            Properties = entry.Value,
-        }));
-
         return bundle;
     }
 
@@ -109,31 +85,5 @@ public sealed class StoryCheckpointBuilder(StorySeason season)
                 game.SetString(key.Key, text);
                 break;
         }
-    }
-
-    private static void Apply(PropertySet properties, string key, JsonElement value)
-    {
-        switch (value.ValueKind)
-        {
-            case JsonValueKind.True or JsonValueKind.False:
-                properties.SetBool(key, value.GetBoolean());
-                break;
-            case JsonValueKind.Number:
-                properties.SetInt(key, value.GetInt32());
-                break;
-            case JsonValueKind.String:
-                properties.SetString(key, value.GetString()!);
-                break;
-        }
-    }
-
-    private static PropertySet Runtime(SortedDictionary<ulong, PropertySet> sets, ulong name)
-    {
-        if (!sets.TryGetValue(name, out var properties))
-        {
-            sets[name] = properties = DialogLogFiles.NewRuntimeProperties();
-        }
-
-        return properties;
     }
 }

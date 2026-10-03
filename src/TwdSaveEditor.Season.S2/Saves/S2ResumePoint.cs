@@ -1,7 +1,7 @@
-using TwdSaveEditor.Core.Binary.Bundles;
 using TwdSaveEditor.Core.Constants;
 using TwdSaveEditor.Core.Model;
 using TwdSaveEditor.Season.Base.DialogLog;
+using TwdSaveEditor.Season.Base.Story;
 using TwdSaveEditor.Season.Common.Model;
 using TwdSaveEditor.Season.S2.Chapters;
 using TwdSaveEditor.Season.S2.Decisions;
@@ -70,7 +70,7 @@ public sealed class S2ResumePoint(IS2CheckpointBuilder builder) : IS2ResumePoint
         return savedEpisode < episode || GeneratedChapter(save, savedEpisode) is { StartsEpisode: true } ? null : save;
     }
 
-    public S2Chapter? Chapter(SaveSlot save, int episode)
+    public StoryChapter? Chapter(SaveSlot save, int episode)
     {
         if (GeneratedChapter(save, episode) is { } generated)
         {
@@ -160,11 +160,11 @@ public sealed class S2ResumePoint(IS2CheckpointBuilder builder) : IS2ResumePoint
         }
     }
 
-    private void AddCheckpoint(SaveSlot slot, S2EpisodeChapters episode, S2Chapter chapter, string date)
+    private void AddCheckpoint(SaveSlot slot, StoryEpisodeChapters episode, StoryChapter chapter, string date)
     {
         var metadata = slot.Metadata!;
         var serial = (metadata.GetInt(SlotMetadataKeys.LatestSerial) ?? 0) + 1;
-        var fileName = NextCheckpointName(slot);
+        var fileName = DialogLogFiles.NextCheckpointName(slot);
 
         slot.Checkpoints.Add(builder.Build(slot, episode, chapter, fileName, serial, date));
         slot.ObsoleteFileNames.RemoveAll(name => name.Equals(fileName, StringComparison.OrdinalIgnoreCase));
@@ -174,19 +174,7 @@ public sealed class S2ResumePoint(IS2CheckpointBuilder builder) : IS2ResumePoint
         metadata.SetInt(SlotMetadataKeys.LatestSerial, serial);
     }
 
-    private static string NextCheckpointName(SaveSlot slot)
-    {
-        for (var index = 1; ; index++)
-        {
-            var name = S2SlotFiles.SaveName(slot.FileName, S2SlotFiles.CheckpointName + index);
-            if (!slot.Checkpoints.Any(save => save.FileName.Equals(name, StringComparison.OrdinalIgnoreCase)))
-            {
-                return name;
-            }
-        }
-    }
-
-    private S2Chapter? GeneratedChapter(SaveSlot save, int episode)
+    private static StoryChapter? GeneratedChapter(SaveSlot save, int episode)
     {
         if (save.Metadata?.GetString(S2CheckpointBuilder.SavedScript) is not { } script || S2ChapterCatalog.ForEpisode(episode) is not { } chapters)
         {
@@ -198,18 +186,11 @@ public sealed class S2ResumePoint(IS2CheckpointBuilder builder) : IS2ResumePoint
             return chapters.Opening;
         }
 
-        if (Properties(save, S2SlotFiles.ScriptProperties)?.GetString(S2CheckpointBuilder.PreviousScript) != S2CheckpointBuilder.DeveloperMenuScript)
+        if (DialogLogSaves.FindRuntimeProperties(save, S2SlotFiles.ScriptProperties)?.GetString(S2CheckpointBuilder.PreviousScript) != S2CheckpointBuilder.DeveloperMenuScript)
         {
             return null;
         }
 
-        var flags = Properties(save, S2SlotFiles.LogicGameProperties);
-        return chapters.Chapters
-            .Where(chapter => !chapter.StartsEpisode && chapter.Script.Equals(script, StringComparison.OrdinalIgnoreCase))
-            .Where(chapter => chapter.Flags.All(flag => flags?.Find(flag.Key) != null))
-            .MaxBy(chapter => chapter.Flags.Count);
+        return chapters.Generated(script, DialogLogSaves.FindRuntimeProperties(save, S2SlotFiles.LogicGameProperties));
     }
-
-    public PropertySet? Properties(SaveSlot save, ulong name) =>
-        save.FindFile(name) is { } file && BundleReader.TryParseProperties(file) ? file.Properties : null;
 }

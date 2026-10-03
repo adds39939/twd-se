@@ -8,6 +8,9 @@ namespace TwdSaveEditor.Season.Base.DialogLog;
 
 public static class DialogLogSaves
 {
+    public static PropertySet? FindRuntimeProperties(SaveSlot save, ulong name) =>
+        save.FindFile(name) is { } file && BundleReader.TryParseProperties(file) ? file.Properties : null;
+
     public static PropertySet RuntimeProperties(SaveSlot save, ulong name, string unreadable)
     {
         if (save.FindFile(name) is { } existing)

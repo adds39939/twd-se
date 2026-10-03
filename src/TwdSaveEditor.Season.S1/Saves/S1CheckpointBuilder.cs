@@ -1,9 +1,7 @@
-using System.Text.Json;
-using TwdSaveEditor.Core.Binary.Bundles;
-using TwdSaveEditor.Core.Binary.SaveGames;
 using TwdSaveEditor.Core.Constants;
 using TwdSaveEditor.Core.Hashing;
 using TwdSaveEditor.Core.Model;
+using TwdSaveEditor.Season.Base.Checkpoints;
 using TwdSaveEditor.Season.S1.Accessors;
 using TwdSaveEditor.Season.S1.Chapters;
 using TwdSaveEditor.Season.S1.Persistence;
@@ -45,7 +43,7 @@ public sealed class S1CheckpointBuilder : IS1CheckpointBuilder
 
         foreach (var flag in chapter.Flags)
         {
-            Apply(Properties(sets, flag.Agent, flag.Scene ?? S1RuntimeProperties.LogicScene), flag.Key, flag.Value);
+            CheckpointBundle.Apply(Properties(sets, flag.Agent, flag.Scene ?? S1RuntimeProperties.LogicScene), flag.Key, flag.Value);
         }
 
         ApplyDecisionFlags(slot, episode, chapter, sets);
@@ -63,28 +61,7 @@ public sealed class S1CheckpointBuilder : IS1CheckpointBuilder
             sets[S1RuntimeProperties.Name(entry.Scene, entry.Scene)] = scene;
         }
 
-        var save = new SaveGameFile
-        {
-            LuaDoFile = entry.Script,
-            Agents = [],
-            RuntimePropertyNames = [.. sets.Keys],
-            EnabledDynamicSets = [.. SharedResourceSets.Append(episodeId).Select(TelltaleHash.ComputeCrc64)],
-        };
-
-        var bundle = SaveSlotFactory.Create(S1SlotFiles.AutosaveName(slot.FileName));
-        bundle.DetectedSeasonKey = slot.DetectedSeasonKey;
-        bundle.Files.Add(SaveSlotFactory.CreateFile(BundleFileNames.SaveMetadata, metadata));
-        bundle.Files.Add(BundleFileEntry.Create(BundleFileNames.SaveGame, TelltaleTypes.SaveGame, SaveGameCodec.Write(save)));
-        bundle.Files.AddRange(sets.Select(entry => new BundleFileEntry
-        {
-            NameField = new byte[BundleFileEntry.NameFieldSize],
-            NameSymbol = entry.Key,
-            TypeSymbol = TelltaleTypes.PropertySet,
-            Data = [],
-            Properties = entry.Value,
-        }));
-
-        return bundle;
+        return CheckpointBundle.Create(slot, S1SlotFiles.AutosaveName(slot.FileName), metadata, entry.Script, SharedResourceSets.Append(episodeId), sets);
     }
 
     private static void ApplyDecisions(SaveSlot slot, S1EpisodeChapters episode, S1Chapter chapter, SortedDictionary<ulong, PropertySet> sets)
@@ -113,24 +90,8 @@ public sealed class S1CheckpointBuilder : IS1CheckpointBuilder
         {
             if (accessor.GetChoiceValue(flag.ChoiceKey) is { } choice && flag.Values.TryGetValue(choice, out var value))
             {
-                Apply(Logic(sets, flag.Agent), flag.Key, value);
+                CheckpointBundle.Apply(Logic(sets, flag.Agent), flag.Key, value);
             }
-        }
-    }
-
-    private static void Apply(PropertySet properties, string key, JsonElement value)
-    {
-        switch (value.ValueKind)
-        {
-            case JsonValueKind.True or JsonValueKind.False:
-                properties.SetBool(key, value.GetBoolean());
-                break;
-            case JsonValueKind.Number:
-                properties.SetInt(key, value.GetInt32());
-                break;
-            case JsonValueKind.String:
-                properties.SetString(key, value.GetString()!);
-                break;
         }
     }
 

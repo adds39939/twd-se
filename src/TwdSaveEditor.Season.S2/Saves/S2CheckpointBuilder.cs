@@ -1,9 +1,7 @@
-using System.Text.Json;
-using TwdSaveEditor.Core.Binary.Bundles;
-using TwdSaveEditor.Core.Binary.SaveGames;
 using TwdSaveEditor.Core.Constants;
-using TwdSaveEditor.Core.Hashing;
 using TwdSaveEditor.Core.Model;
+using TwdSaveEditor.Season.Base.Checkpoints;
+using TwdSaveEditor.Season.Base.Story;
 using TwdSaveEditor.Season.S2.Chapters;
 using TwdSaveEditor.Season.S2.Decisions;
 
@@ -23,7 +21,7 @@ public sealed class S2CheckpointBuilder : IS2CheckpointBuilder
 
     private static readonly string[] SharedResourceSets = ["MenuSeason2", "ProjectSeason2"];
 
-    public SaveSlot Build(SaveSlot slot, S2EpisodeChapters episode, S2Chapter chapter, string fileName, int serial, string date)
+    public SaveSlot Build(SaveSlot slot, StoryEpisodeChapters episode, StoryChapter chapter, string fileName, int serial, string date)
     {
         var episodeId = S2SlotFiles.EpisodeId(episode.Episode);
 
@@ -36,45 +34,25 @@ public sealed class S2CheckpointBuilder : IS2CheckpointBuilder
 
         var sets = new SortedDictionary<ulong, PropertySet>();
 
-        var saveLoad = Runtime(sets, S2SlotFiles.SaveLoadProperties);
+        var saveLoad = CheckpointBundle.Runtime(sets, S2SlotFiles.SaveLoadProperties);
         saveLoad.SetBool(AutoSave, false);
         saveLoad.SetString(ChapterId, chapter.ChapterId);
 
         if (!chapter.StartsEpisode)
         {
-            Runtime(sets, S2SlotFiles.ScriptProperties).SetString(PreviousScript, DeveloperMenuScript);
+            CheckpointBundle.Runtime(sets, S2SlotFiles.ScriptProperties).SetString(PreviousScript, DeveloperMenuScript);
 
-            var game = Runtime(sets, S2SlotFiles.LogicGameProperties);
+            var game = CheckpointBundle.Runtime(sets, S2SlotFiles.LogicGameProperties);
             ApplyImportedChoices(slot, game);
             ApplyEarlierDecisions(slot, episode.Episode, game);
             foreach (var flag in chapter.Flags)
             {
-                Apply(game, flag.Key, flag.Value);
+                CheckpointBundle.Apply(game, flag.Key, flag.Value);
             }
         }
 
-        var save = new SaveGameFile
-        {
-            LuaDoFile = chapter.Script + ScriptExtension,
-            Agents = [],
-            RuntimePropertyNames = [.. sets.Keys],
-            EnabledDynamicSets = [.. SharedResourceSets.Prepend(episodeId).Select(TelltaleHash.ComputeCrc64)],
-        };
-
-        var bundle = SaveSlotFactory.Create(fileName);
-        bundle.DetectedSeasonKey = slot.DetectedSeasonKey;
+        var bundle = CheckpointBundle.Create(slot, fileName, metadata, chapter.Script + ScriptExtension, SharedResourceSets.Prepend(episodeId), sets);
         bundle.Modified = true;
-        bundle.Files.Add(SaveSlotFactory.CreateFile(BundleFileNames.SaveMetadata, metadata));
-        bundle.Files.Add(BundleFileEntry.Create(BundleFileNames.SaveGame, TelltaleTypes.SaveGame, SaveGameCodec.Write(save)));
-        bundle.Files.AddRange(sets.Select(entry => new BundleFileEntry
-        {
-            NameField = new byte[BundleFileEntry.NameFieldSize],
-            NameSymbol = entry.Key,
-            TypeSymbol = TelltaleTypes.PropertySet,
-            Data = [],
-            Properties = entry.Value,
-        }));
-
         return bundle;
     }
 
@@ -117,31 +95,5 @@ public sealed class S2CheckpointBuilder : IS2CheckpointBuilder
                 game.SetBool(decision.LogicKey!, option?.LogicValue != null);
             }
         }
-    }
-
-    private static void Apply(PropertySet properties, string key, JsonElement value)
-    {
-        switch (value.ValueKind)
-        {
-            case JsonValueKind.True or JsonValueKind.False:
-                properties.SetBool(key, value.GetBoolean());
-                break;
-            case JsonValueKind.Number:
-                properties.SetInt(key, value.GetInt32());
-                break;
-            case JsonValueKind.String:
-                properties.SetString(key, value.GetString()!);
-                break;
-        }
-    }
-
-    private static PropertySet Runtime(SortedDictionary<ulong, PropertySet> sets, ulong name)
-    {
-        if (!sets.TryGetValue(name, out var properties))
-        {
-            sets[name] = properties = S2SlotFiles.NewRuntimeProperties();
-        }
-
-        return properties;
     }
 }

@@ -84,5 +84,5 @@ public sealed class StoryInventory(StorySeason season, StoryResumePoint resume, 
     private static int EpisodeOf(SaveSlot save) => save.Metadata?.GetInt(SaveMetadataKeys.Episode) ?? StorySeason.FirstEpisode;
 
     private int Count(SaveSlot save, string itemId) =>
-        Math.Max(sets.Select(name => StoryResumePoint.Properties(save, name)?.GetInt(itemId)).FirstOrDefault(count => count != null) ?? 0, 0);
+        Math.Max(sets.Select(name => DialogLogSaves.FindRuntimeProperties(save, name)?.GetInt(itemId)).FirstOrDefault(count => count != null) ?? 0, 0);
 }

@@ -28,8 +28,9 @@ src/
 │   └── Extensions/                 CreateSave helpers
 ├── TwdSaveEditor.Season.Base/      Building blocks shared by the season projects
 │   ├── Handlers/                   SeasonHandlerBase, StorySeasonHandler
-│   ├── DialogLog/                  Event log editing, companion files, node expressions
-│   ├── Story/                      Decisions, resume points, checkpoints and items of Seasons 3, 4 and Michonne
+│   ├── Checkpoints/                Bundle assembly and flag writing shared by every checkpoint builder
+│   ├── DialogLog/                  Event log editing, companion files, node expressions, checkpoint naming
+│   ├── Story/                      Decisions, resume points, checkpoints and items of Seasons 3, 4 and Michonne; Season 2 uses its chapter records
 │   ├── Resources/                  Embedded season data loader
 │   └── Extensions/                 DI registration of the shared services
 ├── TwdSaveEditor.Season.S1/        Season 1 and 400 Days

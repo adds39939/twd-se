@@ -1,5 +1,6 @@
 using TwdSaveEditor.Core.Constants;
 using TwdSaveEditor.Core.Model;
+using TwdSaveEditor.Season.Base.DialogLog;
 using TwdSaveEditor.Season.Common.Abstractions;
 using TwdSaveEditor.Season.Common.Model;
 
@@ -50,7 +51,7 @@ public sealed class StoryChoiceAccessor(SaveSlot slot, StorySeason season) : ICh
         var nodes = new StoryEventLog(slot, season).Nodes();
         foreach (var save in slot.Checkpoints)
         {
-            if (StoryResumePoint.Properties(save, StoryFiles.LogicGameProperties) is not { } game)
+            if (DialogLogSaves.FindRuntimeProperties(save, StoryFiles.LogicGameProperties) is not { } game)
             {
                 continue;
             }
