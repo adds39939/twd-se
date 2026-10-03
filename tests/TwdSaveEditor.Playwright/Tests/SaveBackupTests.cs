@@ -64,7 +64,7 @@ public class SaveBackupTests
 
         var saveBtn = page.Locator(".save-btn");
         await saveBtn.ClickAsync();
-        await page.WaitForTimeoutAsync(2000);
+        await Assertions.Expect(page.Locator(".header-status")).ToContainTextAsync("Saved wd2_saveslot1.bundle");
 
         var folder = await FakeSaveDirectory.GetLastBackupFolderAsync(page);
         var files = await FakeSaveDirectory.GetLastBackupFilesAsync(page);
@@ -94,7 +94,7 @@ public class SaveBackupTests
 
         var saveBtn = page.Locator(".save-btn");
         await saveBtn.ClickAsync();
-        await page.WaitForTimeoutAsync(2000);
+        await Assertions.Expect(page.Locator(".header-status")).ToContainTextAsync("Saved wd1_saveslot1.bundle");
 
         var folder = await FakeSaveDirectory.GetLastBackupFolderAsync(page);
         var files = await FakeSaveDirectory.GetLastBackupFilesAsync(page);

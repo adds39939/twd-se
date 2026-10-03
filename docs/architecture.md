@@ -114,6 +114,10 @@ The version in the footer is the informational version of the `Web` assembly: `d
 
 `dotnet publish` prerenders the start page into `index.html` with `BlazorWasmPreRendering.Build`, so the editor shows straight away instead of a loading spinner while the WebAssembly runtime downloads. The prerenderer calls the static `ConfigureServices` function in `Program.cs`, so every service registration belongs there. Until the runtime is up the page cannot respond, so components that need it check `RendererInfo.IsInteractive`: the Open Save Directory button reads Loading... and `app-ready` is only set once the app is interactive. `dotnet run` does not prerender and still shows the spinner.
 
+The published site is plain static files for GitHub Pages. `InvariantGlobalization` leaves out the ICU culture data, since every date and number the editor reads or writes already uses the invariant culture. The `.br` and `.gz` copies the publish writes next to each file go unused on GitHub Pages, which compresses responses itself, but stay for hosts that serve precompressed files; the service worker caches only the originals. `fileSystem.js` gets a fingerprinted file name, which the import map in `index.html` points to, so a new release never runs against a cached copy of the old one; the SDK only does this for ES modules in a standalone app, so `app.css` keeps its plain name. The release workflow installs the `wasm-tools` workload, which relinks the WebAssembly runtime to about half its size.
+
+`service-worker.published.js` replaces the empty development service worker on publish. It caches every file the build lists in `service-worker-assets.js`, checked against its hash, and answers from that cache, so the installed app opens without a connection. Each build gets its own cache; a new release's worker waits until every tab of the old one is closed, so an open tab never loses a file it still needs.
+
 ## Tests
 
 ```
@@ -135,9 +139,9 @@ tests/
 
 `tests/Directory.Build.props` holds the test packages (xunit, FakeItEasy, coverlet) once, so each test project is only its project references. `TestSeasons.Registry` is built from `AddTwdSaveEditorServices()`, the same wiring the app uses.
 
-The Playwright fixture starts `TwdSaveEditor.Web` with `dotnet run` and replaces `window.showDirectoryPicker` with an in-memory directory (`Support/FakeSaveDirectory.cs`), so the tests can open real saves from `TestData`, edit them and read the written bytes back without touching disk.
+The Playwright fixture publishes `TwdSaveEditor.Web` in Release into the test output, serves it from an in-process server on a free port (`Support/PublishedSite.cs`), and replaces `window.showDirectoryPicker` with an in-memory directory (`Support/FakeSaveDirectory.cs`), so the tests can open real saves from `TestData`, edit them and read the written bytes back without touching disk.
 
-The Test workflow runs on every push and pull request to `main`. The Release workflow calls it on the tagged commit first and only publishes when every test passes.
+The Test workflow runs on every push and pull request to `main`, and a newer push to a pull request cancels the run before it. It installs `wasm-tools` like the Release workflow, so the Playwright tests run against the build that gets deployed, caches NuGet packages, and runs every test project in one `dotnet test`. The `main` ruleset requires its `test` check, so it has no path filters: a pull request that only changes docs still needs the check to pass. The Release workflow calls it on the tagged commit first and only publishes when every test passes.
 
 ## Build rules
 

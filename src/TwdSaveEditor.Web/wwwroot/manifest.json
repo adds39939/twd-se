@@ -2,7 +2,9 @@
   "name": "TWD Save Editor",
   "short_name": "TWD Saves",
   "description": "Save editor for The Walking Dead: The Telltale Definitive Series",
+  "id": "/",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#1a1a1a",
   "theme_color": "#1a1a1a",
@@ -16,6 +18,12 @@
       "src": "_content/TwdSaveEditor.UI/images/icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
+    },
+    {
+      "src": "_content/TwdSaveEditor.UI/images/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }

@@ -34,11 +34,11 @@ jobs:
         with:
           dotnet-version: '10.0.x'
 
-      - name: Publish Blazor WASM
-        run: dotnet publish src/TwdSaveEditor.Web/TwdSaveEditor.Web.csproj -c Release -o output -p:InformationalVersion=$GITHUB_REF_NAME
+      - name: Install wasm-tools
+        run: dotnet workload install wasm-tools
 
-      - name: Add .nojekyll
-        run: touch output/wwwroot/.nojekyll
+      - name: Publish Blazor WASM
+        run: dotnet publish src/TwdSaveEditor.Web/TwdSaveEditor.Web.csproj -c Release -o output -p:InformationalVersion="$GITHUB_REF_NAME"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5

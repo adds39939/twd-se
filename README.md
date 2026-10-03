@@ -55,7 +55,7 @@ You need the [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0).
 dotnet run --project src/TwdSaveEditor.Web
 ```
 
-Then open `http://localhost:5163`. `dotnet test` runs the unit tests and the Playwright browser tests.
+Then open `http://localhost:5163`. `dotnet test` runs the unit tests and the Playwright browser tests, which publish the site and test the published build.
 
 How the save formats work, how the resume points were worked out and how to get at the game's data are written up in [docs](docs/).
 

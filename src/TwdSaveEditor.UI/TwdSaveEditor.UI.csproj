@@ -7,6 +7,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <StaticWebAssetFingerprintPattern Include="JS" Pattern="*.js" Expression="#[.{fingerprint}]!" />
+    </ItemGroup>
+
+    <ItemGroup>
       <SupportedPlatform Include="browser" />
     </ItemGroup>
 

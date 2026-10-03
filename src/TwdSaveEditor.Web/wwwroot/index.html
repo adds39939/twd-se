@@ -5,6 +5,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TWD Save Editor</title>
+    <meta name="description" content="Edit the decisions, resume point and inventory of your saves for The Walking Dead: The Telltale Definitive Series, in the browser." />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="TWD Save Editor" />
+    <meta property="og:description" content="Edit the decisions, resume point and inventory of your saves for The Walking Dead: The Telltale Definitive Series, in the browser." />
+    <meta property="og:url" content="https://twd-se.app/" />
+    <meta property="og:image" content="https://twd-se.app/_content/TwdSaveEditor.UI/images/icon-maskable-512.png" />
+    <meta name="twitter:card" content="summary" />
     <base href="/" />
     <link rel="preload" id="webassembly" />
     <link rel="stylesheet" href="_content/TwdSaveEditor.UI/css/app.css" />
@@ -33,7 +40,7 @@
     <script src="_framework/blazor.webassembly#[.{fingerprint}].js"></script>
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('service-worker.js');
+            navigator.serviceWorker.register('service-worker.js', { updateViaCache: 'none' });
         }
     </script>
 </body>
