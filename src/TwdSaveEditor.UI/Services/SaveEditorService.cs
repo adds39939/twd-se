@@ -24,7 +24,6 @@ public class SaveEditorService
     public string? DirectoryName { get; private set; }
     public string? RememberedDirectoryName { get; private set; }
     public bool DownloadsChanges => !_directoryOpen;
-    public string StatusMessage { get; set; } = "Select a save directory to begin.";
     public bool IsLoading { get; set; }
 
     public bool HasUnsavedChanges => _modified.Count > 0;
@@ -126,18 +125,14 @@ public class SaveEditorService
     public async Task LoadDirectory()
     {
         IsLoading = true;
-        StatusMessage = "Loading saves...";
         NotifyStateChanged();
 
         try
         {
             var loadedCount = await LoadSaves(await SourceFileNames());
-
-            StatusMessage = $"Loaded {loadedCount} save(s) from {DirectoryName}.";
             if (loadedCount == 0)
             {
-                StatusMessage = "No valid save files found in the selected directory.";
-                Notify("No valid save files found in the selected directory.", "info");
+                Notify($"No saves found in {DirectoryName}.");
             }
             else
             {
@@ -146,8 +141,7 @@ public class SaveEditorService
         }
         catch (Exception ex)
         {
-            StatusMessage = $"Error: {ex.Message}";
-            Notify($"Error loading directory: {ex.Message}", "error");
+            Notify($"Couldn't read the save folder: {ex.Message}", "error");
         }
         finally
         {
@@ -166,7 +160,15 @@ public class SaveEditorService
         }
 
         var loadedCount = await LoadSaves(await SourceFileNames());
-        StatusMessage = $"Loaded {loadedCount} save(s).";
+        if (loadedCount == 0)
+        {
+            Notify("No saves found in the uploaded files.");
+        }
+        else
+        {
+            Notify($"Loaded {loadedCount} save(s).", "success");
+        }
+
         NotifyStateChanged();
     }
 
@@ -187,9 +189,6 @@ public class SaveEditorService
         {
             try
             {
-                StatusMessage = $"Loading {fileName}...";
-                NotifyStateChanged();
-
                 if (await ReadSave(fileName, fileNames) is not { } slot)
                 {
                     continue;
@@ -200,7 +199,7 @@ public class SaveEditorService
             }
             catch (Exception ex)
             {
-                Notify($"Failed to load {fileName}: {ex.Message}", "error");
+                Notify($"Couldn't read {fileName}: {ex.Message}", "error");
             }
         }
 
@@ -270,16 +269,13 @@ public class SaveEditorService
 
     public async Task SaveFile(SaveSlot slot)
     {
-        StatusMessage = $"Saving {slot.FileName}...";
-        NotifyStateChanged();
-
         try
         {
             if (!_directoryOpen)
             {
-                StatusMessage = await DownloadFiles(slot, BuildFiles(slot));
+                var downloaded = await DownloadFiles(slot, BuildFiles(slot));
                 _modified.Remove(slot);
-                Notify(StatusMessage, "success");
+                Notify(downloaded, "success");
                 NotifyStateChanged();
                 return;
             }
@@ -292,14 +288,12 @@ public class SaveEditorService
                 return;
             }
 
-            StatusMessage = $"Saved {slot.FileName} successfully.";
             _modified.Remove(slot);
-            Notify($"Saved {slot.FileName} successfully.", "success");
+            Notify($"Saved {slot.FileName}.", "success");
         }
         catch (Exception ex)
         {
-            StatusMessage = $"Error saving: {ex.Message}";
-            Notify($"Error saving: {ex.Message}", "error");
+            Notify($"Couldn't save {slot.FileName}: {ex.Message}", "error");
         }
 
         NotifyStateChanged();
@@ -329,12 +323,11 @@ public class SaveEditorService
                 SelectedSave = reloaded;
             }
 
-            StatusMessage = $"Discarded the changes to {slot.FileName}.";
-            Notify(StatusMessage, "info");
+            Notify($"Discarded the changes to {slot.FileName}.");
         }
         catch (Exception ex)
         {
-            Notify($"Failed to reload {slot.FileName}: {ex.Message}", "error");
+            Notify($"Couldn't reload {slot.FileName}: {ex.Message}", "error");
         }
         finally
         {
@@ -370,8 +363,7 @@ public class SaveEditorService
                 continue;
             }
 
-            StatusMessage = $"Failed to write {file.Name}.";
-            Notify($"Failed to write {file.Name}.", "error");
+            Notify($"Couldn't write {file.Name}.", "error");
             return false;
         }
 
@@ -379,7 +371,7 @@ public class SaveEditorService
         {
             if (await _fs.DeleteFile(name))
             {
-                Notify($"Removed {name}.", "info");
+                Notify($"Removed {name}.");
             }
         }
 
@@ -392,15 +384,12 @@ public class SaveEditorService
         var backupFolder = await _backup.BackupBeforeSave(slot);
         if (backupFolder != null)
         {
-            Notify($"Backup created in {backupFolder}/", "info");
+            Notify($"Backed up to {backupFolder}/");
         }
     }
 
     public async Task<SaveSlot?> CreateNewSave(string seasonKey, int episode, string fileName)
     {
-        StatusMessage = $"Creating {fileName}...";
-        NotifyStateChanged();
-
         try
         {
             var slot = _registry.CreateSave(seasonKey, episode, fileName);
@@ -436,15 +425,13 @@ public class SaveEditorService
 
             Saves.Add(slot);
             SelectedSave = slot;
-            StatusMessage = $"Created {fileName}.{downloaded}";
-            Notify($"Created {fileName} successfully.{downloaded}", "success");
+            Notify($"Created {fileName}.{downloaded}", "success");
             NotifyStateChanged();
             return slot;
         }
         catch (Exception ex)
         {
-            StatusMessage = $"Error creating save: {ex.Message}";
-            Notify($"Error creating save: {ex.Message}", "error");
+            Notify($"Couldn't create {fileName}: {ex.Message}", "error");
             NotifyStateChanged();
             return null;
         }

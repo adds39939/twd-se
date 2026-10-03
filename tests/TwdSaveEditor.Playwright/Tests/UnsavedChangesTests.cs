@@ -71,14 +71,14 @@ public class UnsavedChangesTests
         await Assertions.Expect(SaveItem(page, "wdm_saveslot2.bundle").Locator("[data-testid='save-unsaved']")).ToHaveCountAsync(0);
 
         await page.Locator(".save-btn").ClickAsync();
-        await Assertions.Expect(page.Locator(".header-status")).ToContainTextAsync("Saved wdm_saveslot2.bundle");
+        await Assertions.Expect(page.Locator(".toast-success", new() { HasTextString = "Saved wdm_saveslot2.bundle" }).First).ToBeVisibleAsync();
         await Assertions.Expect(SaveItem(page, "wd2_saveslot1.bundle").Locator("[data-testid='save-unsaved']")).ToBeVisibleAsync();
         await ExpectLeavingBlocked(page, true);
 
         await SaveItem(page, "wd2_saveslot1.bundle").ClickAsync();
         await Assertions.Expect(page.Locator(".save-btn")).ToHaveTextAsync("Save Changes *");
         await page.Locator(".save-btn").ClickAsync();
-        await Assertions.Expect(page.Locator(".header-status")).ToContainTextAsync("Saved wd2_saveslot1.bundle");
+        await Assertions.Expect(page.Locator(".toast-success", new() { HasTextString = "Saved wd2_saveslot1.bundle" }).First).ToBeVisibleAsync();
         await Assertions.Expect(page.Locator("[data-testid='save-unsaved']")).ToHaveCountAsync(0);
         await ExpectLeavingBlocked(page, false);
     }

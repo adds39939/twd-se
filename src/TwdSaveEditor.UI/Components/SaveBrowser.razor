@@ -17,7 +17,7 @@
         else
         {
             <div class="upload-area">
-                <p class="text-muted">Your browser doesn't support directory access. Upload save files instead:</p>
+                <p class="text-muted">Your browser can't open folders. Upload save files instead:</p>
                 <InputFile OnChange="OnFilesUploaded" multiple accept=".bundle,.estore,.epage" />
             </div>
         }
@@ -68,7 +68,7 @@
                     }
                     @if (summary.Damaged)
                     {
-                        <span class="badge badge-danger" data-testid="save-damaged" title="Part of this save cannot be read">Damaged</span>
+                        <span class="badge badge-danger" data-testid="save-damaged" title="Part of this save can't be read">Damaged</span>
                     }
                 </div>
                 @if (summary.Position.Length > 0)

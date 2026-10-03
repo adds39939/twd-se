@@ -8,10 +8,10 @@ namespace TwdSaveEditor.Season.Base.Story;
 
 public sealed class StoryInventory(StorySeason season, StoryResumePoint resume, string owner, IReadOnlyList<ulong> sets, string noItems)
 {
-    private const string NoSave = "The inventory is kept in the save the game resumes from. This slot starts an episode from its beginning or is finished, so there is nothing to edit yet. Set a chapter under Resume Point first.";
-    private const string Damaged = "The save of this slot cannot be read, so its inventory cannot be edited.";
-    private const string LogDamaged = "The dialog log of this save cannot be read, so its inventory cannot be edited.";
-    private const string Unreadable = "Cannot set the inventory: the save's inventory properties cannot be read.";
+    private const string NoSave = "This slot starts at an episode's beginning or is finished, so there's no inventory to edit yet. Set a chapter under Resume Point first.";
+    private const string Damaged = "This slot's save can't be read, so the inventory can't be edited.";
+    private const string LogDamaged = "The dialog log can't be read, so the inventory can't be edited.";
+    private const string Unreadable = "Can't set the inventory: its properties in the save can't be read.";
 
     public InventoryState GetState(SaveSlot slot)
     {

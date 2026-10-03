@@ -23,5 +23,5 @@ public static class MichonneStory
         Resume,
         "Michonne",
         [StoryFiles.InventoryProperties],
-        "Michonne carries no items in this episode; the game only hands out items in Episode 1.");
+        "Michonne has no items in this episode; only Episode 1 has items.");
 }

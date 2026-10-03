@@ -2,8 +2,7 @@
     @if (Slot is { EventLogDamaged: true })
     {
         <p class="log-damaged" data-testid="log-damaged">
-            The dialog log of this save (its .estore and .epage files) cannot be read, so its decisions cannot be
-            shown or changed.
+            The dialog log (.estore and .epage files) can't be read, so decisions can't be shown or changed.
         </p>
     }
     else if (Slot == null || Accessor == null)

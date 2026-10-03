@@ -33,9 +33,9 @@ public class S4Handler(IDialogLogCompanions companions, IStorySaveFactory saves,
 
     public override IReadOnlyList<string> ResumeNotes { get; } =
     [
-        "Season 4 works out its decisions from a log of what was played. Restarting an episode removes its save and cuts the log back to where that episode began; earlier episodes are marked as finished so the game does not offer to randomise their decisions.",
-        "From a later chapter, a small save is written that opens the scene the way the developers' chapter menu does. Decisions made in scenes before the chapter are kept; the others are cleared so they can be made again.",
-        "Episode 1 begins with the story builder, which asks about the earlier seasons again and adds its answers to the save. To keep the earlier seasons as set here, resume Episode 1 from \"Road Tile\" instead of its beginning.",
+        "Restarting an episode removes its save and cuts the decision log back to its start. Earlier episodes are marked finished, so the game won't offer to randomise them.",
+        "A chapter opens the way the developers' chapter menu does. Decisions from before it are kept; later ones are cleared to be made again.",
+        "Episode 1 opens with the story builder, which asks about the earlier seasons again. To keep the choices set here, start Episode 1 from \"Road Tile\".",
     ];
 
     public IReadOnlyList<ChoicePreset> Presets { get; } =
@@ -58,8 +58,8 @@ public class S4Handler(IDialogLogCompanions companions, IStorySaveFactory saves,
 
     public IReadOnlyList<string> InventoryNotes { get; } =
     [
-        "Season 4 has no items to carry. What Clementine collects instead are the collectibles of the four episodes, kept in the slot file as found and placed in her room.",
-        "A collectible marked as found but not placed can still be placed in the room; one marked as placed should also be marked as found. The list covers every episode.",
+        "Season 4 has no inventory. Instead, Clementine's collectibles from all four episodes are tracked as found and as placed in her room.",
+        "A found collectible can still be placed in the room; a placed one should also be marked found.",
     ];
 
     public InventoryState GetInventory(SaveSlot slot) => collectibles.GetState(slot);

@@ -33,10 +33,10 @@
         @if (ExistingSave is { } existing)
         {
             <p class="replace-warning" data-testid="new-save-replaces">
-                @existing.FileName already exists. Creating the new save replaces it; its current files are backed up first.
+                @existing.FileName already exists and will be replaced; its files are backed up first.
                 @if (Editor.IsModified(existing))
                 {
-                    <span>Its unsaved changes are lost.</span>
+                    <span>Its unsaved changes will be lost.</span>
                 }
             </p>
         }

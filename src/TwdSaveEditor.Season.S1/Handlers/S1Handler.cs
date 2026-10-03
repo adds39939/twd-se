@@ -98,9 +98,9 @@ public class S1Handler(IS1ResumePoint resume, IS1Inventory inventory, IS1SaveFac
 
     public IReadOnlyList<string> ResumeNotes { get; } =
     [
-        "From the start of an episode, the slot is listed in the game as a new game until the first checkpoint: select it, pick the episode and press Play.",
-        "From a later chapter, a small checkpoint is written. The game shows the scene before the chapter for a moment, then starts the chapter with the decisions set here and saves its own checkpoint.",
-        "In 400 Days, the stories listed before the chosen chapter count as finished, with their decisions.",
+        "From an episode's start, the game lists the slot as a new game: select it, pick the episode and press Play.",
+        "From a chapter, the game briefly shows the scene before it, then starts the chapter with these decisions.",
+        "In 400 Days, the stories before the chosen one count as finished.",
     ];
 
     public ResumeState GetResumeState(SaveSlot slot) => resume.GetState(slot);
@@ -114,9 +114,9 @@ public class S1Handler(IS1ResumePoint resume, IS1Inventory inventory, IS1SaveFac
 
     public IReadOnlyList<string> InventoryNotes { get; } =
     [
-        "The items are kept in the save the game resumes from. Setting a new resume point writes a new save, which starts with only what the developers' chapter setup hands out.",
-        "\"Add items picked up earlier\" gives only what is certain in the order of the developers' chapter list: items whose scenes all lie before the chapter and that no scene since could have used up. It is offered for a chapter set here, until the game replaces the save with its own.",
-        "Season 1 items open steps of its puzzles and its scenes are revisited, so look over the list before saving. The weapon follows the Episode 3 weapon decision.",
+        "Items live in the save the game resumes from. A new resume point starts with only what its chapter hands out.",
+        "\"Add items picked up earlier\" adds only items certain to be held: found before the chapter and not used since. It works until the game saves over the chapter.",
+        "Items unlock puzzle steps and scenes repeat, so check the list before saving. The weapon follows the Episode 3 weapon decision.",
     ];
 
     public InventoryState GetInventory(SaveSlot slot) => inventory.GetState(slot);

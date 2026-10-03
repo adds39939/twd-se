@@ -8,6 +8,8 @@ public partial class ToastContainer : IDisposable
 {
     [Inject] public SaveEditorService Editor { get; set; } = default!;
 
+    private const string ErrorType = "error";
+
     private readonly List<Toast> _toasts = [];
 
     protected override void OnInitialized()
@@ -20,6 +22,11 @@ public partial class ToastContainer : IDisposable
         var toast = new Toast(Guid.NewGuid(), message, type);
         _toasts.Add(toast);
         await InvokeAsync(StateHasChanged);
+        if (type == ErrorType)
+        {
+            return;
+        }
+
         _ = Task.Delay(5000).ContinueWith(_ =>
         {
             _toasts.Remove(toast);

@@ -79,20 +79,18 @@
         @if (Slot.EventLogDamaged)
         {
             <p class="checkpoint-damaged" data-testid="log-damaged">
-                The dialog log of this save (its .estore and .epage files) cannot be read. Restarting would replace it,
-                so the resume point cannot be changed.
+                The dialog log (.estore and .epage files) can't be read, so the resume point can't be changed.
             </p>
         }
         else if (_state.CheckpointDamaged)
         {
             <p class="checkpoint-damaged">
-                The checkpoint file of this save cannot be read, so the game cannot load it. Restart the episode to
-                repair the save.
+                The checkpoint can't be read, so the game can't load it. Restart the episode to repair the save.
             </p>
         }
         <p class="text-muted">
-            Choosing an episode or chapter replaces the in-progress checkpoint as soon as it is picked, and the save
-            is written when you press Save Changes. Decisions of earlier episodes that are not set yet are filled in.
+            Your choice replaces the current checkpoint and is written when you press Save Changes. Unset decisions
+            from earlier episodes are filled in.
         </p>
         @foreach (var note in Handler.ResumeNotes)
         {

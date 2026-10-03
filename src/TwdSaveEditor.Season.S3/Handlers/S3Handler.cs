@@ -35,9 +35,9 @@ public class S3Handler(IDialogLogCompanions companions, IStorySaveFactory saves)
 
     public override IReadOnlyList<string> ResumeNotes { get; } =
     [
-        "Season 3 works out its decisions from a log of what was played. Restarting an episode removes its save and cuts the log back to where that episode began; earlier episodes are marked as finished so the game does not offer to randomise their decisions.",
-        "From a later chapter, a small save is written that opens the scene the way the developers' chapter menu does. Decisions made in scenes before the chapter are kept; the others are cleared so they can be made again.",
-        "A chapter that belongs to one Season 2 ending, such as a flashback, sets that ending in the save.",
+        "Restarting an episode removes its save and cuts the decision log back to its start. Earlier episodes are marked finished, so the game won't offer to randomise them.",
+        "A chapter opens the way the developers' chapter menu does. Decisions from before it are kept; later ones are cleared to be made again.",
+        "A chapter tied to one Season 2 ending, such as a flashback, sets that ending.",
     ];
 
     public IReadOnlyList<ChoicePreset> Presets { get; } =
@@ -54,9 +54,9 @@ public class S3Handler(IDialogLogCompanions companions, IStorySaveFactory saves)
 
     public IReadOnlyList<string> InventoryNotes { get; } =
     [
-        "The items are kept in the save the game resumes from. Setting a new resume point writes a new save, which starts with nothing but what that scene hands out.",
-        "\"Add items picked up earlier\" gives Javier what is found in the scenes before the resume point and not used up or given away by then. Where giving an item away is a choice, it is taken as given. It is offered for a chapter set here, until the game replaces the save with its own.",
-        "Only Episodes 1 and 2 have items. The list holds the items of the episode in progress.",
+        "Items live in the save the game resumes from. A new resume point starts with only what its scene hands out.",
+        "\"Add items picked up earlier\" adds what Javier found before the resume point and still has; optional gifts count as given. It works until the game saves over the chapter.",
+        "Only Episodes 1 and 2 have items; the list shows this episode's.",
     ];
 
     public InventoryState GetInventory(SaveSlot slot) => S3Story.Inventory.GetState(slot);

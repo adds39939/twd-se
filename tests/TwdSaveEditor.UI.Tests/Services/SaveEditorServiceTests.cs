@@ -112,13 +112,17 @@ public class SaveEditorServiceTests
         service.MarkModified(slot);
         A.CallTo(() => _fs.BackupFiles(A<string>._, A<string[]>._))
             .Returns(new BackupResult(null, "wd2_saveslot1.bundle: The request is not allowed."));
+        var notifications = new List<(string Message, string Type)>();
+        service.OnNotification += (message, type) => notifications.Add((message, type));
 
         await service.SaveFile(slot);
 
         A.CallTo(() => _fs.WriteFile(A<string>._, A<byte[]>._)).MustNotHaveHappened();
         A.CallTo(() => _fs.DeleteFile(A<string>._)).MustNotHaveHappened();
         Assert.True(service.IsModified(slot));
-        Assert.Contains("wd2_saveslot1.bundle", service.StatusMessage);
+        var (message, type) = Assert.Single(notifications);
+        Assert.Equal("error", type);
+        Assert.Contains("The request is not allowed.", message);
     }
 
     [Fact]

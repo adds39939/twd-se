@@ -33,16 +33,6 @@
     border-radius: var(--radius);
 }
 
-.header-status {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    max-width: 50%;
-    text-align: right;
-}
-
 .app-body {
     position: relative;
     flex: 1;

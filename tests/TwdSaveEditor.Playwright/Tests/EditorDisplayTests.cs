@@ -49,7 +49,7 @@ public class EditorDisplayTests
         await Assertions.Expect(page.Locator(".save-btn")).ToHaveTextAsync("Save Changes *");
 
         await page.Locator(".save-btn").ClickAsync();
-        await Assertions.Expect(page.Locator(".header-status")).ToContainTextAsync("Saved wd1_saveslot2.bundle");
+        await Assertions.Expect(page.Locator(".toast-success", new() { HasTextString = "Saved wd1_saveslot2.bundle" }).First).ToBeVisibleAsync();
         await page.Locator("[data-testid='open-directory']").ClickAsync();
         await Assertions.Expect(page.Locator(".save-btn")).ToHaveCountAsync(0);
         await SaveItem(page, "wd1_saveslot2.bundle").ClickAsync();
@@ -102,10 +102,10 @@ public class EditorDisplayTests
         await Assertions.Expect(page.Locator("[data-testid='restart-episode']")).ToBeDisabledAsync();
         await Assertions.Expect(page.Locator("[data-testid='restart-chapter']")).ToBeDisabledAsync();
         await page.Locator("[data-testid='tab-inventory']").ClickAsync();
-        await Assertions.Expect(page.Locator(".tab-panel:not([hidden])")).ToContainTextAsync("dialog log of this save cannot be read");
+        await Assertions.Expect(page.Locator(".tab-panel:not([hidden])")).ToContainTextAsync("dialog log can't be read");
 
         await page.Locator(".save-btn").ClickAsync();
-        await Assertions.Expect(page.Locator(".header-status")).ToContainTextAsync("Saved wd3_saveslot1.bundle");
+        await Assertions.Expect(page.Locator(".toast-success", new() { HasTextString = "Saved wd3_saveslot1.bundle" }).First).ToBeVisibleAsync();
         Assert.Equal(directory[storage], await FakeSaveDirectory.ReadFileAsync(page, storage));
     }
 

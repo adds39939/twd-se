@@ -101,7 +101,7 @@ public partial class SaveBrowser : IDisposable
             }
             catch (Exception ex)
             {
-                Editor.StatusMessage = $"Failed to load {file.Name}: {ex.Message}";
+                Editor.ShowError($"Couldn't read {file.Name}: {ex.Message}");
             }
         }
 
@@ -157,7 +157,7 @@ public partial class SaveBrowser : IDisposable
         var title = string.Join(" · ", new[] { season?.Name, slot }.OfType<string>());
         if (save.Metadata == null)
         {
-            return new SaveSummary(title, "The save cannot be read", null, true);
+            return new SaveSummary(title, "The save can't be read", null, true);
         }
 
         if (season is not IResumePointHandler resume)

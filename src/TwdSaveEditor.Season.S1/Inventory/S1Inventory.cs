@@ -13,8 +13,8 @@ public sealed class S1Inventory(IS1ResumePoint resume) : IS1Inventory
 {
     private const string MainOwner = "Lee";
     private const string ExtraOwner = "The story's survivor";
-    private const string NoSave = "The inventory is kept in the save the game resumes from. This slot starts an episode from its beginning, so there is nothing to edit yet. Set a chapter under Resume Point first.";
-    private const string Damaged = "The checkpoint of this save cannot be read, so its inventory cannot be edited.";
+    private const string NoSave = "This slot starts at an episode's beginning, so there's no inventory to edit yet. Set a chapter under Resume Point first.";
+    private const string Damaged = "The checkpoint can't be read, so the inventory can't be edited.";
 
     public InventoryState GetState(SaveSlot slot)
     {

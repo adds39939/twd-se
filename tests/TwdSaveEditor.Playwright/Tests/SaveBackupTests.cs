@@ -64,7 +64,7 @@ public class SaveBackupTests
 
         var saveBtn = page.Locator(".save-btn");
         await saveBtn.ClickAsync();
-        await Assertions.Expect(page.Locator(".header-status")).ToContainTextAsync("Saved wd2_saveslot1.bundle");
+        await Assertions.Expect(page.Locator(".toast-success", new() { HasTextString = "Saved wd2_saveslot1.bundle" }).First).ToBeVisibleAsync();
 
         var folder = await FakeSaveDirectory.GetLastBackupFolderAsync(page);
         var files = await FakeSaveDirectory.GetLastBackupFilesAsync(page);
@@ -94,7 +94,7 @@ public class SaveBackupTests
 
         var saveBtn = page.Locator(".save-btn");
         await saveBtn.ClickAsync();
-        await Assertions.Expect(page.Locator(".header-status")).ToContainTextAsync("Saved wd1_saveslot1.bundle");
+        await Assertions.Expect(page.Locator(".toast-success", new() { HasTextString = "Saved wd1_saveslot1.bundle" }).First).ToBeVisibleAsync();
 
         var folder = await FakeSaveDirectory.GetLastBackupFolderAsync(page);
         var files = await FakeSaveDirectory.GetLastBackupFilesAsync(page);
@@ -123,7 +123,7 @@ public class SaveBackupTests
 
         var before = await FakeSaveDirectory.GetFileNamesAsync(page);
         await page.Locator(".save-btn").ClickAsync();
-        await Assertions.Expect(page.Locator(".header-status")).ToContainTextAsync("Saved wdm_saveslot2.bundle");
+        await Assertions.Expect(page.Locator(".toast-success", new() { HasTextString = "Saved wdm_saveslot2.bundle" }).First).ToBeVisibleAsync();
 
         var deleted = before.Except(await FakeSaveDirectory.GetFileNamesAsync(page)).ToArray();
         var backup = await FakeSaveDirectory.GetLastBackupFilesAsync(page);
@@ -149,7 +149,7 @@ public class SaveBackupTests
         var before = await ReadAll(page);
         await FakeSaveDirectory.BlockBackupsAsync(page);
         await page.Locator(".save-btn").ClickAsync();
-        await Assertions.Expect(page.Locator(".header-status")).ToContainTextAsync("Backup failed");
+        await Assertions.Expect(page.Locator(".toast-error", new() { HasTextString = "Backup failed" }).First).ToBeVisibleAsync();
 
         Assert.Equal(before, await ReadAll(page));
         Assert.Null(await FakeSaveDirectory.GetLastBackupFolderAsync(page));

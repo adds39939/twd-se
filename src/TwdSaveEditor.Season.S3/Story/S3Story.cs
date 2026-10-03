@@ -24,5 +24,5 @@ public static class S3Story
         Resume,
         "Javier",
         [S3SlotFiles.OwnerInventoryProperties, S3SlotFiles.InventoryProperties],
-        "Javier carries no items in this episode; the season only has items in Episodes 1 and 2.");
+        "Javier has no items in this episode; only Episodes 1 and 2 have items.");
 }

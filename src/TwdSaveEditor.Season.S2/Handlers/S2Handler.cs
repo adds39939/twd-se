@@ -77,9 +77,9 @@ public class S2Handler(IS2ResumePoint resume, IS2Inventory inventory, IS2SaveFac
 
     public IReadOnlyList<string> ResumeNotes { get; } =
     [
-        "Season 2 works out its decisions from a log of what was played. Saves of the chosen episode and of later episodes are removed, and the log is cut back to match.",
-        "From a later chapter, a small checkpoint is written that opens the scene the way the developers' chapter menu does. The game then saves its own checkpoints as you play.",
-        "Decisions of the chosen episode are kept when their scene comes before the chapter. The others are cleared so they can be made again in the game.",
+        "Saves from the chosen episode on are removed, and the decision log is cut back to match.",
+        "A chapter opens the way the developers' chapter menu does; the game saves its own checkpoints from there.",
+        "Decisions from before the chapter are kept; later ones are cleared to be made again.",
     ];
 
     public ResumeState GetResumeState(SaveSlot slot) => resume.GetState(slot);
@@ -93,9 +93,9 @@ public class S2Handler(IS2ResumePoint resume, IS2Inventory inventory, IS2SaveFac
 
     public IReadOnlyList<string> InventoryNotes { get; } =
     [
-        "The items are kept in the save the game resumes from. Setting a new resume point writes a new save, which starts with only what that scene gives Clementine.",
-        "\"Add items picked up earlier\" gives her what is found in the scenes before the resume point and not taken away again by then, and the items the episode starts with for the decisions of earlier episodes. Items found earlier in the same scene are left out.",
-        "The list holds the items of the episode in progress; the game has no icons for items of other episodes.",
+        "Items live in the save the game resumes from. A new resume point starts with only what its scene gives Clementine.",
+        "\"Add items picked up earlier\" adds what she found before the resume point and still has, plus what the episode starts with for earlier decisions. Items from earlier in the same scene are left out.",
+        "Only this episode's items are listed; the game has no icons for the others.",
     ];
 
     public InventoryState GetInventory(SaveSlot slot) => inventory.GetState(slot);
