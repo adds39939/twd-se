@@ -107,7 +107,7 @@ The UI needs no change.
 
 ## UI
 
-`Home.razor` keeps all four tab panels (Decisions, Resume Point, Inventory, Properties) mounted and hides the inactive ones, so unsaved edits survive switching tabs and the Inventory tab follows a resume point that has not been saved yet. `SaveEditorService` owns the loaded saves, the dirty state and writing; `SaveBackupService` copies the files `IBackupFileResolver` names before a write. Component styles live in each component's `.razor.css`; only truly global rules are in `wwwroot/css/app.css`.
+`Home.razor` keeps all four tab panels (Decisions, Resume Point, Inventory, Properties) mounted and hides the inactive ones, so unsaved edits survive switching tabs and the Inventory tab follows a resume point that has not been saved yet. `SaveEditorService` owns the loaded saves, the dirty state and writing; `SaveBackupService` copies the files `IBackupFileResolver` names before a write. Every edit calls `SaveEditorService.MarkModified`, which advances the save's `Revision`; the tabs read a save again only when the selected save or its revision changes, so status messages and toasts do not re-evaluate every decision. Component styles live in each component's `.razor.css`; only truly global rules are in `wwwroot/css/app.css`.
 
 The version in the footer is the informational version of the `Web` assembly: `dev` in a local build, the tag in a release, which the release workflow passes as `-p:InformationalVersion`.
 

@@ -13,26 +13,18 @@ public sealed class S2ChoiceAccessor(SaveSlot slot) : IChoiceAccessor
 {
     private readonly S2EventLogEditor _log = new(slot);
 
-    public int DetectCurrentChoice(ChoiceDefinition choice)
+    public int DetectCurrentChoice(ChoiceDefinition choice) => IndexOf(choice, GetChoiceValue(choice.ChoiceKey));
+
+    public IReadOnlyList<int> DetectCurrentChoices(IReadOnlyList<ChoiceDefinition> choices)
     {
-        var value = GetChoiceValue(choice.ChoiceKey);
-        return value == null
-            ? -1
-            : Array.FindIndex(choice.Options, option => option.Value.Equals(value, StringComparison.OrdinalIgnoreCase));
+        var present = _log.Nodes();
+        return [.. choices.Select(choice => IndexOf(choice, ValueOf(choice.ChoiceKey, decision => S2EventLogEditor.GetValue(decision, present))))];
     }
 
     public void ApplyChoice(ChoiceDefinition choice, int optionIndex) =>
         SetChoiceValue(choice.ChoiceKey, choice.Options[optionIndex].Value);
 
-    public string? GetChoiceValue(string choiceKey)
-    {
-        if (IsImportedKey(choiceKey))
-        {
-            return slot.Choices?.GetString(choiceKey);
-        }
-
-        return S2DecisionCatalog.Find(choiceKey) is { } decision ? _log.GetValue(decision) : null;
-    }
+    public string? GetChoiceValue(string choiceKey) => ValueOf(choiceKey, _log.GetValue);
 
     public void SetChoiceValue(string choiceKey, string value)
     {
@@ -101,6 +93,19 @@ public sealed class S2ChoiceAccessor(SaveSlot slot) : IChoiceAccessor
             }
         }
     }
+
+    private string? ValueOf(string choiceKey, Func<S2Decision, string?> valueOf)
+    {
+        if (IsImportedKey(choiceKey))
+        {
+            return slot.Choices?.GetString(choiceKey);
+        }
+
+        return S2DecisionCatalog.Find(choiceKey) is { } decision ? valueOf(decision) : null;
+    }
+
+    private static int IndexOf(ChoiceDefinition choice, string? value) =>
+        value == null ? -1 : Array.FindIndex(choice.Options, option => option.Value.Equals(value, StringComparison.OrdinalIgnoreCase));
 
     private static bool IsImportedKey(string choiceKey) => S1ChoiceCatalog.PersistentEpisode(choiceKey) != null;
 }

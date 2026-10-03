@@ -14,19 +14,17 @@ public sealed class S2EventLogEditor(SaveSlot slot)
 
     public static ulong NodeSymbol(string node) => TelltaleHash.ComputeCrc64("{" + node + "}");
 
-    public string? GetValue(S2Decision decision) =>
-        (FindSeen(decision) ?? decision.Options.FirstOrDefault(option => option.Nodes.Count == 0))?.Value;
+    public HashSet<ulong> Nodes() => _editor.Nodes();
 
-    public S2DecisionOption? FindSeen(S2Decision decision)
-    {
-        if (slot.EventLog == null)
-        {
-            return null;
-        }
+    public string? GetValue(S2Decision decision) => GetValue(decision, Nodes());
 
-        var present = Log.Events.Select(entry => entry.DialogNode).OfType<ulong>().ToHashSet();
-        return decision.Options.FirstOrDefault(option => option.Nodes.Any(node => present.Contains(NodeSymbol(node))));
-    }
+    public static string? GetValue(S2Decision decision, IReadOnlySet<ulong> present) =>
+        (FindSeen(decision, present) ?? decision.Options.FirstOrDefault(option => option.Nodes.Count == 0))?.Value;
+
+    public S2DecisionOption? FindSeen(S2Decision decision) => slot.EventLog == null ? null : FindSeen(decision, Nodes());
+
+    public static S2DecisionOption? FindSeen(S2Decision decision, IReadOnlySet<ulong> present) =>
+        decision.Options.FirstOrDefault(option => option.Nodes.Any(node => present.Contains(NodeSymbol(node))));
 
     public void Clear(S2Decision decision)
     {

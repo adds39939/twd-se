@@ -34,6 +34,19 @@ public class MichonneSaveTests
     }
 
     [Fact]
+    public void DetectCurrentChoices_ReadsEveryDecisionAsDetectCurrentChoiceDoes()
+    {
+        var accessor = MichonneSaves.Accessor(MichonneSaves.LoadEpisode1Save());
+        var choices = MichonneSaves.Handler.Choices;
+
+        var states = accessor.DetectCurrentChoices(choices);
+
+        Assert.Equal(choices.Select(accessor.DetectCurrentChoice), states);
+        Assert.Contains(-1, states);
+        Assert.Contains(states, state => state >= 0);
+    }
+
+    [Fact]
     public void RealSave_ReadsTheDecisionsThatWerePlayed()
     {
         var accessor = MichonneSaves.Accessor(MichonneSaves.LoadEpisode1Save());

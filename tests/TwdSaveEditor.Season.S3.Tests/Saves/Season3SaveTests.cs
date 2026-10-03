@@ -35,6 +35,19 @@ public class Season3SaveTests
     }
 
     [Fact]
+    public void DetectCurrentChoices_ReadsEveryDecisionAsDetectCurrentChoiceDoes()
+    {
+        var accessor = Season3Saves.Accessor(Season3Saves.LoadEpisode1Save());
+        var choices = Season3Saves.Handler.Choices;
+
+        var states = accessor.DetectCurrentChoices(choices);
+
+        Assert.Equal(choices.Select(accessor.DetectCurrentChoice), states);
+        Assert.Contains(-1, states);
+        Assert.Contains(states, state => state >= 0);
+    }
+
+    [Fact]
     public void RealSave_ReadsEveryStoryKeyAsTheGameStoredIt()
     {
         var slot = Season3Saves.LoadEpisode1Save();
@@ -91,7 +104,7 @@ public class Season3SaveTests
         var reloaded = Season3Saves.Reload(slot);
         var log = new StoryDecisionLog(reloaded, S3Story.Season);
         Assert.All(made, decision => Assert.False(log.IsSet(decision), decision.ChoiceKey));
-        Assert.All(made.Where(decision => decision.Options.All(option => option.Expression.Length > 0)),
+        Assert.All(made.Where(decision => decision.Options.All(option => !option.Expression.IsEmpty)),
             decision => Assert.Null(Season3Saves.Accessor(reloaded).GetChoiceValue(decision.ChoiceKey)));
     }
 

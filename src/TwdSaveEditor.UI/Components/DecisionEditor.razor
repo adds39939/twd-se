@@ -62,13 +62,11 @@
 
         @if (_cachedTree != null)
         {
-            var expanded = ExpandedGroup();
-
             @foreach (var (season, episodes) in _cachedTree)
             {
                 var totalChoices = episodes.Sum(g => g.Count());
 
-                <details open="@(season.SeasonKey == (expanded?.SeasonKey ?? seasonKey))" data-testid="season-@season.SeasonKey">
+                <details open="@(season.SeasonKey == (_expanded?.SeasonKey ?? seasonKey))" data-testid="season-@season.SeasonKey">
                     <summary>
                         <span>@season.Name</span>
                         <span class="badge">@totalChoices choices</span>
@@ -79,7 +77,7 @@
                             var ep = season.Episodes.FirstOrDefault(e => e.Number == epGroup.Key);
                             var epTitle = ep != null ? $"Episode {epGroup.Key}: {ep.Title}" : epGroup.Key == 0 ? "Carried over from the previous season" : $"Episode {epGroup.Key}";
 
-                            <details open="@(expanded == (season.SeasonKey, epGroup.Key))">
+                            <details open="@(_expanded == (season.SeasonKey, epGroup.Key))">
                                 <summary>
                                     <span>@epTitle</span>
                                     <span class="badge">@epGroup.Count()</span>

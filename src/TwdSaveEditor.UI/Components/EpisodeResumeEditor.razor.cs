@@ -23,9 +23,17 @@ public partial class EpisodeResumeEditor
     private string _chapter = string.Empty;
     private IReadOnlyList<ChapterInfo> _chapters = [];
     private SaveSlot? _loadedSlot;
+    private int _loadedRevision;
 
     protected override void OnParametersSet()
     {
+        var revision = Editor.Revision(Slot);
+        if (ReferenceEquals(_loadedSlot, Slot) && revision == _loadedRevision)
+        {
+            return;
+        }
+
+        _loadedRevision = revision;
         _state = Handler.GetResumeState(Slot);
         if (ReferenceEquals(_loadedSlot, Slot))
         {

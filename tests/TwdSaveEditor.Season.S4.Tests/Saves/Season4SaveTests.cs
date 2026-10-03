@@ -35,6 +35,19 @@ public class Season4SaveTests
     }
 
     [Fact]
+    public void DetectCurrentChoices_ReadsEveryDecisionAsDetectCurrentChoiceDoes()
+    {
+        var accessor = Season4Saves.Accessor(Season4Saves.LoadEpisode1Save());
+        var choices = Season4Saves.Handler.Choices;
+
+        var states = accessor.DetectCurrentChoices(choices);
+
+        Assert.Equal(choices.Select(accessor.DetectCurrentChoice), states);
+        Assert.Contains(-1, states);
+        Assert.Contains(states, state => state >= 0);
+    }
+
+    [Fact]
     public void RealSave_ReadsEveryStoryKeyAsTheGameStoredIt()
     {
         var slot = Season4Saves.LoadEpisode1Save();

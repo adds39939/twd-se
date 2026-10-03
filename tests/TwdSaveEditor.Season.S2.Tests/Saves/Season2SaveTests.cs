@@ -33,6 +33,19 @@ public class Season2SaveTests
     }
 
     [Fact]
+    public void DetectCurrentChoices_ReadsEveryDecisionAsDetectCurrentChoiceDoes()
+    {
+        var accessor = Season2Saves.Accessor(Season2Saves.LoadEpisode1Save());
+        var choices = TestSeasons.ChoicesFor("s1").Concat(Season2Saves.Handler.Choices).ToList();
+
+        var states = accessor.DetectCurrentChoices(choices);
+
+        Assert.Equal(choices.Select(accessor.DetectCurrentChoice), states);
+        Assert.Contains(-1, states);
+        Assert.Contains(states, state => state >= 0);
+    }
+
+    [Fact]
     public void RealSave_LoadsItsEventLogAndSaves()
     {
         var slot = Season2Saves.LoadEpisode1Save();

@@ -20,6 +20,8 @@ public partial class DecisionEditor
     private string? _selectedImportSave;
     private Dictionary<string, int> _choiceStates = new();
     private List<(ISeasonHandler Season, List<IGrouping<int, ChoiceDefinition>> Episodes)>? _cachedTree;
+    private (string SeasonKey, int Episode)? _expanded;
+    private (SaveSlot? Slot, IChoiceAccessor? Accessor, int Revision) _shown;
     private string? _lastSlotFileName;
     private bool _showEndingPresets;
 
@@ -33,7 +35,13 @@ public partial class DecisionEditor
             _cachedTree = null;
         }
 
-        RebuildCache();
+        var shown = (Slot, Accessor, Slot == null ? 0 : Editor.Revision(Slot));
+        if (shown != _shown)
+        {
+            _shown = shown;
+            RebuildCache();
+        }
+
         SelectImportSource();
     }
 
@@ -66,16 +74,13 @@ public partial class DecisionEditor
             .Where(x => x.Episodes.Count > 0)
             .ToList();
 
-        foreach (var (season, episodes) in _cachedTree)
+        var choices = _cachedTree.SelectMany(season => season.Episodes).SelectMany(episode => episode).ToList();
+        foreach (var (choice, state) in choices.Zip(Accessor.DetectCurrentChoices(choices)))
         {
-            foreach (var epGroup in episodes)
-            {
-                foreach (var choice in epGroup)
-                {
-                    _choiceStates[choice.ChoiceKey] = Accessor.DetectCurrentChoice(choice);
-                }
-            }
+            _choiceStates[choice.ChoiceKey] = state;
         }
+
+        _expanded = ExpandedGroup();
     }
 
     private int GetChoiceState(string choiceKey)
@@ -165,8 +170,6 @@ public partial class DecisionEditor
         }
 
         importer.ImportChoices(source, Slot);
-
-        RebuildCache();
         Editor.MarkModified(Slot);
     }
 
@@ -182,7 +185,6 @@ public partial class DecisionEditor
             Accessor.SetChoiceValue(selection.ChoiceKey, selection.Value);
         }
 
-        RebuildCache();
         Editor.MarkModified(Slot);
     }
 

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using TwdSaveEditor.Core.Model;
 using TwdSaveEditor.Season.Common.Abstractions;
 using TwdSaveEditor.UI.Components;
 using TwdSaveEditor.UI.Services;
@@ -13,37 +14,31 @@ public partial class Home : IDisposable
     private string ActiveTab { get; set; } = "decisions";
     private NewSaveDialog? _newSaveDialog;
     private bool _saving;
-    private IChoiceAccessor? _cachedAccessor;
-    private string? _cachedAccessorSlot;
+    private IChoiceAccessor? _accessor;
+    private (SaveSlot? Slot, int Revision) _accessorFor;
 
     protected override void OnInitialized()
     {
         Editor.StateChanged += OnStateChanged;
     }
 
-    private void OnStateChanged()
-    {
-        _cachedAccessor = null;
-        _cachedAccessorSlot = null;
-        InvokeAsync(StateHasChanged);
-    }
+    private void OnStateChanged() => InvokeAsync(StateHasChanged);
 
     private IChoiceAccessor? GetAccessor()
     {
-        if (Editor.SelectedSave == null)
+        if (Editor.SelectedSave is not { } slot)
         {
             return null;
         }
 
-        var slotFile = Editor.SelectedSave.FileName;
-        if (slotFile == _cachedAccessorSlot && _cachedAccessor != null)
+        var current = (slot, Editor.Revision(slot));
+        if (current != _accessorFor)
         {
-            return _cachedAccessor;
+            _accessor = Editor.GetChoiceAccessor(slot);
+            _accessorFor = current;
         }
 
-        _cachedAccessor = Editor.GetChoiceAccessor(Editor.SelectedSave);
-        _cachedAccessorSlot = slotFile;
-        return _cachedAccessor;
+        return _accessor;
     }
 
     private async Task ShowNewSaveDialog()

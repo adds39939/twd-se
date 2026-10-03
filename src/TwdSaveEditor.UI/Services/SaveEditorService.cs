@@ -14,6 +14,7 @@ public class SaveEditorService
     private readonly ISaveBundleSerializer _serializer;
     private readonly SaveBackupService _backup;
     private readonly HashSet<SaveSlot> _modified = [];
+    private readonly Dictionary<SaveSlot, int> _revisions = [];
 
     private const string BundleExtension = ".bundle";
 
@@ -50,10 +51,18 @@ public class SaveEditorService
 
     public bool IsModified(SaveSlot slot) => _modified.Contains(slot);
 
+    public int Revision(SaveSlot slot) => _revisions.GetValueOrDefault(slot);
+
     public void MarkModified(SaveSlot slot)
     {
-        _modified.Add(slot);
+        RecordChange(slot);
         NotifyStateChanged();
+    }
+
+    private bool RecordChange(SaveSlot slot)
+    {
+        _revisions[slot] = Revision(slot) + 1;
+        return _modified.Add(slot);
     }
 
     public async Task<bool> PickDirectory()
@@ -111,6 +120,7 @@ public class SaveEditorService
     {
         Saves.Clear();
         _modified.Clear();
+        _revisions.Clear();
         SelectedSave = null;
 
         var bundleFiles = fileNames
@@ -397,8 +407,13 @@ public class SaveEditorService
                 companion.AttachCompanionFiles(slot, files.Skip(1).ToList());
             }
 
-            _modified.RemoveWhere(save => save.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase));
-            Saves.RemoveAll(save => save.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase));
+            foreach (var replaced in Saves.Where(save => save.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase)).ToList())
+            {
+                Saves.Remove(replaced);
+                _modified.Remove(replaced);
+                _revisions.Remove(replaced);
+            }
+
             Saves.Add(slot);
             SelectedSave = slot;
             StatusMessage = $"Created {fileName}.";
@@ -465,7 +480,7 @@ public class SaveEditorService
 
             if (accessor.GetChoiceValue(choiceKey) != before)
             {
-                changed |= _modified.Add(save);
+                changed |= RecordChange(save);
             }
         }
 

@@ -1,5 +1,4 @@
 using TwdSaveEditor.Core.Model;
-using TwdSaveEditor.Season.Base.DialogLog;
 
 namespace TwdSaveEditor.Season.Base.Story;
 
@@ -10,19 +9,19 @@ public sealed class StoryDecisionLog(SaveSlot slot, StorySeason season)
     private readonly StoryEventLog _log = new(slot, season);
 
     public static StoryDecisionOption? Current(StoryDecision decision, IReadOnlySet<ulong> nodes) =>
-        decision.Options.FirstOrDefault(option => option.Expression.Length > 0 && NodeExpression.Evaluate(option.Expression, nodes))
-        ?? decision.Options.FirstOrDefault(option => option.Expression.Length == 0);
+        decision.Options.FirstOrDefault(option => !option.Expression.IsEmpty && option.Expression.Evaluate(nodes))
+        ?? decision.Options.FirstOrDefault(option => option.Expression.IsEmpty);
 
     public static object Evaluate(StoryLogicKey key, IReadOnlySet<ulong> nodes) => key.Text
-        ? key.Values.FirstOrDefault(value => NodeExpression.Evaluate(value.Expression, nodes))?.Value ?? string.Empty
-        : NodeExpression.Evaluate(key.Values[0].Expression, nodes);
+        ? key.Values.FirstOrDefault(value => value.Expression.Evaluate(nodes))?.Value ?? string.Empty
+        : key.Values[0].Expression.Evaluate(nodes);
 
     public StoryDecisionOption? GetOption(StoryDecision decision) => Current(decision, _log.Nodes());
 
     public bool IsSet(StoryDecision decision) => IsSet(decision, _log.Nodes());
 
     public static bool IsSet(StoryDecision decision, IReadOnlySet<ulong> nodes) =>
-        decision.Options.Any(option => option.Expression.Length > 0 && NodeExpression.Evaluate(option.Expression, nodes));
+        decision.Options.Any(option => !option.Expression.IsEmpty && option.Expression.Evaluate(nodes));
 
     public void SetValue(StoryDecision decision, StoryDecisionOption target) =>
         Rewrite(decision, state => ReferenceEquals(Current(decision, state), target), target.Value,
@@ -37,7 +36,7 @@ public sealed class StoryDecisionLog(SaveSlot slot, StorySeason season)
         var definitions = season.LogicKeys.Where(key => key.Key.Equals(decision.ChoiceKey, StringComparison.OrdinalIgnoreCase)).ToList();
         var involved = decision.Options.Select(option => option.Expression)
             .Concat(definitions.SelectMany(key => key.Values).Select(value => value.Expression))
-            .SelectMany(NodeExpression.Nodes)
+            .SelectMany(expression => expression.Nodes)
             .Distinct()
             .ToList();
         if (involved.Count > MaxNodes)
@@ -47,15 +46,20 @@ public sealed class StoryDecisionLog(SaveSlot slot, StorySeason season)
 
         var current = _log.Nodes();
         var related = season.Decisions
-            .Where(other => !ReferenceEquals(other, decision) && other.Options.Any(option => NodeExpression.Nodes(option.Expression).Any(involved.Contains)))
+            .Where(other => !ReferenceEquals(other, decision) && other.Options.Any(option => option.Expression.Nodes.Any(involved.Contains)))
             .Select(other => (Decision: other, Before: Current(other, current)))
             .ToList();
+        var present = related.SelectMany(other => other.Decision.Options)
+            .SelectMany(option => option.Expression.Nodes)
+            .Concat(involved)
+            .Where(current.Contains)
+            .ToHashSet();
 
         HashSet<ulong>? best = null;
         (int Disagreeing, int Others, int Changes, int Present) bestCost = default;
         for (var mask = 0; mask < 1 << involved.Count; mask++)
         {
-            var state = new HashSet<ulong>(current);
+            var state = new HashSet<ulong>(present);
             for (var bit = 0; bit < involved.Count; bit++)
             {
                 if ((mask & (1 << bit)) != 0)

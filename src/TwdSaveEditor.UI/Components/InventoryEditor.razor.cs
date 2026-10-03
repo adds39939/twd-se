@@ -20,9 +20,17 @@ public partial class InventoryEditor
     private ISeasonHandler? _season;
     private IInventoryHandler? _handler;
     private InventoryState? _state;
+    private (SaveSlot? Slot, int Revision) _loaded;
 
     protected override void OnParametersSet()
     {
+        var loaded = (Slot, Slot == null ? 0 : Editor.Revision(Slot));
+        if (loaded == _loaded)
+        {
+            return;
+        }
+
+        _loaded = loaded;
         _season = Slot?.DetectedSeasonKey != null ? Registry.Get(Slot.DetectedSeasonKey) : null;
         _handler = _season as IInventoryHandler;
         _state = Slot != null ? _handler?.GetInventory(Slot) : null;

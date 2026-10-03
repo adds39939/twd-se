@@ -14,6 +14,9 @@ public class EditorDisplayTests
     private static ILocator SaveItem(IPage page, string fileName) =>
         page.Locator(".save-item").Filter(new LocatorFilterOptions { HasText = fileName });
 
+    private static ILocator Decision(IPage page, string description) =>
+        page.Locator(".choice-row", new() { HasTextString = description }).First.Locator("select");
+
     private async Task<IPage> Open(params (string Season, string FileName, string? InjectName)[] saves)
     {
         var page = await _fixture.NewPage();
@@ -51,8 +54,7 @@ public class EditorDisplayTests
         await Assertions.Expect(page.Locator(".save-btn")).ToHaveCountAsync(0);
         await SaveItem(page, "wd1_saveslot2.bundle").ClickAsync();
 
-        var reloaded = page.Locator(".choice-row", new() { HasTextString = description! }).Locator("select");
-        await Assertions.Expect(reloaded).ToHaveValueAsync("-1");
+        await Assertions.Expect(Decision(page, description!)).ToHaveValueAsync("-1");
     }
 
     [Fact]
@@ -65,6 +67,21 @@ public class EditorDisplayTests
         await page.Locator(".import-controls button").ClickAsync();
 
         await Assertions.Expect(SaveItem(page, "wd2_saveslot1.bundle").Locator("[data-testid='save-unsaved']")).ToBeVisibleAsync();
+    }
+
+    [Fact]
+    public async Task Preset_ShowsTheDecisionsItSets()
+    {
+        var page = await Open(("S2", "wd2_saveslot1.bundle", null));
+        await SaveItem(page, "wd2_saveslot1.bundle").ClickAsync();
+        var dinner = Decision(page, "Who did you sit with at dinner?");
+        await Assertions.Expect(dinner).ToHaveValueAsync("-1");
+
+        await page.Locator("[data-testid='presets'] summary").ClickAsync();
+        await page.GetByRole(AriaRole.Button, new() { Name = "Side with Kenny" }).ClickAsync();
+
+        await Assertions.Expect(dinner.Locator("option:checked")).ToHaveTextAsync("Sat with Kenny");
+        await Assertions.Expect(page.Locator(".save-btn")).ToHaveTextAsync("Save Changes *");
     }
 
     [Fact]

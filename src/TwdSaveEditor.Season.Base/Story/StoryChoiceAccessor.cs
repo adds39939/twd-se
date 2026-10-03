@@ -9,19 +9,18 @@ public sealed class StoryChoiceAccessor(SaveSlot slot, StorySeason season) : ICh
 {
     private readonly StoryDecisionLog _decisions = new(slot, season);
 
-    public int DetectCurrentChoice(ChoiceDefinition choice)
+    public int DetectCurrentChoice(ChoiceDefinition choice) => IndexOf(choice, GetChoiceValue(choice.ChoiceKey));
+
+    public IReadOnlyList<int> DetectCurrentChoices(IReadOnlyList<ChoiceDefinition> choices)
     {
-        var value = GetChoiceValue(choice.ChoiceKey);
-        return value == null
-            ? -1
-            : Array.FindIndex(choice.Options, option => option.Value.Equals(value, StringComparison.OrdinalIgnoreCase));
+        var nodes = new StoryEventLog(slot, season).Nodes();
+        return [.. choices.Select(choice => IndexOf(choice, ValueOf(choice.ChoiceKey, nodes)))];
     }
 
     public void ApplyChoice(ChoiceDefinition choice, int optionIndex) =>
         SetChoiceValue(choice.ChoiceKey, choice.Options[optionIndex].Value);
 
-    public string? GetChoiceValue(string choiceKey) =>
-        slot.EventLog != null && season.FindDecision(choiceKey) is { } decision ? _decisions.GetOption(decision)?.Value : null;
+    public string? GetChoiceValue(string choiceKey) => ValueOf(choiceKey, new StoryEventLog(slot, season).Nodes());
 
     public void SetChoiceValue(string choiceKey, string value)
     {
@@ -74,4 +73,10 @@ public sealed class StoryChoiceAccessor(SaveSlot slot, StorySeason season) : ICh
             }
         }
     }
+
+    private string? ValueOf(string choiceKey, IReadOnlySet<ulong> nodes) =>
+        slot.EventLog != null && season.FindDecision(choiceKey) is { } decision ? StoryDecisionLog.Current(decision, nodes)?.Value : null;
+
+    private static int IndexOf(ChoiceDefinition choice, string? value) =>
+        value == null ? -1 : Array.FindIndex(choice.Options, option => option.Value.Equals(value, StringComparison.OrdinalIgnoreCase));
 }

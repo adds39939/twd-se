@@ -59,6 +59,20 @@ public class SaveEditorServiceTests
     }
 
     [Fact]
+    public void MarkModified_AdvancesTheRevisionOfThatSaveOnly()
+    {
+        var first = CreateSlot("wd2_saveslot1.bundle");
+        var second = CreateSlot("wd3_saveslot1.bundle");
+        var service = ServiceWith(first, second);
+
+        service.MarkModified(first);
+        service.MarkModified(first);
+
+        Assert.Equal(2, service.Revision(first));
+        Assert.Equal(0, service.Revision(second));
+    }
+
+    [Fact]
     public async Task SaveFile_ClearsOnlyTheSaveThatWasWritten()
     {
         var first = CreateSlot("wd2_saveslot1.bundle");
@@ -135,8 +149,10 @@ public class SaveEditorServiceTests
 
         service.CascadeChoice(choice.ChoiceKey, current, "s1");
         Assert.False(service.IsModified(season2));
+        Assert.Equal(0, service.Revision(season2));
 
         service.CascadeChoice(choice.ChoiceKey, other.Value, "s1");
         Assert.True(service.IsModified(season2));
+        Assert.Equal(1, service.Revision(season2));
     }
 }
