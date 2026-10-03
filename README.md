@@ -1,8 +1,7 @@
-<p align="center">
-  <img src="src/TwdSaveEditor.UI/wwwroot/images/icon-128.png" width="128" height="128" alt="">
-</p>
-
-<h1 align="center">TWD Save Editor</h1>
+<h1 align="center">
+  <img src="src/TwdSaveEditor.UI/wwwroot/images/icon-128.png" width="128" height="128" alt=""><br>
+  TWD Save Editor
+</h1>
 
 <p align="center">
   A browser-based save editor for <strong>The Walking Dead: The Telltale Definitive Series</strong>.<br>
