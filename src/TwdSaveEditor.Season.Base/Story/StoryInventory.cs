@@ -16,14 +16,20 @@ public sealed class StoryInventory(StorySeason season, StoryResumePoint resume, 
     {
         var state = resume.GetState(slot);
         if (resume.ResumeSave(slot) is not { } save)
+        {
             return InventoryState.NotEditable(owner, state.Episode, state.CheckpointDamaged ? Damaged : NoSave);
+        }
 
         var episode = EpisodeOf(save);
         if (season.ItemsOf(episode) is not { Items.Count: > 0 } catalog)
+        {
             return InventoryState.NotEditable(owner, episode, noItems);
+        }
 
         if (sets.Any(name => save.FindFile(name) is { } file && !BundleReader.TryParseProperties(file)))
+        {
             return InventoryState.NotEditable(owner, episode, Damaged);
+        }
 
         return new InventoryState(
             owner,
@@ -43,10 +49,14 @@ public sealed class StoryInventory(StorySeason season, StoryResumePoint resume, 
         {
             var wanted = held.Any(entry => entry.Id == item.Id && entry.Count > 0) ? 1 : 0;
             if (wanted == Math.Min(Count(save, item.Id), 1))
+            {
                 continue;
+            }
 
             foreach (var name in sets)
+            {
                 DialogLogSaves.RuntimeProperties(save, name, Unreadable).SetInt(item.Id, wanted);
+            }
 
             save.Modified = true;
         }
@@ -55,7 +65,9 @@ public sealed class StoryInventory(StorySeason season, StoryResumePoint resume, 
     public IReadOnlyList<HeldItem> CarriedItems(SaveSlot slot)
     {
         if (resume.ResumeSave(slot) is not { } save)
+        {
             return [];
+        }
 
         var episode = EpisodeOf(save);
         return resume.GeneratedChapter(save, episode) is { } chapter && season.ItemsOf(episode)?.ForChapter(chapter.Id) is { } items

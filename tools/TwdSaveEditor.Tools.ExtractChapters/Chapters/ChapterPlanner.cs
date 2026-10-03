@@ -88,7 +88,9 @@ public sealed class ChapterPlanner(EpisodeChapters episode)
         supported = true;
         var first = IgnoreCase.Equals(chapter.Script, firstScene);
         if (first && !earlier.Any(candidate => IgnoreCase.Equals(candidate.Script, firstScene)) && chapter.Assignments.Count == 0)
+        {
             return null;
+        }
 
         var transitions = episode.Transitions.Where(candidate => IgnoreCase.Equals(candidate.Target, chapter.Script)).ToList();
         var previous = earlier.LastOrDefault(candidate => !IgnoreCase.Equals(candidate.Script, chapter.Script) && SceneOf(candidate.Script) != null)?.Script;
@@ -115,7 +117,9 @@ public sealed class ChapterPlanner(EpisodeChapters episode)
         }
 
         if (first && hasRecap)
+        {
             return new JsonObject { ["script"] = RecapScript };
+        }
 
         supported = false;
         return null;
@@ -127,10 +131,14 @@ public sealed class ChapterPlanner(EpisodeChapters episode)
         {
             var key = keys.FirstOrDefault(candidate => toggle.EndsWith(" - " + candidate, StringComparison.OrdinalIgnoreCase));
             if (key == null)
+            {
                 continue;
+            }
 
             if (!DecidedFrom.TryGetValue(toggle, out var chapter) || chapters.All(candidate => candidate.Handler != chapter))
+            {
                 throw new InvalidDataException($"No chapter is recorded as the first one after the decision flag '{toggle}'.");
+            }
 
             yield return new JsonObject
             {
@@ -145,7 +153,9 @@ public sealed class ChapterPlanner(EpisodeChapters episode)
         foreach (var decision in InventoryDecisions.Where(decision => decision.Episode == episode.Episode))
         {
             if (!keys.Contains(decision.ChoiceKey, IgnoreCase) || chapters.All(candidate => candidate.Handler != decision.DecidedFrom))
+            {
                 throw new InvalidDataException($"The inventory decision '{decision.ChoiceKey}' does not match the episode's data.");
+            }
 
             yield return new JsonObject
             {

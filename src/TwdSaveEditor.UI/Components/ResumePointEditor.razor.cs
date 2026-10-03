@@ -35,7 +35,10 @@ public partial class ResumePointEditor
 
     protected override void OnParametersSet()
     {
-        if (Slot?.Metadata == null) return;
+        if (Slot?.Metadata == null)
+        {
+            return;
+        }
 
         _seasonHandler = Slot.DetectedSeasonKey != null
             ? Registry.Get(Slot.DetectedSeasonKey)
@@ -72,7 +75,9 @@ public partial class ResumePointEditor
 
         var sceneProp = props.FirstOrDefault(p => p.KeySymbol.Value == AutosaveHashes.SceneName);
         if (sceneProp?.Value is StringValue snv)
+        {
             _sceneName = snv.Value;
+        }
     }
 
     private void BuildKnownEpisodeIds()
@@ -81,7 +86,9 @@ public partial class ResumePointEditor
         if (_seasonHandler != null)
         {
             foreach (var ep in _seasonHandler.Episodes)
+            {
                 _knownEpisodeIds.Add(_seasonHandler.GetEpisodeId(ep.Number));
+            }
         }
     }
 
@@ -99,7 +106,10 @@ public partial class ResumePointEditor
         for (int i = 0; i < name.Length; i++)
         {
             if (i > 0 && char.IsUpper(name[i]) && !char.IsUpper(name[i - 1]))
+            {
                 chars.Add(' ');
+            }
+
             chars.Add(i == 0 ? char.ToUpper(name[i]) : name[i]);
         }
         return new string(chars.ToArray()).Replace('_', ' ').Trim();
@@ -127,7 +137,9 @@ public partial class ResumePointEditor
         }
 
         if (Slot != null)
+        {
             Slot.EpisodeChanged = EpisodeChanged;
+        }
 
         Editor.MarkModified();
     }
@@ -142,7 +154,10 @@ public partial class ResumePointEditor
 
     private void SetPropertyString(ulong hash, string value)
     {
-        if (Slot?.Metadata == null) return;
+        if (Slot?.Metadata == null)
+        {
+            return;
+        }
 
         var prop = Slot.Metadata.AllProperties.FirstOrDefault(p => p.KeySymbol.Value == hash);
         if (prop?.Value is StringValue sv)

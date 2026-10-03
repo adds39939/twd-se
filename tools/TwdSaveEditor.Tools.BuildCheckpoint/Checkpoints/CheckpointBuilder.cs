@@ -79,14 +79,18 @@ public static class CheckpointBuilder
         foreach (var group in episodeFlags?.TypeGroups ?? [])
         {
             foreach (var flag in group.Properties)
+            {
                 game.Set(flag.KeySymbol, group.TypeSymbol, flag.Value);
+            }
         }
 
         foreach (var choice in S1ChoiceCatalog.Before(checkpoint.PersistentEpisode))
         {
             var value = slot.Metadata.GetString(PersistentKeys.SlotKey(S1ChoiceCatalog.PersistentEpisode(choice), choice.ChoiceKey));
             if (!string.IsNullOrEmpty(value))
+            {
                 game.SetString(choice.ChoiceKey, value);
+            }
         }
 
         var checkpointLogic = Runtime(visible: true);
@@ -132,7 +136,9 @@ public static class CheckpointBuilder
     {
         var file = autosave.FindFile(symbol) ?? throw new InvalidDataException($"The autosave has no file {symbol:X16}.");
         if (!BundleReader.TryParseProperties(file))
+        {
             throw new InvalidDataException($"File {symbol:X16} is not a readable property set.");
+        }
 
         return file.Properties!;
     }

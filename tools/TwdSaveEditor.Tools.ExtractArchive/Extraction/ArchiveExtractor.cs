@@ -18,7 +18,9 @@ public sealed class ArchiveExtractor(BlowfishV7 cipher, TextWriter output)
         foreach (var (name, content) in files)
         {
             if (!Matches(name, patterns))
+            {
                 continue;
+            }
 
             Directory.CreateDirectory(target);
             File.WriteAllBytes(Path.Combine(target, name), Decode(name, content.Span));
@@ -32,7 +34,9 @@ public sealed class ArchiveExtractor(BlowfishV7 cipher, TextWriter output)
     public void List(string archivePath)
     {
         foreach (var (name, content) in GameArchive.ReadFiles(archivePath, cipher))
+        {
             output.WriteLine($"{content.Length,10}  {name}");
+        }
     }
 
     private byte[] Decode(string name, ReadOnlySpan<byte> content) =>

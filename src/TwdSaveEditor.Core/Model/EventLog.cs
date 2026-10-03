@@ -19,11 +19,15 @@ public sealed class EventLog(string storageName, EventLogStorage storage)
             foreach (var entry in Storage.Pages)
             {
                 if (FindPageFile(entry.PageSymbol) is { } file)
+                {
                     yield return file.Page;
+                }
             }
 
             if (Storage.CurrentPage != null)
+            {
                 yield return Storage.CurrentPage;
+            }
         }
     }
 
@@ -35,8 +39,12 @@ public sealed class EventLog(string storageName, EventLogStorage storage)
     public void MarkModified(EventLogPage page)
     {
         if (ReferenceEquals(page, Storage.CurrentPage))
+        {
             StorageModified = true;
+        }
         else if (PageFiles.FirstOrDefault(file => ReferenceEquals(file.Page, page)) is { } file)
+        {
             file.Modified = true;
+        }
     }
 }

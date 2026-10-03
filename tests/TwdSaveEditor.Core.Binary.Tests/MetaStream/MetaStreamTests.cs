@@ -36,7 +36,9 @@ public class MetaStreamTests
     {
         var data = new byte[Ttcz.PageSize + 300];
         for (int i = 0; i < data.Length; i++)
+        {
             data[i] = (byte)(i % 10);
+        }
 
         var header = new MetaStreamHeader
         {

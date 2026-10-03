@@ -1,5 +1,4 @@
 using TwdSaveEditor.Core.Binary.Primitives;
-using TwdSaveEditor.Core.Hashing;
 using TwdSaveEditor.Core.Model;
 
 namespace TwdSaveEditor.Core.Binary.PropertySets;
@@ -34,7 +33,9 @@ public sealed class PropertySetWriter
     {
         writer.WriteUInt32((uint)propSet.ParentSymbols.Count);
         foreach (var parent in propSet.ParentSymbols)
+        {
             writer.WriteSymbol(parent);
+        }
 
         writer.WriteUInt32((uint)propSet.TypeGroups.Count);
         foreach (var group in propSet.TypeGroups)
@@ -79,7 +80,10 @@ public sealed class PropertySetWriter
             case StringArrayValue array:
                 writer.WriteInt32(array.Values.Count);
                 foreach (var item in array.Values)
+                {
                     writer.WriteLengthPrefixedString(item);
+                }
+
                 break;
             case RawBytesValue raw:
                 writer.WriteBytes(raw.Data);

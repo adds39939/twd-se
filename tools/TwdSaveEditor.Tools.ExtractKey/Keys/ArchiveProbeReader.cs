@@ -16,14 +16,21 @@ public static class ArchiveProbeReader
             using var file = File.OpenRead(archive);
             var header = new byte[HeaderSize];
             if (file.ReadAtLeast(header, header.Length, throwOnEndOfStream: false) < header.Length)
+            {
                 continue;
+            }
+
             if (!header.AsSpan(0, 4).SequenceEqual(EcttArchive.Magic))
+            {
                 continue;
+            }
 
             var chunkSize = Bytes.U32(header, 4);
             var chunkCount = Bytes.U32(header, 8);
             if (chunkCount == 0)
+            {
                 continue;
+            }
 
             var rawSize = Bytes.U64(header, 20) - Bytes.U64(header, 12);
             var data = new byte[(int)Math.Min(rawSize, ProbeSize) / 8 * 8];

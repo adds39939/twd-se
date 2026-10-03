@@ -25,7 +25,9 @@ public partial class EpisodeResumeEditor
     {
         _state = Handler.GetResumeState(Slot);
         if (ReferenceEquals(_loadedSlot, Slot))
+        {
             return;
+        }
 
         _loadedSlot = Slot;
         SelectEpisode(_state.Episode);
@@ -34,7 +36,9 @@ public partial class EpisodeResumeEditor
     private void OnEpisodeChanged(ChangeEventArgs e)
     {
         if (!int.TryParse(e.Value?.ToString(), out var episode))
+        {
             return;
+        }
 
         SelectEpisode(episode);
         Apply();
@@ -72,12 +76,18 @@ public partial class EpisodeResumeEditor
     private void Apply()
     {
         if (_chapter == CurrentChapter())
+        {
             return;
+        }
 
         if (_chapter.Length == 0)
+        {
             Handler.RestartFromEpisode(Slot, _episode);
+        }
         else
+        {
             Handler.RestartFromChapter(Slot, _episode, _chapter);
+        }
 
         _state = Handler.GetResumeState(Slot);
         Editor.MarkModified();

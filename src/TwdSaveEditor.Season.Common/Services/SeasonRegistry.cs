@@ -12,7 +12,9 @@ public class SeasonRegistry : ISeasonRegistry
         _all = handlers.ToList();
         _handlers = new Dictionary<string, ISeasonHandler>(StringComparer.OrdinalIgnoreCase);
         foreach (var handler in _all)
+        {
             _handlers[handler.SeasonKey] = handler;
+        }
     }
 
     public IReadOnlyList<ISeasonHandler> All => _all;

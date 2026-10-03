@@ -28,7 +28,9 @@ public static partial class StoryChapters
     public static List<Chapter> Expand(EpisodeChapters episode, List<Chapter> chapters)
     {
         if (episode.Episode != Episode)
+        {
             return chapters;
+        }
 
         var hubScene = episode.Scripts.First(script => script.Name.Equals(HubScript, StringComparison.OrdinalIgnoreCase)).Scene + SceneExtension;
         List<Assignment> Finished(int count) => FinishedStories(count, episode.StoryActions, hubScene);
@@ -38,7 +40,9 @@ public static partial class StoryChapters
         {
             var story = StoryOf(chapter);
             if (story > 1 && StoryOf(expanded[^1]) == story - 1 && story <= Stories.Length)
+            {
                 expanded.Add(Hub(story - 1, expanded[^1].Group, Finished(story - 1)));
+            }
 
             expanded.Add(chapter with { Assignments = [.. Finished(story - 1), .. chapter.Assignments] });
         }
@@ -79,7 +83,9 @@ public static partial class StoryChapters
     private static List<Assignment> FinishedStories(int count, IReadOnlyList<StoryAction> actions, string hubScene)
     {
         if (count <= 0)
+        {
             return [];
+        }
 
         var assignments = Stories.Take(count)
             .Select(story => new Assignment(DebugMenuReader.GameLogicAgent, story.CompleteFlag, JsonValue.Create(true), null))

@@ -26,7 +26,9 @@ Console.WriteLine();
 
 var seasons = new List<(string Season, List<Choice>? Choices)>();
 foreach (var (season, archive) in archives)
+{
     seasons.Add((season, reader.Read(season, Path.Combine(archivesDirectory, archive))));
+}
 
 Console.WriteLine();
 Console.WriteLine();

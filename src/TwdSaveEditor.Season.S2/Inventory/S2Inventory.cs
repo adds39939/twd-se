@@ -24,11 +24,15 @@ public sealed class S2Inventory(IS2ResumePoint resume) : IS2Inventory
     {
         var state = resume.GetState(slot);
         if (resume.ResumeSave(slot) is not { } save)
+        {
             return InventoryState.NotEditable(Owner, state.Episode, state.CheckpointDamaged ? Damaged : NoSave);
+        }
 
         var file = save.FindFile(S2SlotFiles.InventoryProperties);
         if (file != null && !BundleReader.TryParseProperties(file))
+        {
             return InventoryState.NotEditable(Owner, state.Episode, Damaged);
+        }
 
         var episode = EpisodeOf(save);
         var held = file?.Properties?.GetStrings(ItemsKey) ?? [];
@@ -54,11 +58,15 @@ public sealed class S2Inventory(IS2ResumePoint resume) : IS2Inventory
         {
             properties.SetBool(removed + ShownSuffix, false);
             if (game?.GetBool(HasKey(removed)) == true)
+            {
                 game.SetBool(HasKey(removed), false);
+            }
         }
 
         foreach (var item in items)
+        {
             properties.SetBool(item + ShownSuffix, true);
+        }
 
         properties.SetStrings(ItemsKey, items);
         save.Modified = true;
@@ -67,7 +75,9 @@ public sealed class S2Inventory(IS2ResumePoint resume) : IS2Inventory
     public IReadOnlyList<HeldItem> CarriedItems(SaveSlot slot)
     {
         if (resume.ResumeSave(slot) is not { } save)
+        {
             return [];
+        }
 
         var episode = EpisodeOf(save);
         if (S2ItemCatalog.ForEpisode(episode) is not { } catalog

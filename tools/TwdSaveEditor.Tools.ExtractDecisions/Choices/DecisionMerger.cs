@@ -16,7 +16,9 @@ public static class DecisionMerger
             var nodes = stat.Options.SelectMany(option => option.Nodes).ToHashSet();
             var decision = decisions.FirstOrDefault(candidate => candidate.AllNodes.Any(nodes.Contains));
             if (decision == null)
+            {
                 decisions.Add(decision = new Decision { Episode = stat.Episode });
+            }
 
             decision.Stat = stat;
             foreach (var (text, optionNodes, _) in stat.Options.Where(option => !option.Nodes.All(decision.Requires.Contains)))
@@ -27,7 +29,9 @@ public static class DecisionMerger
             }
 
             foreach (var (text, _, _) in stat.Options.Where(option => option.Nodes.All(decision.Requires.Contains)))
+            {
                 Combine(decision, decision.Options.Where(option => option.Label == null).ToList()).Label = text;
+            }
         }
 
         foreach (var key in logic)
@@ -35,7 +39,9 @@ public static class DecisionMerger
             var nodes = key.Values.SelectMany(value => value.Nodes).ToHashSet();
             var decision = decisions.FirstOrDefault(candidate => candidate.Logic == null && candidate.AllNodes.Any(nodes.Contains));
             if (decision == null)
+            {
                 decisions.Add(decision = new Decision { Episode = EpisodeOf(key.Name, season) });
+            }
 
             decision.Logic = key;
             decision.Episode = EpisodeOf(key.Name, season);
@@ -48,13 +54,19 @@ public static class DecisionMerger
             }
 
             if (key.IsMap)
+            {
                 continue;
+            }
 
             var others = decision.Options.Where(option => option.LogicValue == null).ToList();
             if (others.Count == 0)
+            {
                 decision.Options.Add(new DecisionOption());
+            }
             else
+            {
                 Combine(decision, others);
+            }
         }
 
         return [.. decisions.OrderBy(decision => decision.Episode)];
@@ -103,7 +115,9 @@ public static class DecisionMerger
     {
         var option = decision.Options.FirstOrDefault(candidate => candidate.Nodes.Any(nodes.Contains));
         if (option == null)
+        {
             decision.Options.Add(option = new DecisionOption());
+        }
 
         return option;
     }

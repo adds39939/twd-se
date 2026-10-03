@@ -1,4 +1,3 @@
-using TwdSaveEditor.Core.Model;
 using TwdSaveEditor.Core.Serialization;
 using TwdSaveEditor.Season.Common.Model;
 using TwdSaveEditor.Season.S1.Inventory;

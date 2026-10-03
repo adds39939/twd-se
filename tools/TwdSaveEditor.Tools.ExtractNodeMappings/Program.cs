@@ -48,7 +48,9 @@ foreach (var directory in epageDirectories.Where(Directory.Exists))
     foreach (var epage in Directory.GetFiles(directory, "_wd3_saveslot1_id_Page*.epage").Order(StringComparer.Ordinal))
     {
         if (EpageHashReader.Read(epage, Console.Out) is not { } hashes)
+        {
             continue;
+        }
 
         Console.WriteLine($"  {Path.GetFileName(epage)}: {hashes.Nodes.Count} node hashes, {hashes.Choices.Count} choice hashes");
         epageHashes.Add(hashes);

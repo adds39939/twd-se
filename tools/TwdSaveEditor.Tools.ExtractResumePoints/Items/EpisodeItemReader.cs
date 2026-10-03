@@ -1,5 +1,4 @@
 using TwdSaveEditor.Tools.Common.Dialogs;
-using TwdSaveEditor.Tools.Common.Inventory;
 using TwdSaveEditor.Tools.Common.Meta;
 using TwdSaveEditor.Tools.Common.Seasons;
 using TwdSaveEditor.Tools.ExtractResumePoints.Chapters;

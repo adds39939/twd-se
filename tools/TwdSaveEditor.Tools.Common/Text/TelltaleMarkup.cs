@@ -7,7 +7,9 @@ public static partial class TelltaleMarkup
     public static string Strip(string text)
     {
         if (text.Length == 0)
+        {
             return text;
+        }
 
         var cleaned = TagPattern().Replace(text, "");
         cleaned = cleaned.Replace("^^", "").Replace("^", "");

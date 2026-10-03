@@ -49,7 +49,9 @@ public static class BundleStructureValidator
         }
 
         if (table.Length < 8)
+        {
             return results;
+        }
 
         var fileCount = Bytes.U32(table, 4);
         results.Add($"  File table: {fileCount} entries (unknown1={Bytes.U32(table, 0)})");
@@ -59,21 +61,27 @@ public static class BundleStructureValidator
         for (uint i = 0; i < fileCount; i++)
         {
             if (tablePosition + 8 > table.Length)
+            {
                 break;
+            }
 
             var offset = Bytes.U32(table, tablePosition);
             tablePosition += 8;
 
             var nameStart = tablePosition;
             while (tablePosition < table.Length && table[tablePosition] != 0)
+            {
                 tablePosition++;
+            }
 
             var name = TextFormat.DecodeAscii(table[nameStart..tablePosition]);
             var nameLength = tablePosition - nameStart + 1;
             tablePosition += 1 + ((nameLength + 3) & ~3) - nameLength;
 
             if (tablePosition + 16 > table.Length)
+            {
                 break;
+            }
 
             var firstHash = Bytes.U64(table, tablePosition);
             var secondHash = Bytes.U64(table, tablePosition + 8);
@@ -90,7 +98,9 @@ public static class BundleStructureValidator
 
             var innerOffset = asyncStart + offset;
             if (innerOffset + 20 < data.Length)
+            {
                 AddInnerFileResults(results, data, innerOffset, name);
+            }
         }
 
         return results;
@@ -109,20 +119,26 @@ public static class BundleStructureValidator
         foreach (var (real, expected) in versionEntries.Zip(expectedEntries))
         {
             if (real == expected)
+            {
                 continue;
+            }
 
             allMatch = false;
             results.Add($"  MISMATCH: Version entry 0x{real.Type:X16}/0x{real.Version:X8} != expected 0x{expected.Type:X16}/0x{expected.Version:X8}");
         }
 
         if (allMatch)
+        {
             results.Add($"  MATCH: All {versionEntries.Count} outer version entries match SaveSlotFactory");
+        }
     }
 
     private static void AddFileHashResults(List<string> results, string name, ulong firstHash, ulong secondHash)
     {
         if (!SaveFormat.FileHashes.TryGetValue(name, out var expected))
+        {
             return;
+        }
 
         if (firstHash == expected.First && secondHash == expected.Second)
         {
@@ -131,9 +147,14 @@ public static class BundleStructureValidator
         }
 
         if (firstHash != expected.First)
+        {
             results.Add($"      MISMATCH: hash1 0x{firstHash:X16} != expected 0x{expected.First:X16}");
+        }
+
         if (secondHash != expected.Second)
+        {
             results.Add($"      MISMATCH: hash2 0x{secondHash:X16} != expected 0x{expected.Second:X16}");
+        }
     }
 
     private static void AddInnerFileResults(List<string> results, ReadOnlySpan<byte> data, long innerOffset, string name)
@@ -150,7 +171,9 @@ public static class BundleStructureValidator
         for (uint i = 0; i < innerVersionCount; i++)
         {
             if (innerPosition + 12 > data.Length)
+            {
                 break;
+            }
 
             innerVersions.Add(new VersionEntry(Bytes.U64(data, innerPosition), Bytes.U32(data, innerPosition + 8)));
             innerPosition += 12;
@@ -170,12 +193,16 @@ public static class BundleStructureValidator
             foreach (var (real, expected) in innerVersions.Zip(expectedEntries))
             {
                 if (real != expected)
+                {
                     results.Add($"      MISMATCH: inner ver 0x{real.Type:X16}/0x{real.Version:X8} != 0x{expected.Type:X16}/0x{expected.Version:X8}");
+                }
             }
         }
 
         if (MetaStreamParser.IsCompressed(Bytes.U32(data, innerOffset + 4)) || innerPosition + 8 > data.Length)
+        {
             return;
+        }
 
         var version = Bytes.U32(data, innerPosition);
         var flags = Bytes.U32(data, innerPosition + 4);

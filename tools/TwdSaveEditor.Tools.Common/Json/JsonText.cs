@@ -56,9 +56,14 @@ public static class JsonText
                 break;
             default:
                 if (node.GetValueKind() == JsonValueKind.String)
+                {
                     WriteString(builder, node.GetValue<string>(), escapeNonAscii);
+                }
                 else
+                {
                     builder.Append(node.ToJsonString());
+                }
+
                 break;
         }
     }
@@ -93,9 +98,14 @@ public static class JsonText
                     break;
                 default:
                     if (c < 0x20 || (escapeNonAscii && c > 0x7F))
+                    {
                         builder.Append("\\u").Append(((int)c).ToString("x4"));
+                    }
                     else
+                    {
                         builder.Append(c);
+                    }
+
                     break;
             }
         }

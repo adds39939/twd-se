@@ -54,4 +54,6 @@ File.WriteAllText(outputPath, JsonText.Serialize(json, escapeNonAscii: true));
 Console.WriteLine();
 Console.WriteLine($"Wrote {outputPath}");
 foreach (var (episodeId, contents) in episodes)
+{
     Console.WriteLine($"  {episodeId}: {TextFormat.QuoteList(contents.Scenes)}");
+}

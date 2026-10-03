@@ -14,7 +14,9 @@ if (saveDirectory == null)
 
 var estore = EndEpisodeEstoreBuilder.Build(saveDirectory, logName, Console.Out);
 if (estore == null)
+{
     return 0;
+}
 
 var outputPath = Path.Combine(saveDirectory, logName + EndEpisodeEstoreBuilder.Extension);
 File.WriteAllBytes(outputPath, estore);

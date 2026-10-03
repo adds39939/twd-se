@@ -5,7 +5,6 @@ using TwdSaveEditor.Core.Model;
 using TwdSaveEditor.Season.Common.Abstractions;
 using TwdSaveEditor.Season.Common.Extensions;
 using TwdSaveEditor.Season.Common.Model;
-using TwdSaveEditor.Season.Common.Services;
 
 namespace TwdSaveEditor.Tools.EditSave.Editing;
 
@@ -68,7 +67,9 @@ public sealed class SaveSession
     public void RestartFromEpisode(int episode)
     {
         if (Season is not IResumePointHandler resume)
+        {
             throw new NotSupportedException($"{Season.Name} saves cannot be restarted from an episode.");
+        }
 
         resume.RestartFromEpisode(Slot, episode);
     }
@@ -79,7 +80,9 @@ public sealed class SaveSession
     public bool RestartFromChapter(int episode, string chapterId)
     {
         if (Season is not IResumePointHandler resume || Chapters(episode).All(chapter => !chapter.Id.Equals(chapterId, StringComparison.OrdinalIgnoreCase)))
+        {
             return false;
+        }
 
         resume.RestartFromChapter(Slot, episode, chapterId);
         return true;
@@ -90,7 +93,9 @@ public sealed class SaveSession
     public bool ChangeInventory(bool addCarried, IReadOnlyList<string> give, IReadOnlyList<string> take)
     {
         if (Season is not IInventoryHandler handler || handler.GetInventory(Slot) is not { Editable: true } state)
+        {
             return false;
+        }
 
         var items = state.Held
             .Concat(addCarried ? handler.GetCarriedItems(Slot) : [])
@@ -114,7 +119,9 @@ public sealed class SaveSession
     {
         var files = new List<CompanionFile> { new(Slot.FileName, BundleWriter.Write(Slot)) };
         if (Season is ICompanionFileHandler companion)
+        {
             files.AddRange(companion.BuildCompanionFiles(Slot));
+        }
 
         return files;
     }

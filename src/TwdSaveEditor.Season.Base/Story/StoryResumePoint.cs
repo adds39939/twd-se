@@ -29,7 +29,9 @@ public sealed partial class StoryResumePoint(StorySeason season)
         }
 
         if (finished >= season.LastEpisode)
+        {
             return new ResumeState(season.LastEpisode, null, null, SeasonFinished: true);
+        }
 
         var next = Math.Clamp(Math.Max(metadata?.GetInt(SlotMetadataKeys.EpisodeInProgress) ?? StorySeason.FirstEpisode, finished + 1), StorySeason.FirstEpisode, season.LastEpisode);
         var latest = metadata?.GetString(SlotMetadataKeys.LatestSave);
@@ -41,7 +43,9 @@ public sealed partial class StoryResumePoint(StorySeason season)
     {
         var save = LatestSave(slot);
         if (save?.Metadata is not { } saved)
+        {
             return null;
+        }
 
         var episode = saved.GetInt(SaveMetadataKeys.Episode) ?? StorySeason.FirstEpisode;
         return episode > LastFinished(slot) && GeneratedChapter(save, episode) is not { StartsEpisode: true } ? save : null;
@@ -55,7 +59,9 @@ public sealed partial class StoryResumePoint(StorySeason season)
         episode = Math.Clamp(episode, StorySeason.FirstEpisode, season.LastEpisode);
         Rewind(slot, episode);
         if (season.ChapterSaves && slot.Checkpoints.Count == 0 && season.ChaptersOf(episode) is { } chapters)
+        {
             AddSave(slot, episode, chapters.Opening, date);
+        }
     }
 
     public void RestartFromChapter(SaveSlot slot, int episode, string chapterId, string date)
@@ -83,7 +89,9 @@ public sealed partial class StoryResumePoint(StorySeason season)
         foreach (var flag in chapter.Flags)
         {
             if (season.FindDecision(flag.Key) is { } decision && decision.Find(Text(flag.Value)) is { } option)
+            {
                 decisions.SetValue(decision, option);
+            }
         }
 
         AddSave(slot, episode, chapter, date);
@@ -100,7 +108,9 @@ public sealed partial class StoryResumePoint(StorySeason season)
     public StoryChapter? GeneratedChapter(SaveSlot save, int episode)
     {
         if (save.Metadata?.GetString(StoryFiles.SavedScript) is not { } script || season.ChaptersOf(episode) is not { } chapters)
+        {
             return null;
+        }
 
         if (Properties(save, season.ScriptProperties)?.GetString(StoryCheckpointBuilder.PreviousScript) != StoryCheckpointBuilder.DeveloperMenuScript)
         {
@@ -119,11 +129,15 @@ public sealed partial class StoryResumePoint(StorySeason season)
     public StoryChapter? Chapter(SaveSlot save, int episode)
     {
         if (GeneratedChapter(save, episode) is { } generated)
+        {
             return generated;
+        }
 
         var chapterId = save.Metadata?.GetString(SaveMetadataKeys.ChapterId);
         if (string.IsNullOrEmpty(chapterId))
+        {
             return null;
+        }
 
         var script = save.Metadata?.GetString(StoryFiles.SavedScript);
         var chapters = season.ChaptersOf(episode)?.Chapters
@@ -151,12 +165,16 @@ public sealed partial class StoryResumePoint(StorySeason season)
         {
             slot.Checkpoints.Remove(save);
             if (!slot.ObsoleteFileNames.Contains(save.FileName))
+            {
                 slot.ObsoleteFileNames.Add(save.FileName);
+            }
         }
 
         log.TruncateFromEpisode(episode);
         for (var earlier = StorySeason.FirstEpisode; earlier < episode; earlier++)
+        {
             log.FinishEpisode(earlier);
+        }
 
         Restore(decisions, before, made);
 
@@ -168,15 +186,24 @@ public sealed partial class StoryResumePoint(StorySeason season)
         for (var number = StorySeason.FirstEpisode; number <= season.LastEpisode; number++)
         {
             if (number < episode)
+            {
                 metadata.SetBool(SlotMetadataKeys.CompletedEpisode(number), true);
+            }
             else
+            {
                 metadata.Remove(Symbol.FromString(SlotMetadataKeys.CompletedEpisode(number)));
+            }
         }
 
         if (metadata.Find(StoryFiles.EpisodesSkipped) != null)
+        {
             metadata.SetString(StoryFiles.EpisodesSkipped, string.Empty);
+        }
+
         if (metadata.Find(StoryFiles.GeneratedChoices) != null)
+        {
             SetNumber(metadata, StoryFiles.GeneratedChoices, 0);
+        }
     }
 
     private void AddSave(SaveSlot slot, int episode, StoryChapter chapter, string date)
@@ -201,7 +228,9 @@ public sealed partial class StoryResumePoint(StorySeason season)
         {
             var name = DialogLogFiles.SaveName(slot.FileName, StoryFiles.CheckpointName + index);
             if (!slot.Checkpoints.Any(save => save.FileName.Equals(name, StringComparison.OrdinalIgnoreCase)))
+            {
                 return name;
+            }
         }
     }
 
@@ -221,13 +250,17 @@ public sealed partial class StoryResumePoint(StorySeason season)
         foreach (var (decision, option) in made)
         {
             if (!ReferenceEquals(decisions.GetOption(decision), option))
+            {
                 decisions.SetValue(decision, option);
+            }
         }
 
         foreach (var decision in wanted.Where(decision => !made.ContainsKey(decision)))
         {
             if (decisions.GetOption(decision) == null)
+            {
                 decisions.SetValue(decision, decision.Options[0]);
+            }
         }
     }
 
@@ -243,11 +276,17 @@ public sealed partial class StoryResumePoint(StorySeason season)
     {
         var stored = metadata.Find(StoryFiles.LastEpisodeFinished)?.Value;
         if (stored is StringValue || (stored == null && season.FinishedEpisodeKind == StoryNumberKind.Text))
+        {
             metadata.SetString(StoryFiles.LastEpisodeFinished, episode.ToString(CultureInfo.InvariantCulture));
+        }
         else if (stored == null && season.FinishedEpisodeKind == StoryNumberKind.Integer)
+        {
             metadata.SetInt(StoryFiles.LastEpisodeFinished, episode);
+        }
         else
+        {
             SetNumber(metadata, StoryFiles.LastEpisodeFinished, episode);
+        }
     }
 
     private static void SetNumber(PropertySet properties, string key, int value)

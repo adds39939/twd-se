@@ -24,18 +24,24 @@ public sealed partial class DialogScanner(DialogLoader loader, IReadOnlyDictiona
         foreach (var props in tagged)
         {
             if ((props?.Find(PersistentKey) as MetaScalar)?.Text is { Length: > 0 } key)
+            {
                 Decisions.Add(new Decision(dialog.Name, key, (props.Find(PersistentValue) as MetaScalar)?.Text ?? string.Empty));
+            }
         }
 
         foreach (var node in dialog.Nodes.Values.Where(node => node.Script != null).OrderBy(node => node.Id))
         {
             foreach (Match match in LoadScript().Matches(node.Script!))
+            {
                 Transitions.Add(new SceneTransition(dialog.Name, node.Id, match.Groups[1].Value));
+            }
 
             foreach (Match match in Call().Matches(node.Script!))
             {
                 foreach (var target in scriptLoaders.GetValueOrDefault(match.Groups[1].Value) ?? [])
+                {
                     Transitions.Add(new SceneTransition(dialog.Name, node.Id, target));
+                }
             }
 
             foreach (Match match in Checkpoint().Matches(node.Script!))

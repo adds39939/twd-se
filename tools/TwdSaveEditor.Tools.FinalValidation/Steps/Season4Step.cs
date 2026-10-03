@@ -24,7 +24,9 @@ public sealed partial class Season4Step(ValidationContext context) : IValidation
         {
             var files = context.Archives.ExtractFiles(GameArchiveNames.Season4);
             if (files is { Count: > 0 })
+            {
                 AddLuaFindings(details, files);
+            }
         }
         catch (Exception e)
         {
@@ -49,7 +51,9 @@ public sealed partial class Season4Step(ValidationContext context) : IValidation
         foreach (var keyword in Keywords)
         {
             if (!text.ToLowerInvariant().Contains(keyword))
+            {
                 continue;
+            }
 
             details.Add($"CONFIRMED: S4 reads from '{keyword}'");
             details.AddRange(TextSearch.LinesContaining(text, keyword).Take(1).Select(line => $"  {TextSearch.Excerpt(line)}"));
@@ -77,13 +81,17 @@ public sealed partial class Season4Step(ValidationContext context) : IValidation
         var hasChoiceStats = table.Any(entry => entry.Name == ChoiceStatsFile);
         details.Add($"Has choicestats.pro: {hasChoiceStats}");
         if (!hasChoiceStats)
+        {
             details.Add("WARNING: choicestats.pro not found (save may be early-game)");
+        }
 
         var passed = true;
         foreach (var entry in table.Where(entry => entry.Name == ChoiceStatsFile))
         {
             if (BundleFileTable.ReadInnerFile(bundle, entry) is { } inner && !ValidateChoiceStats(details, inner.Default))
+            {
                 passed = false;
+            }
         }
 
         return passed;
@@ -92,7 +100,9 @@ public sealed partial class Season4Step(ValidationContext context) : IValidation
     private static bool ValidateChoiceStats(List<string> details, byte[] section)
     {
         if (section.Length >= 12)
+        {
             details.Add($"PropertySet: version={Bytes.U32(section, 0)}, flags=0x{Bytes.U32(section, 4):X8}, data_size={Bytes.U32(section, 8)}");
+        }
 
         var guids = AnyGuid().Matches(TextFormat.DecodeLatin1(section)).Select(match => match.Groups[1].Value).ToList();
         details.Add($"GUIDs found in choicestats.pro: {guids.Count}");
@@ -102,10 +112,14 @@ public sealed partial class Season4Step(ValidationContext context) : IValidation
         var matched = Season4Guids.All.Keys.Count(guid => found.Contains(guid.ToUpperInvariant()));
         details.Add($"Our S4 GUIDs found in real save: {matched}/{Season4Guids.All.Count}");
         if (matched == 0)
+        {
             details.Add("ERROR: No S4 GUIDs matched!");
+        }
 
         if (guids.Count > 0)
+        {
             details.Add($"Sample GUIDs: {TextFormat.QuoteList(guids.Take(5))}");
+        }
 
         return matched > 0;
     }

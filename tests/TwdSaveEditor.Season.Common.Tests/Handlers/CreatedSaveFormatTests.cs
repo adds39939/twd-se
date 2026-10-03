@@ -258,13 +258,20 @@ public class CreatedSaveFormatTests
     private static List<VersionEntry> ParseInnerVersionEntries(byte[] innerData)
     {
         var entries = new List<VersionEntry>();
-        if (innerData.Length < 20) return entries;
+        if (innerData.Length < 20)
+        {
+            return entries;
+        }
 
         var verCount = BitConverter.ToUInt32(innerData, 16);
         int pos = 20;
         for (int i = 0; i < verCount; i++)
         {
-            if (pos + 12 > innerData.Length) break;
+            if (pos + 12 > innerData.Length)
+            {
+                break;
+            }
+
             var typeCrc = BitConverter.ToUInt64(innerData, pos);
             pos += 8;
             var versionCrc = BitConverter.ToUInt32(innerData, pos);

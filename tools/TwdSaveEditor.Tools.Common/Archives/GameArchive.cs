@@ -18,13 +18,19 @@ public static class GameArchive
     {
         var magic = new byte[4];
         using (var file = File.OpenRead(path))
+        {
             file.ReadExactly(magic);
+        }
 
         if (magic.AsSpan().SequenceEqual(EcttArchive.Magic))
+        {
             return EcttArchive.Read(path, cipher);
+        }
 
         if (magic.AsSpan().SequenceEqual(UncompressedMagic))
+        {
             return File.ReadAllBytes(path)[UncompressedHeaderSize..];
+        }
 
         return null;
     }

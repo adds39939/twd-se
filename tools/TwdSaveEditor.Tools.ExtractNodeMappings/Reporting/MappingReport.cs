@@ -17,7 +17,9 @@ public sealed partial class MappingReport(IReadOnlyDictionary<string, List<Choic
         var lines = new List<string>();
 
         foreach (var (season, mappings) in SeasonsWithMappings())
+        {
             AddSeason(lines, season, mappings);
+        }
 
         lines.Add($"\n\n{new string('=', 80)}");
         lines.Add("COMPACT HASH MAPPING TABLE");
@@ -26,7 +28,9 @@ public sealed partial class MappingReport(IReadOnlyDictionary<string, List<Choic
         lines.Add(new string('-', 80));
 
         foreach (var (season, mappings) in SeasonsWithMappings())
+        {
             AddCompactTable(lines, season, mappings);
+        }
 
         return string.Join("\n", lines);
     }
@@ -63,7 +67,10 @@ public sealed partial class MappingReport(IReadOnlyDictionary<string, List<Choic
                     case ExpressionKind.Decimal:
                         decimalOptions++;
                         if (useEpage && epageHashes.HasNode(expression.Decimal))
+                        {
                             verifiedOptions++;
+                        }
+
                         break;
                     case ExpressionKind.Guid:
                         guidOptions++;
@@ -81,7 +88,9 @@ public sealed partial class MappingReport(IReadOnlyDictionary<string, List<Choic
         lines.Add($"  GUID options: {guidOptions}");
         lines.Add($"  Empty/zero options: {emptyOptions}");
         if (useEpage)
+        {
             lines.Add($"  Verified in epage files: {verifiedOptions}/{decimalOptions}");
+        }
     }
 
     private string FormatMapping(ChoiceMapping mapping, bool useEpage)
@@ -111,7 +120,9 @@ public sealed partial class MappingReport(IReadOnlyDictionary<string, List<Choic
                     {
                         lines.Add($"      -> In epage 'Executing Dialog Node': {(epageHashes.HasNode(expression.Decimal) ? "YES" : "NO")}");
                         if (epageHashes.HasChoice(expression.Decimal))
+                        {
                             lines.Add("      -> In epage 'Dialog Choice': YES");
+                        }
                     }
 
                     break;
@@ -125,12 +136,19 @@ public sealed partial class MappingReport(IReadOnlyDictionary<string, List<Choic
 
             lines.Add($"      Secondary Expr: {option.SecondaryExpression}");
             if (secondary.IsDecimal)
+            {
                 lines.Add($"      -> Secondary CRC64: {secondary.HexHash}");
+            }
 
             if (option.Guid.Length > 0)
+            {
                 lines.Add($"      GUID: {option.Guid}");
+            }
+
             if (option.Percentage.Length > 0)
+            {
                 lines.Add($"      Percentage: {option.Percentage}%");
+            }
         }
 
         return string.Join("\n", lines);

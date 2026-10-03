@@ -26,7 +26,9 @@ public sealed class S2SaveFactory : IS2SaveFactory
         var imported = new PropertySet { Flags = LocalKeysFlag };
         var container = new Symbol(TelltaleTypes.ChoicesContainer);
         for (var episode = PersistentKeys.FirstEpisode; episode <= PersistentKeys.LastEpisode; episode++)
+        {
             imported.Set(Symbol.FromString(S2SlotFiles.TrackerContainer(episode)), container, new RawBytesValue(ChoicesContainer.Serialize([]), container));
+        }
 
         return SaveSlotFactory.Create(fileName,
             (BundleFileNames.SlotMetadata, metadata),

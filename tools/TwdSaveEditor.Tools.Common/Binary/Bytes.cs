@@ -26,7 +26,9 @@ public static class Bytes
     public static int IndexOf(ReadOnlySpan<byte> data, ReadOnlySpan<byte> pattern, long start = 0)
     {
         if (start > data.Length)
+        {
             return -1;
+        }
 
         var from = (int)Math.Max(start, 0);
         var index = data[from..].IndexOf(pattern);

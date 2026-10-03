@@ -24,7 +24,9 @@ public static partial class DebugMenuReader
             }
 
             if (!match.Groups["script"].Success)
+            {
                 continue;
+            }
 
             var command = match.Groups["command"].Value.Replace("\\\"", "\"");
             var entry = new MenuEntry(group, title.Trim(), match.Groups["script"].Value, [.. LogicSet().Matches(command).Select(flag => ReadFlag(flag, constants))]);
@@ -44,7 +46,9 @@ public static partial class DebugMenuReader
             }
 
             while (anchor + 1 < entries.Count && entries[anchor + 1].Script.Equals(entries[anchor].Script, StringComparison.OrdinalIgnoreCase))
+            {
                 anchor++;
+            }
 
             entries.Insert(++anchor, entry with { Title = SceneTitle(entry.Title) });
         }

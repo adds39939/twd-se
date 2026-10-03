@@ -36,7 +36,9 @@ public static class EcttArchive
 
         var chunkSizes = new long[chunkCount];
         for (var i = 0; i < chunkCount; i++)
+        {
             chunkSizes[i] = (long)(Bytes.U64(offsetTable, (i + 1) * 8L) - Bytes.U64(offsetTable, i * 8L));
+        }
 
         log.WriteLine($"Data starts at offset: 0x{file.Position:X}");
         log.WriteLine($"First 5 chunk sizes: [{string.Join(", ", chunkSizes.Take(5))}]");
@@ -59,7 +61,9 @@ public static class EcttArchive
             {
                 var inflated = Zlib.TryInflateAny(raw, Zlib.ZlibWindow, Zlib.RawWindow);
                 if (inflated == null && index < 3)
+                {
                     log.WriteLine($"  Chunk {index}: decompression failed, using raw decrypted");
+                }
 
                 assembled.Write(inflated ?? raw);
             }
@@ -69,7 +73,9 @@ public static class EcttArchive
             }
 
             if (index < 3 || index == chunkCount - 1)
+            {
                 log.WriteLine($"  Chunk {index}: raw={rawSize}, total_assembled={assembled.Length}");
+            }
         }
 
         log.WriteLine();

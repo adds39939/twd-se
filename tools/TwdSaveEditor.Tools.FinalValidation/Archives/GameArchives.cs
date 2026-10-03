@@ -12,7 +12,9 @@ public sealed class GameArchives(string archivesDirectory, BlowfishV7 cipher)
     {
         var archivePath = Path.Combine(archivesDirectory, archiveName);
         if (!File.Exists(archivePath))
+        {
             return null;
+        }
 
         var data = EcttArchive.Read(archivePath, cipher);
         return data == null ? null : InnerArchive.Parse(data);
@@ -22,7 +24,9 @@ public sealed class GameArchives(string archivesDirectory, BlowfishV7 cipher)
     {
         var bytes = data.Span;
         if (bytes.Length >= LuaHeaderSize && bytes.StartsWith("LE"u8))
+        {
             return TextFormat.DecodeAscii(cipher.DecryptData(bytes[LuaHeaderSize..]));
+        }
 
         return TextFormat.DecodeAscii(bytes);
     }
@@ -32,7 +36,9 @@ public sealed class GameArchives(string archivesDirectory, BlowfishV7 cipher)
         foreach (var (name, data) in files)
         {
             if (name.ToLowerInvariant().Contains(pattern.ToLowerInvariant()))
+            {
                 return (name, data);
+            }
         }
 
         return (null, null);

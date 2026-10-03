@@ -56,7 +56,9 @@ public abstract class StorySeasonHandler(IDialogLogCompanions companions, IStory
     public void ImportChoices(SaveSlot source, SaveSlot target)
     {
         if (source.EventLog == null)
+        {
             return;
+        }
 
         new StoryEventLog(target, Season).ReplacePreviousGameData(source.EventLog.Events.Select(entry => entry.DialogNode).OfType<ulong>());
         StoryChoiceAccessor.UpdateSavedLogic(target, Season);

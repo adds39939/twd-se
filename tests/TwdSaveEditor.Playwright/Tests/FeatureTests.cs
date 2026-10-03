@@ -18,7 +18,9 @@ public class FeatureTests
     {
         var directory = new Dictionary<string, string>();
         foreach (var (season, fileName) in files)
+        {
             await FakeSaveDirectory.AddSaveAsync(directory, season, fileName);
+        }
 
         await FakeSaveDirectory.InstallAsync(page, directory);
     }

@@ -34,7 +34,9 @@ public sealed class StoryDecisionLog(SaveSlot slot, StorySeason season)
             .Distinct()
             .ToList();
         if (involved.Count > MaxNodes)
+        {
             throw new InvalidOperationException($"The decision {decision.ChoiceKey} depends on too many dialog nodes to set.");
+        }
 
         var current = _log.Nodes();
         var related = season.Decisions
@@ -50,13 +52,19 @@ public sealed class StoryDecisionLog(SaveSlot slot, StorySeason season)
             for (var bit = 0; bit < involved.Count; bit++)
             {
                 if ((mask & (1 << bit)) != 0)
+                {
                     state.Add(involved[bit]);
+                }
                 else
+                {
                     state.Remove(involved[bit]);
+                }
             }
 
             if (!ReferenceEquals(Current(decision, state), target))
+            {
                 continue;
+            }
 
             var cost = (
                 definitions.Count(key => !Reads(key, state, target.Value)),
@@ -64,11 +72,15 @@ public sealed class StoryDecisionLog(SaveSlot slot, StorySeason season)
                 involved.Count(node => state.Contains(node) != current.Contains(node)),
                 involved.Count(state.Contains));
             if (best == null || cost.CompareTo(bestCost) < 0)
+            {
                 (best, bestCost) = (state, cost);
+            }
         }
 
         if (best == null)
+        {
             throw new InvalidOperationException($"No set of dialog nodes makes {decision.ChoiceKey} read as {target.Value}.");
+        }
 
         _log.Replace(
             [.. involved.Where(node => current.Contains(node) && !best.Contains(node))],

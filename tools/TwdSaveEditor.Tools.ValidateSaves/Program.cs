@@ -28,7 +28,9 @@ Section("VALIDATION 2: Metadata Property Hashes");
 Console.WriteLine();
 Console.WriteLine("--- CRC64 Implementation Verification ---");
 foreach (var name in (string[])["bool", "int32", "String"])
+{
     Console.WriteLine($"  CRC64('{name}') = 0x{TelltaleCrc64.Compute(name):X16}");
+}
 
 Console.WriteLine();
 Console.WriteLine("--- Event Type Hash Verification ---");
@@ -37,7 +39,9 @@ foreach (var (name, expected) in SaveFormat.EventTypes)
     var hash = TelltaleCrc64.Compute(name);
     Console.WriteLine($"  CRC64('{name}') = 0x{hash:X16} {(hash == expected ? "MATCH" : "MISMATCH")} (expected 0x{expected:X16})");
     if (hash != expected)
+    {
         allPass = false;
+    }
 }
 
 foreach (var season in Seasons.All)
@@ -91,7 +95,9 @@ void Report(List<string> results)
     {
         Console.WriteLine(result);
         if (result.Contains("MISMATCH"))
+        {
             allPass = false;
+        }
     }
 }
 

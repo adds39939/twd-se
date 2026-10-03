@@ -52,17 +52,25 @@ foreach (var (label, path) in bundles)
     {
         Console.WriteLine($"    {entry.Name}: offset={entry.Offset}, size={entry.Size}");
         if (!bundle.Files.TryGetValue(entry.Name, out var file))
+        {
             continue;
+        }
 
         Console.WriteLine($"      inner: def={file.DefaultSize}, dbg={file.DebugSize}, async={file.AsyncSize}, versions={file.Versions}");
         if (file.DebugHex != null)
+        {
             Console.WriteLine($"      dbg bytes: {file.DebugHex}");
+        }
 
         foreach (var (property, value) in file.Properties ?? [])
+        {
             Console.WriteLine($"      {property} = {(value is string text ? TextFormat.QuoteString(text) : value)}");
+        }
 
         if (file.PropertySet is { } header)
+        {
             Console.WriteLine($"      PS: ver={header.Version}, flags=0x{header.Flags:X}, data_size={header.DataSize}");
+        }
     }
 }
 
@@ -76,7 +84,9 @@ foreach (var fileName in (string[])[SlotBundle, AutosaveBundle])
     var backupPath = Path.Combine(backupDirectory, fileName);
     var currentPath = Path.Combine(saveDirectory, fileName);
     if (!File.Exists(backupPath) || !File.Exists(currentPath))
+    {
         continue;
+    }
 
     var backup = File.ReadAllBytes(backupPath);
     var current = File.ReadAllBytes(currentPath);

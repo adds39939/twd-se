@@ -38,7 +38,9 @@ public static class Season3ChoiceHashValidator
         {
             var epagePath = Path.Combine(ToolPaths.TestData, Seasons.Season3, epageFile);
             if (!File.Exists(epagePath))
+            {
                 continue;
+            }
 
             var data = File.ReadAllBytes(epagePath);
             var defaultField = Bytes.U32(data, 4);
@@ -52,13 +54,17 @@ public static class Season3ChoiceHashValidator
 
             var section = Bytes.Slice(data, defaultStart, defaultStart + MetaStreamParser.SectionSize(defaultField));
             if (Bytes.IndexOf(section, EventLogFormat.RecordHeader) < 0)
+            {
                 continue;
+            }
 
             var records = EventLogFormat.ReadRecords(section);
             foreach (var record in records)
             {
                 if (record.EventType != EventLogFormat.ExecutingDialogNode || !KnownHashes.TryGetValue(record.NodeHash, out var known))
+                {
                     continue;
+                }
 
                 results.Add($"  MATCH: 0x{record.NodeHash:X16} -> {known.Choice}={known.Option} (in {epageFile})");
                 foundCount++;

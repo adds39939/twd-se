@@ -25,7 +25,11 @@ public class FileSystemService : IFileSystemService, IAsyncDisposable
     public async Task<byte[]?> ReadFile(string name)
     {
         var base64 = await (await _module.Value).InvokeAsync<string?>("readFile", name);
-        if (base64 == null) return null;
+        if (base64 == null)
+        {
+            return null;
+        }
+
         return Convert.FromBase64String(base64);
     }
 
@@ -52,7 +56,10 @@ public class FileSystemService : IFileSystemService, IAsyncDisposable
 
     public async ValueTask DisposeAsync()
     {
-        if (!_module.IsValueCreated) return;
+        if (!_module.IsValueCreated)
+        {
+            return;
+        }
 
         try
         {

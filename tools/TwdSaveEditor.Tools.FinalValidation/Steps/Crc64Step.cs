@@ -38,7 +38,9 @@ public sealed class Crc64Step(ValidationContext context) : IValidationStep
             var match = computed == expected;
             details.Add($"CRC64(\"{text}\") = 0x{computed:X16} {(match ? "==" : "!=")} 0x{expected:X16} {(match ? "OK" : "MISMATCH")}");
             if (!match)
+            {
                 passed = false;
+            }
         }
 
         details.Add("\nChoicesContainer hash check:");
@@ -46,7 +48,9 @@ public sealed class Crc64Step(ValidationContext context) : IValidationStep
         details.Add($"  Expected (C#): 0x{ChoicesContainerScanner.TypeHash:X16}");
 
         foreach (var (name, description) in Types)
+        {
             details.Add($"  CRC64(\"{name}\") = 0x{TelltaleCrc64.Compute(name):X16}  ({description})");
+        }
 
         context.Report.Add("10. CRC64 hash function", passed, details);
     }

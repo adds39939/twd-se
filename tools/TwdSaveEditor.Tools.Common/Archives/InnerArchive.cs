@@ -15,13 +15,17 @@ public static class InnerArchive
     {
         var files = new OrderedDictionary<string, ReadOnlyMemory<byte>>();
         if (archive.Length < HeaderSize)
+        {
             return files;
+        }
 
         if (Bytes.U32(archive.Span, 0) != Magic)
         {
             var position = Bytes.IndexOf(archive.Span, "4ATT"u8);
             if (position < 0)
+            {
                 return files;
+            }
 
             archive = archive[position..];
         }
@@ -35,7 +39,9 @@ public static class InnerArchive
         {
             var entry = HeaderSize + i * EntrySize;
             if (entry + EntrySize > data.Length)
+            {
                 break;
+            }
 
             var nameOffset = (uint)Bytes.U16(data, entry + 24) * NamePageSize + Bytes.U16(data, entry + 26);
             entries.Add((nameOffset, Bytes.U32(data, entry + 8), Bytes.U32(data, entry + 16)));
@@ -49,12 +55,16 @@ public static class InnerArchive
             var nameStart = nameTableStart + nameOffset;
             long nameEnd = Bytes.IndexOf(data, [0], nameStart);
             if (nameEnd < 0)
+            {
                 nameEnd = nameTableStart + namesSize;
+            }
 
             var name = TextFormat.DecodeAscii(Bytes.Slice(data, nameStart, nameEnd));
             var start = fileDataStart + fileOffset;
             if (start + fileSize <= data.Length)
+            {
                 files[name] = archive.Slice((int)start, (int)fileSize);
+            }
         }
 
         return files;

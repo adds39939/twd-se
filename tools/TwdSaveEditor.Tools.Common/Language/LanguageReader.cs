@@ -13,7 +13,9 @@ public sealed class LanguageReader(MetaReader reader)
     {
         var document = reader.Read(File.ReadAllBytes(path), RootType);
         if (document?.Root is not MetaObject root || root.Find("mLanguageResources") is not MetaMap resources)
+        {
             throw new MetaFormatException($"{Path.GetFileName(path)}: {document?.Error ?? "not a language database"}");
+        }
 
         var texts = new Dictionary<long, string>();
         foreach (var (key, value) in resources.Entries)

@@ -4,7 +4,6 @@ using TwdSaveEditor.Tools.Common.Configuration;
 using TwdSaveEditor.Tools.Common.Meta;
 using TwdSaveEditor.Tools.Common.Seasons;
 using TwdSaveEditor.Tools.ExtractDecisions.Choices;
-using TwdSaveEditor.Tools.ExtractDecisions.Model;
 using TwdSaveEditor.Tools.ExtractDecisions.Props;
 using TwdSaveEditor.Tools.ExtractDecisions.Scripts;
 
@@ -40,13 +39,17 @@ if (!File.Exists(randomizer))
 {
     var keys = props.ReadLogicKeys(persistent);
     if (!game.MatchesBracedNodes)
+    {
         keys = [.. keys.Select(ExpressionDecisions.WithoutBracedNodes)];
+    }
 
     var rows = ExpressionDecisions.Build(props.ReadStats(stats), keys, season);
     File.WriteAllText(Path.Combine(output, $"{game.SeasonKey}.choices.json"), new JsonArray([.. rows.Select(row => ExpressionDecisions.Choice(row, game.SeasonKey))]).ToJsonString(options) + Environment.NewLine);
     File.WriteAllText(Path.Combine(output, $"{game.SeasonKey}.decisions.json"), ExpressionDecisions.Decisions(rows, keys).ToJsonString(options) + Environment.NewLine);
     foreach (var row in rows)
+    {
         Console.WriteLine($"{row.Episode} {(row.Story ? "story" : "stats")} {row.Key,-60} {string.Join(" | ", row.Options.Select(option => $"{option.Value}={option.Label}"))}");
+    }
 
     Console.WriteLine($"Wrote {rows.Count} decisions and {keys.Count} logic keys to {output}");
     return 0;

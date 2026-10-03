@@ -14,7 +14,9 @@ public static partial class DecisionWriter
     public static string Title(Decision decision)
     {
         if (decision.Logic != null)
+        {
             return decision.Logic.Name[(decision.Logic.Name.IndexOf(TitleSeparator, StringComparison.Ordinal) + TitleSeparator.Length)..];
+        }
 
         return decision.RandomizerId != null
             ? Words().Replace(decision.RandomizerId, " $1").Trim()
@@ -36,7 +38,9 @@ public static partial class DecisionWriter
                 : option.LogicValue?.ToLowerInvariant() ?? Slug(label);
 
             while (options.Any(existing => existing.Value == value))
+            {
                 value += "_";
+            }
 
             options.Add((value, label));
         }
@@ -76,7 +80,9 @@ public static partial class DecisionWriter
     private static string Category(Decision decision, bool linked)
     {
         if (!linked)
+        {
             return decision.Logic != null ? StoryCategory : StatisticsCategory;
+        }
 
         return decision.Stat == null ? DefaultCategory : Capitalise(decision.Stat.Category.ToLowerInvariant());
     }
@@ -84,13 +90,19 @@ public static partial class DecisionWriter
     private static string Label(Decision decision, DecisionOption option, int index)
     {
         if (option.Label != null)
+        {
             return PlayerText().Match(option.Label) is { Success: true } match ? Capitalise(match.Groups[1].Value) : option.Label;
+        }
 
         if (decision.Logic is { IsMap: true })
+        {
             return option.LogicValue ?? "None of these";
+        }
 
         if (decision.Logic != null)
+        {
             return option.LogicValue != null ? "Yes" : "No";
+        }
 
         return $"Option {index + 1}";
     }

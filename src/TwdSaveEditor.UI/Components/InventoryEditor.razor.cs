@@ -41,7 +41,9 @@ public partial class InventoryEditor
     private void SetCount(InventoryItem item, object? value)
     {
         if (!int.TryParse(value?.ToString(), CultureInfo.InvariantCulture, out var count))
+        {
             return;
+        }
 
         Apply([.. _state!.Held.Where(held => held.Id != item.Id), .. count > 0 ? new[] { new HeldItem(item.Id, count) } : []]);
     }

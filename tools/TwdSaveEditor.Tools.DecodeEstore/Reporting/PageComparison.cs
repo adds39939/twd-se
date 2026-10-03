@@ -20,19 +20,25 @@ public sealed class PageComparison(TextWriter output)
         for (var i = 0; i < first.Default.Length; i++)
         {
             if (first.Default[i] != second.Default[i])
+            {
                 differences.Add(new ByteDifference(i, first.Default[i], second.Default[i]));
+            }
         }
 
         output.WriteLine($"  Size: {first.Default.Length} bytes{sizeSuffix}");
         output.WriteLine($"  Differing bytes: {differences.Count}");
         if (differences.Count == 0)
+        {
             return;
+        }
 
         var nameEnd = Bytes.IndexOf(first.Default, ".epage"u8) + 6;
         ReportPositions(differences, nameEnd, first.RecordSize);
 
         if (analyseValues)
+        {
             ReportValues(differences);
+        }
     }
 
     private void ReportPositions(List<ByteDifference> differences, int nameEnd, int recordSize)
@@ -41,13 +47,17 @@ public sealed class PageComparison(TextWriter output)
         foreach (var difference in differences)
         {
             if (difference.Offset - nameEnd >= 0 && recordSize > 0)
+            {
                 positions.Add((difference.Offset - nameEnd) % recordSize);
+            }
         }
 
         output.WriteLine();
         output.WriteLine($"  Differences by byte position within {recordSize}-byte records:");
         foreach (var (position, count) in positions.MostCommon())
+        {
             output.WriteLine($"    byte[{position}]: {count} differences");
+        }
 
         output.WriteLine();
         output.WriteLine($"  First {ListedDifferences} differences:");

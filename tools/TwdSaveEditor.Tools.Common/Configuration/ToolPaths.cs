@@ -23,7 +23,9 @@ public static class ToolPaths
     public static string? Argument(string[] args, int index, string variable)
     {
         if (args.Length > index)
+        {
             return args[index];
+        }
 
         var value = Environment.GetEnvironmentVariable(variable);
         return string.IsNullOrEmpty(value) ? null : value;
@@ -34,7 +36,9 @@ public static class ToolPaths
         for (var directory = new DirectoryInfo(AppContext.BaseDirectory); directory != null; directory = directory.Parent)
         {
             if (File.Exists(Path.Combine(directory.FullName, SolutionFile)))
+            {
                 return directory.FullName;
+            }
         }
 
         return Directory.GetCurrentDirectory();

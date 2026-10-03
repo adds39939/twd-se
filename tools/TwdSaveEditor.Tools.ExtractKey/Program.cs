@@ -28,11 +28,15 @@ for (var i = 0; i < args.Length; i++)
 
 gamePath ??= ToolPaths.Argument([], 0, ToolPaths.ArchivesVariable);
 if (gamePath == null)
+{
     return Fail($"Pass the game directory or set {ToolPaths.ArchivesVariable}.");
+}
 
 var exePath = GameLocations.FindExe(gamePath);
 if (exePath == null)
+{
     return Fail($"{GameLocations.ExeName} not found at or next to {GameLocations.Normalize(gamePath)}");
+}
 
 var exe = File.ReadAllBytes(exePath);
 Console.WriteLine($"Executable: {exePath}");
@@ -46,7 +50,9 @@ if (probe != null)
 {
     var found = locator.FindVerified(probe);
     if (found == null)
+    {
         return Fail($"No key in {GameLocations.ExeName} decrypts {probe.ArchiveName}.");
+    }
 
     offset = found.Value;
     Console.WriteLine($"Key found at 0x{offset:X}, verified against {probe.ArchiveName}");

@@ -19,14 +19,18 @@ public sealed class KeyLocator(byte[] exe, TextWriter output)
     public int? FindVerified(ArchiveProbe probe)
     {
         if (HasKeyShape(KnownOffset) && Decrypts(KeyAt(KnownOffset), probe))
+        {
             return KnownOffset;
+        }
 
         var offsets = ScanOffsets();
         output.WriteLine($"Key is not at 0x{KnownOffset:X}; scanning {offsets.Count} candidates in {GameLocations.ExeName}...");
         foreach (var offset in offsets)
         {
             if (Decrypts(KeyAt(offset), probe))
+            {
                 return offset;
+            }
         }
 
         return null;
@@ -39,10 +43,14 @@ public sealed class KeyLocator(byte[] exe, TextWriter output)
         for (var i = 0; i < exe.Length; i++)
         {
             if (exe[i] != 0)
+            {
                 continue;
+            }
 
             if (i - runStart >= KeyLength && i - KeyLength != KnownOffset)
+            {
                 offsets.Add(i - KeyLength);
+            }
 
             runStart = i + 1;
         }
@@ -54,7 +62,9 @@ public sealed class KeyLocator(byte[] exe, TextWriter output)
     {
         var plain = new BlowfishV7(key).DecryptData(probe.Data);
         if (!probe.Compressed)
+        {
             return HasPlaintextMagic(plain);
+        }
 
         return HasPlaintextMagic(Zlib.InflatePrefix(plain, Zlib.ZlibWindow, 4))
             || HasPlaintextMagic(Zlib.InflatePrefix(plain, Zlib.RawWindow, 4));

@@ -31,7 +31,9 @@ public static class Zlib
         {
             var result = TryInflate(data, bits);
             if (result != null)
+            {
                 return result;
+            }
         }
 
         return null;
@@ -51,7 +53,9 @@ public static class Zlib
             {
                 var read = inflater.Read(buffer, total, maxLength - total);
                 if (read == 0)
+                {
                     break;
+                }
 
                 total += read;
             }

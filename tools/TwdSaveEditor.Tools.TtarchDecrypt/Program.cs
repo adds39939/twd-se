@@ -26,4 +26,6 @@ Console.WriteLine("Parsing ECTT archive...");
 var data = EcttArchive.Read(archivePath, cipher, Console.Out);
 
 if (data is { Length: > 0 })
+{
     new ArchiveDataSearch(data, Console.Out).Report();
+}

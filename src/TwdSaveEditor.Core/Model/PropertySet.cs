@@ -64,11 +64,15 @@ public sealed class PropertySet
         {
             var index = group.Properties.FindIndex(property => property.KeySymbol == key);
             if (index < 0)
+            {
                 continue;
+            }
 
             group.Properties.RemoveAt(index);
             if (group.Properties.Count == 0)
+            {
                 TypeGroups.Remove(group);
+            }
 
             return true;
         }

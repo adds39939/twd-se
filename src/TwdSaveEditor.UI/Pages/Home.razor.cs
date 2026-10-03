@@ -30,11 +30,16 @@ public partial class Home : IDisposable
 
     private IChoiceAccessor? GetAccessor()
     {
-        if (Editor.SelectedSave == null) return null;
+        if (Editor.SelectedSave == null)
+        {
+            return null;
+        }
 
         var slotFile = Editor.SelectedSave.FileName;
         if (slotFile == _cachedAccessorSlot && _cachedAccessor != null)
+        {
             return _cachedAccessor;
+        }
 
         _cachedAccessor = Editor.GetChoiceAccessor(Editor.SelectedSave);
         _cachedAccessorSlot = slotFile;
@@ -44,7 +49,9 @@ public partial class Home : IDisposable
     private async Task ShowNewSaveDialog()
     {
         if (_newSaveDialog != null)
+        {
             await _newSaveDialog.Show();
+        }
     }
 
     private string TabClass(string tab) => ActiveTab == tab ? "active" : "";

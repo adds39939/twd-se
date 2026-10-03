@@ -79,13 +79,17 @@ public static class MetadataHashValidator
     {
         var lua = ArchiveDirectoryParser.Find(archiveData, LuaFile);
         if (lua != null)
+        {
             return lua;
+        }
 
         foreach (var alternative in AlternativeLuaFiles)
         {
             lua = ArchiveDirectoryParser.Find(archiveData, alternative);
             if (lua is not { Length: > 0 })
+            {
                 continue;
+            }
 
             results.Add($"  Found as: {alternative}");
             break;
@@ -104,7 +108,9 @@ public static class MetadataHashValidator
             var pattern = Encoding.ASCII.GetBytes(text);
             var count = Bytes.Count(archiveData, pattern);
             if (count == 0)
+            {
                 continue;
+            }
 
             var index = Bytes.IndexOf(archiveData, pattern);
             var context = Bytes.Slice(archiveData, index - 30, index + pattern.Length + 50);
@@ -118,7 +124,9 @@ public static class MetadataHashValidator
         foreach (var pattern in MetadataPatterns)
         {
             if (!strings.Any(text => string.Equals(text, pattern, StringComparison.OrdinalIgnoreCase)))
+            {
                 continue;
+            }
 
             foundNames.Add(pattern);
             results.Add($"  Found metadata property: '{pattern}'");
@@ -165,7 +173,9 @@ public static class MetadataHashValidator
     {
         var builder = new StringBuilder(data.Length);
         foreach (var b in data)
+        {
             builder.Append(b is >= 0x20 and <= 0x7E ? (char)b : '.');
+        }
 
         return builder.ToString();
     }

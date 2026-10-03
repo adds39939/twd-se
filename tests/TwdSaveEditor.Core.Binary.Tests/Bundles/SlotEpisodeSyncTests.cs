@@ -15,7 +15,10 @@ public class SlotEpisodeSyncTest
     public void SyncEpisode_SetsAllRequiredProperties()
     {
         var slotPath = TestDataHelper.GetPath("S1", "wd1_saveslot1_live.bundle");
-        if (!File.Exists(slotPath)) return;
+        if (!File.Exists(slotPath))
+        {
+            return;
+        }
 
         var slotData = File.ReadAllBytes(slotPath);
         var slotSave = BundleReader.Read(slotData, "wd1_saveslot1.bundle");
@@ -51,7 +54,10 @@ public class SlotEpisodeSyncTest
     public void SyncEpisode_UpdatesExistingProperties()
     {
         var slotPath = TestDataHelper.GetPath("S1", "wd1_saveslot2.bundle");
-        if (!File.Exists(slotPath)) return;
+        if (!File.Exists(slotPath))
+        {
+            return;
+        }
 
         var slotData = File.ReadAllBytes(slotPath);
         var slotSave = BundleReader.Read(slotData, "wd1_saveslot2.bundle");
@@ -93,9 +99,14 @@ public class SlotEpisodeSyncTest
             if (prop != null)
             {
                 if (value is StringValue sv && prop.Value is StringValue existingSv)
+                {
                     existingSv.Value = sv.Value;
+                }
                 else if (value is IntValue iv && prop.Value is IntValue existingIv)
+                {
                     existingIv.Value = iv.Value;
+                }
+
                 return;
             }
         }

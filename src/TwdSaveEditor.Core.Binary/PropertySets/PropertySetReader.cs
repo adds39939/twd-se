@@ -12,7 +12,9 @@ public sealed class PropertySetReader
         using var reader = new BinaryReaderEx(ms);
         var propSet = ReadPropertySet(reader);
         if (reader.Remaining != 0)
+        {
             throw new InvalidDataException($"PropertySet has {reader.Remaining} unread bytes.");
+        }
 
         return propSet;
     }
@@ -27,7 +29,9 @@ public sealed class PropertySetReader
 
         var parentCount = reader.ReadUInt32();
         for (uint i = 0; i < parentCount; i++)
+        {
             propSet.ParentSymbols.Add(reader.ReadSymbol());
+        }
 
         var typeGroupCount = reader.ReadUInt32();
         for (uint g = 0; g < typeGroupCount; g++)
@@ -47,7 +51,9 @@ public sealed class PropertySetReader
         }
 
         if (reader.Position != blockEnd)
+        {
             throw new InvalidDataException($"PropertySet block ends at {blockEnd}, read to {reader.Position}.");
+        }
 
         return propSet;
     }
@@ -57,31 +63,49 @@ public sealed class PropertySetReader
         var hash = typeSymbol.Value;
 
         if (hash == TelltaleTypes.Bool)
+        {
             return new BoolValue(reader.ReadTelltaleBool());
+        }
 
         if (hash == TelltaleTypes.Int32)
+        {
             return new IntValue(reader.ReadInt32());
+        }
 
         if (hash == TelltaleTypes.Float)
+        {
             return new FloatValue(reader.ReadFloat());
+        }
 
         if (hash == TelltaleTypes.String)
+        {
             return new StringValue(reader.ReadLengthPrefixedString());
+        }
 
         if (hash == TelltaleTypes.Symbol)
+        {
             return new SymbolValue(reader.ReadSymbol());
+        }
 
         if (hash == TelltaleTypes.Flags)
+        {
             return new IntValue(reader.ReadInt32());
+        }
 
         if (hash == TelltaleTypes.PropertySet)
+        {
             return new PropertySetValue(ReadPropertySet(reader));
+        }
 
         if (hash == TelltaleTypes.StringArray)
+        {
             return ReadStringArray(reader);
+        }
 
         if (hash == TelltaleTypes.ChoicesContainer)
+        {
             return ReadChoicesContainer(reader, typeSymbol);
+        }
 
         return ReadRawValue(reader, typeSymbol);
     }
@@ -90,11 +114,15 @@ public sealed class PropertySetReader
     {
         var count = reader.ReadInt32();
         if (count < 0 || count > reader.Remaining / sizeof(int))
+        {
             throw new InvalidDataException($"String array with invalid count {count} at position {reader.Position}.");
+        }
 
         var values = new List<string>(count);
         for (var index = 0; index < count; index++)
+        {
             values.Add(reader.ReadLengthPrefixedString());
+        }
 
         return new StringArrayValue(values);
     }

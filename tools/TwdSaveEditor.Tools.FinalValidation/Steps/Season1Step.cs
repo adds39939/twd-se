@@ -49,7 +49,9 @@ public sealed class Season1Step(ValidationContext context) : IValidationStep
         for (var episode = FirstEpisode; episode <= LastEpisode; episode++)
         {
             if (properties.Find($"Persistent - {episode} - Key Names") is MetaList names)
+            {
                 keys[episode] = names.Strings.ToList();
+            }
         }
 
         details.Add($"Game defines {keys.Values.Sum(names => names.Count)} persistent keys for episodes {string.Join(", ", keys.Keys)}");
@@ -86,11 +88,15 @@ public sealed class Season1Step(ValidationContext context) : IValidationStep
             var trackerEntries = (tracker.Find($"Episode {episode}") as MetaMap)?.Entries.Count ?? 0;
             details.Add($"Episode {episode}: {stored}/{names.Count} persistent values in the slot, {trackerEntries} tracker entries");
             if (episode == FirstEpisode && stored != names.Count)
+            {
                 passed = false;
+            }
         }
 
         if (!passed)
+        {
             details.Add("ERROR: The slot does not hold every persistent value of its first episode!");
+        }
 
         return passed;
     }

@@ -37,7 +37,10 @@ public sealed class StoryCheckpointBuilder(StorySeason season)
         var saveLoad = Runtime(sets, season.SaveLoadProperties);
         saveLoad.SetBool(AutoSave, false);
         if (season.ChapterSaves)
+        {
             saveLoad.SetString(ChapterId, chapter.ChapterId);
+        }
+
         if (chapter.Dialog != null && chapter.DialogNode != null)
         {
             saveLoad.SetString(CheckpointDialogFile, chapter.Dialog);
@@ -50,11 +53,15 @@ public sealed class StoryCheckpointBuilder(StorySeason season)
 
             var game = Runtime(sets, StoryFiles.LogicGameProperties);
             if (season.GameLogicVisible)
+            {
                 game.SetBool(RuntimeVisible, true);
+            }
 
             ApplyLogicKeys(slot, episode, game);
             foreach (var flag in chapter.Flags)
+            {
                 Apply(game, flag.Key, flag.Value);
+            }
         }
 
         var save = new SaveGameFile
@@ -86,7 +93,9 @@ public sealed class StoryCheckpointBuilder(StorySeason season)
     {
         var nodes = new StoryEventLog(slot, season).Nodes();
         foreach (var key in season.LogicKeys.Where(key => key.ReadFrom <= episode))
+        {
             Set(game, key, nodes);
+        }
     }
 
     public static void Set(PropertySet game, StoryLogicKey key, IReadOnlySet<ulong> nodes)
@@ -121,7 +130,9 @@ public sealed class StoryCheckpointBuilder(StorySeason season)
     private static PropertySet Runtime(SortedDictionary<ulong, PropertySet> sets, ulong name)
     {
         if (!sets.TryGetValue(name, out var properties))
+        {
             sets[name] = properties = DialogLogFiles.NewRuntimeProperties();
+        }
 
         return properties;
     }

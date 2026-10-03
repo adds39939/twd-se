@@ -7,7 +7,11 @@ public static class ChoicesContainer
         var result = new List<(string, bool)>();
         var pos = 0;
 
-        if (data.Length < 4) return result;
+        if (data.Length < 4)
+        {
+            return result;
+        }
+
         var count = BitConverter.ToUInt32(data, pos);
         pos += 4;
 

@@ -19,7 +19,9 @@ public static class TextSearch
         {
             var count = TextFormat.CountOccurrences(lowerText, keyword);
             if (count > 0)
+            {
                 details.Add($"  '{keyword}' occurrences: {count}");
+            }
         }
     }
 }

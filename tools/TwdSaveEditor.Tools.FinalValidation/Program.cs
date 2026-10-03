@@ -37,7 +37,9 @@ IValidationStep[] steps =
 ];
 
 foreach (var step in steps)
+{
     step.Run();
+}
 
 report.PrintSummary();
 return report.FailedCount == 0 ? 0 : 1;

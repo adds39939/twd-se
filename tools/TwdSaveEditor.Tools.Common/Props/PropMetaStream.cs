@@ -8,7 +8,9 @@ public static class PropMetaStream
     public static byte[]? ReadDefinition(ReadOnlySpan<byte> data)
     {
         if (data.Length < 20)
+        {
             return null;
+        }
 
         var sizeField = Bytes.U32(data, 4);
         var versionCount = Bytes.U32(data, 16);
@@ -16,18 +18,26 @@ public static class PropMetaStream
         var size = sizeField & 0x7FFFFFFF;
 
         if (versionCount > 100)
+        {
             return null;
+        }
 
         var offset = 20 + versionCount * 12L;
         if (offset + size > data.Length)
+        {
             return null;
+        }
 
         var definition = data.Slice((int)offset, (int)size);
         if (!compressed || definition.Length < 4)
+        {
             return definition.ToArray();
+        }
 
         if (Ttcz.HasMagic(definition))
+        {
             return InflateBlocks(definition);
+        }
 
         return Zlib.TryInflateAny(definition, Zlib.ZlibWindow, Zlib.RawWindow) ?? definition.ToArray();
     }

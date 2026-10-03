@@ -12,7 +12,9 @@ public sealed class DialogLogCompanions(ISaveBundleSerializer serializer) : IDia
     public IReadOnlyList<string> Find(string bundleFileName, IEnumerable<string> directoryFileNames)
     {
         if (!DialogLogFiles.IsSlotBundle(bundleFileName))
+        {
             return [];
+        }
 
         var storage = DialogLogFiles.StorageName(bundleFileName);
         return directoryFileNames
@@ -37,7 +39,9 @@ public sealed class DialogLogCompanions(ISaveBundleSerializer serializer) : IDia
                 && listed.Contains(TelltaleHash.ComputeCrc64(file.Name))))
             {
                 if (TryRead(() => EventLogCodec.ReadPage(file.Data)) is { } page)
+                {
                     slot.EventLog.PageFiles.Add(new EventLogPageFile(file.Name, page));
+                }
             }
         }
 
@@ -57,7 +61,9 @@ public sealed class DialogLogCompanions(ISaveBundleSerializer serializer) : IDia
         if (slot.EventLog is { } log)
         {
             if (log.StorageModified)
+            {
                 files.Add(new CompanionFile(log.StorageName, EventLogCodec.WriteStorage(log.Storage)));
+            }
 
             files.AddRange(log.PageFiles.Where(page => page.Modified).Select(page => new CompanionFile(page.Name, EventLogCodec.WritePage(page.Page))));
         }
@@ -69,11 +75,15 @@ public sealed class DialogLogCompanions(ISaveBundleSerializer serializer) : IDia
     public IReadOnlyList<string> Names(SaveSlot slot)
     {
         if (!DialogLogFiles.IsSlotBundle(slot.FileName))
+        {
             return [];
+        }
 
         var names = slot.Checkpoints.Select(save => save.FileName).ToList();
         if (slot.EventLog is { } log)
+        {
             names.AddRange(log.PageFiles.Select(page => page.Name).Prepend(log.StorageName));
+        }
 
         return names;
     }

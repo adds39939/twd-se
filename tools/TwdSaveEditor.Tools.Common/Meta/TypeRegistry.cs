@@ -15,10 +15,14 @@ public sealed class TypeRegistry
     public TypeRegistry(ClassLayouts layouts)
     {
         foreach (var name in Intrinsics)
+        {
             Add(name);
+        }
 
         foreach (var name in layouts.TypeNames)
+        {
             Add(name);
+        }
     }
 
     public void Add(string name) => _names.TryAdd(TypeName.Hash(name), TypeName.Normalize(name));

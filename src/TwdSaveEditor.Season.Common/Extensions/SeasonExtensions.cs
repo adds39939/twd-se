@@ -30,7 +30,9 @@ public static class SeasonExtensions
             {
                 var scenes = handler.GetScenes(episodeId);
                 if (scenes.Count > 0)
+                {
                     return scenes;
+                }
             }
 
             return [];

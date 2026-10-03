@@ -16,33 +16,45 @@ public static class EpageHashReader
     {
         var defaultSection = MetaStreamParser.Parse(File.ReadAllBytes(path))?.Default;
         if (defaultSection is not { Length: > 0 })
+        {
             return null;
+        }
 
         var nameEnd = Bytes.IndexOf(defaultSection, ".epage"u8);
         var region = defaultSection.AsSpan(nameEnd >= 0 ? nameEnd + 6 : HeaderSize);
 
         var occurrences = Bytes.FindAll(region, EventLogFormat.RecordStart);
         if (occurrences.Count < 2)
+        {
             return null;
+        }
 
         var spacings = new Counter<int>();
         for (var i = 1; i < Math.Min(100, occurrences.Count); i++)
+        {
             spacings.Add(occurrences[i] - occurrences[i - 1]);
+        }
 
         var recordSize = spacings.MostCommon(1)[0].Key;
         if (recordSize != EventLogFormat.RecordSize)
+        {
             output.WriteLine($"  WARNING: Record size {recordSize} != {EventLogFormat.RecordSize} in {path}");
+        }
 
         var alignment = BestAlignment(region, occurrences[0], recordSize);
         if (alignment < 0)
+        {
             return null;
+        }
 
         var recordStart = occurrences[0] - alignment;
         var recordCount = (region.Length - recordStart) / recordSize;
 
         var eventTypeOffset = FindEventTypeOffset(region, recordStart, recordSize, recordCount);
         if (eventTypeOffset < 0)
+        {
             return null;
+        }
 
         var nodeHashOffset = eventTypeOffset + NodeHashDistance;
         var hashes = new EpageHashes();
@@ -51,13 +63,19 @@ public static class EpageHashReader
         {
             var record = recordStart + i * recordSize;
             if (record + nodeHashOffset + 8 > region.Length)
+            {
                 break;
+            }
 
             var eventType = Bytes.U64(region, record + eventTypeOffset);
             if (eventType == EventLogFormat.ExecutingDialogNode)
+            {
                 hashes.Nodes.Add(Bytes.U64(region, record + nodeHashOffset));
+            }
             else if (eventType == EventLogFormat.DialogChoice)
+            {
                 hashes.Choices.Add(Bytes.U64(region, record + nodeHashOffset));
+            }
         }
 
         return hashes;
@@ -73,19 +91,25 @@ public static class EpageHashReader
         {
             var trialStart = firstOccurrence - alignment;
             if (trialStart < 0)
+            {
                 continue;
+            }
 
             var matches = 0;
             for (var i = 0; i < Math.Min(50, (region.Length - trialStart) / recordSize); i++)
             {
                 var record = trialStart + i * recordSize;
                 if (record + recordSize > region.Length)
+                {
                     break;
+                }
 
                 foreach (var hashOffset in EventTypeOffsets)
                 {
                     if (record + hashOffset + 8 > region.Length || !IsDialogEvent(Bytes.U64(region, record + hashOffset)))
+                    {
                         continue;
+                    }
 
                     matches++;
                     break;
@@ -111,13 +135,20 @@ public static class EpageHashReader
             {
                 var record = recordStart + i * recordSize;
                 if (record + offset + 8 > region.Length)
+                {
                     break;
+                }
+
                 if (IsDialogEvent(Bytes.U64(region, record + offset)))
+                {
                     matches++;
+                }
             }
 
             if (matches >= Math.Min(5, recordCount / 2))
+            {
                 return offset;
+            }
         }
 
         return -1;

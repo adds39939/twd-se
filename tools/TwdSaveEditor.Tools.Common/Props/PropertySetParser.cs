@@ -9,7 +9,9 @@ public static class PropertySetParser
     public static ParsedPropertySet? Parse(PropReader reader)
     {
         if (reader.Remaining < 16)
+        {
             return null;
+        }
 
         var version = reader.U32();
         var flags = reader.U32();
@@ -40,7 +42,9 @@ public static class PropertySetParser
         for (uint g = 0; g < groupCount; g++)
         {
             if (reader.Remaining < 12)
+            {
                 break;
+            }
 
             var type = reader.U64();
             var propertyCount = reader.U32();
@@ -49,7 +53,9 @@ public static class PropertySetParser
             for (uint p = 0; p < propertyCount; p++)
             {
                 if (reader.Remaining < 8)
+                {
                     break;
+                }
 
                 var key = reader.U64();
                 if (!PropTypes.IsKnown(type))

@@ -14,7 +14,9 @@ public static class MetaStreamCodec
 
         var header = new MetaStreamHeader { Magic = reader.ReadUInt32() };
         if (header.Magic is not (MetaStreamHeader.MagicMsv5 or MetaStreamHeader.MagicMsv6))
+        {
             throw new InvalidDataException($"Unknown MetaStream magic: 0x{header.Magic:X8}");
+        }
 
         header.DefaultSectionSize = reader.ReadUInt32();
         header.DebugSectionSize = reader.ReadUInt32();
@@ -22,7 +24,9 @@ public static class MetaStreamCodec
 
         var versionCount = reader.ReadUInt32();
         for (uint i = 0; i < versionCount; i++)
+        {
             header.VersionEntries.Add(new VersionEntry(reader.ReadUInt64(), reader.ReadUInt32()));
+        }
 
         var defaultSection = ReadSection(reader, header.DefaultSectionSize);
         var debugSection = ReadSection(reader, header.DebugSectionSize);
@@ -74,17 +78,25 @@ public static class MetaStreamCodec
     {
         var size = (int)(sizeField & ~MetaStreamHeader.CompressedFlag);
         if (size == 0)
+        {
             return [];
+        }
 
         var raw = reader.ReadBytes(size);
         if (raw.Length != size)
+        {
             throw new InvalidDataException("MetaStream section is truncated.");
+        }
 
         if ((sizeField & MetaStreamHeader.CompressedFlag) == 0)
+        {
             return raw;
+        }
 
         if (Ttcz.HasMagic(raw))
+        {
             return Ttcz.Decompress(raw);
+        }
 
         try
         {

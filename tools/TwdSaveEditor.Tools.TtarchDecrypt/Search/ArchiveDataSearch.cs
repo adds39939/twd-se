@@ -38,7 +38,9 @@ public sealed class ArchiveDataSearch(byte[] data, TextWriter output)
         ReportMatches("[Cc]hoice", "'choice'", RegexOptions.None, limit: 20, before: 30, after: 40, unique: true);
 
         foreach (var extension in Extensions.Where(extension => _text.Contains(extension, StringComparison.OrdinalIgnoreCase)))
+        {
             ReportMatches(Regex.Escape(extension), $"'{extension}'", RegexOptions.IgnoreCase, limit: 5, before: 50, after: 10, unique: false);
+        }
 
         ReportStrings();
     }
@@ -54,7 +56,9 @@ public sealed class ArchiveDataSearch(byte[] data, TextWriter output)
         {
             var position = Bytes.IndexOf(data, Encoding.ASCII.GetBytes(signature));
             if (position < 0)
+            {
                 continue;
+            }
 
             output.WriteLine();
             output.WriteLine($"Found {name} header at offset 0x{position:X}");
@@ -64,7 +68,9 @@ public sealed class ArchiveDataSearch(byte[] data, TextWriter output)
         for (var offset = 0; offset < Math.Min(64, data.Length); offset += 4)
         {
             if (!Magics.TryGetValue(Bytes.U32(data, offset), out var name))
+            {
                 continue;
+            }
 
             output.WriteLine();
             output.WriteLine($"Found {name} magic (LE) at offset 0x{offset:X}");
@@ -82,7 +88,9 @@ public sealed class ArchiveDataSearch(byte[] data, TextWriter output)
         {
             var context = Printable(Bytes.Slice(data, match.Index - before, match.Index + match.Length + after));
             if (unique && !seen.Add(context))
+            {
                 continue;
+            }
 
             output.WriteLine($"  @0x{match.Index:X}: ...{context}...");
         }
@@ -100,11 +108,15 @@ public sealed class ArchiveDataSearch(byte[] data, TextWriter output)
         foreach (var match in strings.Take(100))
         {
             if (!match.Value.Any(char.IsAsciiLetter))
+            {
                 continue;
+            }
 
             output.WriteLine($"  @0x{match.Index:X}: {match.Value}");
             if (++printed >= 50)
+            {
                 break;
+            }
         }
     }
 
@@ -112,7 +124,9 @@ public sealed class ArchiveDataSearch(byte[] data, TextWriter output)
     {
         var builder = new StringBuilder(bytes.Length);
         foreach (var c in TextFormat.DecodeAscii(bytes))
+        {
             builder.Append(c is < ' ' or '\x7f' ? '.' : c);
+        }
 
         return builder.ToString();
     }

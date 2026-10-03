@@ -22,11 +22,15 @@ public sealed class S1ResumePoint(IS1CheckpointBuilder builder) : IS1ResumePoint
         var progress = Math.Clamp(metadata?.GetInt(SlotMetadataKeys.Progress) ?? FirstEpisode, FirstEpisode, ExtraEpisode);
 
         if (string.IsNullOrEmpty(metadata?.GetString(SlotMetadataKeys.LatestSave)))
+        {
             return new ResumeState(progress, null, null);
+        }
 
         var saved = slot.Autosave?.Metadata;
         if (saved == null)
+        {
             return new ResumeState(progress, null, null, slot.AutosaveDamaged);
+        }
 
         var episode = S1SlotFiles.EpisodeNumber(saved.GetString(SaveMetadataKeys.Episode)) ?? progress;
         var chapterId = saved.GetString(SaveMetadataKeys.ChapterId) ?? string.Empty;
@@ -46,7 +50,9 @@ public sealed class S1ResumePoint(IS1CheckpointBuilder builder) : IS1ResumePoint
 
         RestartFromEpisode(slot, episode);
         if (chapter.StartsEpisode)
+        {
             return;
+        }
 
         FillDecidedChoices(slot, chapters, chapter);
 
@@ -62,7 +68,9 @@ public sealed class S1ResumePoint(IS1CheckpointBuilder builder) : IS1ResumePoint
     public S1Chapter? GeneratedChapter(SaveSlot slot)
     {
         if (slot.Autosave?.Metadata is not { } saved || slot.Autosave.Files.Count > MaxGeneratedFiles)
+        {
             return null;
+        }
 
         var episode = S1SlotFiles.EpisodeNumber(saved.GetString(SaveMetadataKeys.Episode));
         var chapterId = saved.GetString(SaveMetadataKeys.ChapterId);
@@ -85,9 +93,13 @@ public sealed class S1ResumePoint(IS1CheckpointBuilder builder) : IS1ResumePoint
         {
             var key = SlotMetadataKeys.CompletedEpisode(number);
             if (number >= episode)
+            {
                 metadata.SetBool(key, false);
+            }
             else if (episode != ExtraEpisode || metadata.GetBool(key) == null)
+            {
                 metadata.SetBool(key, episode != ExtraEpisode);
+            }
         }
 
         FillMissingChoices(slot, EpisodeBase + episode);
@@ -96,7 +108,9 @@ public sealed class S1ResumePoint(IS1CheckpointBuilder builder) : IS1ResumePoint
         slot.AutosaveDamaged = false;
         var autosave = S1SlotFiles.AutosaveName(slot.FileName);
         if (!slot.ObsoleteFileNames.Contains(autosave))
+        {
             slot.ObsoleteFileNames.Add(autosave);
+        }
     }
 
     private static void FillDecidedChoices(SaveSlot slot, S1EpisodeChapters episode, S1Chapter chapter)
@@ -106,7 +120,9 @@ public sealed class S1ResumePoint(IS1CheckpointBuilder builder) : IS1ResumePoint
         {
             var choice = S1ChoiceCatalog.All.FirstOrDefault(candidate => candidate.ChoiceKey.Equals(point.ChoiceKey, StringComparison.OrdinalIgnoreCase));
             if (choice != null && accessor.GetChoiceValue(choice.ChoiceKey) == null)
+            {
                 accessor.ApplyChoice(choice, 0);
+            }
         }
     }
 
@@ -116,7 +132,9 @@ public sealed class S1ResumePoint(IS1CheckpointBuilder builder) : IS1ResumePoint
         foreach (var choice in S1ChoiceCatalog.Before(persistentEpisode))
         {
             if (accessor.GetChoiceValue(choice.ChoiceKey) == null)
+            {
                 accessor.ApplyChoice(choice, 0);
+            }
         }
     }
 }

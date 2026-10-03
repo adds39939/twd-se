@@ -38,7 +38,9 @@ public static partial class ChoiceFormatValidator
 
         var bundlePath = Path.Combine(ToolPaths.TestData, season.Key, season.TestBundle);
         if (!File.Exists(bundlePath))
+        {
             return;
+        }
 
         var index = Bytes.IndexOf(File.ReadAllBytes(bundlePath), Bytes.FromU64(SaveFormat.ChoicesContainer));
         results.Add(index >= 0
@@ -68,7 +70,9 @@ public static partial class ChoiceFormatValidator
 
         var bundlePath = Path.Combine(ToolPaths.TestData, Seasons.Season4, "wd4_saveslot1.bundle");
         if (!File.Exists(bundlePath))
+        {
             return;
+        }
 
         var guids = BracedGuid().Matches(TextFormat.DecodeLatin1(File.ReadAllBytes(bundlePath)));
         if (guids.Count == 0)

@@ -19,7 +19,9 @@ public sealed class MichonneStep(ValidationContext context) : IValidationStep
         {
             var files = context.Archives.ExtractFiles(GameArchiveNames.Michonne);
             if (files is { Count: > 0 })
+            {
                 AddLuaFindings(details, files);
+            }
         }
         catch (Exception e)
         {
@@ -31,9 +33,13 @@ public sealed class MichonneStep(ValidationContext context) : IValidationStep
         context.MichonneNodeHashes = dialogNodes.Select(record => record.NodeHash).ToHashSet();
 
         if (dialogNodes.Count > 0)
+        {
             AddGuidMatches(details);
+        }
         else
+        {
             details.Add("ERROR: No dialog node records found in Michonne estore/epage!");
+        }
 
         context.Report.Add("5. Michonne EventLog format", dialogNodes.Count > 0, details);
     }
@@ -49,7 +55,10 @@ public sealed class MichonneStep(ValidationContext context) : IValidationStep
 
         var text = context.Archives.ReadLua(lua.Value).ToLowerInvariant();
         if (text.Contains("guid"))
+        {
             details.Add("CONFIRMED: Michonne ChoiceStats.lua references GUIDs");
+        }
+
         TextSearch.AddOccurrences(details, text, "executing dialog node", "dialog", "guid", "crc");
     }
 
@@ -61,14 +70,18 @@ public sealed class MichonneStep(ValidationContext context) : IValidationStep
             var braced = "{" + guid + "}";
             var hash = TelltaleCrc64.Compute(braced);
             if (context.MichonneNodeHashes.Contains(hash))
+            {
                 matched.Add($"  {choice}={value}: CRC64(\"{braced}\") = 0x{hash:X16} FOUND");
+            }
         }
 
         details.Add($"\nMichonne GUID->CRC64 matches in real epage: {matched.Count}/{MichonneGuids.All.Count}");
         details.AddRange(matched.Take(10));
 
         if (matched.Count > 0)
+        {
             return;
+        }
 
         details.Add("NOTE: No mapped choice GUIDs found in this save (likely early-game autosave).");
         details.Add("The test save has dialog node events, but none correspond to major choice points.");

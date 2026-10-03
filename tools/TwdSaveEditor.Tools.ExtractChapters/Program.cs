@@ -88,7 +88,9 @@ foreach (var episode in episodes)
     var chapters = plan["chapters"]!.AsArray();
     Console.WriteLine($"{episode.Episode}: {chapters.Count} chapters from {episode.Chapters.Count} menu entries, {plan["decisionFlags"]!.AsArray().Count} decision flags");
     foreach (var skipped in planner.Skipped)
+    {
         Console.WriteLine($"    skipped {skipped}");
+    }
 }
 
 var editorPath = Path.Combine(ToolPaths.RepositoryRoot, "src", "TwdSaveEditor.Season.S1", "Data", "s1.chapters.json");
@@ -124,6 +126,8 @@ foreach (var episode in inventories)
 {
     Console.WriteLine($"{episode.Episode}: {string.Join(", ", episode.Items.Select(item => item.MaxCount > 1 ? $"{item.Name} x{item.MaxCount}" : item.Name))}");
     foreach (var chapter in episode.Chapters.Where(chapter => chapter.Carried.Count > 0))
+    {
         Console.WriteLine($"    {chapter.Id,-34} {string.Join(", ", chapter.Carried)}");
+    }
 }
 return 0;

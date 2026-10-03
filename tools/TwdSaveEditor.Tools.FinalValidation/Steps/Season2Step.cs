@@ -21,7 +21,9 @@ public sealed class Season2Step(ValidationContext context) : IValidationStep
         {
             var files = context.Archives.ExtractFiles(GameArchiveNames.Season2);
             if (files is { Count: > 0 })
+            {
                 AddLuaReferences(details, files);
+            }
         }
         catch (Exception e)
         {
@@ -45,7 +47,9 @@ public sealed class Season2Step(ValidationContext context) : IValidationStep
         foreach (var keyword in Keywords)
         {
             if (!text.ToLowerInvariant().Contains(keyword))
+            {
                 continue;
+            }
 
             details.Add($"Found '{keyword}' reference in S2 SaveLoad.lua");
             details.AddRange(TextSearch.LinesContaining(text, keyword).Take(1).Select(line => $"  {TextSearch.Excerpt(line)}"));
@@ -84,7 +88,9 @@ public sealed class Season2Step(ValidationContext context) : IValidationStep
         foreach (var entry in table.Where(entry => entry.Name == choicesFile))
         {
             if (BundleFileTable.ReadInnerFile(bundle, entry) is not { } inner)
+            {
                 continue;
+            }
 
             var choices = ChoicesContainerScanner.Scan(inner.Default);
             details.Add($"ChoicesContainer entries in {choicesFile}: {choices.Count}");

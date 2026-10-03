@@ -12,10 +12,16 @@ public static class EStoreWriter
 
         var defaultData = sections.defaultData;
         int startOffset = FindRecordStart(defaultData);
-        if (startOffset < 0) return;
+        if (startOffset < 0)
+        {
+            return;
+        }
 
         int offset = startOffset + recordIndex * EventLogEntry.RecordSize;
-        if (offset + EventLogEntry.RecordSize > defaultData.Length) return;
+        if (offset + EventLogEntry.RecordSize > defaultData.Length)
+        {
+            return;
+        }
 
         var record = BuildRecord(entry);
         Array.Copy(record, 0, defaultData, offset, EventLogEntry.RecordSize);
@@ -92,8 +98,15 @@ public static class EStoreWriter
         }
 
         writer.WriteBytes(newDefaultData);
-        if (dbgData.Length > 0) writer.WriteBytes(dbgData);
-        if (asyncData.Length > 0) writer.WriteBytes(asyncData);
+        if (dbgData.Length > 0)
+        {
+            writer.WriteBytes(dbgData);
+        }
+
+        if (asyncData.Length > 0)
+        {
+            writer.WriteBytes(asyncData);
+        }
 
         writer.Flush();
         return outMs.ToArray();
@@ -109,7 +122,10 @@ public static class EStoreWriter
             {
                 if (data[i + j] != pattern[j]) { match = false; break; }
             }
-            if (match) return i;
+            if (match)
+            {
+                return i;
+            }
         }
         return -1;
     }

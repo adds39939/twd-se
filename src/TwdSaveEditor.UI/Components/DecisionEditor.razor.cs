@@ -73,7 +73,11 @@ public partial class DecisionEditor
 
     private void OnChoiceChanged(ChoiceDefinition choice, ChangeEventArgs e)
     {
-        if (Accessor == null) return;
+        if (Accessor == null)
+        {
+            return;
+        }
+
         if (int.TryParse(e.Value?.ToString(), out var idx) && idx >= 0 && idx < choice.Options.Length)
         {
             Accessor.ApplyChoice(choice, idx);
@@ -89,7 +93,9 @@ public partial class DecisionEditor
     private List<ISeasonHandler> GetRelevantSeasons(string? detectedKey)
     {
         if (detectedKey == null)
+        {
             return Registry.All.ToList();
+        }
 
         var includedKeys = Registry.Get(detectedKey)?.IncludedSeasonKeys ?? [];
         return includedKeys
@@ -110,7 +116,9 @@ public partial class DecisionEditor
     private (string SeasonKey, int Episode)? ExpandedGroup()
     {
         if (Slot == null || CurrentSeason is not { } current)
+        {
             return null;
+        }
 
         var inProgress = current is IResumePointHandler resume ? resume.GetResumeState(Slot).Episode : 1;
         return current.DecisionGroupOf(inProgress);
@@ -118,9 +126,16 @@ public partial class DecisionEditor
 
     private void ImportChoices(IChoiceImporter importer)
     {
-        if (_selectedImportSave == null || Slot == null) return;
+        if (_selectedImportSave == null || Slot == null)
+        {
+            return;
+        }
+
         var source = Editor.Saves.FirstOrDefault(s => s.FileName == _selectedImportSave);
-        if (source == null || !importer.CanImportFrom(source)) return;
+        if (source == null || !importer.CanImportFrom(source))
+        {
+            return;
+        }
 
         importer.ImportChoices(source, Slot);
 
@@ -130,10 +145,15 @@ public partial class DecisionEditor
 
     private void ApplyPreset(ChoicePreset preset)
     {
-        if (Accessor == null) return;
+        if (Accessor == null)
+        {
+            return;
+        }
 
         foreach (var selection in preset.Selections)
+        {
             Accessor.SetChoiceValue(selection.ChoiceKey, selection.Value);
+        }
 
         RebuildCache();
         Editor.MarkModified();

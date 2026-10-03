@@ -51,7 +51,9 @@ public sealed partial class MichonneGuidsStep(ValidationContext context) : IVali
 
         var text = TextFormat.DecodeAscii(MetaStreamParser.Parse(data.Value.Span)?.Default ?? data.Value.Span);
         if (text.Length == 0)
+        {
             return true;
+        }
 
         var guids = Guid().Matches(text).Select(match => match.Value).ToList();
         details.Add($"GUIDs found in Michonne choice.prop: {guids.Count}");
@@ -63,7 +65,9 @@ public sealed partial class MichonneGuidsStep(ValidationContext context) : IVali
         var matched = MichonneGuids.All.Keys.Count(guid => found.Contains(guid.ToUpperInvariant()));
         details.Add($"Our MichonneNodes GUIDs found in choice.prop: {matched}/{MichonneGuids.All.Count}");
         if (matched == 0)
+        {
             details.Add("ERROR: No Michonne mapping GUIDs found in choice.prop!");
+        }
 
         return matched > 0;
     }

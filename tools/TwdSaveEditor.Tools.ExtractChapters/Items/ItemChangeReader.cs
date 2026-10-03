@@ -27,10 +27,14 @@ public sealed partial class ItemChangeReader(IReadOnlyList<ItemDefinition> items
         foreach (var action in actions)
         {
             if (!_byKey.TryGetValue((action.Target, action.Key), out var item))
+            {
                 continue;
+            }
 
             if (action.Action == Increase)
+            {
                 Increases[item.Key] = Increases.GetValueOrDefault(item.Key) + 1;
+            }
 
             Changes.Add(new ItemChange(item.Key, action.Action == Assign ? !ItemValue.Held(action.Value) : action.Action != Increase, owners, null));
         }
@@ -41,7 +45,9 @@ public sealed partial class ItemChangeReader(IReadOnlyList<ItemDefinition> items
         foreach (Match call in Call().Matches(text))
         {
             if (items.Any(item => item.Key == call.Groups["key"].Value))
+            {
                 Changes.Add(new ItemChange(call.Groups["key"].Value, call.Groups["verb"].Value == "Remove", [name], null));
+            }
         }
     }
 

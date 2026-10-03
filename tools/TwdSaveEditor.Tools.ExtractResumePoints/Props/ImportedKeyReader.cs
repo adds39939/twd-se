@@ -14,7 +14,9 @@ public sealed class ImportedKeyReader(MetaReader reader)
         {
             var path = Path.Combine(directory, $"prefs_persistent_{episode}.prop");
             if (!File.Exists(path) || reader.ReadPropertySet(File.ReadAllBytes(path))?.Find($"Persistent - {episode} - Key Names") is not MetaList names)
+            {
                 return null;
+            }
 
             keys[episode] = [.. names.Strings];
         }

@@ -53,7 +53,9 @@ public static class ChoiceMappingExtractor
 
         var json = ToJson(propertySet);
         if (saveJson)
+        {
             SaveJson(json, season, output);
+        }
 
         return FromJson(json);
     }
@@ -99,12 +101,16 @@ public static class ChoiceMappingExtractor
 
         var container = data.Select(pair => pair.Value).OfType<JsonObject>().FirstOrDefault(value => value.Count > 2);
         if (container == null)
+        {
             return mappings;
+        }
 
         foreach (var (_, choiceNode) in container)
         {
             if (choiceNode is not JsonObject choice)
+            {
                 continue;
+            }
 
             var question = EnglishText(choice);
             mappings.Add(new ChoiceMapping(
@@ -124,18 +130,24 @@ public static class ChoiceMappingExtractor
     {
         var options = new List<OptionMapping>();
         if (choice[KeyOptions] is not JsonObject container)
+        {
             return options;
+        }
 
         foreach (var (_, optionNode) in container)
         {
             if (optionNode is not JsonObject option)
+            {
                 continue;
+            }
 
             var text = EnglishText(option);
             var expression = Text(option, KeyExpression);
             var guid = Text(option, KeyGuid);
             if (expression.Length == 0 && guid.Length > 0 && !guid.StartsWith('{'))
+            {
                 expression = "{" + guid + "}";
+            }
 
             options.Add(new OptionMapping(
                 text,

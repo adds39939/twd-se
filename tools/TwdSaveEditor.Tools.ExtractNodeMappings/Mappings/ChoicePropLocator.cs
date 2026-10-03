@@ -9,11 +9,15 @@ public static class ChoicePropLocator
         foreach (var (name, data) in files)
         {
             if (name.ToLowerInvariant() != "choice.prop")
+            {
                 continue;
+            }
 
             output.WriteLine($"  Found choice.prop: {data.Length} bytes");
             if (!data.IsEmpty)
+            {
                 return data;
+            }
 
             break;
         }
@@ -21,7 +25,9 @@ public static class ChoicePropLocator
         foreach (var name in files.Keys.Order(StringComparer.Ordinal))
         {
             if (!name.ToLowerInvariant().Contains("choice") || !IsPropFile(name))
+            {
                 continue;
+            }
 
             output.WriteLine($"  Found {name}: {files[name].Length} bytes");
             return files[name];

@@ -21,14 +21,20 @@ public static class PropertyFileCodec
         var symbolCount = PropertySetSymbols.Count(properties);
 
         if (originalFile.Length == 0)
+        {
             return MetaStreamCodec.Write(new MetaStreamContent(CreateHeader(symbolCount), data, new byte[symbolCount * DebugBytesPerSymbol], []));
+        }
 
         var original = MetaStreamCodec.Read(originalFile);
         if (original.Default.AsSpan().SequenceEqual(data))
+        {
             return originalFile;
+        }
 
         if (symbolCount > 0 && original.Header.VersionEntries.All(entry => entry.TypeCrc != TelltaleTypes.Symbol))
+        {
             original.Header.VersionEntries.Add(new VersionEntry(TelltaleTypes.Symbol, SymbolVersion));
+        }
 
         return MetaStreamCodec.Write(original with { Default = data, Debug = ResizeDebug(original, symbolCount) });
     }
@@ -37,7 +43,9 @@ public static class PropertyFileCodec
     {
         var originalSymbolCount = CountOriginalSymbols(original.Default);
         if (original.Debug.Length == 0 && originalSymbolCount != 0)
+        {
             return [];
+        }
 
         var size = original.Debug.Length + (symbolCount - originalSymbolCount) * DebugBytesPerSymbol;
         var debug = new byte[Math.Max(size, 0)];
@@ -70,7 +78,9 @@ public static class PropertyFileCodec
         };
 
         if (symbolCount > 0)
+        {
             header.VersionEntries.Add(new VersionEntry(TelltaleTypes.Symbol, SymbolVersion));
+        }
 
         return header;
     }

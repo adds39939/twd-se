@@ -27,15 +27,23 @@ public sealed class MetaDumper(SymbolNames names, MetaReader reader, TextWriter 
         var sections = document.Sections;
         Line(indent, $"{MetaStreamParser.MagicName(sections.Magic)} default={sections.Default.Length} debug={sections.Debug.Length} async={sections.Async.Length}");
         foreach (var entry in sections.VersionEntries)
+        {
             Line(indent, $"class {reader.Types.Find(entry.Type) ?? $"#{entry.Type:X16}"} v{entry.Version:X8}");
+        }
 
         if (document.Root != null)
+        {
             WriteNode(document.Root, indent);
+        }
 
         if (document.Error != null)
+        {
             Line(indent, $"!! {document.Error} at offset {document.ErrorOffset} of {sections.Default.Length}");
+        }
         else if (document.TrailingBytes > 0)
+        {
             Line(indent, $"trailing {document.TrailingBytes} bytes");
+        }
     }
 
     private void WriteNode(MetaNode node, int indent)
@@ -48,37 +56,51 @@ public sealed class MetaDumper(SymbolNames names, MetaReader reader, TextWriter 
                 {
                     Line(indent, $"[{file.Name}] {names.Describe(file.NameSymbol)} type={file.Type ?? $"#{file.TypeSymbol:X16}"} offset={file.Offset} size={file.Size}");
                     if (file.Content != null)
+                    {
                         WriteDocument(file.Content, indent + 1);
+                    }
                     else
+                    {
                         Line(indent + 1, "!! not parsed");
+                    }
                 }
 
                 break;
             case MetaPropertySet set:
                 Line(indent, $"PropertySet v{set.Version} flags=0x{set.Flags:X} size={set.Size} parents=[{string.Join(", ", set.Parents.Select(names.Describe))}]");
                 foreach (var property in set.Properties)
+                {
                     WriteNamed($"{names.Describe(property.Key)} <{property.Type}>", property.Value, indent + 1);
+                }
 
                 if (set.Error != null)
+                {
                     Line(indent + 1, $"!! {set.Error}");
+                }
 
                 break;
             case MetaList list:
                 Line(indent, $"[{list.Items.Count}]");
                 foreach (var item in list.Items)
+                {
                     WriteNode(item, indent + 1);
+                }
 
                 break;
             case MetaMap map:
                 Line(indent, $"{{{map.Entries.Count}}}");
                 foreach (var (key, value) in map.Entries)
+                {
                     WriteNamed(FormatScalar(key) ?? "<key>", value, indent + 1);
+                }
 
                 break;
             case MetaObject value:
                 Line(indent, value.Type);
                 foreach (var (name, member) in value.Members)
+                {
                     WriteNamed(name, member, indent + 1);
+                }
 
                 break;
             default:

@@ -20,7 +20,9 @@ public static class LuaDecryptor
     public static byte[] Decrypt(byte[] data)
     {
         if (data.Length < HeaderSize || !IsEncrypted(data))
+        {
             return data;
+        }
 
         var encrypted = new byte[(data.Length - HeaderSize + BlockSize - 1) / BlockSize * BlockSize];
         data.AsSpan(HeaderSize).CopyTo(encrypted);

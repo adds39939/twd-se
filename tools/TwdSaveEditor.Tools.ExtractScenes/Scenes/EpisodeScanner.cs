@@ -12,7 +12,9 @@ public static class EpisodeScanner
     {
         var data = EcttArchive.Read(archivePath, cipher);
         if (data is not { Length: > 0 })
+        {
             return null;
+        }
 
         var names = InnerArchive.Parse(data).Keys;
         var scenes = WithExtension(names, SceneExtension).Select(name => Path.GetFileNameWithoutExtension(name));

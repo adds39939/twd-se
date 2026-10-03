@@ -20,7 +20,9 @@ public sealed class DialogLogEditor(SaveSlot slot)
         foreach (var page in Log.Pages.ToList())
         {
             if (page.Events.RemoveAll(entry => entry.DialogNode is { } node && nodes.Contains(node)) > 0)
+            {
                 Log.MarkModified(page);
+            }
         }
     }
 
@@ -30,7 +32,9 @@ public sealed class DialogLogEditor(SaveSlot slot)
         {
             var index = page.Events.FindIndex(entry => match(entry));
             if (index >= 0)
+            {
                 return (page, index);
+            }
         }
 
         return null;
@@ -43,7 +47,9 @@ public sealed class DialogLogEditor(SaveSlot slot)
         {
             var index = page.Events.FindLastIndex(entry => match(entry));
             if (index >= 0)
+            {
                 found = (page, index);
+            }
         }
 
         return found;
@@ -63,17 +69,23 @@ public sealed class DialogLogEditor(SaveSlot slot)
             var page = pages[index];
             var kept = index == anchorPage ? keep : 0;
             if (kept == page.Events.Count)
+            {
                 continue;
+            }
 
             page.Events.RemoveRange(kept, page.Events.Count - kept);
             if (ReferenceEquals(page, unflushed))
+            {
                 continue;
+            }
 
             var file = Log.PageFiles.First(candidate => ReferenceEquals(candidate.Page, page));
             Log.PageFiles.Remove(file);
             storage.Pages.RemoveAll(entry => entry.PageSymbol == TelltaleHash.ComputeCrc64(file.Name));
             if (!slot.ObsoleteFileNames.Contains(file.Name))
+            {
                 slot.ObsoleteFileNames.Add(file.Name);
+            }
 
             if (page.Events.Count > 0)
             {
@@ -104,7 +116,9 @@ public sealed class DialogLogEditor(SaveSlot slot)
             ? page.Events.Take(index).Min(entry => entry.Id)
             : Log.Pages.TakeWhile(earlier => !ReferenceEquals(earlier, page)).Select(earlier => earlier.MaxEventId).DefaultIfEmpty().Max();
         while (id > floor && used.Contains(id))
+        {
             id--;
+        }
 
         if ((used.Contains(id) || id == 0) && !MakeRoom(page, index, out id))
         {
@@ -131,7 +145,9 @@ public sealed class DialogLogEditor(SaveSlot slot)
         for (var id = limit - 1; id > floor && ids.Count < creators.Count; id--)
         {
             if (!used.Contains(id))
+            {
                 ids.Add(id);
+            }
         }
 
         ids.Reverse();
@@ -139,10 +155,14 @@ public sealed class DialogLogEditor(SaveSlot slot)
         if (missing > 0)
         {
             if (!ReferenceEquals(page, Log.Storage.CurrentPage) || Log.PageFiles.Any(file => file.Page.Events.Any(entry => entry.Id > limit)))
+            {
                 throw new InvalidOperationException("The event log has no room for the events at that position.");
+            }
 
             foreach (var later in page.Events.Where(entry => entry.Id >= limit))
+            {
                 later.Id += (uint)missing;
+            }
 
             ids.AddRange(Enumerable.Range(0, missing).Select(offset => limit + (uint)offset));
             Log.Storage.LastEventId = Math.Max(Log.Storage.LastEventId, page.Events.Max(entry => entry.Id));
@@ -157,11 +177,15 @@ public sealed class DialogLogEditor(SaveSlot slot)
         var storage = Log.Storage;
         id = page.Events[index].Id;
         if (!ReferenceEquals(page, storage.CurrentPage) || Log.PageFiles.Any(file => file.Page.Events.Any(entry => entry.Id > page.Events[index].Id)))
+        {
             return false;
+        }
 
         var first = id;
         foreach (var later in page.Events.Where(entry => entry.Id >= first))
+        {
             later.Id++;
+        }
 
         storage.LastEventId = Math.Max(storage.LastEventId, page.Events.Max(entry => entry.Id));
         return true;

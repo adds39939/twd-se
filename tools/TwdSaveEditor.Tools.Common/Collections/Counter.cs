@@ -13,7 +13,9 @@ public sealed class Counter<T> where T : notnull
     public void AddRange(Counter<T> other)
     {
         foreach (var (key, count) in other._counts)
+        {
             Add(key, count);
+        }
     }
 
     public List<KeyValuePair<T, int>> MostCommon(int? limit = null)

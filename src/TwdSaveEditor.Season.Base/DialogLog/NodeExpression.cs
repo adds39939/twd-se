@@ -39,7 +39,9 @@ public static partial class NodeExpression
             value ^= inverse;
             value = lastOperator == And ? lastValue && value : lastValue || value;
             if (op == null || (value && op == Or) || (!value && op == And))
+            {
                 return value;
+            }
 
             lastOperator = op.Value;
             lastValue = value;
@@ -53,12 +55,16 @@ public static partial class NodeExpression
     {
         var position = 0;
         while (position < text.Length && (text[position] == Not || char.IsWhiteSpace(text[position])))
+        {
             position++;
+        }
 
         if (position < text.Length && text[position] == '(')
         {
             for (var depth = 1; depth > 0 && ++position < text.Length;)
+            {
                 depth += text[position] switch { '(' => 1, ')' => -1, _ => 0 };
+            }
         }
 
         var op = text.IndexOfAny([And, Or], Math.Min(position, text.Length));

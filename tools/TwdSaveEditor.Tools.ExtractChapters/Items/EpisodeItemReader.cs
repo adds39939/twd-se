@@ -4,7 +4,6 @@ using TwdSaveEditor.Tools.Common.Inventory;
 using TwdSaveEditor.Tools.ExtractChapters.Chapters;
 using TwdSaveEditor.Tools.ExtractChapters.Model;
 using TwdSaveEditor.Tools.ExtractChapters.Scenes;
-using TwdSaveEditor.Tools.ExtractChapters.Scripts;
 
 namespace TwdSaveEditor.Tools.ExtractChapters.Items;
 
@@ -39,7 +38,9 @@ public sealed class EpisodeItemReader(string dataDirectory, DialogLoader loader)
         }
 
         foreach (var path in Directory.EnumerateFiles(files.Scripts, "*.lua").Order().Where(path => path != menu))
+        {
             reader.ReadScript(Path.GetFileName(path), File.ReadAllText(path));
+        }
 
         var points = plan["chapters"]!.AsArray().Select(chapter => new TimelinePoint(
             chapter!["id"]!.GetValue<string>(),

@@ -221,7 +221,9 @@ public class Season4SaveTests
         foreach (var preset in Season4Saves.Handler.Presets)
         {
             foreach (var selection in preset.Selections)
+            {
                 Assert.NotNull(S4Story.Season.FindDecision(selection.ChoiceKey)?.Find(selection.Value));
+            }
         }
     }
 

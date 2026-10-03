@@ -10,9 +10,17 @@ internal static class TestDataHelper
         while (dir != null)
         {
             var candidate = Path.Combine(dir.FullName, "tests", "TestData");
-            if (Directory.Exists(candidate)) return candidate;
+            if (Directory.Exists(candidate))
+            {
+                return candidate;
+            }
+
             candidate = Path.Combine(dir.FullName, "TestData");
-            if (Directory.Exists(candidate)) return candidate;
+            if (Directory.Exists(candidate))
+            {
+                return candidate;
+            }
+
             dir = dir.Parent;
         }
         throw new DirectoryNotFoundException("Could not find tests/TestData directory");

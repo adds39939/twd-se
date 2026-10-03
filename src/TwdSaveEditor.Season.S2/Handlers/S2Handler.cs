@@ -1,6 +1,5 @@
 using System.Globalization;
 using TwdSaveEditor.Core.Constants;
-using TwdSaveEditor.Core.Hashing;
 using TwdSaveEditor.Core.Model;
 using TwdSaveEditor.Season.Base.DialogLog;
 using TwdSaveEditor.Season.Base.Handlers;
@@ -65,10 +64,14 @@ public class S2Handler(IS2ResumePoint resume, IS2Inventory inventory, IS2SaveFac
     {
         var accessor = new S2ChoiceAccessor(slot);
         foreach (var choice in S1ChoiceCatalog.All.Where(choice => accessor.GetChoiceValue(choice.ChoiceKey) == null))
+        {
             accessor.ApplyChoice(choice, 0);
+        }
 
         foreach (var choice in GetChoicesUpTo(episode - 1).Where(choice => choice.SeasonKey == SeasonKey))
+        {
             accessor.ApplyChoice(choice, 0);
+        }
 
         resume.RestartFromEpisode(slot, episode, Now());
     }
@@ -122,7 +125,10 @@ public class S2Handler(IS2ResumePoint resume, IS2Inventory inventory, IS2SaveFac
 
     public void ImportChoices(SaveSlot source, SaveSlot target)
     {
-        if (source.Choices == null || target.Choices == null) return;
+        if (source.Choices == null || target.Choices == null)
+        {
+            return;
+        }
 
         var sourceAccessor = new S1ChoiceAccessor(source);
         var targetAccessor = new S2ChoiceAccessor(target);
@@ -130,13 +136,17 @@ public class S2Handler(IS2ResumePoint resume, IS2Inventory inventory, IS2SaveFac
         foreach (var choice in S1ChoiceCatalog.All)
         {
             if (sourceAccessor.GetChoiceValue(choice.ChoiceKey) is { } value)
+            {
                 targetAccessor.SetChoiceValue(choice.ChoiceKey, value);
+            }
         }
 
         for (var episode = PersistentKeys.FirstEpisode; episode <= PersistentKeys.LastEpisode; episode++)
         {
             if (source.Choices.Find(Symbol.FromString(PersistentKeys.TrackerContainer(episode)))?.Value is RawBytesValue tracker)
+            {
                 target.Choices.Set(Symbol.FromString(S2SlotFiles.TrackerContainer(episode)), tracker.TypeSymbol, new RawBytesValue([.. tracker.Data], tracker.TypeSymbol));
+            }
         }
     }
 }

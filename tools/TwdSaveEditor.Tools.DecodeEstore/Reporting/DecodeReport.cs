@@ -21,7 +21,9 @@ public sealed class DecodeReport(string savesRoot, TextWriter output)
     {
         output.WriteLine("=== Known Event Type CRC64 Hashes ===");
         foreach (var (hash, name) in EventTypeNames.ByHash.OrderBy(pair => pair.Value, StringComparer.Ordinal))
+        {
             output.WriteLine($"  0x{hash:X16} = {name}");
+        }
 
         Banner("TELLTALE EVENTLOG ESTORE/EPAGE FORMAT DECODER");
 
@@ -89,7 +91,9 @@ public sealed class DecodeReport(string savesRoot, TextWriter output)
     private void Compare(string name, string title, string sizeSuffix, bool analyseValues)
     {
         if (!_episode1Pages.TryGetValue(name, out var first) || !_episode5Pages.TryGetValue(name, out var second))
+        {
             return;
+        }
 
         Banner(title);
         new PageComparison(output).Report(first, second, sizeSuffix, analyseValues);
@@ -104,7 +108,9 @@ public sealed class DecodeReport(string savesRoot, TextWriter output)
         {
             var estorePath = Path.Combine(directory, $"_wdm_saveslot{slot}_id.estore");
             if (!File.Exists(estorePath))
+            {
                 continue;
+            }
 
             if (EstoreAnalyzer.Analyze(estorePath) is { } estore)
             {
@@ -158,7 +164,9 @@ public sealed class DecodeReport(string savesRoot, TextWriter output)
         }
 
         if (_episode1Pages.TryGetValue(Page734, out var reference))
+        {
             ReportRecordStructure(reference);
+        }
     }
 
     private void ReportRecordStructure(EpageAnalysis page)
@@ -176,11 +184,17 @@ public sealed class DecodeReport(string savesRoot, TextWriter output)
             {
                 var values = new SortedSet<byte>(records.Take(200).Where(record => position < record.Raw.Length).Select(record => record.Raw[position]));
                 if (values.Count == 1)
+                {
                     output.WriteLine($"    byte[{position,2}]: CONSTANT 0x{values.Min:X2} ({values.Min})");
+                }
                 else if (values.Count <= 5)
+                {
                     output.WriteLine($"    byte[{position,2}]: {values.Count} values: {string.Join(", ", values.Select(value => $"0x{value:X2}"))}");
+                }
                 else
+                {
                     output.WriteLine($"    byte[{position,2}]: VARIABLE ({values.Count} distinct values)");
+                }
             }
         }
 
@@ -201,7 +215,9 @@ public sealed class DecodeReport(string savesRoot, TextWriter output)
         foreach (var file in files)
         {
             if (EpageAnalyzer.Analyze(file, output) is { } page)
+            {
                 yield return page;
+            }
         }
     }
 
@@ -217,7 +233,9 @@ public sealed class DecodeReport(string savesRoot, TextWriter output)
     {
         output.WriteLine($"  Page count: {estore.Pages.Count}");
         foreach (var page in estore.Pages)
+        {
             output.WriteLine($"    Page {page.Number}: hash=0x{page.Hash:X16}");
+        }
 
         output.WriteLine($"  Event records in estore: {estore.RecordCount}");
     }
@@ -226,14 +244,18 @@ public sealed class DecodeReport(string savesRoot, TextWriter output)
     {
         output.WriteLine("    Event types:");
         foreach (var (eventType, count) in page.TypeCounts.MostCommon())
+        {
             output.WriteLine($"      {eventType}: {count}");
+        }
     }
 
     private void PrintTypeHashes(EpageAnalysis page)
     {
         output.WriteLine($"    Unique type hashes: {page.TypeHashes.Count}");
         foreach (var hash in page.TypeHashes)
+        {
             output.WriteLine($"      0x{hash:X16} = {EventTypeNames.Describe(hash, "UNKNOWN")}");
+        }
     }
 
     private void PrintFirstRecords(EpageAnalysis page, string title)
@@ -252,11 +274,15 @@ public sealed class DecodeReport(string savesRoot, TextWriter output)
         {
             var values = records.Take(30).Select(record => read(record.Raw, start)).ToList();
             if (values.Count < 5)
+            {
                 continue;
+            }
 
             var sequential = values.Zip(values.Skip(1)).All(pair => pair.Second > pair.First);
             if (sequential && (long)values[^1] - values[0] < values.Count * 3)
+            {
                 output.WriteLine($"    {label} at byte[{start}]: sequential, range {values[0]}-{values[^1]}");
+            }
         }
     }
 }

@@ -69,14 +69,21 @@ public partial class SaveBrowser : IDisposable
 
     private async Task DownloadSelected()
     {
-        if (Editor.SelectedSave == null) return;
+        if (Editor.SelectedSave == null)
+        {
+            return;
+        }
 
         var slot = Editor.SelectedSave;
         foreach (var file in Editor.BuildFiles(slot))
+        {
             await FileSystem.DownloadFile(file.Name, file.Data);
+        }
 
         if (slot.ObsoleteFileNames.Count > 0)
+        {
             Editor.StatusMessage = $"Delete {string.Join(", ", slot.ObsoleteFileNames)} from your save folder before playing.";
+        }
 
         Editor.NotifyStateChanged();
     }

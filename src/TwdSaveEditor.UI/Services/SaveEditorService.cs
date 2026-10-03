@@ -120,7 +120,10 @@ public class SaveEditorService
                 NotifyStateChanged();
 
                 var data = await readFile(fileName);
-                if (data == null) continue;
+                if (data == null)
+                {
+                    continue;
+                }
 
                 var slot = ReadBundle(data, fileName);
                 if (_registry.DetectFromFileName(slot.FileName) is ICompanionFileHandler companion)
@@ -158,7 +161,9 @@ public class SaveEditorService
         {
             var data = await readFile(name);
             if (data != null)
+            {
                 files.Add(new CompanionFile(name, data));
+            }
         }
 
         companion.AttachCompanionFiles(slot, files);
@@ -168,7 +173,9 @@ public class SaveEditorService
     {
         var files = new List<CompanionFile> { new(slot.FileName, _serializer.Write(slot)) };
         if (!IsAutosave(slot) && _registry.DetectFromFileName(slot.FileName) is ICompanionFileHandler companion)
+        {
             files.AddRange(companion.BuildCompanionFiles(slot));
+        }
 
         return files;
     }
@@ -213,7 +220,9 @@ public class SaveEditorService
         foreach (var file in BuildFiles(slot))
         {
             if (await _fs.WriteFile(file.Name, file.Data))
+            {
                 continue;
+            }
 
             StatusMessage = $"Failed to write {file.Name}.";
             Notify($"Failed to write {file.Name}.", "error");
@@ -223,7 +232,9 @@ public class SaveEditorService
         foreach (var name in slot.ObsoleteFileNames)
         {
             if (await _fs.DeleteFile(name))
+            {
                 Notify($"Removed {name}.", "info");
+            }
         }
 
         slot.ObsoleteFileNames.Clear();
@@ -256,7 +267,10 @@ public class SaveEditorService
             Notify($"Could not find slot bundle '{slotName}' to sync episode. Load both files.", "warning");
             return;
         }
-        if (slotSave.Metadata == null) return;
+        if (slotSave.Metadata == null)
+        {
+            return;
+        }
 
         const ulong slotEpisodeIdHash = 0xB218E7C003A67CE9;
         var slotEpProp = slotSave.Metadata.AllProperties
@@ -291,9 +305,13 @@ public class SaveEditorService
             var slotBytes = _serializer.Write(slotSave);
             var wrote = await _fs.WriteFile(slotSave.FileName, slotBytes);
             if (wrote)
+            {
                 Notify($"Updated slot bundle episode to {episodeIdValue.Value}.", "info");
+            }
             else
+            {
                 Notify($"Failed to write slot bundle '{slotName}'.", "warning");
+            }
         }
         catch (Exception ex)
         {
@@ -312,11 +330,18 @@ public class SaveEditorService
                 if (prop != null)
                 {
                     if (value is StringValue sv && prop.Value is StringValue existingSv)
+                    {
                         existingSv.Value = sv.Value;
+                    }
                     else if (value is IntValue iv && prop.Value is IntValue existingIv)
+                    {
                         existingIv.Value = iv.Value;
+                    }
                     else if (value is BoolValue bv && prop.Value is BoolValue existingBv)
+                    {
                         existingBv.Value = bv.Value;
+                    }
+
                     return;
                 }
             }
@@ -336,7 +361,9 @@ public class SaveEditorService
     {
         var backupFolder = await _backup.BackupBeforeSave(slot);
         if (backupFolder != null)
+        {
             Notify($"Backup created in {backupFolder}/", "info");
+        }
     }
 
     public async Task<SaveSlot?> CreateNewSave(string seasonKey, int episode, string fileName)
@@ -387,17 +414,29 @@ public class SaveEditorService
 
     public void CascadeChoice(string choiceKey, string value, string sourceSeasonKey)
     {
-        if (!CascadeChoices) return;
+        if (!CascadeChoices)
+        {
+            return;
+        }
 
         foreach (var save in Saves)
         {
-            if (save.DetectedSeasonKey == null) continue;
+            if (save.DetectedSeasonKey == null)
+            {
+                continue;
+            }
 
             var targetSeason = _registry.Get(save.DetectedSeasonKey);
-            if (targetSeason?.ImportsFromSeasonKeys.Contains(sourceSeasonKey) != true) continue;
+            if (targetSeason?.ImportsFromSeasonKeys.Contains(sourceSeasonKey) != true)
+            {
+                continue;
+            }
 
             var accessor = GetChoiceAccessor(save);
-            if (accessor == null) continue;
+            if (accessor == null)
+            {
+                continue;
+            }
 
             try
             {

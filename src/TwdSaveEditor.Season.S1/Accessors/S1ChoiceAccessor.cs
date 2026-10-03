@@ -25,7 +25,9 @@ public sealed class S1ChoiceAccessor(SaveSlot slot, IS1CheckpointRefresher? chec
     public string? GetChoiceValue(string choiceKey)
     {
         if (slot.Metadata == null || S1ChoiceCatalog.PersistentEpisode(choiceKey) is not { } episode)
+        {
             return null;
+        }
 
         var value = slot.Metadata.GetString(PersistentKeys.SlotKey(episode, choiceKey));
         return string.IsNullOrEmpty(value) ? null : value;
@@ -34,10 +36,14 @@ public sealed class S1ChoiceAccessor(SaveSlot slot, IS1CheckpointRefresher? chec
     public void SetChoiceValue(string choiceKey, string value)
     {
         if (slot.Metadata == null)
+        {
             throw new InvalidOperationException("Cannot set choice value: the save has no slot metadata.");
+        }
 
         if (S1ChoiceCatalog.PersistentEpisode(choiceKey) is not { } episode)
+        {
             return;
+        }
 
         value = value.ToLowerInvariant();
         slot.Metadata.SetString(PersistentKeys.SlotKey(episode, choiceKey), value);
@@ -49,7 +55,9 @@ public sealed class S1ChoiceAccessor(SaveSlot slot, IS1CheckpointRefresher? chec
     private void UpdateTracker(int episode, string choiceKey, string value)
     {
         if (slot.Choices == null)
+        {
             return;
+        }
 
         var container = Symbol.FromString(PersistentKeys.TrackerContainer(episode));
         var type = new Symbol(TelltaleTypes.ChoicesContainer);
@@ -70,9 +78,13 @@ public sealed class S1ChoiceAccessor(SaveSlot slot, IS1CheckpointRefresher? chec
     private void UpdateAutosave(string choiceKey, string value)
     {
         if (slot.Autosave?.FindFile(S1SlotFiles.LogicGameProperties) is not { } logic || !BundleReader.TryParseProperties(logic))
+        {
             return;
+        }
 
         if (logic.Properties!.Find(choiceKey)?.Value is StringValue current)
+        {
             current.Value = value;
+        }
     }
 }

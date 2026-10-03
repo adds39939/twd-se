@@ -20,12 +20,16 @@ public sealed class S1Inventory(IS1ResumePoint resume) : IS1Inventory
     {
         var state = resume.GetState(slot);
         if (ResumeSave(slot) is not { } save)
+        {
             return InventoryState.NotEditable(Owner(state.Episode), state.Episode, slot.AutosaveDamaged ? Damaged : NoSave);
+        }
 
         var episode = EpisodeOf(save) ?? state.Episode;
         var items = S1ItemCatalog.ForEpisode(episode)?.Items ?? [];
         if (items.Select(item => item.Agent).Distinct().Any(agent => save.FindFile(S1RuntimeProperties.LogicName(agent)) is { } file && !BundleReader.TryParseProperties(file)))
+        {
             return InventoryState.NotEditable(Owner(episode), episode, Damaged);
+        }
 
         return new InventoryState(
             Owner(episode),
@@ -44,17 +48,25 @@ public sealed class S1Inventory(IS1ResumePoint resume) : IS1Inventory
         foreach (var item in S1ItemCatalog.ForEpisode(EpisodeOf(save) ?? 0)?.Items ?? [])
         {
             if (untouched?.Contains(item.Id) == true)
+            {
                 continue;
+            }
 
             var wanted = Math.Clamp(held.FirstOrDefault(entry => entry.Id == item.Id)?.Count ?? 0, 0, item.MaxCount);
             if (wanted == Count(save, item))
+            {
                 continue;
+            }
 
             var properties = Properties(save, item.Agent, create: true)!;
             if (item.Flag)
+            {
                 properties.SetBool(item.Id, wanted > 0);
+            }
             else
+            {
                 properties.SetInt(item.Id, wanted);
+            }
         }
     }
 
@@ -107,7 +119,9 @@ public sealed class S1Inventory(IS1ResumePoint resume) : IS1Inventory
         }
 
         if (!create)
+        {
             return null;
+        }
 
         var properties = S1RuntimeProperties.Create(visible: false);
         var files = save.Files;

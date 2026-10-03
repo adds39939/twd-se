@@ -38,26 +38,36 @@ public sealed partial class SceneEntryReader
     {
         var path = Path.Combine(_episodeDirectory, script.Scene + PropertyExtension);
         if (!File.Exists(path) || Read(path) is not { } properties)
+        {
             return null;
+        }
 
         if (properties.Find(DialogKey) is not MetaSymbol { IsHandle: true } handle || !_dialogs.TryGetValue(handle.Hash, out var dialog))
+        {
             return null;
+        }
 
         var node = (properties.Find(NodeKey) as MetaScalar)?.Text ?? _defaultNode;
         if (node == null)
+        {
             return null;
+        }
 
         if (_actKey != null && flags.FirstOrDefault(flag => flag.Key == _actKey)?.Value is JsonValue value && value.TryGetValue<int>(out var act))
         {
             var variant = ActSuffix().Replace(dialog, $"_act{act}");
             if (_dialogs.Values.FirstOrDefault(name => name.Equals(variant, StringComparison.OrdinalIgnoreCase)) is { } found)
+            {
                 dialog = found;
+            }
         }
 
         foreach (Match match in NodeForFlag().Matches(script.Text))
         {
             if (flags.Any(flag => flag.Key == match.Groups["key"].Value && flag.Value is JsonValue set && set.TryGetValue<bool>(out var on) && on))
+            {
                 node = match.Groups["node"].Value;
+            }
         }
 
         return new SceneEntry(dialog, node);

@@ -11,7 +11,9 @@ public static class DialogLogSaves
     public static PropertySet RuntimeProperties(SaveSlot save, ulong name, string unreadable)
     {
         if (save.FindFile(name) is { } existing)
+        {
             return BundleReader.TryParseProperties(existing) ? existing.Properties! : throw new InvalidOperationException(unreadable);
+        }
 
         var properties = DialogLogFiles.NewRuntimeProperties();
         var files = save.Files;

@@ -130,7 +130,9 @@ public class S1Handler(IS1ResumePoint resume, IS1Inventory inventory, IS1SaveFac
     public IReadOnlyList<string> FindCompanionFiles(string bundleFileName, IEnumerable<string> directoryFileNames)
     {
         if (!S1SlotFiles.IsSlotBundle(bundleFileName))
+        {
             return [];
+        }
 
         var autosave = S1SlotFiles.AutosaveName(bundleFileName);
         return directoryFileNames.Where(name => name.Equals(autosave, StringComparison.OrdinalIgnoreCase)).Take(1).ToList();
@@ -140,7 +142,9 @@ public class S1Handler(IS1ResumePoint resume, IS1Inventory inventory, IS1SaveFac
     {
         var autosave = files.FirstOrDefault();
         if (autosave == null)
+        {
             return;
+        }
 
         try
         {

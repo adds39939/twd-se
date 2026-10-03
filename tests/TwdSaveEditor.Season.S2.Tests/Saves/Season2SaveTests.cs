@@ -414,10 +414,14 @@ public class Season2SaveTests
         var slot = Season2Saves.LoadEpisode1Save();
         var accessor = Season2Saves.Accessor(slot);
         foreach (var choice in TestSeasons.ChoicesFor("s2"))
+        {
             accessor.ApplyChoice(choice, choice.Options.Length - 1);
+        }
 
         var reloaded = Season2Saves.Reload(slot);
         foreach (var choice in TestSeasons.ChoicesFor("s2"))
+        {
             Assert.Equal(choice.Options.Length - 1, Season2Saves.Accessor(reloaded).DetectCurrentChoice(choice));
+        }
     }
 }

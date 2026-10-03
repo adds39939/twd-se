@@ -23,14 +23,18 @@ public static partial class DebugMenuReader
             if (!button.Groups[2].Success)
             {
                 if (title.Length > 0)
+                {
                     group = title;
+                }
 
                 continue;
             }
 
             var name = button.Groups[2].Value;
             if (!handlers.TryGetValue(name, out var body) || !LoadScript().IsMatch(body))
+            {
                 continue;
+            }
 
             chapters.Add(ReadChapter(name, title, group, body, constants));
         }
@@ -56,17 +60,29 @@ public static partial class DebugMenuReader
         foreach (var line in body.Split('\n').Select(line => line.Trim()).Where(line => line.Length > 0))
         {
             if (LogicAssignment().Match(line) is { Success: true } logic)
+            {
                 assignments.Add(Assign(GameLogicAgent, logic.Groups[1].Value, logic.Groups[2].Value, constants));
+            }
             else if (LogicField().Match(line) is { Success: true } field)
+            {
                 assignments.Add(Assign(GameLogicAgent, $"\"{field.Groups[1].Value}\"", field.Groups[2].Value, constants));
+            }
             else if (AgentProperty().Match(line) is { Success: true } property)
+            {
                 assignments.Add(Assign(property.Groups[1].Value, property.Groups[2].Value, property.Groups[3].Value, constants));
+            }
             else if (InventoryItem().Match(line) is { Success: true } item)
+            {
                 assignments.Add(Assign(InventoryAgent, item.Groups[1].Value, "1", constants));
+            }
             else if (LoadScript().Match(line) is { Success: true } load)
+            {
                 scripts.Add(load.Groups[1].Value);
+            }
             else if (line.StartsWith("if ", StringComparison.Ordinal) || line == "else")
+            {
                 conditional = true;
+            }
         }
 
         return new Chapter(handler, title, group, scripts.Distinct().Count() == 1 ? scripts[0] : null, assignments, conditional);
@@ -82,7 +98,9 @@ public static partial class DebugMenuReader
     private static string? Text(string expression, Dictionary<string, string> constants)
     {
         if (expression.Length >= 2 && expression[0] == '"' && expression[^1] == '"')
+        {
             return expression[1..^1];
+        }
 
         return constants.GetValueOrDefault(expression);
     }
@@ -90,9 +108,14 @@ public static partial class DebugMenuReader
     private static JsonNode? Value(string expression, Dictionary<string, string> constants)
     {
         if (bool.TryParse(expression, out var flag))
+        {
             return JsonValue.Create(flag);
+        }
+
         if (int.TryParse(expression, NumberStyles.Integer, CultureInfo.InvariantCulture, out var number))
+        {
             return JsonValue.Create(number);
+        }
 
         return Text(expression, constants) is { } text ? JsonValue.Create(text) : null;
     }

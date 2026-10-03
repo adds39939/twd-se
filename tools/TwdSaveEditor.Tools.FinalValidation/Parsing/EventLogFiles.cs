@@ -15,12 +15,17 @@ public static class EventLogFiles
             if (!File.Exists(path))
             {
                 if (reportMissing)
+                {
                     details.Add($"File not found: {Path.GetFileName(path)}");
+                }
+
                 continue;
             }
 
             if (MetaStreamParser.Parse(File.ReadAllBytes(path)) is not { } parsed)
+            {
                 continue;
+            }
 
             var records = EventLogFormat.ReadRecords(parsed.Default);
             details.Add($"\n{Path.GetFileName(path)}: {records.Count} records");

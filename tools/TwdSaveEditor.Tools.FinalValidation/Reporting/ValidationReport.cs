@@ -25,10 +25,14 @@ public sealed class ValidationReport(TextWriter output)
         output.WriteLine(new string('=', Width));
 
         if (details.Count == 0)
+        {
             return;
+        }
 
         foreach (var line in string.Join("\n", details).Split('\n'))
+        {
             output.WriteLine($"  {line}");
+        }
     }
 
     public void PrintSummary()
@@ -39,7 +43,9 @@ public sealed class ValidationReport(TextWriter output)
         output.WriteLine(new string('=', Width));
 
         foreach (var (step, passed) in _results)
+        {
             output.WriteLine($"  [{Status(passed)}] {step}");
+        }
 
         var failed = FailedCount;
         output.WriteLine();

@@ -38,11 +38,15 @@ public static class MetaStreamParser
     public static MetaStreamSections? Parse(ReadOnlySpan<byte> data)
     {
         if (data.Length < HeaderSize)
+        {
             return null;
+        }
 
         var magic = Bytes.U32(data, 0);
         if (magic is not (MagicMsv5 or MagicMsv6))
+        {
             return null;
+        }
 
         uint[] sizeFields = [Bytes.U32(data, 4), Bytes.U32(data, 8), Bytes.U32(data, 12)];
 

@@ -24,13 +24,17 @@ public static partial class LuaStrings
             }
 
             if (current.Length >= MinimumLength)
+            {
                 strings.Add(current.ToString());
+            }
 
             current.Clear();
         }
 
         if (current.Length >= MinimumLength)
+        {
             strings.Add(current.ToString());
+        }
 
         return strings;
     }

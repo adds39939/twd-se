@@ -34,12 +34,16 @@ if (accessor == null)
 }
 
 foreach (var episode in restarts)
+{
     session.RestartFromEpisode(episode);
+}
 
 if (chapter.Count == 2 && !session.RestartFromChapter(int.Parse(chapter[0]), chapter[1]))
 {
     foreach (var entry in session.Chapters(int.Parse(chapter[0])))
+    {
         Console.Error.WriteLine($"{entry.Id,-28} {entry.Group,-10} {entry.Title}");
+    }
 
     return 1;
 }
@@ -69,11 +73,15 @@ if (session.Inventory is { } inventory)
         ? $"{inventory.Owner}, episode {inventory.Episode}: {(inventory.Held.Count == 0 ? "no items" : string.Join(", ", inventory.Held.Select(item => item.Count > 1 ? $"{item.Id} x{item.Count}" : item.Id)))}"
         : inventory.Unavailable);
     foreach (var item in inventory.Items)
+    {
         Console.WriteLine($"  {(inventory.CountOf(item.Id) > 0 ? "x" : " ")} {item.Id,-28} {item.Name}");
+    }
 }
 
 if (assignments.Count == 0 && restarts.Count == 0 && chapter.Count == 0 && slotNumber == null && created == null && !inventoryChanged)
+{
     return 0;
+}
 
 var renamer = slotNumber != null && output != null ? new SlotRenamer(int.Parse(slotNumber)) : null;
 string Target(string name) => renamer?.Rename(name) ?? name;
@@ -83,7 +91,9 @@ Directory.CreateDirectory(directory);
 if (output != null)
 {
     foreach (var name in original.Except(session.Slot.ObsoleteFileNames))
+    {
         File.Copy(Path.Combine(args[0], name), Path.Combine(directory, Target(name)), true);
+    }
 }
 
 renamer?.Apply(session.Slot);

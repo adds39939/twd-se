@@ -48,7 +48,9 @@ public sealed class S2CheckpointBuilder : IS2CheckpointBuilder
             ApplyImportedChoices(slot, game);
             ApplyEarlierDecisions(slot, episode.Episode, game);
             foreach (var flag in chapter.Flags)
+            {
                 Apply(game, flag.Key, flag.Value);
+            }
         }
 
         var save = new SaveGameFile
@@ -83,13 +85,19 @@ public sealed class S2CheckpointBuilder : IS2CheckpointBuilder
             foreach (var key in imported.Keys)
             {
                 if (slot.Choices?.GetString(key) is not { } value)
+                {
                     continue;
+                }
 
                 var name = $"Episode {imported.Episode} - {key}";
                 if (bool.TryParse(value, out var flag))
+                {
                     game.SetBool(name, flag);
+                }
                 else
+                {
                     game.SetString(name, value);
+                }
             }
         }
     }
@@ -101,9 +109,13 @@ public sealed class S2CheckpointBuilder : IS2CheckpointBuilder
         {
             var option = log.FindSeen(decision);
             if (decision.LogicIsText)
+            {
                 game.SetString(decision.LogicKey!, option?.LogicValue ?? string.Empty);
+            }
             else
+            {
                 game.SetBool(decision.LogicKey!, option?.LogicValue != null);
+            }
         }
     }
 
@@ -126,7 +138,9 @@ public sealed class S2CheckpointBuilder : IS2CheckpointBuilder
     private static PropertySet Runtime(SortedDictionary<ulong, PropertySet> sets, ulong name)
     {
         if (!sets.TryGetValue(name, out var properties))
+        {
             sets[name] = properties = S2SlotFiles.NewRuntimeProperties();
+        }
 
         return properties;
     }

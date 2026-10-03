@@ -28,7 +28,9 @@ public sealed class BinaryWriterEx : IDisposable
         var bytes = Encoding.Latin1.GetBytes(value ?? string.Empty);
         _writer.Write(bytes.Length);
         if (bytes.Length > 0)
+        {
             _writer.Write(bytes);
+        }
     }
 
     public void WriteSymbol(Symbol symbol) => _writer.Write(symbol.Value);

@@ -12,7 +12,9 @@ public sealed class BlowfishKeySchedule
         S = [[.. BlowfishTables.S0], [.. BlowfishTables.S1], [.. BlowfishTables.S2], [.. BlowfishTables.S3]];
 
         if (swapV7Entry)
+        {
             S[0][118] = BinaryPrimitives.ReverseEndianness(S[0][118]);
+        }
 
         var keyIndex = 0;
         for (var i = 0; i < Rounds + 2; i++)

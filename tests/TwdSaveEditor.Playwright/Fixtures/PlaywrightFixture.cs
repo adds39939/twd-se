@@ -43,7 +43,10 @@ public class PlaywrightFixture : IAsyncLifetime
             try
             {
                 var response = await client.GetAsync(BaseUrl);
-                if (response.IsSuccessStatusCode) break;
+                if (response.IsSuccessStatusCode)
+                {
+                    break;
+                }
             }
             catch
             {

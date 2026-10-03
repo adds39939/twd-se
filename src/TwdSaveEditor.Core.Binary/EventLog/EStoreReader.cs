@@ -14,7 +14,9 @@ public static class EStoreReader
         var estoreData = File.ReadAllBytes(estorePath);
         var estoreSections = ReadMetaStreamSections(estoreData);
         if (estoreSections.defaultData.Length > 0)
+        {
             entries.AddRange(ParseEventsFromSection(estoreSections.defaultData));
+        }
 
         var pagePattern = $"{baseName}_Page*.epage";
         var pageFiles = Directory.GetFiles(dir, pagePattern)
@@ -26,7 +28,9 @@ public static class EStoreReader
             var pageData = File.ReadAllBytes(pageFile);
             var pageSections = ReadMetaStreamSections(pageData);
             if (pageSections.defaultData.Length > 0)
+            {
                 entries.AddRange(ParseEventsFromSection(pageSections.defaultData));
+            }
         }
 
         return entries;
@@ -42,17 +46,25 @@ public static class EStoreReader
     public static List<EventLogEntry> ParseEventsFromSection(byte[] data)
     {
         var entries = new List<EventLogEntry>();
-        if (data.Length < EventLogEntry.RecordSize) return entries;
+        if (data.Length < EventLogEntry.RecordSize)
+        {
+            return entries;
+        }
 
         int startOffset = FindRecordStart(data);
-        if (startOffset < 0) return entries;
+        if (startOffset < 0)
+        {
+            return entries;
+        }
 
         for (int pos = startOffset; pos + EventLogEntry.RecordSize <= data.Length; pos += EventLogEntry.RecordSize)
         {
             var version = BitConverter.ToUInt32(data, pos);
             var payload = BitConverter.ToUInt32(data, pos + 4);
             if (version != 0x0A || payload != 0x22)
+            {
                 break;
+            }
 
             var raw = new byte[EventLogEntry.RecordSize];
             Array.Copy(data, pos, raw, 0, EventLogEntry.RecordSize);
@@ -85,18 +97,26 @@ public static class EStoreReader
             {
                 if (data[i + j] != pattern[j]) { match = false; break; }
             }
-            if (match) return i;
+            if (match)
+            {
+                return i;
+            }
         }
         return -1;
     }
 
     public static (byte[] defaultData, byte[] debugData, byte[] asyncData) ReadMetaStreamSections(byte[] data)
     {
-        if (data.Length < 20) return ([], [], []);
+        if (data.Length < 20)
+        {
+            return ([], [], []);
+        }
 
         var magic = BitConverter.ToUInt32(data, 0);
         if (magic is not (MetaStreamHeader.MagicMsv5 or MetaStreamHeader.MagicMsv6))
+        {
             return ([], [], []);
+        }
 
         var defSize = BitConverter.ToUInt32(data, 4);
         var dbgSize = BitConverter.ToUInt32(data, 8);
@@ -166,7 +186,9 @@ public static class EStoreReader
         var pageCount = BitConverter.ToUInt32(data, 8);
         var offsets = new ulong[pageCount + 1];
         for (int i = 0; i <= pageCount; i++)
+        {
             offsets[i] = BitConverter.ToUInt64(data, 12 + i * 8);
+        }
 
         using var output = new MemoryStream();
         for (int i = 0; i < pageCount; i++)
@@ -181,7 +203,10 @@ public static class EStoreReader
             var pageBuffer = new byte[windowSize];
             int totalRead = 0, bytesRead;
             while ((bytesRead = deflate.Read(pageBuffer, totalRead, (int)windowSize - totalRead)) > 0)
+            {
                 totalRead += bytesRead;
+            }
+
             output.Write(pageBuffer, 0, totalRead);
         }
         return output.ToArray();
@@ -191,7 +216,11 @@ public static class EStoreReader
     {
         var name = Path.GetFileNameWithoutExtension(path);
         var pageIdx = name.LastIndexOf("Page", StringComparison.Ordinal);
-        if (pageIdx < 0) return 0;
+        if (pageIdx < 0)
+        {
+            return 0;
+        }
+
         var numStr = name[(pageIdx + 4)..];
         return int.TryParse(numStr, out var num) ? num : 0;
     }

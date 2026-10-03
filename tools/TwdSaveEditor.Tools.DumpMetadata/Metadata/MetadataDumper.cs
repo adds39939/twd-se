@@ -21,7 +21,9 @@ public static class MetadataDumper
         {
             output.WriteLine($"  TypeGroup: {group.TypeSymbol}");
             foreach (var property in group.Properties)
+            {
                 output.WriteLine($"    0x{property.KeySymbol.Value:X16} = {Describe(property.Value)}");
+            }
         }
     }
 

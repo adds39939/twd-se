@@ -12,7 +12,9 @@ if (args.Length == 0)
 if (args[0] == "--sections")
 {
     foreach (var path in args[2..])
+    {
         SectionWriter.Write(path, args[1]);
+    }
 
     return 0;
 }

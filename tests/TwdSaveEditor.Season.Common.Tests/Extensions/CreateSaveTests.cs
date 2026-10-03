@@ -1,17 +1,8 @@
 using TwdSaveEditor.Core.Binary.Bundles;
 using TwdSaveEditor.Core.Constants;
-using TwdSaveEditor.Tests.Common.Saves;
-using TwdSaveEditor.Core.Hashing;
 using TwdSaveEditor.Season.Common.Extensions;
-using TwdSaveEditor.Season.Common.Abstractions;
 using TwdSaveEditor.Season.Base.Accessors;
 using TwdSaveEditor.Tests.Common.Seasons;
-using TwdSaveEditor.Season.S4.Handlers;
-using TwdSaveEditor.Season.S3.Handlers;
-using TwdSaveEditor.Season.S2.Handlers;
-using TwdSaveEditor.Season.S1.Handlers;
-using TwdSaveEditor.Season.Michonne.Handlers;
-using TwdSaveEditor.Season.Common.Services;
 
 namespace TwdSaveEditor.Season.Common.Tests.Extensions;
 
@@ -111,7 +102,9 @@ public class SaveSlotFactoryTests
         var original = handler.CreateChoiceAccessor(slot)!;
         var reloaded = handler.CreateChoiceAccessor(reparsed)!;
         foreach (var choice in TestSeasons.ChoicesFor("s1").Where(c => c.Episode < 4))
+        {
             Assert.Equal(original.GetChoiceValue(choice.ChoiceKey), reloaded.GetChoiceValue(choice.ChoiceKey));
+        }
     }
 
     [Theory]
@@ -130,7 +123,9 @@ public class SaveSlotFactoryTests
         Assert.Equal(origChoices.Count, newChoices.Count);
 
         foreach (var (key, value) in origChoices)
+        {
             Assert.Equal(value, newAccessor.GetChoiceValue(key)!);
+        }
     }
 
     [Fact]

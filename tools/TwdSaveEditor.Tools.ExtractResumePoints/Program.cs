@@ -110,20 +110,28 @@ foreach (var episode in episodes)
 {
     Console.WriteLine($"Episode {episode.Episode}: {episode.Points.Count} resume points, {episode.Chapters.Count} game chapters");
     foreach (var chapter in episode.Chapters)
+    {
         Console.WriteLine($"  {chapter.ChapterId,-16} {chapter.Dialog,-58} {string.Join(", ", chapter.Scripts)}");
+    }
 
     foreach (var point in episode.Points)
+    {
         Console.WriteLine($"  {point.ChapterId,-16} {point.Title,-28} {point.Script,-40} flags={point.Flags.Count} decided={point.Decided.Count}");
+    }
 
     foreach (var key in episode.Unplaced)
+    {
         Console.WriteLine($"  no dialog holds the nodes of {key}");
+    }
 }
 
 foreach (var episode in inventories)
 {
     Console.WriteLine($"Episode {episode.Episode}: {episode.Items.Count} items ({string.Join(", ", episode.Items.Select(item => item.Name))}), starts with {string.Join(", ", episode.Starting.Select(item => item.Item))}");
     foreach (var chapter in episode.Chapters)
+    {
         Console.WriteLine($"  {chapter.Id,-28} {string.Join(" ", chapter.Carried)} | {string.Join(" ", chapter.FromStart)}");
+    }
 }
 
 Console.WriteLine($"Wrote {episodes.Sum(episode => episode.Points.Count)} resume points to {output}");

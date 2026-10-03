@@ -49,7 +49,9 @@ public static class EventLogCodec
         storage.LastEventId = reader.ReadUInt32();
         storage.PageSize = reader.ReadInt32();
         if (reader.ReadByte() == True)
+        {
             storage.CurrentPage = ReadPageBody(reader);
+        }
 
         EnsureConsumed(reader, storage.Name, storage.Compressed);
         return storage;
@@ -76,7 +78,9 @@ public static class EventLogCodec
             writer.Write(storage.PageSize);
             writer.Write(storage.CurrentPage == null ? False : True);
             if (storage.CurrentPage != null)
+            {
                 WritePageBody(writer, storage.CurrentPage);
+            }
         }
 
         var symbols = storage.Pages.Count + (storage.CurrentPage == null ? 0 : CountSymbols(storage.CurrentPage));
@@ -107,7 +111,9 @@ public static class EventLogCodec
     {
         using var stream = new MemoryStream();
         using (var writer = new BinaryWriter(stream, Encoding.Latin1, leaveOpen: true))
+        {
             WritePageBody(writer, page);
+        }
 
         var header = new MetaStreamHeader
         {
@@ -130,7 +136,9 @@ public static class EventLogCodec
         };
 
         for (var count = reader.ReadUInt32(); count > 0; count--)
+        {
             page.Events.Add(ReadEvent(reader));
+        }
 
         return page;
     }
@@ -142,7 +150,9 @@ public static class EventLogCodec
         WriteString(writer, page.FlushedName);
         writer.Write(page.Events.Count);
         foreach (var entry in page.Events)
+        {
             WriteEvent(writer, entry);
+        }
     }
 
     private static EventLogEvent ReadEvent(BinaryReader reader)
@@ -162,11 +172,15 @@ public static class EventLogCodec
         for (var i = 0; i < entry.Data.Count; i++)
         {
             foreach (var kind in kinds[i])
+            {
                 entry.Data[i].Values.Add(new EventLogValue(kind, reader.ReadUInt64(), reader.ReadByte()));
+            }
         }
 
         if (reader.BaseStream.Position != end)
+        {
             throw new InvalidDataException($"Event {entry.Id} does not end where its block says.");
+        }
 
         return entry;
     }
@@ -186,7 +200,9 @@ public static class EventLogCodec
             writer.Write(data.Type);
             writer.Write(data.Values.Count);
             foreach (var value in data.Values)
+            {
                 writer.Write(value.Kind);
+            }
         }
 
         foreach (var value in entry.Data.SelectMany(data => data.Values))
@@ -217,7 +233,9 @@ public static class EventLogCodec
     {
         var rest = reader.ReadBytes((int)(reader.BaseStream.Length - reader.BaseStream.Position));
         if (rest.Length > 0 && !(padded && rest.All(value => value == 0)))
+        {
             throw new InvalidDataException($"Event log file {name} has unread data.");
+        }
     }
 
     private static List<VersionEntry> DefaultStorageVersions() =>

@@ -30,17 +30,23 @@ public sealed class DialogOwners(EpisodeChapters episode)
     private static IEnumerable<string> Bases(SceneScript script)
     {
         if (script.Scene!.StartsWith(ScenePrefix, StringComparison.OrdinalIgnoreCase))
+        {
             yield return script.Scene[ScenePrefix.Length..];
+        }
 
         var name = Path.GetFileNameWithoutExtension(script.Name);
         if (name.StartsWith(DialogPrefix, StringComparison.OrdinalIgnoreCase))
+        {
             yield return name[DialogPrefix.Length..];
+        }
     }
 
     private static bool IsNamedAfter(string dialog, string scene)
     {
         if (!scene.StartsWith(ScenePrefix, StringComparison.OrdinalIgnoreCase))
+        {
             return false;
+        }
 
         var expected = DialogPrefix + scene[ScenePrefix.Length..];
         return IgnoreCase.Equals(dialog, expected) || dialog.StartsWith(expected + "_", StringComparison.OrdinalIgnoreCase);

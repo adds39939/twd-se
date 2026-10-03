@@ -21,10 +21,14 @@ public sealed class SceneDialogReader(IEnumerable<string> dialogNames)
         for (var offset = 0; offset + 16 <= data.Length; offset++)
         {
             if (!DialogKeys.Contains(Bytes.U64(data, offset)))
+            {
                 continue;
+            }
 
             if (_dialogs.TryGetValue(Bytes.U64(data, offset + 8), out var dialog) && !found.Contains(dialog))
+            {
                 found.Add(dialog);
+            }
         }
 
         return found;
@@ -37,7 +41,9 @@ public sealed class SceneDialogReader(IEnumerable<string> dialogNames)
         for (var offset = 0; offset + 8 <= data.Length; offset++)
         {
             if (_dialogs.TryGetValue(Bytes.U64(data, offset), out var dialog) && !found.Contains(dialog))
+            {
                 found.Add(dialog);
+            }
         }
 
         return found;

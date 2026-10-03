@@ -22,7 +22,9 @@ public abstract class PropChoicesSeasonHandler : SeasonHandlerBase
         var choices = GetChoicesUpTo(episode);
 
         if (choices.Count == 0)
+        {
             return;
+        }
 
         var entries = choices
             .Select(c => ($"{c.ChoiceKey} - {c.Options[0].Value}", true))

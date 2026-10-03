@@ -36,7 +36,9 @@ public static class EstoreFormatValidator
 
         var epagePath = Path.Combine(ToolPaths.TestData, season, epageFile);
         if (File.Exists(epagePath))
+        {
             AddEpageResults(results, File.ReadAllBytes(epagePath));
+        }
 
         return results;
     }
@@ -71,7 +73,9 @@ public static class EstoreFormatValidator
             foreach (var (real, expected) in versions.Zip(expectedEntries))
             {
                 if (real != expected)
+                {
                     results.Add($"  MISMATCH: ver 0x{real.Type:X16}/0x{real.Version:X8} != 0x{expected.Type:X16}/0x{expected.Version:X8}");
+                }
             }
         }
     }
@@ -105,7 +109,9 @@ public static class EstoreFormatValidator
         results.Add("  MATCH: 42-byte record format confirmed");
 
         if (recordCount == 0)
+        {
             return;
+        }
 
         var record = section.Slice(recordStart, EventLogFormat.RecordSize);
         var eventHash = Bytes.U64(record, EventLogFormat.EventTypeOffset);

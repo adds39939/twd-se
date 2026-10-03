@@ -30,7 +30,10 @@ public sealed class PropertyNameDb
 
     public void LoadFromJsonFile(string path)
     {
-        if (!File.Exists(path)) return;
+        if (!File.Exists(path))
+        {
+            return;
+        }
 
         var json = File.ReadAllText(path);
         LoadFromJson(json);
@@ -45,7 +48,9 @@ public sealed class PropertyNameDb
             foreach (var element in doc.RootElement.EnumerateArray())
             {
                 if (element.GetString() is { } name)
+                {
                     Register(name);
+                }
             }
         }
         else if (doc.RootElement.ValueKind == JsonValueKind.Object)
@@ -74,7 +79,9 @@ public sealed class PropertyNameDb
             "Flags", "Handle", "Ptr"];
 
         foreach (var name in typeNames)
+        {
             db.Register(name);
+        }
 
         string[] commonProps = [
             "mActiveSaveSlotIndex", "mGameComplete", "mCurrentEpisode", "mCurrentChapter",
@@ -94,7 +101,9 @@ public sealed class PropertyNameDb
         ];
 
         foreach (var name in commonProps)
+        {
             db.Register(name);
+        }
 
         db.Register("mActiveSeason");
         db.Register("mActiveEpisode");
@@ -107,10 +116,14 @@ public sealed class PropertyNameDb
         ];
 
         foreach (var name in saveProps)
+        {
             db.Register(name);
+        }
 
         foreach (var name in additionalNames ?? [])
+        {
             db.Register(name);
+        }
 
         return db;
     }

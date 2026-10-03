@@ -21,7 +21,9 @@ public sealed class StoryEventLog(SaveSlot slot, StorySeason season)
     {
         slot.EventLog ??= DialogLogFiles.NewLog(slot.FileName);
         if (!season.PreviousGameData || HasPreviousGameData)
+        {
             return;
+        }
 
         if (_editor.FindFirst(_ => true) == null)
         {
@@ -42,7 +44,9 @@ public sealed class StoryEventLog(SaveSlot slot, StorySeason season)
             foreach (var entry in page.Events.Where(entry => entry.DialogNode is { } node && removed.Contains(node)).ToList())
             {
                 if (pending.Count == 0)
+                {
                     break;
+                }
 
                 entry.SetDialogNode(pending.Dequeue());
                 _editor.Log.MarkModified(page);
@@ -65,11 +69,17 @@ public sealed class StoryEventLog(SaveSlot slot, StorySeason season)
         foreach (var entry in _editor.Log.Events)
         {
             if (entry.Has(PreviousGameBegin))
+            {
                 inside = true;
+            }
             else if (entry.Has(PreviousGameEnd))
+            {
                 break;
+            }
             else if (inside && entry.DialogNode is { } node)
+            {
                 old.Add(node);
+            }
         }
 
         _editor.RemoveNodes(old);
@@ -81,20 +91,26 @@ public sealed class StoryEventLog(SaveSlot slot, StorySeason season)
     public void TruncateFromEpisode(int episode)
     {
         if (_editor.FindFirst(entry => entry.Number(EventLogEventTypes.BeginEpisode) >= episode) is { } position)
+        {
             _editor.TruncateFrom(position);
+        }
     }
 
     public void FinishEpisode(int episode)
     {
         BeginEpisode(episode);
         if (_editor.FindFirst(entry => entry.Number(EventLogEventTypes.EndEpisode) == episode) == null)
+        {
             _editor.Append(id => EventLogEvent.ForNumber(id, EventLogEventTypes.EndEpisode, episode));
+        }
     }
 
     public void BeginEpisode(int episode)
     {
         if (_editor.FindFirst(entry => entry.Number(EventLogEventTypes.BeginEpisode) == episode) == null)
+        {
             _editor.Append(id => EventLogEvent.ForNumber(id, EventLogEventTypes.BeginEpisode, episode));
+        }
     }
 
     public void AppendSaveSerial(int serial) => _editor.Append(id => EventLogEvent.ForSaveSerial(id, serial));

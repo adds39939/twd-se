@@ -38,7 +38,9 @@ public static class EpageAnalyzer
         }
 
         if (occurrences.Count < 2)
+        {
             return null;
+        }
 
         var recordSize = DominantSpacing(occurrences);
         var recordsStart = occurrences[0] - BestAlignment(region, occurrences[0], recordSize);
@@ -53,7 +55,9 @@ public static class EpageAnalyzer
         {
             var position = recordsStart + i * recordSize;
             if (position + recordSize > region.Length)
+            {
                 break;
+            }
 
             var raw = region.Slice(position, recordSize).ToArray();
             string? eventType = null;
@@ -75,7 +79,9 @@ public static class EpageAnalyzer
     {
         var spacings = new Counter<int>();
         for (var i = 1; i < occurrences.Count; i++)
+        {
             spacings.Add(occurrences[i] - occurrences[i - 1]);
+        }
 
         return spacings.MostCommon(1)[0].Key;
     }
@@ -88,19 +94,25 @@ public static class EpageAnalyzer
         {
             var trialStart = firstOccurrence - trialOffset;
             if (trialStart < 0)
+            {
                 continue;
+            }
 
             var matches = 0;
             for (var i = 0; i < Math.Min(50, region.Length / recordSize); i++)
             {
                 var position = trialStart + i * recordSize;
                 if (position + recordSize > region.Length)
+                {
                     break;
+                }
 
                 for (var offset = 0; offset < Math.Max(0, recordSize - 8); offset++)
                 {
                     if (!EventTypeNames.IsKnown(Bytes.U64(region, position + offset)))
+                    {
                         continue;
+                    }
 
                     matches++;
                     break;
@@ -126,13 +138,20 @@ public static class EpageAnalyzer
             {
                 var position = recordsStart + i * recordSize;
                 if (position + offset + 8 > region.Length)
+                {
                     break;
+                }
+
                 if (EventTypeNames.IsKnown(Bytes.U64(region, position + offset)))
+                {
                     matches++;
+                }
             }
 
             if (matches >= Math.Min(5, recordCount))
+            {
                 return offset;
+            }
         }
 
         return -1;

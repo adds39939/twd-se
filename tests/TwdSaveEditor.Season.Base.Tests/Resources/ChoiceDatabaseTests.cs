@@ -5,7 +5,6 @@ using TwdSaveEditor.Season.Common.Extensions;
 using TwdSaveEditor.Core.Binary.PropertySets;
 using TwdSaveEditor.Core.Model;
 using TwdSaveEditor.Tests.Common.Seasons;
-using TwdSaveEditor.Tests.Common.Saves;
 
 namespace TwdSaveEditor.Season.Base.Tests.Resources;
 

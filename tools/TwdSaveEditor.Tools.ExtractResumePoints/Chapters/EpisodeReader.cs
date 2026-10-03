@@ -20,11 +20,15 @@ public sealed partial class EpisodeReader(string dataDirectory, GameSeason seaso
         var (scripts, files) = EpisodeFiles.For(dataDirectory, season, episode);
         var menuPath = Path.Combine(scripts, DebugMenuScript);
         if (!File.Exists(menuPath) || !Directory.Exists(files))
+        {
             return null;
+        }
 
         var index = new DialogIndex(loader);
         foreach (var dialog in Directory.EnumerateFiles(files, "*.dlog").Order())
+        {
             index.Scan(dialog);
+        }
 
         var sceneScripts = Directory.EnumerateFiles(scripts, "*.lua").Order().Select(SceneScriptReader.Read).OfType<SceneScript>().ToList();
         var scenes = new SceneMap(sceneScripts, files);
@@ -55,7 +59,9 @@ public sealed partial class EpisodeReader(string dataDirectory, GameSeason seaso
             : null;
         var byScript = sceneScripts.ToDictionary(script => script.Script, StringComparer.OrdinalIgnoreCase);
         if (entryReader != null)
+        {
             entries = entries.Where(entry => byScript.TryGetValue(entry.Script, out var script) && entryReader.For(script, entry.Flags) != null).ToList();
+        }
 
         var aligned = ChapterAligner.Align(entries, chapters);
         var made = decisions.Where(decision => decision.Episode == episode)
@@ -96,7 +102,9 @@ public sealed partial class EpisodeReader(string dataDirectory, GameSeason seaso
         for (var position = entries.Count - 1; position >= 0; position--)
         {
             if (entries[position].Script.Equals(script, StringComparison.OrdinalIgnoreCase))
+            {
                 return position;
+            }
         }
 
         return int.MaxValue;

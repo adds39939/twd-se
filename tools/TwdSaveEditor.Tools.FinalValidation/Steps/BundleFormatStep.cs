@@ -56,11 +56,17 @@ public sealed class BundleFormatStep(ValidationContext context) : IValidationSte
         foreach (var entry in table.Where(entry => BundleFileTable.Contains(bundle, entry)))
         {
             if (BundleFileTable.ReadInnerFile(bundle, entry) is not { } inner)
+            {
                 details.Add($"  {entry.Name}: could not parse inner MetaStream");
+            }
             else if (inner.Default.Length < 12)
+            {
                 details.Add($"  {entry.Name}: could not parse PropertySet");
+            }
             else
+            {
                 details.Add($"  {entry.Name}: PS version={Bytes.U32(inner.Default, 0)}, flags=0x{Bytes.U32(inner.Default, 4):X8}");
+            }
         }
     }
 }

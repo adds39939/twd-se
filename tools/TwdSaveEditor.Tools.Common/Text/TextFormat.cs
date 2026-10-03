@@ -10,7 +10,9 @@ public static class TextFormat
     {
         var builder = new StringBuilder(data.Length);
         foreach (var b in data)
+        {
             builder.Append(b < 0x80 ? (char)b : Replacement);
+        }
 
         return builder.ToString();
     }
@@ -26,9 +28,14 @@ public static class TextFormat
         var start = 0;
         var end = text.Length;
         while (start < end && IsWhitespace(text[start]))
+        {
             start++;
+        }
+
         while (end > start && IsWhitespace(text[end - 1]))
+        {
             end--;
+        }
 
         return text[start..end];
     }
@@ -56,17 +63,29 @@ public static class TextFormat
         {
             var c = (char)b;
             if (c == quote || c == '\\')
+            {
                 builder.Append('\\').Append(c);
+            }
             else if (c == '\t')
+            {
                 builder.Append("\\t");
+            }
             else if (c == '\n')
+            {
                 builder.Append("\\n");
+            }
             else if (c == '\r')
+            {
                 builder.Append("\\r");
+            }
             else if (b < 0x20 || b >= 0x7F)
+            {
                 builder.Append("\\x").Append(b.ToString("x2"));
+            }
             else
+            {
                 builder.Append(c);
+            }
         }
 
         return builder.Append(quote).ToString();
@@ -79,17 +98,29 @@ public static class TextFormat
         foreach (var c in text)
         {
             if (c == quote || c == '\\')
+            {
                 builder.Append('\\').Append(c);
+            }
             else if (c == '\t')
+            {
                 builder.Append("\\t");
+            }
             else if (c == '\n')
+            {
                 builder.Append("\\n");
+            }
             else if (c == '\r')
+            {
                 builder.Append("\\r");
+            }
             else if (c < 0x20 || c is >= '\x7f' and <= '\xa0')
+            {
                 builder.Append("\\x").Append(((int)c).ToString("x2"));
+            }
             else
+            {
                 builder.Append(c);
+            }
         }
 
         return builder.Append(quote).ToString();

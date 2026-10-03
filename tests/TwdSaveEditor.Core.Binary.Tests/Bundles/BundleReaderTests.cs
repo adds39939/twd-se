@@ -203,7 +203,11 @@ public class BundleReaderTests
             var entries = rawString.Split('\t');
             foreach (var entry in entries)
             {
-                if (string.IsNullOrWhiteSpace(entry)) continue;
+                if (string.IsNullOrWhiteSpace(entry))
+                {
+                    continue;
+                }
+
                 Assert.Matches(@"\(\s*\{[0-9A-Fa-f-]+\}\s*\)", entry);
             }
         }

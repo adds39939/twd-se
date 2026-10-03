@@ -12,7 +12,9 @@ public class BinaryReaderWriterTests
     {
         using var ms = new MemoryStream();
         using (var writer = new BinaryWriterEx(ms, leaveOpen: true))
+        {
             writer.WriteTelltaleBool(value);
+        }
 
         ms.Position = 0;
         using var reader = new BinaryReaderEx(ms);
@@ -41,7 +43,9 @@ public class BinaryReaderWriterTests
     {
         using var ms = new MemoryStream();
         using (var writer = new BinaryWriterEx(ms, leaveOpen: true))
+        {
             writer.WriteLengthPrefixedString(value);
+        }
 
         ms.Position = 0;
         using var reader = new BinaryReaderEx(ms);
@@ -55,7 +59,9 @@ public class BinaryReaderWriterTests
 
         using var ms = new MemoryStream();
         using (var writer = new BinaryWriterEx(ms, leaveOpen: true))
+        {
             writer.WriteSymbol(sym);
+        }
 
         ms.Position = 0;
         using var reader = new BinaryReaderEx(ms);
@@ -71,7 +77,9 @@ public class BinaryReaderWriterTests
     {
         using var ms = new MemoryStream();
         using (var writer = new BinaryWriterEx(ms, leaveOpen: true))
+        {
             writer.WriteInt32(value);
+        }
 
         ms.Position = 0;
         using var reader = new BinaryReaderEx(ms);
@@ -86,7 +94,9 @@ public class BinaryReaderWriterTests
     {
         using var ms = new MemoryStream();
         using (var writer = new BinaryWriterEx(ms, leaveOpen: true))
+        {
             writer.WriteFloat(value);
+        }
 
         ms.Position = 0;
         using var reader = new BinaryReaderEx(ms);

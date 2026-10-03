@@ -9,8 +9,9 @@ internal static class FakeSaveDirectory
             const decode = (b64) => Uint8Array.from(atob(b64), c => c.charCodeAt(0));
             const encode = (bytes) => {
                 let binary = '';
-                for (let i = 0; i < bytes.length; i += 8192)
+                for (let i = 0; i < bytes.length; i += 8192) {
                     binary += String.fromCharCode.apply(null, bytes.subarray(i, i + 8192));
+                }
                 return btoa(binary);
             };
             const notFound = (name) => new DOMException(`${name} not found`, 'NotFoundError');
@@ -38,34 +39,46 @@ internal static class FakeSaveDirectory
 
                 dir.getFileHandle = async (fileName, options) => {
                     if (!(fileName in dir.files)) {
-                        if (!options?.create) throw notFound(fileName);
+                        if (!options?.create) {
+                            throw notFound(fileName);
+                        }
                         dir.files[fileName] = new Uint8Array(0);
                     }
                     return fileHandle(fileName);
                 };
 
                 dir.removeEntry = async (fileName) => {
-                    if (!(fileName in dir.files)) throw notFound(fileName);
+                    if (!(fileName in dir.files)) {
+                        throw notFound(fileName);
+                    }
                     delete dir.files[fileName];
                 };
                 dir.getDirectoryHandle = async (dirName, options) => {
                     if (!(dirName in dir.directories)) {
-                        if (!options?.create) throw notFound(dirName);
+                        if (!options?.create) {
+                            throw notFound(dirName);
+                        }
                         dir.directories[dirName] = makeDirectory(dirName);
                     }
                     return dir.directories[dirName];
                 };
 
                 dir[Symbol.asyncIterator] = async function* () {
-                    for (const fileName of Object.keys(dir.files)) yield [fileName, fileHandle(fileName)];
-                    for (const dirName of Object.keys(dir.directories)) yield [dirName, dir.directories[dirName]];
+                    for (const fileName of Object.keys(dir.files)) {
+                        yield [fileName, fileHandle(fileName)];
+                    }
+                    for (const dirName of Object.keys(dir.directories)) {
+                        yield [dirName, dir.directories[dirName]];
+                    }
                 };
 
                 return dir;
             };
 
             const root = makeDirectory('TestData');
-            for (const [name, b64] of Object.entries(files)) root.files[name] = decode(b64);
+            for (const [name, b64] of Object.entries(files)) {
+                root.files[name] = decode(b64);
+            }
 
             window.__saveDirectory = {
                 readFile: (name) => name in root.files ? encode(root.files[name]) : null,
@@ -103,14 +116,22 @@ internal static class FakeSaveDirectory
         var autosaveName = $"_{bundleBase}_autosave.bundle";
         var autosavePath = Path.Combine(seasonDir, autosaveName);
         if (File.Exists(autosavePath))
+        {
             files[autosaveName] = await ReadBase64Async(autosavePath);
+        }
+
         var estoreName = $"_{bundleBase}_id.estore";
         var estorePath = Path.Combine(seasonDir, estoreName);
-        if (!File.Exists(estorePath)) return;
+        if (!File.Exists(estorePath))
+        {
+            return;
+        }
 
         files[estoreName] = await ReadBase64Async(estorePath);
         foreach (var epagePath in Directory.GetFiles(seasonDir, $"_{bundleBase}_id_Page*.epage").OrderBy(f => f))
+        {
             files[Path.GetFileName(epagePath)] = await ReadBase64Async(epagePath);
+        }
     }
 
     private static async Task<string> ReadBase64Async(string path)

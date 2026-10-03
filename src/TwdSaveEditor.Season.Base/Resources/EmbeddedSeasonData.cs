@@ -24,7 +24,9 @@ public static class EmbeddedSeasonData
             {
                 var defs = JsonSerializer.Deserialize<List<ChoiceDefinition>>(stream, JsonOptions);
                 if (defs != null)
+                {
                     choices.AddRange(defs.Where(c => c.SeasonKey.Equals(seasonKey, StringComparison.OrdinalIgnoreCase)));
+                }
             }
         }
 
@@ -40,10 +42,15 @@ public static class EmbeddedSeasonData
             using (stream)
             {
                 var episodes = JsonSerializer.Deserialize<Dictionary<string, string[]>>(stream);
-                if (episodes == null) continue;
+                if (episodes == null)
+                {
+                    continue;
+                }
 
                 foreach (var (episodeId, episodeScenes) in episodes)
+                {
                     scenes[episodeId] = episodeScenes;
+                }
             }
         }
 
@@ -55,11 +62,15 @@ public static class EmbeddedSeasonData
         foreach (var resourceName in assembly.GetManifestResourceNames())
         {
             if (!resourceName.EndsWith(suffix, StringComparison.OrdinalIgnoreCase))
+            {
                 continue;
+            }
 
             var stream = assembly.GetManifestResourceStream(resourceName);
             if (stream != null)
+            {
                 yield return stream;
+            }
         }
     }
 }

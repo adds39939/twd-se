@@ -33,7 +33,10 @@ public sealed class BinaryReaderEx : IDisposable
     {
         var length = _reader.ReadInt32();
         if (length <= 0)
+        {
             return string.Empty;
+        }
+
         var bytes = _reader.ReadBytes(length);
         return Encoding.Latin1.GetString(bytes);
     }

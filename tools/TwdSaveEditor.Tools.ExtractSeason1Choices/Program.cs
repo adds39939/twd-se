@@ -34,7 +34,9 @@ Console.WriteLine($"Wrote {choices.Count} choices to {outputPath}");
 var dataDirectory = Path.Combine(ToolPaths.RepositoryRoot, "src", "TwdSaveEditor.Season.S1", "Data");
 var problems = ChoiceDataComparer.Compare(choices, Directory.EnumerateFiles(dataDirectory, "*.choices.json"));
 foreach (var problem in problems)
+{
     Console.WriteLine($"  MISMATCH {problem}");
+}
 
 Console.WriteLine(problems.Count == 0 ? "The editor's Season 1 choice data matches the game." : $"{problems.Count} mismatches.");
 return problems.Count == 0 ? 0 : 1;

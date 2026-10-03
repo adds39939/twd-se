@@ -43,7 +43,9 @@ public static partial class ExpressionDecisions
 
             var options = definitions.OrderBy(key => key.ReadFrom).SelectMany(Options).DistinctBy(option => option.Value).ToList();
             if (options.Any(option => option.Expression.Length > 0 && !Node().IsMatch(option.Expression)))
+            {
                 continue;
+            }
 
             var name = definitions.Key;
             var title = name[(name.IndexOf(TitleSeparator, StringComparison.Ordinal) + TitleSeparator.Length)..];
@@ -122,7 +124,9 @@ public static partial class ExpressionDecisions
         {
             var value = option.Value;
             while (result.Any(existing => existing.Value == value))
+            {
                 value += "_";
+            }
 
             result.Add(option with { Value = value });
         }
@@ -134,7 +138,9 @@ public static partial class ExpressionDecisions
     {
         var plain = TelltaleMarkup.Strip(text);
         if (PlayerText().Match(plain) is { Success: true } match)
+        {
             return char.ToUpperInvariant(match.Groups[1].Value[0]) + match.Groups[1].Value[1..];
+        }
 
         return PlayerShare().Replace(plain, "you");
     }

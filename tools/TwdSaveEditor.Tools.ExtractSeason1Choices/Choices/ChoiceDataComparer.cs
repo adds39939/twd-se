@@ -35,15 +35,21 @@ public static class ChoiceDataComparer
             }
 
             if (entry.Episode != choice.Episode)
+            {
                 problems.Add($"{choice.Key}: editor has episode {entry.Episode}, game has {choice.Episode}");
+            }
 
             var expected = choice.Options.Select(option => option.Value).ToHashSet(StringComparer.Ordinal);
             if (!expected.SetEquals(entry.Values))
+            {
                 problems.Add($"{choice.Key}: editor values [{string.Join(", ", entry.Values.Order())}], game values [{string.Join(", ", expected.Order())}]");
+            }
         }
 
         foreach (var key in editor.Keys.Except(game.Select(choice => choice.Key)))
+        {
             problems.Add($"not a game key: {key}");
+        }
 
         return problems;
     }

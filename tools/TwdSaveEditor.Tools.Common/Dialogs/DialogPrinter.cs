@@ -20,26 +20,40 @@ public sealed class DialogPrinter(SymbolNames names, TextWriter output)
         {
             Line(0, $"folder {names.Describe(folder.Name)}");
             foreach (var item in folder.Children)
+            {
                 PrintBranch(dialog, item, 1);
+            }
         }
 
         var unreached = dialog.Nodes.Values.Where(node => !_printed.Contains(node.Id) && dialog.Find(node.Previous) == null).ToList();
         if (unreached.Count > 0)
+        {
             Line(0, "unreferenced");
+        }
 
         foreach (var node in unreached)
+        {
             PrintChain(dialog, node.Id, 1);
+        }
     }
 
     public string Describe(DialogRule rule)
     {
         var parts = new List<string>();
         if (!rule.Conditions.IsEmpty)
+        {
             parts.Add($"if {Describe(rule.Conditions, false)}");
+        }
+
         if (!rule.Actions.IsEmpty)
+        {
             parts.Add($"then {Describe(rule.Actions, true)}");
+        }
+
         if (!rule.Otherwise.IsEmpty)
+        {
             parts.Add($"else {Describe(rule.Otherwise, true)}");
+        }
 
         return string.Join(" ", parts);
     }
@@ -49,7 +63,9 @@ public sealed class DialogPrinter(SymbolNames names, TextWriter output)
         var name = $"{entry.Target}[{names.Describe(entry.Key)}]";
         var value = FormatValue(entry.Value);
         if (action)
+        {
             return $"{name} {Pick(Actions, entry.Action)} {value}";
+        }
 
         var text = $"{name} {Pick(Comparisons, entry.Comparison)} {value}";
         return entry.Negate ? $"not ({text})" : text;
@@ -69,7 +85,9 @@ public sealed class DialogPrinter(SymbolNames names, TextWriter output)
     {
         var text = $"{branch.Group} {names.Describe(branch.Name)} #{branch.Id:X16}{Conditions(branch.Visibility, branch.VisibilityScript)}";
         foreach (var condition in branch.Conditions.Where(condition => !condition.IsEmpty))
+        {
             text += $" [when {Describe(condition)}]";
+        }
 
         Line(indent, text + UserProps(branch.UserProps));
         PrintChain(dialog, branch.First, indent + 1);
@@ -87,7 +105,9 @@ public sealed class DialogPrinter(SymbolNames names, TextWriter output)
 
             Line(indent, Describe(node));
             foreach (var branch in node.Branches)
+            {
                 PrintBranch(dialog, branch, indent + 1);
+            }
 
             id = node.Next;
         }
@@ -97,17 +117,30 @@ public sealed class DialogPrinter(SymbolNames names, TextWriter output)
     {
         var text = $"{node.Kind} #{node.Id:X16}";
         if (node.Name != 0)
+        {
             text += $" {names.Describe(node.Name)}";
+        }
 
         text += Conditions(node.Visibility, node.VisibilityScript);
         if (node.Rule is { IsEmpty: false } rule)
+        {
             text += $": {Describe(rule)}";
+        }
+
         if (node.Script != null)
+        {
             text += $": {node.Script.ReplaceLineEndings(" ")}";
+        }
+
         if (node.Jump is { } jump)
+        {
             text += $": {DescribeJump(jump)}";
+        }
+
         if (node.Chore != 0)
+        {
             text += $" chore={names.Describe(node.Chore)}";
+        }
 
         return text + UserProps(node.UserProps);
     }
@@ -134,9 +167,14 @@ public sealed class DialogPrinter(SymbolNames names, TextWriter output)
     {
         var text = string.Empty;
         if (visibility is { IsEmpty: false })
+        {
             text += $" [visible {Describe(visibility)}]";
+        }
+
         if (script.Length > 0)
+        {
             text += $" [visible script {script.ReplaceLineEndings(" ")}]";
+        }
 
         return text;
     }
@@ -144,7 +182,9 @@ public sealed class DialogPrinter(SymbolNames names, TextWriter output)
     private string UserProps(MetaPropertySet? props)
     {
         if (props == null || props.Properties.Count == 0)
+        {
             return string.Empty;
+        }
 
         return " {" + string.Join(", ", props.Properties.Select(property => $"{names.Describe(property.Key)}: {FormatValue(property.Value)}")) + "}";
     }

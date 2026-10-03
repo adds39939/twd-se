@@ -1,7 +1,6 @@
 using TwdSaveEditor.Core.Binary.Bundles;
 using TwdSaveEditor.Core.Constants;
 using TwdSaveEditor.Core.Model;
-using TwdSaveEditor.Season.S1.Persistence;
 
 namespace TwdSaveEditor.Season.S1.Saves;
 

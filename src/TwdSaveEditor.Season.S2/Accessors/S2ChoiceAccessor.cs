@@ -27,7 +27,9 @@ public sealed class S2ChoiceAccessor(SaveSlot slot) : IChoiceAccessor
     public string? GetChoiceValue(string choiceKey)
     {
         if (IsImportedKey(choiceKey))
+        {
             return slot.Choices?.GetString(choiceKey);
+        }
 
         return S2DecisionCatalog.Find(choiceKey) is { } decision ? _log.GetValue(decision) : null;
     }
@@ -37,14 +39,18 @@ public sealed class S2ChoiceAccessor(SaveSlot slot) : IChoiceAccessor
         if (IsImportedKey(choiceKey))
         {
             if (slot.Choices == null)
+            {
                 throw new InvalidOperationException("Cannot set choice value: no choices PropertySet loaded.");
+            }
 
             slot.Choices.SetString(choiceKey, value.ToLowerInvariant());
             return;
         }
 
         if (S2DecisionCatalog.Find(choiceKey) is not { } decision || decision.Find(value) is not { } option)
+        {
             return;
+        }
 
         slot.EventLog ??= DialogLogFiles.NewLog(slot.FileName);
         _log.SetValue(decision, option);
@@ -54,12 +60,16 @@ public sealed class S2ChoiceAccessor(SaveSlot slot) : IChoiceAccessor
     private void UpdateSavedLogic(S2Decision decision, S2DecisionOption option)
     {
         if (decision.LogicKey == null)
+        {
             return;
+        }
 
         foreach (var save in slot.Checkpoints)
         {
             if (save.FindFile(S2SlotFiles.LogicGameProperties) is not { } logic || !BundleReader.TryParseProperties(logic))
+            {
                 continue;
+            }
 
             switch (logic.Properties!.Find(decision.LogicKey)?.Value)
             {

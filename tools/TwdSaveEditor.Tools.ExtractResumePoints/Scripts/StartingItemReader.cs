@@ -12,14 +12,22 @@ public static partial class StartingItemReader
         foreach (var line in script.Split('\n').Select(line => line.Trim()))
         {
             if (Block().Match(line) is { Success: true } block)
+            {
                 conditions.Push(block.Groups["condition"].Success ? block.Groups["condition"].Value : null);
+            }
             else if (line == "end" && conditions.Count > 0)
+            {
                 conditions.Pop();
+            }
             else if ((line == "else" || line.StartsWith("elseif ", StringComparison.Ordinal)) && conditions.Count > 0 && conditions.Pop() is var _)
+            {
                 conditions.Push(line);
+            }
 
             foreach (var item in InventoryCalls.Added(line))
+            {
                 items.Add(Create(item, [.. conditions.OfType<string>()]));
+            }
         }
 
         return items;
@@ -38,7 +46,9 @@ public static partial class StartingItemReader
             });
 
             if (rest.Replace("and", string.Empty, StringComparison.Ordinal).Trim().Length > 0)
+            {
                 throw new InvalidDataException($"Unsupported condition for the starting item {item}: {condition}");
+            }
         }
 
         return new StartingItem(item, requires, unless);

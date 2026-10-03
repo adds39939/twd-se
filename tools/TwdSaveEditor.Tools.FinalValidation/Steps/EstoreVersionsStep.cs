@@ -25,10 +25,14 @@ public sealed class EstoreVersionsStep(ValidationContext context) : IValidationS
         var details = new List<string>();
 
         foreach (var (season, file) in Estores)
+        {
             AddEstore(details, season, context.TestSave(season, file));
+        }
 
         foreach (var (season, file) in Epages)
+        {
             AddEpage(details, season, context.TestSave(season, file));
+        }
 
         context.Report.Add("6. Estore version entries", true, details);
     }
@@ -55,7 +59,9 @@ public sealed class EstoreVersionsStep(ValidationContext context) : IValidationS
         details.AddRange(Created.Select(Describe));
 
         if (real.Count != Created.Length)
+        {
             details.Add($"WARNING: Count mismatch: real={real.Count} vs creator={Created.Length}");
+        }
 
         var matching = MatchingCount(real);
         details.Add($"Matching entries: {matching}");
@@ -72,7 +78,9 @@ public sealed class EstoreVersionsStep(ValidationContext context) : IValidationS
     private static void AddDifference(List<string> details, string label, List<VersionEntry> entries)
     {
         if (entries.Count == 0)
+        {
             return;
+        }
 
         details.Add($"{label}: {entries.Count}");
         details.AddRange(entries.Select(entry => $"  0x{entry.Type:X16}, 0x{entry.Version:X8}"));
@@ -81,7 +89,9 @@ public sealed class EstoreVersionsStep(ValidationContext context) : IValidationS
     private static void AddEpage(List<string> details, string season, string path)
     {
         if (!File.Exists(path) || MetaStreamParser.Parse(File.ReadAllBytes(path)) is not { } parsed)
+        {
             return;
+        }
 
         var real = parsed.VersionEntries;
         details.Add($"\n{season} epage: {real.Count} version entries");

@@ -15,14 +15,18 @@ public static class MappingJson
         {
             var mappings = seasonMappings.GetValueOrDefault(season, []);
             if (mappings.Count == 0)
+            {
                 continue;
+            }
 
             var entries = new JsonArray();
             foreach (var mapping in mappings)
             {
                 var options = new JsonArray();
                 foreach (var option in mapping.Options)
+                {
                     options.Add((JsonNode)BuildOption(option, season == Seasons.Season3, epageHashes));
+                }
 
                 entries.Add((JsonNode)new JsonObject
                 {
@@ -57,7 +61,9 @@ public static class MappingJson
             entry["crc64_hex"] = expression.HexHash;
             entry["crc64_decimal"] = JsonNode.Parse(expression.Decimal.ToString()!);
             if (verify)
+            {
                 entry["verified_in_epage"] = epageHashes.HasNode(expression.Decimal);
+            }
         }
 
         if (secondary.IsDecimal)

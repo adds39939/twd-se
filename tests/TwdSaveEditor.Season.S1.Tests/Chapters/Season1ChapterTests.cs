@@ -6,7 +6,6 @@ using TwdSaveEditor.Tests.Common.Saves;
 using TwdSaveEditor.Core.Model;
 using TwdSaveEditor.Season.S1.Saves;
 using TwdSaveEditor.Season.S1.Chapters;
-using TwdSaveEditor.Tests.Common.Seasons;
 
 namespace TwdSaveEditor.Season.S1.Tests.Chapters;
 
@@ -51,7 +50,9 @@ public class Season1ChapterTests
             Assert.NotNull(chapter.Entry);
             Assert.EndsWith(".lua", chapter.Entry.Script);
             if (chapter.Entry.Dialog == null)
+            {
                 continue;
+            }
 
             Assert.EndsWith(".scene", chapter.Entry.Scene);
             Assert.StartsWith("dlg_id: ", chapter.Entry.Node);
@@ -84,7 +85,9 @@ public class Season1ChapterTests
 
         var logic = Properties(slot.Autosave!, S1SlotFiles.LogicGameProperties);
         for (var story = 1; story <= 5; story++)
+        {
             Assert.Equal(story <= finished ? true : null, logic.GetBool($"{story} - Complete"));
+        }
 
         Assert.Equal(finished == 0 ? null : finished, logic.GetInt("Last Chapter"));
         Assert.Equal("WalkingDead106", slot.Autosave!.Metadata!.GetString(SaveMetadataKeys.Episode));

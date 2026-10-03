@@ -25,13 +25,17 @@ public static class SaveGameCodec
         reader.ReadUInt32();
         var agents = new List<byte[]>();
         for (var count = reader.ReadUInt32(); count > 0; count--)
+        {
             agents.Add(reader.ReadBytes(SaveGameFile.AgentSize));
+        }
 
         var names = ReadSymbols(reader);
         var sets = ReadSymbols(reader);
 
         if (reader.BaseStream.Position != reader.BaseStream.Length)
+        {
             throw new InvalidDataException("default.save has unread data.");
+        }
 
         return new SaveGameFile
         {
@@ -56,7 +60,9 @@ public static class SaveGameCodec
             writer.Write((uint)(8 + save.Agents.Count * SaveGameFile.AgentSize));
             writer.Write(save.Agents.Count);
             foreach (var agent in save.Agents)
+            {
                 writer.Write(agent);
+            }
 
             WriteSymbols(writer, save.RuntimePropertyNames);
             WriteSymbols(writer, save.EnabledDynamicSets);
@@ -84,7 +90,9 @@ public static class SaveGameCodec
         reader.ReadUInt32();
         var symbols = new List<ulong>();
         for (var count = reader.ReadUInt32(); count > 0; count--)
+        {
             symbols.Add(reader.ReadUInt64());
+        }
 
         return symbols;
     }
@@ -94,6 +102,8 @@ public static class SaveGameCodec
         writer.Write((uint)(8 + symbols.Count * sizeof(ulong)));
         writer.Write(symbols.Count);
         foreach (var symbol in symbols.Order())
+        {
             writer.Write(symbol);
+        }
     }
 }

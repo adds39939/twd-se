@@ -44,7 +44,9 @@ public sealed class S1CheckpointBuilder : IS1CheckpointBuilder
         ApplyDecisions(slot, episode, chapter, sets);
 
         foreach (var flag in chapter.Flags)
+        {
             Apply(Properties(sets, flag.Agent, flag.Scene ?? S1RuntimeProperties.LogicScene), flag.Key, flag.Value);
+        }
 
         ApplyDecisionFlags(slot, episode, chapter, sets);
 
@@ -93,10 +95,14 @@ public sealed class S1CheckpointBuilder : IS1CheckpointBuilder
         foreach (var choice in S1ChoiceCatalog.All.Where(choice => S1ChoiceCatalog.PersistentEpisode(choice) <= current))
         {
             if (S1ChoiceCatalog.PersistentEpisode(choice) == current && !episode.IsDecided(choice.ChoiceKey, chapter))
+            {
                 continue;
+            }
 
             if (accessor.GetChoiceValue(choice.ChoiceKey) is { } value)
+            {
                 game.SetString(choice.ChoiceKey, value);
+            }
         }
     }
 
@@ -106,7 +112,9 @@ public sealed class S1CheckpointBuilder : IS1CheckpointBuilder
         foreach (var flag in episode.DecisionFlags.Where(flag => episode.IsDecided(flag, chapter)))
         {
             if (accessor.GetChoiceValue(flag.ChoiceKey) is { } choice && flag.Values.TryGetValue(choice, out var value))
+            {
                 Apply(Logic(sets, flag.Agent), flag.Key, value);
+            }
         }
     }
 
@@ -133,7 +141,9 @@ public sealed class S1CheckpointBuilder : IS1CheckpointBuilder
     {
         var name = S1RuntimeProperties.Name(agent, scene);
         if (!sets.TryGetValue(name, out var properties))
+        {
             sets[name] = properties = Runtime(visible);
+        }
 
         return properties;
     }

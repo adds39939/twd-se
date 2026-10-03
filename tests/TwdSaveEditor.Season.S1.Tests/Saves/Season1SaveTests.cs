@@ -57,7 +57,9 @@ public class Season1SaveTests
         var accessor = Season1Saves.Accessor(slot);
 
         foreach (var choice in TestSeasons.ChoicesFor("s1").Where(c => c.Episode <= 4))
+        {
             Assert.True(accessor.DetectCurrentChoice(choice) >= 0, $"{choice.ChoiceKey} has no matching option");
+        }
     }
 
     [Fact]
@@ -88,7 +90,9 @@ public class Season1SaveTests
 
         Assert.Equal(before.Count, reloaded.Autosave!.Files.Count);
         foreach (var file in reloaded.Autosave.Files.Where(file => file.NameSymbol != Season1Saves.LogicGameProperties))
+        {
             Assert.True(before[file.NameSymbol].AsSpan().SequenceEqual(file.Data), $"file {file.NameSymbol:X16} changed");
+        }
 
         Assert.Equal("inventory - spanner", Season1Saves.LogicGame(reloaded).GetString("Weapon Choice"));
     }
@@ -195,7 +199,9 @@ public class Season1SaveTests
         Assert.Equal(string.Empty, metadata.GetString(SlotMetadataKeys.LatestSave));
         Assert.Equal(0, metadata.GetInt(SlotMetadataKeys.LatestSerial));
         for (var number = 1; number <= 6; number++)
+        {
             Assert.Equal(number < episode, metadata.GetBool(SlotMetadataKeys.CompletedEpisode(number)));
+        }
 
         Assert.Null(reloaded.Autosave);
         Assert.Equal([Season1Saves.Autosave], slot.ObsoleteFileNames);
@@ -215,7 +221,9 @@ public class Season1SaveTests
 
         var accessor = Season1Saves.Accessor(slot);
         foreach (var choice in TestSeasons.ChoicesFor("s1"))
+        {
             Assert.Equal(choice.Episode < 5, accessor.GetChoiceValue(choice.ChoiceKey) != null);
+        }
     }
 
     [Fact]
@@ -283,7 +291,9 @@ public class Season1SaveTests
         {
             Assert.Equal(properties.TypeGroups.Select(group => group.TypeSymbol.Value).Order(), properties.TypeGroups.Select(group => group.TypeSymbol.Value));
             foreach (var group in properties.TypeGroups)
+            {
                 Assert.Equal(group.Properties.Select(p => p.KeySymbol.Value).Order(), group.Properties.Select(p => p.KeySymbol.Value));
+            }
         }
     }
 

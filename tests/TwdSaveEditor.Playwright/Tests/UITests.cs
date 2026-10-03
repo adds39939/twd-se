@@ -65,7 +65,9 @@ public class UITests
         page.Console += (_, msg) =>
         {
             if (msg.Type == "error")
+            {
                 consoleErrors.Add(msg.Text);
+            }
         };
 
         await page.GotoAsync(_fixture.BaseUrl);

@@ -20,7 +20,9 @@ public sealed class ItemTimeline(IReadOnlyList<TimelinePoint> points, IReadOnlyL
         var adds = timed.Where(entry => !entry.Change.Removes).Select(entry => entry.Times[0]).ToList();
         var earlier = adds.Where(time => time < now).Concat(fromStart ? [EpisodeStart] : []).ToList();
         if (earlier.Count == 0)
+        {
             return false;
+        }
 
         var added = earlier.Max();
         var next = adds.Where(time => time >= now).DefaultIfEmpty(int.MaxValue).Min();
@@ -29,7 +31,9 @@ public sealed class ItemTimeline(IReadOnlyList<TimelinePoint> points, IReadOnlyL
             .Where(entry => entry.Time >= added && entry.Time < next)
             .ToList();
         if (removals.Count == 0)
+        {
             return true;
+        }
 
         var last = removals.MaxBy(entry => entry.Time);
         return last.Time >= now || HandedOutAgain(item, last.Change, last.Time, timed);
@@ -39,7 +43,9 @@ public sealed class ItemTimeline(IReadOnlyList<TimelinePoint> points, IReadOnlyL
     {
         var passed = timed.Where(entry => !entry.Change.Removes && entry.Times[^1] < now).ToList();
         if (passed.Count == 0 && !fromStart)
+        {
             return false;
+        }
 
         var start = fromStart ? EpisodeStart : passed.Min(entry => entry.Times[0]);
         var removals = timed.Where(entry => entry.Change.Removes)
@@ -47,7 +53,9 @@ public sealed class ItemTimeline(IReadOnlyList<TimelinePoint> points, IReadOnlyL
             .Where(entry => entry.Time >= start && entry.Time < now)
             .ToList();
         if (removals.Count == 0)
+        {
             return true;
+        }
 
         var first = removals.MinBy(entry => entry.Time);
         return HandedOutAgain(item, first.Change, first.Time, timed);
@@ -63,16 +71,23 @@ public sealed class ItemTimeline(IReadOnlyList<TimelinePoint> points, IReadOnlyL
         {
             var first = Find(point => point.ChapterId == change.ChapterId && Uses(change, point));
             if (first < 0)
+            {
                 first = Find(point => point.ChapterId == change.ChapterId);
+            }
+
             if (first >= 0)
+            {
                 return [2 * first + 1];
+            }
         }
 
         var visits = new List<int>();
         for (var index = 0; index < points.Count; index++)
         {
             if (Uses(change, points[index]) && (index + 1 == points.Count || !Uses(change, points[index + 1])))
+            {
                 visits.Add(2 * index + 1);
+            }
         }
 
         return visits;
@@ -83,7 +98,9 @@ public sealed class ItemTimeline(IReadOnlyList<TimelinePoint> points, IReadOnlyL
         for (var index = 0; index < points.Count; index++)
         {
             if (match(points[index]))
+            {
                 return index;
+            }
         }
 
         return -1;

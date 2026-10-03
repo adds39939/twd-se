@@ -27,7 +27,9 @@ public sealed record S1EpisodeChapters(
         for (var index = 0; index < Chapters.Count; index++)
         {
             if (Chapters[index].Id == chapterId)
+            {
                 return index;
+            }
         }
 
         return -1;

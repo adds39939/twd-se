@@ -23,7 +23,9 @@ public sealed class PersistentChoiceReader(BlowfishV7 cipher, MetaReader reader)
         for (var episode = FirstEpisode; episode <= LastEpisode; episode++)
         {
             if (keyNames.Find($"Persistent - {episode} - Key Names") is not MetaList keys)
+            {
                 continue;
+            }
 
             foreach (var key in keys.Strings)
             {
@@ -46,7 +48,9 @@ public sealed class PersistentChoiceReader(BlowfishV7 cipher, MetaReader reader)
     {
         var choiceText = text?.FindText($"Choice {choiceNumber} Text");
         if (string.IsNullOrEmpty(choiceText))
+        {
             return value;
+        }
 
         var sentence = char.ToUpperInvariant(choiceText[0]) + choiceText[1..].TrimEnd('.');
         return value is "true" or "false" ? sentence : $"{sentence} ({value})";

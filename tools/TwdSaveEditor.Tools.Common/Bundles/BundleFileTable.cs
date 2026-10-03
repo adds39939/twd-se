@@ -14,24 +14,32 @@ public static class BundleFileTable
     {
         var entries = new List<BundleEntry>();
         if (table.Length < 8)
+        {
             return entries;
+        }
 
         var fileCount = Bytes.U32(table, 4);
         if (fileCount > MaxFiles)
+        {
             return entries;
+        }
 
         var position = 8;
         for (uint i = 0; i < fileCount; i++)
         {
             if (position + 8 > table.Length)
+            {
                 break;
+            }
 
             var offset = Bytes.U32(table, position);
             var size = Bytes.U32(table, position + 4);
             position += 8;
 
             if (position + NameSize + SymbolsSize > table.Length)
+            {
                 break;
+            }
 
             var name = table.Slice(position, NameSize);
             var nameEnd = name.IndexOf((byte)0);

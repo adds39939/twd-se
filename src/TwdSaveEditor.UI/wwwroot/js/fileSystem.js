@@ -14,17 +14,22 @@ export async function pickDirectory() {
 }
 
 export async function listFiles(extension) {
-    if (!directoryHandle) return [];
+    if (!directoryHandle) {
+        return [];
+    }
     const files = [];
     for await (const [name, handle] of directoryHandle) {
-        if (handle.kind === 'file' && name.endsWith(extension))
+        if (handle.kind === 'file' && name.endsWith(extension)) {
             files.push(name);
+        }
     }
     return files;
 }
 
 export async function readFile(name) {
-    if (!directoryHandle) return null;
+    if (!directoryHandle) {
+        return null;
+    }
     try {
         const fileHandle = await directoryHandle.getFileHandle(name);
         const file = await fileHandle.getFile();
@@ -42,7 +47,9 @@ export async function readFile(name) {
 }
 
 export async function readFileBytes(name) {
-    if (!directoryHandle) return null;
+    if (!directoryHandle) {
+        return null;
+    }
     try {
         const fileHandle = await directoryHandle.getFileHandle(name);
         const file = await fileHandle.getFile();
@@ -54,7 +61,9 @@ export async function readFileBytes(name) {
 }
 
 export async function writeFile(name, bytesBase64) {
-    if (!directoryHandle) return false;
+    if (!directoryHandle) {
+        return false;
+    }
     try {
         const fileHandle = await directoryHandle.getFileHandle(name, { create: true });
         const writable = await fileHandle.createWritable();
@@ -68,7 +77,9 @@ export async function writeFile(name, bytesBase64) {
 }
 
 export async function writeFileBytes(name, bytes) {
-    if (!directoryHandle) return false;
+    if (!directoryHandle) {
+        return false;
+    }
     try {
         const fileHandle = await directoryHandle.getFileHandle(name, { create: true });
         const writable = await fileHandle.createWritable();
@@ -81,7 +92,9 @@ export async function writeFileBytes(name, bytes) {
 }
 
 export async function deleteFile(name) {
-    if (!directoryHandle) return false;
+    if (!directoryHandle) {
+        return false;
+    }
     try {
         await directoryHandle.removeEntry(name);
         return true;
@@ -91,7 +104,9 @@ export async function deleteFile(name) {
 }
 
 export async function backupFiles(folderName, fileNames) {
-    if (!directoryHandle) return false;
+    if (!directoryHandle) {
+        return false;
+    }
     try {
         const backupDir = await directoryHandle.getDirectoryHandle(folderName, { create: true });
         for (const name of fileNames) {

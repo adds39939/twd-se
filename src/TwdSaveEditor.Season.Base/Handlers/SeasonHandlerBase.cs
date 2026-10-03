@@ -40,7 +40,11 @@ public abstract class SeasonHandlerBase : ISeasonHandler
     public virtual bool CanHandle(string fileName)
     {
         var name = Path.GetFileName(fileName).ToLowerInvariant();
-        if (name.StartsWith('_')) name = name[1..];
+        if (name.StartsWith('_'))
+        {
+            name = name[1..];
+        }
+
         return name.StartsWith(FilePrefix, StringComparison.Ordinal);
     }
 

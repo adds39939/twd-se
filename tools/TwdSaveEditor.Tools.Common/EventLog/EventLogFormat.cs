@@ -30,12 +30,16 @@ public static class EventLogFormat
         var records = new List<EventLogRecord>();
         var position = Bytes.IndexOf(section, RecordHeader);
         if (position < 0)
+        {
             return records;
+        }
 
         while (position + RecordSize <= section.Length)
         {
             if (Bytes.U32(section, position) != RecordVersion || Bytes.U32(section, position + 4) != RecordPayloadSize)
+            {
                 break;
+            }
 
             records.Add(new EventLogRecord(
                 Bytes.U64(section, position + EventTypeOffset),

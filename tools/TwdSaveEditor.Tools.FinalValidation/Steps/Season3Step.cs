@@ -26,7 +26,9 @@ public sealed class Season3Step(ValidationContext context) : IValidationStep
         {
             var files = context.Archives.ExtractFiles(GameArchiveNames.Season3);
             if (files is { Count: > 0 })
+            {
                 AddLuaFindings(details, files);
+            }
         }
         catch (Exception e)
         {
@@ -40,7 +42,9 @@ public sealed class Season3Step(ValidationContext context) : IValidationStep
     {
         var (_, lua) = GameArchives.Find(files, "ChoiceStats.lua");
         if (lua == null)
+        {
             (_, lua) = GameArchives.Find(files, "choicestats");
+        }
 
         if (lua is not { IsEmpty: false })
         {

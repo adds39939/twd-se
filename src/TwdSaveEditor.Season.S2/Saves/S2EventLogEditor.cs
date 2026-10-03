@@ -20,7 +20,9 @@ public sealed class S2EventLogEditor(SaveSlot slot)
     public S2DecisionOption? FindSeen(S2Decision decision)
     {
         if (slot.EventLog == null)
+        {
             return null;
+        }
 
         var present = Log.Events.Select(entry => entry.DialogNode).OfType<ulong>().ToHashSet();
         return decision.Options.FirstOrDefault(option => option.Nodes.Any(node => present.Contains(NodeSymbol(node))));
@@ -32,7 +34,9 @@ public sealed class S2EventLogEditor(SaveSlot slot)
         foreach (var page in Log.Pages.ToList())
         {
             if (page.Events.RemoveAll(entry => entry.DialogNode is { } node && nodes.Contains(node)) > 0)
+            {
                 Log.MarkModified(page);
+            }
         }
     }
 
@@ -57,7 +61,9 @@ public sealed class S2EventLogEditor(SaveSlot slot)
             for (var index = page.Events.Count - 1; index >= 0; index--)
             {
                 if (page.Events[index].DialogNode is not { } node || !others.Contains(node))
+                {
                     continue;
+                }
 
                 if (!placed && wanted.Count > 0)
                 {
@@ -74,12 +80,16 @@ public sealed class S2EventLogEditor(SaveSlot slot)
         }
 
         if (!placed && wanted.Count > 0)
+        {
             Insert(NodeSymbol(target.Nodes[0]), decision.Episode);
+        }
 
         foreach (var required in decision.Requires.Select(NodeSymbol))
         {
             if (!Log.Events.Any(entry => entry.DialogNode == required))
+            {
                 Insert(required, decision.Episode);
+            }
         }
     }
 
@@ -94,7 +104,9 @@ public sealed class S2EventLogEditor(SaveSlot slot)
             {
                 var index = page.Events.FindLastIndex(entry => entry.SaveSerial == serial);
                 if (index >= 0)
+                {
                     return (page, index);
+                }
             }
         }
 

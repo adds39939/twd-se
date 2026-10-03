@@ -31,7 +31,9 @@ public static class BundleInspector
         foreach (var entry in entries)
         {
             if (InspectInnerFile(asyncData, entry) is { } file)
+            {
                 files[entry.Name] = file;
+            }
         }
 
         return new BundleInfo(
@@ -47,9 +49,14 @@ public static class BundleInspector
     private static byte[] ReadAsyncSection(ReadOnlySpan<byte> raw, bool compressed)
     {
         if (!compressed)
+        {
             return raw.ToArray();
+        }
+
         if (Ttcz.HasMagic(raw))
+        {
             return Ttcz.Decompress(raw);
+        }
 
         return Zlib.TryInflate(raw, Zlib.ZlibWindow) ?? throw new InvalidDataException("Async section is not valid zlib data.");
     }
@@ -62,7 +69,9 @@ public static class BundleInspector
         for (var i = 0; i < Math.Min(fileCount, MaxFiles); i++)
         {
             if (position + 8 > table.Length)
+            {
                 break;
+            }
 
             var offset = Bytes.U32(table, position);
             var size = Bytes.U32(table, position + 4);
@@ -70,7 +79,9 @@ public static class BundleInspector
 
             var nameStart = position;
             while (position < table.Length && table[position] != 0)
+            {
                 position++;
+            }
 
             var nameBytes = table[nameStart..position];
             var readable = nameBytes.Length > 0 && !nameBytes.ContainsAnyExceptInRange((byte)0x20, (byte)0x7E);
@@ -87,11 +98,15 @@ public static class BundleInspector
     private static InnerFile? InspectInnerFile(byte[] asyncData, BundleEntry entry)
     {
         if ((long)entry.Offset + entry.Size > asyncData.Length)
+        {
             return null;
+        }
 
         var inner = asyncData.AsSpan((int)entry.Offset, (int)entry.Size);
         if (inner.Length < 20 || Bytes.U32(inner, 0) is not (MetaStreamParser.MagicMsv6 or MetaStreamParser.MagicMsv5))
+        {
             return null;
+        }
 
         var defaultSize = MetaStreamParser.SectionSize(Bytes.U32(inner, 4));
         var debugSize = MetaStreamParser.SectionSize(Bytes.U32(inner, 8));

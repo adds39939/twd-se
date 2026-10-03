@@ -12,7 +12,9 @@ public sealed class ClassLayouts
         var layouts = new ClassLayouts();
         var path = Path.Combine(ToolPaths.ToolsDirectory, "data", "names", "classes.json");
         if (File.Exists(path))
+        {
             layouts.Load(path);
+        }
 
         return layouts;
     }
@@ -36,7 +38,9 @@ public sealed class ClassLayouts
 
             var type = TypeName.Normalize(entry.GetProperty("type").GetString()!);
             if (!_layouts.TryGetValue(type, out var versions))
+            {
                 _layouts[type] = versions = [];
+            }
 
             versions.Add(new ClassLayout(type, entry.GetProperty("crc32").GetUInt32(), members));
         }
@@ -47,7 +51,9 @@ public sealed class ClassLayouts
     public ClassLayout? Find(string type, uint? version)
     {
         if (!_layouts.TryGetValue(type, out var versions))
+        {
             return null;
+        }
 
         return versions.FirstOrDefault(layout => layout.Version == version) ?? versions[^1];
     }

@@ -26,7 +26,9 @@ if (args[0] == "--verify")
     {
         var original = BundleReader.Read(path).FindFile(BundleFileNames.SaveGame)?.Data;
         if (original == null)
+        {
             continue;
+        }
 
         if (!SaveGameCodec.Write(SaveGameCodec.Read(original)).AsSpan().SequenceEqual(original))
         {
@@ -44,14 +46,18 @@ if (args[0] == "chapters")
     foreach (var entry in S1ChapterCatalog.All)
     {
         foreach (var chapter in entry.Chapters)
+        {
             Console.WriteLine($"{entry.Episode} {chapter.Id,-36} {chapter.Group,-8} {chapter.Title}");
+        }
     }
 
     return 0;
 }
 
 if (args.Length < 5 || !int.TryParse(args[3], out var slotNumber))
+{
     return 1;
+}
 
 var commands = new CheckpointCommands(args[4], Console.Out);
 switch (args[0])

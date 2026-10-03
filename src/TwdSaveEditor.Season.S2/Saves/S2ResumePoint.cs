@@ -27,15 +27,21 @@ public sealed class S2ResumePoint(IS2CheckpointBuilder builder) : IS2ResumePoint
         var episode = Math.Clamp(S2SlotFiles.EpisodeNumber(progress) ?? FirstEpisode, FirstEpisode, LastEpisode);
         var latest = metadata?.GetString(SlotMetadataKeys.LatestSave);
         if (string.IsNullOrEmpty(latest))
+        {
             return new ResumeState(episode, null, null);
+        }
 
         var save = slot.Checkpoints.FirstOrDefault(candidate => candidate.FileName.Equals(latest, StringComparison.OrdinalIgnoreCase));
         if (save?.Metadata is not { } saved)
+        {
             return new ResumeState(episode, null, null, true);
+        }
 
         var savedEpisode = S2SlotFiles.EpisodeNumber(saved.GetString(SaveMetadataKeys.Episode)) ?? episode;
         if (savedEpisode < episode)
+        {
             return new ResumeState(episode, null, null);
+        }
 
         var chapter = GeneratedChapter(save, savedEpisode);
         return chapter is { StartsEpisode: true }
@@ -49,11 +55,15 @@ public sealed class S2ResumePoint(IS2CheckpointBuilder builder) : IS2ResumePoint
         var progress = metadata?.GetString(SlotMetadataKeys.EpisodeInProgress);
         var latest = metadata?.GetString(SlotMetadataKeys.LatestSave);
         if (S2SlotFiles.CompletedEpisodes(progress, LastEpisode) != null || string.IsNullOrEmpty(latest))
+        {
             return null;
+        }
 
         var save = slot.Checkpoints.FirstOrDefault(candidate => candidate.FileName.Equals(latest, StringComparison.OrdinalIgnoreCase));
         if (save?.Metadata is not { } saved)
+        {
             return null;
+        }
 
         var episode = Math.Clamp(S2SlotFiles.EpisodeNumber(progress) ?? FirstEpisode, FirstEpisode, LastEpisode);
         var savedEpisode = S2SlotFiles.EpisodeNumber(saved.GetString(SaveMetadataKeys.Episode)) ?? episode;
@@ -63,7 +73,9 @@ public sealed class S2ResumePoint(IS2CheckpointBuilder builder) : IS2ResumePoint
     public S2Chapter? Chapter(SaveSlot save, int episode)
     {
         if (GeneratedChapter(save, episode) is { } generated)
+        {
             return generated;
+        }
 
         var chapterId = save.Metadata?.GetString(SaveMetadataKeys.ChapterId);
         var script = save.Metadata?.GetString(S2CheckpointBuilder.SavedScript);
@@ -79,7 +91,9 @@ public sealed class S2ResumePoint(IS2CheckpointBuilder builder) : IS2ResumePoint
         episode = Math.Clamp(episode, FirstEpisode, LastEpisode);
         Rewind(slot, episode);
         if (slot.Checkpoints.Count == 0 && S2ChapterCatalog.ForEpisode(episode) is { } chapters)
+        {
             AddCheckpoint(slot, chapters, chapters.Opening, date);
+        }
     }
 
     public void RestartFromChapter(SaveSlot slot, int episode, string chapterId, string date)
@@ -103,7 +117,9 @@ public sealed class S2ResumePoint(IS2CheckpointBuilder builder) : IS2ResumePoint
         Rewind(slot, episode);
         AddCheckpoint(slot, chapters, chapter, date);
         foreach (var (decision, option) in made)
+        {
             log.SetValue(decision, option);
+        }
     }
 
     private static void Rewind(SaveSlot slot, int episode)
@@ -121,7 +137,9 @@ public sealed class S2ResumePoint(IS2CheckpointBuilder builder) : IS2ResumePoint
         {
             slot.Checkpoints.Remove(save);
             if (!slot.ObsoleteFileNames.Contains(save.FileName))
+            {
                 slot.ObsoleteFileNames.Add(save.FileName);
+            }
         }
 
         var latest = slot.Checkpoints.MaxBy(save => save.Metadata?.GetInt(SaveMetadataKeys.Serial) ?? 0);
@@ -132,10 +150,14 @@ public sealed class S2ResumePoint(IS2CheckpointBuilder builder) : IS2ResumePoint
 
         log.TruncateAfterSerial(serial);
         foreach (var decision in S2DecisionCatalog.All.Where(decision => decision.Episode >= episode))
+        {
             log.Clear(decision);
+        }
 
         foreach (var (decision, option) in made)
+        {
             log.SetValue(decision, option);
+        }
     }
 
     private void AddCheckpoint(SaveSlot slot, S2EpisodeChapters episode, S2Chapter chapter, string date)
@@ -158,20 +180,28 @@ public sealed class S2ResumePoint(IS2CheckpointBuilder builder) : IS2ResumePoint
         {
             var name = S2SlotFiles.SaveName(slot.FileName, S2SlotFiles.CheckpointName + index);
             if (!slot.Checkpoints.Any(save => save.FileName.Equals(name, StringComparison.OrdinalIgnoreCase)))
+            {
                 return name;
+            }
         }
     }
 
     private S2Chapter? GeneratedChapter(SaveSlot save, int episode)
     {
         if (save.Metadata?.GetString(S2CheckpointBuilder.SavedScript) is not { } script || S2ChapterCatalog.ForEpisode(episode) is not { } chapters)
+        {
             return null;
+        }
 
         if (script.Equals(chapters.Opening.Script, StringComparison.OrdinalIgnoreCase))
+        {
             return chapters.Opening;
+        }
 
         if (Properties(save, S2SlotFiles.ScriptProperties)?.GetString(S2CheckpointBuilder.PreviousScript) != S2CheckpointBuilder.DeveloperMenuScript)
+        {
             return null;
+        }
 
         var flags = Properties(save, S2SlotFiles.LogicGameProperties);
         return chapters.Chapters

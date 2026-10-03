@@ -20,7 +20,9 @@ public sealed partial class GameProps(MetaReader reader)
         foreach (var episode in Load(path).Properties.Select(property => property.Value).OfType<MetaPropertySet>())
         {
             if (episode.Find("Logic Keys") is not MetaPropertySet logic)
+            {
                 continue;
+            }
 
             var readFrom = Number().Match(Text(episode.Find(EpisodeName))) is { Success: true } match ? int.Parse(match.Value) % EpisodeBase : 0;
 
@@ -28,9 +30,13 @@ public sealed partial class GameProps(MetaReader reader)
             {
                 var name = names.Resolve(property.Key);
                 if (property.Value is MetaMap map)
+                {
                     keys.Add(new LogicKey(name, true, [.. map.StringEntries.Select(entry => (entry.Key, NodeIds.In(Text(entry.Value)), Text(entry.Value)))], readFrom));
+                }
                 else if (property.Value is MetaScalar { Text: { } expression })
+                {
                     keys.Add(new LogicKey(name, false, [(bool.TrueString.ToLowerInvariant(), NodeIds.In(expression), expression)], readFrom));
+                }
             }
         }
 
@@ -41,7 +47,9 @@ public sealed partial class GameProps(MetaReader reader)
     {
         var choices = new List<StatChoice>();
         if (Load(path).Find("Choices") is not MetaPropertySet list)
+        {
             return choices;
+        }
 
         foreach (var choice in list.Properties.Select(property => property.Value).OfType<MetaPropertySet>())
         {

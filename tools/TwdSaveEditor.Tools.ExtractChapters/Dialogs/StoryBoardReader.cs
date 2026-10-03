@@ -16,7 +16,9 @@ public sealed class StoryBoardReader(SymbolNames names)
         {
             var condition = branch.Visibility?.Conditions.AllEntries.FirstOrDefault(entry => entry.Key == key);
             if (condition?.Value is not MetaScalar { Value: int story } || story <= 0)
+            {
                 continue;
+            }
 
             var visited = new HashSet<ulong>();
             for (var id = branch.First; dialog.Find(id) is { } node && visited.Add(id); id = node.Next)
@@ -24,7 +26,9 @@ public sealed class StoryBoardReader(SymbolNames names)
                 foreach (var entry in node.Rule?.Actions.AllEntries ?? [])
                 {
                     if (entry.Value is MetaScalar { Value: bool flag } && names.Find(entry.Key) is { } name)
+                    {
                         actions.Add(new StoryAction(story, entry.Target, name, flag));
+                    }
                 }
             }
         }

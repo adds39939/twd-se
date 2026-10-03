@@ -17,17 +17,25 @@ public sealed class DialogIndex(DialogLoader loader)
         {
             _owners.TryAdd(node.Id, dialog.Name);
             foreach (var branch in node.Branches)
+            {
                 _owners.TryAdd(branch.Id, dialog.Name);
+            }
 
             if (node.Script == null)
+            {
                 continue;
+            }
 
             foreach (var chapterId in CheckpointCalls.ChapterIds(node.Script))
+            {
                 Marks.Add(new ChapterMark(dialog.Name, chapterId));
+            }
         }
 
         foreach (var item in dialog.Items)
+        {
             _owners.TryAdd(item.Id, dialog.Name);
+        }
     }
 
     public string? Owner(ulong node) => _owners.GetValueOrDefault(node);

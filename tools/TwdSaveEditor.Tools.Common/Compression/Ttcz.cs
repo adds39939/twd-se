@@ -11,12 +11,16 @@ public static class Ttcz
     public static byte[] Decompress(ReadOnlySpan<byte> data)
     {
         if (data.Length < 12 || !HasMagic(data))
+        {
             return data.ToArray();
+        }
 
         var pageCount = Bytes.U32(data, 8);
         var offsets = new ulong[pageCount + 1];
         for (var i = 0; i < offsets.Length; i++)
+        {
             offsets[i] = Bytes.U64(data, 12 + i * 8L);
+        }
 
         using var result = new MemoryStream();
         for (var i = 0; i < pageCount; i++)

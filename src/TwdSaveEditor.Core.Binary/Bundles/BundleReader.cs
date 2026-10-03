@@ -27,7 +27,9 @@ public static class BundleReader
         var files = ReadFiles(content.Default, content.Async);
 
         foreach (var file in files.Where(file => PropertyFiles.Any(file.IsNamed)))
+        {
             TryParseProperties(file);
+        }
 
         return new SaveSlot
         {
@@ -41,7 +43,9 @@ public static class BundleReader
     public static bool TryParseProperties(BundleFileEntry file)
     {
         if (file.Properties != null)
+        {
             return true;
+        }
 
         try
         {
@@ -58,7 +62,9 @@ public static class BundleReader
     {
         var files = new List<BundleFileEntry>();
         if (table.Length < 8)
+        {
             return files;
+        }
 
         using var stream = new MemoryStream(table);
         using var reader = new BinaryReaderEx(stream);
@@ -66,7 +72,9 @@ public static class BundleReader
         reader.ReadUInt32();
         var fileCount = reader.ReadUInt32();
         if (fileCount > MaxFiles || fileCount * (long)BundleWriter.EntrySize > reader.Remaining)
+        {
             throw new InvalidDataException($"Bundle file table is invalid ({fileCount} files).");
+        }
 
         for (uint i = 0; i < fileCount; i++)
         {
@@ -77,7 +85,9 @@ public static class BundleReader
             var typeSymbol = reader.ReadUInt64();
 
             if ((long)offset + size > content.Length)
+            {
                 throw new InvalidDataException($"Bundle file {i} lies outside the bundle content.");
+            }
 
             files.Add(new BundleFileEntry
             {

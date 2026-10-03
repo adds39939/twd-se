@@ -39,7 +39,9 @@ public sealed class ChoiceArchiveReader(BlowfishV7 cipher, TextWriter output)
 
         var choiceName = ChoiceFiles.FirstOrDefault(files.ContainsKey);
         if (choiceName == null || files[choiceName].IsEmpty)
+        {
             choiceName = files.Keys.FirstOrDefault(IsChoiceProp);
+        }
 
         if (choiceName == null || files[choiceName].IsEmpty)
         {
@@ -128,21 +130,30 @@ public sealed class ChoiceArchiveReader(BlowfishV7 cipher, TextWriter output)
             foreach (var (key, value) in strings)
             {
                 if (key is PropKeys.EnglishText or PropKeys.Guid)
+                {
                     continue;
+                }
+
                 if (value.Length > 5 && value.All(char.IsAsciiDigit))
+                {
                     expressionId = value;
+                }
             }
 
             foreach (var value in integers.Values)
             {
                 if (value is >= 100 and <= 999)
+                {
                     episode = value;
+                }
             }
 
             results.Add(new Choice(TelltaleMarkup.Strip(englishText), strings.GetValueOrDefault(PropKeys.Guid), depth, episode, expressionId));
         }
 
         foreach (var child in nested)
+        {
             Walk(child, results, depth + 1);
+        }
     }
 }

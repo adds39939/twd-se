@@ -16,7 +16,9 @@ public sealed class DialogLoader(MetaReader reader)
     {
         var document = reader.Read(File.ReadAllBytes(path), RootType);
         if (document?.Root is not MetaObject root)
+        {
             throw new MetaFormatException($"{Path.GetFileName(path)}: {document?.Error ?? "not a MetaStream"}");
+        }
 
         var folders = Items(root.Find("folders")).Select(LoadFolder).ToList();
         var nodes = Items(root.Find("nodes")).Select(LoadNode).ToDictionary(node => node.Id);
@@ -60,7 +62,9 @@ public sealed class DialogLoader(MetaReader reader)
     private static List<DialogBranch> LoadBranches(MetaNode? set, string group)
     {
         if (set is not MetaObject value)
+        {
             return [];
+        }
 
         var childSet = value.Type == "DlgChildSet" ? value : Child(value, "Baseclass_DlgChildSet");
         return Items(childSet?.Find("children")).Select(child => LoadBranch(child, group)).ToList();
@@ -107,7 +111,9 @@ public sealed class DialogLoader(MetaReader reader)
     private static DialogLogicGroup LoadGroup(MetaObject? group)
     {
         if (group == null)
+        {
             return new DialogLogicGroup(DialogLogicGroup.And, DialogLogicGroup.And, [], []);
+        }
 
         var entries = new List<DialogLogicEntry>();
         if (group.Find("mItems") is MetaMap items)
@@ -115,7 +121,9 @@ public sealed class DialogLoader(MetaReader reader)
             foreach (var (target, item) in items.StringEntries)
             {
                 if (item is MetaObject value)
+                {
                     entries.AddRange(LoadEntries(target, value));
+                }
             }
         }
 
@@ -129,7 +137,9 @@ public sealed class DialogLoader(MetaReader reader)
     private static IEnumerable<DialogLogicEntry> LoadEntries(string target, MetaObject item)
     {
         if (item.Find("Baseclass_PropertySet") is not MetaPropertySet properties)
+        {
             yield break;
+        }
 
         var negated = SymbolMap(item.Find("mKeyNegateList"));
         var comparisons = SymbolMap(item.Find("mKeyComparisonList"));
@@ -155,7 +165,9 @@ public sealed class DialogLoader(MetaReader reader)
             foreach (var (key, value) in map.Entries)
             {
                 if (key is MetaSymbol symbol)
+                {
                     result[symbol.Hash] = value;
+                }
             }
         }
 

@@ -9,7 +9,9 @@ public static class TypeName
     public static string Normalize(string name)
     {
         foreach (var qualifier in Qualifiers)
+        {
             name = name.Replace(qualifier, string.Empty, StringComparison.Ordinal);
+        }
 
         return name;
     }
@@ -20,7 +22,9 @@ public static class TypeName
     {
         var open = name.IndexOf('<');
         if (open < 0 || !name.EndsWith('>'))
+        {
             return (name, []);
+        }
 
         var arguments = new List<string>();
         var depth = 0;

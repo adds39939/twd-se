@@ -20,7 +20,9 @@ public static class Ttcz
 
         var offsets = new long[pageCount + 1];
         for (var i = 0; i <= pageCount; i++)
+        {
             offsets[i] = (long)BinaryPrimitives.ReadUInt64LittleEndian(data[(HeaderSize + i * 8)..]);
+        }
 
         using var output = new MemoryStream();
         var page = new byte[pageSize];
@@ -32,7 +34,9 @@ public static class Ttcz
             var total = 0;
             int read;
             while (total < pageSize && (read = inflater.Read(page, total, pageSize - total)) > 0)
+            {
                 total += read;
+            }
 
             output.Write(page, 0, total);
         }
@@ -53,7 +57,9 @@ public static class Ttcz
 
             using var output = new MemoryStream();
             using (var deflater = new DeflateStream(output, CompressionLevel.Optimal, leaveOpen: true))
+            {
                 deflater.Write(page);
+            }
 
             pages[i] = output.ToArray();
         }

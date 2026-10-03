@@ -51,7 +51,9 @@ public sealed class MetaReader(ClassLayouts layouts, TypeRegistry types)
     {
         var sections = MetaStreamParser.Parse(data);
         if (sections == null)
+        {
             return null;
+        }
 
         var previous = _versions;
         _versions = sections.VersionEntries.ToDictionary(entry => entry.Type, entry => entry.Version);
@@ -105,10 +107,14 @@ public sealed class MetaReader(ClassLayouts layouts, TypeRegistry types)
     private MetaNode ReadValue(string type, PropReader reader)
     {
         if (TryReadScalar(type, reader) is { } scalar)
+        {
             return scalar;
+        }
 
         if (type == PropertySetType)
+        {
             return ReadPropertySetBody(reader);
+        }
 
         var (template, arguments) = TypeName.Split(type);
         switch (template)
@@ -160,7 +166,9 @@ public sealed class MetaReader(ClassLayouts layouts, TypeRegistry types)
         }
 
         if (type.StartsWith("Handle<", StringComparison.Ordinal) || type is "HandleBase")
+        {
             return new MetaSymbol(reader.U64(), true);
+        }
 
         return null;
     }
@@ -170,7 +178,9 @@ public sealed class MetaReader(ClassLayouts layouts, TypeRegistry types)
         CheckCount(count, reader);
         var items = new List<MetaNode>();
         for (uint i = 0; i < count; i++)
+        {
             items.Add(ReadValue(elementType, reader));
+        }
 
         return new MetaList(items);
     }
@@ -193,7 +203,9 @@ public sealed class MetaReader(ClassLayouts layouts, TypeRegistry types)
     {
         var layout = layouts.Find(type, _versions.GetValueOrDefault(TypeName.Hash(type), uint.MaxValue));
         if (layout == null)
+        {
             throw new MetaFormatException($"unknown type {type}");
+        }
 
         var members = new List<KeyValuePair<string, MetaNode>>();
         var serialized = CustomOnly.Contains(type) ? [] : layout.Members.Where(member => member.IsSerialized && member.Type != "EnumBase");
@@ -209,7 +221,9 @@ public sealed class MetaReader(ClassLayouts layouts, TypeRegistry types)
             var size = reader.U32();
             members.Add(KeyValuePair.Create(member.Name, ReadValue(member.Type, reader)));
             if (reader.Position != start + size)
+            {
                 throw new MetaFormatException($"block of {type}.{member.Name} is {size} bytes, read {reader.Position - start}");
+            }
         }
 
         var value = new MetaObject(type, members);
@@ -226,7 +240,10 @@ public sealed class MetaReader(ClassLayouts layouts, TypeRegistry types)
                 members.Add(KeyValuePair.Create<string, MetaNode>("folders", ReadSequence("DlgFolder", reader.U32(), reader)));
                 members.Add(KeyValuePair.Create<string, MetaNode>("nodes", ReadTypedSequence(reader)));
                 if (layout.Members.Any(member => member.Name == "mbHasToolOnlyData"))
+                {
                     members.Add(KeyValuePair.Create<string, MetaNode>("hasToolOnlyData", ReadValue("bool", reader)));
+                }
+
                 break;
             case "DlgChildSet":
                 members.Add(KeyValuePair.Create<string, MetaNode>("children", ReadTypedSequence(reader)));
@@ -237,26 +254,47 @@ public sealed class MetaReader(ClassLayouts layouts, TypeRegistry types)
             case "DlgObjectProps":
                 var propFlags = value.FindUInt32("mFlags");
                 if ((propFlags & UserPropsFlag) != 0)
+                {
                     members.Add(KeyValuePair.Create<string, MetaNode>("userProps", ReadValue(PropertySetType, reader)));
+                }
+
                 if ((propFlags & ProductionPropsFlag) != 0)
+                {
                     members.Add(KeyValuePair.Create<string, MetaNode>("productionProps", ReadValue(PropertySetType, reader)));
+                }
+
                 if ((propFlags & ToolPropsFlag) != 0)
+                {
                     members.Add(KeyValuePair.Create<string, MetaNode>("toolProps", ReadValue(PropertySetType, reader)));
+                }
+
                 break;
             case "DlgVisibilityConditions":
                 if ((value.FindUInt32("mFlags") & VisibilityRuleFlag) != 0)
+                {
                     members.Add(KeyValuePair.Create<string, MetaNode>("rule", ReadValue("Rule", reader)));
+                }
+
                 break;
             case "DlgNodeExchange":
                 var nodeFlags = (value.Find("Baseclass_DlgNode") as MetaObject)?.FindUInt32("mFlags") ?? 0;
                 if ((nodeFlags & ExchangeNotesFlag) != 0)
+                {
                     members.Add(KeyValuePair.Create<string, MetaNode>("notes", ReadValue("NoteCollection", reader)));
+                }
+
                 if ((nodeFlags & ExchangeLinesFlag) != 0)
+                {
                     members.Add(KeyValuePair.Create<string, MetaNode>("lines", ReadValue("DlgLineCollection", reader)));
+                }
+
                 break;
             case "EventStorage":
                 if (ReadValue("bool", reader) is MetaScalar { Value: true })
+                {
                     members.Add(KeyValuePair.Create<string, MetaNode>("currentPage", ReadValue("EventStoragePage", reader)));
+                }
+
                 break;
             case "EventStoragePage":
                 members.Add(KeyValuePair.Create<string, MetaNode>("events", ReadSequence("EventLoggerEvent", reader.U32(), reader)));
@@ -272,11 +310,17 @@ public sealed class MetaReader(ClassLayouts layouts, TypeRegistry types)
                 break;
             case "DependencyLoader<1>":
                 if (ReadValue("bool", reader) is MetaScalar { Value: true })
+                {
                     members.Add(KeyValuePair.Create<string, MetaNode>("resources", ReadTyped(reader)));
+                }
+
                 break;
             case "ToolProps":
                 if (value.Find("mbHasProps") is MetaScalar { Value: true })
+                {
                     members.Add(KeyValuePair.Create<string, MetaNode>("props", ReadValue(PropertySetType, reader)));
+                }
+
                 break;
             case "Rule":
                 if (value.Find("mbVersionHasAgents") is MetaScalar { Value: true })
@@ -285,7 +329,9 @@ public sealed class MetaReader(ClassLayouts layouts, TypeRegistry types)
                     var size = reader.U32();
                     members.Add(KeyValuePair.Create<string, MetaNode>("agents", ReadSequence("Rule::AgentInfo", reader.U32(), reader)));
                     if (reader.Position != start + size)
+                    {
                         throw new MetaFormatException($"block of Rule agents is {size} bytes, read {reader.Position - start}");
+                    }
                 }
 
                 break;
@@ -329,7 +375,9 @@ public sealed class MetaReader(ClassLayouts layouts, TypeRegistry types)
         }
 
         if (reader.Position != start + size)
+        {
             throw new MetaFormatException($"block of event data is {size} bytes, read {reader.Position - start}");
+        }
 
         return new MetaList(items);
     }
@@ -340,7 +388,9 @@ public sealed class MetaReader(ClassLayouts layouts, TypeRegistry types)
         CheckCount(count, reader);
         var items = new List<MetaNode>();
         for (uint i = 0; i < count; i++)
+        {
             items.Add(ReadTyped(reader));
+        }
 
         return new MetaList(items);
     }
@@ -364,7 +414,9 @@ public sealed class MetaReader(ClassLayouts layouts, TypeRegistry types)
         CheckCount(parentCount, reader);
         var parents = new List<ulong>();
         for (uint i = 0; i < parentCount; i++)
+        {
             parents.Add(reader.U64());
+        }
 
         var properties = new List<MetaProperty>();
         string? error = null;
@@ -398,10 +450,14 @@ public sealed class MetaReader(ClassLayouts layouts, TypeRegistry types)
         }
 
         if (error == null && (flags & EmbeddedParentFlag) != 0 && reader.Position < end)
+        {
             properties.Add(new MetaProperty(0, PropertySetType, ReadPropertySetBody(reader)));
+        }
 
         if (error == null && reader.Position != end)
+        {
             error = $"property set ended at {reader.Position}, expected {end}";
+        }
 
         reader.Position = end;
         return new MetaPropertySet(version, flags, size, parents, properties, error);
@@ -410,6 +466,8 @@ public sealed class MetaReader(ClassLayouts layouts, TypeRegistry types)
     private static void CheckCount(uint count, PropReader reader)
     {
         if (count > reader.Remaining)
+        {
             throw new MetaFormatException($"implausible count {count}");
+        }
     }
 }

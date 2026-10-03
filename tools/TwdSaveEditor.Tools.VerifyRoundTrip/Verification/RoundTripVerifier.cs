@@ -17,7 +17,9 @@ public static class RoundTripVerifier
             if (parseAllProperties)
             {
                 foreach (var file in slot.Files.Where(file => file.TypeSymbol == TelltaleTypes.PropertySet))
+                {
                     BundleReader.TryParseProperties(file);
+                }
             }
 
             var rewritten = BundleWriter.Write(slot);
@@ -31,7 +33,9 @@ public static class RoundTripVerifier
             if (before.Header.DefaultSectionSize >> 31 != after.Header.DefaultSectionSize >> 31
                 || before.Header.DebugSectionSize >> 31 != after.Header.DebugSectionSize >> 31
                 || before.Header.AsyncSectionSize >> 31 != after.Header.AsyncSectionSize >> 31)
+            {
                 problems.Add("compression flags differ");
+            }
 
             return new RoundTripResult(path, slot.Files.Count, slot.Files.Count(file => file.Properties != null), problems);
         }
@@ -54,6 +58,8 @@ public static class RoundTripVerifier
 
         var tail = before.Length > after.Length ? before.AsSpan(common) : after.AsSpan(common);
         if (tail.ContainsAnyExcept((byte)0))
+        {
             problems.Add($"{section} sizes differ ({before.Length} and {after.Length}) and the remainder is not padding");
+        }
     }
 }

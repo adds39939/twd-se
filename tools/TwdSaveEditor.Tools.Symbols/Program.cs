@@ -12,7 +12,9 @@ if (args.Length < 2 || args[0] is not ("hash" or "find"))
 if (args[0] == "hash")
 {
     foreach (var text in args[1..])
+    {
         Console.WriteLine($"{TelltaleCrc64.Compute(text):X16}  {text}");
+    }
 
     return 0;
 }

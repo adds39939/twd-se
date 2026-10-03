@@ -1,14 +1,8 @@
 using TwdSaveEditor.Tests.Common.Seasons;
 using TwdSaveEditor.Tests.Common.Data;
-using TwdSaveEditor.Season.Michonne.Handlers;
 using TwdSaveEditor.Season.Common.Abstractions;
-using TwdSaveEditor.Season.S4.Handlers;
 using TwdSaveEditor.Core.Model;
-using TwdSaveEditor.Season.S2.Handlers;
-using TwdSaveEditor.Season.Common.Services;
-using TwdSaveEditor.Season.S1.Handlers;
 using TwdSaveEditor.Core.Binary.Bundles;
-using TwdSaveEditor.Season.S3.Handlers;
 using TwdSaveEditor.Season.Base.Accessors;
 
 namespace TwdSaveEditor.Season.S1.Tests.Saves;
@@ -21,7 +15,10 @@ public class LiveSaveTests
     public void LiveS1Save_ParsesSuccessfully()
     {
         var path = TestDataHelper.GetPath("S1", "wd1_saveslot1_live.bundle");
-        if (!File.Exists(path)) return;
+        if (!File.Exists(path))
+        {
+            return;
+        }
 
         var slot = BundleReader.Read(path);
         slot.DetectedSeasonKey = Registry.DetectFromFileName(path)?.SeasonKey;
@@ -36,7 +33,10 @@ public class LiveSaveTests
     public void LiveS1Save_HasValidMetadata()
     {
         var path = TestDataHelper.GetPath("S1", "wd1_saveslot1_live.bundle");
-        if (!File.Exists(path)) return;
+        if (!File.Exists(path))
+        {
+            return;
+        }
 
         var slot = BundleReader.Read(path);
 
@@ -50,7 +50,10 @@ public class LiveSaveTests
     public void LiveS1Save_HasChoices()
     {
         var path = TestDataHelper.GetPath("S1", "wd1_saveslot1_live.bundle");
-        if (!File.Exists(path)) return;
+        if (!File.Exists(path))
+        {
+            return;
+        }
 
         var slot = BundleReader.Read(path);
 
@@ -66,7 +69,10 @@ public class LiveSaveTests
     public void LiveS1Save_RoundTrips()
     {
         var path = TestDataHelper.GetPath("S1", "wd1_saveslot1_live.bundle");
-        if (!File.Exists(path)) return;
+        if (!File.Exists(path))
+        {
+            return;
+        }
 
         var slot = BundleReader.Read(path);
         var written = BundleWriter.Write(slot);
@@ -90,7 +96,10 @@ public class LiveSaveTests
     public void LiveS1Save_CanEditAndRoundTrip()
     {
         var path = TestDataHelper.GetPath("S1", "wd1_saveslot1_live.bundle");
-        if (!File.Exists(path)) return;
+        if (!File.Exists(path))
+        {
+            return;
+        }
 
         var slot = BundleReader.Read(path);
         var handler = Registry.Get("s1")!;
@@ -109,7 +118,10 @@ public class LiveSaveTests
     public void LiveS1Autosave_ParsesWithoutCrash()
     {
         var path = TestDataHelper.GetPath("S1", "_wd1_saveslot1_autosave.bundle");
-        if (!File.Exists(path)) return;
+        if (!File.Exists(path))
+        {
+            return;
+        }
 
         var slot = BundleReader.Read(path);
         Assert.NotNull(slot.OuterHeader);
@@ -120,7 +132,10 @@ public class LiveSaveTests
     public void LiveS1Save_VersionEntriesMatchExpected()
     {
         var path = TestDataHelper.GetPath("S1", "wd1_saveslot1_live.bundle");
-        if (!File.Exists(path)) return;
+        if (!File.Exists(path))
+        {
+            return;
+        }
 
         var slot = BundleReader.Read(path);
 

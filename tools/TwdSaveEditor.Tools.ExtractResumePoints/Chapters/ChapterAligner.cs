@@ -21,11 +21,17 @@ public static class ChapterAligner
         for (int entry = 0, chapter = 0; entry < entries.Count && chapter < chapters.Count;)
         {
             if (Matches(entries[entry], chapters[chapter]) && lengths[entry, chapter] == 1 + lengths[entry + 1, chapter + 1])
+            {
                 aligned[entry++] = chapters[chapter++].ChapterId;
+            }
             else if (lengths[entry + 1, chapter] >= lengths[entry, chapter + 1])
+            {
                 entry++;
+            }
             else
+            {
                 chapter++;
+            }
         }
 
         var current = chapters.Count > 0 ? chapters[0].ChapterId : string.Empty;

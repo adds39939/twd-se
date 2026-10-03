@@ -17,7 +17,11 @@ public partial class PropertyEditor
 
     private static string TruncateValue(object? value)
     {
-        if (value == null) return "(null)";
+        if (value == null)
+        {
+            return "(null)";
+        }
+
         var str = value.ToString() ?? "";
         return str.Length > 80 ? str[..80] + "..." : str;
     }

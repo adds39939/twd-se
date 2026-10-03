@@ -15,7 +15,9 @@ public sealed class S4Collectibles : IS4Collectibles
     {
         var episode = S4Story.Resume.GetState(slot).Episode;
         if (slot.Metadata is not { } metadata)
+        {
             return InventoryState.NotEditable(Owner, episode, NoSlot);
+        }
 
         var items = All().ToList();
         return new InventoryState(
@@ -36,9 +38,13 @@ public sealed class S4Collectibles : IS4Collectibles
         {
             var wanted = held.Any(entry => entry.Id == item.Id && entry.Count > 0);
             if (wanted)
+            {
                 metadata.SetBool(item.Id, true);
+            }
             else
+            {
                 metadata.Remove(Symbol.FromString(item.Id));
+            }
         }
     }
 

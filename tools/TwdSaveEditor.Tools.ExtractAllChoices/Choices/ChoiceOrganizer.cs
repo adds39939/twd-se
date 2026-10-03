@@ -12,11 +12,15 @@ public static partial class ChoiceOrganizer
     {
         var depths = choices.Select(choice => choice.Depth).Distinct().Order().ToList();
         if (depths.Count < 2)
+        {
             return choices.Select(choice => new Question(choice.Text, choice.Guid, choice.Episode, choice.ExpressionId)).ToList();
+        }
 
         var questions = MergeThemes(GroupByQuestion(choices, depths[0]));
         foreach (var question in questions)
+        {
             question.Options = UniqueOptions(question.Options);
+        }
 
         return questions;
     }
@@ -30,12 +34,16 @@ public static partial class ChoiceOrganizer
         {
             var text = TextFormat.Trim(choice.Text);
             if (text.Length == 0)
+            {
                 continue;
+            }
 
             if (choice.Depth <= questionDepth + 1)
             {
                 if (current != null)
+                {
                     organized.Add(current);
+                }
 
                 current = new Question(text, choice.Guid, choice.Episode, choice.ExpressionId);
             }
@@ -44,12 +52,16 @@ public static partial class ChoiceOrganizer
                 current ??= new Question("(Unknown question)", null, null, null);
                 current.Options.Add(new Option(text, choice.Guid, choice.ExpressionId));
                 if (choice.Episode is not (null or 0) && current.Episode is null or 0)
+                {
                     current.Episode = choice.Episode;
+                }
             }
         }
 
         if (current != null)
+        {
             organized.Add(current);
+        }
 
         return organized;
     }
@@ -102,21 +114,30 @@ public static partial class ChoiceOrganizer
             normalized = TextFormat.Trim(normalized).ToLowerInvariant();
 
             if (seen.Contains(normalized))
+            {
                 continue;
+            }
+
             if (text.StartsWith("of players", StringComparison.Ordinal))
+            {
                 continue;
+            }
 
             if (!text.StartsWith("You", StringComparison.Ordinal) && !text.StartsWith("After", StringComparison.Ordinal))
             {
                 var hasYouVersion = options.Any(other =>
                     other.Text.StartsWith("You", StringComparison.Ordinal) && CoreText(other.Text) == normalized);
                 if (hasYouVersion)
+                {
                     continue;
+                }
             }
 
             var withoutComma = normalized.Replace(", ", " ");
             if (seen.Contains(withoutComma))
+            {
                 continue;
+            }
 
             seen.Add(normalized);
             seen.Add(withoutComma);

@@ -49,7 +49,9 @@ public sealed partial class Season3ChoicePropStep(ValidationContext context) : I
             {
                 var (alternativeName, alternative) = GameArchives.Find(files, pattern);
                 if (alternative is not { IsEmpty: false })
+                {
                     continue;
+                }
 
                 details.Add($"Found alternative: {alternativeName}");
                 (name, data) = (alternativeName, alternative);

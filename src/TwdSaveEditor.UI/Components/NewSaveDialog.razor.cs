@@ -58,12 +58,17 @@ public partial class NewSaveDialog
     private void OnEpisodeChanged(ChangeEventArgs e)
     {
         if (int.TryParse(e.Value?.ToString(), out var ep))
+        {
             _episode = ep;
+        }
     }
 
     private void UpdateFileName()
     {
-        if (_selectedSeason == null) return;
+        if (_selectedSeason == null)
+        {
+            return;
+        }
 
         var prefix = _selectedSeason.FilePrefix.TrimEnd('_');
         var names = Enumerable.Range(1, MaxSlots).Select(slot => $"{prefix}_saveslot{slot}.bundle").ToList();
@@ -73,14 +78,19 @@ public partial class NewSaveDialog
 
     private async Task Create()
     {
-        if (string.IsNullOrWhiteSpace(_fileName)) return;
+        if (string.IsNullOrWhiteSpace(_fileName))
+        {
+            return;
+        }
 
         _creating = true;
         StateHasChanged();
 
         var name = _fileName.Trim();
         if (!name.EndsWith(".bundle", StringComparison.OrdinalIgnoreCase))
+        {
             name += ".bundle";
+        }
 
         await Editor.CreateNewSave(_seasonKey, _episode, name);
         await Close();

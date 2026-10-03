@@ -22,12 +22,16 @@ foreach (var path in paths)
     files += result.FileCount;
     parsed += result.ParsedPropertyFiles;
     if (result.Problems.Count == 0)
+    {
         continue;
+    }
 
     failures++;
     Console.WriteLine($"FAIL {path}");
     foreach (var problem in result.Problems)
+    {
         Console.WriteLine($"     {problem}");
+    }
 }
 
 Console.WriteLine($"{paths.Count - failures} of {paths.Count} bundles round-trip exactly ({files} inner files, {parsed} parsed as property sets).");
@@ -43,7 +47,9 @@ var logFailures = 0;
 foreach (var path in logs)
 {
     if (EventLogVerifier.Verify(path) is not { } problem)
+    {
         continue;
+    }
 
     logFailures++;
     Console.WriteLine($"FAIL {path}");
@@ -51,6 +57,8 @@ foreach (var path in logs)
 }
 
 if (logs.Count > 0)
+{
     Console.WriteLine($"{logs.Count - logFailures} of {logs.Count} event log files round-trip exactly.");
+}
 
 return failures + logFailures == 0 ? 0 : 1;

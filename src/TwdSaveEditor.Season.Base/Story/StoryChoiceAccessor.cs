@@ -26,7 +26,9 @@ public sealed class StoryChoiceAccessor(SaveSlot slot, StorySeason season) : ICh
     public void SetChoiceValue(string choiceKey, string value)
     {
         if (season.FindDecision(choiceKey) is not { } decision || decision.Find(value) is not { } option)
+        {
             return;
+        }
 
         new StoryEventLog(slot, season).Prepare();
         _decisions.SetValue(decision, option);
@@ -39,7 +41,9 @@ public sealed class StoryChoiceAccessor(SaveSlot slot, StorySeason season) : ICh
         foreach (var save in slot.Checkpoints)
         {
             if (StoryResumePoint.Properties(save, StoryFiles.LogicGameProperties) is not { } game)
+            {
                 continue;
+            }
 
             var episode = save.Metadata?.GetInt(SaveMetadataKeys.Episode) ?? season.LastEpisode;
             foreach (var key in season.LogicKeys.Where(key => key.ReadFrom <= episode))

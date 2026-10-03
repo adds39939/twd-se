@@ -28,7 +28,9 @@ public static partial class ItemRegistryReader
         var separator = key.IndexOf(NameSeparator, StringComparison.Ordinal);
         var text = separator < 0 ? key : key[(separator + NameSeparator.Length)..];
         if (agent == DebugMenuReader.InventoryAgent)
+        {
             return Words().Replace(text, " $1");
+        }
 
         text = Words().Replace(Possession().Replace(text, string.Empty), " $1");
         text = char.ToUpperInvariant(text[0]) + text[1..];
