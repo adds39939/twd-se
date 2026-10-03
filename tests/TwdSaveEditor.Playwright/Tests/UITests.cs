@@ -95,6 +95,18 @@ public class UITests
     }
 
     [Fact]
+    public async Task EmptyState_ShowsTheLogoFromTheApp()
+    {
+        var page = await _fixture.NewPage();
+
+        var logo = page.Locator(".empty-logo");
+        await Assertions.Expect(logo).ToBeVisibleAsync();
+        await page.WaitForFunctionAsync("() => document.querySelector('.empty-logo').complete");
+        Assert.True(await logo.EvaluateAsync<bool>("img => img.naturalWidth > 0"));
+        Assert.StartsWith(_fixture.BaseUrl, await logo.EvaluateAsync<string>("img => img.currentSrc"));
+    }
+
+    [Fact]
     public async Task Footer_ShowsTheDevVersionInADevelopmentBuild()
     {
         var page = await _fixture.NewPage();

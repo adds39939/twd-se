@@ -1114,26 +1114,6 @@
             "Episode 304 - Did you tell Kate that you have feelings for her",
             "Episode 304 - Pissed Off David"
           ]
-        },
-        {
-          "id": "RichmondSquareDawnAction",
-          "title": "Richmond Square Dawn Action",
-          "group": "Act 3",
-          "script": "RichmondSquareDawn",
-          "chapterId": "",
-          "startsEpisode": false,
-          "flags": [
-            {
-              "key": "Act",
-              "value": 3
-            }
-          ],
-          "decided": [
-            "Episode 304 - Did you promise that you would help Kate with the family if David left",
-            "Episode 304 - How did you respond to Dr. Lingard\u2019s request",
-            "Episode 304 - Did you tell Kate that you have feelings for her",
-            "Episode 304 - Pissed Off David"
-          ]
         }
       ]
     },

@@ -24,7 +24,7 @@ The game fills in the decisions of episodes that were not played from one of two
 
 As in Season 2, each episode's `Episode.lua` has the developers' chapter menu, and a save whose `logic_script` holds `Script - Previous` = `DebugMenu` makes the scene script set itself up. The generated autosave holds that marker, the entry's flags, and every story key the episode reads, computed from the log, because `PersistentLogic_SetGameLogic` is skipped under the marker. A menu entry that sets a story key, such as the four Episode 1 flashbacks that each belong to one Season 2 ending, also sets that decision in the log.
 
-Two Episode 1 entries ("Garcia House - Credits" and "Junkyard Hill - Trailer") are left out: their scene scripts only register the setup that reads the entry's flag in developer builds, so in the released game they would start the scene from its beginning. Five more entries whose scene setup only runs in debug builds are dropped by the same rule that Season 4 needed. The 80 resume points are `Data/s3.chapters.json`, from `ExtractResumePoints 3`.
+Two Episode 1 entries ("Garcia House - Credits" and "Junkyard Hill - Trailer") are left out: their scene scripts only register the setup that reads the entry's flag in developer builds, so in the released game they would start the scene from its beginning. Five more entries whose scene setup only runs in debug builds are dropped by the same rule that Season 4 needed, and Episode 4's "Richmond Square Dawn Action" is dropped because it repeats "Richmond Square Dawn" exactly: the same script and the same `Act` = 3, and the menu never passes the button's label on. The 79 resume points are `Data/s3.chapters.json`, from `ExtractResumePoints 3`.
 
 ## Inventory
 

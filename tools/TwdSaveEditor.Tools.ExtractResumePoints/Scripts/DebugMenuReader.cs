@@ -32,6 +32,13 @@ public static partial class DebugMenuReader
             var entry = new MenuEntry(group, title.Trim(), match.Groups["script"].Value, [.. LogicSet().Matches(command).Select(flag => ReadFlag(flag, constants))]);
             if (!DialogTitle().IsMatch(entry.Title))
             {
+                var identical = entries.FindIndex(existing => Identical(existing, entry));
+                if (identical >= 0)
+                {
+                    anchor = identical;
+                    continue;
+                }
+
                 var position = repeated ? After(entries, entry) : entries.Count;
                 entries.Insert(position, entry);
                 anchor = position;
@@ -66,6 +73,13 @@ public static partial class DebugMenuReader
     private static bool Same(MenuEntry first, MenuEntry second) =>
         first.Script.Equals(second.Script, StringComparison.OrdinalIgnoreCase)
         && first.Flags.Select(flag => flag.Key).Order().SequenceEqual(second.Flags.Select(flag => flag.Key).Order());
+
+    private static bool Identical(MenuEntry first, MenuEntry second) =>
+        first.Script.Equals(second.Script, StringComparison.OrdinalIgnoreCase)
+        && FlagValues(first).SequenceEqual(FlagValues(second));
+
+    private static IEnumerable<string> FlagValues(MenuEntry entry) =>
+        entry.Flags.Select(flag => $"{flag.Key}={flag.Value.ToJsonString()}").Order(StringComparer.Ordinal);
 
     private static string SceneTitle(string dialogTitle)
     {
