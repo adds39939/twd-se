@@ -23,7 +23,7 @@
                         <tr>
                             <td><span class="badge">Metadata</span></td>
                             <td class="prop-name">@NameDb.ResolveOrHex(prop.KeySymbol)</td>
-                            <td class="text-muted">@prop.Value.TypeName</td>
+                            <td class="text-muted prop-type">@prop.Value.TypeName</td>
                             <td>
                                 @if (prop.Value is StringValue sv)
                                 {
@@ -56,7 +56,7 @@
                         <tr>
                             <td><span class="badge">Choices</span></td>
                             <td class="prop-name">@NameDb.ResolveOrHex(prop.KeySymbol)</td>
-                            <td class="text-muted">@prop.Value.TypeName</td>
+                            <td class="text-muted prop-type">@prop.Value.TypeName</td>
                             <td>
                                 @if (prop.Value is StringValue sv)
                                 {
@@ -83,7 +83,7 @@
                         <tr>
                             <td><span class="badge badge-accent">ChoiceStats</span></td>
                             <td class="prop-name">@NameDb.ResolveOrHex(prop.KeySymbol)</td>
-                            <td class="text-muted">@prop.Value.TypeName</td>
+                            <td class="text-muted prop-type">@prop.Value.TypeName</td>
                             <td>
                                 @if (prop.Value is StringValue sv)
                                 {

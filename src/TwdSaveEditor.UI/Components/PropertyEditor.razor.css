@@ -115,6 +115,12 @@ tr:hover td {
         overflow-wrap: anywhere;
     }
 
+    .prop-type {
+        max-width: 7rem;
+        overflow-wrap: anywhere;
+        text-align: right;
+    }
+
     tr:hover td {
         background: none;
     }
