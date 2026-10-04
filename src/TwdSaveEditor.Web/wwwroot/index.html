@@ -32,6 +32,11 @@
     <link rel="apple-touch-icon" href="_content/TwdSaveEditor.UI/images/icon-192.png" />
     <link href="TwdSaveEditor.Web.styles.css" rel="stylesheet" />
     <script type="importmap"></script>
+    <script>
+        if (!matchMedia('(display-mode: browser)').matches) {
+            document.title = 'TWD Save Editor';
+        }
+    </script>
 </head>
 
 <body>
