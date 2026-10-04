@@ -3,11 +3,16 @@ self.importScripts('./service-worker-assets.js');
 const cacheNamePrefix = 'offline-cache-';
 const cacheName = `${cacheNamePrefix}${self.assetsManifest.version}`;
 const excluded = [/^service-worker\.js$/, /(^|\/)\./];
-const assetUrls = self.assetsManifest.assets.map(asset => new URL(asset.url, self.registration.scope).href);
+const assetUrls = new Set(self.assetsManifest.assets.map(asset => new URL(asset.url, self.registration.scope).href));
 
 self.addEventListener('install', event => event.waitUntil(install()));
 self.addEventListener('activate', event => event.waitUntil(activate()));
-self.addEventListener('fetch', event => event.respondWith(respond(event.request)));
+self.addEventListener('fetch', event => {
+    const request = event.request;
+    if (request.method === 'GET' && (request.mode === 'navigate' || assetUrls.has(request.url))) {
+        event.respondWith(respond(request));
+    }
+});
 
 async function install() {
     const requests = self.assetsManifest.assets
@@ -25,13 +30,7 @@ async function activate() {
 }
 
 async function respond(request) {
-    if (request.method === 'GET') {
-        const page = request.mode === 'navigate' && !assetUrls.includes(request.url);
-        const cached = await (await caches.open(cacheName)).match(page ? 'index.html' : request);
-        if (cached) {
-            return cached;
-        }
-    }
-
-    return fetch(request);
+    const page = request.mode === 'navigate' && !assetUrls.has(request.url);
+    const cached = await (await caches.open(cacheName)).match(page ? 'index.html' : request);
+    return cached ?? await fetch(request);
 }
