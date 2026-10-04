@@ -163,3 +163,40 @@ details > :not(summary) {
 .log-damaged {
     color: var(--color-warning, #f0ad4e);
 }
+
+@media (max-width: 600px) {
+    .choice-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.4rem;
+        padding: 0.5rem 0;
+    }
+
+    .choice-info {
+        align-items: flex-start;
+        justify-content: space-between;
+    }
+
+    .choice-row select {
+        width: 100%;
+        min-width: 0;
+        max-width: none;
+    }
+
+    .import-controls {
+        flex-wrap: wrap;
+    }
+
+    .import-controls select {
+        min-width: 0;
+        max-width: none;
+    }
+
+    details > :not(summary) {
+        padding: 0 0.6em 0.6em;
+    }
+
+    summary {
+        padding: 0.7em 0.6em;
+    }
+}

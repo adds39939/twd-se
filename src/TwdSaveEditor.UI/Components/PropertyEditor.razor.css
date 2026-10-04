@@ -63,3 +63,65 @@ th {
 tr:hover td {
     background: var(--bg-hover);
 }
+
+@media (max-width: 900px) {
+    .property-editor {
+        height: auto;
+    }
+
+    .table-container {
+        flex: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .table-container {
+        overflow: visible;
+    }
+
+    table,
+    tbody {
+        display: block;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tr {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 0.4rem 0.6rem;
+        padding: 0.6em 0.75em;
+        border-bottom: 1px solid var(--border);
+    }
+
+    tr:last-child {
+        border-bottom: none;
+    }
+
+    td {
+        padding: 0;
+        border-bottom: none;
+    }
+
+    td:last-child {
+        grid-column: 1 / -1;
+    }
+
+    .prop-name {
+        word-break: normal;
+        overflow-wrap: anywhere;
+    }
+
+    tr:hover td {
+        background: none;
+    }
+
+    .property-editor input[type="text"],
+    .property-editor input[type="number"],
+    .wide-input {
+        max-width: none !important;
+    }
+}

@@ -24,6 +24,14 @@
     padding: 1rem 1.5rem;
 }
 
+.save-bar {
+    display: none;
+}
+
+.editor-header {
+    display: contents;
+}
+
 .content-toolbar {
     display: flex;
     align-items: center;
@@ -148,4 +156,124 @@
 .tab-bar button.active {
     color: var(--accent);
     border-bottom-color: var(--accent);
+}
+
+@media (max-width: 900px) {
+    .home-layout {
+        flex-direction: column;
+        height: auto;
+        overflow: visible;
+    }
+
+    .sidebar {
+        width: 100%;
+        min-width: 0;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        overflow: visible;
+    }
+
+    .home-layout.browsing .sidebar {
+        flex: 1;
+        border-bottom: none;
+    }
+
+    .home-layout.editing .sidebar,
+    .home-layout.browsing .main-content {
+        display: none;
+    }
+
+    .main-content {
+        overflow: visible;
+        padding: 0 1rem 1.5rem;
+    }
+
+    .save-bar {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.75rem 0 0.25rem;
+        min-width: 0;
+    }
+
+    .back-btn {
+        flex-shrink: 0;
+        padding: 0.45em 0.8em;
+    }
+
+    .save-bar-name {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+    }
+
+    .editor-header {
+        display: block;
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        margin: 0 -1rem 0.75rem;
+        padding: 0.5rem 1rem 0;
+        background: var(--bg-primary);
+        border-bottom: 1px solid var(--border);
+    }
+
+    .tab-bar {
+        margin-bottom: 0.75rem;
+    }
+
+    .tab-bar button {
+        flex: 1 1 auto;
+        padding: 0.6em 0.4em;
+        white-space: normal;
+        line-height: 1.2;
+        text-align: center;
+    }
+
+    .content-toolbar {
+        padding: 0 0 0.75rem;
+        gap: 0.5rem;
+    }
+
+    .toolbar-actions {
+        flex: 1;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+    }
+
+    .tab-content {
+        overflow: visible;
+    }
+
+    .tab-panel {
+        position: static;
+        overflow: visible;
+    }
+
+    .empty-state {
+        height: auto;
+        padding: 2rem 0 1rem;
+    }
+
+    .empty-logo {
+        max-width: 12rem;
+        margin-bottom: 1rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .content-title {
+        display: none;
+    }
+
+    .tab-bar button {
+        font-size: min(0.875rem, 3.9vw);
+    }
+
+    .toolbar-actions button {
+        flex: 1 1 auto;
+    }
 }

@@ -2,29 +2,35 @@
 
 <PageTitle>TWD Save Editor</PageTitle>
 
-<div class="home-layout">
+<div class="home-layout @LayoutClass">
     <aside class="sidebar">
-        <SaveBrowser OnNewSaveRequested="ShowNewSaveDialog" />
+        <SaveBrowser OnNewSaveRequested="ShowNewSaveDialog" OnSaveSelected="ShowEditor" />
     </aside>
     <main class="main-content">
         @if (Editor.SelectedSave != null)
         {
-            <div class="tab-bar">
-                <button class="@TabClass("decisions")" data-testid="tab-decisions" @onclick='() => ActiveTab = "decisions"'>Decisions</button>
-                <button class="@TabClass("resume")" data-testid="tab-resume" @onclick='() => ActiveTab = "resume"'>Resume Point</button>
-                <button class="@TabClass("inventory")" data-testid="tab-inventory" @onclick='() => ActiveTab = "inventory"'>Inventory</button>
-                <button class="@TabClass("properties")" data-testid="tab-properties" @onclick='() => ActiveTab = "properties"'>Properties</button>
+            <div class="save-bar">
+                <button class="btn-sm back-btn" data-testid="back-to-saves" @onclick="ShowSaves">&lsaquo; Saves</button>
+                <span class="save-bar-name" data-testid="save-bar-name">@Editor.SelectedSave.FileName</span>
             </div>
-            <div class="content-toolbar">
-                <h2 class="content-title">@ActiveTabTitle</h2>
-                <div class="toolbar-actions">
-                    @if (Editor.IsModified(Editor.SelectedSave))
-                    {
-                        <button class="discard-btn" data-testid="discard-btn" @onclick="DiscardChanges" disabled="@_saving">Discard Changes</button>
-                    }
-                    <button class="btn-accent save-btn" @onclick="SaveChanges" disabled="@_saving">
-                        @(_saving ? "Saving..." : SaveLabel + (Editor.IsModified(Editor.SelectedSave) ? " *" : string.Empty))
-                    </button>
+            <div class="editor-header">
+                <div class="tab-bar">
+                    <button class="@TabClass("decisions")" data-testid="tab-decisions" @onclick='() => ActiveTab = "decisions"'>Decisions</button>
+                    <button class="@TabClass("resume")" data-testid="tab-resume" @onclick='() => ActiveTab = "resume"'>Resume Point</button>
+                    <button class="@TabClass("inventory")" data-testid="tab-inventory" @onclick='() => ActiveTab = "inventory"'>Inventory</button>
+                    <button class="@TabClass("properties")" data-testid="tab-properties" @onclick='() => ActiveTab = "properties"'>Properties</button>
+                </div>
+                <div class="content-toolbar">
+                    <h2 class="content-title">@ActiveTabTitle</h2>
+                    <div class="toolbar-actions">
+                        @if (Editor.IsModified(Editor.SelectedSave))
+                        {
+                            <button class="discard-btn" data-testid="discard-btn" @onclick="DiscardChanges" disabled="@_saving">Discard Changes</button>
+                        }
+                        <button class="btn-accent save-btn" @onclick="SaveChanges" disabled="@_saving">
+                            @(_saving ? "Saving..." : SaveLabel + (Editor.IsModified(Editor.SelectedSave) ? " *" : string.Empty))
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -58,4 +64,4 @@
     </main>
 </div>
 
-<NewSaveDialog @ref="_newSaveDialog" />
+<NewSaveDialog @ref="_newSaveDialog" OnCreated="ShowEditor" />

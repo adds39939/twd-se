@@ -13,7 +13,7 @@
 
 .inventory-items {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(12.86rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(12.86rem, 100%), 1fr));
     gap: 0.5rem;
 }
 
@@ -41,6 +41,7 @@
 
 .inventory-actions {
     display: flex;
+    flex-wrap: wrap;
     gap: 0.75rem;
     margin-top: 1rem;
 }

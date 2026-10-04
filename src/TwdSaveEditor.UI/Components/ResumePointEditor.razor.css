@@ -25,3 +25,16 @@
     font-weight: 500;
     color: var(--text-primary);
 }
+
+@media (max-width: 600px) {
+    .form-group {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.3rem;
+    }
+
+    .form-group label {
+        width: auto;
+        font-size: 0.85rem;
+    }
+}

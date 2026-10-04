@@ -118,3 +118,29 @@
     font-size: 0.8rem;
     border-radius: var(--radius);
 }
+
+@media (max-width: 900px) {
+    .save-browser {
+        height: auto;
+        overflow: visible;
+    }
+
+    .save-list {
+        flex: none;
+        overflow: visible;
+    }
+
+    .save-list:empty {
+        display: none;
+    }
+
+    .save-item {
+        padding: 0.65rem 1rem;
+    }
+
+    .browser-header,
+    .dir-info {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}

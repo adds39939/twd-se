@@ -20,10 +20,27 @@ public partial class Home : IDisposable
     private bool _saving;
     private IChoiceAccessor? _accessor;
     private (SaveSlot? Slot, int Revision) _accessorFor;
+    private bool _browsing;
+    private (string Layout, string Tab) _renderedView;
 
     protected override void OnInitialized()
     {
         Editor.StateChanged += OnStateChanged;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        var view = (LayoutClass, ActiveTab);
+        if (view == _renderedView)
+        {
+            return;
+        }
+
+        _renderedView = view;
+        if (!firstRender)
+        {
+            await JS.InvokeVoidAsync("scrollTo", 0, 0);
+        }
     }
 
     private void OnStateChanged() => InvokeAsync(StateHasChanged);
@@ -52,6 +69,12 @@ public partial class Home : IDisposable
             await _newSaveDialog.Show();
         }
     }
+
+    private void ShowEditor() => _browsing = false;
+
+    private void ShowSaves() => _browsing = true;
+
+    private string LayoutClass => Editor.SelectedSave == null ? "no-save" : _browsing ? "browsing" : "editing";
 
     private string TabClass(string tab) => ActiveTab == tab ? "active" : "";
 

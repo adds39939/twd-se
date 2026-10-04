@@ -61,3 +61,24 @@ dialog h2 {
     margin-bottom: 1em;
     color: var(--accent);
 }
+
+@media (max-width: 600px) {
+    dialog {
+        min-width: 0;
+        width: calc(100vw - 2rem);
+        max-width: calc(100vw - 2rem);
+        padding: 1.25em;
+    }
+
+    .dialog-form {
+        min-width: 0;
+    }
+
+    .replace-warning {
+        max-width: none;
+    }
+
+    .dialog-actions button {
+        flex: 1;
+    }
+}

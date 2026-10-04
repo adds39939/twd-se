@@ -17,6 +17,9 @@ public partial class NewSaveDialog
     [Inject]
     public ISeasonRegistry Registry { get; set; } = default!;
 
+    [Parameter]
+    public EventCallback OnCreated { get; set; }
+
     private const int MaxSlots = 4;
 
     private ElementReference _dialogElement;
@@ -101,10 +104,15 @@ public partial class NewSaveDialog
         _creating = true;
         StateHasChanged();
 
-        await Editor.CreateNewSave(_seasonKey, _episode, BundleName);
+        var created = await Editor.CreateNewSave(_seasonKey, _episode, BundleName);
         await Close();
 
         _creating = false;
         StateHasChanged();
+
+        if (created != null)
+        {
+            await OnCreated.InvokeAsync();
+        }
     }
 }

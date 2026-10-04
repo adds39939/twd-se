@@ -27,6 +27,9 @@ public partial class SaveBrowser : IDisposable
     [Parameter]
     public EventCallback OnNewSaveRequested { get; set; }
 
+    [Parameter]
+    public EventCallback OnSaveSelected { get; set; }
+
     private const int MaxUploadedFiles = 500;
     private const long MaxUploadedFileSize = 1024 * 1024 * 20;
 
@@ -120,10 +123,11 @@ public partial class SaveBrowser : IDisposable
         return await JS.InvokeAsync<bool>("confirm", $"Unsaved changes to {names} will be lost. Continue?");
     }
 
-    private void SelectSave(SaveSlot save)
+    private async Task SelectSave(SaveSlot save)
     {
         Editor.SelectedSave = save;
         Editor.NotifyStateChanged();
+        await OnSaveSelected.InvokeAsync();
     }
 
     private Task ShowNewSaveDialog() => OnNewSaveRequested.InvokeAsync();
