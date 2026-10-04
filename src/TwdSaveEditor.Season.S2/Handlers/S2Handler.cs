@@ -28,6 +28,7 @@ public class S2Handler(IS2ResumePoint resume, IS2Inventory inventory, IS2SaveFac
     public override string Name => "Season 2";
     public override string ShortName => "S2";
     public override string FilePrefix => "wd2_";
+    public override int SaveSlotCount => 3;
 
     public override IReadOnlyList<EpisodeInfo> Episodes { get; } =
     [

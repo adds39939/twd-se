@@ -55,7 +55,8 @@ Other browsers can upload the save files instead. **Download Changes** then down
 ## In the game
 
 - Keep the game closed while you edit.
-- The game shows four slots per season.
+- The game shows three save slots for Seasons 1 and 2 (400 Days shares the Season 1 slots) and four for the other seasons.
+- **New Save** uses the first slot with no files in the folder, so it never overwrites another save. When every slot the game shows is in use, it warns that the game won't load the new save unless it replaces an existing one.
 - A save set to the start of an episode is listed as a new game: select the slot, pick the episode and press Play.
 - If Steam reports a cloud sync conflict when the game starts, keep the local files.
 

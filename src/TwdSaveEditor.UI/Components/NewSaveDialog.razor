@@ -27,24 +27,23 @@
 
         <div class="form-group">
             <label>File Name</label>
-            <input type="text" @bind="_fileName" @bind:event="oninput" placeholder="e.g. wd1_saveslot1.bundle" />
+            <span class="file-name" data-testid="new-save-file-name">@_fileName</span>
         </div>
 
-        @if (ExistingSave is { } existing)
+        @if (OutsideGameSlots)
         {
-            <p class="replace-warning" data-testid="new-save-replaces">
-                @existing.FileName already exists and will be replaced; its files are backed up first.
-                @if (Editor.IsModified(existing))
-                {
-                    <span>Its unsaved changes will be lost.</span>
-                }
-            </p>
+            <div class="slot-warning">
+                <WarningAlert data-testid="new-save-slot-warning">
+                    @_selectedSeason!.Name only has @_selectedSeason.SaveSlotCount save slots and all of them are in use.
+                    The game won't load this new save unless it replaces an existing one.
+                </WarningAlert>
+            </div>
         }
 
         <div class="dialog-actions">
             <button @onclick="Close">Cancel</button>
-            <button class="btn-accent" @onclick="Create" disabled="@(string.IsNullOrWhiteSpace(_fileName) || _creating)">
-                @(_creating ? "Creating..." : ExistingSave != null ? "Replace" : "Create")
+            <button class="btn-accent" @onclick="Create" disabled="@(_fileName.Length == 0 || _creating)">
+                @(_creating ? "Creating..." : "Create")
             </button>
         </div>
     </div>

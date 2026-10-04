@@ -17,16 +17,18 @@
     color: var(--text-secondary);
 }
 
-.form-group select,
-.form-group input[type="text"] {
+.form-group select {
     width: 100%;
 }
 
-.replace-warning {
-    max-width: 22rem;
-    margin: 0;
+.file-name {
+    font-family: var(--font-mono);
     font-size: 0.85rem;
-    color: var(--warning);
+    color: var(--text-primary);
+}
+
+.slot-warning {
+    contain: inline-size;
 }
 
 .dialog-actions {
@@ -72,10 +74,6 @@ dialog h2 {
 
     .dialog-form {
         min-width: 0;
-    }
-
-    .replace-warning {
-        max-width: none;
     }
 
     .dialog-actions button {

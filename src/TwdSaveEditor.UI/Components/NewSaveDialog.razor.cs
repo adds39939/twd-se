@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-using TwdSaveEditor.Core.Model;
 using TwdSaveEditor.Season.Common.Abstractions;
+using TwdSaveEditor.Season.Common.Extensions;
 using TwdSaveEditor.UI.Services;
 
 namespace TwdSaveEditor.UI.Components;
@@ -20,11 +20,10 @@ public partial class NewSaveDialog
     [Parameter]
     public EventCallback OnCreated { get; set; }
 
-    private const int MaxSlots = 4;
-
     private ElementReference _dialogElement;
     private string _seasonKey = "";
     private int _episode = 1;
+    private int _slot;
     private string _fileName = "";
     private bool _creating;
     private ISeasonHandler? _selectedSeason;
@@ -36,7 +35,7 @@ public partial class NewSaveDialog
 
     public async Task Show()
     {
-        UpdateFileName();
+        await UpdateFileName();
         await JS.InvokeVoidAsync("eval", "document.getElementById('newSaveDialog')?.showModal()");
         StateHasChanged();
     }
@@ -46,9 +45,10 @@ public partial class NewSaveDialog
         await JS.InvokeVoidAsync("eval", "document.getElementById('newSaveDialog')?.close()");
     }
 
-    private void OnSeasonChanged(ChangeEventArgs e)
+    private async Task OnSeasonChanged(ChangeEventArgs e)
     {
         SelectSeason(e.Value?.ToString() ?? _seasonKey);
+        await UpdateFileName();
     }
 
     private void SelectSeason(string seasonKey)
@@ -56,7 +56,6 @@ public partial class NewSaveDialog
         _seasonKey = seasonKey;
         _selectedSeason = Registry.Get(seasonKey);
         _episode = 1;
-        UpdateFileName();
     }
 
     private void OnEpisodeChanged(ChangeEventArgs e)
@@ -67,36 +66,22 @@ public partial class NewSaveDialog
         }
     }
 
-    private void UpdateFileName()
+    private async Task UpdateFileName()
     {
         if (_selectedSeason == null)
         {
             return;
         }
 
-        var prefix = _selectedSeason.FilePrefix.TrimEnd('_');
-        var names = Enumerable.Range(1, MaxSlots).Select(slot => $"{prefix}_saveslot{slot}.bundle").ToList();
-        _fileName = names.FirstOrDefault(name => !Editor.Saves.Any(save => save.FileName.Equals(name, StringComparison.OrdinalIgnoreCase)))
-            ?? names[0];
+        _slot = await Editor.NextFreeSlot(_selectedSeason);
+        _fileName = _selectedSeason.SaveSlotFileName(_slot);
     }
 
-    private string BundleName
-    {
-        get
-        {
-            var name = _fileName.Trim();
-            return name.EndsWith(".bundle", StringComparison.OrdinalIgnoreCase) ? name : name + ".bundle";
-        }
-    }
-
-    private SaveSlot? ExistingSave =>
-        string.IsNullOrWhiteSpace(_fileName)
-            ? null
-            : Editor.Saves.FirstOrDefault(save => save.FileName.Equals(BundleName, StringComparison.OrdinalIgnoreCase));
+    private bool OutsideGameSlots => _selectedSeason != null && _slot > _selectedSeason.SaveSlotCount;
 
     private async Task Create()
     {
-        if (string.IsNullOrWhiteSpace(_fileName))
+        if (_selectedSeason == null)
         {
             return;
         }
@@ -104,7 +89,7 @@ public partial class NewSaveDialog
         _creating = true;
         StateHasChanged();
 
-        var created = await Editor.CreateNewSave(_seasonKey, _episode, BundleName);
+        var created = await Editor.CreateNewSave(_selectedSeason, _episode);
         await Close();
 
         _creating = false;

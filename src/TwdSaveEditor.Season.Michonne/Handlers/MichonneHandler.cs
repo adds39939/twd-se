@@ -19,6 +19,7 @@ public class MichonneHandler(IDialogLogCompanions companions, IStorySaveFactory 
     public override string Name => "Michonne";
     public override string ShortName => "M";
     public override string FilePrefix => "wdm_";
+    public override int SaveSlotCount => 4;
 
     public override StorySeason Season => MichonneStory.Season;
 

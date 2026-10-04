@@ -176,22 +176,4 @@ public class EditorDisplayTests
         await Assertions.Expect(page.Locator(".save-btn")).ToHaveTextAsync("Save Changes *");
         await Assertions.Expect(SaveItem(page, "wd2_saveslot1.bundle").Locator("[data-testid='save-unsaved']")).ToBeVisibleAsync();
     }
-
-    [Fact]
-    public async Task NewSave_WarnsBeforeReplacingAnExistingSave()
-    {
-        var page = await Open(("S1", "wd1_saveslot2.bundle", null));
-        await page.Locator("[data-testid='new-save-btn']").ClickAsync();
-        var dialog = page.Locator("[data-testid='new-save-dialog']");
-        await dialog.Locator("select").First.SelectOptionAsync("s1");
-
-        await Assertions.Expect(dialog.Locator("input[type='text']")).ToHaveValueAsync("wd1_saveslot1.bundle");
-        await Assertions.Expect(dialog.Locator("[data-testid='new-save-replaces']")).ToHaveCountAsync(0);
-        await Assertions.Expect(dialog.Locator(".btn-accent")).ToHaveTextAsync("Create");
-
-        await dialog.Locator("input[type='text']").FillAsync("WD1_SAVESLOT2");
-
-        await Assertions.Expect(dialog.Locator("[data-testid='new-save-replaces']")).ToContainTextAsync("wd1_saveslot2.bundle already exists");
-        await Assertions.Expect(dialog.Locator(".btn-accent")).ToHaveTextAsync("Replace");
-    }
 }

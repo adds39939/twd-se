@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using TwdSaveEditor.Core.Model;
 using TwdSaveEditor.Season.Common.Abstractions;
 
@@ -12,6 +13,30 @@ public static class SeasonExtensions
             var slot = handler.CreateBlankSave(fileName, handler.GetEpisodeId(episode));
             handler.PopulateChoices(slot, episode);
             return slot;
+        }
+
+        public string SaveSlotFileName(int slot) => $"{handler.FilePrefix}saveslot{slot}.bundle";
+
+        public int NextFreeSlot(IEnumerable<string> fileNames)
+        {
+            var pattern = new Regex($@"^_?{Regex.Escape(handler.FilePrefix)}saveslot(\d+)(?:[._]|$)",
+                RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
+            var used = new HashSet<int>();
+            foreach (var fileName in fileNames)
+            {
+                if (pattern.Match(fileName) is { Success: true } match && int.TryParse(match.Groups[1].ValueSpan, out var slot))
+                {
+                    used.Add(slot);
+                }
+            }
+
+            var next = 1;
+            while (used.Contains(next))
+            {
+                next++;
+            }
+
+            return next;
         }
     }
 

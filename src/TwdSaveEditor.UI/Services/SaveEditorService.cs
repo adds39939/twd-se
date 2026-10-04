@@ -388,18 +388,21 @@ public class SaveEditorService
         }
     }
 
-    public async Task<SaveSlot?> CreateNewSave(string seasonKey, int episode, string fileName)
+    public async Task<int> NextFreeSlot(ISeasonHandler season) => season.NextFreeSlot(await SourceFileNames());
+
+    public async Task<SaveSlot?> CreateNewSave(ISeasonHandler season, int episode)
     {
+        string? fileName = null;
         try
         {
-            var slot = _registry.CreateSave(seasonKey, episode, fileName);
-            slot.DetectedSeasonKey = _registry.DetectFromFileName(fileName)?.SeasonKey ?? seasonKey;
+            fileName = season.SaveSlotFileName(await NextFreeSlot(season));
+            var slot = season.CreateSave(fileName, episode);
+            slot.DetectedSeasonKey = _registry.DetectFromFileName(fileName)?.SeasonKey ?? season.SeasonKey;
 
             var files = BuildFiles(slot);
             var downloaded = string.Empty;
             if (_directoryOpen)
             {
-                await BackupBeforeSave(slot);
                 if (!await WriteFiles(slot))
                 {
                     NotifyStateChanged();
@@ -411,16 +414,9 @@ public class SaveEditorService
                 downloaded = " " + await DownloadFiles(slot, files);
             }
 
-            if (_registry.Get(seasonKey) is ICompanionFileHandler companion)
+            if (season is ICompanionFileHandler companion)
             {
                 companion.AttachCompanionFiles(slot, files.Skip(1).ToList());
-            }
-
-            foreach (var replaced in Saves.Where(save => save.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase)).ToList())
-            {
-                Saves.Remove(replaced);
-                _modified.Remove(replaced);
-                _revisions.Remove(replaced);
             }
 
             Saves.Add(slot);
@@ -431,7 +427,7 @@ public class SaveEditorService
         }
         catch (Exception ex)
         {
-            Notify($"Couldn't create {fileName}: {ex.Message}", "error");
+            Notify($"Couldn't create {fileName ?? "the save"}: {ex.Message}", "error");
             NotifyStateChanged();
             return null;
         }

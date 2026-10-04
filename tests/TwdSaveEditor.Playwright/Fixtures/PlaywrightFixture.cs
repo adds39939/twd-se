@@ -31,9 +31,9 @@ public class PlaywrightFixture : IAsyncLifetime
         await _site.DisposeAsync();
     }
 
-    public async Task<IPage> NewPage()
+    public async Task<IPage> NewPage(BrowserNewPageOptions? options = null)
     {
-        var page = await Browser.NewPageAsync();
+        var page = await Browser.NewPageAsync(options);
         await page.GotoAsync(BaseUrl);
 
         await page.WaitForSelectorAsync("[data-testid='app-ready']",

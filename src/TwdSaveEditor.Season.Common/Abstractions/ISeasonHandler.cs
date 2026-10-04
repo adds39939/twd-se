@@ -13,6 +13,8 @@ public interface ISeasonHandler
 
     string FilePrefix { get; }
 
+    int SaveSlotCount { get; }
+
     IReadOnlyList<EpisodeInfo> Episodes { get; }
 
     IReadOnlyList<ChoiceDefinition> Choices { get; }

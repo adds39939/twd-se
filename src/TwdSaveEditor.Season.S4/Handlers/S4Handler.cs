@@ -20,6 +20,7 @@ public class S4Handler(IDialogLogCompanions companions, IStorySaveFactory saves,
     public override string Name => "The Final Season (Season 4)";
     public override string ShortName => "S4";
     public override string FilePrefix => "wd4_";
+    public override int SaveSlotCount => 4;
 
     public override StorySeason Season => S4Story.Season;
 

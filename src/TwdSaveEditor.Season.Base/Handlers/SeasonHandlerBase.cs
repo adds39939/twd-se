@@ -20,6 +20,7 @@ public abstract class SeasonHandlerBase : ISeasonHandler
     public abstract string Name { get; }
     public abstract string ShortName { get; }
     public abstract string FilePrefix { get; }
+    public abstract int SaveSlotCount { get; }
     public abstract IReadOnlyList<EpisodeInfo> Episodes { get; }
 
     public IReadOnlyList<ChoiceDefinition> Choices => _choices.Value;

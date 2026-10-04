@@ -64,6 +64,7 @@ public class S1Handler(IS1ResumePoint resume, IS1Inventory inventory, IS1SaveFac
     public override string Name => "Season 1";
     public override string ShortName => "S1";
     public override string FilePrefix => "wd1_";
+    public override int SaveSlotCount => 3;
 
     public override IReadOnlyList<EpisodeInfo> Episodes { get; } = MainEpisodes;
 

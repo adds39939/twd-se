@@ -21,6 +21,7 @@ public class S3Handler(IDialogLogCompanions companions, IStorySaveFactory saves)
     public override string Name => "A New Frontier (Season 3)";
     public override string ShortName => "S3";
     public override string FilePrefix => "wd3_";
+    public override int SaveSlotCount => 4;
 
     public override StorySeason Season => S3Story.Season;
 

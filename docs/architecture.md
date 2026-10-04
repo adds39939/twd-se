@@ -112,6 +112,8 @@ The UI needs no change.
 
 Below 900px wide the editor becomes a single column and the page scrolls as a whole. The save list and the editor take turns: picking or creating a save opens the editor, and its Saves button goes back to the list. The tab bar and Save button stay pinned to the top, and the footer to the bottom. Below 600px the editors stack their fields and the Properties table shows each property as a card. Below 380px the footer drops its link icons. Breakpoints are in `px`, because `rem` in a media query ignores `--ui-scale`.
 
+New Save names the save itself: `SaveEditorService.CreateNewSave` takes the first slot number with no files in the folder, or among the uploaded files, so it can't clash with another slot's autosave, checkpoints or event log. `ISeasonHandler.SaveSlotCount` is the number of slots the season's menu shows: three for Seasons 1 and 2 and four for the others. The dialog shows a warning when the new save's slot is past that number.
+
 The version in the footer is the informational version of the `Web` assembly: `dev` in a local build, the tag in a release, which the release workflow passes as `-p:InformationalVersion`.
 
 `dotnet publish` prerenders the start page into `index.html` with `BlazorWasmPreRendering.Build`, so the editor shows straight away instead of a loading spinner while the WebAssembly runtime downloads. The prerenderer calls the static `ConfigureServices` function in `Program.cs`, so every service registration belongs there. Until the runtime is up the page cannot respond, so components that need it check `RendererInfo.IsInteractive`: the Open Save Directory button reads Loading... and `app-ready` is only set once the app is interactive. `dotnet run` does not prerender and still shows the spinner.
