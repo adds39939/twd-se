@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using TwdSaveEditor.Bootstrap.Extensions;
 using TwdSaveEditor.UI;
@@ -9,7 +8,6 @@ using TwdSaveEditor.Web.Configuration;
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
 builder.RootComponents.Add<App>("#app");
-builder.RootComponents.Add<HeadOutlet>("head::after");
 
 ConfigureServices(builder.Services);
 
